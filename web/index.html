@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Risk RAG System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .query-section {
+            margin-bottom: 30px;
+        }
+        
+        .query-section h2 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .query-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .query-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .query-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .query-button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .query-button:hover {
+            background: #5a67d8;
+        }
+        
+        .query-button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .response-section {
+            margin-top: 30px;
+        }
+        
+        .response-card {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .response-answer {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .response-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .meta-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        
+        .meta-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .sources-section {
+            margin-top: 20px;
+        }
+        
+        .sources-title {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .source-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .source-score {
+            color: #667eea;
+            font-weight: 600;
+            float: right;
+        }
+        
+        .error {
+            background: #fed7d7;
+            border-left: 4px solid #e53e3e;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .examples {
+            margin-top: 20px;
+        }
+        
+        .examples h3 {
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .example-queries {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        .example-query {
+            background: #edf2f7;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 14px;
+        }
+        
+        .example-query:hover {
+            background: #e2e8f0;
+        }
+        
+        .config-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .config-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .config-label {
+            font-weight: 600;
+            color: #4a5568;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Climate Risk RAG System</h1>
+            <p>Ask questions about climate risks and get AI-powered insights from our knowledge base</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="query-section">
+                <h2>Ask a Question</h2>
+                <div class="query-form">
+                    <input 
+                        type="text" 
+                        id="queryInput" 
+                        class="query-input" 
+                        placeholder="e.g., What are the main physical climate risks for coastal cities?"
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button id="queryButton" class="query-button" onclick="submitQuery()">
+                        Ask Question
+                    </button>
+                </div>
+                
+                <div class="examples">
+                    <h3>Example Questions:</h3>
+                    <div class="example-queries">
+                        <div class="example-query" onclick="setQuery(this.textContent)">
+                            What are the main physical climate risks?
+                        </div>
+                        <div class="example-query" onclick="setQuery(this.textContent)">
+                            How do carbon emissions affect climate change?
+                        </div>
+                        <div class="example-query" onclick="setQuery(this.textContent)">
+                            What adaptation strategies exist for sea level rise?
+                        </div>
+                        <div class="example-query" onclick="setQuery(this.textContent)">
+                            How can businesses assess climate risk?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Processing your question...</p>
+            </div>
+            
+            <div class="response-section" id="responseSection" style="display: none;">
+                <!-- Response will be populated here -->
+            </div>
+            
+            <div class="config-section">
+                <h3>Configuration</h3>
+                <label class="config-label" for="apiEndpoint">API Gateway Endpoint:</label>
+                <input 
+                    type="text" 
+                    id="apiEndpoint" 
+                    class="config-input" 
+                    placeholder="https://your-api-gateway-url.amazonaws.com/prod"
+                    value=""
+                >
+                <p style="font-size: 12px; color: #718096; margin-top: 5px;">
+                    Enter your API Gateway URL after deployment
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                submitQuery();
+            }
+        }
+        
+        function setQuery(query) {
+            document.getElementById('queryInput').value = query;
+        }
+        
+        async function submitQuery() {
+            const queryInput = document.getElementById('queryInput');
+            const queryButton = document.getElementById('queryButton');
+            const loading = document.getElementById('loading');
+            const responseSection = document.getElementById('responseSection');
+            const apiEndpoint = document.getElementById('apiEndpoint').value;
+            
+            const query = queryInput.value.trim();
+            
+            if (!query) {
+                alert('Please enter a question');
+                return;
+            }
+            
+            if (!apiEndpoint) {
+                alert('Please configure the API Gateway endpoint');
+                return;
+            }
+            
+            // Show loading state
+            queryButton.disabled = true;
+            queryButton.textContent = 'Processing...';
+            loading.style.display = 'block';
+            responseSection.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${apiEndpoint}/query`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                displayResponse(data);
+                
+            } catch (error) {
+                displayError(error.message);
+            } finally {
+                // Reset loading state
+                queryButton.disabled = false;
+                queryButton.textContent = 'Ask Question';
+                loading.style.display = 'none';
+            }
+        }
+        
+        function displayResponse(data) {
+            const responseSection = document.getElementById('responseSection');
+            
+            const html = `
+                <div class="response-card">
+                    <div class="response-answer">
+                        ${data.response?.answer || 'No answer provided'}
+                    </div>
+                    
+                    <div class="response-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Model Used</div>
+                            <div>${data.response?.model_used || 'Unknown'}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Sources Found</div>
+                            <div>${data.sources?.length || 0}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Entities Detected</div>
+                            <div>${data.entities?.length || 0}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Processing Time</div>
+                            <div>${new Date(data.timestamp).toLocaleTimeString()}</div>
+                        </div>
+                    </div>
+                    
+                    ${data.sources && data.sources.length > 0 ? `
+                        <div class="sources-section">
+                            <div class="sources-title">📄 Source Documents</div>
+                            ${data.sources.slice(0, 5).map(source => `
+                                <div class="source-item">
+                                    <span class="source-score">Score: ${(source.combined_score || 0).toFixed(3)}</span>
+                                    ${source.text?.substring(0, 200) || 'No text available'}...
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            responseSection.innerHTML = html;
+            responseSection.style.display = 'block';
+        }
+        
+        function displayError(message) {
+            const responseSection = document.getElementById('responseSection');
+            
+            responseSection.innerHTML = `
+                <div class="error">
+                    <strong>Error:</strong> ${message}
+                    <br><br>
+                    <strong>Troubleshooting:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>Check that your API Gateway endpoint is correct</li>
+                        <li>Ensure the Lambda functions are deployed</li>
+                        <li>Verify Bedrock models are enabled</li>
+                        <li>Check CloudWatch logs for detailed error information</li>
+                    </ul>
+                </div>
+            `;
+            
+            responseSection.style.display = 'block';
+        }
+        
+        // Load saved API endpoint
+        window.addEventListener('load', function() {
+            const saved = localStorage.getItem('climateRagApiEndpoint');
+            if (saved) {
+                document.getElementById('apiEndpoint').value = saved;
+            }
+        });
+        
+        // Save API endpoint
+        document.getElementById('apiEndpoint').addEventListener('change', function() {
+            localStorage.setItem('climateRagApiEndpoint', this.value);
+        });
+    </script>
+</body>
+</html>

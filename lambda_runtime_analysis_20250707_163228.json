@@ -1,0 +1,252 @@
+{
+  "analysis_date": "2025-07-07T16:32:28.668202",
+  "runtime_analysis": {
+    "nodejs18.x": [
+      {
+        "name": "vector-embeddings-pipelin-LogRetentionaae0aa3c5b4d-wjJMWmCnMJjS",
+        "runtime": "nodejs18.x",
+        "handler": "index.handler",
+        "description": "",
+        "last_modified": "2025-07-06T18:04:38.129+0000"
+      }
+    ],
+    "python3.9": [
+      {
+        "name": "solve-global-kr-rag-micro-ResponseGenerator1B9F64E-6VSpp0wc5QBs",
+        "runtime": "python3.9",
+        "handler": "response_generator.handler",
+        "description": "Generates responses using AWS Bedrock LLMs",
+        "last_modified": "2025-07-02T20:18:55.234+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-microserv-GraphUpdater1AD941AB-fJGUSrvKw3UQ",
+        "runtime": "python3.9",
+        "handler": "graph_updater.handler",
+        "description": "Updates Neptune knowledge graph with new entities and relationships",
+        "last_modified": "2025-07-02T20:18:55.337+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-microse-VectorSearcherD42D38E8-jrr95zVCD0tc",
+        "runtime": "python3.9",
+        "handler": "vector_searcher.handler",
+        "description": "Performs vector similarity search using OpenSearch",
+        "last_modified": "2025-07-02T20:18:55.008+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-micro-KnowledgeGraphSearcher35-pDj8wDKPDssu",
+        "runtime": "python3.9",
+        "handler": "kg_searcher.handler",
+        "description": "Searches knowledge graph using Neptune",
+        "last_modified": "2025-07-02T20:18:55.285+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-microser-TextExtractor53D9D274-DZd2dww7wexx",
+        "runtime": "python3.9",
+        "handler": "text_extractor.handler",
+        "description": "Extracts text from PDF documents using AWS Textract",
+        "last_modified": "2025-07-02T20:18:55.515+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-micro-RelationshipMiner3AB2A68-PQL2bJSdvu85",
+        "runtime": "python3.9",
+        "handler": "relationship_miner.handler",
+        "description": "Mines relationships between entities using LLMs",
+        "last_modified": "2025-07-02T20:18:55.196+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-micros-EntityExtractor1E11453B-ovmkqmcR1e94",
+        "runtime": "python3.9",
+        "handler": "entity_extractor.handler",
+        "description": "Extracts entities from NER results for knowledge graph",
+        "last_modified": "2025-07-02T20:18:55.355+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-microserv-NERProcessorE2566F86-WVjc8C2Xv3fj",
+        "runtime": "python3.9",
+        "handler": "ner_processor.handler",
+        "description": "Processes text chunks for named entity recognition",
+        "last_modified": "2025-07-02T20:18:55.356+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-microser-QueryAnalyzer699DB805-ltF0hzzaP7EW",
+        "runtime": "python3.9",
+        "handler": "query_analyzer.handler",
+        "description": "Analyzes user queries and extracts intent/entities",
+        "last_modified": "2025-07-02T20:18:55.473+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-microservi-TextChunker7802A152-WtCAQU84bLPx",
+        "runtime": "python3.9",
+        "handler": "text_chunker.handler",
+        "description": "Creates structured chunks from extracted text",
+        "last_modified": "2025-07-02T20:18:55.471+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-micro-EmbeddingGeneratorD8E685-rdXmfm1pyEnc",
+        "runtime": "python3.9",
+        "handler": "embedding_generator.handler",
+        "description": "Generates embeddings using AWS Titan and indexes in OpenSearch",
+        "last_modified": "2025-07-02T20:18:55.124+0000"
+      }
+    ],
+    "python3.11": [
+      {
+        "name": "vector-embeddings-pipelin-VectorEmbeddingsProcesso-YU1t1iUbDEkA",
+        "runtime": "python3.11",
+        "handler": "vector_embeddings_processor.lambda_handler",
+        "description": "",
+        "last_modified": "2025-07-07T14:57:25.000+0000"
+      },
+      {
+        "name": "solve-global-kr-text-chunker-db",
+        "runtime": "python3.11",
+        "handler": "text_chunker_processor.lambda_handler",
+        "description": "Text chunker with database integration",
+        "last_modified": "2025-07-05T21:00:20.000+0000"
+      },
+      {
+        "name": "vector-embeddings-pipelin-VectorEmbeddingsWorker5F-nCQL6EhDMuyi",
+        "runtime": "python3.11",
+        "handler": "vector_embeddings_worker.lambda_handler",
+        "description": "",
+        "last_modified": "2025-07-06T21:38:53.000+0000"
+      },
+      {
+        "name": "text-chunker-pipeline",
+        "runtime": "python3.11",
+        "handler": "text_chunker_processor.lambda_handler",
+        "description": "Text chunker with complete pipeline integration",
+        "last_modified": "2025-07-05T21:17:19.762+0000"
+      },
+      {
+        "name": "solve-global-kr-textextractor-trigger",
+        "runtime": "python3.11",
+        "handler": "index.lambda_handler",
+        "description": "Manual trigger for TextExtractor testing",
+        "last_modified": "2025-07-03T20:30:07.090+0000"
+      },
+      {
+        "name": "async-keyword-indexer-worker",
+        "runtime": "python3.11",
+        "handler": "worker_processor.lambda_handler",
+        "description": "Async keyword indexer worker - background processing",
+        "last_modified": "2025-07-06T00:23:34.000+0000"
+      },
+      {
+        "name": "solve-global-kr-text-chunker-v2",
+        "runtime": "python3.11",
+        "handler": "lambda_function.lambda_handler",
+        "description": "Text Chunker V2 - Smart structured chunking with minimal overlap",
+        "last_modified": "2025-07-04T17:24:35.000+0000"
+      },
+      {
+        "name": "solve-global-kr-text-chunker-phase1",
+        "runtime": "python3.11",
+        "handler": "text_chunker_processor.lambda_handler",
+        "description": "Text chunker Phase 1 - Lambda deployment testing",
+        "last_modified": "2025-07-05T19:15:21.000+0000"
+      },
+      {
+        "name": "async-keyword-indexer-initiator",
+        "runtime": "python3.11",
+        "handler": "simple_async_processor.lambda_handler",
+        "description": "Async keyword indexer initiator - quick processing",
+        "last_modified": "2025-07-06T00:41:15.000+0000"
+      },
+      {
+        "name": "solve-global-kr-textextractor-processor",
+        "runtime": "python3.11",
+        "handler": "text_extractor_processor.lambda_handler",
+        "description": "Processes completed Textract jobs",
+        "last_modified": "2025-07-03T21:21:41.000+0000"
+      },
+      {
+        "name": "solve-global-kr-textextractor-initiator",
+        "runtime": "python3.11",
+        "handler": "text_extractor_initiator.lambda_handler",
+        "description": "Initiates async Textract jobs",
+        "last_modified": "2025-07-03T21:10:56.000+0000"
+      },
+      {
+        "name": "keyword-indexer",
+        "runtime": "python3.11",
+        "handler": "keyword_indexer_processor.lambda_handler",
+        "description": "Keyword indexer with OpenSearch integration",
+        "last_modified": "2025-07-05T22:47:54.000+0000"
+      }
+    ],
+    "nodejs22.x": [
+      {
+        "name": "solve-global-kr-rag-micro-LogRetentionaae0aa3c5b4d-ojlOcU06WoiT",
+        "runtime": "nodejs22.x",
+        "handler": "index.handler",
+        "description": "",
+        "last_modified": "2025-07-02T20:19:20.602+0000"
+      },
+      {
+        "name": "solve-global-kr-text-chun-LogRetentionaae0aa3c5b4d-m08BthBgPzQR",
+        "runtime": "nodejs22.x",
+        "handler": "index.handler",
+        "description": "",
+        "last_modified": "2025-07-05T19:00:06.739+0000"
+      },
+      {
+        "name": "solve-global-kr-text-chun-LogRetentionaae0aa3c5b4d-AMOCCUf4n7nc",
+        "runtime": "nodejs22.x",
+        "handler": "index.handler",
+        "description": "",
+        "last_modified": "2025-07-05T19:52:36.865+0000"
+      },
+      {
+        "name": "async-keyword-indexer-LogRetentionaae0aa3c5b4d4f87-VUpzFaCCeQRT",
+        "runtime": "nodejs22.x",
+        "handler": "index.handler",
+        "description": "",
+        "last_modified": "2025-07-06T00:00:23.468+0000"
+      },
+      {
+        "name": "solve-global-kr-rag-netwo-CustomVpcRestrictDefault-8nrG92w8z3eO",
+        "runtime": "nodejs22.x",
+        "handler": "__entrypoint__.handler",
+        "description": "Lambda function for removing all inbound/outbound rules from the VPC default security group",
+        "last_modified": "2025-07-02T16:45:07.749+0000"
+      },
+      {
+        "name": "keyword-indexer-LogRetentionaae0aa3c5b4d4f87b02d85-H0x1JLO8dBkk",
+        "runtime": "nodejs22.x",
+        "handler": "index.handler",
+        "description": "",
+        "last_modified": "2025-07-05T22:34:31.955+0000"
+      },
+      {
+        "name": "text-chunker-pipeline-LogRetentionaae0aa3c5b4d4f87-xfhdBydDluWx",
+        "runtime": "nodejs22.x",
+        "handler": "index.handler",
+        "description": "",
+        "last_modified": "2025-07-05T21:16:43.326+0000"
+      }
+    ],
+    "other": []
+  },
+  "upgrade_plan": {
+    "immediate_actions": [
+      "Upgrade Node.js 18 LogRetention function (CRITICAL - Sept 1, 2025 deadline)",
+      "Test upgraded functions to ensure compatibility"
+    ],
+    "recommended_actions": [
+      "Upgrade Python 3.9 functions to Python 3.11 for better performance",
+      "Update CDK configurations to use latest runtimes",
+      "Standardize on Python 3.11 for all new functions"
+    ],
+    "cdk_updates_needed": [
+      "Update CDK runtime specifications in stack definitions",
+      "Redeploy stacks to apply runtime updates",
+      "Verify LogRetention functions use nodejs22.x"
+    ],
+    "testing_required": [
+      "Test Node.js LogRetention function after upgrade",
+      "Verify Python 3.11 compatibility for upgraded functions",
+      "Run integration tests after upgrades"
+    ]
+  }
+}

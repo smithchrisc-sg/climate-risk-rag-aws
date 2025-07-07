@@ -1,0 +1,27 @@
+/* Make preview and edit modes wider */
+.markdown-preview-view,
+.markdown-source-view {
+  max-width: 1200px !important;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+
+/* Adjust margins and width for PDF print/export */
+@media print {
+  @page {
+    size: A4; /* or use letter */
+    margin: 0.5in;  /* Default is usually 1in; reduce here */
+  }
+
+  body {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .markdown-preview-view {
+    max-width: none;
+    padding: 0.25in;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "Records": [{
+    "body": "{\"Message\": \"{\\\"doc_id\\\": \\\"test_phase1\\\", \\\"stage\\\": \\\"test\\\", \\\"test_mode\\\": true}\"}"
+  }]
+}

@@ -19,7 +19,7 @@ from constructs import Construct
 from stacks.database_migration_construct import DatabaseMigrationConstruct
 
 class VectorEmbeddingsPipelineStack(Stack):
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope, construct_id, **kwargs):
         super().__init__(scope, construct_id, **kwargs)
         
         # Import existing VPC

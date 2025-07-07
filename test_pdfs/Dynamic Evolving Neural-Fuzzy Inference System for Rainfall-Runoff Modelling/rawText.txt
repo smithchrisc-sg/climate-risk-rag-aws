@@ -1,0 +1,481 @@
+
+DEAKIN
+DRO
+Worldly
+Deakin University's Research Repository
+.
+This is the published version
+Talei, A., Chua, L.H.C. and Quek, C. 2011, Dynamic evolving neural-fuzzy
+inference system for rainfall-runoff (R-R) modelling, in Proceedings of the
+34th IAHR World Congress / 33rd Hydrology and Water Resources
+Symposium : 10th Conference on Hydraulics in Water Engineering, 26 June -
+1 July 2011, Brisbane Australia, [The Conference], Brisbane, Qld., pp. 1514-
+1521.
+Available from Deakin Research Online
+http://hdl.handle.net/10536/DRO/DU:30063690
+Reproduced with the kind permission of the copyright owner
+Copyright: 2011, International Association of Hydraulic Engineering and
+Research
+dro.deakin.edu.au
+Deakin University CRICOS Provider Code: 00113B
+34th IAHR World Congress - Balance and Uncertainty
+26 June - 1 July 2011, Brisbane, Australia
+33ʳᵈ Hydrology & Water Resources Symposium
+10th Hydraulics Conference
+Dynamic Evolving Neural-Fuzzy Inference System for
+Rainfall-Runoff (R-R) Modelling
+A. Talei1, L.H.C. Chua² and C. Quek³
+1DHI-NTU Water & Environment Research Centre and Education Hub
+Nanyang Technological University
+50, Nanyang Avenue, Singapore 639798
+SINGAPORE
+²School of Civil & Environmental Engineering
+Nanyang Technological University
+50, Nanyang Avenue, Singapore 639798
+SINGAPORE
+³Center for Computational Intelligence, School of Computer Engineering
+Nanyang Technological University
+50, Nanyang Avenue, Singapore 639798
+SINGAPORE
+E-mail: atalei@pmail.ntu.edu.sg
+Abstract: Dynamic Evolving Neural-Fuzzy Inference System (DENFIS) is a Takagi-Sugeno-type fuzzy
+inference system for online learning which can be applied for dynamic time series prediction. To the
+best of our knowledge, this is the first time that DENFIS has been used for rainfall-runoff (R-R)
+modeling. DENFIS model results were compared to the results obtained from the physically-based
+Storm Water Management Model (SWMM) and an Adaptive Network-based Fuzzy Inference System
+(ANFIS) which employs offline learning. Data from a small (5.6 km²) catchment in Singapore,
+comprising 11 separated storm events were analyzed. Rainfall was the only input used for the DENFIS
+and ANFIS models and the output was discharge at the present time. It is concluded that DENFIS
+results are better or at least comparable to SWMM, but similar to ANFIS. These results indicate a
+strong potential for DENFIS to be used in R-R modeling.
+Keywords: Rainfall-Runoff Modelling, Neuro-Fuzzy, DENFIS.
+1. INTRODUCTION
+The rainfall-runoff (R-R) process can be considered as one of the most important problems in
+hydrology. To-date many approaches and methods have been introduced to model this process.
+These methods can be categorized into two main groups: (1.) Physically-based models such as the
+Storm Water Management Model (SWMM) and Sacramento Soil Moisture Accounting model (SAC-
+SMA); and (2.) System theoretic models such as linear and non-linear regression models,
+Autoregressive Moving Average with Exogenous Inputs (ARMAX), Artificial Neural Networks (ANN),
+and Neuro-Fuzzy Systems (NFS).
+Neuro-Fuzzy Systems implement fuzzy inference which is a process that maps a given input to an
+output using fuzzy logic. A fuzzy inference system (FIS) or fuzzy rule based system in general includes
+four main components: (1.) a fuzzification interface which transforms the crisp values into fuzzy values
+based on the degrees of matching with linguistic variables, (2.) an interface engine which performs
+inference operations on the rules, (3.) a rule base containing fuzzy IF-THEN rules, and (4.) a
+defuzzification interface which transforms the fuzzy results back into a crisp output. Based on the
+method chosen for determining its output, FIS can be categorized as either linguistic or precise
+models. One of the most frequently used precise fuzzy models is the Takagi-Sugeno FIS (Takagi &
+Sugeno, 1985). In the Takagi-Sugeno FIS, a fuzzy rule is constituted by a weighted linear combination
+of crisp inputs rather than a fuzzy set. The Dynamic Evolving Neural-Fuzzy Inference System or
+DENFIS (Kasabov & Song, 2002) uses Takagi-Sugeno type fuzzy inference engine for online learning
+which can be used in dynamic time series prediction.
+ISBN 978-0-85825-868-6
+1514
+Engineers Australia
+In this study, the capabilities of DENFIS have been assessed for an event-based R-R modelling study
+for a sub-catchment (5.6 km²) in Kranji, Singapore. The results obtained from DENFIS were compared
+with results obtained from a R-R model developed using an Adaptive Network-based Fuzzy Inference
+System or ANFIS (Jang, 1993) and a deterministic model (SWMM). Learning in ANFIS is offline and
+can be considered as global learning on the input space. Therefore, the capabilities of DENFIS with
+online local learning can be compared to ANFIS which uses offline global learning methodology. The
+input used for the DENFIS and ANFIS models is rainfall and the output is discharge. This is consistent
+with the deterministic modelling approach where both rainfall and discharge are used to calibrate the
+model, but only rainfall is used as input at the model prediction stage.
+2. DYNAMIC EVOLVING NEURAL-FUZZY INFERENCE SYSTEM (DENFIS)
+DENFIS modelling evolves through incremental learning resulting in local element adjustment as new
+data is introduced to the model in sequence (Kasabov & Song, 2002). Local element learning is
+implemented via a scatter partitioning of the input space for the creation of fuzzy inference rules.
+DENFIS utilizes an evolving, online clustering method called the Evolving Clustering Method (ECM).
+ECM is a distance-based, fast, one-pass algorithm used for the dynamic estimation of the number of
+clusters in a data set and also allocates the position of cluster centres in the input data space. In this
+clustering method, the maximum distance between a data point and the cluster centre must be less
+than a predefined threshold value, Dthr, (a clustering parameter); thus, Dthr controls the size and
+hence the number of clusters to be created. Dthr = 0.1 gave the best model performance for our study
+and this value was adopted.
+The output of DENFIS includes n fuzzy rules of which the jth rule is shown in Eq. (1):
+If X₁ is Rᵢ₁ and X₂ is Rⱼ₂ and and Xₘ is Rᵢₘ, then y is fᵢ(x₁, X₂, Xₘ)
+(1)
+where "Xᵢ is Rji" (i = 1, 2, m; j = 1, 2, n) are n X m fuzzy propositions as n antecedents form n fuzzy
+rules; Xᵢ (i = 1, 2, m) are antecedent variables defined over the universes of discourse Xᵢ (i = 1, 2,
+m); Rji (i = 1, 2, m; j = 1, 2, n) are fuzzy sets defined by their fuzzy membership functions given
+by µᵣⱼᵢ Xᵢ [0,1] ; and y is the consequent. The membership functions µ(x) used in DENFIS models
+is of the triangular type with three parameters as given by the following equation:
+0
+x≤a
+x-a
+b-a
+a≤x≤b
+µ(x)= MF(x,a,b,c)=
+=
+(2)
+c - x
+b≤x≤c
+c≤x
+0
+where b is the cluster centre; a = b - d X Dthr; c = b + d Dthr; and d varies between 1.2 to 2.
+In the consequent part of Eq. (1), fj is a linear function. In the DENFIS model, fj is determined by the
+linear least square estimator (LSE) method. Each of the linear functions can be expressed as:
+(3)
+where β₀,β₁,β₂, and ßₘ are parameters to be estimated. Using p learning data pairs, the parameters
+are estimated by the weighted recursive least square estimator which employs a forgetting factor, A
+which has typical values between 0.8 to 1 (Kasabov & Song, 2002). In DENFIS, rules are created and
+updated at the same time with the partitioning of the input space by the ECM; presenting new data
+pairs to the model may result in the creation of new rules or updating of existing rules. In general, a
+new rule is created if a new cluster centre is found by ECM and a rule is updated if another data point
+is added to an existing cluster.
+1515
+3. METHODOLOGY
+3.1. Study Site and Data Used
+The total area of the catchment under study is about 5.6km², and the land use consists of 33% (about
+1.8km²) high-density residential areas with the remainder consisting of undeveloped land areas which
+are mainly covered by vegetation. The runoff in the study site is served mainly by a concrete-lined
+drainage system. CP1 (Figure 1) is the final discharge point of the catchment. Discharge and rainfall
+measurements recorded at CP1 were used in this study. The time series of rainfall and discharge
+measured at 5-min intervals from 16 Dec 2004 to 3 Nov 2006 were selected for this study. A total of
+47 rainfall events was selected from the original recorded time series and analyzed for this study.
+Using correlation analysis between rainfall and direct runoff volume, Tan et al. (2008) selected 10
+events for calibrating a SWMM model. Therefore, event-based R-R modeling is considered here for
+ease of comparison with the SWMM model; since SWMM provides results for direct runoff only. Thus,
+the measured rainfall and direct runoff component of the hydrographs separated for this purpose were
+used in our study.
+CP 1
+N
+Legend:
+Residential Area
+Undeveloped Area
+Major Drain
+Flow Direction
+Figure 1 Schematic map of the study site.
+3.2.
+Model Verification
+Four error statistics were used to evaluate the performance of the DENFIS model. The root mean
+square error or RMSE (m³sec⁻¹) is defined as:
+n
+(4)
+RMSE
+=
+n
+where Qᵢ and Ωᵢ are the observed and simulated discharges for the 1th observation, respectively; and
+n is the total number of observations. RMSE accords extra importance of the outliers in the data set
+and hence is biased towards errors in the simulation of high flow rates (Dawson et al., 2006). The
+Nash-Sutcliffe coefficient of efficiency or CE (Nash & Sutcliffe, 1970) is defined as:
+1516
+n
+CE
+=
+(5)
+n
+i=1
+where
+Q is the average value of the observed flows. CE ranges between 1 (perfect fit) and - 8 and
+null or negative CE values indicate that the mean value of the observed time series could be a better
+predictor than the model (Krause et al., 2005). CE has been found to be sensitive to extreme values
+(Abrahart et al., 2004). The coefficient of determination or r is defined as follows:
+2
+2
+(6)
+where Q is the average value of the simulated flows. r shows the degree of co-linearity between the
+observed and simulated time series and ranges from 0.0 to 1.0, with higher values indicating higher
+degree of co-linearity. r is sensitive to outliers and insensitive to additive and proportional differences
+between modeled and observed data (Abrahart et al., 2004). In addition to the overall goodness-of-fit,
+accurate prediction of peak flow is important. Thus, the Relative Peak Error or PE was included in this
+study to evaluate the ability of the proposed models to accurately predict peak flows. PE is defined as:
+(7)
+where Qₚ and Ωₚ are observed and simulated peak flow rates. Values of PE closer to zero indicate
+better estimation of peak flows.
+3.3.
+Model Development and Input Data Selection
+In event-based R-R modelling, the training process can be sensitive to the events selected for training
+the model since characteristics such as the shape (Talei et al., 2010) and lag between the hyetograph
+and hydrograph can influence model results. In general, a lag time (which may differ from event to
+event) exists between a rainfall event and the resultant runoff. We use cross-correlation analysis
+between the time series of the recorded rainfall and discharge to determine the lag. Figure 2 illustrates
+the distribution of lag times for the recorded events, which can be categorized into four different
+groups G1, G2, G3, and G4 with lag times of 25, 30, 35, and 40 minutes, respectively. The average
+and median lags are 32 and 30 min, respectively.
+DENFIS and ANFIS models were developed for each of the 4 groups of events; however, only
+DENFIS and ANFIS model results for G2 (events with 30 min lag) are reported here. G2 is chosen
+since the lag corresponds to the average and median lags of the recorded events. Among the eleven
+events in G2, three events (19 Jul 05, 30 Jul 05, 24 Dec 05) were chosen for training and the
+remainder for testing. The three selected training events had moderate, single peak discharges; in
+order to avoid training the model using extreme events. Figure 3 shows the hyetographs and
+hydrographs of the selected training events.
+1517
+16
+14
+12
+Number of Events
+10
+8
+6
+4
+2
+0
+25
+30
+35
+40
+Lag Time (min)
+Figure 2 Distribution of lag time for the recorded events.
+(a)
+(b)
+30
+0
+30
+0
+Rainfall
+2
+Rainfall
+2
+25
+25
+Discharge
+4
+Discharge
+4
+20
+20
+Discharge (m³/s)
+6
+8
+Rainfall (mm)
+Discharge (m³/s)
+6
+15
+15
+8
+10
+10
+10
+10
+Rainfall (mm)
+12
+12
+5
+5
+14
+14
+0
+16
+0
+16
+0
+50
+100
+150
+0
+50
+100
+Time (min)
+Time (min)
+(c)
+50
+0
+45
+Rainfall
+40
+5
+Discharge
+35
+Discharge (m³/s)
+30
+10
+25
+20
+15
+15
+Rainfall (mm)
+10
+20
+5
+0
+25
+0
+50
+100
+150
+Time (min)
+Figure 3 Hydrograph and hyetograph for training events (a) 19 Jul 05, (b) 30 Jul 05, and (c) 24
+Dec 05.
+Having selected the training events, the number of rainfall inputs was next found by trial-and-error.
+Our initial analysis showed that using 3 inputs was sufficient for training the DENFIS and ANFIS
+models. Using a lesser number of inputs would decrease the training performance due presumably to
+insufficient information while using more than three inputs was found to reduce the training
+performance due presumably to redundancy in the number of inputs. The best three antecedent
+rainfall inputs found by trial-and-error for DENFIS, were R(t-3), R(t-4), and R(t-7).
+1518
+4. RESULTS AND DISCUSSIONS
+Online training of the DENFIS model was carried out as mentioned above and the trained DENFIS
+model was then used to simulate the runoff at time t, Q(t) for the 8 remaining events in G2. Dthr was
+fixed at 0.1 and the model performance in simulating Q(t) for all 8 events was evaluated in terms of the
+error statistics CE, r, RMSE, and PE. In order to compare the capabilities of DENFIS in R-R
+modelling, DENFIS model results were compared with the results obtained by SWMM based on a
+study by Tan et al., (2008) and an ANFIS model which was developed with the same training set and
+identical number of inputs used for training the DENFIS model. ANFIS is constructed as a five layered
+Multi Layered Perceptron (MLP) network, and is a Takagi-Sugeno type neuro-fuzzy system that
+employs back-propagation algorithm to modify the initially chosen membership functions. ANFIS
+utilizes the least square algorithm to determine the coefficients of the linear output functions (Jang,
+1993). The type and number of membership functions allocated to each input should be chosen for the
+ANFIS model. In this study, two triangular membership functions were used for each input to develop
+the ANFIS model. ANFIS implemented in the Fuzzy Logic Toolbox, MATLAB (MATLAB, 2008) was
+used in this study.
+Table 1 summarizes the average values of CE, r, RMSE, and PE and Figures 4a, 4b, 4c, and 4d
+show the box plots comparing the testing results by DENFIS, SWMM, and ANFIS models. The box
+plot shows the distribution of maximum, third quartile, median, first quartile, and minimum values of the
+error statistics obtained. Outliers are defined as values exceeding 1.5 times the inter-quartile range
+(difference between the third and the first quartile) (Figure 4c) and are represented by a symbol.
+Table 1: Comparison of average CE, r2, RMSE, and PE values for DENFIS, ANFIS and SWMM
+models.
+RMSE
+Model
+CE
+PE
+(m³/s)
+DENFIS
+0.791
+0.830
+1.818
+0.132
+ANFIS
+0.820
+0.884
+1.525
+0.162
+SWMM
+0.688
+0.774
+2.227
+0.279
+As shown, DENFIS generally gives a better fit between the modeled and measured data when
+compared to SWMM; median CE and r² values obtained from the DENFIS model (CE = 0.823, r =
+0.885) are higher than results obtained from the SWMM model (CE = 0.719, r² = 0.760). In fact, 4 of
+the 8 events tested by DENFIS have CE > 0.9, which is considered a satisfactory fit (Shamseldin,
+1997) compared to SWMM which predicts 2 events with CE > 0.9. For PE (Figure 4d), DENFIS model
+results are clearly superior with a median PE value of 0.059 compared to 0.297 for SWMM. DENFIS
+model results also gave a significantly lower median value of RMSE (Figure 4c) compared to SWMM.
+This can be attributed to the superiority of DENFIS model in estimating peak flows compared to
+SWMM (Figure 4d), since RMSE is known to be biased towards the simulation of high flow rates
+(Dawson et al., 2006). SWMM is a popular model and is widely established as a R-R modeling tool.
+SWMM has been used in this study as a standard against which the DENFIS model may be
+compared. Based on this brief analysis, our comparisons show that DENFIS model results are
+comparable, if not better than SWMM, at least for the limited application attempted in this study. This
+shows the potential of DENFIS for R-R modeling.
+As mentioned previously, one of the objectives of this study was to ascertain if improvements could be
+attained from models employing local learning strategies against models that employ offline learning.
+The use of models that employ offline learning is popular in data-driven model applications in
+hydrologic modeling, with the Artificial Neural Network (ANN) and ANFIS being the most widely used.
+While the use of local learning models is common in other engineering applications, their use in
+hydrological modeling has not been tested. Comparing between the error statistics obtained by the
+ANFIS and DENFIS models, it is observed that the ANFIS model is marginally superior compared to
+DENFIS when evaluated based on CE, r, and RMSE (Figures 4a, 4b, and 4c), while the DENFIS
+model is found to provide marginally better results compared to ANFIS in estimating the peak
+discharge (Figure 4d). Thus, our study shows that DENFIS and ANFIS models give mixed or at best,
+similar results. This observation is in agreement with the study by Hong & White, (2009) that used a
+1519
+Dynamic Neuro-Fuzzy Local Modelling System (DNFLMS) for flow forecasting in Waikoropupu
+Springs, New Zealand. DNFLMS is a dynamic Takagi-Sugeno type fuzzy inference system which
+employs an online and local learning algorithm. The authors compared their results against an ANFIS
+model and found that both ANFIS and DNFLMS results were comparable. The use of local learning
+models is an attractive prospect as, intuitively, one would expect better model performance when
+trained based on a local learning paradigm. However, based on this limited application, DENFIS
+model results are not better than the results obtained from ANFIS. The reasons for this are currently
+under investigation and further studies are necessary.
+(a)
+(b)
+1
+1
+0.95
+0.9
+0.9
+0.8
+0.85
+CE
+0.7
+0.8
+0.75
+0.6
+0.7
+0.5
+0.65
++
+0.4
+0.6
+SWMM
+DENFIS
+ANFIS
+SWMM
+DENFIS
+ANFIS
+(c)
+(d)
+4
++
++
+3.5
+0.5
+3
+0.4
+RMSE (m³/s)
+2.5
+PE
+0.3
+2
+0.2
+1.5
++
+0.1
+1
+0.5
+0
+SWMM
+DENFIS
+ANFIS
+SWMM
+DENFIS
+ANFIS
+Models
+Models
+Figure 4 Different models performance in terms of: (a) CE, (b) r, (c) RMSE, and (d) PE.
+5. CONCLUSIONS
+(i)
+Dynamic Evolving Neural-Fuzzy Inference System (DENFIS) was found to be a superior
+or at least comparable model compared to SWMM and demonstrates the potential of
+DENFIS for R-R modelling.
+(ii)
+DENFIS was found to be better at peak estimation compared to SWMM and ANFIS
+models.
+(iii)
+The local or online learning algorithm used in DENFIS did not show any significant
+improvement against the global offline learning algorithm used in ANFIS. Further
+investigations are necessary.
+1520
+6. REFERENCES
+Abrahart, R.J., Kneale, P.E., and See, L.M., (2004), Neural networks for hydrological modelling, Taylor
+& Francis.
+Dawson, C.W., See, L.M., Abrahart, R.J., and Heppenstall, A.J., (2006), Symbiotic adaptive neuro-
+evolution applied to rainfall-runoff modelling in northern England, Neural Networks, V. 19, p.
+236-247.
+Hong, Y.S.T., and White, P.A., (2009), Hydrological modeling using a dynamic neuro-fuzzy system
+with on-line and local learning algorithm, Advances in Water Resources, V. 32, p. 110-119.
+Jang, J.-S.R., (1993), ANFIS: adaptive-network-based fuzzy inference system, IEEE Transactions on
+Systems, Man and Cybernetics, V. 23, p. 665-685.
+Kasabov, N.K., and Song, Q., (2002), DENFIS: Dynamic evolving neural-fuzzy inference system and
+its application for time-series prediction, IEEE Transactions on Fuzzy Systems, V. 10, p. 144-
+154.
+Krause, P., Boyle, D.P., and Bäse, F., (2005), Comparison of different efficiency criteria for
+hydrological model assessment, Advances in Geosciences, V. 5, p. 89-97.
+MATLAB, (2008), MATLAB Fuzzy Logic Toolbox Reference Manual, Version 7.6.0
+The Math Works Inc. Natick, Mass.
+Nash, J.E., and Sutcliffe, J.V., (1970), River flow forecasting through conceptual models part I - A
+discussion of principles, Journal of Hydrology, V. 10, p. 282-290.
+Shamseldin, A.Y., (1997), Application of a neural network technique to rainfall-runoff modelling,
+Journal of Hydrology, V. 199, p. 272-294.
+Takagi, T., and Sugeno, M., (1985), Fuzzy identification of systems and its applications to modeling
+and control, IEEE Transactions on Systems, Man and Cybernetics, V. 15, p. 116-132.
+Talei, A., Chua, L.H.C., and Quek, C., (2010), A novel application of a neuro-fuzzy computational
+technique in event-based rainfall-runoff modeling, Expert Systems with Applications, V. 37, p.
+7456-7468.
+Tan, S.B.K., Chua, L.H.C., Shuy, E.B., Lo, E.Y.M., and Lim, L.M., (2008), Performances of rainfall-
+runoff models calibrated over single and continuous storm flow events, Journal of Hydrologic
+Engineering, V. 13, p. 597-607.
+1521

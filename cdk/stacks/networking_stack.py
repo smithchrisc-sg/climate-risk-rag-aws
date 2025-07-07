@@ -103,12 +103,13 @@ class NetworkingStack(Stack):
         )
 
         # Interface endpoints for other AWS services
-        self.bedrock_endpoint = self.vpc.add_interface_endpoint(
-            "BedrockEndpoint",
-            service=ec2.InterfaceVpcEndpointAwsService.BEDROCK_RUNTIME,
-            private_dns_enabled=True,
-            security_groups=[self.lambda_security_group]
-        )
+        # Temporarily commented out - CDK version compatibility issue
+        # self.bedrock_endpoint = self.vpc.add_interface_endpoint(
+        #     "BedrockEndpoint",
+        #     service=ec2.InterfaceVpcEndpointAwsService.BEDROCK_RUNTIME,
+        #     private_dns_enabled=True,
+        #     security_groups=[self.lambda_security_group]
+        # )
 
         self.textract_endpoint = self.vpc.add_interface_endpoint(
             "TextractEndpoint",

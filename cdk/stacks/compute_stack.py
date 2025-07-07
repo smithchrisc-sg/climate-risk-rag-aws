@@ -65,7 +65,7 @@ class ComputeStack(Stack):
         # Document Processing Lambda
         self.document_processor = lambda_.Function(
             self, "DocumentProcessor",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="document_processor.handler",
             code=lambda_.Code.from_asset("../lambda/document_processor"),
             timeout=Duration.minutes(15),
@@ -80,7 +80,7 @@ class ComputeStack(Stack):
         # Query Handler Lambda
         self.query_handler = lambda_.Function(
             self, "QueryHandler",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="query_handler.handler",
             code=lambda_.Code.from_asset("../lambda/query_handler"),
             timeout=Duration.minutes(5),
@@ -95,7 +95,7 @@ class ComputeStack(Stack):
         # Knowledge Graph Manager Lambda
         self.kg_manager = lambda_.Function(
             self, "KnowledgeGraphManager",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="kg_manager.handler",
             code=lambda_.Code.from_asset("../lambda/kg_manager"),
             timeout=Duration.minutes(10),
@@ -110,7 +110,7 @@ class ComputeStack(Stack):
         # Bulk Processing Lambda (for periodic rescans)
         self.bulk_processor = lambda_.Function(
             self, "BulkProcessor",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="bulk_processor.handler",
             code=lambda_.Code.from_asset("../lambda/bulk_processor"),
             timeout=Duration.minutes(15),

@@ -1,0 +1,210 @@
+{
+  "main": {
+    "id": "e56d527c41dfd670",
+    "type": "split",
+    "children": [
+      {
+        "id": "a526edaafc26d8a2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "948e37f71be87276",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "REUSABLE_PROMPTS"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f712cbe5271bebb9",
+    "type": "split",
+    "children": [
+      {
+        "id": "277cfe9769664c7f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "91edb3e6bfa4098b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "d9f82d8d923bf9d0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "1068294e14de9192",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 426.5
+  },
+  "right": {
+    "id": "ccf09530efe88967",
+    "type": "split",
+    "children": [
+      {
+        "id": "bad32d4467ccd411",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3f0e8fd6f5ea7011",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for REUSABLE_PROMPTS"
+            }
+          },
+          {
+            "id": "e1673faa12607bfd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from REUSABLE_PROMPTS"
+            }
+          },
+          {
+            "id": "44fed7b5de2c67de",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "dc63e09fa31b0821",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of REUSABLE_PROMPTS"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "948e37f71be87276",
+  "lastOpenFiles": [
+    "lambda_runtime_analysis_20250707_165334.json",
+    "cdk/cdk.out/synth.lock",
+    "cdk/cdk.out/asset.7f18a11296f35510ee16538afec983ed6312e12afbf81b777089a9f8e34e2474/index.js",
+    "cdk/cdk.out/asset.7f18a11296f35510ee16538afec983ed6312e12afbf81b777089a9f8e34e2474/__entrypoint__.js",
+    "cdk/cdk.out/asset.7f18a11296f35510ee16538afec983ed6312e12afbf81b777089a9f8e34e2474",
+    "lambda_runtime_analysis_20250707_163228.json",
+    "upgrade_lambda_runtimes.py",
+    "comprehend_real_test_results_20250707_162803.json",
+    "test_comprehend_real_simple.py",
+    "test_nlp_integration_real.py",
+    "cdk/app_nlp_integration.py",
+    "docs/reference/REUSABLE_PROMPTS.md",
+    "docs/REUSABLE_PROMPTS.md",
+    "docs/reference/README-GAIP_Integration.md",
+    "docs/testing/SCRIPT_COMPARISON.md",
+    "docs/testing/PHASE2_REAL_POC_TESTING_RESULTS_2025-07-05T20-40-00Z.md",
+    "docs/testing/TESTING_GUIDE.md",
+    "docs/implementation/COMPLETE_UPDATES_SUMMARY.md",
+    "docs/implementation/LAMBDA_LAYER_IMPORTS_FIXED_2025-07-05T19-20-00Z.md",
+    "docs/implementation/TEXTEXTRACTOR_DOCUMENTID_FIX_2025-07-04T20-45-00Z.md",
+    "docs/implementation/TEXTEXTRACTOR_PROCESSOR_UPDATES_2025-07-04T20-30-00Z.md",
+    "docs/implementation/CORRECTED_TEXTEXTRACTOR_COMPLETE_2025-07-04T23-25-00Z.md",
+    "docs/implementation/TEXTEXTRACTOR_COMPLETION_SUMMARY.md",
+    "docs/implementation/DATABASE_CONFIGURATION_COMPLETE_2025-07-05T20-10-00Z.md",
+    "docs/implementation/TEXT_CHUNKER_INTEGRATION_COMPLETE_2025-07-05T18-50-00Z.md",
+    "docs/implementation/VECTOR_EMBEDDINGS_DEPLOYMENT_STATUS_2025-07-06T17-00-00Z.md",
+    "docs/implementation/VECTOR_EMBEDDINGS_IMPLEMENTATION_SUMMARY_2025-07-06T16-30-00Z.md",
+    "docs/deployment/CDK_INFRASTRUCTURE_AUDIT_2025-07-03.md",
+    "docs/deployment/PHASE1_DEPLOYMENT_COMPLETE_2025-07-05T19-10-00Z.md",
+    "docs/deployment/DEPLOYMENT_COMPLETE_2025-07-05T00-05-00Z.md",
+    "docs/deployment/TEXTEXTRACTOR_DEPLOYMENT_GUIDE.md",
+    "docs/deployment/INFRASTRUCTURE_STACKS_GUIDE.md",
+    "docs/deployment/COMPLETE_CDK_DEPLOYMENT_GUIDE.md",
+    "docs/migration/SELECTIVE_MIGRATION_COMPLETE_2025-07-04T21-20-00Z.md",
+    "docs/migration/MIGRATION_UTILITY_COMPLETE_2025-07-04T21-10-00Z.md",
+    "docs/migration/MIGRATION_GUIDE_SELECTIVE.md"
+  ]
+}

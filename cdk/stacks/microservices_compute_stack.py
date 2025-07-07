@@ -38,7 +38,7 @@ class MicroservicesComputeStack(Stack):
         self.shared_layer = lambda_.LayerVersion(
             self, "SharedLayer",
             code=lambda_.Code.from_asset("../lambda/shared_layer"),
-            compatible_runtimes=[lambda_.Runtime.PYTHON_3_9],
+            compatible_runtimes=[lambda_.Runtime.PYTHON_3_11],
             description="Shared dependencies for Climate Risk RAG microservices"
         )
         
@@ -78,7 +78,7 @@ class MicroservicesComputeStack(Stack):
         # Text Extractor Lambda
         self.text_extractor = lambda_.Function(
             self, "TextExtractor",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="text_extractor.handler",
             code=lambda_.Code.from_asset("../lambda/text_extractor"),
             timeout=Duration.minutes(15),
@@ -95,7 +95,7 @@ class MicroservicesComputeStack(Stack):
         # Text Chunker Lambda
         self.text_chunker = lambda_.Function(
             self, "TextChunker",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="text_chunker.handler",
             code=lambda_.Code.from_asset("../lambda/text_chunker"),
             timeout=Duration.minutes(10),
@@ -111,7 +111,7 @@ class MicroservicesComputeStack(Stack):
         # Embedding Generator Lambda
         self.embedding_generator = lambda_.Function(
             self, "EmbeddingGenerator",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="embedding_generator.handler",
             code=lambda_.Code.from_asset("../lambda/embedding_generator"),
             timeout=Duration.minutes(15),
@@ -127,7 +127,7 @@ class MicroservicesComputeStack(Stack):
         # NER Processor Lambda
         self.ner_processor = lambda_.Function(
             self, "NERProcessor",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="ner_processor.handler",
             code=lambda_.Code.from_asset("../lambda/ner_processor"),
             timeout=Duration.minutes(10),
@@ -155,7 +155,7 @@ class MicroservicesComputeStack(Stack):
         # Query Analyzer Lambda
         self.query_analyzer = lambda_.Function(
             self, "QueryAnalyzer",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="query_analyzer.handler",
             code=lambda_.Code.from_asset("../lambda/query_analyzer"),
             timeout=Duration.minutes(2),
@@ -171,7 +171,7 @@ class MicroservicesComputeStack(Stack):
         # Vector Search Lambda
         self.vector_searcher = lambda_.Function(
             self, "VectorSearcher",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="vector_searcher.handler",
             code=lambda_.Code.from_asset("../lambda/vector_searcher"),
             timeout=Duration.minutes(3),
@@ -187,7 +187,7 @@ class MicroservicesComputeStack(Stack):
         # Knowledge Graph Searcher Lambda
         self.kg_searcher = lambda_.Function(
             self, "KnowledgeGraphSearcher",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="kg_searcher.handler",
             code=lambda_.Code.from_asset("../lambda/kg_searcher"),
             timeout=Duration.minutes(3),
@@ -203,7 +203,7 @@ class MicroservicesComputeStack(Stack):
         # Response Generator Lambda
         self.response_generator = lambda_.Function(
             self, "ResponseGenerator",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="response_generator.handler",
             code=lambda_.Code.from_asset("../lambda/response_generator"),
             timeout=Duration.minutes(5),
@@ -228,7 +228,7 @@ class MicroservicesComputeStack(Stack):
         # Entity Extractor Lambda
         self.entity_extractor = lambda_.Function(
             self, "EntityExtractor",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="entity_extractor.handler",
             code=lambda_.Code.from_asset("../lambda/entity_extractor"),
             timeout=Duration.minutes(5),
@@ -244,7 +244,7 @@ class MicroservicesComputeStack(Stack):
         # Relationship Miner Lambda
         self.relationship_miner = lambda_.Function(
             self, "RelationshipMiner",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="relationship_miner.handler",
             code=lambda_.Code.from_asset("../lambda/relationship_miner"),
             timeout=Duration.minutes(10),
@@ -260,7 +260,7 @@ class MicroservicesComputeStack(Stack):
         # Graph Updater Lambda
         self.graph_updater = lambda_.Function(
             self, "GraphUpdater",
-            runtime=lambda_.Runtime.PYTHON_3_9,
+            runtime=lambda_.Runtime.PYTHON_3_11,
             handler="graph_updater.handler",
             code=lambda_.Code.from_asset("../lambda/graph_updater"),
             timeout=Duration.minutes(10),

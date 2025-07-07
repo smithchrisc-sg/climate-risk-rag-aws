@@ -6,7 +6,7 @@ Creates IAM roles and policies for Bedrock, Textract, Comprehend, and Titan
 from aws_cdk import (
     Stack,
     aws_iam as iam,
-    aws_bedrock as bedrock,
+    # aws_bedrock as bedrock,  # Temporarily commented out - import issue
     CfnOutput,
     Tags
 )
