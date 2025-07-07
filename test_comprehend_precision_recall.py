@@ -11,16 +11,16 @@ sys.path.append('lambda/nlp_worker')
 
 try:
     from comprehend_evaluator import ComprehendEvaluator
-    print("✅ Successfully imported ComprehendEvaluator")
+    print("Successfully imported ComprehendEvaluator")
 except ImportError as e:
-    print(f"❌ Import error: {e}")
+    print("Import error: {}".format(str(e)))
     print("Make sure you're running from the project root directory")
     sys.exit(1)
 
 def test_comprehend_evaluation():
     """Test Comprehend evaluation with sample climate risk documents"""
     
-    print("🔬 TESTING COMPREHEND PRECISION/RECALL")
+    print("TESTING COMPREHEND PRECISION/RECALL")
     print("=" * 50)
     
     # Sample climate risk documents
@@ -62,10 +62,10 @@ def test_comprehend_evaluation():
     try:
         # Initialize evaluator
         evaluator = ComprehendEvaluator()
-        print(f"✅ Initialized evaluator with climate ontology")
+        print("Initialized evaluator with climate ontology")
         
         # Test individual documents
-        print("\n📊 INDIVIDUAL DOCUMENT RESULTS:")
+        print("\nINDIVIDUAL DOCUMENT RESULTS:")
         print("-" * 40)
         
         individual_results = []
