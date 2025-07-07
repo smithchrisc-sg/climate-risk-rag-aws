@@ -1,0 +1,9 @@
+# Database Layer Requirements
+# Database and storage connections
+
+psycopg2-binary>=2.9.0
+opensearch-py>=2.3.0
+redis>=4.5.0
+sqlalchemy>=2.0.0
+alembic>=1.11.0
+pymongo>=4.3.0

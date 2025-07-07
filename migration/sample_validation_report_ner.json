@@ -1,0 +1,84 @@
+{
+  "validation_timestamp": "2025-07-01T22:29:11.264203",
+  "sample_file": "migration/sample_documents_1000_ner.json",
+  "overall_valid": true,
+  "structure_validation": {
+    "structure_valid": true,
+    "issues": [],
+    "metadata_present": true,
+    "folder_structure_present": true,
+    "sample_documents_present": true
+  },
+  "distribution_validation": {
+    "distribution_valid": true,
+    "issues": [
+      "Sample lacks document type diversity"
+    ],
+    "sample_size": 1000,
+    "completeness_distribution": {
+      "mean": 0.998,
+      "std": 0.019909706085133358,
+      "min": 0.8,
+      "max": 1.0
+    },
+    "size_distribution": {
+      "small": 483,
+      "medium": 348,
+      "large": 169
+    },
+    "type_distribution": {
+      "hash_named": 1000
+    },
+    "balance_score": 0.6389737675472831
+  },
+  "coverage_validation": {
+    "coverage_valid": true,
+    "issues": [],
+    "file_availability": {
+      "has_pdf": {
+        "available": 1000,
+        "total": 1000,
+        "coverage_percent": 100.0
+      },
+      "has_text": {
+        "available": 1000,
+        "total": 1000,
+        "coverage_percent": 100.0
+      },
+      "has_chunks": {
+        "available": 1000,
+        "total": 1000,
+        "coverage_percent": 100.0
+      },
+      "has_embeddings": {
+        "available": 990,
+        "total": 1000,
+        "coverage_percent": 99.0
+      },
+      "has_ner": {
+        "available": 1000,
+        "total": 1000,
+        "coverage_percent": 100.0
+      }
+    },
+    "processing_stage_coverage": {},
+    "missing_files_count": 0
+  },
+  "quality_validation": {
+    "quality_valid": true,
+    "issues": [],
+    "quality_score": 0.7995,
+    "recommendations": [
+      "Increase document type diversity"
+    ],
+    "quality_level": "Acceptable"
+  },
+  "overall_score": 0.7192368837736416,
+  "total_issues": 1,
+  "all_issues": [
+    "Sample lacks document type diversity"
+  ],
+  "recommendations": [
+    "Increase document type diversity"
+  ]
+}

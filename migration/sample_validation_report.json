@@ -1,0 +1,161 @@
+{
+  "validation_timestamp": "2025-07-01T20:30:40.398030",
+  "sample_file": "migration/sample_documents_1000.json",
+  "overall_validation_score": 0.7408250000000001,
+  "validation_passed": "True",
+  "validations": {
+    "structure": {
+      "has_metadata": true,
+      "has_documents": true,
+      "has_validation": true,
+      "document_count": 1000,
+      "issues": [],
+      "structure_valid": true
+    },
+    "distribution": {
+      "distribution_analysis": {
+        "document_type": {
+          "expected": {
+            "climate_reports": 0.4,
+            "regulatory_docs": 0.2,
+            "technical_studies": 0.25,
+            "financial_analysis": 0.15
+          },
+          "actual": {
+            "other": 1.0
+          },
+          "balance_score": 0.4299999999999998
+        },
+        "date_category": {
+          "expected": {
+            "recent": 0.4,
+            "historical": 0.6
+          },
+          "actual": {
+            "recent": 0.546,
+            "historical": 0.454
+          },
+          "balance_score": 0.7080000000000001
+        },
+        "size_category": {
+          "expected": {
+            "small": 0.2,
+            "medium": 0.5,
+            "large": 0.3
+          },
+          "actual": {
+            "large": 0.49,
+            "small": 0.374,
+            "medium": 0.136
+          },
+          "balance_score": 0.4524
+        },
+        "complexity": {
+          "expected": {
+            "simple_text": 0.3,
+            "tables_charts": 0.4,
+            "complex_layout": 0.3
+          },
+          "actual": {
+            "simple_text": 0.714,
+            "tables_charts": 0.198,
+            "complex_layout": 0.088
+          },
+          "balance_score": 0.4628
+        }
+      },
+      "balance_scores": {
+        "document_type": 0.4299999999999998,
+        "date_category": 0.7080000000000001,
+        "size_category": 0.4524,
+        "complexity": 0.4628
+      },
+      "issues": [
+        "document_type.climate_reports: Expected 40.0%, got 0.0% (deviation: 40.0%)",
+        "document_type.regulatory_docs: Expected 20.0%, got 0.0% (deviation: 20.0%)",
+        "document_type.technical_studies: Expected 25.0%, got 0.0% (deviation: 25.0%)",
+        "size_category.small: Expected 20.0%, got 37.4% (deviation: 17.4%)",
+        "size_category.medium: Expected 50.0%, got 13.6% (deviation: 36.4%)",
+        "size_category.large: Expected 30.0%, got 49.0% (deviation: 19.0%)",
+        "complexity.simple_text: Expected 30.0%, got 71.4% (deviation: 41.4%)",
+        "complexity.tables_charts: Expected 40.0%, got 19.8% (deviation: 20.2%)",
+        "complexity.complex_layout: Expected 30.0%, got 8.8% (deviation: 21.2%)"
+      ],
+      "overall_balance_score": 0.5133,
+      "distribution_valid": "False"
+    },
+    "coverage": {
+      "coverage_analysis": {
+        "document_type": {
+          "unique_categories": [
+            "other"
+          ],
+          "unique_count": 1,
+          "total_count": "1000",
+          "coverage_ratio": 0.001
+        },
+        "date_category": {
+          "unique_categories": [
+            "historical",
+            "recent"
+          ],
+          "unique_count": 2,
+          "total_count": "1000",
+          "coverage_ratio": 0.002
+        },
+        "size_category": {
+          "unique_categories": [
+            "large",
+            "small",
+            "medium"
+          ],
+          "unique_count": 3,
+          "total_count": "1000",
+          "coverage_ratio": 0.003
+        },
+        "complexity": {
+          "unique_categories": [
+            "simple_text",
+            "tables_charts",
+            "complex_layout"
+          ],
+          "unique_count": 3,
+          "total_count": "1000",
+          "coverage_ratio": 0.003
+        }
+      },
+      "issues": [
+        "Low diversity in document_type: only 1 categories"
+      ],
+      "coverage_valid": false
+    },
+    "quality": {
+      "quality_metrics": {
+        "duplicate_count": 0,
+        "missing_doc_ids": 0,
+        "missing_titles": 454,
+        "expected_size": 1000,
+        "actual_size": 1000,
+        "size_match": true
+      },
+      "issues": [
+        "454 documents missing title"
+      ],
+      "quality_score": 0.95,
+      "quality_valid": "True"
+    }
+  },
+  "summary": {
+    "overall_score": 0.7408250000000001,
+    "validation_grade": "Acceptable",
+    "total_issues": 11,
+    "critical_issues": [
+      "454 documents missing title"
+    ],
+    "recommendations": [
+      "Consider regenerating sample with better stratification",
+      "Increase sample diversity to improve coverage",
+      "Consider increasing sample size for better representation"
+    ]
+  }
+}

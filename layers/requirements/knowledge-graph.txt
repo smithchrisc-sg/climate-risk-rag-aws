@@ -1,0 +1,9 @@
+# Knowledge Graph Layer Requirements
+# RDF, SPARQL, and ontology processing
+
+rdflib>=6.3.0
+sparqlwrapper>=2.0.0
+owlready2>=0.41
+pyshacl>=0.20.0
+isodate>=0.6.0
+pyparsing>=3.0.0

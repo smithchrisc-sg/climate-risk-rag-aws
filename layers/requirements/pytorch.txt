@@ -1,0 +1,11 @@
+# PyTorch Layer Requirements
+# PyTorch and related ML frameworks (CPU-only for Lambda)
+
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+typing-extensions>=4.5.0
+sympy>=1.11.0
+networkx>=3.1.0
+jinja2>=3.1.0
+fsspec>=2023.5.0

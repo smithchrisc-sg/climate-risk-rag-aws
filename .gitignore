@@ -1,0 +1,134 @@
+# AWS Credentials and Keys
+.aws/
+*.pem
+*.key
+credentials.json
+config.json
+
+# Environment Variables
+.env
+.env.local
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# CDK
+cdk.out/
+node_modules/
+*.js
+*.js.map
+*.d.ts
+package-lock.json
+
+# Lambda Deployment Packages
+*.zip
+lambda-deployment-*.zip
+
+# IDE and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary Files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# Large Data Files (if any)
+*.csv
+*.json.gz
+*.parquet
+data/raw/
+data/processed/
+
+# Test Results
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Documentation Build
+docs/_build/
+site/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Local Configuration
+local_config.py
+local_settings.py
+
+# AWS SAM
+.aws-sam/
+
+# Terraform (if used)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Sensitive Data
+*secret*
+*password*
+*token*
+*api_key*
