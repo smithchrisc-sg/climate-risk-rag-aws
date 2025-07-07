@@ -31,40 +31,43 @@ def lambda_handler(event, context):
         
         # Quick validation
         db_manager = DatabaseManager()
+        conn = db_manager.get_connection()
         
-        # Check if document exists
-        doc_exists = db_manager.execute_query(
-            "SELECT 1 FROM documents WHERE doc_id = %s",
-            (doc_id,)
-        )
-        
-        if not doc_exists:
-            raise ValueError(f"Document {doc_id} not found in database")
-        
-        # Check if already processed
-        existing_status = db_manager.execute_query(
-            "SELECT status FROM vector_embeddings_status WHERE doc_id = %s",
-            (doc_id,)
-        )
-        
-        if existing_status and existing_status[0][0] == 'COMPLETED':
-            logger.info(f"Document {doc_id} already has vector embeddings - skipping")
-            return {
-                'statusCode': 200,
-                'body': json.dumps({
-                    'doc_id': doc_id,
-                    'status': 'already_completed',
-                    'message': 'Vector embeddings already exist'
-                })
-            }
-        
-        # Update status to PROCESSING
-        db_manager.execute_query(
-            """INSERT INTO vector_embeddings_status (doc_id, status, created_at) 
-               VALUES (%s, %s, %s) 
-               ON CONFLICT (doc_id) DO UPDATE SET status = %s, created_at = %s""",
-            (doc_id, 'PROCESSING', datetime.now(), 'PROCESSING', datetime.now())
-        )
+        try:
+            with conn.cursor() as cursor:
+                # Check if document exists
+                cursor.execute("SELECT 1 FROM documents WHERE doc_id = %s", (doc_id,))
+                doc_exists = cursor.fetchone()
+                
+                if not doc_exists:
+                    raise ValueError(f"Document {doc_id} not found in database")
+                
+                # Check if already processed
+                cursor.execute("SELECT status FROM vector_embeddings_status WHERE doc_id = %s", (doc_id,))
+                existing_status = cursor.fetchone()
+                
+                if existing_status and existing_status[0] == 'COMPLETED':
+                    logger.info(f"Document {doc_id} already has vector embeddings - skipping")
+                    return {
+                        'statusCode': 200,
+                        'body': json.dumps({
+                            'doc_id': doc_id,
+                            'status': 'already_completed',
+                            'message': 'Vector embeddings already exist'
+                        })
+                    }
+                
+                # Update status to PROCESSING
+                cursor.execute(
+                    """INSERT INTO vector_embeddings_status (doc_id, status, created_at) 
+                       VALUES (%s, %s, %s) 
+                       ON CONFLICT (doc_id) DO UPDATE SET status = %s, created_at = %s""",
+                    (doc_id, 'PROCESSING', datetime.now(), 'PROCESSING', datetime.now())
+                )
+                conn.commit()
+                
+        finally:
+            db_manager.return_connection(conn)
         
         # Delegate to worker via SNS
         sns_client = boto3.client('sns')
@@ -108,12 +111,18 @@ def lambda_handler(event, context):
         if doc_id:
             try:
                 db_manager = DatabaseManager()
-                db_manager.execute_query(
-                    """INSERT INTO vector_embeddings_status (doc_id, status, error_message) 
-                       VALUES (%s, %s, %s) 
-                       ON CONFLICT (doc_id) DO UPDATE SET status = %s, error_message = %s""",
-                    (doc_id, 'FAILED', str(e), 'FAILED', str(e))
-                )
+                conn = db_manager.get_connection()
+                try:
+                    with conn.cursor() as cursor:
+                        cursor.execute(
+                            """INSERT INTO vector_embeddings_status (doc_id, status, error_message) 
+                               VALUES (%s, %s, %s) 
+                               ON CONFLICT (doc_id) DO UPDATE SET status = %s, error_message = %s""",
+                            (doc_id, 'FAILED', str(e), 'FAILED', str(e))
+                        )
+                        conn.commit()
+                finally:
+                    db_manager.return_connection(conn)
             except Exception as db_error:
                 logger.error(f"Failed to update error status: {str(db_error)}")
         
