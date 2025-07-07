@@ -1,5 +1,6 @@
 # Reusable Prompts for Project Documentation
 ## Created: 2025-07-05T00:25:00Z
+## Updated: 2025-07-07T14:00:00Z - Added Git Workflow
 
 ## 📋 **Context Summary Creation Prompt**
 
@@ -41,13 +42,68 @@ I need you to get up to speed on our Climate Risk RAG system project. Please rea
   - `lambda/`: Lambda function source code (17+ functions)
   - `layers/`: Shared dependencies and utilities
   - `docs/`: Project documentation and context
-    • `status/`: Project status tracking, context summaries, and next steps (already created)
+    • `status/`: Project status tracking, context summaries, and next steps
     • `architecture/`: High-level system architecture, data flow, and messaging design
     • `design/`: Detailed component design documents and technical specifications
     • `integration/`: Integration plans for connecting different system components
     • `migration/`: POC to AWS migration guides and porting documentation
     • `deployment/`: CDK deployment guides, infrastructure setup, and deployment procedures
     • `implementation/`: Component implementation summaries and completion status
+    • `testing/`: Testing strategies, guides, and test results
+    • `reference/`: Reference materials, reusable content, and utility documentation
+
+**GIT REPOSITORY STATUS:**
+- **Repository Initialized**: The project is now under Git version control
+- **Current Version**: v1.1.0 (Vector Embeddings Pipeline Complete)
+- **Branch**: main (production-ready code)
+- **Initial Commit**: Complete system with 228 files committed
+- **Next Milestone**: v1.2.0 (NLP Integration)
+
+**IMPORTANT: I handle all Git mechanics** - The user prefers not to deal with Git commands directly. I should:
+- Create feature branches for new development
+- Commit incrementally as we build components
+- Use clear, descriptive commit messages following conventional format
+- Merge to main and tag milestones when complete
+- Handle all branching, merging, and version control workflow
+
+**GIT WORKFLOW PHILOSOPHY:**
+- **Milestone-based development** with tagged releases
+- **Feature branches** for safe experimentation
+- **Incremental commits** to track progress
+- **Professional commit messages** with clear descriptions
+- **User focuses on technical work** while I manage version control
+
+**COST MANAGEMENT CRITICAL:**
+- **AWS Services with high costs**: Textract (~$1.50/1000 pages), Bedrock Titan (~$0.002/doc), Comprehend (~$0.019/doc)
+- **Testing limits**: Small batches (5-10 docs) for development, larger batches only after validation
+- **Budget monitoring**: Daily alerts and cost tracking implemented
+- **Production targets**: <$500/month operational costs for 1000 docs/day
+
+**CURRENT SYSTEM STATUS:**
+- ✅ **Text Extraction Pipeline** - Amazon Textract integration complete
+- ✅ **Text Chunking Pipeline** - Structured chunking with metadata operational
+- ✅ **Vector Embeddings Pipeline** - Amazon Bedrock Titan integration PRODUCTION READY
+- ✅ **Database Integration** - PostgreSQL with complete schema
+- ✅ **OpenSearch Integration** - VECTORSEARCH collection operational
+- ✅ **CDK Infrastructure** - Automated deployment ready
+- 🔄 **NLP Integration** - Next priority (entity detection & key phrases)
+
+**PERFORMANCE METRICS ACHIEVED:**
+- Vector processing: 4.6 seconds per document (19 chunks)
+- Cost per document: $0.002187 (vector embeddings)
+- Success rate: 100% in testing
+- Daily capacity: 1,000+ documents
+
+After reading these documents, please confirm your understanding of:
+1. The current project status and architecture
+2. What components are complete vs. in progress
+3. The immediate next steps and priorities
+4. Cost management requirements and testing protocols
+5. Git workflow expectations and version control approach
+
+Then ask what specific work we should focus on next.
+
+---
     • `testing/`: Testing strategies, guides, and test results
     • `reference/`: Reference materials, reusable content, and utility documentation
   - `database/`: Database schemas
