@@ -5,7 +5,7 @@ Implements S3-first architecture with no content duplication in database
 import boto3
 import json
 import os
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from datetime import datetime
 import logging
 
