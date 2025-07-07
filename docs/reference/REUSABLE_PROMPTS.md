@@ -1,6 +1,6 @@
 # Reusable Prompts for Project Documentation
 ## Created: 2025-07-05T00:25:00Z
-## Updated: 2025-07-07T14:00:00Z - Added Git Workflow
+## Updated: 2025-07-07T15:15:00Z - Added S3 Data Lake Architecture
 
 ## 📋 **Context Summary Creation Prompt**
 
@@ -51,6 +51,16 @@ I need you to get up to speed on our Climate Risk RAG system project. Please rea
     • `implementation/`: Component implementation summaries and completion status
     • `testing/`: Testing strategies, guides, and test results
     • `reference/`: Reference materials, reusable content, and utility documentation
+  - `database/`: Database schemas
+
+**ORIGINAL POC CODE AND ASSETS:**
+- **Root Directory**: `/Volumes/G-RAID\ Photo\ 24TB/climate_risk_rag/`
+- **Key Folders**: 
+  - `src/`: Source Code for standalone POC
+  - `ontology/`: Various ontology files - work in progress, but provides an example of the concept
+  - `doc/`: Architecture documentation with the philosophy behind what we're building
+  - `db/`: Actual local database, sqlite, fuseki. Note that Qdrant and OpenSearch can be run locally - ask if you need them launched so that you can access them
+  - `scripts/`: various run scripts - unfortunately not cleaned up, so there's some redundancy
 
 **GIT REPOSITORY STATUS:**
 - **Repository Initialized**: The project is now under Git version control
@@ -86,6 +96,30 @@ I need you to get up to speed on our Climate Risk RAG system project. Please rea
 - **No Content Duplication**: Avoid storing large content in both S3 and database
 - **Structured File Organization**: doc_id-based directory structure for easy retrieval
 
+**CRITICAL CONTEXT:**
+
+- This is an AWS serverless climate risk document processing system
+- We use DocumentIDManager for proper GUID-based document identification
+- **DATA ARCHITECTURE - S3 DATA LAKE FIRST:**
+  - **S3 is our primary tiered data lake** for all content storage (documents, chunks, embeddings, NLP results)
+  - **PostgreSQL RDBMS is used for TWO THINGS ONLY**: Document IDs and processing status tracking
+  - **NO content duplication** - Rich data lives in S3, database only tracks references and status
+  - **S3 Tiered Structure**: Raw documents → Processed text → Chunks → Embeddings → NLP results → Analytics
+- All relational database access should be through DatabaseManager
+- Lambda layers should continue to be the logical deployment scenario for shared functionality. (Check out LAMBDA_LAYER_DESIGN_UPDATED.md in the docs directory)
+- Assume existing code is correct and do not make major changes, delete existing functions, or change method signatures without providing an explicit justification, the implications and impact (e.g., required refactoring), and then asking permission.
+- Cost management is critical - especially for Textract, Comprehend, and Bedrock services
+- We have 1,000 POC documents already migrated and integrated
+- The system uses microservices architecture with async processing
+- Work should be done using the AWS CLI with the solve-global configuration ensuring that we're in us-east-1
+- In all cases, when changes are made, new configurations, schemas, or code are created, it is necessary to get the CDK code updated such that we could always build and deploy a working system from a clean slate.
+- When developing code, such as porting to a lambda function or set of functions, 
+    1. create and run a complete set of unit tests, 
+    2. after unit tests are successful, deploy the infrastructure
+    3. perform integration testing (mindful of frugality)
+      a. first from the trigger messaging from the previous stage
+      b. then from the full pipeline path available so far 
+
 **COST MANAGEMENT CRITICAL:**
 - **AWS Services with high costs**: Textract (~$1.50/1000 pages), Bedrock Titan (~$0.002/doc), Comprehend (~$0.019/doc)
 - **Testing limits**: Small batches (5-10 docs) for development, larger batches only after validation
@@ -115,58 +149,6 @@ After reading these documents, please confirm your understanding of:
 5. Git workflow expectations and version control approach
 
 Then ask what specific work we should focus on next.
-
----
-    • `testing/`: Testing strategies, guides, and test results
-    • `reference/`: Reference materials, reusable content, and utility documentation
-  - `database/`: Database schemas
-
-**ORIGINAL POC CODE AND ASSETS:**
-- **Root Directory**: `/Volumes/G-RAID\ Photo\ 24TB/climate_risk_rag/`
-- **Key Folders**: 
-  - `src/`: Source Code for standalone POC
-  - `ontology/`: Various ontology files - work in progress, but provides an example of the concept
-  - `doc/`: Architecture documentation with the philosophy behind what we're building
-  - `db/`: Actual local database, sqlite, fuseki. Note that Qdrant and OpenSearch can be run locally - ask if you need them launched so that you can access them
-  - `scripts/`: various run scripts - unfortunately not cleaned up, so there's some redundancy
-
-
-**CRITICAL CONTEXT:**
-
-- This is an AWS serverless climate risk document processing system
-- We use DocumentIDManager for proper GUID-based document identification
-- **DATA ARCHITECTURE - S3 DATA LAKE FIRST:**
-  - **S3 is our primary tiered data lake** for all content storage (documents, chunks, embeddings, NLP results)
-  - **PostgreSQL RDBMS is used for TWO THINGS ONLY**: Document IDs and processing status tracking
-  - **NO content duplication** - Rich data lives in S3, database only tracks references and status
-  - **S3 Tiered Structure**: Raw documents → Processed text → Chunks → Embeddings → NLP results → Analytics
-- All relational database access should be through DatabaseManager
-- Lambda layers should continue to be the logical deployment scenario for shared functionality. (Check out LAMBDA_LAYER_DESIGN_UPDATED.md in the docs directory)
-- Assume existing code is correct and do not make major changes, delete existing functions, or change method signatures without providing an explicit justification, the implications and impact (e.g., required refactoring), and then asking permission.
-- Cost management is critical - especially for Textract, Comprehend, and Bedrock services
-- We have 1,000 POC documents already migrated and integrated
-- The system uses microservices architecture with async processing
-- Work should be done using the AWS CLI with the solve-global configuration ensuring that we're in us-east-1
-- In all cases, when changes are made, new configurations, schemas, or code are created, it is necessary to get the CDK code updated such that we could always build and deploy a working system from a clean slate.
-- When developing code, such as porting to a lambda function or set of functions, 
-    1. create and run a complete set of unit tests, 
-    2. after unit tests are successful, deploy the infrastructure
-    3. perform integration testing (mindful of frugality)
-      a. first from the trigger messaging from the previous stage
-      b. then from the full pipeline path available so far 
-
-**CURRENT STATUS:**
-- Available in PROJECT CONTEXT SUMMARY and NEXT STEPS documents as specified above
-
-After reading these documents, please confirm your understanding of:
-1. The overall project architecture, POC source, and goals
-2. Current system status and what's working
-3. Immediate next steps and priorities
-4. Cost management considerations
-5. Key technical components and their relationships
-6. The correct account and aws CLI configuration 
-
-Then ask what specific work you should help with next.
 
 ---
 
