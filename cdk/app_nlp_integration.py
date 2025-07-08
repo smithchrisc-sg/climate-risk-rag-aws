@@ -38,7 +38,7 @@ class NLPIntegrationStack(Stack):
         # Create S3 bucket for NLP results (data lake)
         nlp_results_bucket = s3.Bucket(
             self, "NLPResultsBucket",
-            bucket_name=f"solve-global-kr-ner-results-{self.account}-{self.region}",
+            bucket_name="solve-global-kr-ner-results-{}-{}".format(self.account, self.region),
             versioned=True,
             encryption=s3.BucketEncryption.S3_MANAGED,
             lifecycle_rules=[
