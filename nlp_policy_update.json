@@ -1,0 +1,44 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "comprehend:DetectEntities",
+                "comprehend:DetectKeyPhrases"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::solve-global-kr-*",
+                "arn:aws:s3:::solve-global-kr-*/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sns:Publish"
+            ],
+            "Resource": [
+                "arn:aws:sns:us-east-1:861276078413:nlp-worker",
+                "arn:aws:sns:us-east-1:861276078413:nlp-processing-complete"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes"
+            ],
+            "Resource": "arn:aws:sqs:us-east-1:861276078413:nlp-worker-queue"
+        }
+    ]
+}
