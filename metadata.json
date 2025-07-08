@@ -1,0 +1,24 @@
+{
+  "doc_id": "0004ad39_4285ab3d",
+  "provider": "comprehend",
+  "processed_at": "2025-07-08T17:32:53.198988",
+  "processing_cost": 0.29043,
+  "processing_duration": 14.636902,
+  "results_summary": {
+    "entities_count": 10,
+    "key_phrases_count": 32,
+    "total_nlp_items": 42
+  },
+  "files": {
+    "complete_results": "0004ad39_4285ab3d/nlp_complete_20250708_173308.json",
+    "entities": "0004ad39_4285ab3d/entities_20250708_173308.json",
+    "key_phrases": "0004ad39_4285ab3d/key_phrases_20250708_173308.json",
+    "offset_mappings": "0004ad39_4285ab3d/offset_mappings_20250708_173308.json"
+  },
+  "storage_metadata": {
+    "stored_at": "2025-07-08T17:33:08.465289",
+    "storage_timestamp": "20250708_173308",
+    "bucket": "solve-global-kr-ner-results-861276078413-us-east-1",
+    "data_lake_tier": "nlp_results"
+  }
+}
