@@ -170,6 +170,7 @@
   },
   "active": "948e37f71be87276",
   "lastOpenFiles": [
+    "lambda_runtime_analysis_20250707_181222.json",
     "deploy_nlp_simple.py",
     "cdk/cdk.out/read.9738.1.lock",
     "cdk/cdk.out/nlp-integration.assets.json",
@@ -180,7 +181,6 @@
     "cdk/cdk.out/asset.b4147558a62e190c24c637957db366138196f15f70aa4209c836688189487e08/__pycache__/comprehend_provider.cpython-313.pyc",
     "cdk/cdk.out/asset.b4147558a62e190c24c637957db366138196f15f70aa4209c836688189487e08/test_nlp_interface.py",
     "cdk/cdk.out/asset.b4147558a62e190c24c637957db366138196f15f70aa4209c836688189487e08/s3_data_lake_manager.py",
-    "cdk/cdk.out/asset.b4147558a62e190c24c637957db366138196f15f70aa4209c836688189487e08/requirements.txt",
     "docs/reference/REUSABLE_PROMPTS.md",
     "docs/REUSABLE_PROMPTS.md",
     "docs/reference/README-GAIP_Integration.md",
