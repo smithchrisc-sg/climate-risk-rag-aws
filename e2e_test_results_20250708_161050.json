@@ -1,0 +1,103 @@
+{
+  "session_id": "e2e-test-1752013034",
+  "timestamp": "20250708_161050",
+  "test_documents": [
+    {
+      "key": "documents/006893d2_93170cb9.pdf",
+      "size": 34580,
+      "est_pages": 3
+    },
+    {
+      "key": "documents/0068a512_1780336e.pdf",
+      "size": 81776,
+      "est_pages": 5
+    },
+    {
+      "key": "documents/004e17a3_3bb90d8e.pdf",
+      "size": 135830,
+      "est_pages": 8
+    },
+    {
+      "key": "documents/0032f6cb_f0caef34.pdf",
+      "size": 142850,
+      "est_pages": 8
+    },
+    {
+      "key": "documents/007f21ed_c25a961d.pdf",
+      "size": 166430,
+      "est_pages": 10
+    }
+  ],
+  "estimated_costs": {
+    "textract": 0.051000000000000004,
+    "comprehend": 0.095,
+    "bedrock": 0.01
+  },
+  "results": [
+    {
+      "doc_id": "006893d2_93170cb9",
+      "doc_key": "documents/006893d2_93170cb9.pdf",
+      "start_time": 1752013034.3218172,
+      "status": "FAILED",
+      "pipeline_stages": {},
+      "artifacts": {
+        "text_extraction": "\u274c Missing",
+        "chunks": "\u2705 Found"
+      },
+      "end_time": 1752013629.3163352,
+      "processing_time_minutes": 9.916575300693513
+    },
+    {
+      "doc_id": "0068a512_1780336e",
+      "doc_key": "documents/0068a512_1780336e.pdf",
+      "start_time": 1752013689.316538,
+      "status": "FAILED",
+      "pipeline_stages": {},
+      "artifacts": {
+        "text_extraction": "\u274c Missing",
+        "chunks": "\u2705 Found"
+      },
+      "end_time": 1752014284.754268,
+      "processing_time_minutes": 9.923962163925172
+    },
+    {
+      "doc_id": "004e17a3_3bb90d8e",
+      "doc_key": "documents/004e17a3_3bb90d8e.pdf",
+      "start_time": 1752014344.758986,
+      "status": "FAILED",
+      "pipeline_stages": {},
+      "artifacts": {
+        "text_extraction": "\u274c Missing",
+        "chunks": "\u2705 Found"
+      },
+      "end_time": 1752014940.60017,
+      "processing_time_minutes": 9.930686398347218
+    },
+    {
+      "doc_id": "0032f6cb_f0caef34",
+      "doc_key": "documents/0032f6cb_f0caef34.pdf",
+      "start_time": 1752015000.6016011,
+      "status": "FAILED",
+      "pipeline_stages": {},
+      "artifacts": {
+        "text_extraction": "\u274c Missing",
+        "chunks": "\u2705 Found"
+      },
+      "end_time": 1752015595.859139,
+      "processing_time_minutes": 9.920958964029948
+    },
+    {
+      "doc_id": "007f21ed_c25a961d",
+      "doc_key": "documents/007f21ed_c25a961d.pdf",
+      "start_time": 1752015655.8692129,
+      "status": "FAILED",
+      "pipeline_stages": {},
+      "artifacts": {
+        "text_extraction": "\u274c Missing",
+        "chunks": "\u2705 Found"
+      },
+      "end_time": 1752016250.922552,
+      "processing_time_minutes": 9.91755565404892
+    }
+  ]
+}
