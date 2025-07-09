@@ -170,6 +170,14 @@
   },
   "active": "948e37f71be87276",
   "lastOpenFiles": [
+    "docs/api/Climate_Risk_Search_API_Partner_Documentation.md",
+    "docs/api/SOLVE.GLOBAL_GAIP_KR_API_DOCUMENTATION.md",
+    "docs/api/solve-global-gaip-kr-api.yaml",
+    "docs/reference/REUSABLE_PROMPTS_v2.md",
+    "docs/api/climate-risk-search-api-v1.yaml",
+    "docs/api",
+    "docs/status/NEXT_STEPS_2025-07-09T17-15-00Z.md",
+    "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-09T17-15-00Z.md",
     "docs/reference/REUSABLE_PROMPTS.md",
     "docs/implementation/VECTOR_EMBEDDINGS_STANDARDIZED_MESSAGING_COMPLETE_2025-07-09T17-00-00Z.md",
     "test_complete_pipeline_with_vectors.py",
@@ -179,14 +187,10 @@
     "lambda/vector_embeddings_worker/vector_embeddings_worker_updated.py",
     "lambda/vector_embeddings_processor/standardized_messaging.py",
     "lambda/vector_embeddings_processor/vector_embeddings_processor_updated.py",
-    "deploy_full_infrastructure.sh",
     "docs/deployment/CDK_REPRODUCIBILITY_ANALYSIS_2025-07-09T16-15-00Z.md",
-    "cdk/stacks/vpc_endpoints_import_stack.py",
-    "cdk/cdk.out/read.38012.1.lock",
     "docs/implementation/VPC_NETWORKING_RESOLUTION_COMPLETE_2025-07-09T16-00-00Z.md",
     "docs/status/NEXT_STEPS_2025-07-09T05-50-00Z.md",
     "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-09T05-50-00Z.md",
-    "docs/reference/REUSABLE_PROMPTS_v2.md",
     "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-08T22-00-00Z.md",
     "docs/status/NEXT_STEPS_2025-07-08T22-00-00Z.md",
     "docs/architecture/MESSAGING_ARCHITECTURE_COMPLETE_2025-07-08T20-15-00Z.md",
@@ -201,10 +205,6 @@
     "docs/testing/SCRIPT_COMPARISON.md",
     "docs/testing/PHASE2_REAL_POC_TESTING_RESULTS_2025-07-05T20-40-00Z.md",
     "docs/testing/TESTING_GUIDE.md",
-    "docs/implementation/COMPLETE_UPDATES_SUMMARY.md",
-    "docs/implementation/LAMBDA_LAYER_IMPORTS_FIXED_2025-07-05T19-20-00Z.md",
-    "docs/implementation/TEXTEXTRACTOR_DOCUMENTID_FIX_2025-07-04T20-45-00Z.md",
-    "docs/implementation/TEXTEXTRACTOR_PROCESSOR_UPDATES_2025-07-04T20-30-00Z.md",
-    "docs/implementation/CORRECTED_TEXTEXTRACTOR_COMPLETE_2025-07-04T23-25-00Z.md"
+    "docs/implementation/COMPLETE_UPDATES_SUMMARY.md"
   ]
 }
