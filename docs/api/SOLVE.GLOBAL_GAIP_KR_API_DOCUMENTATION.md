@@ -410,7 +410,7 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 
 ### **OpenAPI Specification**
 The complete OpenAPI 3.0 specification is available at:
-- **File**: `climate-risk-search-api-v1.yaml`
+- **File**: `solve-global-gaip-kr-api.yaml`
 - **Interactive docs**: Available upon request
 
 ### **Support Channels**
