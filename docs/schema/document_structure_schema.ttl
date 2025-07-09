@@ -1,0 +1,353 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix kr: <http://solve.global/knowledge-commons/schema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# =============================================================================
+# SOLVE.GLOBAL KNOWLEDGE REPOSITORY DOCUMENT STRUCTURE SCHEMA
+# RDFS Schema for Document Hierarchy and Textract Structure Elements
+# Version: 1.0
+# Date: 2025-07-09
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CORE DOCUMENT CLASSES
+# -----------------------------------------------------------------------------
+
+kr:Document rdf:type rdfs:Class ;
+    rdfs:label "Document" ;
+    rdfs:comment "A processed document in the knowledge repository with extracted structure and content" ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:DocumentPage rdf:type rdfs:Class ;
+    rdfs:label "Document Page" ;
+    rdfs:comment "A single page within a document, corresponding to Textract PAGE block" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:DocumentSection rdf:type rdfs:Class ;
+    rdfs:label "Document Section" ;
+    rdfs:comment "A logical section within a document, derived from structural analysis" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:DocumentChunk rdf:type rdfs:Class ;
+    rdfs:label "Document Chunk" ;
+    rdfs:comment "A processing chunk within a document section, optimized for NLP and vector processing" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# TEXTRACT STRUCTURE ELEMENT CLASSES
+# -----------------------------------------------------------------------------
+
+kr:DocumentStructureElement rdf:type rdfs:Class ;
+    rdfs:label "Document Structure Element" ;
+    rdfs:comment "Base class for all document structural elements identified by Textract" ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:TextLine rdf:type rdfs:Class ;
+    rdfs:label "Text Line" ;
+    rdfs:comment "A line of text within a document, corresponding to Textract LINE block" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:TextWord rdf:type rdfs:Class ;
+    rdfs:label "Text Word" ;
+    rdfs:comment "An individual word within a text line, corresponding to Textract WORD block" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:Table rdf:type rdfs:Class ;
+    rdfs:label "Table" ;
+    rdfs:comment "A table structure within a document, corresponding to Textract TABLE block" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:TableCell rdf:type rdfs:Class ;
+    rdfs:label "Table Cell" ;
+    rdfs:comment "A cell within a table, corresponding to Textract CELL block" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:Title rdf:type rdfs:Class ;
+    rdfs:label "Title" ;
+    rdfs:comment "A title or heading within a document, corresponding to Textract TITLE block" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:SelectionElement rdf:type rdfs:Class ;
+    rdfs:label "Selection Element" ;
+    rdfs:comment "A form selection element (checkbox, radio button), corresponding to Textract SELECTION_ELEMENT block" ;
+    rdfs:subClassOf kr:DocumentStructureElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# DOCUMENT HIERARCHY PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:hasPage rdf:type rdf:Property ;
+    rdfs:label "has page" ;
+    rdfs:comment "Links a document to its constituent pages" ;
+    rdfs:domain kr:Document ;
+    rdfs:range kr:DocumentPage ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hasSection rdf:type rdf:Property ;
+    rdfs:label "has section" ;
+    rdfs:comment "Links a document or page to its logical sections" ;
+    rdfs:domain kr:Document, kr:DocumentPage ;
+    rdfs:range kr:DocumentSection ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hasSubsection rdf:type rdf:Property ;
+    rdfs:label "has subsection" ;
+    rdfs:comment "Links a section to its child subsections" ;
+    rdfs:domain kr:DocumentSection ;
+    rdfs:range kr:DocumentSection ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hasChunk rdf:type rdf:Property ;
+    rdfs:label "has chunk" ;
+    rdfs:comment "Links a section to its processing chunks" ;
+    rdfs:domain kr:DocumentSection ;
+    rdfs:range kr:DocumentChunk ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:parentSection rdf:type rdf:Property ;
+    rdfs:label "parent section" ;
+    rdfs:comment "Links a subsection to its parent section" ;
+    rdfs:domain kr:DocumentSection ;
+    rdfs:range kr:DocumentSection ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:parentDocument rdf:type rdf:Property ;
+    rdfs:label "parent document" ;
+    rdfs:comment "Links any document element back to its source document" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range kr:Document ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# SEQUENCING AND ORDERING PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:pageNumber rdf:type rdf:Property ;
+    rdfs:label "page number" ;
+    rdfs:comment "The sequential page number within the document" ;
+    rdfs:domain kr:DocumentPage ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:sectionSequence rdf:type rdf:Property ;
+    rdfs:label "section sequence" ;
+    rdfs:comment "The sequential order of sections within their parent" ;
+    rdfs:domain kr:DocumentSection ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:chunkSequence rdf:type rdf:Property ;
+    rdfs:label "chunk sequence" ;
+    rdfs:comment "The sequential order of chunks within their parent section" ;
+    rdfs:domain kr:DocumentChunk ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hierarchyLevel rdf:type rdf:Property ;
+    rdfs:label "hierarchy level" ;
+    rdfs:comment "The depth level in the document hierarchy (1=top level, 2=subsection, etc.)" ;
+    rdfs:domain kr:DocumentSection ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# TEXTRACT STRUCTURE PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:hasTextLine rdf:type rdf:Property ;
+    rdfs:label "has text line" ;
+    rdfs:comment "Links a page or section to its constituent text lines" ;
+    rdfs:domain kr:DocumentPage, kr:DocumentSection ;
+    rdfs:range kr:TextLine ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hasWord rdf:type rdf:Property ;
+    rdfs:label "has word" ;
+    rdfs:comment "Links a text line to its constituent words" ;
+    rdfs:domain kr:TextLine ;
+    rdfs:range kr:TextWord ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hasTable rdf:type rdf:Property ;
+    rdfs:label "has table" ;
+    rdfs:comment "Links a page or section to its tables" ;
+    rdfs:domain kr:DocumentPage, kr:DocumentSection ;
+    rdfs:range kr:Table ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hasCell rdf:type rdf:Property ;
+    rdfs:label "has cell" ;
+    rdfs:comment "Links a table to its constituent cells" ;
+    rdfs:domain kr:Table ;
+    rdfs:range kr:TableCell ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:hasTitle rdf:type rdf:Property ;
+    rdfs:label "has title" ;
+    rdfs:comment "Links a page or section to its titles/headings" ;
+    rdfs:domain kr:DocumentPage, kr:DocumentSection ;
+    rdfs:range kr:Title ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# CONTENT AND METADATA PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:textContent rdf:type rdf:Property ;
+    rdfs:label "text content" ;
+    rdfs:comment "The extracted text content of a document element" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:wordCount rdf:type rdf:Property ;
+    rdfs:label "word count" ;
+    rdfs:comment "The number of words in the text content" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:sentenceCount rdf:type rdf:Property ;
+    rdfs:label "sentence count" ;
+    rdfs:comment "The number of sentences in the text content" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:confidence rdf:type rdf:Property ;
+    rdfs:label "confidence" ;
+    rdfs:comment "Textract confidence score for the extracted element" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# GEOMETRIC AND POSITIONING PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:boundingBox rdf:type rdf:Property ;
+    rdfs:label "bounding box" ;
+    rdfs:comment "The geometric bounding box coordinates of the element on the page" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:pageHeight rdf:type rdf:Property ;
+    rdfs:label "page height" ;
+    rdfs:comment "The height of the page in Textract coordinate units" ;
+    rdfs:domain kr:DocumentPage ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:pageWidth rdf:type rdf:Property ;
+    rdfs:label "page width" ;
+    rdfs:comment "The width of the page in Textract coordinate units" ;
+    rdfs:domain kr:DocumentPage ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# S3 STORAGE AND PROVENANCE PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:s3Location rdf:type rdf:Property ;
+    rdfs:label "S3 location" ;
+    rdfs:comment "The S3 URI where the chunk content is stored" ;
+    rdfs:domain kr:DocumentChunk ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:s3Bucket rdf:type rdf:Property ;
+    rdfs:label "S3 bucket" ;
+    rdfs:comment "The S3 bucket name where content is stored" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:s3Key rdf:type rdf:Property ;
+    rdfs:label "S3 key" ;
+    rdfs:comment "The S3 object key for the stored content" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# PROCESSING METADATA PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:processingTimestamp rdf:type rdf:Property ;
+    rdfs:label "processing timestamp" ;
+    rdfs:comment "When this element was processed and added to the knowledge graph" ;
+    rdfs:domain kr:DocumentStructureElement ;
+    rdfs:range xsd:dateTime ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:textractJobId rdf:type rdf:Property ;
+    rdfs:label "Textract job ID" ;
+    rdfs:comment "The AWS Textract job ID that processed this document" ;
+    rdfs:domain kr:Document ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:chunkingStrategy rdf:type rdf:Property ;
+    rdfs:label "chunking strategy" ;
+    rdfs:comment "The strategy used to create this chunk (e.g., 'smart_structured', 'sentence_based')" ;
+    rdfs:domain kr:DocumentChunk ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# TABLE-SPECIFIC PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:rowIndex rdf:type rdf:Property ;
+    rdfs:label "row index" ;
+    rdfs:comment "The row position of a table cell (0-based)" ;
+    rdfs:domain kr:TableCell ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:columnIndex rdf:type rdf:Property ;
+    rdfs:label "column index" ;
+    rdfs:comment "The column position of a table cell (0-based)" ;
+    rdfs:domain kr:TableCell ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:rowSpan rdf:type rdf:Property ;
+    rdfs:label "row span" ;
+    rdfs:comment "The number of rows this cell spans" ;
+    rdfs:domain kr:TableCell ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+kr:columnSpan rdf:type rdf:Property ;
+    rdfs:label "column span" ;
+    rdfs:comment "The number of columns this cell spans" ;
+    rdfs:domain kr:TableCell ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# -----------------------------------------------------------------------------
+# SELECTION ELEMENT PROPERTIES
+# -----------------------------------------------------------------------------
+
+kr:selectionStatus rdf:type rdf:Property ;
+    rdfs:label "selection status" ;
+    rdfs:comment "The status of a selection element (SELECTED, NOT_SELECTED)" ;
+    rdfs:domain kr:SelectionElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
