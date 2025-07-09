@@ -1,0 +1,328 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix kr: <http://solve.global/knowledge-commons/schema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# =============================================================================
+# ACTUAL DOCUMENT DATA: 0032f6cb_f0caef34
+# Generated from real Textract output and chunking results
+# Generated: 2025-07-09T15:13:21.275244
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# DOCUMENT ROOT
+# -----------------------------------------------------------------------------
+
+sg:Document_0032f6cb_f0caef34 a kr:Document ;
+    dcterms:title "July 9, 2010Procurement Plan" ;
+    dcterms:created "2025-07-09T15:13:21.275287"^^xsd:dateTime ;
+    kr:processingTimestamp "2025-07-09T15:13:22.059872"^^xsd:dateTime ;
+    kr:wordCount "2501"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "135"^^xsd:nonNegativeInteger ;
+    kr:pageCount "6"^^xsd:nonNegativeInteger .
+
+# -----------------------------------------------------------------------------
+# DOCUMENT SECTIONS AND CHUNKS (From Actual Processing Results)
+# -----------------------------------------------------------------------------
+
+sg:Document_0032f6cb_f0caef34_Section_1 a kr:DocumentSection ;
+    dcterms:title "Introduction and Overview" ;
+    kr:sectionSequence "1"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:wordCount "550"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "34"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_1_Chunk_2 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_1_Chunk_3 .
+
+sg:Document_0032f6cb_f0caef34_Section_2 a kr:DocumentSection ;
+    dcterms:title "Procurement Guidelines" ;
+    kr:sectionSequence "2"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:wordCount "768"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "18"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_4 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_5 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_6 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_7 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_8 .
+
+sg:Document_0032f6cb_f0caef34_Section_3 a kr:DocumentSection ;
+    dcterms:title "Implementation Details" ;
+    kr:sectionSequence "3"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:wordCount "970"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "13"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_9 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_10 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_11 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_12 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_13 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_14 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_15 .
+
+sg:Document_0032f6cb_f0caef34_Section_4 a kr:DocumentSection ;
+    dcterms:title "Appendices and References" ;
+    kr:sectionSequence "4"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:wordCount "442"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "8"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_4_Chunk_16 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_4_Chunk_17 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_4_Chunk_18 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_4_Chunk_19 .
+
+sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1 a kr:DocumentChunk ;
+    kr:chunkSequence "1"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_1 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "--- Page 1 ---\nJuly 9, 2010Procurement Plan\n(This is only a sample with the minimum content that is required to be included in the PAD. The \ndetailed procurement plan is still mandatory for disclosure..." ;
+    kr:wordCount "193"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "14"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0001.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_1_Chunk_2 a kr:DocumentChunk ;
+    kr:chunkSequence "2"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_1 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "rate risk\n4. NCB (Works) Above US$ 15 million All for Moderate risk\n5.  (Non-Consultant Services) Above US$ 4 million All for Moderate risk\n[Add other methods if necessary]\nb. Table-2: The following p..." ;
+    kr:wordCount "173"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "10"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0002.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0002.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_1_Chunk_3 a kr:DocumentChunk ;
+    kr:chunkSequence "3"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_1 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "effectiveness  ( including those that are subject to retroactive financing and advanced \nprocurement)\n[List the Packages which require Bank’s prior review first and then the other packages]\n1 2 3 4 5 ..." ;
+    kr:wordCount "184"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "10"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0003.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0003.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_2_Chunk_4 a kr:DocumentChunk ;
+    kr:chunkSequence "4"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "oderate risk\nb. Table-1: The following prior thresholds are applicable for Consultant Selection \nactivities initiated before Aug 25, 2016. \n\n--- Page 3 ---\nJuly 9, 2010Selection  Method Prior Review T..." ;
+    kr:wordCount "177"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "12"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0004.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0004.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_2_Chunk_5 a kr:DocumentChunk ;
+    kr:chunkSequence "5"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "e let \nunder QCBS5.140 4 Prior- 2\nPost- 2\nSummary of \nnumber of \ncontracts that \nwill be let \nunder other \nmethods0.431 2 Prior-2 Direct \nselection-1\nIND- 1\n\n--- Page 4 ---\nPage 1PROCUREMENT\nPLANNepal..." ;
+    kr:wordCount "155"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "3"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0005.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0005.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_2_Chunk_6 a kr:DocumentChunk ;
+    kr:chunkSequence "6"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "n  Report\nand Recommendation\nfor AwardSigned  Contract Contract  Completion\nPlanned Actual Planned Actual Planned Actual Planned Actual Planned Actual Planned Actual Planned Actual Planned Actual Plan..." ;
+    kr:wordCount "150"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0006.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0006.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_2_Chunk_7 a kr:DocumentChunk ;
+    kr:chunkSequence "7"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "W-RS-NCB-SJGD-02  /\nRoad  Safety  Works  on Satbanjh-\nGokuleswor-Darchula  & Satbanjh-\nTripurasundari-Jhulaghat  Road\n IDA / 50020 Road  Development Prior Request  for Bids Open  - National\n Single  S..." ;
+    kr:wordCount "143"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0007.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0007.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_2_Chunk_8 a kr:DocumentChunk ;
+    kr:chunkSequence "8"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Dailekh  Road\n IDA / 50020 Road  Development Prior Request  for Bids Open  - National\n Single  Stage  - One\nEnvelope636,513.00 629,022.61 Signed 2016-09-15 2016-09-21 2016-09-25 2016-09-22 2016-10-25 ..." ;
+    kr:wordCount "143"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0008.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0008.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_3_Chunk_9 a kr:DocumentChunk ;
+    kr:chunkSequence "9"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "- National\n Single  Stage  - One\nEnvelope2,664,158.75 0.00Under\nImplementation2017-04-04 2017-04-09 2017-05-09 2017-06-08 2017-05-05 2017-08-01 2019-05-23\n RDPAFII-DOR-W-BNC-NCB-2  /\nConstruction  of ..." ;
+    kr:wordCount "139"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0009.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0009.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_3_Chunk_10 a kr:DocumentChunk ;
+    kr:chunkSequence "10"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "tage  - One\nEnvelope3,040,000.00 0.00Pending\nImplementation2017-05-08 2017-05-13 2017-06-12 2017-07-12 2017-08-16 2019-05-08\n RSDPAFII-DOR-W-BNC-NCB-5  /\nConstruction  of Bridge  on\nChinchhu-Jajarkot ..." ;
+    kr:wordCount "139"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0010.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0010.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_3_Chunk_11 a kr:DocumentChunk ;
+    kr:chunkSequence "11"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "ion2017-05-30 2017-06-04 2017-07-04 2017-08-03 2017-09-07 2019-03-01\n RSDPAFII-DOR-W-BNC-NCB-8  /\nConstruction  of Bridge  on\nHanumante,  Bhaktapur\n IDA / 58650 Road  and Bridges  Development Post Req..." ;
+    kr:wordCount "139"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "3"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0011.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0011.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_3_Chunk_12 a kr:DocumentChunk ;
+    kr:chunkSequence "12"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "e Method Market  ApproachProcurement\nProcessPrequalification\n(Y/N)Estimated\nAmount  (US$)Actual  Amount\n(US$)Process\nStatusDraft  Pre-qualification\nDocumentsPrequalification\nEvaluation  Report Draft  ..." ;
+    kr:wordCount "139"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0012.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0012.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:07+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_3_Chunk_13 a kr:DocumentChunk ;
+    kr:chunkSequence "13"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "en  - International\n Single  Stage  - One\nEnvelopeN 37,360.00 36,812.63 Signed 2015-03-06 2015-03-03\n RSDP-AF-MB-G/ICB-06  /\nSupply  and Delivery  of\nEquipment:  Vibratory\nCombination  Roller\n IDA / 4..." ;
+    kr:wordCount "151"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0013.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0013.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:08+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_3_Chunk_14 a kr:DocumentChunk ;
+    kr:chunkSequence "14"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "numbers\n IDA / 58650 Resilience  Enhancements Post Request  for Bids Open  - International\n Single  Stage  - One\nEnvelope680,000.00 0.00Pending\nImplementation2017-05-30 2017-06-04 2017-07-20 2017-08-1..." ;
+    kr:wordCount "131"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0014.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0014.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:08+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_3_Chunk_15 a kr:DocumentChunk ;
+    kr:chunkSequence "15"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "st Direct  Selection Direct\n 68,000.00 0.00Pending\nImplementation2017-05-30 2017-06-04 2017-06-14 2017-07-14\n RSDPAFII-DOR-G-ICB-13  /\nProcurement  of wheeled  long\nreach  hydraulic  excavator\n IDA / ..." ;
+    kr:wordCount "132"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "5"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0015.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0015.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:08+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_4_Chunk_16 a kr:DocumentChunk ;
+    kr:chunkSequence "16"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_4 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "MS\nActivity  Reference  No. /\nDescription Loan  / Credit  No. Component  Review  Type  Method Market  ApproachContract  Type Estimated\nAmount  (US$)Actual  Amount\n(US$)Process  Status Terms  of Refere..." ;
+    kr:wordCount "148"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "3"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0016.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0016.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:08+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_4_Chunk_17 a kr:DocumentChunk ;
+    kr:chunkSequence "17"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_4 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Region\n IDA / Q5710Institutional  strengthening  &\npolicy  reformPostQuality  And Cost-\nBased  SelectionOpen  - National\n 569,425.00 0.00Under\nImplementation2016-11-28 2016-12-19 2017-02-01 2017-03-01..." ;
+    kr:wordCount "129"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0017.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0017.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:08+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_4_Chunk_18 a kr:DocumentChunk ;
+    kr:chunkSequence "18"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_4 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "ty  screening  for SRN,\nidentification  of priority  corridors\nand preparation  of detail  project\nreport  for road safety  measures\nand black  spot mitigation  on\nSRN\n IDA / 58650Institutional  Stren..." ;
+    kr:wordCount "138"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "3"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0018.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0018.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:08+00:00"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_4_Chunk_19 a kr:DocumentChunk ;
+    kr:chunkSequence "19"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_4 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "014-09-28\n RSDPAF-BRIDGE-CS-CDS-01  /\nHiring  of Capacity  Building\nConsultant:  Bridge  Design  Expert\n IDA / Q5710Institutional  strengthening  &\npolicy  reformPrior Direct  Selection Direct\n 206,86..." ;
+    kr:wordCount "27"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "1"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0019.json"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34_chunk_0019.json" ;
+    kr:processingTimestamp "2025-07-05T22:52:08+00:00"^^xsd:dateTime .
+
