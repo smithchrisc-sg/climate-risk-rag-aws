@@ -1,0 +1,512 @@
+openapi: 3.0.3
+info:
+  title: Climate Risk Document Search API
+  description: |
+    A unified search API for climate risk documents that combines multiple search technologies 
+    to provide relevant, comprehensive results. The API searches across processed documents 
+    using proprietary algorithms that integrate keyword matching, semantic similarity, 
+    and knowledge graph relationships.
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: api-support@climaterisk.com
+  license:
+    name: Proprietary
+    url: https://climaterisk.com/license
+
+servers:
+  - url: https://api.climaterisk.com/v1
+    description: Production server
+  - url: https://staging-api.climaterisk.com/v1
+    description: Staging server
+
+security:
+  - BearerAuth: []
+
+paths:
+  /search:
+    post:
+      summary: Search climate risk documents
+      description: |
+        Search across the climate risk document collection using natural language queries.
+        The system automatically combines multiple search approaches to return the most
+        relevant results with contextual snippets and comprehensive metadata.
+      operationId: searchDocuments
+      tags:
+        - Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              basic_search:
+                summary: Basic search example
+                value:
+                  query: "climate risk financial modeling"
+                  parameters:
+                    max_results: 20
+                    include_snippets: true
+              advanced_search:
+                summary: Advanced search with filters
+                value:
+                  query: "sea level rise infrastructure damage"
+                  parameters:
+                    max_results: 50
+                    snippet_length: 300
+                  filters:
+                    categories: ["physical_risk", "infrastructure"]
+                    date_range:
+                      start: "2023-01-01"
+                      end: "2024-12-31"
+                  options:
+                    include_facets: true
+      responses:
+        '200':
+          description: Search completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              examples:
+                successful_search:
+                  summary: Successful search with results
+                  value:
+                    status: "success"
+                    query_id: "search_12345_67890"
+                    execution_time_ms: 285
+                    total_results: 156
+                    returned_results: 20
+                    results:
+                      - document_id: "doc_001"
+                        document_url: "https://documents.yourapi.com/doc_001"
+                        title: "Climate Risk Assessment Report 2024"
+                        relevance_score: 0.95
+                        snippets:
+                          - text: "Climate risk financial modeling requires sophisticated approaches..."
+                            page_number: 12
+                            section: "Methodology"
+                        metadata:
+                          document_type: "pdf"
+                          file_size_mb: 12.5
+                          page_count: 45
+                          categories: ["environmental", "financial"]
+                no_results:
+                  summary: Search with no results
+                  value:
+                    status: "success"
+                    query_id: "search_12345_67891"
+                    execution_time_ms: 125
+                    total_results: 0
+                    returned_results: 0
+                    results: []
+                    suggestions:
+                      - "Try broader search terms"
+                      - "Remove some filters"
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: "error"
+                error:
+                  code: "VALIDATION_ERROR"
+                  message: "Invalid request parameters"
+                  details:
+                    - field: "parameters.max_results"
+                      issue: "Value must be between 1 and 100"
+                      provided_value: 150
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: "error"
+                error:
+                  code: "AUTHENTICATION_FAILED"
+                  message: "Invalid or expired authentication token"
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: "error"
+                error:
+                  code: "RATE_LIMIT_EXCEEDED"
+                  message: "Too many requests. Rate limit exceeded."
+                  details:
+                    limit: 100
+                    window: "1 hour"
+                    reset_time: "2024-07-09T16:30:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from authentication endpoint
+
+  schemas:
+    SearchRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: Natural language search query
+          minLength: 1
+          maxLength: 500
+          example: "climate risk financial modeling approaches"
+        parameters:
+          type: object
+          properties:
+            max_results:
+              type: integer
+              minimum: 1
+              maximum: 100
+              default: 20
+              description: Maximum number of results to return
+            include_snippets:
+              type: boolean
+              default: true
+              description: Whether to include text snippets in results
+            snippet_length:
+              type: integer
+              minimum: 50
+              maximum: 500
+              default: 200
+              description: Maximum length of text snippets in characters
+            relevance_threshold:
+              type: number
+              minimum: 0.0
+              maximum: 1.0
+              default: 0.0
+              description: Minimum relevance score for results (0.0 = all results)
+            cursor:
+              type: string
+              description: Pagination cursor for retrieving next page of results
+        filters:
+          type: object
+          properties:
+            document_ids:
+              type: array
+              items:
+                type: string
+              description: Specific document IDs to search within
+              example: ["doc_001", "doc_002"]
+            document_types:
+              type: array
+              items:
+                type: string
+                enum: ["pdf", "report", "presentation", "spreadsheet"]
+              description: Filter by document types
+            categories:
+              type: array
+              items:
+                type: string
+              description: Filter by document categories
+              example: ["environmental", "financial", "physical_risk"]
+            regions:
+              type: array
+              items:
+                type: string
+              description: Filter by geographic regions
+              example: ["coastal", "urban", "global"]
+            date_range:
+              type: object
+              properties:
+                start:
+                  type: string
+                  format: date
+                  description: Start date (YYYY-MM-DD)
+                  example: "2023-01-01"
+                end:
+                  type: string
+                  format: date
+                  description: End date (YYYY-MM-DD)
+                  example: "2024-12-31"
+            file_size_range:
+              type: object
+              properties:
+                min_mb:
+                  type: number
+                  minimum: 0
+                  description: Minimum file size in MB
+                max_mb:
+                  type: number
+                  description: Maximum file size in MB
+            custom_tags:
+              type: array
+              items:
+                type: string
+              description: Filter by custom document tags
+        sort:
+          type: object
+          properties:
+            field:
+              type: string
+              enum: ["relevance", "upload_date", "file_size", "title"]
+              default: "relevance"
+              description: Field to sort results by
+            order:
+              type: string
+              enum: ["asc", "desc"]
+              default: "desc"
+              description: Sort order
+        options:
+          type: object
+          properties:
+            include_metadata:
+              type: boolean
+              default: true
+              description: Whether to include document metadata
+            include_facets:
+              type: boolean
+              default: false
+              description: Whether to include faceted search results
+            highlight_matches:
+              type: boolean
+              default: true
+              description: Whether to highlight search terms in snippets
+
+    SearchResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["success"]
+          description: Response status
+        query_id:
+          type: string
+          description: Unique identifier for this search query
+          example: "search_12345_67890"
+        execution_time_ms:
+          type: integer
+          description: Query execution time in milliseconds
+          example: 285
+        total_results:
+          type: integer
+          description: Total number of matching documents
+          example: 156
+        returned_results:
+          type: integer
+          description: Number of results returned in this response
+          example: 20
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        facets:
+          type: object
+          description: Faceted search results for filtering
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: integer
+          example:
+            categories:
+              environmental: 89
+              financial: 67
+            document_types:
+              pdf: 120
+              report: 36
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        suggestions:
+          type: array
+          items:
+            type: string
+          description: Search suggestions when no results found
+          example: ["Try broader search terms", "Remove some filters"]
+
+    SearchResult:
+      type: object
+      properties:
+        document_id:
+          type: string
+          description: Unique document identifier
+          example: "doc_001"
+        document_url:
+          type: string
+          format: uri
+          description: URL to access the full document
+          example: "https://documents.yourapi.com/doc_001"
+        title:
+          type: string
+          description: Document title
+          example: "Climate Risk Assessment Report 2024"
+        relevance_score:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          description: Relevance score for this result
+          example: 0.95
+        snippets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextSnippet'
+          description: Relevant text excerpts from the document
+        metadata:
+          $ref: '#/components/schemas/DocumentMetadata'
+
+    TextSnippet:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Text excerpt with highlighted search terms
+          example: "Climate <mark>risk</mark> <mark>financial</mark> modeling requires..."
+        page_number:
+          type: integer
+          description: Page number where this text appears
+          example: 12
+        section:
+          type: string
+          description: Document section name
+          example: "Methodology"
+
+    DocumentMetadata:
+      type: object
+      properties:
+        document_type:
+          type: string
+          description: Type of document
+          example: "pdf"
+        file_size_mb:
+          type: number
+          description: File size in megabytes
+          example: 12.5
+        page_count:
+          type: integer
+          description: Number of pages in document
+          example: 45
+        upload_date:
+          type: string
+          format: date-time
+          description: When the document was uploaded
+          example: "2024-03-15T10:30:00Z"
+        last_modified:
+          type: string
+          format: date-time
+          description: When the document was last modified
+          example: "2024-03-15T10:30:00Z"
+        categories:
+          type: array
+          items:
+            type: string
+          description: Document categories/tags
+          example: ["environmental", "financial", "risk_assessment"]
+        regions:
+          type: array
+          items:
+            type: string
+          description: Geographic regions covered
+          example: ["global", "coastal"]
+        language:
+          type: string
+          description: Document language code
+          example: "en"
+        author:
+          type: string
+          description: Document author
+          example: "Climate Risk Institute"
+        publication_year:
+          type: integer
+          description: Year of publication
+          example: 2024
+        custom_tags:
+          type: array
+          items:
+            type: string
+          description: Custom tags assigned to document
+          example: ["peer_reviewed", "high_confidence"]
+
+    Pagination:
+      type: object
+      properties:
+        current_page:
+          type: integer
+          description: Current page number
+          example: 1
+        page_size:
+          type: integer
+          description: Number of results per page
+          example: 20
+        total_pages:
+          type: integer
+          description: Total number of pages
+          example: 8
+        has_next:
+          type: boolean
+          description: Whether there are more results available
+          example: true
+        has_previous:
+          type: boolean
+          description: Whether there are previous results available
+          example: false
+        next_cursor:
+          type: string
+          description: Cursor for retrieving next page
+          example: "eyJzY29yZSI6MC44NSwiaWQiOiJkb2NfMDI3In0="
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["error"]
+          description: Response status
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum: 
+                - "VALIDATION_ERROR"
+                - "AUTHENTICATION_FAILED"
+                - "RATE_LIMIT_EXCEEDED"
+                - "INTERNAL_SERVER_ERROR"
+            message:
+              type: string
+              description: Human-readable error message
+            details:
+              oneOf:
+                - type: array
+                  items:
+                    type: object
+                    properties:
+                      field:
+                        type: string
+                      issue:
+                        type: string
+                      provided_value:
+                        type: string
+                - type: object
+                  additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for support
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+
+tags:
+  - name: Search
+    description: Document search operations
