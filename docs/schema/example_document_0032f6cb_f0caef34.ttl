@@ -1,0 +1,335 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix kr: <http://solve.global/knowledge-commons/schema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# =============================================================================
+# EXAMPLE DOCUMENT: 0032f6cb_f0caef34
+# Representative Textract Structure from Actual Testing Data
+# Document: Climate Risk Assessment Report (8 pages, 21 chunks)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# DOCUMENT ROOT
+# -----------------------------------------------------------------------------
+
+sg:Document_0032f6cb_f0caef34 a kr:Document ;
+    dcterms:title "Climate Risk Assessment Report" ;
+    dcterms:created "2024-03-15T10:30:00Z"^^xsd:dateTime ;
+    kr:textractJobId "textract-job-abc123def456" ;
+    kr:processingTimestamp "2025-07-09T15:30:00Z"^^xsd:dateTime ;
+    kr:wordCount "3247"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "156"^^xsd:nonNegativeInteger ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_1 ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_2 ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_3 ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_4 ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_5 ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_6 ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_7 ;
+    kr:hasPage sg:Document_0032f6cb_f0caef34_Page_8 ;
+    kr:hasSection sg:Document_0032f6cb_f0caef34_Section_1 ;
+    kr:hasSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:hasSection sg:Document_0032f6cb_f0caef34_Section_3 ;
+    kr:hasSection sg:Document_0032f6cb_f0caef34_Section_4 .
+
+# -----------------------------------------------------------------------------
+# DOCUMENT PAGES
+# -----------------------------------------------------------------------------
+
+sg:Document_0032f6cb_f0caef34_Page_1 a kr:DocumentPage ;
+    kr:pageNumber "1"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:hasTitle sg:Document_0032f6cb_f0caef34_Page_1_Title_1 ;
+    kr:hasTextLine sg:Document_0032f6cb_f0caef34_Page_1_Line_1 ;
+    kr:hasTextLine sg:Document_0032f6cb_f0caef34_Page_1_Line_2 .
+
+sg:Document_0032f6cb_f0caef34_Page_2 a kr:DocumentPage ;
+    kr:pageNumber "2"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:hasTable sg:Document_0032f6cb_f0caef34_Page_2_Table_1 .
+
+sg:Document_0032f6cb_f0caef34_Page_3 a kr:DocumentPage ;
+    kr:pageNumber "3"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_4 a kr:DocumentPage ;
+    kr:pageNumber "4"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_5 a kr:DocumentPage ;
+    kr:pageNumber "5"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_6 a kr:DocumentPage ;
+    kr:pageNumber "6"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_7 a kr:DocumentPage ;
+    kr:pageNumber "7"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_8 a kr:DocumentPage ;
+    kr:pageNumber "8"^^xsd:positiveInteger ;
+    kr:pageWidth "1.0"^^xsd:decimal ;
+    kr:pageHeight "1.0"^^xsd:decimal ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+# -----------------------------------------------------------------------------
+# DOCUMENT SECTIONS (Logical Structure)
+# -----------------------------------------------------------------------------
+
+sg:Document_0032f6cb_f0caef34_Section_1 a kr:DocumentSection ;
+    dcterms:title "Executive Summary" ;
+    kr:sectionSequence "1"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "This report provides a comprehensive assessment of climate risks affecting coastal infrastructure and economic systems..." ;
+    kr:wordCount "287"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "14"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_1_Chunk_2 .
+
+sg:Document_0032f6cb_f0caef34_Section_2 a kr:DocumentSection ;
+    dcterms:title "Risk Analysis" ;
+    kr:sectionSequence "2"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Climate change poses significant risks to infrastructure, economic systems, and human settlements..." ;
+    kr:wordCount "1456"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "73"^^xsd:nonNegativeInteger ;
+    kr:hasSubsection sg:Document_0032f6cb_f0caef34_Section_2_1 ;
+    kr:hasSubsection sg:Document_0032f6cb_f0caef34_Section_2_2 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_1 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_2 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_Chunk_3 .
+
+sg:Document_0032f6cb_f0caef34_Section_2_1 a kr:DocumentSection ;
+    dcterms:title "Physical Risks" ;
+    kr:sectionSequence "1"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "2"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Physical climate risks include sea level rise, extreme weather events, and temperature increases..." ;
+    kr:wordCount "623"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "31"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_1_Chunk_1 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_1_Chunk_2 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_1_Chunk_3 .
+
+sg:Document_0032f6cb_f0caef34_Section_2_2 a kr:DocumentSection ;
+    dcterms:title "Transition Risks" ;
+    kr:sectionSequence "2"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "2"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Transition risks arise from policy changes, technological shifts, and market adjustments..." ;
+    kr:wordCount "445"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "22"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_2_Chunk_1 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_2_2_Chunk_2 .
+
+sg:Document_0032f6cb_f0caef34_Section_3 a kr:DocumentSection ;
+    dcterms:title "Mitigation Strategies" ;
+    kr:sectionSequence "3"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Effective mitigation strategies include renewable energy adoption, carbon pricing mechanisms..." ;
+    kr:wordCount "789"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "39"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_1 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_2 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_3 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_3_Chunk_4 .
+
+sg:Document_0032f6cb_f0caef34_Section_4 a kr:DocumentSection ;
+    dcterms:title "Conclusions and Recommendations" ;
+    kr:sectionSequence "4"^^xsd:positiveInteger ;
+    kr:hierarchyLevel "1"^^xsd:positiveInteger ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Based on this analysis, we recommend immediate action on climate adaptation and mitigation..." ;
+    kr:wordCount "567"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "28"^^xsd:nonNegativeInteger ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_4_Chunk_1 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_4_Chunk_2 ;
+    kr:hasChunk sg:Document_0032f6cb_f0caef34_Section_4_Chunk_3 .
+
+# -----------------------------------------------------------------------------
+# DOCUMENT CHUNKS (Processing Units with S3 Locations)
+# -----------------------------------------------------------------------------
+
+# Executive Summary Chunks
+sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1 a kr:DocumentChunk ;
+    kr:chunkSequence "1"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_1 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "This report provides a comprehensive assessment of climate risks affecting coastal infrastructure and economic systems. Sea level rise poses immediate threats to ports and airports..." ;
+    kr:wordCount "156"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "8"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/section_1_chunk_1.txt"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34/section_1_chunk_1.txt" ;
+    kr:processingTimestamp "2025-07-09T15:32:15Z"^^xsd:dateTime .
+
+sg:Document_0032f6cb_f0caef34_Section_1_Chunk_2 a kr:DocumentChunk ;
+    kr:chunkSequence "2"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_1 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Economic impacts include supply chain disruptions and infrastructure damage costs. Immediate adaptation measures are required to reduce vulnerability..." ;
+    kr:wordCount "131"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "6"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/section_1_chunk_2.txt"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34/section_1_chunk_2.txt" ;
+    kr:processingTimestamp "2025-07-09T15:32:16Z"^^xsd:dateTime .
+
+# Risk Analysis Chunks (Main Section)
+sg:Document_0032f6cb_f0caef34_Section_2_Chunk_1 a kr:DocumentChunk ;
+    kr:chunkSequence "1"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Climate change poses significant risks to infrastructure, economic systems, and human settlements. These risks can be categorized into physical and transition risks..." ;
+    kr:wordCount "198"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "9"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/section_2_chunk_1.txt"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34/section_2_chunk_1.txt" ;
+    kr:processingTimestamp "2025-07-09T15:32:17Z"^^xsd:dateTime .
+
+# Physical Risks Subsection Chunks
+sg:Document_0032f6cb_f0caef34_Section_2_1_Chunk_1 a kr:DocumentChunk ;
+    kr:chunkSequence "1"^^xsd:positiveInteger ;
+    kr:parentSection sg:Document_0032f6cb_f0caef34_Section_2_1 ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:textContent "Physical climate risks include sea level rise, extreme weather events, and temperature increases. Sea level rise threatens coastal infrastructure including ports, airports, and residential areas..." ;
+    kr:wordCount "234"^^xsd:nonNegativeInteger ;
+    kr:sentenceCount "11"^^xsd:nonNegativeInteger ;
+    kr:chunkingStrategy "smart_structured" ;
+    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/section_2_1_chunk_1.txt"^^xsd:anyURI ;
+    kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+    kr:s3Key "0032f6cb_f0caef34/section_2_1_chunk_1.txt" ;
+    kr:processingTimestamp "2025-07-09T15:32:18Z"^^xsd:dateTime .
+
+# -----------------------------------------------------------------------------
+# TEXTRACT STRUCTURE ELEMENTS
+# -----------------------------------------------------------------------------
+
+# Title Elements
+sg:Document_0032f6cb_f0caef34_Page_1_Title_1 a kr:Title ;
+    kr:textContent "Climate Risk Assessment Report" ;
+    kr:confidence "0.98"^^xsd:decimal ;
+    kr:boundingBox "0.1,0.05,0.9,0.15" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+# Text Lines
+sg:Document_0032f6cb_f0caef34_Page_1_Line_1 a kr:TextLine ;
+    kr:textContent "Climate Risk Assessment Report" ;
+    kr:confidence "0.98"^^xsd:decimal ;
+    kr:boundingBox "0.1,0.05,0.9,0.15" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:hasWord sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_1 ;
+    kr:hasWord sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_2 ;
+    kr:hasWord sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_3 ;
+    kr:hasWord sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_4 .
+
+sg:Document_0032f6cb_f0caef34_Page_1_Line_2 a kr:TextLine ;
+    kr:textContent "Executive Summary and Key Findings" ;
+    kr:confidence "0.96"^^xsd:decimal ;
+    kr:boundingBox "0.1,0.2,0.8,0.25" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+# Words
+sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_1 a kr:TextWord ;
+    kr:textContent "Climate" ;
+    kr:confidence "0.99"^^xsd:decimal ;
+    kr:boundingBox "0.1,0.05,0.25,0.15" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_2 a kr:TextWord ;
+    kr:textContent "Risk" ;
+    kr:confidence "0.98"^^xsd:decimal ;
+    kr:boundingBox "0.26,0.05,0.35,0.15" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_3 a kr:TextWord ;
+    kr:textContent "Assessment" ;
+    kr:confidence "0.97"^^xsd:decimal ;
+    kr:boundingBox "0.36,0.05,0.6,0.15" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_1_Line_1_Word_4 a kr:TextWord ;
+    kr:textContent "Report" ;
+    kr:confidence "0.99"^^xsd:decimal ;
+    kr:boundingBox "0.61,0.05,0.8,0.15" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+# Table Structure
+sg:Document_0032f6cb_f0caef34_Page_2_Table_1 a kr:Table ;
+    kr:confidence "0.94"^^xsd:decimal ;
+    kr:boundingBox "0.1,0.3,0.9,0.8" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 ;
+    kr:hasCell sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_0_0 ;
+    kr:hasCell sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_0_1 ;
+    kr:hasCell sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_1_0 ;
+    kr:hasCell sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_1_1 .
+
+# Table Cells
+sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_0_0 a kr:TableCell ;
+    kr:textContent "Risk Category" ;
+    kr:rowIndex "0"^^xsd:nonNegativeInteger ;
+    kr:columnIndex "0"^^xsd:nonNegativeInteger ;
+    kr:rowSpan "1"^^xsd:positiveInteger ;
+    kr:columnSpan "1"^^xsd:positiveInteger ;
+    kr:confidence "0.96"^^xsd:decimal ;
+    kr:boundingBox "0.1,0.3,0.5,0.4" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_0_1 a kr:TableCell ;
+    kr:textContent "Impact Level" ;
+    kr:rowIndex "0"^^xsd:nonNegativeInteger ;
+    kr:columnIndex "1"^^xsd:nonNegativeInteger ;
+    kr:rowSpan "1"^^xsd:positiveInteger ;
+    kr:columnSpan "1"^^xsd:positiveInteger ;
+    kr:confidence "0.95"^^xsd:decimal ;
+    kr:boundingBox "0.5,0.3,0.9,0.4" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_1_0 a kr:TableCell ;
+    kr:textContent "Sea Level Rise" ;
+    kr:rowIndex "1"^^xsd:nonNegativeInteger ;
+    kr:columnIndex "0"^^xsd:nonNegativeInteger ;
+    kr:rowSpan "1"^^xsd:positiveInteger ;
+    kr:columnSpan "1"^^xsd:positiveInteger ;
+    kr:confidence "0.97"^^xsd:decimal ;
+    kr:boundingBox "0.1,0.4,0.5,0.5" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
+
+sg:Document_0032f6cb_f0caef34_Page_2_Table_1_Cell_1_1 a kr:TableCell ;
+    kr:textContent "High" ;
+    kr:rowIndex "1"^^xsd:nonNegativeInteger ;
+    kr:columnIndex "1"^^xsd:nonNegativeInteger ;
+    kr:rowSpan "1"^^xsd:positiveInteger ;
+    kr:columnSpan "1"^^xsd:positiveInteger ;
+    kr:confidence "0.98"^^xsd:decimal ;
+    kr:boundingBox "0.5,0.4,0.9,0.5" ;
+    kr:parentDocument sg:Document_0032f6cb_f0caef34 .
