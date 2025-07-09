@@ -1,23 +1,29 @@
 openapi: 3.0.3
 info:
-  title: Climate Risk Document Search API
+  title: GAIP Knowledge Repository Search API
   description: |
-    A unified search API for climate risk documents that combines multiple search technologies 
-    to provide relevant, comprehensive results. The API searches across processed documents 
-    using proprietary algorithms that integrate keyword matching, semantic similarity, 
-    and knowledge graph relationships.
+    A unified search API for the Global Asia Insurance Partnership (GAIP) knowledge repository 
+    that provides access to vetted insurance and risk-related documents. The API searches across 
+    processed documents focused on protection gap models, government policy frameworks, and 
+    geo-specific risk assessments using proprietary algorithms that integrate keyword matching, 
+    semantic similarity, and knowledge graph relationships.
+    
+    Supporting GAIP's mission to address Asia's protection gaps through:
+    - Understanding and quantifying existing and emerging risks
+    - Providing access to risk models and data for protection needs assessment
+    - Supporting stakeholders with tools to understand insurability and capacity needs
   version: 1.0.0
   contact:
-    name: API Support
-    email: api-support@climaterisk.com
+    name: GAIP API Support
+    email: api-support@solve.global
   license:
-    name: Proprietary
-    url: https://climaterisk.com/license
+    name: Proprietary - solve.global
+    url: https://solve.global/license
 
 servers:
-  - url: https://api.climaterisk.com/v1
+  - url: https://api.solve.global/gaip/v1
     description: Production server
-  - url: https://staging-api.climaterisk.com/v1
+  - url: https://staging-api.solve.global/gaip/v1
     description: Staging server
 
 security:
@@ -26,11 +32,19 @@ security:
 paths:
   /search:
     post:
-      summary: Search climate risk documents
+      summary: Search GAIP knowledge repository
       description: |
-        Search across the climate risk document collection using natural language queries.
+        Search across the GAIP vetted knowledge repository using natural language queries.
         The system automatically combines multiple search approaches to return the most
-        relevant results with contextual snippets and comprehensive metadata.
+        relevant results focused on protection gap models, insurance frameworks, and 
+        geo-specific risk assessments with contextual snippets and comprehensive metadata.
+        
+        Supports queries related to:
+        - Protection gap identification and quantification
+        - Insurance market capacity and insurability assessments  
+        - Government policy frameworks and regulatory approaches
+        - Emerging risks and risk model refinements
+        - Geographic and demographic risk factors across Asia
       operationId: searchDocuments
       tags:
         - Search
@@ -44,19 +58,20 @@ paths:
               basic_search:
                 summary: Basic search example
                 value:
-                  query: "climate risk financial modeling"
+                  query: "protection gap analysis Southeast Asia"
                   parameters:
                     max_results: 20
                     include_snippets: true
               advanced_search:
                 summary: Advanced search with filters
                 value:
-                  query: "sea level rise infrastructure damage"
+                  query: "flood insurance capacity government policy"
                   parameters:
                     max_results: 50
                     snippet_length: 300
                   filters:
-                    categories: ["physical_risk", "infrastructure"]
+                    categories: ["protection_gap", "government_policy"]
+                    regions: ["southeast_asia", "south_asia"]
                     date_range:
                       start: "2023-01-01"
                       end: "2024-12-31"
@@ -80,18 +95,19 @@ paths:
                     returned_results: 20
                     results:
                       - document_id: "doc_001"
-                        document_url: "https://documents.yourapi.com/doc_001"
-                        title: "Climate Risk Assessment Report 2024"
+                        document_url: "https://documents.solve.global/gaip/doc_001"
+                        title: "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024"
                         relevance_score: 0.95
                         snippets:
-                          - text: "Climate risk financial modeling requires sophisticated approaches..."
+                          - text: "Protection gap analysis reveals significant underinsurance in flood-prone regions..."
                             page_number: 12
-                            section: "Methodology"
+                            section: "Regional Assessment"
                         metadata:
                           document_type: "pdf"
                           file_size_mb: 12.5
                           page_count: 45
-                          categories: ["environmental", "financial"]
+                          categories: ["protection_gap", "flood_insurance"]
+                          regions: ["southeast_asia"]
                 no_results:
                   summary: Search with no results
                   value:
@@ -171,7 +187,7 @@ components:
           description: Natural language search query
           minLength: 1
           maxLength: 500
-          example: "climate risk financial modeling approaches"
+          example: "protection gap analysis flood insurance Southeast Asia"
         parameters:
           type: object
           properties:
@@ -220,13 +236,13 @@ components:
               items:
                 type: string
               description: Filter by document categories
-              example: ["environmental", "financial", "physical_risk"]
+              example: ["protection_gap", "government_policy", "insurance_capacity"]
             regions:
               type: array
               items:
                 type: string
               description: Filter by geographic regions
-              example: ["coastal", "urban", "global"]
+              example: ["southeast_asia", "south_asia", "east_asia"]
             date_range:
               type: object
               properties:
@@ -349,7 +365,7 @@ components:
         title:
           type: string
           description: Document title
-          example: "Climate Risk Assessment Report 2024"
+          example: "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024"
         relevance_score:
           type: number
           minimum: 0.0
@@ -370,7 +386,7 @@ components:
         text:
           type: string
           description: Text excerpt with highlighted search terms
-          example: "Climate <mark>risk</mark> <mark>financial</mark> modeling requires..."
+          example: "Protection <mark>gap</mark> analysis reveals significant underinsurance in <mark>flood</mark>-prone regions..."
         page_number:
           type: integer
           description: Page number where this text appears
@@ -378,7 +394,7 @@ components:
         section:
           type: string
           description: Document section name
-          example: "Methodology"
+          example: "Regional Assessment"
 
     DocumentMetadata:
       type: object
@@ -410,13 +426,13 @@ components:
           items:
             type: string
           description: Document categories/tags
-          example: ["environmental", "financial", "risk_assessment"]
+          example: ["protection_gap", "flood_insurance", "government_policy"]
         regions:
           type: array
           items:
             type: string
           description: Geographic regions covered
-          example: ["global", "coastal"]
+          example: ["southeast_asia", "thailand", "vietnam"]
         language:
           type: string
           description: Document language code
@@ -424,7 +440,7 @@ components:
         author:
           type: string
           description: Document author
-          example: "Climate Risk Institute"
+          example: "Asian Development Bank"
         publication_year:
           type: integer
           description: Year of publication
@@ -434,7 +450,7 @@ components:
           items:
             type: string
           description: Custom tags assigned to document
-          example: ["peer_reviewed", "high_confidence"]
+          example: ["peer_reviewed", "government_endorsed", "high_priority"]
 
     Pagination:
       type: object

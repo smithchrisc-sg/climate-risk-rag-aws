@@ -1,20 +1,30 @@
-# Climate Risk Document Search API
+# GAIP Knowledge Repository Search API
 ## Partner Integration Documentation v1.0
 
 ---
 
 ## 📋 **Overview**
 
-The Climate Risk Document Search API provides a unified interface for searching across our comprehensive collection of climate risk documents. The API uses advanced search technologies to deliver highly relevant results with contextual snippets and rich metadata.
+The GAIP Knowledge Repository Search API provides a unified interface for searching across the Global Asia Insurance Partnership's comprehensive collection of vetted insurance and risk-related documents. The API uses advanced search technologies to deliver highly relevant results focused on protection gap models, government policy frameworks, and geo-specific risk assessments.
+
+**Supporting GAIP's Mission: Addressing Asia's Protection Gaps**
+
+The Global Asia Insurance Partnership (GAIP) is a tripartite partnership between the global insurance industry, regulators and policymakers, and academia. This API supports GAIP's core objective to **Understand and Quantify Risk** through:
+
+- **Risk Identification**: Understanding existing, new, and emerging risks across Asia
+- **Data Availability**: Providing access to risk models and data to quantify risk exposures and protection needs  
+- **Insurability Assessment**: Supporting evaluation of insurability of risks and capacity needs
+- **Model Refinement**: Enabling refinements of risk models given the changing nature of risks
+- **Stakeholder Tools**: Providing adequate tools and resources for stakeholders to understand and quantify risks
 
 ### **Key Features**
-- **Single endpoint** for all search operations
-- **Natural language queries** - search using plain English
-- **Intelligent result ranking** using proprietary algorithms
-- **Rich contextual snippets** with highlighted search terms
-- **Comprehensive metadata** for faceted search experiences
-- **Efficient pagination** for large result sets
-- **Rate limiting** and authentication for secure access
+- **Single endpoint** for all search operations across vetted knowledge repository
+- **Natural language queries** - search using plain English for insurance and risk topics
+- **Intelligent result ranking** using proprietary algorithms optimized for protection gap analysis
+- **Rich contextual snippets** with highlighted search terms from policy documents and research
+- **Comprehensive metadata** for faceted search experiences across geographic and risk categories
+- **Efficient pagination** for large result sets from extensive document collections
+- **Rate limiting** and authentication for secure partner access
 
 ---
 
@@ -37,8 +47,8 @@ Authorization: Bearer your_jwt_token_here
 
 ### **Base URL**
 ```
-Production: https://api.climaterisk.com/v1
-Staging: https://staging-api.climaterisk.com/v1
+Production: https://api.solve.global/gaip/v1
+Staging: https://staging-api.solve.global/gaip/v1
 ```
 
 ### **Endpoint**
@@ -55,7 +65,7 @@ Authorization: Bearer {token}
 ### **Basic Search Request**
 ```json
 {
-  "query": "climate risk financial modeling approaches",
+  "query": "protection gap analysis Southeast Asia",
   "parameters": {
     "max_results": 20,
     "include_snippets": true
@@ -66,14 +76,15 @@ Authorization: Bearer {token}
 ### **Advanced Search Request**
 ```json
 {
-  "query": "sea level rise infrastructure damage",
+  "query": "flood insurance capacity government policy",
   "parameters": {
     "max_results": 50,
     "snippet_length": 300,
     "relevance_threshold": 0.7
   },
   "filters": {
-    "categories": ["physical_risk", "infrastructure"],
+    "categories": ["protection_gap", "government_policy"],
+    "regions": ["southeast_asia", "south_asia"],
     "date_range": {
       "start": "2023-01-01",
       "end": "2024-12-31"
@@ -108,8 +119,8 @@ Authorization: Bearer {token}
 |--------|------|-------------|---------|
 | `document_ids` | array | Search specific documents | `["doc_001", "doc_002"]` |
 | `document_types` | array | Filter by file type | `["pdf", "report"]` |
-| `categories` | array | Filter by content categories | `["environmental", "financial"]` |
-| `regions` | array | Filter by geographic regions | `["coastal", "urban"]` |
+| `categories` | array | Filter by content categories | `["protection_gap", "government_policy"]` |
+| `regions` | array | Filter by geographic regions | `["southeast_asia", "south_asia"]` |
 | `date_range` | object | Filter by upload date | `{"start": "2023-01-01", "end": "2024-12-31"}` |
 | `file_size_range` | object | Filter by file size | `{"min_mb": 1, "max_mb": 50}` |
 | `custom_tags` | array | Filter by custom tags | `["high_priority", "validated"]` |
@@ -137,14 +148,14 @@ Authorization: Bearer {token}
   "results": [
     {
       "document_id": "doc_001",
-      "document_url": "https://documents.yourapi.com/doc_001",
-      "title": "Climate Risk Assessment Report 2024",
+      "document_url": "https://documents.solve.global/gaip/doc_001",
+      "title": "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024",
       "relevance_score": 0.95,
       "snippets": [
         {
-          "text": "Climate <mark>risk</mark> <mark>financial</mark> <mark>modeling</mark> requires sophisticated approaches...",
+          "text": "Protection <mark>gap</mark> analysis reveals significant underinsurance in <mark>flood</mark>-prone regions across Southeast Asia...",
           "page_number": 12,
-          "section": "Methodology"
+          "section": "Regional Assessment"
         }
       ],
       "metadata": {
@@ -152,18 +163,18 @@ Authorization: Bearer {token}
         "file_size_mb": 12.5,
         "page_count": 45,
         "upload_date": "2024-03-15T10:30:00Z",
-        "categories": ["environmental", "financial"],
-        "regions": ["global", "coastal"],
+        "categories": ["protection_gap", "flood_insurance"],
+        "regions": ["southeast_asia", "thailand", "vietnam"],
         "language": "en",
-        "author": "Climate Risk Institute",
+        "author": "Asian Development Bank",
         "publication_year": 2024
       }
     }
   ],
   "facets": {
     "categories": {
-      "environmental": 89,
-      "financial": 67
+      "protection_gap": 89,
+      "government_policy": 67
     },
     "document_types": {
       "pdf": 120,
@@ -318,7 +329,7 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 - Use **specific terms** for better relevance
 - Combine **multiple concepts** in a single query
 - Use **natural language** rather than keyword lists
-- Example: `"financial impact of sea level rise on infrastructure"` vs `"financial sea level infrastructure"`
+- Example: `"flood insurance protection gap in Thailand government policy"` vs `"flood insurance Thailand policy"`
 
 ### **Filtering Strategy**
 - Apply **broad filters first** (date range, document type)
@@ -342,10 +353,10 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 
 ## 🧪 **Example Use Cases**
 
-### **1. Basic Document Search**
+### **1. Basic Protection Gap Search**
 ```json
 {
-  "query": "carbon pricing mechanisms",
+  "query": "agricultural insurance protection gap",
   "parameters": {
     "max_results": 10,
     "include_snippets": true
@@ -353,12 +364,13 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 }
 ```
 
-### **2. Filtered Research Query**
+### **2. Regional Policy Research**
 ```json
 {
-  "query": "renewable energy transition risks",
+  "query": "government flood insurance policy frameworks",
   "filters": {
-    "categories": ["transition_risk", "energy"],
+    "categories": ["government_policy", "flood_insurance"],
+    "regions": ["southeast_asia"],
     "publication_year_range": {
       "start": 2022,
       "end": 2024
@@ -370,12 +382,13 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 }
 ```
 
-### **3. Targeted Document Analysis**
+### **3. Capacity Assessment Analysis**
 ```json
 {
-  "query": "physical climate risks coastal areas",
+  "query": "insurance market capacity natural disasters",
   "filters": {
-    "regions": ["coastal"],
+    "regions": ["south_asia"],
+    "categories": ["market_capacity", "natural_disasters"],
     "document_types": ["report"]
   },
   "parameters": {
@@ -401,8 +414,8 @@ The complete OpenAPI 3.0 specification is available at:
 - **Interactive docs**: Available upon request
 
 ### **Support Channels**
-- **Technical Support**: api-support@climaterisk.com
-- **Account Management**: partnerships@climaterisk.com
+- **Technical Support**: api-support@solve.global
+- **Account Management**: partnerships@solve.global
 - **Documentation**: Available in developer portal
 
 ### **SLA & Availability**
@@ -433,4 +446,4 @@ The complete OpenAPI 3.0 specification is available at:
 
 ---
 
-**Questions or need assistance with integration? Contact our technical support team at api-support@climaterisk.com**
+**Questions or need assistance with integration? Contact our technical support team at api-support@solve.global**
