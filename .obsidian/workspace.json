@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "REUSABLE_PROMPTS"
+              "title": "REUSABLE_PROMPTS_v2"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for REUSABLE_PROMPTS"
+              "title": "Backlinks for REUSABLE_PROMPTS_v2"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from REUSABLE_PROMPTS"
+              "title": "Outgoing links from REUSABLE_PROMPTS_v2"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS.md",
+                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of REUSABLE_PROMPTS"
+              "title": "Outline of REUSABLE_PROMPTS_v2"
             }
           }
         ]
@@ -168,26 +168,30 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "91edb3e6bfa4098b",
+  "active": "948e37f71be87276",
   "lastOpenFiles": [
-    "test_one_complete.py",
-    "trigger_nlp_processor.py",
-    "check_nlp_results.py",
-    "trigger_text_chunker.py",
-    "test_final_complete.py",
-    "lambda/nlp_processor/nlp_processor_simplified.py",
-    "test_chunks_ready_flow.py",
-    "process_10_final.py",
-    "test_parallel_simple.py",
-    "process_10_parallel.py",
-    "check_processing_status.py",
+    "docs/reference/REUSABLE_PROMPTS.md",
+    "docs/implementation/VECTOR_EMBEDDINGS_STANDARDIZED_MESSAGING_COMPLETE_2025-07-09T17-00-00Z.md",
+    "test_complete_pipeline_with_vectors.py",
+    "test_vector_embeddings_standardized.py",
+    "deploy_vector_embeddings_standardized.py",
+    "lambda/vector_embeddings_worker/standardized_messaging.py",
+    "lambda/vector_embeddings_worker/vector_embeddings_worker_updated.py",
+    "lambda/vector_embeddings_processor/standardized_messaging.py",
+    "lambda/vector_embeddings_processor/vector_embeddings_processor_updated.py",
+    "deploy_full_infrastructure.sh",
+    "docs/deployment/CDK_REPRODUCIBILITY_ANALYSIS_2025-07-09T16-15-00Z.md",
+    "cdk/stacks/vpc_endpoints_import_stack.py",
+    "cdk/cdk.out/read.38012.1.lock",
+    "docs/implementation/VPC_NETWORKING_RESOLUTION_COMPLETE_2025-07-09T16-00-00Z.md",
+    "docs/status/NEXT_STEPS_2025-07-09T05-50-00Z.md",
+    "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-09T05-50-00Z.md",
     "docs/reference/REUSABLE_PROMPTS_v2.md",
     "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-08T22-00-00Z.md",
     "docs/status/NEXT_STEPS_2025-07-08T22-00-00Z.md",
     "docs/architecture/MESSAGING_ARCHITECTURE_COMPLETE_2025-07-08T20-15-00Z.md",
     "docs/implementation/STANDARDIZED_MESSAGING_IMPLEMENTATION_2025-07-08T20-30-00Z.md",
     "docs/architecture/MESSAGING_ARCHITECTURE_UPDATE_SUMMARY.md",
-    "docs/reference/REUSABLE_PROMPTS.md",
     "docs/implementation/NLP_INTEGRATION_TESTING_COMPLETE_2025-07-08T17-35-00Z.md",
     "docs/status/NEXT_STEPS_2025-07-07T18-25-00Z.md",
     "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-07T18-20-00Z.md",
@@ -201,10 +205,6 @@
     "docs/implementation/LAMBDA_LAYER_IMPORTS_FIXED_2025-07-05T19-20-00Z.md",
     "docs/implementation/TEXTEXTRACTOR_DOCUMENTID_FIX_2025-07-04T20-45-00Z.md",
     "docs/implementation/TEXTEXTRACTOR_PROCESSOR_UPDATES_2025-07-04T20-30-00Z.md",
-    "docs/implementation/CORRECTED_TEXTEXTRACTOR_COMPLETE_2025-07-04T23-25-00Z.md",
-    "docs/implementation/TEXTEXTRACTOR_COMPLETION_SUMMARY.md",
-    "docs/implementation/DATABASE_CONFIGURATION_COMPLETE_2025-07-05T20-10-00Z.md",
-    "docs/implementation/TEXT_CHUNKER_INTEGRATION_COMPLETE_2025-07-05T18-50-00Z.md",
-    "docs/implementation/VECTOR_EMBEDDINGS_DEPLOYMENT_STATUS_2025-07-06T17-00-00Z.md"
+    "docs/implementation/CORRECTED_TEXTEXTRACTOR_COMPLETE_2025-07-04T23-25-00Z.md"
   ]
 }

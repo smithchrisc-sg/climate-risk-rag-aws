@@ -141,13 +141,8 @@ class NetworkingStack(Stack):
             security_groups=[self.lambda_security_group]
         )
 
-        # Bedrock Runtime VPC Endpoint - Re-enable for vector embeddings
-        self.bedrock_endpoint = self.vpc.add_interface_endpoint(
-            "BedrockEndpoint",
-            service=ec2.InterfaceVpcEndpointAwsService.BEDROCK_RUNTIME,
-            private_dns_enabled=True,
-            security_groups=[self.lambda_security_group]
-        )
+        # Note: Bedrock Runtime endpoint already exists from previous deployment
+        # CDK version doesn't support BEDROCK_RUNTIME constant yet
 
         # Tags
         Tags.of(self).add("Project", "ClimateRiskRAG")
@@ -176,10 +171,4 @@ class NetworkingStack(Stack):
             self, "SQSEndpointId", 
             value=self.sqs_endpoint.vpc_endpoint_id,
             description="SQS VPC Endpoint ID"
-        )
-
-        CfnOutput(
-            self, "BedrockEndpointId",
-            value=self.bedrock_endpoint.vpc_endpoint_id,
-            description="Bedrock Runtime VPC Endpoint ID"
         )
