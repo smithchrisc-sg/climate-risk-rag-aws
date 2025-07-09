@@ -125,6 +125,30 @@ class NetworkingStack(Stack):
             security_groups=[self.lambda_security_group]
         )
 
+        # SNS VPC Endpoint - Critical for pipeline messaging
+        self.sns_endpoint = self.vpc.add_interface_endpoint(
+            "SNSEndpoint",
+            service=ec2.InterfaceVpcEndpointAwsService.SNS,
+            private_dns_enabled=True,
+            security_groups=[self.lambda_security_group]
+        )
+
+        # SQS VPC Endpoint - Critical for pipeline messaging
+        self.sqs_endpoint = self.vpc.add_interface_endpoint(
+            "SQSEndpoint",
+            service=ec2.InterfaceVpcEndpointAwsService.SQS,
+            private_dns_enabled=True,
+            security_groups=[self.lambda_security_group]
+        )
+
+        # Bedrock Runtime VPC Endpoint - Re-enable for vector embeddings
+        self.bedrock_endpoint = self.vpc.add_interface_endpoint(
+            "BedrockEndpoint",
+            service=ec2.InterfaceVpcEndpointAwsService.BEDROCK_RUNTIME,
+            private_dns_enabled=True,
+            security_groups=[self.lambda_security_group]
+        )
+
         # Tags
         Tags.of(self).add("Project", "ClimateRiskRAG")
         Tags.of(self).add("Environment", "Development")
@@ -140,4 +164,22 @@ class NetworkingStack(Stack):
             self, "PrivateSubnetIds",
             value=",".join([subnet.subnet_id for subnet in self.vpc.private_subnets]),
             description="Private subnet IDs"
+        )
+
+        CfnOutput(
+            self, "SNSEndpointId",
+            value=self.sns_endpoint.vpc_endpoint_id,
+            description="SNS VPC Endpoint ID"
+        )
+
+        CfnOutput(
+            self, "SQSEndpointId", 
+            value=self.sqs_endpoint.vpc_endpoint_id,
+            description="SQS VPC Endpoint ID"
+        )
+
+        CfnOutput(
+            self, "BedrockEndpointId",
+            value=self.bedrock_endpoint.vpc_endpoint_id,
+            description="Bedrock Runtime VPC Endpoint ID"
         )
