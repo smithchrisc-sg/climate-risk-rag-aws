@@ -1,8 +1,6 @@
 #!/bin/bash
-"""
-Deploy Document Structure Knowledge Graph Integration
-Deploys Lambda functions for integrating document structure into Neptune KG
-"""
+# Deploy Document Structure Knowledge Graph Integration
+# Deploys Lambda functions for integrating document structure into Neptune KG
 
 set -e
 
@@ -12,14 +10,11 @@ echo "🚀 Deploying Document Structure Knowledge Graph Integration..."
 export AWS_PROFILE=solve-global
 export AWS_DEFAULT_REGION=us-east-1
 
-# Change to CDK directory
+# Change to project root
 cd /Users/chris/climate-risk-rag-aws
 
-echo "📦 Installing CDK dependencies..."
-cd cdk
-npm install
-
 echo "🔧 Synthesizing CDK stack..."
+cd cdk
 cdk synth --app "python3 app_document_structure_kg.py"
 
 echo "🚀 Deploying CDK stack..."

@@ -57,12 +57,12 @@ class DocumentStructureKGStack(Stack):
         # Lambda layers (existing)
         core_utilities_layer = _lambda.LayerVersion.from_layer_version_arn(
             self, "CoreUtilitiesLayer",
-            layer_version_arn=f"arn:aws:lambda:{region}:{account_id}:layer:climate-risk-core-utilities:1"
+            layer_version_arn=f"arn:aws:lambda:{region}:{account_id}:layer:climate-risk-core-utilities:2"
         )
         
         database_layer = _lambda.LayerVersion.from_layer_version_arn(
             self, "DatabaseLayer", 
-            layer_version_arn=f"arn:aws:lambda:{region}:{account_id}:layer:database-dependencies:1"
+            layer_version_arn=f"arn:aws:lambda:{region}:{account_id}:layer:database-dependencies:2"
         )
         
         # SNS Topics for KG processing pipeline
@@ -91,7 +91,7 @@ class DocumentStructureKGStack(Stack):
             role_name="document-structure-kg-lambda-role",
             assumed_by=iam.ServicePrincipal("lambda.amazonaws.com"),
             managed_policies=[
-                iam.ManagedPolicy.from_aws_managed_policy_name("service-role/AWSLambdaVPCExecutionRole"),
+                iam.ManagedPolicy.from_aws_managed_policy_name("service-role/AWSLambdaVPCAccessExecutionRole"),
                 iam.ManagedPolicy.from_aws_managed_policy_name("service-role/AWSLambdaBasicExecutionRole")
             ]
         )
@@ -153,9 +153,9 @@ class DocumentStructureKGStack(Stack):
         document_structure_kg_processor = _lambda.Function(
             self, "DocumentStructureKGProcessor",
             function_name="document-structure-kg-processor",
-            runtime=_lambda.Runtime.PYTHON_3_9,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             handler="document_structure_kg_processor.lambda_handler",
-            code=_lambda.Code.from_asset("lambda/document_structure_kg_processor"),
+            code=_lambda.Code.from_asset("../lambda/document_structure_kg_processor"),
             layers=[core_utilities_layer, database_layer],
             role=kg_lambda_role,
             vpc=vpc,
@@ -177,9 +177,9 @@ class DocumentStructureKGStack(Stack):
         kg_integration_worker = _lambda.Function(
             self, "KGIntegrationWorker",
             function_name="kg-integration-worker",
-            runtime=_lambda.Runtime.PYTHON_3_9,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             handler="kg_integration_worker.lambda_handler", 
-            code=_lambda.Code.from_asset("lambda/kg_integration_worker"),
+            code=_lambda.Code.from_asset("../lambda/kg_integration_worker"),
             layers=[core_utilities_layer, database_layer],
             role=kg_lambda_role,
             vpc=vpc,
