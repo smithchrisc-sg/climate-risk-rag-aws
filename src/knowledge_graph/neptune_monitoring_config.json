@@ -1,0 +1,73 @@
+{
+  "eventbridge_rules": {
+    "neptune_job_monitor": {
+      "name": "neptune-bulk-load-job-monitor",
+      "description": "Periodically check Neptune bulk loading job status",
+      "schedule_expression": "rate(2 minutes)",
+      "target": {
+        "lambda_function": "neptune-bulk-loader-monitor",
+        "input": {
+          "source": "eventbridge-schedule",
+          "check_all_active_jobs": true
+        }
+      }
+    }
+  },
+  "sns_topics": {
+    "neptune_bulk_load_jobs": {
+      "name": "neptune-bulk-load-jobs",
+      "description": "Notifications for Neptune bulk loading job events",
+      "subscriptions": [
+        {
+          "protocol": "lambda",
+          "endpoint": "neptune-bulk-loader-completion"
+        }
+      ]
+    }
+  },
+  "lambda_functions": {
+    "neptune-bulk-loader-async": {
+      "description": "Initiates Neptune bulk loading jobs asynchronously",
+      "timeout": 60,
+      "memory": 256,
+      "vpc_config": true,
+      "environment_variables": {
+        "NEPTUNE_ENDPOINT": "solve-global-kr-neptune.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
+        "TTL_BUCKET": "solve-global-kr-neptune-ttl-861276078413-us-east-1",
+        "SNS_TOPIC_ARN": "arn:aws:sns:us-east-1:861276078413:neptune-bulk-load-jobs"
+      }
+    },
+    "neptune-bulk-loader-monitor": {
+      "description": "Monitors Neptune bulk loading job status",
+      "timeout": 60,
+      "memory": 256,
+      "vpc_config": true,
+      "triggers": [
+        "eventbridge-schedule",
+        "sns-topic"
+      ]
+    },
+    "neptune-bulk-loader-completion": {
+      "description": "Handles Neptune bulk loading job completion",
+      "timeout": 300,
+      "memory": 256,
+      "vpc_config": true,
+      "triggers": [
+        "sns-topic"
+      ]
+    }
+  },
+  "deployment_commands": {
+    "create_sns_topic": "aws sns create-topic --name neptune-bulk-load-jobs --profile solve-global --region us-east-1",
+    "create_eventbridge_rule": "aws events put-rule --name neptune-bulk-load-job-monitor --schedule-expression 'rate(2 minutes)' --description 'Monitor Neptune bulk loading jobs' --profile solve-global --region us-east-1",
+    "deploy_lambda_functions": [
+      "cd /Users/chris/climate-risk-rag-aws/src/knowledge_graph",
+      "zip neptune-bulk-loader-async.zip neptune_bulk_loader_async.py",
+      "zip neptune-bulk-loader-monitor.zip neptune_bulk_loader_monitor.py", 
+      "zip neptune-bulk-loader-completion.zip neptune_bulk_loader_completion.py",
+      "aws lambda create-function --function-name neptune-bulk-loader-async --runtime python3.9 --role arn:aws:iam::861276078413:role/nlp-integration-lambda-role --handler neptune_bulk_loader_async.lambda_handler --zip-file fileb://neptune-bulk-loader-async.zip --vpc-config SubnetIds=subnet-0c0be1dd59f70f70e,subnet-03d8bd6cf3491f38c,SecurityGroupIds=sg-0c043bcb40f656321 --timeout 60 --memory-size 256 --profile solve-global --region us-east-1",
+      "aws lambda create-function --function-name neptune-bulk-loader-monitor --runtime python3.9 --role arn:aws:iam::861276078413:role/nlp-integration-lambda-role --handler neptune_bulk_loader_monitor.lambda_handler --zip-file fileb://neptune-bulk-loader-monitor.zip --vpc-config SubnetIds=subnet-0c0be1dd59f70f70e,subnet-03d8bd6cf3491f38c,SecurityGroupIds=sg-0c043bcb40f656321 --timeout 60 --memory-size 256 --profile solve-global --region us-east-1",
+      "aws lambda create-function --function-name neptune-bulk-loader-completion --runtime python3.9 --role arn:aws:iam::861276078413:role/nlp-integration-lambda-role --handler neptune_bulk_loader_completion.lambda_handler --zip-file fileb://neptune-bulk-loader-completion.zip --vpc-config SubnetIds=subnet-0c0be1dd59f70f70e,subnet-03d8bd6cf3491f38c,SecurityGroupIds=sg-0c043bcb40f656321 --timeout 300 --memory-size 256 --profile solve-global --region us-east-1"
+    ]
+  }
+}
