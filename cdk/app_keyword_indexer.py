@@ -112,7 +112,7 @@ class KeywordIndexerStack(cdk.Stack):
         
         # Environment variables
         keyword_indexer_env = {
-            'OPENSEARCH_ENDPOINT': 'https://oxxw312s6cktjq4t31k7.us-east-1.aoss.amazonaws.com',
+            'OPENSEARCH_ENDPOINT': 'https://i7dzyfap1fe42z9delui.us-east-1.aoss.amazonaws.com',
             'INDEX_NAME': 'climate-risk-keyword-index',
             'TEXT_BUCKET': f'solve-global-kr-text-new-{self.account}-{self.region}',
             'DATABASE_URL': 'postgresql://postgres:-VroWHWQBS5!V)yAcsDC3(3)NHJ5@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require',
@@ -149,7 +149,7 @@ class KeywordIndexerStack(cdk.Stack):
                                 "aoss:APIAccessAll"
                             ],
                             resources=[
-                                "arn:aws:aoss:us-east-1:861276078413:collection/oxxw312s6cktjq4t31k7"
+                                "arn:aws:aoss:us-east-1:861276078413:collection/i7dzyfap1fe42z9delui"
                             ]
                         ),
                         # SQS permissions for receiving messages
@@ -262,7 +262,7 @@ class KeywordIndexerStack(cdk.Stack):
         
         CfnOutput(
             self, "OpenSearchEndpoint",
-            value="https://oxxw312s6cktjq4t31k7.us-east-1.aoss.amazonaws.com",
+            value="https://i7dzyfap1fe42z9delui.us-east-1.aoss.amazonaws.com",
             description="OpenSearch Serverless Collection Endpoint"
         )
 

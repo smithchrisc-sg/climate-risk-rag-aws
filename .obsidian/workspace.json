@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
+                "file": "docs/schema/DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "REUSABLE_PROMPTS_v2"
+              "title": "DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
+                "file": "docs/schema/DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for REUSABLE_PROMPTS_v2"
+              "title": "Backlinks for DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
+                "file": "docs/schema/DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from REUSABLE_PROMPTS_v2"
+              "title": "Outgoing links from DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/reference/REUSABLE_PROMPTS_v2.md",
+                "file": "docs/schema/DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of REUSABLE_PROMPTS_v2"
+              "title": "Outline of DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z"
             }
           }
         ]
@@ -170,41 +170,41 @@
   },
   "active": "948e37f71be87276",
   "lastOpenFiles": [
+    "docs/analysis/OPENSEARCH_IMPLEMENTATION_COMPLETE_2025-07-10T04-20-00Z.md",
+    "test_opensearch_functionality.py",
+    "cdk/cdk.out/read.55134.1.lock",
+    "cdk/cdk.out/asset.4da72698af6e539002c98d48dfb1dbd2f4d7a5e0156f7b794f268369345c19cb/vector_embeddings_processor_updated.py",
+    "cdk/cdk.out/asset.4da72698af6e539002c98d48dfb1dbd2f4d7a5e0156f7b794f268369345c19cb/vector_embeddings_processor.py",
+    "cdk/cdk.out/asset.4da72698af6e539002c98d48dfb1dbd2f4d7a5e0156f7b794f268369345c19cb/standardized_messaging.py",
+    "cdk/cdk.out/asset.4da72698af6e539002c98d48dfb1dbd2f4d7a5e0156f7b794f268369345c19cb/requirements.txt",
+    "cdk/cdk.out/asset.4da72698af6e539002c98d48dfb1dbd2f4d7a5e0156f7b794f268369345c19cb",
+    "cdk/cdk.out/asset.7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94/util.js",
+    "cdk/cdk.out/asset.7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94/outbound.js",
+    "cdk/cdk.out/asset.7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94/framework.js",
+    "docs/analysis/OPENSEARCH_CDK_VERIFICATION_2025-07-10T03-35-00Z.md",
+    "docs/analysis/OPENSEARCH_OPTIMIZATION_STATUS_2025-07-10T03-25-00Z.md",
+    "docs/analysis/OPENSEARCH_COST_OPTIMIZATION_2025-07-10T03-15-00Z.md",
+    "docs/analysis/AWS_COST_ANALYSIS_REPORT_2025-07-10T03-05-00Z.md",
+    "docs/status/AWS_COST_BREAKDOWN_2025-07-10T03-00-00Z.md",
+    "docs/status/NEXT_STEPS_2025-07-10T02-55-00Z.md",
+    "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-10T02-50-00Z.md",
+    "docs/plans/KNOWLEDGE_GRAPH_PIPELINE_INTEGRATION_PLAN_2025-07-10T02-45-00Z.md",
+    "docs/analysis/S3_INTEGRATION_FIXES_SUMMARY_2025-07-09T23-15-00Z.md",
+    "docs/analysis/MANUAL_VS_ACTUAL_TTL_COMPARISON_2025-07-09T22-45-00Z.md",
+    "docs/analysis/DUAL_TRAVERSAL_KNOWLEDGE_GRAPH_STRATEGY_2025-07-09T22-00-00Z.md",
+    "docs/schema/DOCUMENT_STRUCTURE_SCHEMA_EXPLANATION_2025-07-09T22-30-00Z.md",
+    "docs/reference/REUSABLE_PROMPTS_v2.md",
+    "docs/analysis/CHUNKING_STRATEGY_ANALYSIS_2025-07-09T21-30-00Z.md",
+    "docs/analysis/POC_KNOWLEDGE_GRAPH_SYSTEM_ANALYSIS_2025-07-09T21-00-00Z.md",
+    "docs/status/NEXT_STEPS_2025-07-09T20-30-00Z.md",
+    "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-09T20-30-00Z.md",
     "docs/api/Climate_Risk_Search_API_Partner_Documentation.md",
     "docs/api/SOLVE.GLOBAL_GAIP_KR_API_DOCUMENTATION.md",
-    "docs/api/solve-global-gaip-kr-api.yaml",
-    "docs/reference/REUSABLE_PROMPTS_v2.md",
-    "docs/api/climate-risk-search-api-v1.yaml",
-    "docs/api",
     "docs/status/NEXT_STEPS_2025-07-09T17-15-00Z.md",
     "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-09T17-15-00Z.md",
     "docs/reference/REUSABLE_PROMPTS.md",
     "docs/implementation/VECTOR_EMBEDDINGS_STANDARDIZED_MESSAGING_COMPLETE_2025-07-09T17-00-00Z.md",
-    "test_complete_pipeline_with_vectors.py",
-    "test_vector_embeddings_standardized.py",
-    "deploy_vector_embeddings_standardized.py",
-    "lambda/vector_embeddings_worker/standardized_messaging.py",
-    "lambda/vector_embeddings_worker/vector_embeddings_worker_updated.py",
-    "lambda/vector_embeddings_processor/standardized_messaging.py",
-    "lambda/vector_embeddings_processor/vector_embeddings_processor_updated.py",
     "docs/deployment/CDK_REPRODUCIBILITY_ANALYSIS_2025-07-09T16-15-00Z.md",
-    "docs/implementation/VPC_NETWORKING_RESOLUTION_COMPLETE_2025-07-09T16-00-00Z.md",
-    "docs/status/NEXT_STEPS_2025-07-09T05-50-00Z.md",
-    "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-09T05-50-00Z.md",
-    "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-08T22-00-00Z.md",
-    "docs/status/NEXT_STEPS_2025-07-08T22-00-00Z.md",
-    "docs/architecture/MESSAGING_ARCHITECTURE_COMPLETE_2025-07-08T20-15-00Z.md",
-    "docs/implementation/STANDARDIZED_MESSAGING_IMPLEMENTATION_2025-07-08T20-30-00Z.md",
-    "docs/architecture/MESSAGING_ARCHITECTURE_UPDATE_SUMMARY.md",
-    "docs/implementation/NLP_INTEGRATION_TESTING_COMPLETE_2025-07-08T17-35-00Z.md",
-    "docs/status/NEXT_STEPS_2025-07-07T18-25-00Z.md",
-    "docs/status/PROJECT_CONTEXT_SUMMARY_2025-07-07T18-20-00Z.md",
-    "docs/implementation/LAMBDA_RUNTIME_UPGRADE_SUMMARY_2025-07-07T18-15-00Z.md",
-    "docs/REUSABLE_PROMPTS.md",
-    "docs/reference/README-GAIP_Integration.md",
-    "docs/testing/SCRIPT_COMPARISON.md",
-    "docs/testing/PHASE2_REAL_POC_TESTING_RESULTS_2025-07-05T20-40-00Z.md",
-    "docs/testing/TESTING_GUIDE.md",
-    "docs/implementation/COMPLETE_UPDATES_SUMMARY.md"
+    "docs/implementation/VPC_NETWORKING_RESOLUTION_COMPLETE_2025-07-09T16-00-00Z.md"
   ]
 }

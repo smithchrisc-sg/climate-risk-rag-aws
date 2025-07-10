@@ -3,6 +3,7 @@
 CDK Stack for Vector Embeddings Pipeline with OpenSearch Serverless Vector Collection
 """
 import os
+import json
 from aws_cdk import (
     App, Stack, Duration, Environment,
     aws_lambda as lambda_,
@@ -41,52 +42,10 @@ class VectorEmbeddingsPipelineStack(Stack):
         numpy_layer = lambda_.LayerVersion.from_layer_version_arn(
             self, "NumpyLayer", numpy_layer_arn)
         
-        # OpenSearch Serverless Vector Collection Security Policies
-        vector_encryption_policy = opensearchserverless.CfnSecurityPolicy(
-            self, "VectorEncryptionPolicy",
-            name="kr-vectors-encryption",
-            type="encryption",
-            policy={
-                "Rules": [
-                    {
-                        "ResourceType": "collection",
-                        "Resource": ["collection/solve-global-kr-vectors"]
-                    }
-                ],
-                "AWSOwnedKey": True
-            }
-        )
-        
-        vector_network_policy = opensearchserverless.CfnSecurityPolicy(
-            self, "VectorNetworkPolicy", 
-            name="kr-vectors-network",
-            type="network",
-            policy=[
-                {
-                    "Rules": [
-                        {
-                            "ResourceType": "collection",
-                            "Resource": ["collection/solve-global-kr-vectors"]
-                        },
-                        {
-                            "ResourceType": "dashboard", 
-                            "Resource": ["collection/solve-global-kr-vectors"]
-                        }
-                    ],
-                    "AllowFromPublic": True
-                }
-            ]
-        )
-        
-        # OpenSearch Serverless Vector Collection
-        vector_collection = opensearchserverless.CfnCollection(
-            self, "VectorCollection",
-            name="solve-global-kr-vectors",
-            type="VECTORSEARCH",
-            description="Vector embeddings collection for climate risk RAG system"
-        )
-        vector_collection.add_dependency(vector_encryption_policy)
-        vector_collection.add_dependency(vector_network_policy)
+        # Reference existing OpenSearch Serverless Vector Collection
+        # Collection was created via AWS CLI: solve-global-kr-vectors-v2
+        vector_collection_endpoint = "https://rui72a7agqnqo77vk34b.us-east-1.aoss.amazonaws.com"
+        vector_collection_arn = "arn:aws:aoss:us-east-1:861276078413:collection/rui72a7agqnqo77vk34b"
         
         # Vector Embeddings Worker (Background) - Define early to get role ARN
         vector_worker = lambda_.Function(
@@ -99,7 +58,7 @@ class VectorEmbeddingsPipelineStack(Stack):
             memory_size=2048,
             vpc=vpc,
             environment={
-                "OPENSEARCH_ENDPOINT": vector_collection.attr_collection_endpoint,
+                "OPENSEARCH_ENDPOINT": vector_collection_endpoint,
                 "VECTOR_COMPLETION_TOPIC_ARN": "",  # Will be updated after topic creation
                 "DATABASE_URL": os.environ.get("DATABASE_URL", ""),
                 "EMBEDDINGS_MODEL_TYPE": "titan",  # Use Bedrock Titan
@@ -108,37 +67,8 @@ class VectorEmbeddingsPipelineStack(Stack):
             log_retention=logs.RetentionDays.ONE_WEEK
         )
         
-        # OpenSearch Data Access Policy (after Lambda function is created)
-        vector_data_access_policy = opensearchserverless.CfnAccessPolicy(
-            self, "VectorDataAccessPolicy",
-            name="kr-vectors-data-access",
-            type="data",
-            policy=[
-                {
-                    "Rules": [
-                        {
-                            "Resource": ["index/solve-global-kr-vectors/*"],
-                            "Permission": [
-                                "aoss:CreateIndex",
-                                "aoss:DeleteIndex", 
-                                "aoss:UpdateIndex",
-                                "aoss:DescribeIndex",
-                                "aoss:ReadDocument",
-                                "aoss:WriteDocument"
-                            ],
-                            "ResourceType": "index"
-                        },
-                        {
-                            "Resource": ["collection/solve-global-kr-vectors"],
-                            "Permission": ["aoss:CreateCollectionItems"],
-                            "ResourceType": "collection"
-                        }
-                    ],
-                    "Principal": [vector_worker.role.role_arn]
-                }
-            ]
-        )
-        vector_data_access_policy.add_dependency(vector_collection)
+        # Note: Data access policy already created via AWS CLI
+        # Policy name: kr-vectors-v2-data-access
         
         # Database Migration for Vector Embeddings Schema
         database_migration = DatabaseMigrationConstruct(
@@ -236,7 +166,7 @@ class VectorEmbeddingsPipelineStack(Stack):
                 actions=[
                     "aoss:APIAccessAll"
                 ],
-                resources=[vector_collection.attr_arn]
+                resources=[vector_collection_arn]
             )
         )
         
@@ -288,11 +218,11 @@ class VectorEmbeddingsPipelineStack(Stack):
                   value=vector_worker.function_name,
                   description="Vector Embeddings Worker Function Name")
         CfnOutput(self, "VectorCollectionEndpoint",
-                  value=vector_collection.attr_collection_endpoint,
+                  value=vector_collection_endpoint,
                   description="OpenSearch Serverless Vector Collection Endpoint")
         
         CfnOutput(self, "VectorCollectionArn",
-                  value=vector_collection.attr_arn,
+                  value=vector_collection_arn,
                   description="OpenSearch Serverless Vector Collection ARN")
         
         CfnOutput(self, "VectorWorkerTopicArn",
@@ -313,3 +243,11 @@ env = Environment(
 )
 
 # Deploy the stack
+vector_pipeline = VectorEmbeddingsPipelineStack(
+    app, 
+    "vector-embeddings-pipeline",
+    env=env,
+    description="Vector embeddings processing pipeline with OpenSearch Serverless"
+)
+
+app.synth()

@@ -230,7 +230,7 @@ class AsyncKeywordIndexerStack(cdk.Stack):
         # 2. Worker Function (background processing)
         worker_env = {
             **common_env,
-            'OPENSEARCH_ENDPOINT': 'https://oxxw312s6cktjq4t31k7.us-east-1.aoss.amazonaws.com',
+            'OPENSEARCH_ENDPOINT': 'https://i7dzyfap1fe42z9delui.us-east-1.aoss.amazonaws.com',
             'INDEX_NAME': 'climate-risk-keyword-index'
         }
         
@@ -257,7 +257,7 @@ class AsyncKeywordIndexerStack(cdk.Stack):
                         iam.PolicyStatement(
                             effect=iam.Effect.ALLOW,
                             actions=["aoss:APIAccessAll"],
-                            resources=["arn:aws:aoss:us-east-1:861276078413:collection/oxxw312s6cktjq4t31k7"]
+                            resources=["arn:aws:aoss:us-east-1:861276078413:collection/i7dzyfap1fe42z9delui"]
                         ),
                         # SNS publish permissions
                         iam.PolicyStatement(

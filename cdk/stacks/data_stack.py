@@ -64,12 +64,12 @@ class DataStack(Stack):
     def _create_opensearch(self):
         """Create OpenSearch Serverless collection for vector and keyword search"""
         
-        # OpenSearch Serverless collection
+        # OpenSearch Serverless collection (cost optimized - no standby replicas)
         self.opensearch_collection = opensearchserverless.CfnCollection(
             self, "OpenSearchCollection",
-            name="solve-global-kr-search",
+            name="solve-global-kr-search-v2",  # New name to avoid conflicts
             type="SEARCH",  # Optimized for search workloads
-            description="Climate Risk RAG search collection"
+            description="Climate Risk RAG search collection - cost optimized"
         )
 
         # Security policy for the collection
@@ -81,7 +81,7 @@ class DataStack(Stack):
                 "Rules": [
                     {
                         "ResourceType": "collection",
-                        "Resource": [f"collection/solve-global-kr-search"]
+                        "Resource": [f"collection/solve-global-kr-search-v2"]
                     }
                 ],
                 "AWSOwnedKey": True
@@ -98,11 +98,11 @@ class DataStack(Stack):
                     "Rules": [
                         {
                             "ResourceType": "collection",
-                            "Resource": [f"collection/solve-global-kr-search"]
+                            "Resource": [f"collection/solve-global-kr-search-v2"]
                         },
                         {
                             "ResourceType": "dashboard",
-                            "Resource": [f"collection/solve-global-kr-search"]
+                            "Resource": [f"collection/solve-global-kr-search-v2"]
                         }
                     ],
                     "AllowFromPublic": True
@@ -206,7 +206,7 @@ class DataStack(Stack):
         self.database = rds.DatabaseInstance(
             self, "PostgreSQLDatabase",
             engine=rds.DatabaseInstanceEngine.postgres(
-                version=rds.PostgresEngineVersion.VER_15_13
+                version=rds.PostgresEngineVersion.VER_15_4
             ),
             instance_type=ec2.InstanceType.of(
                 ec2.InstanceClass.T3,
