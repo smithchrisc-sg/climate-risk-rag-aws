@@ -34,7 +34,7 @@ class DocumentStructureKGStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Environment configuration
-        account_id = "861276078413"
+        account_id = "861276078413"  # Correct current account
         region = "us-east-1"
         
         # S3 buckets (existing)
