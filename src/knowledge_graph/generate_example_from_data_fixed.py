@@ -34,7 +34,7 @@ class DocumentTTLGenerator:
         self.text_bucket = 'solve-global-kr-text-new-861276078413-us-east-1'
         self.chunks_bucket = 'solve-global-kr-chunks-861276078413-us-east-1'
         
-        # TTL prefixes
+        # TTL prefixes - Updated for Dublin Core integration
         self.ttl_prefixes = """@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -42,6 +42,7 @@ class DocumentTTLGenerator:
 @prefix kr: <http://solve.global/knowledge-commons/schema#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 """
     
@@ -234,17 +235,23 @@ class DocumentTTLGenerator:
                 return {'section_sequence': 4, 'section_title': 'Appendices and References'}
     
     def generate_document_root(self, metadata: Dict[str, Any]) -> str:
-        """Generate document root TTL"""
+        """Generate document root TTL using Dublin Core vocabulary"""
         doc_uri = self.uri_facility.mint_uri(URIType.DOCUMENT, doc_id=self.doc_id)
         
         ttl = f"""# -----------------------------------------------------------------------------
-# DOCUMENT ROOT (From Actual S3 Data)
+# DOCUMENT ROOT (From Actual S3 Data) - Dublin Core Integration
 # -----------------------------------------------------------------------------
 
-{self.format_uri(doc_uri)} a kr:Document ;
+{self.format_uri(doc_uri)} a kr:Document, foaf:Document ;
+    dcterms:identifier "{self.doc_id}" ;
     dcterms:title "{self.escape_ttl_string(metadata['title'])}" ;
     dcterms:created "{metadata['created']}"^^xsd:dateTime ;
-    kr:processingTimestamp "{datetime.now().isoformat()}"^^xsd:dateTime ;
+    dcterms:modified "{datetime.now().isoformat()}"^^xsd:dateTime ;
+    dcterms:format "application/pdf" ;
+    dcterms:extent "{metadata['page_count']} pages" ;
+    dcterms:language "en" ;
+    dcterms:source <s3://{self.text_bucket}/extracted_text/{self.doc_id}.txt> ;
+    dcterms:provenance "Processed via AWS Textract, chunked, and analyzed" ;
     kr:wordCount "{metadata['word_count']}"^^xsd:nonNegativeInteger ;
     kr:sentenceCount "{metadata['sentence_count']}"^^xsd:nonNegativeInteger"""
         
@@ -293,6 +300,8 @@ class DocumentTTLGenerator:
             
             ttl += f"""{self.format_uri(section_uri)} a kr:DocumentSection ;
     dcterms:title "{self.escape_ttl_string(section_title)}" ;
+    dcterms:isPartOf {self.format_uri(self.uri_facility.mint_uri(URIType.DOCUMENT, doc_id=self.doc_id))} ;
+    dcterms:extent "{total_words} words, {total_sentences} sentences" ;
     kr:sectionSequence "{section_seq}"^^xsd:positiveInteger ;
     kr:hierarchyLevel "1"^^xsd:positiveInteger ;
     kr:parentDocument {self.format_uri(self.uri_facility.mint_uri(URIType.DOCUMENT, doc_id=self.doc_id))} ;
@@ -329,24 +338,22 @@ class DocumentTTLGenerator:
                 section_sequence=section_seq
             )
             
-            # Use actual text content (truncated for TTL display)
-            display_text = chunk['text'][:200] if chunk['text'] else ""
-            if len(chunk.get('text', '')) > 200:
-                display_text += "..."
-            display_text = self.escape_ttl_string(display_text)
-            
+            # Generate chunk URI with Dublin Core metadata
             ttl += f"""{self.format_uri(chunk_uri)} a kr:DocumentChunk ;
+    dcterms:identifier "{chunk_uri.split('/')[-1]}" ;
+    dcterms:isPartOf {self.format_uri(section_uri)} ;
+    dcterms:title "{self.escape_ttl_string(chunk.get('title', f'Chunk {chunk_seq}'))}" ;
+    dcterms:modified "{chunk['last_modified']}"^^xsd:dateTime ;
+    dcterms:extent "{chunk['word_count']} words, {chunk['sentence_count']} sentences" ;
     kr:chunkSequence "{chunk_seq}"^^xsd:positiveInteger ;
     kr:parentSection {self.format_uri(section_uri)} ;
     kr:parentDocument {self.format_uri(self.uri_facility.mint_uri(URIType.DOCUMENT, doc_id=self.doc_id))} ;
-    kr:textContent "{display_text}" ;
     kr:wordCount "{chunk['word_count']}"^^xsd:nonNegativeInteger ;
     kr:sentenceCount "{chunk['sentence_count']}"^^xsd:nonNegativeInteger ;
     kr:chunkingStrategy "smart_structured" ;
     kr:s3Location "{chunk['s3_location']}"^^xsd:anyURI ;
     kr:s3Bucket "{self.chunks_bucket}" ;
-    kr:s3Key "{chunk['s3_key']}" ;
-    kr:processingTimestamp "{chunk['last_modified']}"^^xsd:dateTime"""
+    kr:s3Key "{chunk['s3_key']}" """
             
             # Add character offsets if available
             if 'char_start' in chunk and 'char_end' in chunk:
