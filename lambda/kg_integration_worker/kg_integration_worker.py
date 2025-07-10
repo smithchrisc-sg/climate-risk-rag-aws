@@ -58,12 +58,6 @@ class KGIntegrationWorker:
         else:
             self.db_manager = None
             logger.warning("DatabaseManager not available")
-            
-        if S3DataLakeManager:
-            self.s3_utils = S3DataLakeManager()
-        else:
-            self.s3_utils = None
-            logger.warning("S3DataLakeManager not available")
         
         # Neptune configuration
         self.neptune_endpoint = os.environ.get('NEPTUNE_ENDPOINT', 
