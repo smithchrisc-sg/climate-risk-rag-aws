@@ -30,14 +30,20 @@ logger.setLevel(logging.INFO)
 sys.path.append('/opt/python')
 
 try:
-    from database_manager import DatabaseManager
-    from s3_utils import S3Utils
+    # Import from climate-risk-core-utilities layer (correct path)
+    from utils.DatabaseManager import DatabaseManager
+    logger.info("Successfully imported shared utilities from layer")
 except ImportError as e:
-    logger.error(f"Failed to import shared utilities: {e}")
-    # For local testing, try relative imports
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared_layer'))
-    from database_manager import DatabaseManager
-    from s3_utils import S3Utils
+    logger.error(f"Failed to import shared utilities from layer: {e}")
+    # For local testing, try relative imports from layers directory
+    try:
+        sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'layers', 'app-source', 'utils'))
+        from DatabaseManager import DatabaseManager
+        logger.info("Successfully imported utilities from local layers directory")
+    except ImportError as e2:
+        logger.error(f"Failed to import utilities locally: {e2}")
+        # Fallback: create minimal implementations
+        DatabaseManager = None
 
 class KGIntegrationWorker:
     """Worker for integrating TTL data into Neptune knowledge graph"""
@@ -45,8 +51,19 @@ class KGIntegrationWorker:
     def __init__(self):
         self.s3_client = boto3.client('s3')
         self.sns_client = boto3.client('sns')
-        self.db_manager = DatabaseManager()
-        self.s3_utils = S3Utils()
+        
+        # Initialize utilities if available
+        if DatabaseManager:
+            self.db_manager = DatabaseManager()
+        else:
+            self.db_manager = None
+            logger.warning("DatabaseManager not available")
+            
+        if S3DataLakeManager:
+            self.s3_utils = S3DataLakeManager()
+        else:
+            self.s3_utils = None
+            logger.warning("S3DataLakeManager not available")
         
         # Neptune configuration
         self.neptune_endpoint = os.environ.get('NEPTUNE_ENDPOINT', 

@@ -29,16 +29,23 @@ logger.setLevel(logging.INFO)
 sys.path.append('/opt/python')
 
 try:
-    from database_manager import DatabaseManager
-    from document_id_manager import DocumentIDManager
-    from s3_utils import S3Utils
+    # Import from climate-risk-core-utilities layer (correct path)
+    from utils.DatabaseManager import DatabaseManager
+    from utils.DocumentIDManager import DocumentIDManager
+    logger.info("Successfully imported shared utilities from layer")
 except ImportError as e:
-    logger.error(f"Failed to import shared utilities: {e}")
-    # For local testing, try relative imports
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'shared_layer'))
-    from database_manager import DatabaseManager
-    from document_id_manager import DocumentIDManager
-    from s3_utils import S3Utils
+    logger.error(f"Failed to import shared utilities from layer: {e}")
+    # For local testing, try relative imports from layers directory
+    try:
+        sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'layers', 'app-source', 'utils'))
+        from DatabaseManager import DatabaseManager
+        from DocumentIDManager import DocumentIDManager
+        logger.info("Successfully imported utilities from local layers directory")
+    except ImportError as e2:
+        logger.error(f"Failed to import utilities locally: {e2}")
+        # Fallback: create minimal implementations
+        DatabaseManager = None
+        DocumentIDManager = None
 
 class DocumentStructureKGProcessor:
     """Processes document structure for knowledge graph integration"""
@@ -46,9 +53,19 @@ class DocumentStructureKGProcessor:
     def __init__(self):
         self.s3_client = boto3.client('s3')
         self.sns_client = boto3.client('sns')
-        self.db_manager = DatabaseManager()
-        self.doc_id_manager = DocumentIDManager()
-        self.s3_utils = S3Utils()
+        
+        # Initialize utilities if available
+        if DatabaseManager:
+            self.db_manager = DatabaseManager()
+        else:
+            self.db_manager = None
+            logger.warning("DatabaseManager not available")
+            
+        if DocumentIDManager:
+            self.doc_id_manager = DocumentIDManager()
+        else:
+            self.doc_id_manager = None
+            logger.warning("DocumentIDManager not available")
         
         # S3 buckets
         self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-chunks-861276078413-us-east-1')
@@ -238,15 +255,18 @@ class DocumentStructureKGProcessor:
         """Update document processing status in PostgreSQL"""
         
         try:
-            # Update processing status with KG structure information
-            self.db_manager.update_processing_status(
-                document_id=document_id,
-                processing_stage='kg_structure',
-                status=status,
-                metadata=metadata
-            )
-            
-            logger.info(f"Updated processing status for {document_id}: {status}")
+            if self.db_manager:
+                # Update processing status with KG structure information
+                self.db_manager.update_processing_status(
+                    document_id=document_id,
+                    processing_stage='kg_structure',
+                    status=status,
+                    metadata=metadata
+                )
+                
+                logger.info(f"Updated processing status for {document_id}: {status}")
+            else:
+                logger.warning(f"Database manager not available, cannot update status for {document_id}")
             
         except Exception as e:
             logger.error(f"Error updating processing status for {document_id}: {str(e)}")
