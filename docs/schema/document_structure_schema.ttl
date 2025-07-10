@@ -5,12 +5,13 @@
 @prefix kr: <http://solve.global/knowledge-commons/schema#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 # =============================================================================
 # SOLVE.GLOBAL KNOWLEDGE REPOSITORY DOCUMENT STRUCTURE SCHEMA
 # RDFS Schema for Document Hierarchy and Textract Structure Elements
-# Version: 1.0
-# Date: 2025-07-09
+# Version: 2.0 - Dublin Core Integration
+# Date: 2025-07-10
 # =============================================================================
 
 # -----------------------------------------------------------------------------
@@ -20,6 +21,7 @@
 kr:Document rdf:type rdfs:Class ;
     rdfs:label "Document" ;
     rdfs:comment "A processed document in the knowledge repository with extracted structure and content" ;
+    rdfs:subClassOf foaf:Document ;
     rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
 
 kr:DocumentPage rdf:type rdfs:Class ;
@@ -203,26 +205,63 @@ kr:hasTitle rdf:type rdf:Property ;
     rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
 
 # -----------------------------------------------------------------------------
-# CONTENT AND METADATA PROPERTIES
+# DUBLIN CORE DOCUMENT METADATA PROPERTIES
+# Standard document metadata using Dublin Core Terms vocabulary
 # -----------------------------------------------------------------------------
 
-kr:textContent rdf:type rdf:Property ;
-    rdfs:label "text content" ;
-    rdfs:comment "The extracted text content of a document element" ;
-    rdfs:domain kr:DocumentStructureElement ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+# Document Identification - Use Dublin Core standard terms
+# dcterms:identifier - Document UUID/GUID (our DocumentIDManager UUID)
+# dcterms:title - Document title (extracted by Textract TITLE blocks)
+# dcterms:alternative - Alternative titles or document names
+
+# Content Description - Use Dublin Core for standard document semantics
+# dcterms:description - Document summary/abstract (if available)
+# dcterms:subject - Subject keywords/topics (extracted via NLP)
+# dcterms:type - Document type (report, paper, policy, etc.)
+
+# Authorship and Attribution - Dublin Core for standard bibliographic data
+# dcterms:creator - Document author(s) (extracted via NLP when possible)
+# dcterms:contributor - Additional contributors
+# dcterms:publisher - Publishing organization (extracted via NLP)
+# dcterms:rights - Copyright/license information (if extractable)
+
+# Temporal Information - Dublin Core for standard date semantics
+# dcterms:created - Original document creation date (from PDF metadata if available)
+# dcterms:issued - Publication/release date (extracted from content when possible)
+# dcterms:modified - Last processing timestamp (our processing time)
+
+# Source and Provenance - Dublin Core for document lifecycle
+# dcterms:source - Original source location (S3 URI of uploaded document)
+# dcterms:provenance - High-level processing history ("Processed via AWS Textract")
+
+# Format and Technical - Dublin Core for technical metadata
+# dcterms:format - MIME type (application/pdf, text/plain, etc.)
+# dcterms:extent - Document extent ("247 pages", "1.2MB", etc.)
+# dcterms:language - Document language (detected via Comprehend if needed)
+
+# Relationships - Dublin Core for document relationships
+# dcterms:isPartOf - Part of larger collection/series (if applicable)
+# dcterms:references - References to other documents (extracted via NLP)
+# dcterms:isReferencedBy - Referenced by other documents (computed)
+
+# -----------------------------------------------------------------------------
+# CONTENT AND METADATA PROPERTIES (Updated for Dublin Core)
+# -----------------------------------------------------------------------------
+
+# Note: Text content is NOT stored in the knowledge graph
+# All text content is stored in S3 and referenced via kr:s3Location
+# The KG contains only structural metadata and references
 
 kr:wordCount rdf:type rdf:Property ;
     rdfs:label "word count" ;
-    rdfs:comment "The number of words in the text content" ;
+    rdfs:comment "The number of words in the text content (stored as metadata only)" ;
     rdfs:domain kr:DocumentStructureElement ;
     rdfs:range xsd:nonNegativeInteger ;
     rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
 
 kr:sentenceCount rdf:type rdf:Property ;
     rdfs:label "sentence count" ;
-    rdfs:comment "The number of sentences in the text content" ;
+    rdfs:comment "The number of sentences in the text content (stored as metadata only)" ;
     rdfs:domain kr:DocumentStructureElement ;
     rdfs:range xsd:nonNegativeInteger ;
     rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
@@ -285,15 +324,13 @@ kr:s3Key rdf:type rdf:Property ;
     rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
 
 # -----------------------------------------------------------------------------
-# PROCESSING METADATA PROPERTIES
+# PROCESSING METADATA PROPERTIES (Updated for Dublin Core)
 # -----------------------------------------------------------------------------
 
-kr:processingTimestamp rdf:type rdf:Property ;
-    rdfs:label "processing timestamp" ;
-    rdfs:comment "When this element was processed and added to the knowledge graph" ;
-    rdfs:domain kr:DocumentStructureElement ;
-    rdfs:range xsd:dateTime ;
-    rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+# Use Dublin Core terms for standard provenance and processing metadata
+# dcterms:modified is used for processing timestamps
+# dcterms:provenance is used for high-level processing history
+# dcterms:source is used for original document location
 
 kr:textractJobId rdf:type rdf:Property ;
     rdfs:label "Textract job ID" ;
@@ -351,3 +388,73 @@ kr:selectionStatus rdf:type rdf:Property ;
     rdfs:domain kr:SelectionElement ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <http://solve.global/knowledge-commons/schema> .
+
+# =============================================================================
+# DUBLIN CORE INTEGRATION EXAMPLES
+# Demonstrates how Dublin Core terms are used with our document structure
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Complete Document with Dublin Core Metadata
+# -----------------------------------------------------------------------------
+
+# sg:document/climate-report-2024 rdf:type kr:Document ;
+#     # Dublin Core Identification
+#     dcterms:identifier "12345-abcd-5678-efgh" ;
+#     dcterms:title "Climate Risk Assessment Report 2024" ;  # Extracted by Textract
+#     
+#     # Dublin Core Authorship (extracted via NLP when possible)
+#     dcterms:creator "IPCC Working Group II" ;
+#     dcterms:publisher "Intergovernmental Panel on Climate Change" ;
+#     
+#     # Dublin Core Temporal Information
+#     dcterms:issued "2024-04-01"^^xsd:date ;  # Extracted from document content
+#     dcterms:modified "2025-07-10T18:30:00Z"^^xsd:dateTime ;  # Our processing time
+#     
+#     # Dublin Core Technical Metadata
+#     dcterms:format "application/pdf" ;
+#     dcterms:extent "247 pages" ;
+#     dcterms:language "en" ;  # Detected via Comprehend if needed
+#     
+#     # Dublin Core Content Description
+#     dcterms:subject "climate change", "risk assessment", "adaptation" ;  # NLP extracted
+#     dcterms:description "Comprehensive assessment of climate risks and adaptation strategies" ;
+#     
+#     # Dublin Core Provenance
+#     dcterms:source <s3://documents-bucket/climate-report-2024.pdf> ;
+#     dcterms:provenance "Processed via AWS Textract, chunked, and analyzed" ;
+#     
+#     # Our specialized document structure properties
+#     kr:textractJobId "textract-job-abc123" ;
+#     kr:hasPage sg:document/climate-report-2024/page/1 ;
+#     kr:hasSection sg:document/climate-report-2024/section/executive-summary .
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Document Chunk with Minimal Dublin Core
+# -----------------------------------------------------------------------------
+
+# sg:document/climate-report-2024/chunk/001 rdf:type kr:DocumentChunk ;
+#     # Dublin Core for chunk identification and relationships
+#     dcterms:identifier "chunk-001-uuid-5678" ;
+#     dcterms:isPartOf sg:document/climate-report-2024/section/executive-summary ;
+#     dcterms:title "Key Findings on Global Temperature Rise" ;  # Extracted section title
+#     dcterms:modified "2025-07-10T18:30:00Z"^^xsd:dateTime ;
+#     
+#     # Our specialized chunk properties (chunks are our concept)
+#     kr:chunkSequence 1 ;
+#     kr:chunkingStrategy "smart_structured" ;
+#     kr:wordCount 150 ;
+#     kr:sentenceCount 8 ;
+#     kr:s3Location <s3://text-bucket/chunks/chunk-001.txt> ;
+#     kr:parentDocument sg:document/climate-report-2024 .
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Extracted Title Element
+# -----------------------------------------------------------------------------
+
+# sg:document/climate-report-2024/title/main rdf:type kr:Title ;
+#     # The title text becomes the document's dcterms:title
+#     dcterms:title "Climate Risk Assessment Report 2024" ;
+#     kr:confidence 0.95 ;
+#     kr:boundingBox "0.1,0.05,0.9,0.15" ;
+#     kr:parentDocument sg:document/climate-report-2024 .
