@@ -8,6 +8,13 @@ config.json
 # Environment Variables
 .env
 .env.local
+
+# IDE and Editor Files
+.obsidian/
+.vscode/
+*.swp
+*.swo
+*~
 .env.production
 
 # Python
