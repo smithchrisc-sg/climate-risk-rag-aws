@@ -169,7 +169,7 @@ class DocumentStructureKGStack(Stack):
                 "KG_INTEGRATION_TOPIC_ARN": kg_integration_topic.topic_arn,
                 "ENTITY_PROCESSING_TOPIC_ARN": entity_processing_topic.topic_arn,
                 "NEPTUNE_ENDPOINT": neptune_endpoint,
-                "DATABASE_URL": "postgresql://postgres:-VroWHWQBS5!V)yAcsDC3(3)NHJ5@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require"
+                "DATABASE_URL": "postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require"
             },
             log_retention=logs.RetentionDays.ONE_WEEK
         )
@@ -191,7 +191,7 @@ class DocumentStructureKGStack(Stack):
                 "NEPTUNE_ENDPOINT": neptune_endpoint,
                 "KG_COMPLETION_TOPIC_ARN": kg_completion_topic.topic_arn,
                 "TTL_BUCKET": ttl_bucket_name,
-                "DATABASE_URL": "postgresql://postgres:-VroWHWQBS5!V)yAcsDC3(3)NHJ5@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require"
+                "DATABASE_URL": "postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require"
             },
             log_retention=logs.RetentionDays.ONE_WEEK
         )
