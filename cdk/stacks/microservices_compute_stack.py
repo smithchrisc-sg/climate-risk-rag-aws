@@ -66,6 +66,7 @@ class MicroservicesComputeStack(Stack):
         
         # Common environment variables for document processing
         doc_processing_env = {
+            'SOURCE_DOCUMENTS_BUCKET': self.bucket_names["source_documents"],
             'DOCUMENTS_BUCKET': self.bucket_names["documents"],
             'EXTRACTED_TEXT_BUCKET': self.bucket_names["extracted_text"],
             'CHUNKS_BUCKET': self.bucket_names["chunks"],
@@ -456,6 +457,8 @@ class MicroservicesComputeStack(Stack):
                     "s3:ListBucket"
                 ],
                 resources=[
+                    f"arn:aws:s3:::{self.bucket_names['source_documents']}",
+                    f"arn:aws:s3:::{self.bucket_names['source_documents']}/*",
                     f"arn:aws:s3:::{self.bucket_names['documents']}",
                     f"arn:aws:s3:::{self.bucket_names['documents']}/*",
                     f"arn:aws:s3:::{self.bucket_names['extracted_text']}",

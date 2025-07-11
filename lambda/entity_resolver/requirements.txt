@@ -1,0 +1,10 @@
+# Entity Resolver Dependencies
+# Core AWS and utility libraries are provided by Lambda layers
+
+# No additional dependencies required beyond what's in the shared layers:
+# - boto3 (AWS SDK)
+# - psycopg2 (PostgreSQL driver) 
+# - utils.DatabaseManager (from shared layer)
+
+# All functionality implemented using Python standard library
+# and existing shared layer components

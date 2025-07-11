@@ -30,7 +30,18 @@ class DataLakeStack(Stack):
     def _create_data_lake_buckets(self):
         """Create S3 buckets for data lake"""
         
-        # Documents bucket
+        # Source documents bucket (end-state simulation)
+        self.source_documents_bucket = s3.Bucket(
+            self, "SourceDocumentsBucket",
+            bucket_name=f"solve-global-kr-dl-source-documents-{self.account}-{self.region}",
+            removal_policy=RemovalPolicy.RETAIN,
+            versioned=True,
+            encryption=s3.BucketEncryption.S3_MANAGED,
+            # Enable event notifications for Lambda triggers
+            event_bridge_enabled=True
+        )
+        
+        # Documents bucket (legacy/existing)
         self.documents_bucket = s3.Bucket(
             self, "DocumentsBucket",
             bucket_name=f"solve-global-kr-documents-{self.account}-{self.region}",
@@ -94,6 +105,7 @@ class DataLakeStack(Stack):
         )
         
         # Outputs
+        CfnOutput(self, "SourceDocumentsBucketName", value=self.source_documents_bucket.bucket_name)
         CfnOutput(self, "DocumentsBucketName", value=self.documents_bucket.bucket_name)
         CfnOutput(self, "ExtractedTextBucketName", value=self.extracted_text_bucket.bucket_name)
         CfnOutput(self, "ChunksBucketName", value=self.chunks_bucket.bucket_name)

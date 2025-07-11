@@ -79,6 +79,7 @@ textextractor_lambda_stack = TextExtractorLambdaStack(
 
 # Prepare bucket names
 bucket_names = {
+    "source_documents": f"solve-global-kr-dl-source-documents-{env.account}-{env.region}",
     "documents": f"solve-global-kr-documents-{env.account}-{env.region}",
     "extracted_text": f"solve-global-kr-text-{env.account}-{env.region}",
     "chunks": f"solve-global-kr-chunks-{env.account}-{env.region}",

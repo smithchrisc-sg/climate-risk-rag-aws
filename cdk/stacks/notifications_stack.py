@@ -28,7 +28,14 @@ class NotificationsStack(Stack):
     def _setup_s3_event_triggers(self, data_lake_stack, compute_stack):
         """Set up S3 event notifications for the processing pipeline"""
         
-        # PDF upload triggers text extraction
+        # Source documents upload triggers text extraction (end-state)
+        data_lake_stack.source_documents_bucket.add_event_notification(
+            s3.EventType.OBJECT_CREATED_PUT,
+            s3n.LambdaDestination(compute_stack.text_extractor_function),
+            s3.NotificationKeyFilter(suffix=".pdf")
+        )
+        
+        # PDF upload triggers text extraction (legacy)
         data_lake_stack.documents_bucket.add_event_notification(
             s3.EventType.OBJECT_CREATED_PUT,
             s3n.LambdaDestination(compute_stack.text_extractor_function),
