@@ -34,7 +34,7 @@ def trigger_text_chunker():
         # Check if text exists
         try:
             text_key = f"text/{doc_id}.txt"
-            s3_client.head_object(Bucket="solve-global-kr-text-new-861276078413-us-east-1", Key=text_key)
+            s3_client.head_object(Bucket="solve-global-kr-dl-text-861276078413-us-east-1", Key=text_key)
             print(f"   ✅ Text file exists")
         except:
             print(f"   ⚠️  No text file, skipping")
@@ -49,7 +49,7 @@ def trigger_text_chunker():
             "doc_id": doc_id,
             "doc_hash": f"manual-trigger-{doc_id}",
             "data_locations": {
-                "text": f"s3://solve-global-kr-text-new-861276078413-us-east-1/text/{doc_id}.txt"
+                "text": f"s3://solve-global-kr-dl-text-861276078413-us-east-1/text/{doc_id}.txt"
             },
             "processing_metadata": {
                 "manual_trigger": True,
@@ -93,7 +93,7 @@ def trigger_text_chunker():
             # Check chunks
             chunks_prefix = f"chunks/{doc_id}/"
             response = s3_client.list_objects_v2(
-                Bucket="solve-global-kr-chunks-861276078413-us-east-1",
+                Bucket="solve-global-kr-dl-chunks-861276078413-us-east-1",
                 Prefix=chunks_prefix
             )
             chunk_count = response.get('KeyCount', 0)

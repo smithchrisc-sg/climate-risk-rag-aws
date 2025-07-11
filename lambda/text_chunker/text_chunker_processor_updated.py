@@ -35,8 +35,8 @@ class TextChunkerProcessor:
             self.db_manager = None
         
         # Environment variables
-        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-chunks-861276078413-us-east-1')
-        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-text-new-861276078413-us-east-1')
+        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-dl-chunks-861276078413-us-east-1')
+        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-dl-text-861276078413-us-east-1')
         self.chunks_ready_topic_arn = os.environ.get('CHUNKS_READY_TOPIC_ARN', 
                                                    'arn:aws:sns:us-east-1:861276078413:chunks-ready')
         

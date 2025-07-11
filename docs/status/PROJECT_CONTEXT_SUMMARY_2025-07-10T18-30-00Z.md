@@ -262,7 +262,7 @@ OPENSEARCH_KEYWORD_ENDPOINT=https://i7dzyfap1fe42z9delui.us-east-1.aoss.amazonaw
 OPENSEARCH_VECTOR_ENDPOINT=https://rui72a7agqnqo77vk34b.us-east-1.aoss.amazonaws.com
 
 # S3 Buckets
-TEXT_BUCKET=solve-global-kr-text-new-861276078413-us-east-1
+TEXT_BUCKET=solve-global-kr-dl-text-861276078413-us-east-1
 DOCUMENTS_BUCKET=solve-global-kr-documents-861276078413-us-east-1
 ```
 

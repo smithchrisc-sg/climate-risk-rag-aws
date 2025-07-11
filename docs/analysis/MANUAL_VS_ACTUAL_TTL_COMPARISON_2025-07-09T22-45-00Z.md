@@ -87,7 +87,7 @@ sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1 a kr:DocumentChunk ;
     kr:textContent "This report provides a comprehensive assessment of climate risks affecting coastal infrastructure and economic systems. Sea level rise poses immediate threats to ports and airports..." ;
     kr:wordCount "156"^^xsd:nonNegativeInteger ;
     kr:sentenceCount "8"^^xsd:nonNegativeInteger ;
-    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/section_1_chunk_1.txt"^^xsd:anyURI ;
+    kr:s3Location "s3://solve-global-kr-dl-chunks-861276078413-us-east-1/0032f6cb_f0caef34/section_1_chunk_1.txt"^^xsd:anyURI ;
 ```
 
 #### Actual Chunk Example
@@ -96,7 +96,7 @@ sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1 a kr:DocumentChunk ;
     kr:textContent "--- Page 1 ---\nJuly 9, 2010Procurement Plan\n(This is only a sample with the minimum content that is required to be included in the PAD. The \ndetailed procurement plan is still mandatory for disclosure..." ;
     kr:wordCount "193"^^xsd:nonNegativeInteger ;
     kr:sentenceCount "14"^^xsd:nonNegativeInteger ;
-    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json"^^xsd:anyURI ;
+    kr:s3Location "s3://solve-global-kr-dl-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json"^^xsd:anyURI ;
 ```
 
 **Key Differences**:

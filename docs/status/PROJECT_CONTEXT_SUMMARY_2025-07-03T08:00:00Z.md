@@ -50,7 +50,7 @@ Retrieve & Save Structured Output + Trigger Next Stage
 
 ### **Rich Output Structure**
 ```
-s3://solve-global-kr-text-new-861276078413-us-east-1/
+s3://solve-global-kr-dl-text-861276078413-us-east-1/
 └── extracted_documents/{doc_hash}/
     ├── textract_response.json      # Complete API response (4MB+)
     ├── raw_text.txt               # Plain text extraction

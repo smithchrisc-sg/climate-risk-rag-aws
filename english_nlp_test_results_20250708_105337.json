@@ -423,7 +423,7 @@
       "storage_metadata": {
         "stored_at": "2025-07-08T17:53:29.789964",
         "storage_timestamp": "20250708_175329",
-        "bucket": "solve-global-kr-ner-results-861276078413-us-east-1",
+        "bucket": "solve-global-kr-dl-ner-results-861276078413-us-east-1",
         "data_lake_version": "1.0"
       }
     },
@@ -733,7 +733,7 @@
       "storage_metadata": {
         "stored_at": "2025-07-08T17:53:30.775414",
         "storage_timestamp": "20250708_175329",
-        "bucket": "solve-global-kr-ner-results-861276078413-us-east-1",
+        "bucket": "solve-global-kr-dl-ner-results-861276078413-us-east-1",
         "data_lake_tier": "nlp_results"
       }
     }

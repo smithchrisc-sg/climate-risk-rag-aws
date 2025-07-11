@@ -48,12 +48,12 @@ The NLP worker Lambda function is now successfully processing real climate risk 
 ### **NLP Results Achieved**
 - **✅ Entities Detected**: 10 entities
 - **✅ Key Phrases Extracted**: 32 key phrases
-- **✅ S3 Storage**: Results stored in `solve-global-kr-ner-results-861276078413-us-east-1`
+- **✅ S3 Storage**: Results stored in `solve-global-kr-dl-ner-results-861276078413-us-east-1`
 - **✅ Database Tracking**: Processing status recorded in PostgreSQL
 
 ### **S3 Data Lake Structure**
 ```
-solve-global-kr-ner-results-861276078413-us-east-1/
+solve-global-kr-dl-ner-results-861276078413-us-east-1/
 └── 0004ad39_4285ab3d/
     ├── nlp_complete_20250708_173308.json          # Main results
     ├── entities_mapped_to_chunks.json             # Entity-chunk mappings

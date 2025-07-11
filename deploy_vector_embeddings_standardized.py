@@ -160,8 +160,8 @@ def test_vector_embeddings_integration():
             "processing_started": datetime.now().isoformat() + "Z"
         },
         "data_locations": {
-            "text_location": "s3://solve-global-kr-text-new-861276078413-us-east-1/test-vector-embeddings.txt",
-            "chunks_location": "s3://solve-global-kr-chunks-861276078413-us-east-1/test-vector-embeddings/"
+            "text_location": "s3://solve-global-kr-dl-text-861276078413-us-east-1/test-vector-embeddings.txt",
+            "chunks_location": "s3://solve-global-kr-dl-chunks-861276078413-us-east-1/test-vector-embeddings/"
         },
         "processing_metadata": {
             "chunks_count": 5,

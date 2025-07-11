@@ -117,7 +117,7 @@ def check_processing_status():
     try:
         # List recent NLP results
         response = s3_client.list_objects_v2(
-            Bucket="solve-global-kr-ner-results-861276078413-us-east-1",
+            Bucket="solve-global-kr-dl-ner-results-861276078413-us-east-1",
             Prefix="nlp/",
             MaxKeys=10
         )

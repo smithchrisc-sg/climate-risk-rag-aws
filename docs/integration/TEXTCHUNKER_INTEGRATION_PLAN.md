@@ -104,7 +104,7 @@ graph TD
         "doc_id": "abc123_def456",
         "stage": "chunks_ready",
         "chunks_location": {
-            "bucket": "solve-global-kr-chunks-861276078413-us-east-1",
+            "bucket": "solve-global-kr-dl-chunks-861276078413-us-east-1",
             "prefix": "chunks/abc123_def456/"
         },
         "nlp_results_location": {
@@ -421,7 +421,7 @@ class ProcessingCoordinator:
             "doc_id": doc_id,
             "stage": "embeddings",
             "chunks_location": {
-                "bucket": "solve-global-kr-chunks-861276078413-us-east-1",
+                "bucket": "solve-global-kr-dl-chunks-861276078413-us-east-1",
                 "prefix": f"chunks/{doc_id}/"
             },
             "processing_mode": "document_level",
@@ -450,7 +450,7 @@ class ProcessingCoordinator:
             "doc_id": doc_id,
             "stage": "knowledge_graph",
             "chunks_location": {
-                "bucket": "solve-global-kr-chunks-861276078413-us-east-1",
+                "bucket": "solve-global-kr-dl-chunks-861276078413-us-east-1",
                 "prefix": f"chunks/{doc_id}/"
             },
             "nlp_results_location": {

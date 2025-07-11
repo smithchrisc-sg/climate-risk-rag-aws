@@ -45,7 +45,7 @@ sg:Document_0032f6cb_f0caef34 a kr:Document, foaf:Document ;
     dcterms:format "application/pdf" ;
     dcterms:extent "6 pages" ;
     dcterms:language "en" ;
-    dcterms:source <s3://solve-global-kr-text-new-861276078413-us-east-1/extracted_text/0032f6cb_f0caef34.txt> ;
+    dcterms:source <s3://solve-global-kr-dl-text-861276078413-us-east-1/extracted_text/0032f6cb_f0caef34.txt> ;
     dcterms:provenance "Processed via AWS Textract, chunked, and analyzed" ;
     kr:wordCount "2501"^^xsd:nonNegativeInteger ;
     kr:sentenceCount "135"^^xsd:nonNegativeInteger ;
@@ -72,7 +72,7 @@ sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1 a kr:DocumentChunk ;
     dcterms:extent "193 words, 14 sentences" ;
     kr:chunkSequence "1"^^xsd:positiveInteger ;
     kr:chunkingStrategy "smart_structured" ;
-    kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json"^^xsd:anyURI .
+    kr:s3Location "s3://solve-global-kr-dl-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json"^^xsd:anyURI .
 ```
 
 ---

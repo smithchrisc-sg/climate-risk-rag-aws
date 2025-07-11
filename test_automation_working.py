@@ -45,7 +45,7 @@ def test_automation_with_existing_doc():
             "processing_started": datetime.now().isoformat() + "Z"
         },
         "data_locations": {
-            "text_location": f"s3://solve-global-kr-text-new-861276078413-us-east-1/{doc_id}.txt"
+            "text_location": f"s3://solve-global-kr-dl-text-861276078413-us-east-1/{doc_id}.txt"
         },
         "processing_metadata": {
             "total_characters": 5000,
@@ -75,7 +75,7 @@ def test_automation_with_existing_doc():
             # Wait a moment and check if chunks were created
             time.sleep(10)
             
-            chunks_bucket = "solve-global-kr-chunks-861276078413-us-east-1"
+            chunks_bucket = "solve-global-kr-dl-chunks-861276078413-us-east-1"
             try:
                 response = s3_client.list_objects_v2(
                     Bucket=chunks_bucket,
@@ -102,7 +102,7 @@ def test_automation_with_existing_doc():
                             "processing_started": datetime.now().isoformat() + "Z"
                         },
                         "data_locations": {
-                            "chunks_location": f"s3://solve-global-kr-chunks-861276078413-us-east-1/{doc_id}/"
+                            "chunks_location": f"s3://solve-global-kr-dl-chunks-861276078413-us-east-1/{doc_id}/"
                         },
                         "processing_metadata": {
                             "chunks_count": len(response['Contents']),
@@ -133,7 +133,7 @@ def test_automation_with_existing_doc():
                             # Wait and check for NLP results
                             time.sleep(15)
                             
-                            nlp_bucket = "solve-global-kr-ner-results-861276078413-us-east-1"
+                            nlp_bucket = "solve-global-kr-dl-ner-results-861276078413-us-east-1"
                             try:
                                 response = s3_client.list_objects_v2(
                                     Bucket=nlp_bucket,

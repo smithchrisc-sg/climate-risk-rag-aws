@@ -51,7 +51,7 @@ Update PostgreSQL & Trigger Next Stage
 
 ### **S3 Storage Pattern**
 ```
-s3://solve-global-kr-text-new-861276078413-us-east-1/
+s3://solve-global-kr-dl-text-861276078413-us-east-1/
 └── extracted_documents/
     └── {doc_hash}/
         ├── textract_response.json      # Complete API response (4MB+)

@@ -68,7 +68,7 @@ Document Upload → Text Extraction → Text Chunking → Vector Embeddings → 
    - Intelligent document segmentation
    - Preserves document structure and context
    - Configurable chunk sizes and overlap
-   - S3 storage: `solve-global-kr-chunks-861276078413-us-east-1`
+   - S3 storage: `solve-global-kr-dl-chunks-861276078413-us-east-1`
 
 3. **Vector Embeddings Pipeline**
    - AWS Titan embeddings generation
@@ -80,7 +80,7 @@ Document Upload → Text Extraction → Text Chunking → Vector Embeddings → 
    - Amazon Comprehend entity extraction
    - Key phrase identification
    - Climate domain optimization
-   - S3 data lake: `solve-global-kr-ner-results-861276078413-us-east-1`
+   - S3 data lake: `solve-global-kr-dl-ner-results-861276078413-us-east-1`
    - Cost: ~$0.001 per document
    - **Performance**: 100% recall on climate terms
 

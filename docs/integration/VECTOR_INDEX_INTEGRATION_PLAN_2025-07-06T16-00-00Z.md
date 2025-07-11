@@ -77,7 +77,7 @@ Text Chunker:
     doc_id: "0032f6cb_f0caef34"
     stage: "chunks_ready"
     chunks_location:
-      bucket: "solve-global-kr-chunks-861276078413-us-east-1"
+      bucket: "solve-global-kr-dl-chunks-861276078413-us-east-1"
       prefix: "0032f6cb_f0caef34/"
       pattern: "0032f6cb_f0caef34_chunk_NNNN.json"
 

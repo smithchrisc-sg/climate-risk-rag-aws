@@ -16,7 +16,7 @@
 - **All buckets**: Text, chunks, embeddings, NER data migrated using parallel processing
 - **Migration time**: ~3.3 hours using optimized bulk transfer
 - **Data integrity**: 100% verified with checksums and object counts
-- **New test bucket**: `solve-global-kr-text-new-861276078413-us-east-1` created for testing
+- **New test bucket**: `solve-global-kr-dl-text-861276078413-us-east-1` created for testing
 
 ### **Migration Scripts Created**
 ```bash

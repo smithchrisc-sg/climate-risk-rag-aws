@@ -23,7 +23,7 @@ def test_keyword_indexing():
             {
                 "body": json.dumps({
                     "document_id": "test-doc-001",
-                    "s3_bucket": "solve-global-kr-text-new-861276078413-us-east-1",
+                    "s3_bucket": "solve-global-kr-dl-text-861276078413-us-east-1",
                     "s3_key": "test/sample.txt",
                     "text_content": "This is a test document about climate risk and environmental sustainability.",
                     "metadata": {

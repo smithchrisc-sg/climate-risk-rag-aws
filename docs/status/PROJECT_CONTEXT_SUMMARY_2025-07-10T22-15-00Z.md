@@ -157,7 +157,7 @@ docs/
 {
   "document_structure_kg_processor": {
     "status": "success",
-    "ttl_location": "s3://solve-global-kr-neptune-ttl-861276078413-us-east-1/documents/0032f6cb_f0caef34/document_structure.ttl",
+    "ttl_location": "s3://solve-global-kr-dl-neptune-ttl-861276078413-us-east-1/documents/0032f6cb_f0caef34/document_structure.ttl",
     "integration_triggered": true
   },
   "kg_integration_worker": {
@@ -284,10 +284,10 @@ OPENSEARCH_KEYWORD_ENDPOINT=https://i7dzyfap1fe42z9delui.us-east-1.aoss.amazonaw
 OPENSEARCH_VECTOR_ENDPOINT=https://rui72a7agqnqo77vk34b.us-east-1.aoss.amazonaws.com
 
 # S3 Buckets (Account 861276078413)
-TEXT_BUCKET=solve-global-kr-text-new-861276078413-us-east-1
+TEXT_BUCKET=solve-global-kr-dl-text-861276078413-us-east-1
 DOCUMENTS_BUCKET=solve-global-kr-documents-861276078413-us-east-1
-CHUNKS_BUCKET=solve-global-kr-chunks-861276078413-us-east-1
-TTL_BUCKET=solve-global-kr-neptune-ttl-861276078413-us-east-1
+CHUNKS_BUCKET=solve-global-kr-dl-chunks-861276078413-us-east-1
+TTL_BUCKET=solve-global-kr-dl-neptune-ttl-861276078413-us-east-1
 
 # Neptune
 NEPTUNE_ENDPOINT=solve-global-kr-neptune.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com

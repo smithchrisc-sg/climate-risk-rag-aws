@@ -602,7 +602,7 @@ class S3ResultsManager:
     
     def __init__(self):
         self.s3_client = boto3.client('s3')
-        self.bucket_name = os.environ.get('NER_RESULTS_BUCKET', 'solve-global-kr-ner-results-861276078413-us-east-1')
+        self.bucket_name = os.environ.get('NER_RESULTS_BUCKET', 'solve-global-kr-dl-ner-results-861276078413-us-east-1')
     
     def store_nlp_results(self, doc_id: str, mapped_results: Dict[str, Any]) -> str:
         """Store NLP results in S3 with doc_id-based structure"""
@@ -678,7 +678,7 @@ class S3ResultsManager:
 ### NER Results Bucket Organization
 
 ```
-solve-global-kr-ner-results-861276078413-us-east-1/
+solve-global-kr-dl-ner-results-861276078413-us-east-1/
 ├── {doc_id}/
 │   ├── {doc_id}_nlp_complete_{timestamp}.json      # Complete results with all mappings
 │   ├── {doc_id}_entities_{timestamp}.json          # Entity mappings only

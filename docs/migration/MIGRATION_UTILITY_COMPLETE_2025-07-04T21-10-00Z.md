@@ -152,7 +152,7 @@ class TextExtractorProcessor:
 ### **Directory Structure Integration**
 ```
 # POC documents use existing doc_ids
-s3://solve-global-kr-text-new-861276078413-us-east-1/
+s3://solve-global-kr-dl-text-861276078413-us-east-1/
 └── 94bee167_0c5c1713/                    # POC doc_id
     ├── 94bee167_0c5c1713_full_text.txt
     └── metadata/

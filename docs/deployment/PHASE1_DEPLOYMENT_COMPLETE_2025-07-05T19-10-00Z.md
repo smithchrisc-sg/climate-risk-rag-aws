@@ -24,8 +24,8 @@ The Text Chunker has been successfully deployed to AWS Lambda and tested. Phase 
 ### **Environment Variables Configured**
 ```json
 {
-  "TEXT_BUCKET": "solve-global-kr-text-new-861276078413-us-east-1",
-  "CHUNKS_BUCKET": "solve-global-kr-chunks-861276078413-us-east-1", 
+  "TEXT_BUCKET": "solve-global-kr-dl-text-861276078413-us-east-1",
+  "CHUNKS_BUCKET": "solve-global-kr-dl-chunks-861276078413-us-east-1", 
   "PHASE": "PHASE1_TESTING",
   "COORDINATION_TOPIC_ARN": ""
 }

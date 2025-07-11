@@ -81,7 +81,7 @@ def lambda_handler(event, context):
         
         # Initialize S3 data lake manager
         ner_results_bucket = os.environ.get('NER_RESULTS_BUCKET', 
-                                          'solve-global-kr-ner-results-861276078413-us-east-1')
+                                          'solve-global-kr-dl-ner-results-861276078413-us-east-1')
         s3_manager = S3DataLakeManager(ner_results_bucket)
         
         # Load full text for processing

@@ -45,7 +45,7 @@ def test_complete_pipeline_with_vectors():
             "processing_started": datetime.now().isoformat() + "Z"
         },
         "data_locations": {
-            "text_location": f"s3://solve-global-kr-text-new-861276078413-us-east-1/{doc_id}.txt"
+            "text_location": f"s3://solve-global-kr-dl-text-861276078413-us-east-1/{doc_id}.txt"
         },
         "processing_metadata": {
             "total_characters": 2000,
@@ -77,7 +77,7 @@ def test_complete_pipeline_with_vectors():
             time.sleep(20)
             
             # Check for chunks
-            chunks_bucket = "solve-global-kr-chunks-861276078413-us-east-1"
+            chunks_bucket = "solve-global-kr-dl-chunks-861276078413-us-east-1"
             try:
                 chunks_response = s3_client.list_objects_v2(
                     Bucket=chunks_bucket,
@@ -90,7 +90,7 @@ def test_complete_pipeline_with_vectors():
                     
                     # Check for NLP results
                     print("\n3️⃣ Checking NLP Processing Results...")
-                    nlp_bucket = "solve-global-kr-ner-results-861276078413-us-east-1"
+                    nlp_bucket = "solve-global-kr-dl-ner-results-861276078413-us-east-1"
                     
                     try:
                         nlp_response = s3_client.list_objects_v2(

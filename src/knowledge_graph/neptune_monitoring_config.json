@@ -33,7 +33,7 @@
       "vpc_config": true,
       "environment_variables": {
         "NEPTUNE_ENDPOINT": "solve-global-kr-neptune.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
-        "TTL_BUCKET": "solve-global-kr-neptune-ttl-861276078413-us-east-1",
+        "TTL_BUCKET": "solve-global-kr-dl-neptune-ttl-861276078413-us-east-1",
         "SNS_TOPIC_ARN": "arn:aws:sns:us-east-1:861276078413:neptune-bulk-load-jobs"
       }
     },

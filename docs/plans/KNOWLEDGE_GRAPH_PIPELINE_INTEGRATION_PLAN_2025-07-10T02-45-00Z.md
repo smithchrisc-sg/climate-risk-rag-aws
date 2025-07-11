@@ -125,10 +125,10 @@ Document Processing → Chunking → NLP Processing → Knowledge Graph Loading
   "knowledge_graph_trigger": true,
   "timestamp": "2025-07-10T02:45:00Z",
   "s3_locations": {
-    "chunks": "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/",
+    "chunks": "s3://solve-global-kr-dl-chunks-861276078413-us-east-1/0032f6cb_f0caef34/",
     "entities": "s3://solve-global-kr-entities-861276078413-us-east-1/0032f6cb_f0caef34/",
     "events": "s3://solve-global-kr-events-861276078413-us-east-1/0032f6cb_f0caef34/",
-    "text": "s3://solve-global-kr-text-new-861276078413-us-east-1/extracted_text/0032f6cb_f0caef34.txt"
+    "text": "s3://solve-global-kr-dl-text-861276078413-us-east-1/extracted_text/0032f6cb_f0caef34.txt"
   },
   "processing_metadata": {
     "word_count": 2501,
@@ -157,7 +157,7 @@ Document Processing → Chunking → NLP Processing → Knowledge Graph Loading
 
 ### **S3 TTL Structure Updates**
 ```
-s3://solve-global-kr-neptune-ttl-861276078413-us-east-1/
+s3://solve-global-kr-dl-neptune-ttl-861276078413-us-east-1/
 ├── documents/{doc_id}/
 │   ├── document.ttl       # ✅ Document structure (working)
 │   ├── chunks.ttl         # ✅ Chunk metadata (working)
@@ -178,7 +178,7 @@ ENABLE_KNOWLEDGE_GRAPH=true
 KG_PROCESSING_STAGE=nlp_complete
 ENTITY_PROCESSING_ENABLED=true
 EVENT_PROCESSING_ENABLED=true
-NEPTUNE_TTL_BUCKET=solve-global-kr-neptune-ttl-861276078413-us-east-1
+NEPTUNE_TTL_BUCKET=solve-global-kr-dl-neptune-ttl-861276078413-us-east-1
 ```
 
 ---

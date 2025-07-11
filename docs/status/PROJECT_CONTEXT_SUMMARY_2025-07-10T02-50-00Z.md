@@ -121,16 +121,16 @@ Chunks:     sg:Document_0032f6cb_f0caef34_Section_1_Chunk_1
 
 ### **Primary Data Buckets**
 ```
-solve-global-kr-text-new-861276078413-us-east-1/
+solve-global-kr-dl-text-861276078413-us-east-1/
 ├── extracted_text/           # Textract output
 └── extraction_metadata/      # Processing metadata
 
-solve-global-kr-chunks-861276078413-us-east-1/
+solve-global-kr-dl-chunks-861276078413-us-east-1/
 ├── {doc_id}/
 │   ├── {doc_id}_chunk_NNNN.json    # Actual chunk files
 │   └── {doc_id}_chunks_metadata.json
 
-solve-global-kr-neptune-ttl-861276078413-us-east-1/
+solve-global-kr-dl-neptune-ttl-861276078413-us-east-1/
 ├── documents/{doc_id}/
 │   ├── document.ttl          # Document structure
 │   ├── chunks.ttl            # Chunk metadata

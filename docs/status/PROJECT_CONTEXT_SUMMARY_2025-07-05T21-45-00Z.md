@@ -89,8 +89,8 @@ climate-risk-rag-aws/
 
 ### **S3 Buckets**
 - **Documents**: `solve-global-kr-documents-861276078413-us-east-1`
-- **Text**: `solve-global-kr-text-new-861276078413-us-east-1`
-- **Chunks**: `solve-global-kr-chunks-861276078413-us-east-1`
+- **Text**: `solve-global-kr-dl-text-861276078413-us-east-1`
+- **Chunks**: `solve-global-kr-dl-chunks-861276078413-us-east-1`
 
 ### **Chunk Storage Pattern**
 ```

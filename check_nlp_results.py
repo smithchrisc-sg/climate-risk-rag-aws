@@ -29,7 +29,7 @@ def check_nlp_results():
         try:
             nlp_prefix = f"nlp/{doc_id}/"
             response = s3_client.list_objects_v2(
-                Bucket="solve-global-kr-ner-results-861276078413-us-east-1",
+                Bucket="solve-global-kr-dl-ner-results-861276078413-us-east-1",
                 Prefix=nlp_prefix,
                 MaxKeys=5
             )

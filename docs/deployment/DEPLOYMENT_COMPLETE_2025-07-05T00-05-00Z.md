@@ -19,7 +19,7 @@ The corrected TextExtractor Processor with DocumentIDManager integration has bee
 ```json
 {
   "DATABASE_URL": "postgresql://postgres:***@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require",
-  "OUTPUT_BUCKET": "solve-global-kr-text-new-861276078413-us-east-1",
+  "OUTPUT_BUCKET": "solve-global-kr-dl-text-861276078413-us-east-1",
   "NEXT_STAGE_QUEUE_URL": "https://sqs.us-east-1.amazonaws.com/placeholder/text-chunker-queue",
   "DOCUMENTID_MANAGER_INTEGRATION": "true",
   "SELECTIVE_MIGRATION_ENABLED": "true",
@@ -107,7 +107,7 @@ aws lambda invoke --profile solve-global \
 - **Verify**: Proper doc_id lookup and S3 structure creation
 
 #### **S3 Output Structure**
-- **Bucket**: `solve-global-kr-text-new-861276078413-us-east-1`
+- **Bucket**: `solve-global-kr-dl-text-861276078413-us-east-1`
 - **Expected Structure**:
   ```
   {doc_id}/

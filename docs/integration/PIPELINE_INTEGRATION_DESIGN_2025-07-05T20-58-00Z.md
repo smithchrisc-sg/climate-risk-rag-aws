@@ -83,7 +83,7 @@ TextExtractor → SNS Message:
   "doc_id": "0032f6cb_f0caef34",
   "stage": "text_ready",
   "full_text_location": {
-    "bucket": "solve-global-kr-text-new-861276078413-us-east-1",
+    "bucket": "solve-global-kr-dl-text-861276078413-us-east-1",
     "key": "extracted_text/0032f6cb_f0caef34.txt"
   },
   "documentid_manager_integration": true
@@ -94,7 +94,7 @@ Text Chunker → SNS Message:
   "doc_id": "0032f6cb_f0caef34", 
   "stage": "chunks_ready",
   "chunks_location": {
-    "bucket": "solve-global-kr-chunks-861276078413-us-east-1",
+    "bucket": "solve-global-kr-dl-chunks-861276078413-us-east-1",
     "prefix": "chunks/0032f6cb_f0caef34/"
   },
   "chunks_count": 18,

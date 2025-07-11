@@ -68,9 +68,9 @@ class DocumentStructureKGProcessor:
             logger.warning("DocumentIDManager not available")
         
         # S3 buckets
-        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-chunks-861276078413-us-east-1')
-        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-text-new-861276078413-us-east-1')
-        self.ttl_bucket = os.environ.get('TTL_BUCKET', 'solve-global-kr-neptune-ttl-861276078413-us-east-1')
+        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-dl-chunks-861276078413-us-east-1')
+        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-dl-text-861276078413-us-east-1')
+        self.ttl_bucket = os.environ.get('TTL_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
         
         # SNS topics for downstream processing
         self.kg_integration_topic = os.environ.get('KG_INTEGRATION_TOPIC_ARN')

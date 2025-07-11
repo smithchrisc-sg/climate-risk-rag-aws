@@ -113,7 +113,7 @@ class FinalParallelProcessor:
             try:
                 text_key = f"text/{doc_id}.txt"
                 response = self.s3_client.head_object(
-                    Bucket="solve-global-kr-text-new-861276078413-us-east-1", 
+                    Bucket="solve-global-kr-dl-text-861276078413-us-east-1", 
                     Key=text_key
                 )
                 result['text'] = f"✅ {response.get('ContentLength', 0):,} chars"
@@ -124,7 +124,7 @@ class FinalParallelProcessor:
             try:
                 chunks_prefix = f"chunks/{doc_id}/"
                 response = self.s3_client.list_objects_v2(
-                    Bucket="solve-global-kr-chunks-861276078413-us-east-1",
+                    Bucket="solve-global-kr-dl-chunks-861276078413-us-east-1",
                     Prefix=chunks_prefix
                 )
                 chunk_count = response.get('KeyCount', 0)
@@ -136,7 +136,7 @@ class FinalParallelProcessor:
             try:
                 nlp_prefix = f"nlp/{doc_id}/"
                 response = self.s3_client.list_objects_v2(
-                    Bucket="solve-global-kr-ner-results-861276078413-us-east-1",
+                    Bucket="solve-global-kr-dl-ner-results-861276078413-us-east-1",
                     Prefix=nlp_prefix,
                     MaxKeys=1
                 )

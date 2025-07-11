@@ -27,7 +27,7 @@ class SimplifiedTextExtractorProcessor:
         
         # Configuration from environment
         self.database_url = os.environ.get('DATABASE_URL')
-        self.output_bucket = os.environ.get('OUTPUT_BUCKET', 'solve-global-kr-text-new-861276078413-us-east-1')
+        self.output_bucket = os.environ.get('OUTPUT_BUCKET', 'solve-global-kr-dl-text-861276078413-us-east-1')
         self.text_extraction_complete_topic_arn = os.environ.get('TEXT_EXTRACTION_COMPLETE_TOPIC_ARN')
         
         logger.info("Simplified TextExtractor Processor initialized")

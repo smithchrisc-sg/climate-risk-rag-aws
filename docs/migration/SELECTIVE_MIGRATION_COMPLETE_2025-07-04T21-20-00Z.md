@@ -152,7 +152,7 @@ class TextExtractorProcessor:
 ### **Directory Structure**
 ```
 # POC documents (1000) use existing doc_ids
-s3://solve-global-kr-text-new-861276078413-us-east-1/
+s3://solve-global-kr-dl-text-861276078413-us-east-1/
 └── 0004ad39_4285ab3d/                    # POC doc_id
     ├── 0004ad39_4285ab3d_full_text.txt
     └── metadata/

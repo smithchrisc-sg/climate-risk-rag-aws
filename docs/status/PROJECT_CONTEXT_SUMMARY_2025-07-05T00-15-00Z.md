@@ -70,7 +70,7 @@ Climate Risk RAG (Retrieval-Augmented Generation) system built on AWS serverless
 ### **Document Processing Status**
 - **POC Documents**: 1,000 documents migrated and integrated
 - **S3 Storage**: Documents in `solve-global-kr-documents-861276078413-us-east-1`
-- **Text Output**: New bucket `solve-global-kr-text-new-861276078413-us-east-1`
+- **Text Output**: New bucket `solve-global-kr-dl-text-861276078413-us-east-1`
 - **DocumentIDManager**: Fully operational with PostgreSQL backend
 
 ### **Lambda Functions Status**

@@ -123,6 +123,7 @@ Note direction in the list below. We should always use git to manage things. So,
     3. perform integration testing (mindful of frugality)
       a. first from the trigger messaging from the previous stage
       b. then from the full pipeline path available so far 
+- DO NOT UNDER ANY CIRCUMSTANCE USE ACCOUNT NUMBER 614290363854. Check to be sure we are using the correct solve-global profile anytime we're doing anything that involves an account number - suchas creating ARNs
 
 **CURRENT STATUS:**
 - Available in PROJECT CONTEXT SUMMARY and NEXT STEPS documents as specified above

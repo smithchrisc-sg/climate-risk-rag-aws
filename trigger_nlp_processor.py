@@ -33,7 +33,7 @@ def trigger_nlp_processor():
         try:
             chunks_prefix = f"chunks/{doc_id}/"
             response = s3_client.list_objects_v2(
-                Bucket="solve-global-kr-chunks-861276078413-us-east-1",
+                Bucket="solve-global-kr-dl-chunks-861276078413-us-east-1",
                 Prefix=chunks_prefix,
                 MaxKeys=1
             )
@@ -62,8 +62,8 @@ def trigger_nlp_processor():
                 "page_count": 10
             },
             "data_locations": {
-                "chunks": f"s3://solve-global-kr-chunks-861276078413-us-east-1/chunks/{doc_id}/",
-                "text": f"s3://solve-global-kr-text-new-861276078413-us-east-1/text/{doc_id}.txt"
+                "chunks": f"s3://solve-global-kr-dl-chunks-861276078413-us-east-1/chunks/{doc_id}/",
+                "text": f"s3://solve-global-kr-dl-text-861276078413-us-east-1/text/{doc_id}.txt"
             },
             "processing_metadata": {
                 "chunks_count": 50,
@@ -112,7 +112,7 @@ def trigger_nlp_processor():
         try:
             nlp_prefix = f"nlp/{doc_id}/"
             response = s3_client.list_objects_v2(
-                Bucket="solve-global-kr-ner-results-861276078413-us-east-1",
+                Bucket="solve-global-kr-dl-ner-results-861276078413-us-east-1",
                 Prefix=nlp_prefix,
                 MaxKeys=1
             )

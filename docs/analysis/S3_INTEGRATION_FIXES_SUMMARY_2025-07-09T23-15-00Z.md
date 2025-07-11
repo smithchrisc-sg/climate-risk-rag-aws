@@ -66,7 +66,7 @@ s3_location = f"s3://{bucket}/{doc_id}/section_{section}_chunk_{chunk}.txt"
 ```python
 # Actual JSON file locations
 s3_location = f"s3://{self.chunks_bucket}/{s3_obj['Key']}"
-# Results in: s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json
+# Results in: s3://solve-global-kr-dl-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json
 ```
 
 **Result**: ✅ Direct access to actual S3 JSON files
@@ -170,8 +170,8 @@ kr:characterEnd "2400"^^xsd:nonNegativeInteger ;
 
 #### **Enhanced S3 Integration**
 ```turtle
-kr:s3Location "s3://solve-global-kr-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json"^^xsd:anyURI ;
-kr:s3Bucket "solve-global-kr-chunks-861276078413-us-east-1" ;
+kr:s3Location "s3://solve-global-kr-dl-chunks-861276078413-us-east-1/0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json"^^xsd:anyURI ;
+kr:s3Bucket "solve-global-kr-dl-chunks-861276078413-us-east-1" ;
 kr:s3Key "0032f6cb_f0caef34/0032f6cb_f0caef34_chunk_0001.json" ;
 ```
 **Purpose**: Direct access to actual JSON chunk files

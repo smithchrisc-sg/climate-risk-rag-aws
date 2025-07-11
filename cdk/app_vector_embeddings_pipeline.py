@@ -177,7 +177,7 @@ class VectorEmbeddingsPipelineStack(Stack):
                     "s3:PutObject"
                 ],
                 resources=[
-                    "arn:aws:s3:::solve-global-kr-chunks-861276078413-us-east-1/*",
+                    "arn:aws:s3:::solve-global-kr-dl-chunks-861276078413-us-east-1/*",
                     "arn:aws:s3:::solve-global-kr-embeddings-cache-861276078413-us-east-1/*"
                 ]
             )

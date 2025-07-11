@@ -1,0 +1,10 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "Sns": {
+        "Message": "{\"document_id\":\"0032f6cb_f0caef34\",\"status\":\"completed\"}"
+      }
+    }
+  ]
+}

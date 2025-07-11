@@ -102,11 +102,11 @@ self.doc_id_manager.update_system_id(doc_id, 'textract', doc_hash, 'complete')
   "doc_hash": "abc123def456",
   "stage": "text_ready",
   "full_text_location": {
-    "bucket": "solve-global-kr-text-new-861276078413-us-east-1",
+    "bucket": "solve-global-kr-dl-text-861276078413-us-east-1",
     "key": "0004ad39_4285ab3d/0004ad39_4285ab3d_full_text.txt"
   },
   "document_structure_location": {
-    "bucket": "solve-global-kr-text-new-861276078413-us-east-1",
+    "bucket": "solve-global-kr-dl-text-861276078413-us-east-1",
     "key": "0004ad39_4285ab3d/metadata/textract_response.json"
   },
   "structure_version": "2025-07-04-corrected",

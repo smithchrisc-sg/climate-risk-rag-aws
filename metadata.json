@@ -18,7 +18,7 @@
   "storage_metadata": {
     "stored_at": "2025-07-08T17:33:08.465289",
     "storage_timestamp": "20250708_173308",
-    "bucket": "solve-global-kr-ner-results-861276078413-us-east-1",
+    "bucket": "solve-global-kr-dl-ner-results-861276078413-us-east-1",
     "data_lake_tier": "nlp_results"
   }
 }

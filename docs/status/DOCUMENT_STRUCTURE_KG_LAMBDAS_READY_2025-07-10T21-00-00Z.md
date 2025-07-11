@@ -115,9 +115,9 @@ Timeout: 5 minutes
 VPC: Enabled (Neptune access)
 Layers: [core-utilities, database-dependencies]
 Environment Variables:
-  - CHUNKS_BUCKET: solve-global-kr-chunks-861276078413-us-east-1
-  - TEXT_BUCKET: solve-global-kr-text-new-861276078413-us-east-1
-  - TTL_BUCKET: solve-global-kr-neptune-ttl-861276078413-us-east-1
+  - CHUNKS_BUCKET: solve-global-kr-dl-chunks-861276078413-us-east-1
+  - TEXT_BUCKET: solve-global-kr-dl-text-861276078413-us-east-1
+  - TTL_BUCKET: solve-global-kr-dl-neptune-ttl-861276078413-us-east-1
   - KG_INTEGRATION_TOPIC_ARN: (SNS topic for downstream processing)
   - NEPTUNE_ENDPOINT: solve-global-kr-neptune.cluster-*.neptune.amazonaws.com
 ```
@@ -132,7 +132,7 @@ Layers: [core-utilities, database-dependencies]
 Environment Variables:
   - NEPTUNE_ENDPOINT: solve-global-kr-neptune.cluster-*.neptune.amazonaws.com
   - KG_COMPLETION_TOPIC_ARN: (SNS topic for completion notifications)
-  - TTL_BUCKET: solve-global-kr-neptune-ttl-861276078413-us-east-1
+  - TTL_BUCKET: solve-global-kr-dl-neptune-ttl-861276078413-us-east-1
 ```
 
 ### **SNS Topics Architecture**

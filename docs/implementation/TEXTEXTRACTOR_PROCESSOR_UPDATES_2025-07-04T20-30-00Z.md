@@ -73,11 +73,11 @@ def create_document_structure(self, textract_response: Dict) -> Dict:
   "doc_hash": "abc123def456",
   "stage": "text_ready",
   "full_text_location": {
-    "bucket": "solve-global-kr-text-new-861276078413-us-east-1",
+    "bucket": "solve-global-kr-dl-text-861276078413-us-east-1",
     "key": "climate_risk_assessment_report/climate_risk_assessment_report_full_text.txt"
   },
   "document_structure_location": {
-    "bucket": "solve-global-kr-text-new-861276078413-us-east-1",
+    "bucket": "solve-global-kr-dl-text-861276078413-us-east-1",
     "key": "climate_risk_assessment_report/metadata/textract_response.json"
   },
   "metadata_base_path": "climate_risk_assessment_report/metadata/",
