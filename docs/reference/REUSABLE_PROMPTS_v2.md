@@ -34,6 +34,8 @@ I need you to get up to speed on our Climate Risk RAG system project. Please rea
 
 3. **Recent Work Summaries**: Review the most recent 3-5 work summary documents in the docs directory to understand what has been completed recently.
 
+4. **Infrastructure Reference**: Review this document to be sure code generation "gets it right the first time" `/Users/chris/climate-risk-rag-aws/docs/infrastructure/INFRASTRUCTURE_REFERENCE.md`
+
 **PROJECT STRUCTURE TO UNDERSTAND:**
 
 - **Target system Root Directory**: `/Users/chris/climate-risk-rag-aws/` - This is what we're building together and should be the latest versions of everything
@@ -43,14 +45,14 @@ I need you to get up to speed on our Climate Risk RAG system project. Please rea
   - `layers/`: Shared dependencies and utilities
   - `docs/`: Project documentation and context
     - `status/`: Project status tracking, context summaries, and next steps
-    - `architecture/`: High-level system architecture, data flow, and messaging design
-    - `design/`: Detailed component design documents and technical specifications
-    - `integration/`: Integration plans for connecting different system components
+    - `infrastructure/`: Infrastructure reference, CDK deployment guides, and architecture
+    - `pipeline/`: Pipeline-specific documentation and testing guides
     - `migration/`: POC to AWS migration guides and porting documentation
-    - `deployment/`: CDK deployment guides, infrastructure setup, and deployment procedures
-    - `implementation/`: Component implementation summaries and completion status
     - `testing/`: Testing strategies, guides, and test results
     - `reference/`: Reference materials, reusable content, and utility documentation
+    - `knowledge-graph/`: Knowledge graph processing documentation
+    - `api/`: API documentation and specifications
+    - `cost-optimization/`: Cost management and optimization guides
   - `database/`: Database schemas
 
 **ORIGINAL POC CODE AND ASSETS:**
@@ -61,6 +63,7 @@ I need you to get up to speed on our Climate Risk RAG system project. Please rea
   - `doc/`: Architecture documentation with the philosophy behind what we're building
   - `db/`: Actual local database, sqlite, fuseki. Note that Qdrant and OpenSearch can be run locally - ask if you need them launched so that you can access them
   - `scripts/`: various run scripts - unfortunately not cleaned up, so there's some redundancy
+- **SQLite POC Database**: `/Volumes/G-RAID\ Photo\ 24TB/climate_risk_rag/db/corpus_document_ids.db`  This is used in the invoke_pipeline_test.py script.
 
 **GIT REPOSITORY STATUS:**
 - **Repository Initialized**: The project is now under Git version control

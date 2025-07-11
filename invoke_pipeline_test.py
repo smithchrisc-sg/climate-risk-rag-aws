@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
 Pipeline Test Lambda Invoker
-Local client script to invoke the pipeline test Lambda function with parameters
+Local client script that queries SQLite locally and sends document list to Lambda
 """
 
 import boto3
 import json
 import argparse
 import logging
+import sqlite3
+import os
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 # Configure logging
 logging.basicConfig(
@@ -19,32 +21,221 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class PipelineTestInvoker:
-    """Client for invoking the pipeline test Lambda function"""
+    """Client for invoking the pipeline test Lambda function with local SQLite queries"""
     
     def __init__(self):
         self.lambda_client = boto3.client('lambda', region_name='us-east-1')
+        self.s3_client = boto3.client('s3', region_name='us-east-1')
         self.lambda_function_name = 'solve-global-kr-pipeline-test-function'
+        self.sqlite_db_path = "/Volumes/G-RAID Photo 24TB/climate_risk_rag/db/corpus_document_ids.db"
+        self.existing_bucket = "solve-global-kr-documents-861276078413-us-east-1"
+    
+    def get_available_documents_with_urls(self, limit: int = 100) -> List[Dict]:
+        """Get available documents from S3 and match with SQLite URLs locally"""
+        try:
+            logger.info(f"Fetching documents from S3 and matching with SQLite database...")
+            
+            # Get documents from S3
+            response = self.s3_client.list_objects_v2(
+                Bucket=self.existing_bucket,
+                Prefix="documents/",
+                MaxKeys=limit * 2
+            )
+            
+            if 'Contents' not in response:
+                logger.error("No documents found in S3 bucket")
+                return []
+            
+            # Extract S3 document info
+            s3_documents = {}
+            for obj in response['Contents']:
+                key = obj['Key']
+                if key.endswith('.pdf'):
+                    filename = os.path.basename(key)
+                    doc_id_from_filename = filename.replace('.pdf', '')
+                    size_mb = round(obj['Size'] / (1024 * 1024), 2)
+                    estimated_pages = max(1, int((size_mb * 1024) / 75))  # ~75KB per page
+                    
+                    s3_documents[doc_id_from_filename] = {
+                        'key': key,
+                        'filename': filename,
+                        'doc_id_from_filename': doc_id_from_filename,
+                        'size': obj['Size'],
+                        'size_mb': size_mb,
+                        'estimated_pages': estimated_pages,
+                        'last_modified': obj['LastModified']
+                    }
+            
+            logger.info(f"Found {len(s3_documents)} PDF documents in S3")
+            
+            # Query SQLite for source URLs
+            conn = sqlite3.connect(self.sqlite_db_path)
+            cursor = conn.cursor()
+            
+            cursor.execute("SELECT doc_id, url, original_filename FROM documents")
+            sqlite_results = cursor.fetchall()
+            conn.close()
+            
+            logger.info(f"Found {len(sqlite_results)} documents in SQLite database")
+            
+            # Match S3 documents with SQLite URLs
+            matched_documents = []
+            for doc_id, url, original_filename in sqlite_results:
+                if doc_id in s3_documents:
+                    doc_info = s3_documents[doc_id].copy()
+                    doc_info['source_url'] = url
+                    doc_info['original_filename_from_db'] = original_filename
+                    matched_documents.append(doc_info)
+            
+            logger.info(f"Successfully matched {len(matched_documents)} documents with source URLs")
+            return matched_documents
+            
+        except Exception as e:
+            logger.error(f"Error getting documents with URLs: {e}")
+            return []
+    
+    def filter_documents_by_criteria(self, documents: List[Dict], **criteria) -> List[Dict]:
+        """Filter documents by criteria locally"""
+        try:
+            num_documents = criteria.get('num_documents', 5)
+            min_size_mb = criteria.get('min_size_mb', 1.0)
+            max_size_mb = criteria.get('max_size_mb', 10.0)
+            document_types = criteria.get('document_types')
+            target_avg_pages = criteria.get('target_avg_pages', 20)
+            
+            logger.info(f"Filtering {len(documents)} documents with criteria:")
+            logger.info(f"  - Count: {num_documents}")
+            logger.info(f"  - Size: {min_size_mb}-{max_size_mb} MB")
+            logger.info(f"  - Document types: {document_types or 'any'}")
+            logger.info(f"  - Target avg pages: {target_avg_pages}")
+            
+            # Filter by size
+            filtered = [
+                doc for doc in documents 
+                if min_size_mb <= doc['size_mb'] <= max_size_mb
+            ]
+            logger.info(f"After size filtering: {len(filtered)} documents")
+            
+            # Filter by document type if specified
+            if document_types:
+                document_type_patterns = {
+                    "report": ["report", "assessment", "evaluation", "study"],
+                    "policy": ["policy", "strategy", "framework", "guideline"],
+                    "research": ["research", "analysis", "working", "paper"],
+                    "project": ["project", "implementation", "completion", "icr"],
+                    "financial": ["financial", "economic", "budget", "cost"],
+                    "technical": ["technical", "manual", "specification", "guide"]
+                }
+                
+                type_filtered = []
+                for doc in filtered:
+                    filename_lower = doc['filename'].lower()
+                    for doc_type in document_types:
+                        if doc_type in document_type_patterns:
+                            patterns = document_type_patterns[doc_type]
+                            if any(pattern in filename_lower for pattern in patterns):
+                                type_filtered.append(doc)
+                                break
+                filtered = type_filtered
+                logger.info(f"After document type filtering: {len(filtered)} documents")
+            
+            # Sort by how close they are to target page count
+            filtered.sort(key=lambda x: abs(x['estimated_pages'] - target_avg_pages))
+            
+            # Limit results
+            filtered = filtered[:num_documents]
+            
+            if filtered:
+                total_pages = sum(doc['estimated_pages'] for doc in filtered)
+                avg_pages = total_pages / len(filtered)
+                avg_size = sum(doc['size_mb'] for doc in filtered) / len(filtered)
+                
+                logger.info(f"Selected {len(filtered)} documents:")
+                logger.info(f"  - Total estimated pages: {total_pages}")
+                logger.info(f"  - Average pages per doc: {avg_pages:.1f}")
+                logger.info(f"  - Average size: {avg_size:.1f} MB")
+                
+                for i, doc in enumerate(filtered, 1):
+                    logger.info(f"  {i}. {doc['filename']}: {doc['size_mb']} MB (~{doc['estimated_pages']} pages)")
+            
+            return filtered
+            
+        except Exception as e:
+            logger.error(f"Error filtering documents: {e}")
+            return documents[:criteria.get('num_documents', 5)]
+    
+    def check_safety_limits(self, documents: List[Dict], force: bool = False) -> bool:
+        """Check safety limits locally before sending to Lambda"""
+        total_pages = sum(doc['estimated_pages'] for doc in documents)
+        
+        if len(documents) > 10:
+            logger.error(f"Too many documents ({len(documents)}). Maximum is 10 for Textract parallel processing.")
+            return False
+        
+        if total_pages > 100 and not force:
+            logger.warning(f"⚠️  WARNING: Total estimated pages ({total_pages}) exceeds 100.")
+            logger.warning("This could be expensive and slow.")
+            response = input("Continue anyway? (y/N): ")
+            if response.lower() != 'y':
+                logger.info("Operation cancelled by user")
+                return False
+        
+        large_docs = [doc for doc in documents if doc['size_mb'] > 400]
+        if large_docs:
+            logger.error(f"Found {len(large_docs)} documents larger than 400MB (Textract limit)")
+            return False
+        
+        logger.info(f"✅ Safety check passed: {len(documents)} documents (~{total_pages} pages)")
+        return True
     
     def invoke_pipeline_test(self, action: str = 'setup_and_test', **params) -> Dict[str, Any]:
-        """Invoke the pipeline test Lambda function"""
+        """Invoke the pipeline test Lambda function with pre-selected documents"""
         try:
-            # Prepare the event payload
+            # Get and filter documents locally
+            logger.info("📋 Selecting documents locally...")
+            available_docs = self.get_available_documents_with_urls(limit=100)
+            
+            if not available_docs:
+                return {
+                    'success': False,
+                    'error': 'No documents available with source URLs'
+                }
+            
+            # Filter documents by criteria
+            selected_docs = self.filter_documents_by_criteria(available_docs, **params)
+            
+            if not selected_docs:
+                return {
+                    'success': False,
+                    'error': 'No documents match the specified criteria'
+                }
+            
+            # Check safety limits
+            if not self.check_safety_limits(selected_docs, params.get('force', False)):
+                return {
+                    'success': False,
+                    'error': 'Safety limits exceeded or user cancelled'
+                }
+            
+            # Prepare the event payload with pre-selected documents
             event = {
                 'action': action,
                 'parameters': params,
+                'selected_documents': selected_docs,  # Send documents to Lambda
                 'invoked_at': datetime.utcnow().isoformat() + "Z",
-                'invoked_by': 'local_client'
+                'invoked_by': 'local_client_with_sqlite'
             }
             
             logger.info(f"🚀 Invoking pipeline test Lambda: {self.lambda_function_name}")
             logger.info(f"📋 Action: {action}")
-            logger.info(f"🎛️  Parameters: {json.dumps(params, indent=2)}")
+            logger.info(f"📄 Selected documents: {len(selected_docs)}")
+            logger.info(f"📊 Total estimated pages: {sum(doc['estimated_pages'] for doc in selected_docs)}")
             
             # Invoke the Lambda function
             response = self.lambda_client.invoke(
                 FunctionName=self.lambda_function_name,
                 InvocationType='RequestResponse',  # Synchronous
-                Payload=json.dumps(event)
+                Payload=json.dumps(event, default=str)
             )
             
             # Parse the response

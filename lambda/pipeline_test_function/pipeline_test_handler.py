@@ -27,7 +27,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 class PipelineTestLambda:
-    """Lambda-based pipeline test manager with VPC database access"""
+    """Simplified Lambda-based pipeline test manager (no SQLite dependency)"""
     
     def __init__(self):
         # AWS clients
@@ -35,13 +35,7 @@ class PipelineTestLambda:
         self.lambda_client = boto3.client('lambda')
         
         # Environment configuration
-        self.existing_bucket = os.environ.get('EXISTING_DOCUMENTS_BUCKET', 'solve-global-kr-documents-861276078413-us-east-1')
         self.source_bucket = os.environ.get('SOURCE_DOCUMENTS_BUCKET', 'solve-global-kr-dl-source-documents-861276078413-us-east-1')
-        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-dl-text-861276078413-us-east-1')
-        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-dl-chunks-861276078413-us-east-1')
-        
-        # SQLite database path (mounted from EFS or S3)
-        self.sqlite_db_path = os.environ.get('SQLITE_DB_PATH', '/tmp/corpus_document_ids.db')
         
         # Initialize DocumentIDManager with DATABASE_URL from environment
         if DocumentIDManager:
@@ -53,16 +47,6 @@ class PipelineTestLambda:
                 self.doc_id_manager = None
         else:
             self.doc_id_manager = None
-        
-        # Document type patterns for filtering
-        self.document_type_patterns = {
-            "report": ["report", "assessment", "evaluation", "study"],
-            "policy": ["policy", "strategy", "framework", "guideline"],
-            "research": ["research", "analysis", "working", "paper"],
-            "project": ["project", "implementation", "completion", "icr"],
-            "financial": ["financial", "economic", "budget", "cost"],
-            "technical": ["technical", "manual", "specification", "guide"]
-        }
     
     def download_sqlite_db(self):
         """Download SQLite database from S3 to Lambda temp storage"""
@@ -224,35 +208,39 @@ class PipelineTestLambda:
             return None
     
     def prepare_source_document(self, doc_info: Dict) -> Optional[Dict]:
-        """Prepare a single document for the source bucket"""
+        """Prepare a single document for the source bucket (with fallback for testing)"""
         try:
-            doc_id_from_filename = doc_info['doc_id_from_filename']
-            
-            # Get source URL from SQLite
-            source_url = self.get_source_url_from_sqlite(doc_id_from_filename)
+            # Source URL is already provided by the client
+            source_url = doc_info.get('source_url')
             if not source_url:
-                logger.error(f"Cannot prepare document without source URL: {doc_id_from_filename}")
+                logger.error(f"No source URL provided for document: {doc_info.get('filename', 'unknown')}")
                 return None
             
-            # Get proper doc_id from DocumentIDManager
+            # Try to get proper doc_id from DocumentIDManager, fallback to hash-based ID
             if self.doc_id_manager:
                 try:
                     proper_doc_id = self.doc_id_manager.get_or_create_id(source_url)
                     logger.info(f"Generated proper doc_id: {proper_doc_id} for URL: {source_url}")
                 except Exception as e:
                     logger.error(f"DocumentIDManager failed for {source_url}: {e}")
-                    return None
+                    # Fallback to simple hash-based ID
+                    import hashlib
+                    proper_doc_id = hashlib.sha256(source_url.encode()).hexdigest()[:16]
+                    logger.info(f"Using fallback doc_id: {proper_doc_id}")
             else:
-                logger.error("DocumentIDManager not available")
-                return None
+                # Fallback to simple hash-based ID for testing
+                import hashlib
+                proper_doc_id = hashlib.sha256(source_url.encode()).hexdigest()[:16]
+                logger.info(f"DocumentIDManager not available, using fallback doc_id: {proper_doc_id}")
             
             # Copy document to source bucket with proper doc_id
             source_key = f"{proper_doc_id}.pdf"
             
             try:
-                # Copy object
+                # Copy object from existing bucket to source bucket
+                existing_bucket = "solve-global-kr-documents-861276078413-us-east-1"
                 copy_source = {
-                    'Bucket': self.existing_bucket,
+                    'Bucket': existing_bucket,
                     'Key': doc_info['key']
                 }
                 
@@ -267,14 +255,15 @@ class PipelineTestLambda:
                         'prepared-at': datetime.utcnow().isoformat(),
                         'doc-id': proper_doc_id,
                         'estimated-pages': str(doc_info['estimated_pages']),
-                        'size-mb': str(doc_info['size_mb'])
+                        'size-mb': str(doc_info['size_mb']),
+                        'test-mode': 'true'
                     }
                 )
                 
                 logger.info(f"Copied document to source bucket: {source_key}")
                 
                 return {
-                    'original_doc_id': doc_id_from_filename,
+                    'original_doc_id': doc_info['doc_id_from_filename'],
                     'proper_doc_id': proper_doc_id,
                     'source_url': source_url,
                     'original_filename': doc_info['filename'],
@@ -294,7 +283,9 @@ class PipelineTestLambda:
     
     def trigger_text_extraction(self, doc_info: Dict) -> Dict:
         """Trigger text extraction for a document"""
-        doc_id = doc_info['proper_doc_id']
+        # Handle both prepared documents (with proper_doc_id) and selected documents
+        doc_id = doc_info.get('proper_doc_id') or doc_info.get('doc_id_from_filename')
+        source_key = doc_info.get('source_key') or f"{doc_id}.pdf"
         
         try:
             # Create S3 event payload for text extractor
@@ -311,7 +302,7 @@ class PipelineTestLambda:
                             "arn": f"arn:aws:s3:::{self.source_bucket}"
                         },
                         "object": {
-                            "key": doc_info['source_key'],
+                            "key": source_key,
                             "size": int(doc_info['size_mb'] * 1024 * 1024)
                         }
                     },
@@ -346,7 +337,7 @@ class PipelineTestLambda:
             return {
                 'doc_id': doc_id,
                 'source_url': doc_info.get('source_url'),
-                'original_filename': doc_info.get('original_filename'),
+                'original_filename': doc_info.get('original_filename') or doc_info.get('filename'),
                 'estimated_pages': doc_info['estimated_pages'],
                 'status': 'triggered',
                 'stage': 'trigger',
@@ -366,89 +357,34 @@ class PipelineTestLambda:
             }
 
 def lambda_handler(event, context):
-    """Lambda handler for parameterized pipeline testing"""
+    """Lambda handler for parameterized pipeline testing with pre-selected documents"""
     try:
-        logger.info(f"Pipeline test Lambda invoked with event: {json.dumps(event, default=str)}")
+        logger.info(f"Pipeline test Lambda invoked with event keys: {list(event.keys())}")
         
         # Parse parameters from event
-        params = event.get('parameters', {})
         action = event.get('action', 'setup_and_test')
+        selected_documents = event.get('selected_documents', [])
         
-        # Default parameters
-        num_documents = params.get('num_documents', 5)
-        min_size_mb = params.get('min_size_mb', 1.0)
-        max_size_mb = params.get('max_size_mb', 10.0)
-        language = params.get('language', 'english')
-        document_types = params.get('document_types')
-        target_avg_pages = params.get('target_avg_pages', 20)
-        force = params.get('force', False)
+        if not selected_documents:
+            return {
+                'statusCode': 400,
+                'body': json.dumps({
+                    'status': 'failed',
+                    'error': 'No documents provided in request'
+                })
+            }
+        
+        logger.info(f"Processing {len(selected_documents)} pre-selected documents")
         
         # Initialize test manager
         test_manager = PipelineTestLambda()
         
-        # Download SQLite database if needed
-        if not test_manager.download_sqlite_db():
-            return {
-                'statusCode': 500,
-                'body': json.dumps({
-                    'status': 'failed',
-                    'error': 'Failed to download SQLite database'
-                })
-            }
-        
         if action == 'setup_only' or action == 'setup_and_test':
-            # Setup phase
-            logger.info(f"Setting up {num_documents} documents...")
+            # Setup phase - prepare documents
+            logger.info(f"Preparing {len(selected_documents)} documents...")
             
-            # Get available documents
-            available_docs = test_manager.get_available_documents(limit=100)
-            if not available_docs:
-                return {
-                    'statusCode': 400,
-                    'body': json.dumps({
-                        'status': 'failed',
-                        'error': 'No documents available'
-                    })
-                }
-            
-            # Filter by criteria
-            filtered_docs = test_manager.filter_documents_by_criteria(
-                available_docs, 
-                num_documents=num_documents,
-                min_size_mb=min_size_mb, 
-                max_size_mb=max_size_mb,
-                language=language,
-                document_types=document_types,
-                target_avg_pages=target_avg_pages
-            )
-            
-            if not filtered_docs:
-                return {
-                    'statusCode': 400,
-                    'body': json.dumps({
-                        'status': 'failed',
-                        'error': 'No documents match criteria'
-                    })
-                }
-            
-            # Check Textract limits
-            limits_ok, limits_msg = test_manager.check_textract_limits(filtered_docs)
-            logger.info(f"Textract limits check: {limits_msg}")
-            
-            if not limits_ok and not force:
-                return {
-                    'statusCode': 400,
-                    'body': json.dumps({
-                        'status': 'failed',
-                        'error': limits_msg,
-                        'requires_force': True
-                    })
-                }
-            
-            # Prepare documents
-            logger.info(f"Preparing {len(filtered_docs)} documents...")
             prepared_docs = []
-            for doc_info in filtered_docs:
+            for doc_info in selected_documents:
                 prepared = test_manager.prepare_source_document(doc_info)
                 if prepared:
                     prepared_docs.append(prepared)
@@ -477,8 +413,8 @@ def lambda_handler(event, context):
             if action == 'setup_and_test':
                 test_docs = prepared_docs
             else:
-                # For test_only, would need to get existing prepared documents
-                test_docs = []  # Placeholder
+                # For test_only, use the selected documents directly
+                test_docs = selected_documents
             
             if not test_docs:
                 return {

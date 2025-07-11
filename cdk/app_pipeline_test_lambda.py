@@ -25,7 +25,7 @@ class PipelineTestLambdaStack(Stack):
         # Import existing VPC
         vpc = ec2.Vpc.from_lookup(
             self, "ExistingVPC",
-            vpc_id="vpc-0123456789abcdef0"  # Replace with actual VPC ID
+            vpc_id="vpc-051c21d88c7dc3819"  # Climate Risk RAG VPC
         )
         
         # Create Lambda execution role with comprehensive permissions
@@ -89,16 +89,28 @@ class PipelineTestLambdaStack(Stack):
             }
         )
         
-        # Import existing Lambda layer (if available)
-        try:
-            shared_layer = lambda_.LayerVersion.from_layer_version_arn(
-                self, "SharedLayer",
-                layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:solve-global-kr-shared-layer:1"
-            )
-            layers = [shared_layer]
-        except:
-            # Create a minimal layer or use none
-            layers = []
+        # Import existing Lambda layers with DatabaseManager and DocumentIDManager
+        core_utilities_layer = lambda_.LayerVersion.from_layer_version_arn(
+            self, "CoreUtilitiesLayer",
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:2"
+        )
+        
+        database_dependencies_layer = lambda_.LayerVersion.from_layer_version_arn(
+            self, "DatabaseDependenciesLayer", 
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:database-dependencies:2"
+        )
+        
+        layers = [core_utilities_layer, database_dependencies_layer]
+        
+        # Import specific subnets that match the database subnets
+        subnet1 = ec2.Subnet.from_subnet_id(
+            self, "DatabaseSubnet1",
+            subnet_id="subnet-0e9efc5fdf29e9da0"
+        )
+        subnet2 = ec2.Subnet.from_subnet_id(
+            self, "DatabaseSubnet2", 
+            subnet_id="subnet-00efdcc220a613ae3"
+        )
         
         # Create the pipeline test Lambda function
         self.pipeline_test_function = lambda_.Function(
@@ -111,7 +123,7 @@ class PipelineTestLambdaStack(Stack):
             timeout=Duration.minutes(15),  # Long timeout for document processing
             memory_size=1024,
             vpc=vpc,
-            vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS),
+            vpc_subnets=ec2.SubnetSelection(subnets=[subnet1, subnet2]),
             layers=layers,
             environment={
                 # S3 bucket names
@@ -126,10 +138,9 @@ class PipelineTestLambdaStack(Stack):
                 "SQLITE_DB_PATH": "/tmp/corpus_document_ids.db",
                 
                 # Database connection
-                "DATABASE_URL": "postgresql://postgres:-VroWHWQBS5!V)yAcsDC3(3)NHJ5@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require",
+                "DATABASE_URL": "postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require",
                 
                 # Other configuration
-                "AWS_DEFAULT_REGION": self.region,
                 "LAMBDA_ENVIRONMENT": "true"
             },
             description="Pipeline test function for parameterized document processing tests",
