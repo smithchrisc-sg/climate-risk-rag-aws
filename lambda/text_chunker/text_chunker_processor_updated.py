@@ -186,7 +186,7 @@ class TextChunkerProcessor:
             processing_time = (datetime.utcnow() - processing_start).total_seconds() * 1000
             
             processing_metadata = {
-                'chunks_count': len(chunks),
+                'chunks_created': len(chunks),
                 'total_characters': len(full_text),
                 'processing_duration_ms': int(processing_time),
                 'cost_estimate': 0.0,  # Text chunking is essentially free
@@ -206,7 +206,7 @@ class TextChunkerProcessor:
             return {
                 'success': True,
                 'doc_id': doc_id,
-                'chunks_count': len(chunks),
+                'chunks_created': len(chunks),
                 'chunks_location': chunks_location,
                 'processing_time_ms': int(processing_time),
                 'standardized_messaging': True
@@ -224,6 +224,10 @@ class TextChunkerProcessor:
     def read_text_from_s3(self, text_location: str) -> str:
         """Read text content from S3 location"""
         try:
+            # Validate text_location
+            if not text_location:
+                raise ValueError("text_location is None or empty")
+            
             # Parse S3 location
             if text_location.startswith('s3://'):
                 # Remove s3:// prefix and split bucket/key
@@ -248,6 +252,11 @@ class TextChunkerProcessor:
     def read_document_structure(self, structure_location: str) -> Optional[Dict]:
         """Read document structure from S3 location"""
         try:
+            # Validate structure_location
+            if not structure_location:
+                logger.warning("structure_location is None or empty, skipping structure reading")
+                return None
+            
             # Parse S3 location
             if structure_location.startswith('s3://'):
                 s3_path = structure_location[5:]
@@ -416,7 +425,7 @@ class TextChunkerProcessor:
             logger.error(f"Failed to publish chunks ready message: {e}")
             raise
 
-    def update_processing_status(self, doc_id: str, status: str, chunks_count: int, message: str):
+    def update_processing_status(self, doc_id: str, status: str, chunks_created: int, notes: str):
         """Update processing status in database"""
         
         if not self.db_manager:
@@ -426,14 +435,14 @@ class TextChunkerProcessor:
             conn = self.db_manager.get_connection()
             with conn.cursor() as cursor:
                 cursor.execute("""
-                    INSERT INTO text_chunking_status (doc_id, status, chunks_count, message, updated_at)
+                    INSERT INTO text_chunking_status (doc_id, status, chunks_created, notes, updated_at)
                     VALUES (%s, %s, %s, %s, %s)
                     ON CONFLICT (doc_id) DO UPDATE SET
                         status = EXCLUDED.status,
-                        chunks_count = EXCLUDED.chunks_count,
-                        message = EXCLUDED.message,
+                        chunks_created = EXCLUDED.chunks_created,
+                        notes = EXCLUDED.notes,
                         updated_at = EXCLUDED.updated_at
-                """, (doc_id, status, chunks_count, message, datetime.utcnow()))
+                """, (doc_id, status, chunks_created, notes, datetime.utcnow()))
                 
                 conn.commit()
                 logger.info(f"Updated chunking status: {doc_id} -> {status}")
