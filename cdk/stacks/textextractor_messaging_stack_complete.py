@@ -146,7 +146,7 @@ class TextExtractorMessagingStackComplete(Stack):
                             ],
                             resources=["*"]
                         ),
-                        # S3 permissions for document buckets
+                        # S3 permissions for document buckets (including data lake buckets)
                         iam.PolicyStatement(
                             effect=iam.Effect.ALLOW,
                             actions=[
@@ -156,7 +156,10 @@ class TextExtractorMessagingStackComplete(Stack):
                             ],
                             resources=[
                                 f"arn:aws:s3:::solve-global-kr-documents-{self.account}-{self.region}/*",
-                                f"arn:aws:s3:::solve-global-kr-chunks-{self.account}-{self.region}/*"
+                                f"arn:aws:s3:::solve-global-kr-chunks-{self.account}-{self.region}/*",
+                                f"arn:aws:s3:::solve-global-kr-dl-source-documents-{self.account}-{self.region}/*",
+                                f"arn:aws:s3:::solve-global-kr-dl-text-{self.account}-{self.region}/*",
+                                f"arn:aws:s3:::solve-global-kr-dl-chunks-{self.account}-{self.region}/*"
                             ]
                         ),
                         # S3 bucket listing permissions
@@ -167,10 +170,13 @@ class TextExtractorMessagingStackComplete(Stack):
                             ],
                             resources=[
                                 f"arn:aws:s3:::solve-global-kr-documents-{self.account}-{self.region}",
-                                f"arn:aws:s3:::solve-global-kr-chunks-{self.account}-{self.region}"
+                                f"arn:aws:s3:::solve-global-kr-chunks-{self.account}-{self.region}",
+                                f"arn:aws:s3:::solve-global-kr-dl-source-documents-{self.account}-{self.region}",
+                                f"arn:aws:s3:::solve-global-kr-dl-text-{self.account}-{self.region}",
+                                f"arn:aws:s3:::solve-global-kr-dl-chunks-{self.account}-{self.region}"
                             ]
                         ),
-                        # SQS permissions
+                        # SQS permissions (including downstream queues)
                         iam.PolicyStatement(
                             effect=iam.Effect.ALLOW,
                             actions=[
@@ -181,16 +187,20 @@ class TextExtractorMessagingStackComplete(Stack):
                             ],
                             resources=[
                                 self.textextractor_queue.queue_arn,
-                                self.textextractor_dlq.queue_arn
+                                self.textextractor_dlq.queue_arn,
+                                f"arn:aws:sqs:{self.region}:{self.account}:text-chunker-queue"
                             ]
                         ),
-                        # SNS permissions
+                        # SNS permissions (including downstream topics)
                         iam.PolicyStatement(
                             effect=iam.Effect.ALLOW,
                             actions=[
                                 "sns:Publish"
                             ],
-                            resources=[self.textract_completion_topic.topic_arn]
+                            resources=[
+                                self.textract_completion_topic.topic_arn,
+                                f"arn:aws:sns:{self.region}:{self.account}:text-extraction-complete"
+                            ]
                         ),
                         # Secrets Manager for database credentials
                         iam.PolicyStatement(

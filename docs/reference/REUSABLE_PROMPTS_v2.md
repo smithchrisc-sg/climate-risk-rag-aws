@@ -113,7 +113,7 @@ Note direction in the list below. We should always use git to manage things. So,
 - This is an AWS serverless climate risk document processing system
 - We use DocumentIDManager for proper GUID-based document identification
 - All relational database access should be through DatabaseManager
-- Lambda layers should continue to be the logical deployment scenario for shared functionality. (Check out LAMBDA_LAYER_DESIGN_UPDATED.md in the docs directory)
+- Lambda layers should continue to be the logical deployment scenario for shared functionality. (Check out LAMBDA_LAYER_DESIGN_UPDATED.md in the docs/design directory)
 - Assume existing code is correct and do not make major changes, delete existing functions, or change method signatures without providing an explicit justification, the implications and impact (e.g., required refactoring), and then asking permission.
 - Cost management is critical - especially for Textract, Comprehend, and Bedrock services
 - We have 1,000 POC documents already migrated and integrated
@@ -127,6 +127,7 @@ Note direction in the list below. We should always use git to manage things. So,
       a. first from the trigger messaging from the previous stage
       b. then from the full pipeline path available so far 
 - DO NOT UNDER ANY CIRCUMSTANCE USE ACCOUNT NUMBER 614290363854. Check to be sure we are using the correct solve-global profile anytime we're doing anything that involves an account number - suchas creating ARNs
+- When designing a lambda that calls an external service like textract or comprehend, as a first assumption, design it async with an initiator lambda and another to receive the response, to avoid paying for synchronous idle time
 
 **CURRENT STATUS:**
 - Available in PROJECT CONTEXT SUMMARY and NEXT STEPS documents as specified above
