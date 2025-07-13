@@ -233,8 +233,8 @@ class PipelineTestLambda:
                 proper_doc_id = hashlib.sha256(source_url.encode()).hexdigest()[:16]
                 logger.info(f"DocumentIDManager not available, using fallback doc_id: {proper_doc_id}")
             
-            # Copy document to source bucket with proper doc_id
-            source_key = f"{proper_doc_id}.pdf"
+            # Copy document to source bucket with proper doc_id in data_lake structure
+            source_key = f"data_lake/{proper_doc_id}.pdf"
             
             try:
                 # Copy object from existing bucket to source bucket

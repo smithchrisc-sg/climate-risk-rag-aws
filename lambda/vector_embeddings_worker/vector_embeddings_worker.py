@@ -1,5 +1,6 @@
 """
-Vector Embeddings Worker - Background processing with pluggable embeddings
+Vector Embeddings Worker - Updated for Standardized Messaging
+Background processing with pluggable embeddings and standardized message handling
 """
 import json
 import boto3
@@ -24,39 +25,67 @@ from utils.DocumentIDManager import DocumentIDManager
 from embeddings_interface import EmbeddingsFactory
 from opensearch_vector_indexer import OpenSearchVectorIndexer
 
+# Import standardized messaging components
+from standardized_messaging import StandardizedMessageParser, StandardizedMessagePublisher
+
 def lambda_handler(event, context):
     """
-    Background vector embeddings processing:
-    1. Load chunks from S3
-    2. Generate embeddings (pluggable model)
-    3. Index in OpenSearch with metadata
-    4. Update database status
-    5. Publish completion message
+    Background vector embeddings processing with standardized messaging:
+    1. Parse standardized embeddings_ready message
+    2. Load chunks from S3
+    3. Generate embeddings (pluggable model)
+    4. Index in OpenSearch with metadata
+    5. Update database status
+    6. Publish standardized completion message
     """
     doc_id = None
     
     try:
-        # Parse worker message - handle both SNS and SQS formats
+        # Parse standardized message - handle both SNS and SQS formats
+        parser = StandardizedMessageParser()
+        
         record = event['Records'][0]
         
         if 'Sns' in record:
             # SNS format (direct SNS trigger)
-            message = json.loads(record['Sns']['Message'])
+            message = parser.parse_sns_record(record)
         elif 'body' in record:
             # SQS format (SNS -> SQS -> Lambda)
             body = json.loads(record['body'])
             if 'Message' in body:
                 message = json.loads(body['Message'])
+                # Validate standardized format
+                if not parser.validate_message_format(message):
+                    raise ValueError("Invalid standardized message format")
             else:
                 message = body
         else:
             # Direct message format
             message = record
             
+        # Validate this is an embeddings_ready message
+        if message.get('stage') != 'embeddings_ready':
+            raise ValueError(f"Expected embeddings_ready message, got: {message.get('stage')}")
+            
         doc_id = message['doc_id']
-        chunks_location = message['chunks_location']
+        doc_hash = message['doc_hash']
         
-        logger.info("Processing vector embeddings for document: {}".format(doc_id))
+        # Extract data locations from standardized format
+        data_locations = message.get('data_locations', {})
+        chunks_location = data_locations.get('chunks_folder_url') or data_locations.get('chunks_location')
+        text_location = data_locations.get('text_folder_url') or data_locations.get('text_location')
+        
+        if not chunks_location:
+            raise ValueError("chunks_folder_url or chunks_location not found in message data_locations")
+        
+        # Extract processing metadata
+        processing_metadata = message.get('processing_metadata', {})
+        chunks_count = processing_metadata.get('chunks_count', 0)
+        cost_threshold = processing_metadata.get('cost_threshold', 0.50)
+        
+        logger.info(f"Processing vector embeddings for document: {doc_id}")
+        logger.info(f"Chunks location: {chunks_location}")
+        logger.info(f"Expected chunks count: {chunks_count}")
         
         # Initialize managers
         db_manager = DatabaseManager()
@@ -101,13 +130,13 @@ def lambda_handler(event, context):
         finally:
             db_manager.return_connection(conn)
         
-        # Load chunks from S3
-        chunks = load_chunks_from_s3(chunks_location)
-        logger.info("Loaded {} chunks for processing".format(len(chunks)))
+        # Load chunks from S3 using standardized location format
+        chunks = load_chunks_from_s3_standardized(chunks_location)
+        logger.info(f"Loaded {len(chunks)} chunks for processing")
         
         # Determine embeddings model based on environment variable
-        model_type = os.environ.get('EMBEDDINGS_MODEL_TYPE', 'sentence_transformers')
-        logger.info("Using embeddings model: {}".format(model_type))
+        model_type = os.environ.get('EMBEDDINGS_MODEL_TYPE', 'titan')
+        logger.info(f"Using embeddings model: {model_type}")
         
         # Create embeddings instance
         embeddings_model = EmbeddingsFactory.create_embeddings(model_type)
@@ -115,12 +144,11 @@ def lambda_handler(event, context):
         # Estimate cost before processing
         texts = [chunk['text'] for chunk in chunks]
         estimated_cost = embeddings_model.estimate_cost(texts)
-        logger.info("Estimated cost: ${:.6f}".format(estimated_cost))
+        logger.info(f"Estimated cost: ${estimated_cost:.6f}")
         
         # Check cost threshold
-        cost_threshold = float(os.environ.get('COST_THRESHOLD_PER_DOC', '0.50'))
         if estimated_cost > cost_threshold:
-            logger.warning("Estimated cost ${:.6f} exceeds threshold ${:.2f}".format(estimated_cost, cost_threshold))
+            logger.warning(f"Estimated cost ${estimated_cost:.6f} exceeds threshold ${cost_threshold:.2f}")
             # Could implement automatic fallback to cheaper model here
         
         # Generate embeddings
@@ -128,13 +156,13 @@ def lambda_handler(event, context):
         embeddings = embeddings_model.create_embeddings_batch(texts)
         processing_duration = (datetime.now() - start_time).total_seconds()
         
-        logger.info("Generated {} embeddings in {:.2f} seconds".format(len(embeddings), processing_duration))
+        logger.info(f"Generated {len(embeddings)} embeddings in {processing_duration:.2f} seconds")
         
         # Prepare embeddings data for indexing
         embeddings_data = []
         for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
             embeddings_data.append({
-                'chunk_id': chunk['chunk_id'],
+                'chunk_id': chunk.get('chunk_id', f"{doc_id}_chunk_{i}"),
                 'doc_id': doc_id,
                 'text': chunk['text'],
                 'embedding': embedding,
@@ -159,10 +187,11 @@ def lambda_handler(event, context):
                 cursor.execute("""
                     UPDATE vector_embeddings_status 
                     SET status = %s, embeddings_count = %s, titan_cost_actual = %s, 
-                        opensearch_indexed = %s, completed_at = %s, processing_duration_seconds = %s
+                        opensearch_indexed = %s, completed_at = %s, processing_duration_seconds = %s,
+                        model_type = %s
                     WHERE doc_id = %s
                 """, ('COMPLETED', len(embeddings), estimated_cost, True, datetime.now(), 
-                     int(processing_duration), doc_id))
+                     int(processing_duration), model_type, doc_id))
                 
                 # Update document processing status (with error handling for missing columns)
                 try:
@@ -172,16 +201,20 @@ def lambda_handler(event, context):
                         WHERE doc_hash = %s
                     """, ('COMPLETED', datetime.now(), doc_id))
                 except Exception as col_error:
-                    logger.warning("Could not update document_processing_status (columns may not exist): {}".format(str(col_error)))
+                    logger.warning(f"Could not update document_processing_status (columns may not exist): {str(col_error)}")
                 
                 conn.commit()
         finally:
             db_manager.return_connection(conn)
         
-        # Publish completion message
-        publish_completion_message(doc_id, len(embeddings), estimated_cost, embeddings_model.get_model_info())
+        # Publish standardized completion message
+        publish_standardized_completion_message(
+            doc_id, doc_hash, len(embeddings), estimated_cost, 
+            embeddings_model.get_model_info(), processing_duration,
+            message.get('document_metadata', {}), chunks_location
+        )
         
-        logger.info("Successfully completed vector embeddings for {}".format(doc_id))
+        logger.info(f"Successfully completed vector embeddings for {doc_id}")
         
         return {
             'statusCode': 200,
@@ -191,12 +224,13 @@ def lambda_handler(event, context):
                 'processing_duration': processing_duration,
                 'estimated_cost': estimated_cost,
                 'model_info': embeddings_model.get_model_info(),
-                'status': 'completed'
+                'status': 'completed',
+                'standardized_messaging': True
             })
         }
         
     except Exception as e:
-        error_msg = "Vector embeddings worker error: {}".format(str(e))
+        error_msg = f"Vector embeddings worker error: {str(e)}"
         logger.error(error_msg)
         
         if doc_id:
@@ -214,15 +248,29 @@ def lambda_handler(event, context):
                 finally:
                     db_manager.return_connection(conn)
             except Exception as db_error:
-                logger.error("Failed to update error status: {}".format(str(db_error)))
+                logger.error(f"Failed to update error status: {str(db_error)}")
         
         raise
 
-def load_chunks_from_s3(chunks_location: Dict[str, str]) -> List[Dict[str, Any]]:
-    """Load chunks from S3 based on location information"""
+def load_chunks_from_s3_standardized(chunks_location: str) -> List[Dict[str, Any]]:
+    """Load chunks from S3 using standardized location format (s3://bucket/prefix/)"""
     s3_client = boto3.client('s3')
-    bucket = chunks_location['bucket']
-    prefix = chunks_location['prefix']
+    
+    # Parse S3 location
+    if not chunks_location.startswith('s3://'):
+        raise ValueError(f"Invalid S3 location format: {chunks_location}")
+    
+    # Remove s3:// prefix and split bucket/prefix
+    s3_path = chunks_location[5:]  # Remove 's3://'
+    if '/' not in s3_path:
+        raise ValueError(f"Invalid S3 path format: {chunks_location}")
+    
+    bucket = s3_path.split('/')[0]
+    prefix = '/'.join(s3_path.split('/')[1:])
+    
+    # Remove trailing slash if present
+    if prefix.endswith('/'):
+        prefix = prefix[:-1]
     
     chunks = []
     
@@ -231,7 +279,7 @@ def load_chunks_from_s3(chunks_location: Dict[str, str]) -> List[Dict[str, Any]]
         response = s3_client.list_objects_v2(Bucket=bucket, Prefix=prefix)
         
         if 'Contents' not in response:
-            raise ValueError("No chunks found at s3://{}/{}".format(bucket, prefix))
+            raise ValueError(f"No chunks found at {chunks_location}")
         
         # Load each chunk file
         for obj in response['Contents']:
@@ -244,10 +292,11 @@ def load_chunks_from_s3(chunks_location: Dict[str, str]) -> List[Dict[str, Any]]
         # Sort by chunk sequence for consistent processing
         chunks.sort(key=lambda x: x.get('chunk_index', 0))
         
+        logger.info(f"Successfully loaded {len(chunks)} chunks from {chunks_location}")
         return chunks
         
     except Exception as e:
-        logger.error("Error loading chunks from S3: {}".format(str(e)))
+        logger.error(f"Error loading chunks from S3: {str(e)}")
         raise
 
 def get_opensearch_client():
@@ -279,34 +328,56 @@ def get_opensearch_client():
     
     return client
 
-def publish_completion_message(doc_id: str, embeddings_count: int, cost: float, model_info: Dict[str, Any]):
-    """Publish completion message to SNS"""
+def publish_standardized_completion_message(doc_id: str, doc_hash: str, embeddings_count: int, 
+                                          cost: float, model_info: Dict[str, Any], 
+                                          processing_duration: float, document_metadata: Dict,
+                                          chunks_location: str):
+    """Publish standardized completion message to SNS"""
     try:
-        sns_client = boto3.client('sns')
+        publisher = StandardizedMessagePublisher()
         topic_arn = os.environ.get('VECTOR_COMPLETION_TOPIC_ARN')
         
         if not topic_arn:
             logger.warning("No completion topic ARN configured")
             return
         
-        message = {
-            'doc_id': doc_id,
-            'stage': 'embeddings_ready',
-            'embeddings_count': embeddings_count,
-            'opensearch_indexed': True,
-            'processing_cost': cost,
-            'model_info': model_info,
-            'timestamp': datetime.now().isoformat()
+        # Publish standardized vector embeddings complete message
+        completion_message = {
+            "version": "1.0",
+            "timestamp": datetime.now().isoformat() + "Z",
+            "source": "climate-risk-rag-system",
+            "stage": "embeddings_complete",
+            "doc_id": doc_id,
+            "doc_hash": doc_hash,
+            "document_metadata": document_metadata,
+            "data_locations": {
+                "chunks_location": chunks_location,
+                "embeddings_indexed": True,
+                "opensearch_endpoint": os.environ.get('OPENSEARCH_ENDPOINT', '')
+            },
+            "processing_metadata": {
+                "embeddings_count": embeddings_count,
+                "processing_duration_seconds": processing_duration,
+                "processing_cost": cost,
+                "model_info": model_info,
+                "opensearch_indexed": True
+            },
+            "integration_flags": {
+                "documentid_manager_integration": True,
+                "database_tracking_enabled": True,
+                "standardized_messaging_enabled": True
+            }
         }
         
-        sns_client.publish(
+        sns_client = boto3.client('sns')
+        response = sns_client.publish(
             TopicArn=topic_arn,
-            Message=json.dumps(message),
-            Subject='Vector embeddings completed for {doc_id}'
+            Message=json.dumps(completion_message, default=str),
+            Subject=f"Vector embeddings completed for {doc_id}"
         )
         
-        logger.info("Published completion message for {}".format(doc_id))
+        logger.info(f"Published standardized completion message for {doc_id}: {response['MessageId']}")
         
     except Exception as e:
-        logger.error("Error publishing completion message: {}".format(str(e)))
+        logger.error(f"Error publishing completion message: {str(e)}")
         # Don't raise - completion message is not critical

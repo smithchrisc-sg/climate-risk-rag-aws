@@ -40,7 +40,7 @@ class SimplifiedNLPProcessor:
                     
                     # Extract document information
                     doc_id = message_body.get('doc_id')
-                    chunks_location = message_body.get('data_locations', {}).get('chunks')
+                    chunks_location = message_body.get('data_locations', {}).get('chunks_location')
                     
                     if not doc_id or not chunks_location:
                         logger.warning(f"Missing doc_id or chunks_location in message: {message_body}")

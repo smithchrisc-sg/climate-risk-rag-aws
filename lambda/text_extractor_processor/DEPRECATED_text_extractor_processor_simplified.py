@@ -141,9 +141,9 @@ class SimplifiedTextExtractorProcessor:
             # Update job status
             self.update_job_status(job_id, 'SUCCEEDED')
             
-            # Instead of SNS (which times out), directly send SQS message to text chunker
+            # Publish to text-extraction-complete SNS topic to trigger all downstream processes
             try:
-                sqs = boto3.client('sqs')
+                sns = boto3.client('sns')
                 
                 # Create standardized text-extraction-complete message
                 message = {
@@ -153,27 +153,46 @@ class SimplifiedTextExtractorProcessor:
                     "stage": "text_ready",
                     "doc_id": doc_id,
                     "doc_hash": job_metadata['doc_hash'],
+                    "document_metadata": {
+                        "original_filename": job_metadata.get('original_filename', f"{doc_id}.pdf"),
+                        "file_size": job_metadata.get('file_size', 0),
+                        "page_count": len(set(block.get('Page', 1) for block in textract_response.get('Blocks', [])))
+                    },
                     "data_locations": {
-                        "text": f"s3://{self.output_bucket}/{text_key}"
+                        "text_location": f"s3://{self.output_bucket}/{text_key}",
+                        "structure_location": f"s3://{self.output_bucket}/{text_key}"
                     },
                     "processing_metadata": {
                         "textract_job_id": job_id,
                         "pages_processed": len(set(block.get('Page', 1) for block in textract_response.get('Blocks', []))),
-                        "blocks_extracted": len(textract_response.get('Blocks', []))
+                        "blocks_extracted": len(textract_response.get('Blocks', [])),
+                        "processing_duration_ms": 0,
+                        "cost_estimate": 0.0
+                    },
+                    "integration_flags": {
+                        "documentid_manager_integration": True,
+                        "selective_migration_used": False,
+                        "database_tracking_enabled": True
                     }
                 }
                 
-                # Send directly to text chunker queue
-                sqs.send_message(
-                    QueueUrl="https://sqs.us-east-1.amazonaws.com/861276078413/text-chunker-queue",
-                    MessageBody=json.dumps(message)
+                # Publish to SNS topic to trigger all downstream processes
+                sns.publish(
+                    TopicArn="arn:aws:sns:us-east-1:861276078413:text-extraction-complete",
+                    Message=json.dumps(message),
+                    Subject=f"Text extraction complete: {doc_id}",
+                    MessageAttributes={
+                        'stage': {'DataType': 'String', 'StringValue': 'text_extraction_complete'},
+                        'doc_id': {'DataType': 'String', 'StringValue': doc_id},
+                        'version': {'DataType': 'String', 'StringValue': '1.0'}
+                    }
                 )
                 
-                logger.info(f"Sent text-extraction-complete message directly to text chunker for {doc_id}")
+                logger.info(f"Published text-extraction-complete message to SNS for {doc_id}")
                 
-            except Exception as sqs_error:
-                logger.warning(f"SQS message send failed (non-fatal): {sqs_error}")
-                # Continue processing even if SQS fails
+            except Exception as sns_error:
+                logger.warning(f"SNS message publish failed (non-fatal): {sns_error}")
+                # Continue processing even if SNS fails
             
             return {
                 'status': 'success',

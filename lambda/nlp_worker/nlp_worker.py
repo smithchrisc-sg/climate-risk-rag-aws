@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 """
-NLP Worker - Background processor for NLP analysis with S3 data lake storage
-Processes full document text and maps results to chunks using offset mapping
+NLP Worker - STANDARDIZED MESSAGING VERSION
+Background processor for NLP analysis with S3 data lake storage and standardized message handling
 """
 import json
 import boto3
@@ -8,6 +9,9 @@ import os
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 import logging
+
+# Import standardized messaging
+from standardized_messaging import StandardizedMessagePublisher, StandardizedMessageParser
 
 # Import NLP components
 from nlp_interface import NLPProcessorFactory
@@ -21,339 +25,367 @@ logger = logging.getLogger(__name__)
 
 def lambda_handler(event, context):
     """
-    Process NLP analysis for full document with chunk mapping and S3 storage
+    Process NLP analysis with standardized messaging
     
-    Event format (from SQS):
+    Event format (standardized):
     {
+        'version': '1.0',
+        'stage': 'nlp_ready',
         'doc_id': str,
-        'chunks_location': dict,
-        'full_text_location': dict,
-        'nlp_provider': str,
-        'processing_type': str
+        'doc_hash': str,
+        'data_locations': {
+            'chunks_location': str,
+            'text_location': str
+        },
+        'nlp_config': {
+            'provider': str,
+            'processing_type': str,
+            'cost_threshold': float
+        }
     }
     """
     doc_id = None
     
     try:
-        # Parse SQS message
-        message = json.loads(event['Records'][0]['body'])
-        sns_message = json.loads(message['Message'])
+        # Initialize standardized message components
+        message_parser = StandardizedMessageParser()
+        message_publisher = StandardizedMessagePublisher()
         
-        doc_id = sns_message['doc_id']
-        chunks_location = sns_message['chunks_location']
-        full_text_location = sns_message.get('full_text_location')
-        nlp_provider = sns_message.get('nlp_provider', 'comprehend')
-        processing_type = sns_message.get('processing_type', 'entity_and_phrases')
+        # Parse standardized SQS message
+        message = message_parser.parse_sns_message(event)
+        
+        # Validate message format
+        if not message_parser.validate_message_format(message, 'nlp_ready'):
+            raise ValueError("Invalid message format - expected nlp_ready stage")
+        
+        # Extract processing information
+        processing_info = message_parser.extract_processing_info(message)
+        doc_id = processing_info['doc_id']
+        doc_hash = processing_info['doc_hash']
+        
+        # Handle both folder URL and location parameters for compatibility
+        data_locations = message.get('data_locations', {})
+        chunks_location = data_locations.get('chunks_folder_url') or processing_info['chunks_location']
+        text_location = data_locations.get('text_folder_url') or processing_info['text_location']
+        
+        if not chunks_location or not text_location:
+            raise ValueError("chunks_folder_url/text_folder_url or chunks_location/text_location not found in message")
+        
+        # Extract NLP configuration
+        nlp_config = message.get('nlp_config', {})
+        nlp_provider = nlp_config.get('provider', 'comprehend')
+        processing_type = nlp_config.get('processing_type', 'entity_and_phrases')
+        cost_threshold = nlp_config.get('cost_threshold', 0.50)
         
         logger.info(f"Starting NLP processing for document: {doc_id} using {nlp_provider}")
+        logger.info(f"Processing type: {processing_type}")
+        logger.info(f"Cost threshold: ${cost_threshold}")
         
         # Update status to processing (minimal database tracking)
-        update_nlp_status_minimal(doc_id, 'PROCESSING', nlp_provider)
+        db_manager = DatabaseManager()
+        update_processing_status(db_manager, doc_id, 'PROCESSING', 'NLP analysis in progress')
         
-        # Load full document text and chunks from S3
-        full_text = load_full_text_from_s3(full_text_location)
-        chunks = load_chunks_from_s3(chunks_location)
+        # Initialize S3 data lake manager
+        ner_results_bucket = os.environ.get('NER_RESULTS_BUCKET', 
+                                          'solve-global-kr-dl-ner-results-861276078413-us-east-1')
+        s3_manager = S3DataLakeManager(ner_results_bucket)
         
+        # Load full text for processing
+        full_text = load_full_text_from_s3(text_location)
         if not full_text:
-            raise ValueError(f"Could not load full text for document {doc_id}")
+            raise ValueError("Could not load full text for NLP processing")
         
+        # Load chunks for offset mapping
+        chunks = load_chunks_from_s3(chunks_location)
         if not chunks:
-            raise ValueError(f"Could not load chunks for document {doc_id}")
+            logger.warning("No chunks found - will process full text only")
         
-        logger.info(f"Loaded {len(full_text)} characters and {len(chunks)} chunks for {doc_id}")
+        # Cost validation
+        estimated_cost = estimate_processing_cost(full_text, nlp_provider)
+        if estimated_cost > cost_threshold:
+            raise ValueError(f"Estimated cost ${estimated_cost:.4f} exceeds threshold ${cost_threshold}")
         
-        # Get NLP processor based on provider
-        nlp_processor = NLPProcessorFactory.create_processor(nlp_provider)
+        logger.info(f"Estimated processing cost: ${estimated_cost:.4f}")
         
-        # Process full document text
-        start_time = datetime.now()
-        nlp_results = nlp_processor.process_document(doc_id, full_text)
-        processing_duration = (datetime.now() - start_time).total_seconds()
+        # Initialize NLP processor
+        nlp_processor = NLPProcessorFactory.create_processor(
+            provider=nlp_provider,
+            region=os.environ.get('COMPREHEND_REGION', 'us-east-1')
+        )
         
-        nlp_results['processing_duration'] = processing_duration
+        # Process NLP analysis
+        processing_start = datetime.utcnow()
         
-        logger.info(f"NLP processing completed in {processing_duration:.2f}s, "
-                   f"found {len(nlp_results['entities'])} entities, "
-                   f"{len(nlp_results['key_phrases'])} key phrases")
+        if processing_type == 'entity_and_phrases':
+            # Extract entities and key phrases
+            entities_result = nlp_processor.extract_entities(full_text)
+            phrases_result = nlp_processor.extract_key_phrases(full_text)
+            
+            # Combine results
+            nlp_results = {
+                'entities': entities_result,
+                'key_phrases': phrases_result,
+                'processing_metadata': {
+                    'provider': nlp_provider,
+                    'processing_type': processing_type,
+                    'character_count': len(full_text),
+                    'processing_time_ms': int((datetime.utcnow() - processing_start).total_seconds() * 1000),
+                    'actual_cost': estimated_cost,
+                    'timestamp': datetime.utcnow().isoformat() + 'Z'
+                }
+            }
+        else:
+            raise ValueError(f"Unsupported processing type: {processing_type}")
         
-        # Map entities and phrases to chunks using offsets
-        offset_mapper = OffsetMapper(full_text, chunks)
-        mapped_results = offset_mapper.map_to_chunks(nlp_results)
+        # Map results to chunks if available
+        if chunks:
+            logger.info("Mapping NLP results to chunks using offset mapping")
+            offset_mapper = OffsetMapper()
+            
+            # Map entities to chunks
+            entities_mapped = offset_mapper.map_entities_to_chunks(
+                entities_result, chunks, full_text
+            )
+            
+            # Map key phrases to chunks
+            phrases_mapped = offset_mapper.map_key_phrases_to_chunks(
+                phrases_result, chunks, full_text
+            )
+            
+            nlp_results['entities_mapped_to_chunks'] = entities_mapped
+            nlp_results['key_phrases_mapped_to_chunks'] = phrases_mapped
+            nlp_results['offset_mapping_report'] = offset_mapper.get_mapping_report()
         
-        # Log mapping quality
-        mapping_report = offset_mapper.get_mapping_quality_report()
-        logger.info(f"Offset mapping quality: {mapping_report['mapping_success_rate']:.2%} chunks mapped")
+        # Store results in S3 data lake
+        storage_results = s3_manager.store_nlp_results(doc_id, nlp_results)
         
-        # Store complete results in S3 Data Lake (PRIMARY STORAGE)
-        s3_manager = S3DataLakeManager()
-        s3_location = s3_manager.store_complete_nlp_results(doc_id, mapped_results)
+        # Update database status
+        update_processing_status(db_manager, doc_id, 'COMPLETED', 
+                               f'NLP processing completed successfully. Cost: ${estimated_cost:.4f}')
         
-        # Store minimal tracking info in database (NO CONTENT DUPLICATION)
-        entities_count = len([m for m in mapped_results['chunk_mappings'] if m['type'] == 'entity'])
-        phrases_count = len([m for m in mapped_results['chunk_mappings'] if m['type'] == 'key_phrase'])
+        # Publish completion notification (standardized format)
+        publish_nlp_completion(message_publisher, doc_id, doc_hash, storage_results, nlp_results)
         
-        store_nlp_status_only(doc_id, {
-            'status': 'COMPLETED',
-            'entities_count': entities_count,
-            'key_phrases_count': phrases_count,
-            'processing_cost': mapped_results['processing_cost'],
-            's3_results_location': s3_location,  # Reference to data lake
-            'processing_duration': processing_duration,
-            'nlp_provider': nlp_provider
-        })
-        
-        # Index in OpenSearch for search capabilities (optional)
-        try:
-            index_nlp_results_in_opensearch(doc_id, mapped_results)
-        except Exception as e:
-            logger.warning(f"OpenSearch indexing failed for {doc_id}: {str(e)}")
-            # Don't fail the entire process for OpenSearch issues
-        
-        # Publish completion message
-        publish_completion_message(doc_id, {
-            'status': 'COMPLETED',
-            's3_location': s3_location,
-            'entities_count': entities_count,
-            'key_phrases_count': phrases_count,
-            'processing_cost': mapped_results['processing_cost'],
-            'processing_duration': processing_duration,
-            'provider': nlp_provider
-        })
-        
-        logger.info(f"Successfully completed NLP processing for {doc_id}")
+        logger.info(f"Successfully completed NLP processing for document: {doc_id}")
+        logger.info(f"Entities found: {len(entities_result)}")
+        logger.info(f"Key phrases found: {len(phrases_result)}")
+        logger.info(f"Actual cost: ${estimated_cost:.4f}")
         
         return {
             'statusCode': 200,
             'body': json.dumps({
+                'message': 'NLP processing completed successfully',
                 'doc_id': doc_id,
-                'status': 'completed',
-                'entities_count': entities_count,
-                'key_phrases_count': phrases_count,
-                'processing_cost': mapped_results['processing_cost'],
-                'processing_duration': processing_duration,
-                's3_location': s3_location
+                'results_summary': {
+                    'entities_count': len(entities_result),
+                    'key_phrases_count': len(phrases_result),
+                    'chunks_mapped': len(chunks) if chunks else 0,
+                    'processing_time_ms': nlp_results['processing_metadata']['processing_time_ms'],
+                    'actual_cost': estimated_cost
+                },
+                'storage_locations': storage_results,
+                'standardized_messaging': True
             })
         }
         
     except Exception as e:
-        error_msg = f"NLP worker error for {doc_id}: {str(e)}"
-        logger.error(error_msg)
+        logger.error(f"NLP processing failed for document {doc_id}: {e}")
         
         # Update status to failed
         if doc_id:
-            update_nlp_status_minimal(doc_id, 'FAILED', error_msg=str(e))
+            try:
+                db_manager = DatabaseManager()
+                update_processing_status(db_manager, doc_id, 'FAILED', str(e))
+            except:
+                pass  # Don't fail on error tracking failure
         
         return {
             'statusCode': 500,
             'body': json.dumps({
-                'error': error_msg,
-                'doc_id': doc_id
+                'error': str(e),
+                'doc_id': doc_id,
+                'standardized_messaging': True
             })
         }
 
-def load_full_text_from_s3(full_text_location: Dict[str, str]) -> Optional[str]:
-    """Load full document text from S3"""
-    
-    if not full_text_location:
-        logger.warning("No full text location provided")
-        return None
+def load_full_text_from_s3(text_location: str) -> str:
+    """Load full text from S3 location (handles both folder URL and direct file path)"""
     
     try:
-        s3_client = boto3.client('s3')
-        bucket = full_text_location['bucket']
-        key = full_text_location['key']
+        s3 = boto3.client('s3')
+        
+        # Parse S3 location
+        if text_location.startswith('s3://'):
+            s3_path = text_location[5:]
+            
+            # Check if this is a folder URL or direct file path
+            if s3_path.endswith('/') or not s3_path.split('/')[-1].endswith('.txt'):
+                # This is a folder URL, construct path to raw_text.txt
+                if s3_path.endswith('/'):
+                    raw_text_url = f"s3://{s3_path}raw_text.txt"
+                else:
+                    raw_text_url = f"s3://{s3_path}/raw_text.txt"
+                
+                # Re-parse the constructed URL
+                s3_path = raw_text_url[5:]
+            
+            bucket, key = s3_path.split('/', 1)
+        else:
+            raise ValueError(f"Invalid S3 location format: {text_location}")
         
         logger.info(f"Loading full text from s3://{bucket}/{key}")
         
-        response = s3_client.get_object(Bucket=bucket, Key=key)
-        full_text = response['Body'].read().decode('utf-8')
+        # Get object from S3
+        response = s3.get_object(Bucket=bucket, Key=key)
+        text_content = response['Body'].read().decode('utf-8')
         
-        logger.info(f"Loaded {len(full_text)} characters from S3")
-        return full_text
+        logger.info(f"Successfully loaded {len(text_content)} characters")
+        return text_content
         
     except Exception as e:
-        logger.error(f"Error loading full text from S3: {str(e)}")
-        return None
+        logger.error(f"Error loading full text from S3: {e}")
+        return ""
 
-def load_chunks_from_s3(chunks_location: Dict[str, str]) -> List[Dict[str, Any]]:
-    """Load document chunks from S3"""
+def load_chunks_from_s3(chunks_location: str) -> List[Dict]:
+    """Load chunks from S3 location"""
     
     try:
-        s3_client = boto3.client('s3')
-        bucket = chunks_location['bucket']
-        prefix = chunks_location['prefix']
+        s3 = boto3.client('s3')
         
-        logger.info(f"Loading chunks from s3://{bucket}/{prefix}")
+        # Parse S3 location
+        if chunks_location.startswith('s3://'):
+            s3_path = chunks_location[5:]
+            bucket, key_prefix = s3_path.split('/', 1)
+        else:
+            raise ValueError(f"Invalid S3 location format: {chunks_location}")
+        
+        # Remove trailing slash
+        if key_prefix.endswith('/'):
+            key_prefix = key_prefix[:-1]
+        
+        logger.info(f"Loading chunks from s3://{bucket}/{key_prefix}/")
         
         # List chunk files
-        response = s3_client.list_objects_v2(
+        response = s3.list_objects_v2(
             Bucket=bucket,
-            Prefix=prefix
+            Prefix=f"{key_prefix}/",
+            Delimiter='/'
         )
         
-        if 'Contents' not in response:
-            logger.warning(f"No chunk files found at s3://{bucket}/{prefix}")
-            return []
-        
         chunks = []
-        
-        # Load each chunk file
-        for obj in response['Contents']:
-            if obj['Key'].endswith('.json'):
-                try:
-                    chunk_response = s3_client.get_object(Bucket=bucket, Key=obj['Key'])
-                    chunk_data = json.loads(chunk_response['Body'].read().decode('utf-8'))
-                    chunks.append(chunk_data)
-                except Exception as e:
-                    logger.warning(f"Error loading chunk {obj['Key']}: {str(e)}")
-                    continue
+        for obj in response.get('Contents', []):
+            if obj['Key'].endswith('.json') and 'chunk_' in obj['Key']:
+                # Load individual chunk
+                chunk_response = s3.get_object(Bucket=bucket, Key=obj['Key'])
+                chunk_data = json.loads(chunk_response['Body'].read().decode('utf-8'))
+                chunks.append(chunk_data)
         
         # Sort chunks by index
         chunks.sort(key=lambda x: x.get('chunk_index', 0))
         
-        logger.info(f"Loaded {len(chunks)} chunks from S3")
+        logger.info(f"Successfully loaded {len(chunks)} chunks")
         return chunks
         
     except Exception as e:
-        logger.error(f"Error loading chunks from S3: {str(e)}")
+        logger.error(f"Error loading chunks from S3: {e}")
         return []
 
-def update_nlp_status_minimal(doc_id: str, status: str, provider: str = None, error_msg: str = None):
-    """Update NLP processing status in database (minimal tracking only)"""
+def estimate_processing_cost(text: str, provider: str) -> float:
+    """Estimate processing cost based on text length and provider"""
+    
+    character_count = len(text)
+    
+    if provider == 'comprehend':
+        # Amazon Comprehend pricing: $0.0001 per 100 characters for entities + key phrases
+        # So $0.0002 per 100 characters for both
+        cost_per_100_chars = 0.0002
+        estimated_cost = (character_count / 100.0) * cost_per_100_chars
+        return round(estimated_cost, 4)
+    
+    return 0.0
+
+def update_processing_status(db_manager: DatabaseManager, doc_id: str, status: str, message: str):
+    """Update NLP processing status in database"""
     
     try:
-        db_manager = DatabaseManager()
         conn = db_manager.get_connection()
-        
-        try:
-            with conn.cursor() as cursor:
-                # Create table if not exists
-                cursor.execute("""
-                    CREATE TABLE IF NOT EXISTS nlp_processing_status (
-                        doc_id VARCHAR(255) PRIMARY KEY,
-                        status VARCHAR(50) NOT NULL,
-                        processing_type VARCHAR(50) DEFAULT 'entity_and_phrases',
-                        nlp_provider VARCHAR(50) DEFAULT 'comprehend',
-                        entities_count INTEGER,
-                        key_phrases_count INTEGER,
-                        comprehend_cost_estimate DECIMAL(10,6),
-                        comprehend_cost_actual DECIMAL(10,6),
-                        s3_results_location VARCHAR(500),
-                        opensearch_indexed BOOLEAN DEFAULT FALSE,
-                        cache_used BOOLEAN DEFAULT FALSE,
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        completed_at TIMESTAMP,
-                        error_message TEXT,
-                        processing_duration_seconds INTEGER
-                    );
-                """)
-                
-                if status == 'PROCESSING':
-                    cursor.execute(
-                        """INSERT INTO nlp_processing_status (doc_id, status, nlp_provider, created_at) 
-                           VALUES (%s, %s, %s, %s) 
-                           ON CONFLICT (doc_id) DO UPDATE SET 
-                               status = EXCLUDED.status, 
-                               nlp_provider = EXCLUDED.nlp_provider,
-                               created_at = EXCLUDED.created_at""",
-                        (doc_id, status, provider or 'comprehend', datetime.now())
-                    )
-                elif status == 'FAILED':
-                    cursor.execute(
-                        """INSERT INTO nlp_processing_status (doc_id, status, error_message) 
-                           VALUES (%s, %s, %s) 
-                           ON CONFLICT (doc_id) DO UPDATE SET 
-                               status = EXCLUDED.status, 
-                               error_message = EXCLUDED.error_message""",
-                        (doc_id, status, error_msg)
-                    )
-                
-                conn.commit()
-                
-        finally:
-            db_manager.return_connection(conn)
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO nlp_processing_status (doc_id, status, message, updated_at)
+                VALUES (%s, %s, %s, %s)
+                ON CONFLICT (doc_id) DO UPDATE SET
+                    status = EXCLUDED.status,
+                    message = EXCLUDED.message,
+                    updated_at = EXCLUDED.updated_at
+            """, (doc_id, status, message, datetime.utcnow()))
+            
+            conn.commit()
+            logger.info(f"Updated NLP status: {doc_id} -> {status}")
             
     except Exception as e:
-        logger.error(f"Error updating NLP status for {doc_id}: {str(e)}")
+        logger.error(f"Error updating processing status: {e}")
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
-def store_nlp_status_only(doc_id: str, status_info: Dict[str, Any]):
-    """Store only processing status and metadata - NO content duplication"""
+def publish_nlp_completion(message_publisher: StandardizedMessagePublisher, 
+                         doc_id: str, doc_hash: str, storage_results: Dict, nlp_results: Dict):
+    """Publish standardized NLP completion message"""
     
     try:
-        db_manager = DatabaseManager()
-        conn = db_manager.get_connection()
+        completion_topic_arn = os.environ.get('NLP_COMPLETION_TOPIC_ARN',
+                                            'arn:aws:sns:us-east-1:861276078413:nlp-processing-complete')
         
-        try:
-            with conn.cursor() as cursor:
-                cursor.execute("""
-                    INSERT INTO nlp_processing_status 
-                    (doc_id, status, entities_count, key_phrases_count, 
-                     comprehend_cost_actual, s3_results_location, 
-                     processing_duration_seconds, nlp_provider, completed_at)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (doc_id) DO UPDATE SET
-                        status = EXCLUDED.status,
-                        entities_count = EXCLUDED.entities_count,
-                        key_phrases_count = EXCLUDED.key_phrases_count,
-                        comprehend_cost_actual = EXCLUDED.comprehend_cost_actual,
-                        s3_results_location = EXCLUDED.s3_results_location,
-                        processing_duration_seconds = EXCLUDED.processing_duration_seconds,
-                        nlp_provider = EXCLUDED.nlp_provider,
-                        completed_at = EXCLUDED.completed_at
-                """, (
-                    doc_id, status_info['status'], status_info['entities_count'],
-                    status_info['key_phrases_count'], status_info['processing_cost'],
-                    status_info['s3_results_location'], int(status_info['processing_duration']),
-                    status_info['nlp_provider'], datetime.now()
-                ))
-                conn.commit()
-                
-        finally:
-            db_manager.return_connection(conn)
-            
-    except Exception as e:
-        logger.error(f"Error storing NLP status for {doc_id}: {str(e)}")
-
-def index_nlp_results_in_opensearch(doc_id: str, mapped_results: Dict[str, Any]):
-    """Index NLP results in OpenSearch for search capabilities"""
-    
-    # This is optional and can be implemented later
-    # For now, just log that it would happen
-    logger.info(f"OpenSearch indexing would happen here for {doc_id}")
-    pass
-
-def publish_completion_message(doc_id: str, completion_info: Dict[str, Any]):
-    """Publish NLP completion message to SNS"""
-    
-    try:
-        sns_client = boto3.client('sns')
-        completion_topic_arn = os.environ.get('NLP_COMPLETION_TOPIC_ARN')
-        
-        if not completion_topic_arn:
-            logger.warning("NLP_COMPLETION_TOPIC_ARN not set, skipping completion message")
-            return
-        
-        message = {
-            'doc_id': doc_id,
-            'stage': 'nlp_processing_complete',
-            'status': completion_info['status'],
-            's3_location': completion_info['s3_location'],
-            'entities_count': completion_info['entities_count'],
-            'key_phrases_count': completion_info['key_phrases_count'],
-            'processing_cost': completion_info['processing_cost'],
-            'processing_duration': completion_info['processing_duration'],
-            'provider': completion_info['provider'],
-            'timestamp': datetime.now().isoformat()
+        # Create standardized completion message
+        completion_message = {
+            "version": "1.0",
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "source": "climate-risk-rag-system",
+            "stage": "nlp_complete",
+            "doc_id": doc_id,
+            "doc_hash": doc_hash,
+            "data_locations": {
+                "nlp_results_location": storage_results.get('base_location', ''),
+                "entities_location": storage_results.get('entities_file', ''),
+                "key_phrases_location": storage_results.get('key_phrases_file', ''),
+                "chunk_mappings_location": storage_results.get('chunk_mappings_file', '')
+            },
+            "processing_metadata": nlp_results.get('processing_metadata', {}),
+            "results_summary": {
+                "entities_count": len(nlp_results.get('entities', [])),
+                "key_phrases_count": len(nlp_results.get('key_phrases', [])),
+                "chunks_mapped": len(nlp_results.get('entities_mapped_to_chunks', [])) > 0
+            },
+            "integration_flags": {
+                "documentid_manager_integration": True,
+                "database_tracking_enabled": True,
+                "s3_data_lake_storage": True
+            }
         }
         
-        sns_client.publish(
+        sns = boto3.client('sns')
+        response = sns.publish(
             TopicArn=completion_topic_arn,
-            Message=json.dumps(message),
-            Subject=f'NLP processing completed for {doc_id}'
+            Message=json.dumps(completion_message, default=str),
+            Subject=f"NLP processing complete: {doc_id}",
+            MessageAttributes={
+                'stage': {
+                    'DataType': 'String',
+                    'StringValue': 'nlp_complete'
+                },
+                'doc_id': {
+                    'DataType': 'String',
+                    'StringValue': doc_id
+                },
+                'version': {
+                    'DataType': 'String',
+                    'StringValue': '1.0'
+                }
+            }
         )
         
-        logger.info(f"Published NLP completion message for {doc_id}")
+        logger.info(f"Published NLP completion message for {doc_id}: {response['MessageId']}")
         
     except Exception as e:
-        logger.error(f"Error publishing completion message for {doc_id}: {str(e)}")
-        # Don't fail the entire process for messaging issues
+        logger.error(f"Failed to publish NLP completion message: {e}")
+        # Don't raise - this shouldn't fail the main processing

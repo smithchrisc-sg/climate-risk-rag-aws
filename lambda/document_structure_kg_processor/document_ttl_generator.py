@@ -33,8 +33,9 @@ except ImportError:
 class DocumentTTLGenerator:
     """Generate TTL representation from actual processed document data"""
     
-    def __init__(self, doc_id: str, aws_session=None):
+    def __init__(self, doc_id: str, enhanced_metadata: Dict = None, aws_session=None):
         self.doc_id = doc_id
+        self.enhanced_metadata = enhanced_metadata or {}
         
         # Use provided session or create new one
         if aws_session:
@@ -49,9 +50,9 @@ class DocumentTTLGenerator:
         else:
             self.uri_facility = None
         
-        # S3 bucket names from environment or defaults
-        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-text-new-861276078413-us-east-1')
-        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-chunks-861276078413-us-east-1')
+        # S3 bucket names from environment or defaults (updated for data lake structure)
+        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-dl-text-861276078413-us-east-1')
+        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-dl-chunks-861276078413-us-east-1')
         
         # TTL prefixes with Dublin Core integration
         self.ttl_prefixes = """@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -100,13 +101,17 @@ class DocumentTTLGenerator:
             raise
     
     def get_document_metadata(self) -> Dict[str, Any]:
-        """Get document metadata from extracted text file"""
+        """Get document metadata from enhanced metadata and extracted text file"""
         
         try:
-            logger.info(f"Retrieving document metadata from extracted text")
+            logger.info(f"Retrieving document metadata (enhanced + extracted text)")
             
-            # Get extracted text file
-            text_key = f"extracted_text/{self.doc_id}.txt"
+            # Start with enhanced metadata if available
+            document_metadata = self.enhanced_metadata.get('document_metadata', {})
+            processing_metadata = self.enhanced_metadata.get('processing_metadata', {})
+            
+            # Get extracted text file from data lake structure
+            text_key = f"data_lake/{self.doc_id}/raw_text.txt"
             
             try:
                 response = self.s3.get_object(Bucket=self.text_bucket, Key=text_key)
@@ -125,8 +130,21 @@ class DocumentTTLGenerator:
                 title = lines[0] if lines else f"Document {self.doc_id}"
                 title = re.sub(r'\s+', ' ', title)  # Clean up whitespace
                 
+                # Combine enhanced metadata with extracted metadata
                 metadata = {
-                    'title': title,
+                    # From enhanced metadata (chunks_ready message)
+                    'filename': document_metadata.get('filename', f'{self.doc_id}.pdf'),
+                    'file_size': document_metadata.get('file_size', 0),
+                    'upload_timestamp': document_metadata.get('upload_timestamp', ''),
+                    'content_type': document_metadata.get('content_type', 'application/pdf'),
+                    
+                    # From processing metadata
+                    'chunks_count': processing_metadata.get('chunks_count', 0),
+                    'processing_time': processing_metadata.get('processing_time', 0),
+                    'total_characters': processing_metadata.get('total_characters', len(text_content)),
+                    
+                    # From extracted text analysis
+                    'title': document_metadata.get('title', title),
                     'word_count': len(words),
                     'sentence_count': max(sentences, 1),  # At least 1 sentence
                     'created': last_modified,
@@ -155,13 +173,13 @@ class DocumentTTLGenerator:
         return max(1, (word_count + 249) // 250)
     
     def get_actual_chunks_data(self) -> List[Dict[str, Any]]:
-        """Get actual chunk data from S3 JSON files"""
+        """Get actual chunk data from S3 JSON files using data lake structure"""
         
         try:
-            logger.info(f"Retrieving actual chunks from S3 JSON files")
+            logger.info(f"Retrieving actual chunks from S3 JSON files (data lake structure)")
             
-            # List all chunk files for this document
-            prefix = f"{self.doc_id}/"
+            # Use data lake folder structure: /data_lake/{doc_id}/
+            prefix = f"data_lake/{self.doc_id}/"
             
             response = self.s3.list_objects_v2(
                 Bucket=self.chunks_bucket,
@@ -169,16 +187,16 @@ class DocumentTTLGenerator:
             )
             
             if 'Contents' not in response:
-                logger.warning(f"No chunk files found for document {self.doc_id}")
+                logger.warning(f"No chunk files found for document {self.doc_id} in data lake structure")
                 return []
             
-            # Filter for chunk JSON files
+            # Filter for chunk JSON files with new naming pattern: {doc_id}_chunk_0000.json
             chunk_files = [
                 obj for obj in response['Contents'] 
-                if obj['Key'].endswith('.json') and 'chunk_' in obj['Key']
+                if obj['Key'].endswith('.json') and f'{self.doc_id}_chunk_' in obj['Key']
             ]
             
-            logger.info(f"Found {len(chunk_files)} chunk JSON files")
+            logger.info(f"Found {len(chunk_files)} chunk JSON files in data lake structure")
             
             chunks = []
             for chunk_file in sorted(chunk_files, key=lambda x: x['Key']):

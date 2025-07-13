@@ -54,18 +54,25 @@ class DocumentStructureKGProcessor:
         self.s3_client = boto3.client('s3')
         self.sns_client = boto3.client('sns')
         
-        # Initialize utilities if available
-        if DatabaseManager:
-            self.db_manager = DatabaseManager()
-        else:
+        # Initialize utilities with error handling
+        self.db_manager = None
+        self.doc_id_manager = None
+        
+        try:
+            if DatabaseManager:
+                self.db_manager = DatabaseManager()
+                logger.info("DatabaseManager initialized successfully")
+        except Exception as e:
+            logger.warning(f"DatabaseManager initialization failed: {e}")
             self.db_manager = None
-            logger.warning("DatabaseManager not available")
             
-        if DocumentIDManager:
-            self.doc_id_manager = DocumentIDManager()
-        else:
+        try:
+            if DocumentIDManager:
+                self.doc_id_manager = DocumentIDManager()
+                logger.info("DocumentIDManager initialized successfully")
+        except Exception as e:
+            logger.warning(f"DocumentIDManager initialization failed: {e}")
             self.doc_id_manager = None
-            logger.warning("DocumentIDManager not available")
         
         # S3 buckets
         self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-dl-chunks-861276078413-us-east-1')
@@ -116,38 +123,62 @@ class DocumentStructureKGProcessor:
             }
     
     def process_document_structure(self, message: Dict[str, Any]) -> Dict[str, Any]:
-        """Process a single document structure completion message"""
+        """Process a chunks_ready message for document structure KG generation"""
         
-        document_id = message.get('document_id')
-        processing_status = message.get('status', 'unknown')
+        # Handle chunks_ready message format
+        if message.get('stage') == 'chunks_ready':
+            doc_id = message.get('doc_id')
+            doc_hash = message.get('doc_hash')
+            data_locations = message.get('data_locations', {})
+            document_metadata = message.get('document_metadata', {})
+            processing_metadata = message.get('processing_metadata', {})
+            
+            logger.info(f"Processing document structure KG for document: {doc_id}")
+            logger.info(f"Chunks location: {data_locations.get('chunks_folder_url')}")
+            
+        else:
+            # Legacy message format support
+            doc_id = message.get('document_id')
+            processing_status = message.get('status', 'unknown')
+            document_metadata = message.get('document_metadata', {})
+            processing_metadata = {}
+            
+            logger.info(f"Processing document structure for document: {doc_id} (legacy format)")
+            
+            if processing_status != 'completed':
+                logger.warning(f"Document {doc_id} not in completed status: {processing_status}")
+                return {
+                    'doc_id': doc_id,
+                    'status': 'skipped',
+                    'reason': f'Document status is {processing_status}, not completed'
+                }
         
-        logger.info(f"Processing document structure for document: {document_id}")
-        
-        if processing_status != 'completed':
-            logger.warning(f"Document {document_id} not in completed status: {processing_status}")
-            return {
-                'document_id': document_id,
-                'status': 'skipped',
-                'reason': f'Document status is {processing_status}, not completed'
-            }
+        if not doc_id:
+            raise ValueError("Missing doc_id in message")
         
         try:
-            # Generate document structure TTL
-            ttl_result = self.generate_document_structure_ttl(document_id)
+            # Generate document structure TTL with enhanced metadata
+            ttl_result = self.generate_document_structure_ttl(
+                doc_id, 
+                document_metadata=document_metadata,
+                processing_metadata=processing_metadata
+            )
             
             if ttl_result['success']:
                 # Trigger KG integration worker
-                integration_result = self.trigger_kg_integration(document_id, ttl_result)
+                integration_result = self.trigger_kg_integration(doc_id, ttl_result)
                 
                 # Update processing status
-                self.update_processing_status(document_id, 'kg_structure_processing', {
+                self.update_processing_status(doc_id, 'kg_structure_processing', {
                     'ttl_generated': True,
                     'ttl_s3_location': ttl_result['s3_location'],
-                    'integration_triggered': integration_result['success']
+                    'integration_triggered': integration_result['success'],
+                    'chunks_count': processing_metadata.get('chunks_count', 0),
+                    'processing_time': processing_metadata.get('processing_time', 0)
                 })
                 
                 return {
-                    'document_id': document_id,
+                    'doc_id': doc_id,
                     'status': 'success',
                     'ttl_location': ttl_result['s3_location'],
                     'integration_triggered': integration_result['success']
@@ -168,21 +199,28 @@ class DocumentStructureKGProcessor:
                 'error': str(e)
             }
     
-    def generate_document_structure_ttl(self, document_id: str) -> Dict[str, Any]:
-        """Generate TTL for document structure using Dublin Core vocabulary"""
+    def generate_document_structure_ttl(self, doc_id: str, document_metadata: Dict = None, processing_metadata: Dict = None) -> Dict[str, Any]:
+        """Generate TTL for document structure using Dublin Core vocabulary with enhanced metadata"""
         
         try:
             # Import TTL generator (from our updated knowledge graph code)
             from document_ttl_generator import DocumentTTLGenerator
             
-            logger.info(f"Generating TTL for document structure: {document_id}")
+            logger.info(f"Generating TTL for document structure: {doc_id}")
             
-            # Generate TTL using our Dublin Core integrated generator
-            generator = DocumentTTLGenerator(document_id)
+            # Prepare enhanced metadata for TTL generation
+            enhanced_metadata = {
+                'document_metadata': document_metadata or {},
+                'processing_metadata': processing_metadata or {},
+                'generation_timestamp': datetime.now().isoformat()
+            }
+            
+            # Generate TTL using our Dublin Core integrated generator with enhanced data
+            generator = DocumentTTLGenerator(doc_id, enhanced_metadata)
             ttl_content = generator.generate_ttl_document()
             
             # Upload TTL to S3
-            ttl_key = f"documents/{document_id}/document_structure.ttl"
+            ttl_key = f"documents/{doc_id}/document_structure.ttl"
             s3_location = f"s3://{self.ttl_bucket}/{ttl_key}"
             
             self.s3_client.put_object(
@@ -191,7 +229,7 @@ class DocumentStructureKGProcessor:
                 Body=ttl_content.encode('utf-8'),
                 ContentType='text/turtle',
                 Metadata={
-                    'document_id': document_id,
+                    'document_id': doc_id,
                     'generated_at': datetime.now().isoformat(),
                     'content_type': 'document_structure',
                     'schema_version': 'dublin_core_v2'

@@ -115,21 +115,21 @@ class EnhancedKeywordIndexerWorker:
         """Process indexing job with structure enhancement"""
         
         doc_id = job_data['doc_id']
-        full_text_location = job_data['full_text_location']
+        text_folder_url = job_data.get('text_folder_url') or job_data.get('full_text_location')  # Support both
         filename = job_data.get('filename', 'unknown')
         completion_topic_arn = job_data.get('completion_topic_arn')
         
         try:
             logger.info(f"Starting enhanced indexing for {doc_id}")
             
-            # Read full text from S3
-            full_text = self.read_full_text(full_text_location)
+            # Read full text from S3 folder
+            full_text = self.read_full_text(text_folder_url)
             
             # Get document metadata
             metadata = self.get_document_metadata(doc_id)
             
-            # Try to get Textract structure data
-            textract_structure = self.get_textract_structure(doc_id, full_text_location)
+            # Try to get Textract structure data from same folder
+            textract_structure = self.get_textract_structure(text_folder_url)
             
             # Prepare document with structure enhancement or fallback
             doc_data = self.structure_processor.prepare_structure_enhanced_document(
@@ -182,18 +182,29 @@ class EnhancedKeywordIndexerWorker:
             
             raise
 
-    def get_textract_structure(self, doc_id: str, full_text_location: Dict) -> Optional[Dict]:
-        """Try to get Textract structure data for the document"""
+    def get_textract_structure(self, folder_url: str) -> Optional[Dict]:
+        """Try to get Textract structure data from folder URL"""
         
         try:
-            # Try to find Textract structure data in S3
-            # Structure data would typically be stored alongside the text
-            bucket = full_text_location['bucket']
-            text_key = full_text_location['key']
-            
-            # Derive structure key from text key
-            # e.g., extracted_text/doc.txt -> textract_structure/doc.json
-            structure_key = text_key.replace('extracted_text/', 'textract_structure/').replace('.txt', '.json')
+            # Handle both dict format (backward compatibility) and string URL
+            if isinstance(folder_url, dict):
+                bucket = folder_url['bucket']
+                text_key = folder_url['key']
+                # Old hardcoded transformation for backward compatibility
+                structure_key = text_key.replace('extracted_text/', 'textract_structure/').replace('.txt', '.json')
+            else:
+                # Construct path to textract_response.json from folder URL
+                if folder_url.endswith('/'):
+                    textract_url = f"{folder_url}textract_response.json"
+                else:
+                    textract_url = f"{folder_url}/textract_response.json"
+                
+                # Parse S3 location
+                if textract_url.startswith('s3://'):
+                    s3_path = textract_url[5:]
+                    bucket, structure_key = s3_path.split('/', 1)
+                else:
+                    raise ValueError(f"Invalid S3 location format: {textract_url}")
             
             logger.info(f"Looking for Textract structure at s3://{bucket}/{structure_key}")
             
@@ -201,25 +212,43 @@ class EnhancedKeywordIndexerWorker:
                 response = self.s3.get_object(Bucket=bucket, Key=structure_key)
                 structure_data = json.loads(response['Body'].read().decode('utf-8'))
                 
-                logger.info(f"Found Textract structure data for {doc_id}")
+                logger.info(f"Found Textract structure data")
                 return structure_data
                 
             except self.s3.exceptions.NoSuchKey:
-                logger.info(f"No Textract structure data found for {doc_id} - using fallback")
+                logger.info(f"No Textract structure data found - using fallback")
                 return None
             except Exception as e:
-                logger.warning(f"Error reading Textract structure for {doc_id}: {e} - using fallback")
+                logger.warning(f"Error reading Textract structure: {e} - using fallback")
                 return None
                 
         except Exception as e:
-            logger.warning(f"Error getting Textract structure for {doc_id}: {e} - using fallback")
+            logger.warning(f"Error getting Textract structure: {e} - using fallback")
             return None
 
-    def read_full_text(self, location: Dict) -> str:
-        """Read full text from S3"""
+    def read_full_text(self, folder_url: str) -> str:
+        """Read full text from S3 folder URL (constructs path to raw_text.txt)"""
         try:
-            bucket = location['bucket']
-            key = location['key']
+            # Handle both dict format (backward compatibility) and string URL
+            if isinstance(folder_url, dict):
+                bucket = folder_url['bucket']
+                key = folder_url['key']
+                raw_text_url = f"s3://{bucket}/{key}"
+            else:
+                # Construct path to raw_text.txt file from folder URL
+                if folder_url.endswith('/'):
+                    raw_text_url = f"{folder_url}raw_text.txt"
+                else:
+                    raw_text_url = f"{folder_url}/raw_text.txt"
+            
+            # Parse S3 location
+            if raw_text_url.startswith('s3://'):
+                s3_path = raw_text_url[5:]
+                bucket, key = s3_path.split('/', 1)
+            else:
+                raise ValueError(f"Invalid S3 location format: {raw_text_url}")
+            
+            logger.info(f"Reading full text from s3://{bucket}/{key}")
             
             response = self.s3.get_object(Bucket=bucket, Key=key)
             content = response['Body'].read()

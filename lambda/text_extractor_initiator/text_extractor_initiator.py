@@ -44,27 +44,21 @@ class TextExtractorInitiator:
             logger.error(f"Database connection failed: {str(e)}")
             raise
 
-    def generate_doc_hash(self, bucket: str, key: str) -> str:
-        """Generate unique document hash from S3 object"""
+    def extract_doc_id_from_key(self, key: str) -> str:
+        """Extract doc_id from data_lake/{doc_id}.pdf structure"""
         try:
-            # Get object metadata for ETag (content hash)
-            response = self.s3.head_object(Bucket=bucket, Key=key)
-            etag = response['ETag'].strip('"')
-            
-            # Combine bucket, key, and etag for unique hash
-            content = f"{bucket}/{key}/{etag}"
-            doc_hash = hashlib.sha256(content.encode()).hexdigest()
-            
-            logger.info(f"Generated doc_hash: {doc_hash} for s3://{bucket}/{key}")
-            return doc_hash
-            
+            if key.startswith('data_lake/') and key.endswith('.pdf'):
+                doc_id = key[10:-4]  # Remove 'data_lake/' and '.pdf'
+                logger.info(f"Extracted doc_id: {doc_id} from key: {key}")
+                return doc_id
+            else:
+                raise ValueError(f"Invalid key format: {key}. Expected: data_lake/{{doc_id}}.pdf")
+                
         except Exception as e:
-            logger.error(f"Error generating doc hash: {str(e)}")
-            # Fallback to key-based hash
-            content = f"{bucket}/{key}"
-            return hashlib.sha256(content.encode()).hexdigest()
+            logger.error(f"Error extracting doc_id from key: {str(e)}")
+            raise
 
-    def start_textract_job(self, bucket: str, key: str, doc_hash: str) -> str:
+    def start_textract_job(self, bucket: str, key: str, doc_id: str) -> str:
         """Start async Textract job with rich feature analysis"""
         try:
             logger.info(f"Starting Textract job for s3://{bucket}/{key}")
@@ -92,7 +86,7 @@ class TextExtractorInitiator:
             logger.error(f"Error starting Textract job: {str(e)}")
             raise
 
-    def store_job_metadata(self, job_id: str, doc_hash: str, bucket: str, key: str):
+    def store_job_metadata(self, job_id: str, doc_id: str, bucket: str, key: str):
         """Store job metadata in PostgreSQL"""
         try:
             conn = self.get_db_connection()
@@ -101,7 +95,7 @@ class TextExtractorInitiator:
             # Insert job record
             insert_query = """
                 INSERT INTO textract_jobs (
-                    job_id, doc_hash, source_bucket, source_key, output_bucket,
+                    job_id, doc_id, source_bucket, source_key, output_bucket,
                     status, feature_types, started_at
                 ) VALUES (
                     %s, %s, %s, %s, %s, %s, %s, %s
@@ -110,7 +104,7 @@ class TextExtractorInitiator:
             
             cursor.execute(insert_query, (
                 job_id,
-                doc_hash,
+                doc_id,
                 bucket,
                 key,
                 self.output_bucket,
@@ -122,11 +116,11 @@ class TextExtractorInitiator:
             # Update document processing status
             upsert_doc_status = """
                 INSERT INTO document_processing_status (
-                    doc_hash, filename, source_bucket, source_key,
+                    doc_id, filename, source_bucket, source_key,
                     text_extraction_status, text_extraction_job_id
                 ) VALUES (
                     %s, %s, %s, %s, %s, %s
-                ) ON CONFLICT (doc_hash) DO UPDATE SET
+                ) ON CONFLICT (doc_id) DO UPDATE SET
                     text_extraction_status = EXCLUDED.text_extraction_status,
                     text_extraction_job_id = EXCLUDED.text_extraction_job_id,
                     updated_at = NOW()
@@ -134,7 +128,7 @@ class TextExtractorInitiator:
             
             filename = os.path.basename(key)
             cursor.execute(upsert_doc_status, (
-                doc_hash,
+                doc_id,
                 filename,
                 bucket,
                 key,
@@ -170,29 +164,29 @@ class TextExtractorInitiator:
                     'file': key
                 }
             
-            # Generate document hash
-            doc_hash = self.generate_doc_hash(bucket, key)
+            # Extract document ID from filename
+            doc_id = self.extract_doc_id_from_key(key)
             
             # Check if already processed
-            if self.is_already_processed(doc_hash):
-                logger.info(f"Document already processed: {doc_hash}")
+            if self.is_already_processed(doc_id):
+                logger.info(f"Document already processed: {doc_id}")
                 return {
                     'status': 'skipped',
                     'reason': 'already_processed',
-                    'doc_hash': doc_hash,
+                    'doc_id': doc_id,
                     'file': key
                 }
             
             # Start Textract job
-            job_id = self.start_textract_job(bucket, key, doc_hash)
+            job_id = self.start_textract_job(bucket, key, doc_id)
             
             # Store job metadata
-            self.store_job_metadata(job_id, doc_hash, bucket, key)
+            self.store_job_metadata(job_id, doc_id, bucket, key)
             
             return {
                 'status': 'success',
                 'job_id': job_id,
-                'doc_hash': doc_hash,
+                'doc_id': doc_id,
                 'file': key,
                 'bucket': bucket
             }
@@ -205,7 +199,7 @@ class TextExtractorInitiator:
                 'file': record.get('s3', {}).get('object', {}).get('key', 'unknown')
             }
 
-    def is_already_processed(self, doc_hash: str) -> bool:
+    def is_already_processed(self, doc_id: str) -> bool:
         """Check if document is already processed or in progress"""
         try:
             conn = self.get_db_connection()
@@ -214,10 +208,10 @@ class TextExtractorInitiator:
             query = """
                 SELECT text_extraction_status 
                 FROM document_processing_status 
-                WHERE doc_hash = %s
+                WHERE doc_id = %s
             """
             
-            cursor.execute(query, (doc_hash,))
+            cursor.execute(query, (doc_id,))
             result = cursor.fetchone()
             
             cursor.close()
