@@ -1,0 +1,35 @@
+{
+  "cleanup_scope": {
+    "databases": {
+      "postgresql": {
+        "enabled": true,
+        "tables": [
+          "document_processing_status",
+          "nlp_processing_status"
+        ],
+        "document_ids": []
+      },
+      "opensearch": {
+        "enabled": true,
+        "collections": [
+          "climate-risk-vectorsearch",
+          "climate-risk-keyword-index"
+        ],
+        "document_ids": []
+      },
+      "neptune": {
+        "enabled": true,
+        "clear_all_triples": true,
+        "document_ids": []
+      }
+    },
+    "s3_data_lake": {
+      "enabled": false
+    }
+  },
+  "safety_checks": {
+    "require_confirmation": true,
+    "dry_run": false,
+    "max_documents_to_delete": 1000
+  }
+}
