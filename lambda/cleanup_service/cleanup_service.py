@@ -125,12 +125,16 @@ class CleanupService:
             # Determine overall success
             overall_success = results['summary']['failed_operations'] == 0
             
+            # Generate comprehensive cleanup summary
+            cleanup_summary = self._generate_cleanup_summary(results)
+            
             logger.info(f"Cleanup operation completed. Success: {overall_success}")
             logger.info(f"Summary: {results['summary']}")
             
             return {
                 'success': overall_success,
-                'results': results
+                'results': results,
+                'cleanup_summary': cleanup_summary
             }
             
         except Exception as e:
@@ -192,6 +196,180 @@ class CleanupService:
                 'operations_performed': [],
                 'errors': [str(e)]
             }
+    
+    def _generate_cleanup_summary(self, results: Dict[str, Any]) -> Dict[str, Any]:
+        """Generate a comprehensive, readable cleanup summary"""
+        summary = {
+            'overview': {
+                'dry_run': results.get('dry_run', False),
+                'total_items_to_clean': 0,
+                'operations_count': 0,
+                'estimated_impact': 'LOW'
+            },
+            'detailed_operations': {
+                'postgresql': [],
+                'opensearch': [],
+                'neptune': [],
+                's3': []
+            },
+            'commands_to_execute': {
+                'sql_statements': [],
+                'sparql_statements': [],
+                'opensearch_operations': [],
+                's3_operations': []
+            }
+        }
+        
+        # Process PostgreSQL operations
+        if 'databases' in results and 'postgresql' in results['databases']:
+            pg_data = results['databases']['postgresql']
+            total_pg_records = 0
+            
+            for op in pg_data.get('operations_performed', []):
+                if op.get('operation') == 'delete_records':
+                    table = op.get('table')
+                    count = op.get('records_affected', 0)
+                    total_pg_records += count
+                    
+                    summary['detailed_operations']['postgresql'].append({
+                        'table': table,
+                        'records_to_delete': count,
+                        'operation': 'DELETE ALL RECORDS'
+                    })
+                    
+                    # Add SQL command
+                    sql_cmd = f"DELETE FROM {table};"
+                    summary['commands_to_execute']['sql_statements'].append({
+                        'table': table,
+                        'command': sql_cmd,
+                        'estimated_rows_affected': count
+                    })
+            
+            summary['overview']['total_items_to_clean'] += total_pg_records
+        
+        # Process OpenSearch operations
+        if 'databases' in results and 'opensearch' in results['databases']:
+            os_data = results['databases']['opensearch']
+            total_os_docs = 0
+            
+            for op in os_data.get('operations_performed', []):
+                if op.get('operation') == 'discovery_successful':
+                    collection = op.get('collection')
+                    indices = op.get('indices_found', [])
+                    doc_count = op.get('documents_found', 0)
+                    total_os_docs += doc_count
+                    
+                    summary['detailed_operations']['opensearch'].append({
+                        'collection': collection,
+                        'indices': indices,
+                        'documents_to_delete': doc_count,
+                        'operation': 'DELETE BY QUERY'
+                    })
+                    
+                    # Add OpenSearch commands
+                    for index in indices:
+                        os_cmd = {
+                            'index': index,
+                            'method': 'POST',
+                            'endpoint': f"/{index}/_delete_by_query",
+                            'body': '{"query": {"match_all": {}}}',
+                            'estimated_docs_affected': doc_count
+                        }
+                        summary['commands_to_execute']['opensearch_operations'].append(os_cmd)
+            
+            summary['overview']['total_items_to_clean'] += total_os_docs
+        
+        # Process Neptune operations
+        if 'databases' in results and 'neptune' in results['databases']:
+            neptune_data = results['databases']['neptune']
+            total_triples = 0
+            
+            for op in neptune_data.get('operations_performed', []):
+                if op.get('operation') == 'neptune_discovery':
+                    discovery = op.get('discovery_results', {})
+                    total_triples = op.get('total_triples', 0)
+                    
+                    summary['detailed_operations']['neptune'].append({
+                        'total_triples': total_triples,
+                        'documents': discovery.get('documents', 0),
+                        'document_chunks': discovery.get('document_chunks', 0),
+                        'entities': discovery.get('entities', 0),
+                        'relationships': discovery.get('relationships', 0),
+                        'operation': 'DELETE ALL DOCUMENT TRIPLES'
+                    })
+                    
+                    # Add SPARQL commands (using correct namespace)
+                    sparql_commands = [
+                        {
+                            'description': 'Delete all document instances and related triples',
+                            'query': 'DELETE WHERE { ?s ?p ?o . ?s a <http://solve.global/knowledge-commons/schema#Document> }',
+                            'estimated_triples_affected': 'Unknown (Neptune limitation)'
+                        },
+                        {
+                            'description': 'Delete all document chunk instances and related triples', 
+                            'query': 'DELETE WHERE { ?s ?p ?o . ?s a <http://solve.global/knowledge-commons/schema#DocumentChunk> }',
+                            'estimated_triples_affected': 'Unknown (Neptune limitation)'
+                        },
+                        {
+                            'description': 'Delete all document section instances and related triples',
+                            'query': 'DELETE WHERE { ?s ?p ?o . ?s a <http://solve.global/knowledge-commons/schema#DocumentSection> }',
+                            'estimated_triples_affected': 'Unknown (Neptune limitation)'
+                        }
+                    ]
+                    summary['commands_to_execute']['sparql_statements'] = sparql_commands
+            
+            summary['overview']['total_items_to_clean'] += total_triples
+        
+        # Process S3 operations
+        if 's3_data_lake' in results:
+            s3_data = results['s3_data_lake']
+            total_s3_objects = 0
+            
+            for op in s3_data.get('operations_performed', []):
+                if op.get('operation') == 'count_all_objects':
+                    bucket = op.get('bucket')
+                    count = op.get('objects_found', 0)
+                    size = op.get('total_size', 0)
+                    total_s3_objects += count
+                    
+                    summary['detailed_operations']['s3'].append({
+                        'bucket': bucket,
+                        'objects_to_delete': count,
+                        'total_size_bytes': size,
+                        'total_size_mb': round(size / 1024 / 1024, 2),
+                        'operation': 'DELETE ALL OBJECTS'
+                    })
+                    
+                    # Add S3 command
+                    s3_cmd = {
+                        'bucket': bucket,
+                        'operation': 'delete_all_objects',
+                        'aws_cli_equivalent': f'aws s3 rm s3://{bucket}/ --recursive',
+                        'estimated_objects_affected': count
+                    }
+                    summary['commands_to_execute']['s3_operations'].append(s3_cmd)
+            
+            summary['overview']['total_items_to_clean'] += total_s3_objects
+        
+        # Calculate impact level
+        total_items = summary['overview']['total_items_to_clean']
+        if total_items == 0:
+            summary['overview']['estimated_impact'] = 'NONE'
+        elif total_items < 100:
+            summary['overview']['estimated_impact'] = 'LOW'
+        elif total_items < 1000:
+            summary['overview']['estimated_impact'] = 'MEDIUM'
+        else:
+            summary['overview']['estimated_impact'] = 'HIGH'
+        
+        summary['overview']['operations_count'] = (
+            len(summary['commands_to_execute']['sql_statements']) +
+            len(summary['commands_to_execute']['sparql_statements']) +
+            len(summary['commands_to_execute']['opensearch_operations']) +
+            len(summary['commands_to_execute']['s3_operations'])
+        )
+        
+        return summary
 
 
 def lambda_handler(event, context):

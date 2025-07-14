@@ -18,7 +18,7 @@ from constructs import Construct
 class CleanupServiceStack(Stack):
     """Stack for the cleanup service Lambda function"""
 
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope, construct_id, **kwargs):
         super().__init__(scope, construct_id, **kwargs)
 
         # Import existing VPC
@@ -146,13 +146,6 @@ class CleanupServiceStack(Stack):
             }
         )
         
-        # Create CloudWatch log group
-        log_group = logs.LogGroup(
-            self, "CleanupServiceLogGroup",
-            log_group_name="/aws/lambda/solve-global-kr-cleanup-service",
-            retention=logs.RetentionDays.ONE_MONTH
-        )
-        
         # Create Lambda function
         self.cleanup_function = lambda_.Function(
             self, "CleanupServiceFunction",
@@ -183,10 +176,9 @@ class CleanupServiceStack(Stack):
                 "OPENSEARCH_KEYWORD_ENDPOINT": "https://search-climate-risk-keyword-index.us-east-1.es.amazonaws.com",
                 "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-abcdefghij.us-east-1.neptune.amazonaws.com",
                 "NEPTUNE_PORT": "8182",
-                "AWS_DEFAULT_REGION": "us-east-1",
+                "AWS_ACCOUNT_ID": "861276078413",
                 "LAMBDA_ENVIRONMENT": "true"
-            },
-            log_group=log_group
+            }
         )
         
         # Output the function ARN

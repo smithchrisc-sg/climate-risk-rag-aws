@@ -9,9 +9,15 @@ from typing import Dict, List, Any, Optional
 import boto3
 from botocore.exceptions import ClientError
 import json
-import requests
-from requests.auth import HTTPBasicAuth
-import urllib.parse
+
+# Try to import requests, handle gracefully if not available
+try:
+    import requests
+    from requests.auth import HTTPBasicAuth
+    import urllib.parse
+    REQUESTS_AVAILABLE = True
+except ImportError:
+    REQUESTS_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +25,12 @@ class NeptuneCleanup:
     """Handles Neptune knowledge graph cleanup operations"""
     
     def __init__(self):
+        if not REQUESTS_AVAILABLE:
+            logger.warning("Requests library not available - Neptune cleanup will be skipped")
+            self.neptune_endpoint = None
+            self.sparql_endpoint = None
+            return
+            
         self.neptune_endpoint = os.environ.get('NEPTUNE_ENDPOINT')
         self.neptune_port = os.environ.get('NEPTUNE_PORT', '8182')
         
@@ -51,6 +63,11 @@ class NeptuneCleanup:
             'errors': []
         }
         
+        if not REQUESTS_AVAILABLE:
+            results['success'] = False
+            results['errors'].append("Requests library not available - install requests")
+            return results
+
         if not self.sparql_endpoint:
             results['success'] = False
             results['errors'].append("Neptune endpoint not configured")
@@ -90,7 +107,24 @@ class NeptuneCleanup:
                         results['success'] = False
             
             else:
-                logger.info("No cleanup operations specified for Neptune")
+                # No specific operations requested - perform discovery or full cleanup
+                if dry_run:
+                    logger.info("No specific Neptune cleanup operations requested - performing discovery")
+                    result = self._discover_neptune_data(dry_run)
+                    results['triples_affected'] = result['triples_affected']
+                    results['operations_performed'].extend(result['operations_performed'])
+                    if not result['success']:
+                        results['success'] = False
+                        results['errors'].extend(result['errors'])
+                else:
+                    # Actually delete all triples for clean slate
+                    logger.info("Performing complete Neptune cleanup - deleting ALL triples")
+                    result = self._delete_all_triples()
+                    results['triples_affected'] = result['triples_affected']
+                    results['operations_performed'].extend(result['operations_performed'])
+                    if not result['success']:
+                        results['success'] = False
+                        results['errors'].extend(result['errors'])
         
         except Exception as e:
             error_msg = f"Neptune cleanup failed: {str(e)}"
@@ -327,6 +361,192 @@ class NeptuneCleanup:
         except Exception as e:
             logger.error(f"SPARQL update failed: {str(e)}")
             raise
+    
+    def _discover_neptune_data(self, dry_run: bool) -> Dict[str, Any]:
+        """
+        Discover and count existing data in Neptune
+        
+        Args:
+            dry_run: If True, only count (always true for discovery)
+            
+        Returns:
+            Dict containing discovery results
+        """
+        results = {
+            'success': True,
+            'triples_affected': 0,
+            'operations_performed': [],
+            'errors': []
+        }
+        
+        try:
+            logger.info("Discovering Neptune data...")
+            
+            # Queries to count different types of data
+            discovery_queries = [
+                {
+                    'name': 'documents',
+                    'query': "SELECT (COUNT(*) as ?count) WHERE { ?s a <http://climate-risk.org/Document> }",
+                    'description': 'Document instances'
+                },
+                {
+                    'name': 'document_chunks', 
+                    'query': "SELECT (COUNT(*) as ?count) WHERE { ?s a <http://climate-risk.org/DocumentChunk> }",
+                    'description': 'Document chunk instances'
+                },
+                {
+                    'name': 'entities',
+                    'query': "SELECT (COUNT(*) as ?count) WHERE { ?s a <http://climate-risk.org/Entity> }",
+                    'description': 'Entity instances'
+                },
+                {
+                    'name': 'relationships',
+                    'query': "SELECT (COUNT(*) as ?count) WHERE { ?s <http://climate-risk.org/relatedTo> ?o }",
+                    'description': 'Relationship triples'
+                },
+                {
+                    'name': 'all_triples',
+                    'query': "SELECT (COUNT(*) as ?count) WHERE { ?s ?p ?o }",
+                    'description': 'Total triples in graph'
+                }
+            ]
+            
+            total_triples = 0
+            discovery_results = {}
+            
+            for query_info in discovery_queries:
+                try:
+                    logger.info(f"Counting {query_info['description']}...")
+                    response = self._execute_sparql_query(query_info['query'])
+                    
+                    count = 0
+                    if response and 'results' in response and 'bindings' in response['results']:
+                        bindings = response['results']['bindings']
+                        if bindings and 'count' in bindings[0]:
+                            count = int(bindings[0]['count']['value'])
+                    
+                    discovery_results[query_info['name']] = count
+                    logger.info(f"Found {count} {query_info['description']}")
+                    
+                    # For total count, use the all_triples count
+                    if query_info['name'] == 'all_triples':
+                        total_triples = count
+                        
+                except Exception as e:
+                    error_msg = f"Failed to count {query_info['description']}: {str(e)}"
+                    logger.warning(error_msg)
+                    results['errors'].append(error_msg)
+                    discovery_results[query_info['name']] = 'error'
+            
+            results['triples_affected'] = total_triples
+            results['operations_performed'].append({
+                'operation': 'neptune_discovery',
+                'discovery_results': discovery_results,
+                'total_triples': total_triples,
+                'dry_run': True
+            })
+            
+            logger.info(f"Neptune discovery complete. Total triples: {total_triples}")
+            
+            # Add debug query to dump sample triples
+            try:
+                logger.info("Fetching sample triples for debugging...")
+                debug_query = "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 50"
+                debug_response = self._execute_sparql_query(debug_query)
+                
+                if debug_response and 'results' in debug_response and 'bindings' in debug_response['results']:
+                    triples_sample = []
+                    for binding in debug_response['results']['bindings']:
+                        triple = {
+                            'subject': binding.get('s', {}).get('value', 'N/A'),
+                            'predicate': binding.get('p', {}).get('value', 'N/A'), 
+                            'object': binding.get('o', {}).get('value', 'N/A')
+                        }
+                        triples_sample.append(triple)
+                    
+                    results['operations_performed'][0]['sample_triples'] = triples_sample
+                    logger.info(f"Sample triples: {triples_sample}")
+                else:
+                    logger.warning("No triples returned from debug query")
+                    
+            except Exception as e:
+                logger.warning(f"Failed to fetch sample triples: {str(e)}")
+                results['operations_performed'][0]['sample_triples_error'] = str(e)
+            
+        except Exception as e:
+            error_msg = f"Failed to discover Neptune data: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            results['success'] = False
+            results['errors'].append(error_msg)
+        
+        return results
+    
+    def _delete_all_triples(self) -> Dict[str, Any]:
+        """
+        Delete ALL triples from Neptune for complete clean slate
+        
+        Returns:
+            Dict containing deletion results
+        """
+        results = {
+            'success': True,
+            'triples_affected': 0,
+            'operations_performed': [],
+            'errors': []
+        }
+        
+        try:
+            logger.info("Executing complete Neptune cleanup - DELETE WHERE { ?s ?p ?o }")
+            
+            # First count how many triples we're about to delete
+            count_query = "SELECT (COUNT(*) as ?count) WHERE { ?s ?p ?o }"
+            try:
+                count_response = self._execute_sparql_query(count_query)
+                if count_response and 'results' in count_response and 'bindings' in count_response['results']:
+                    bindings = count_response['results']['bindings']
+                    if bindings and 'count' in bindings[0]:
+                        triples_count = int(bindings[0]['count']['value'])
+                        results['triples_affected'] = triples_count
+                        logger.info(f"About to delete {triples_count} triples from Neptune")
+            except Exception as e:
+                logger.warning(f"Failed to count triples before deletion: {str(e)}")
+                results['triples_affected'] = 'unknown'
+            
+            # Execute the complete deletion
+            delete_query = "DELETE WHERE { ?s ?p ?o }"
+            self._execute_sparql_update(delete_query)
+            
+            logger.info("Successfully executed DELETE WHERE { ?s ?p ?o }")
+            
+            results['operations_performed'].append({
+                'operation': 'delete_all_triples',
+                'query': delete_query,
+                'triples_deleted': results['triples_affected'],
+                'dry_run': False
+            })
+            
+            # Verify deletion by counting remaining triples
+            try:
+                verify_response = self._execute_sparql_query(count_query)
+                if verify_response and 'results' in verify_response and 'bindings' in verify_response['results']:
+                    bindings = verify_response['results']['bindings']
+                    if bindings and 'count' in bindings[0]:
+                        remaining_count = int(bindings[0]['count']['value'])
+                        logger.info(f"Verification: {remaining_count} triples remaining after deletion")
+                        results['operations_performed'][0]['verification'] = {
+                            'remaining_triples': remaining_count,
+                            'deletion_successful': remaining_count == 0
+                        }
+            except Exception as e:
+                logger.warning(f"Failed to verify deletion: {str(e)}")
+            
+        except Exception as e:
+            error_msg = f"Failed to delete all triples from Neptune: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            results['success'] = False
+            results['errors'].append(error_msg)
+        
+        return results
     
     def get_neptune_status(self) -> Dict[str, Any]:
         """

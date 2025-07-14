@@ -199,9 +199,9 @@ All outdated versions have been renamed with `DEPRECATED_` prefix to maintain hi
 - Various message format and minimal functionality tests
 
 ### Testing Approach
-1. **Unit Testing**: Individual component validation
-2. **Integration Testing**: Cross-component message flow
-3. **End-to-End Testing**: Full pipeline validation (cost-conscious)
+1. **Unit Testing**: Individual component validation - NOTE: must be done using document content that has already been processed by upstream pipeline stages. This will ensure that set up is complete and allow for meaningful tests.
+2. **Integration Testing**: Cross-component message flow - NOTE: as above, must be done using document content that has already been successfully processed by upstream pipeline stages. The implication is that testing must follow pipeline order, and be successful before moving to the next stage.
+3. **End-to-End Testing**: Full pipeline validation (cost-conscious) - with `invoke_pipeline_test.py`
 4. **Error Handling**: Graceful degradation and retry logic
 
 ## Known Issues and Resolutions

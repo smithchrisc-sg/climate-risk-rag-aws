@@ -11,6 +11,11 @@ from psycopg2.extras import RealDictCursor
 import json
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Add debug logging if in Lambda environment
+if os.environ.get('LAMBDA_ENVIRONMENT'):
+    logger.setLevel(logging.DEBUG)
 
 class DatabaseCleanup:
     """Handles PostgreSQL database cleanup operations"""
@@ -41,8 +46,20 @@ class DatabaseCleanup:
         }
         
         try:
-            # Get configuration
-            tables = config.get('tables', ['document_processing_status', 'nlp_processing_status'])
+            # Default to all major tables if none specified
+            default_tables = [
+                'documents',
+                'document_metadata', 
+                'document_processing_status',
+                'nlp_processing_status',
+                'vector_embeddings_status',
+                'keyword_indexing_status',
+                'text_chunking_status',
+                'textract_jobs',
+                'chunks'
+            ]
+            
+            tables = config.get('tables', default_tables)
             document_ids = config.get('document_ids', [])
             
             # Connect to database
@@ -52,6 +69,7 @@ class DatabaseCleanup:
                     # Clean up each specified table
                     for table in tables:
                         try:
+                            logger.info(f"Starting cleanup for table: {table}")
                             affected_count = self._cleanup_table(
                                 cursor, table, document_ids, dry_run
                             )
@@ -69,9 +87,10 @@ class DatabaseCleanup:
                             
                         except Exception as e:
                             error_msg = f"Failed to clean table {table}: {str(e)}"
-                            logger.error(error_msg)
+                            logger.error(error_msg, exc_info=True)
                             results['errors'].append(error_msg)
                             results['success'] = False
+                            # Continue with other tables even if one fails
                     
                     # Commit changes if not dry run
                     if not dry_run and results['success']:
@@ -105,39 +124,76 @@ class DatabaseCleanup:
         Returns:
             Number of records affected
         """
-        # Validate table name to prevent SQL injection
-        allowed_tables = [
-            'document_processing_status',
-            'nlp_processing_status',
-            'vector_processing_status',
-            'keyword_processing_status',
-            'kg_processing_status'
-        ]
+        # Map table names to their actual names and document ID columns
+        table_mappings = {
+            'document_processing_status': ('document_processing_status', 'doc_hash'),  # Uses doc_hash, not doc_id
+            'nlp_processing_status': ('nlp_processing_status', 'doc_id'),
+            'vector_processing_status': ('vector_embeddings_status', 'doc_id'),  # Actual table name
+            'keyword_processing_status': ('keyword_indexing_status', 'doc_id'),  # Actual table name
+            'kg_processing_status': ('text_chunking_status', 'doc_id'),  # Closest equivalent
+            # Additional tables found in database
+            'documents': ('documents', 'doc_id'),
+            'document_metadata': ('document_metadata', 'doc_id'),
+            'textract_jobs': ('textract_jobs', 'doc_hash'),
+            'chunks': ('chunks', 'doc_id'),
+            # Direct table name mappings (for when user specifies actual table names)
+            'vector_embeddings_status': ('vector_embeddings_status', 'doc_id'),
+            'keyword_indexing_status': ('keyword_indexing_status', 'doc_id'),
+            'text_chunking_status': ('text_chunking_status', 'doc_id')
+        }
         
-        if table_name not in allowed_tables:
-            raise ValueError(f"Table {table_name} is not allowed for cleanup")
-        
-        # Build query based on whether specific document IDs are provided
-        if document_ids:
-            # Clean specific documents
-            if dry_run:
-                query = f"SELECT COUNT(*) FROM {table_name} WHERE document_id = ANY(%s)"
-                cursor.execute(query, (document_ids,))
-                return cursor.fetchone()[0]
-            else:
-                query = f"DELETE FROM {table_name} WHERE document_id = ANY(%s)"
-                cursor.execute(query, (document_ids,))
-                return cursor.rowcount
+        # Get actual table name and column
+        if table_name in table_mappings:
+            actual_table, doc_column = table_mappings[table_name]
         else:
-            # Clean all records
-            if dry_run:
-                query = f"SELECT COUNT(*) FROM {table_name}"
-                cursor.execute(query)
-                return cursor.fetchone()[0]
+            # Default assumption - use table name as-is with doc_id column
+            actual_table = table_name
+            doc_column = 'doc_id'
+            logger.warning(f"Table {table_name} not in mappings, using default: {actual_table}.{doc_column}")
+        
+        logger.info(f"Cleaning table {actual_table} using column {doc_column}, dry_run={dry_run}")
+        
+        try:
+            # Build query based on whether specific document IDs are provided
+            if document_ids:
+                # Clean specific documents
+                if dry_run:
+                    query = f"SELECT COUNT(*) as count FROM {actual_table} WHERE {doc_column} = ANY(%s)"
+                    logger.debug(f"Executing count query: {query} with params: {document_ids}")
+                    cursor.execute(query, (document_ids,))
+                    result = cursor.fetchone()
+                    count = result['count'] if result else 0
+                    logger.info(f"Found {count} records in {actual_table} for specific documents")
+                    return count
+                else:
+                    query = f"DELETE FROM {actual_table} WHERE {doc_column} = ANY(%s)"
+                    logger.debug(f"Executing delete query: {query} with params: {document_ids}")
+                    cursor.execute(query, (document_ids,))
+                    deleted = cursor.rowcount
+                    logger.info(f"Deleted {deleted} records from {actual_table}")
+                    return deleted
             else:
-                query = f"DELETE FROM {table_name}"
-                cursor.execute(query)
-                return cursor.rowcount
+                # Clean all records
+                if dry_run:
+                    query = f"SELECT COUNT(*) as count FROM {actual_table}"
+                    logger.debug(f"Executing count query: {query}")
+                    cursor.execute(query)
+                    result = cursor.fetchone()
+                    count = result['count'] if result else 0
+                    logger.info(f"Found {count} total records in {actual_table}")
+                    return count
+                else:
+                    query = f"DELETE FROM {actual_table}"
+                    logger.debug(f"Executing delete query: {query}")
+                    cursor.execute(query)
+                    deleted = cursor.rowcount
+                    logger.info(f"Deleted {deleted} records from {actual_table}")
+                    return deleted
+                    
+        except Exception as e:
+            error_msg = f"Error executing query on {actual_table}: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            raise Exception(error_msg)
     
     def get_database_status(self) -> Dict[str, Any]:
         """

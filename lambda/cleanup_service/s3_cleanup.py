@@ -17,8 +17,9 @@ class S3Cleanup:
     
     def __init__(self):
         self.s3_client = boto3.client('s3')
-        self.account_id = boto3.client('sts').get_caller_identity()['Account']
-        self.region = os.environ.get('AWS_DEFAULT_REGION', 'us-east-1')
+        # Get account ID from environment or Lambda context instead of STS call
+        self.account_id = os.environ.get('AWS_ACCOUNT_ID', '861276078413')
+        self.region = boto3.Session().region_name or 'us-east-1'
         
         # Standard bucket patterns
         self.bucket_patterns = {

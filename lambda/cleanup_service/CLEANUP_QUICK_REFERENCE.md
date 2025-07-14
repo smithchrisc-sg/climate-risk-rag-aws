@@ -1,99 +1,302 @@
-# Cleanup Service - Quick Reference
-
-## Deletion Operations Summary
-
-| Service | Target | Specific Document Command/Query | Full Cleanup Command/Query | Dry Run Method |
-|---------|--------|--------------------------------|---------------------------|----------------|
-| **PostgreSQL** | Processing status records | `DELETE FROM table WHERE document_id = ANY($1)` | `DELETE FROM table` | `SELECT COUNT(*) FROM table [WHERE...]` |
-| **OpenSearch** | Vector/keyword documents | `POST /index/_delete_by_query {"query":{"term":{"document_id":"doc-123"}}}` | `POST /index/_delete_by_query {"query":{"match_all":{}}}` | `POST /index/_search {"size":0, "query":{...}}` |
-| **Neptune** | RDF triples | `DELETE WHERE {<doc-uri> ?p ?o}` | `DELETE WHERE {?s a climate-risk:Document . ?s ?p ?o}` | `SELECT (COUNT(*) as ?count) WHERE {...}` |
-| **S3** | Data lake objects | `list_objects_v2(Prefix="data_lake/doc-123/")` + `delete_objects()` | `list_objects_v2()` + `delete_objects()` | `list_objects_v2()` (count only) |
-
-## Service-Specific Details
-
-### PostgreSQL Tables
-- `document_processing_status` - Overall processing tracking
-- `nlp_processing_status` - NLP analysis status  
-- `vector_processing_status` - Vector embedding status
-- `keyword_processing_status` - Keyword indexing status
-- `kg_processing_status` - Knowledge graph status
-
-### OpenSearch Collections
-- `climate-risk-vectorsearch` - Vector embeddings for semantic search
-- `climate-risk-keyword-index` - Keyword indices for exact matching
-
-### Neptune RDF Classes
-- `climate-risk:Document` - Document instances
-- `climate-risk:DocumentChunk` - Text chunk instances
-- `climate-risk:Entity` - Extracted entity instances
-
-### S3 Bucket Patterns
-- `solve-global-kr-dl-source-documents-*` - Original PDFs
-- `solve-global-kr-dl-text-*` - Extracted text
-- `solve-global-kr-dl-chunks-*` - Text chunks
-- `solve-global-kr-dl-embeddings-*` - Vector embeddings
-- `solve-global-kr-dl-keywords-*` - Keyword results
-- `solve-global-kr-dl-nlp-*` - NLP analysis
-- `solve-global-kr-dl-neptune-ttl-*` - Knowledge graph TTL
-
-## Data Lake Structure
-```
-/data_lake/{document_id}/
-├── source/           # Original document
-├── text/            # Textract results
-├── chunks/          # Text chunks
-├── embeddings/      # Vector embeddings  
-├── keywords/        # TF-IDF keywords
-├── nlp/            # Comprehend results
-└── kg/             # Knowledge graph TTL
-```
-
-## Safety Features
-- ✅ **Dry Run Mode** - Preview without deletion
-- ✅ **Payload Validation** - Structure and type checking
-- ✅ **Confirmation Required** - For dangerous operations
-- ✅ **Transaction Rollback** - PostgreSQL operations only
-- ✅ **Comprehensive Logging** - All operations tracked
+# Cleanup Service Quick Reference
 
 ## Common Usage Patterns
 
-### Full System Cleanup (Dry Run)
+### 1. Complete System Cleanup (Recommended)
 ```bash
-aws lambda invoke --function-name solve-global-kr-cleanup-service \
-  --payload file://examples/cleanup_full_dry_run.json response.json
+aws lambda invoke \
+  --function-name solve-global-kr-cleanup-service \
+  --payload '{
+    "cleanup_scope": {
+      "databases": {
+        "postgresql": {
+          "enabled": true,
+          "tables": ["documents", "document_metadata", "document_processing_status"],
+          "document_ids": []
+        },
+        "opensearch": {
+          "enabled": true,
+          "collections": ["solve-global-kr-vectors-v2", "solve-global-kr-search-v2"],
+          "document_ids": []
+        },
+        "neptune": {"enabled": true}
+      },
+      "s3_data_lake": {
+        "enabled": true,
+        "buckets": ["solve-global-kr-dl-source-documents-861276078413-us-east-1"],
+        "document_ids": [],
+        "preserve_structure": true
+      }
+    },
+    "safety_checks": {
+      "require_confirmation": false,
+      "dry_run": false,
+      "max_documents_to_delete": 5000
+    }
+  }' \
+  response.json
 ```
 
-### S3 Only Cleanup
+### 2. Dry Run (Always Run First!)
 ```bash
-aws lambda invoke --function-name solve-global-kr-cleanup-service \
-  --payload file://examples/cleanup_s3_only.json response.json
+aws lambda invoke \
+  --function-name solve-global-kr-cleanup-service \
+  --payload '{
+    "cleanup_scope": {
+      "databases": {
+        "postgresql": {"enabled": true, "tables": ["documents", "document_metadata", "document_processing_status"]},
+        "opensearch": {"enabled": true, "collections": ["solve-global-kr-vectors-v2", "solve-global-kr-search-v2"]},
+        "neptune": {"enabled": true}
+      },
+      "s3_data_lake": {"enabled": true, "buckets": ["solve-global-kr-dl-source-documents-861276078413-us-east-1"]}
+    },
+    "safety_checks": {"dry_run": true, "max_documents_to_delete": 5000}
+  }' \
+  dry_run_response.json
 ```
 
-### Specific Documents
+### 3. Database Only Cleanup
 ```bash
-aws lambda invoke --function-name solve-global-kr-cleanup-service \
-  --payload file://examples/cleanup_specific_documents.json response.json
+aws lambda invoke \
+  --function-name solve-global-kr-cleanup-service \
+  --payload '{
+    "cleanup_scope": {
+      "databases": {
+        "postgresql": {
+          "enabled": true,
+          "tables": ["documents", "document_metadata", "document_processing_status"]
+        },
+        "opensearch": {"enabled": false},
+        "neptune": {"enabled": false}
+      },
+      "s3_data_lake": {"enabled": false}
+    },
+    "safety_checks": {"dry_run": false}
+  }' \
+  db_cleanup_response.json
 ```
 
-## Response Format
+### 4. OpenSearch Only Cleanup
+```bash
+aws lambda invoke \
+  --function-name solve-global-kr-cleanup-service \
+  --payload '{
+    "cleanup_scope": {
+      "databases": {
+        "postgresql": {"enabled": false},
+        "opensearch": {
+          "enabled": true,
+          "collections": ["solve-global-kr-search-v2"]
+        },
+        "neptune": {"enabled": false}
+      },
+      "s3_data_lake": {"enabled": false}
+    },
+    "safety_checks": {"dry_run": false}
+  }' \
+  opensearch_cleanup_response.json
+```
+
+### 5. Neptune Only Cleanup
+```bash
+aws lambda invoke \
+  --function-name solve-global-kr-cleanup-service \
+  --payload '{
+    "cleanup_scope": {
+      "databases": {
+        "postgresql": {"enabled": false},
+        "opensearch": {"enabled": false},
+        "neptune": {"enabled": true}
+      },
+      "s3_data_lake": {"enabled": false}
+    },
+    "safety_checks": {"dry_run": false}
+  }' \
+  neptune_cleanup_response.json
+```
+
+## Expected Results
+
+### Successful Complete Cleanup
 ```json
 {
-  "success": true,
-  "results": {
-    "databases": {
-      "postgresql": {"records_affected": {"table": count}},
-      "opensearch": {"documents_affected": {"collection": count}},
-      "neptune": {"triples_affected": count}
+  "statusCode": 200,
+  "body": {
+    "success": true,
+    "results": {
+      "dry_run": false,
+      "databases": {
+        "postgresql": {
+          "success": true,
+          "records_affected": {
+            "documents": 1007,
+            "document_metadata": 1005,
+            "document_processing_status": 27
+          }
+        },
+        "opensearch": {
+          "success": true,
+          "documents_affected": {
+            "solve-global-kr-vectors-v2": 0,
+            "solve-global-kr-search-v2": 3
+          }
+        },
+        "neptune": {
+          "success": true,
+          "triples_affected": 422
+        }
+      },
+      "s3_data_lake": {
+        "success": true,
+        "total_objects_deleted": 1,
+        "total_size_deleted": 1570490
+      }
     },
-    "s3_data_lake": {
-      "total_objects_deleted": count,
-      "total_size_deleted": bytes
-    },
-    "summary": {
-      "total_operations": 4,
-      "successful_operations": 4,
-      "failed_operations": 0
+    "cleanup_summary": {
+      "overview": {
+        "total_items_to_clean": 2465,
+        "operations_count": 8,
+        "estimated_impact": "HIGH"
+      }
     }
   }
 }
 ```
+
+### Clean System (No Data to Clean)
+```json
+{
+  "cleanup_summary": {
+    "overview": {
+      "total_items_to_clean": 0,
+      "estimated_impact": "NONE"
+    }
+  }
+}
+```
+
+## Verification Commands
+
+### Check PostgreSQL
+```sql
+SELECT COUNT(*) FROM documents;
+SELECT COUNT(*) FROM document_metadata;
+SELECT COUNT(*) FROM document_processing_status;
+-- All should return 0 after cleanup
+```
+
+### Check OpenSearch
+```bash
+# Check vector collection
+curl -X GET "https://rui72a7agqnqo77vk34b.us-east-1.aoss.amazonaws.com/_cat/indices?format=json"
+
+# Check search collection  
+curl -X GET "https://i7dzyfap1fe42z9delui.us-east-1.aoss.amazonaws.com/_cat/indices?format=json"
+# Should return empty array [] or indices with 0 docs.count
+```
+
+### Check Neptune
+```sparql
+SELECT (COUNT(*) as ?count) WHERE { ?s ?p ?o }
+-- Should return 0 after cleanup
+```
+
+### Check S3
+```bash
+aws s3 ls s3://solve-global-kr-dl-source-documents-861276078413-us-east-1/ --recursive
+# Should return no objects
+```
+
+## Troubleshooting
+
+### Common Issues & Solutions
+
+#### "OpenSearch 404 errors"
+- **Cause**: Collection or index doesn't exist
+- **Solution**: This is normal - means already clean
+
+#### "Neptune connection timeout"
+- **Cause**: VPC/Security group issue
+- **Solution**: Ensure Lambda uses security group `sg-0c043bcb40f656321`
+
+#### "PostgreSQL connection failed"
+- **Cause**: Database connectivity or credentials
+- **Solution**: Check DATABASE_URL environment variable
+
+#### "S3 access denied"
+- **Cause**: IAM permissions
+- **Solution**: Ensure cleanup role has s3:DeleteObject permissions
+
+### Debug Commands
+
+#### Check CloudWatch Logs
+```bash
+aws logs describe-log-streams \
+  --log-group-name "/aws/lambda/solve-global-kr-cleanup-service" \
+  --order-by LastEventTime --descending --limit 1
+
+aws logs get-log-events \
+  --log-group-name "/aws/lambda/solve-global-kr-cleanup-service" \
+  --log-stream-name "STREAM_NAME_FROM_ABOVE"
+```
+
+#### Test Lambda Function
+```bash
+aws lambda get-function --function-name solve-global-kr-cleanup-service
+```
+
+#### Check IAM Permissions
+```bash
+aws iam get-role-policy \
+  --role-name CleanupServiceStack-CleanupServiceRole2E37FBF7-WsqIJNXJNz85 \
+  --policy-name CleanupServicePolicy
+```
+
+## File Shortcuts
+
+Save these as files for easy reuse:
+
+### complete_cleanup.json
+```json
+{
+  "cleanup_scope": {
+    "databases": {
+      "postgresql": {"enabled": true, "tables": ["documents", "document_metadata", "document_processing_status"]},
+      "opensearch": {"enabled": true, "collections": ["solve-global-kr-vectors-v2", "solve-global-kr-search-v2"]},
+      "neptune": {"enabled": true}
+    },
+    "s3_data_lake": {"enabled": true, "buckets": ["solve-global-kr-dl-source-documents-861276078413-us-east-1"]}
+  },
+  "safety_checks": {"dry_run": false, "max_documents_to_delete": 5000}
+}
+```
+
+### dry_run.json
+```json
+{
+  "cleanup_scope": {
+    "databases": {
+      "postgresql": {"enabled": true, "tables": ["documents", "document_metadata", "document_processing_status"]},
+      "opensearch": {"enabled": true, "collections": ["solve-global-kr-vectors-v2", "solve-global-kr-search-v2"]},
+      "neptune": {"enabled": true}
+    },
+    "s3_data_lake": {"enabled": true, "buckets": ["solve-global-kr-dl-source-documents-861276078413-us-east-1"]}
+  },
+  "safety_checks": {"dry_run": true}
+}
+```
+
+### Usage
+```bash
+aws lambda invoke --function-name solve-global-kr-cleanup-service --payload fileb://dry_run.json response.json
+aws lambda invoke --function-name solve-global-kr-cleanup-service --payload fileb://complete_cleanup.json response.json
+```
+
+## Success Indicators
+
+### Complete Clean Slate Achieved When:
+- ✅ PostgreSQL: All tables return COUNT(*) = 0
+- ✅ OpenSearch: `_cat/indices` returns empty or 0 docs.count
+- ✅ Neptune: `SELECT (COUNT(*) as ?count) WHERE { ?s ?p ?o }` returns 0
+- ✅ S3: `aws s3 ls` returns no objects
+- ✅ Cleanup response shows `"success": true` for all components

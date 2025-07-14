@@ -128,6 +128,8 @@ Note direction in the list below. We should always use git to manage things. So,
       b. then from the full pipeline path available so far 
 - DO NOT UNDER ANY CIRCUMSTANCE USE ACCOUNT NUMBER 614290363854. Check to be sure we are using the correct solve-global profile anytime we're doing anything that involves an account number - suchas creating ARNs
 - When designing a lambda that calls an external service like textract or comprehend, as a first assumption, design it async with an initiator lambda and another to receive the response, to avoid paying for synchronous idle time
+- When testing or trying to get around a bug, concentrate on fixing the root cause. If you have to create interim code to test, merge into the main code after it's been fixed and delete the test code. Do not do things that leave directories with lambda_processor.py, lambda_processor_updated.py, lambda_processor_fixed.py, lambda_processor_simple.py, etc.  At the end of pertinent development and testing activities we should only have a fully functioning lambda_processor.py
+- All end to end testing should be initiated from /Users/chris/climate-risk-rag-aws/invoke_pipeline_test.py  It, in conjunction with the test lambda at the head of the pipeline that it invokes has the proper logic to provide files and set up the database so that the pipeline can operate correctly. Unit testing of individual pipeline stages can only be done on documents that have completed all previous pipeline stages - this has to be checked and maintained for any unit testing.
 
 **CURRENT STATUS:**
 - Available in PROJECT CONTEXT SUMMARY and NEXT STEPS documents as specified above
