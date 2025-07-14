@@ -1,7 +1,0 @@
-{
-  "Variables": {
-    "VECTOR_WORKER_TOPIC_ARN": "arn:aws:sns:us-east-1:861276078413:vector-embeddings-worker",
-    "DATABASE_URL": "postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require",
-    "STANDARDIZED_MESSAGING_ENABLED": "true"
-  }
-}

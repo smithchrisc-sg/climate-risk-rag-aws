@@ -1,9 +1,0 @@
-{
-  "Records": [
-    {
-      "Sns": {
-        "Message": "{\"doc_id\": \"test_doc_123\", \"stage\": \"chunks_ready\"}"
-      }
-    }
-  ]
-}

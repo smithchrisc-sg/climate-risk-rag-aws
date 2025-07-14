@@ -1,7 +1,0 @@
-{
-  "bucket_name": "solve-global-kr-dl-ner-results-861276078413-us-east-1",
-  "nlp_worker_topic_arn": "arn:aws:sns:us-east-1:861276078413:nlp-worker",
-  "nlp_completion_topic_arn": "arn:aws:sns:us-east-1:861276078413:nlp-processing-complete",
-  "queue_arn": "arn:aws:sqs:us-east-1:861276078413:nlp-worker-queue",
-  "role_arn": "arn:aws:iam::861276078413:role/nlp-integration-lambda-role"
-}
