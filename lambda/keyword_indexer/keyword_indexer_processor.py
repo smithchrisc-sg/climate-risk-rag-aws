@@ -31,10 +31,14 @@ class SimpleAsyncKeywordIndexer:
         
         # Database manager
         try:
-            from utils.DatabaseManager import DatabaseManager
+            from DatabaseManager import DatabaseManager
             self.db_manager = DatabaseManager()
         except ImportError:
-            self.db_manager = None
+            try:
+                from utils.DatabaseManager import DatabaseManager
+                self.db_manager = DatabaseManager()
+            except ImportError:
+                self.db_manager = None
 
     def lambda_handler(self, event, context):
         """Main handler - quick processing and async delegation"""
