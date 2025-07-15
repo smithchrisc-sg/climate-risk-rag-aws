@@ -27,7 +27,7 @@ class TextChunkerProcessor:
         
         # Import shared utilities from lambda layer
         try:
-            from DatabaseManager import DatabaseManager
+            from utils.DatabaseManager import DatabaseManager
             self.db_manager = DatabaseManager()
             logger.info("DatabaseManager initialized successfully")
         except Exception as e:
