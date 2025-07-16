@@ -297,7 +297,7 @@ class EnhancedKeywordIndexerWorker:
             return {}
 
     def index_document(self, doc_id: str, doc_data: Dict) -> bool:
-        """Index enhanced document in OpenSearch with schema conflict handling"""
+        """Index enhanced document in OpenSearch with safe schema handling"""
         try:
             response = self.opensearch_client.index(
                 index=self.index_name,
@@ -320,41 +320,86 @@ class EnhancedKeywordIndexerWorker:
             if 'illegal_argument_exception' in error_str and 'cannot be changed from type' in error_str:
                 logger.warning(f"Schema conflict detected for document {doc_id}: {e}")
                 
-                # Try to recreate the index with correct schema
+                # SAFE APPROACH: Transform data to match existing schema
                 try:
-                    logger.info(f"Attempting to recreate index {self.index_name} due to schema conflict")
+                    logger.info(f"Attempting to transform document data to match existing schema")
                     
-                    # Delete existing index
-                    if self.opensearch_client.indices.exists(index=self.index_name):
-                        self.opensearch_client.indices.delete(index=self.index_name)
-                        logger.info(f"Deleted existing index {self.index_name}")
+                    # Create a schema-safe version of the document
+                    safe_doc_data = self._transform_for_schema_compatibility(doc_data, error_str)
                     
-                    # Create new index with correct mapping
-                    mapping = self.structure_processor.create_enhanced_index_mapping()
-                    self.opensearch_client.indices.create(index=self.index_name, body=mapping)
-                    logger.info(f"Recreated index {self.index_name} with correct schema")
-                    
-                    # Retry indexing
+                    # Retry indexing with transformed data
                     response = self.opensearch_client.index(
                         index=self.index_name,
                         id=doc_id,
-                        body=doc_data
+                        body=safe_doc_data
                     )
                     
                     if response['result'] in ['created', 'updated']:
-                        structure_status = "with structure" if doc_data.get('structure_metadata', {}).get('structure_available') else "standard"
-                        logger.info(f"Successfully indexed document {doc_id} after schema fix ({structure_status})")
+                        structure_status = "with structure (schema-adapted)" if safe_doc_data.get('structure_metadata', {}).get('structure_available') else "standard (schema-adapted)"
+                        logger.info(f"Successfully indexed document {doc_id} after schema adaptation ({structure_status})")
                         return True
                     else:
-                        logger.error(f"Retry indexing failed with result: {response['result']}")
+                        logger.error(f"Schema adaptation retry failed with result: {response['result']}")
                         return False
                         
                 except Exception as retry_error:
-                    logger.error(f"Failed to recreate index and retry indexing: {retry_error}")
+                    logger.error(f"Failed to adapt document to existing schema: {retry_error}")
                     return False
             else:
                 logger.error(f"Error indexing enhanced document {doc_id}: {e}")
                 return False
+
+    def _transform_for_schema_compatibility(self, doc_data: Dict, error_message: str) -> Dict:
+        """Transform document data to be compatible with existing schema"""
+        safe_doc_data = doc_data.copy()
+        
+        # Parse the error to understand which field has the conflict
+        if 'headings.text' in error_message and 'cannot be changed from type [date] to [text]' in error_message:
+            logger.info("Adapting headings.text field from text to date format")
+            
+            # Transform headings to match expected date schema
+            if 'headings' in safe_doc_data and isinstance(safe_doc_data['headings'], list):
+                transformed_headings = []
+                for heading in safe_doc_data['headings']:
+                    if isinstance(heading, dict) and 'text' in heading:
+                        # Convert text field to a date-compatible format or remove it
+                        transformed_heading = heading.copy()
+                        # Option 1: Remove the conflicting field
+                        transformed_heading.pop('text', None)
+                        # Option 2: Add a different field name
+                        transformed_heading['heading_text'] = heading.get('text', '')
+                        transformed_headings.append(transformed_heading)
+                    else:
+                        transformed_headings.append(heading)
+                safe_doc_data['headings'] = transformed_headings
+                
+        # Handle other potential field conflicts
+        elif 'cannot be changed from type' in error_message:
+            # Extract field name from error message
+            import re
+            field_match = re.search(r'mapper \[([^\]]+)\]', error_message)
+            if field_match:
+                conflicting_field = field_match.group(1)
+                logger.warning(f"Removing conflicting field: {conflicting_field}")
+                
+                # Remove the conflicting field using dot notation
+                field_parts = conflicting_field.split('.')
+                current_dict = safe_doc_data
+                
+                # Navigate to parent of conflicting field
+                for part in field_parts[:-1]:
+                    if part in current_dict and isinstance(current_dict[part], dict):
+                        current_dict = current_dict[part]
+                    else:
+                        break
+                else:
+                    # Remove the final conflicting field
+                    final_field = field_parts[-1]
+                    if final_field in current_dict:
+                        current_dict.pop(final_field, None)
+                        logger.info(f"Removed conflicting field: {conflicting_field}")
+        
+        return safe_doc_data
 
     def update_processing_status(self, doc_id: str, status: str, notes: str = None):
         """Update processing status"""
