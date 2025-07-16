@@ -7,11 +7,17 @@ No Step Functions needed - just async Lambda invocation with SNS callbacks
 import os
 import json
 import logging
+import sys
 import boto3
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO)
+# Configure logging for Lambda
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    stream=sys.stdout
+)
 logger = logging.getLogger(__name__)
 
 class SimpleAsyncKeywordIndexer:
@@ -43,18 +49,19 @@ class SimpleAsyncKeywordIndexer:
     def lambda_handler(self, event, context):
         """Main handler - quick processing and async delegation"""
         
-        logger.info(f"Processing {len(event['Records'])} records with simple async approach")
+        logger.info(f"Processing {len(event.get('Records', []))} records with simple async approach")
         
         results = []
-        for record in event['Records']:
+        for i, record in enumerate(event.get('Records', [])):
             try:
                 result = self.process_record_quickly(record)
                 results.append(result)
             except Exception as e:
-                logger.error(f"Error processing record: {e}")
+                error_msg = f"Error processing record {i+1}: {e}"
+                logger.error(error_msg)
                 results.append({'success': False, 'error': str(e)})
         
-        return {
+        response = {
             'statusCode': 200,
             'body': json.dumps({
                 'processed': len(results),
@@ -63,6 +70,9 @@ class SimpleAsyncKeywordIndexer:
                 'approach': 'simple_async_callback'
             })
         }
+        
+        logger.info(f"Completed processing with response: {response}")
+        return response
 
     def process_record_quickly(self, record: Dict) -> Dict:
         """Quick processing - just validate and delegate"""
@@ -95,6 +105,8 @@ class SimpleAsyncKeywordIndexer:
                 'completion_topic_arn': self.completion_topic_arn,
                 'initiated_at': datetime.utcnow().isoformat()
             }
+            
+            logger.info(f"Delegating {doc_id} to worker function")
             
             # Async Lambda invocation (fire and forget)
             response = self.lambda_client.invoke(

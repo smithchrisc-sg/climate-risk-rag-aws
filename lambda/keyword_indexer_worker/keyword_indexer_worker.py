@@ -7,6 +7,7 @@ Background processing with structure-aware indexing and fallback
 import os
 import json
 import logging
+import sys
 import boto3
 from datetime import datetime
 from typing import Dict, Optional
@@ -16,7 +17,12 @@ from aws_requests_auth.aws_auth import AWSRequestsAuth
 # Import our structure-aware components
 from structure_aware_processor import StructureAwareProcessor
 
-logging.basicConfig(level=logging.INFO)
+# Configure logging for Lambda
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    stream=sys.stdout
+)
 logger = logging.getLogger(__name__)
 
 class EnhancedKeywordIndexerWorker:
@@ -115,14 +121,24 @@ class EnhancedKeywordIndexerWorker:
     def lambda_handler(self, event, context):
         """Enhanced worker handler with structure processing"""
         
+        logger.info(f"Enhanced worker handler called with event: {event}")
+        
         try:
             action = event.get('action')
+            logger.info(f"Processing action: {action}")
+            
             if action == 'index_document':
+                logger.info("Starting enhanced indexing job")
                 return self.process_enhanced_indexing_job(event)
             else:
-                raise ValueError(f"Unknown action: {action}")
+                error_msg = f"Unknown action: {action}"
+                logger.error(error_msg)
+                raise ValueError(error_msg)
                 
         except Exception as e:
+            error_msg = f"Enhanced worker error: {e}"
+            logger.error(error_msg)
+            raise
             logger.error(f"Enhanced worker error: {e}")
             # Send error callback
             self.send_error_callback(event, str(e))
@@ -136,25 +152,30 @@ class EnhancedKeywordIndexerWorker:
         filename = job_data.get('filename', 'unknown')
         completion_topic_arn = job_data.get('completion_topic_arn')
         
+        logger.info(f"Starting enhanced indexing for {doc_id} from {text_folder_url}")
+        
         try:
-            logger.info(f"Starting enhanced indexing for {doc_id}")
-            
             # Read full text from S3 folder
             full_text = self.read_full_text(text_folder_url)
+            logger.info(f"Successfully read {len(full_text) if full_text else 0} characters")
             
             # Get document metadata
             metadata = self.get_document_metadata(doc_id)
             
             # Try to get Textract structure data from same folder
             textract_structure = self.get_textract_structure(text_folder_url)
+            logger.info(f"Textract structure data available: {textract_structure is not None}")
             
             # Prepare document with structure enhancement or fallback
             doc_data = self.structure_processor.prepare_structure_enhanced_document(
                 doc_id, full_text, textract_structure, metadata, filename
             )
             
+            logger.info(f"Document structure prepared successfully, data size: {len(str(doc_data))}")
+            
             # Index document in OpenSearch
             success = self.index_document(doc_id, doc_data)
+            logger.info(f"OpenSearch indexing result: {success}")
             
             if success:
                 # Determine processing type for status
@@ -186,10 +207,23 @@ class EnhancedKeywordIndexerWorker:
                     })
                 }
             else:
-                raise Exception("Enhanced document indexing failed")
+                logger.error(f"Failed to index document {doc_id}")
+                
+                # Update failure status
+                self.update_processing_status(doc_id, 'FAILED', 'Enhanced keyword indexing failed')
+                
+                return {
+                    'statusCode': 500,
+                    'body': json.dumps({
+                        'success': False,
+                        'doc_id': doc_id,
+                        'error': 'Indexing failed'
+                    })
+                }
                 
         except Exception as e:
-            logger.error(f"Enhanced indexing job failed for {doc_id}: {e}")
+            error_msg = f"Enhanced indexing job failed for {doc_id}: {e}"
+            logger.error(error_msg)
             
             # Update error status
             self.update_processing_status(doc_id, 'FAILED', str(e))
@@ -298,12 +332,17 @@ class EnhancedKeywordIndexerWorker:
 
     def index_document(self, doc_id: str, doc_data: Dict) -> bool:
         """Index enhanced document in OpenSearch with safe schema handling"""
+        
+        logger.info(f"Starting OpenSearch indexing for {doc_id} to index {self.index_name}")
+        
         try:
             response = self.opensearch_client.index(
                 index=self.index_name,
                 id=doc_id,
                 body=doc_data
             )
+            
+            logger.info(f"OpenSearch response for {doc_id}: {response}")
             
             if response['result'] in ['created', 'updated']:
                 structure_status = "with structure" if doc_data.get('structure_metadata', {}).get('structure_available') else "standard"
@@ -315,6 +354,7 @@ class EnhancedKeywordIndexerWorker:
                 
         except Exception as e:
             error_str = str(e)
+            logger.error(f"Exception in index_document for {doc_id}: {error_str}")
             
             # Check for schema conflict errors
             if 'illegal_argument_exception' in error_str and 'cannot be changed from type' in error_str:
