@@ -81,9 +81,26 @@ class EnhancedKeywordIndexerWorker:
     def _ensure_enhanced_index_exists(self):
         """Ensure the enhanced index with structure support exists"""
         try:
+            # Check if index exists
             if self.opensearch_client.indices.exists(index=self.index_name):
                 logger.info(f"Enhanced index {self.index_name} already exists")
-                return
+                
+                # Check for schema conflicts by attempting a test mapping
+                try:
+                    # Get current mapping to check for conflicts
+                    current_mapping = self.opensearch_client.indices.get_mapping(index=self.index_name)
+                    logger.info(f"Current index mapping retrieved successfully")
+                    return
+                except Exception as mapping_error:
+                    logger.warning(f"Could not retrieve current mapping: {mapping_error}")
+                    # Continue with recreation logic below
+                
+                # If we detect schema conflicts, recreate the index
+                logger.warning(f"Potential schema conflict detected. Recreating index {self.index_name}")
+                
+                # Delete existing index
+                self.opensearch_client.indices.delete(index=self.index_name)
+                logger.info(f"Deleted existing index {self.index_name} due to schema conflicts")
             
             # Create enhanced index mapping
             mapping = self.structure_processor.create_enhanced_index_mapping()
@@ -280,7 +297,7 @@ class EnhancedKeywordIndexerWorker:
             return {}
 
     def index_document(self, doc_id: str, doc_data: Dict) -> bool:
-        """Index enhanced document in OpenSearch"""
+        """Index enhanced document in OpenSearch with schema conflict handling"""
         try:
             response = self.opensearch_client.index(
                 index=self.index_name,
@@ -297,8 +314,47 @@ class EnhancedKeywordIndexerWorker:
                 return False
                 
         except Exception as e:
-            logger.error(f"Error indexing enhanced document {doc_id}: {e}")
-            return False
+            error_str = str(e)
+            
+            # Check for schema conflict errors
+            if 'illegal_argument_exception' in error_str and 'cannot be changed from type' in error_str:
+                logger.warning(f"Schema conflict detected for document {doc_id}: {e}")
+                
+                # Try to recreate the index with correct schema
+                try:
+                    logger.info(f"Attempting to recreate index {self.index_name} due to schema conflict")
+                    
+                    # Delete existing index
+                    if self.opensearch_client.indices.exists(index=self.index_name):
+                        self.opensearch_client.indices.delete(index=self.index_name)
+                        logger.info(f"Deleted existing index {self.index_name}")
+                    
+                    # Create new index with correct mapping
+                    mapping = self.structure_processor.create_enhanced_index_mapping()
+                    self.opensearch_client.indices.create(index=self.index_name, body=mapping)
+                    logger.info(f"Recreated index {self.index_name} with correct schema")
+                    
+                    # Retry indexing
+                    response = self.opensearch_client.index(
+                        index=self.index_name,
+                        id=doc_id,
+                        body=doc_data
+                    )
+                    
+                    if response['result'] in ['created', 'updated']:
+                        structure_status = "with structure" if doc_data.get('structure_metadata', {}).get('structure_available') else "standard"
+                        logger.info(f"Successfully indexed document {doc_id} after schema fix ({structure_status})")
+                        return True
+                    else:
+                        logger.error(f"Retry indexing failed with result: {response['result']}")
+                        return False
+                        
+                except Exception as retry_error:
+                    logger.error(f"Failed to recreate index and retry indexing: {retry_error}")
+                    return False
+            else:
+                logger.error(f"Error indexing enhanced document {doc_id}: {e}")
+                return False
 
     def update_processing_status(self, doc_id: str, status: str, notes: str = None):
         """Update processing status"""
