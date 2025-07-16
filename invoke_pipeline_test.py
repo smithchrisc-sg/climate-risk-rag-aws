@@ -5,6 +5,7 @@ Local client script that queries SQLite locally and sends document list to Lambd
 """
 
 import boto3
+from botocore.config import Config
 import json
 import argparse
 import logging
@@ -24,7 +25,8 @@ class PipelineTestInvoker:
     """Client for invoking the pipeline test Lambda function with local SQLite queries"""
     
     def __init__(self):
-        self.lambda_client = boto3.client('lambda', region_name='us-east-1')
+        self.lambda_client = boto3.client('lambda', region_name='us-east-1', 
+                                         config=Config(connect_timeout=5, read_timeout=65))
         self.s3_client = boto3.client('s3', region_name='us-east-1')
         self.lambda_function_name = 'solve-global-kr-pipeline-test-function'
         self.sqlite_db_path = "/Volumes/G-RAID Photo 24TB/climate_risk_rag/db/corpus_document_ids.db"
@@ -286,7 +288,31 @@ class PipelineTestInvoker:
         response = result['response']
         status = response.get('status', 'unknown')
         
-        if status == 'success':
+        if status == 'vpc_endpoint_limitation':
+            logger.warning("=" * 60)
+            logger.warning("⚠️ PIPELINE TEST COMPLETED WITH VPC ENDPOINT LIMITATION")
+            logger.warning("=" * 60)
+            logger.warning("The test Lambda function was able to connect to the database and copy documents")
+            logger.warning("to the source bucket, but could not trigger text extraction due to VPC endpoint")
+            logger.warning("limitations. To fix this issue, add a VPC endpoint for Lambda or move the Lambda")
+            logger.warning("function outside the VPC.")
+            
+            action = response.get('action', 'unknown')
+            logger.info(f"📋 Action: {action}")
+            logger.info(f"🧪 Documents Tested: {response.get('documents_tested', 0)}")
+            logger.info(f"✅ Successful Triggers: {response.get('successful_triggers', 0)}")
+            logger.info(f"❌ Failed Triggers: {response.get('failed_triggers', 0)}")
+            logger.info(f"⚠️ VPC Endpoint Limitations: {response.get('vpc_endpoint_limitations', 0)}")
+            logger.info(f"📈 Trigger Success Rate: {response.get('trigger_success_rate', 0):.1f}%")
+            logger.info(f"📄 Total Estimated Pages: {response.get('total_estimated_pages', 0)}")
+            
+            if 'trigger_results' in response:
+                logger.info("\n🚀 Trigger Results:")
+                for i, result in enumerate(response['trigger_results'], 1):
+                    status_icon = "✅" if result['status'] == 'triggered' else "⚠️" if result['status'] == 'vpc_endpoint_limitation' else "❌"
+                    logger.info(f"  {i}. {status_icon} {result['doc_id']}: {result['status']}")
+            
+        elif status == 'success':
             logger.info("=" * 60)
             logger.info("🎉 PIPELINE TEST SUCCESSFUL")
             logger.info("=" * 60)
@@ -309,6 +335,7 @@ class PipelineTestInvoker:
                 logger.info(f"🧪 Documents Tested: {response['documents_tested']}")
                 logger.info(f"✅ Successful Triggers: {response.get('successful_triggers', 0)}")
                 logger.info(f"❌ Failed Triggers: {response.get('failed_triggers', 0)}")
+                logger.info(f"⚠️ VPC Endpoint Limitations: {response.get('vpc_endpoint_limitations', 0)}")
                 logger.info(f"📈 Trigger Success Rate: {response.get('trigger_success_rate', 0):.1f}%")
                 logger.info(f"📄 Total Estimated Pages: {response.get('total_estimated_pages', 0)}")
             
@@ -323,7 +350,29 @@ class PipelineTestInvoker:
             if 'trigger_results' in response:
                 logger.info(f"\n🚀 Trigger Results:")
                 for i, result in enumerate(response['trigger_results'], 1):
-                    status_icon = "✅" if result['status'] == 'triggered' else "❌"
+                    status_icon = "✅" if result['status'] == 'triggered' else "⚠️" if result['status'] == 'vpc_endpoint_limitation' else "❌"
+                    logger.info(f"  {i}. {status_icon} {result['doc_id']}: {result['status']}")
+                    if result['status'] == 'failed':
+                        logger.info(f"     Error: {result.get('error', 'Unknown error')}")
+        
+        elif status == 'partial_failure':
+            logger.warning("=" * 60)
+            logger.warning("⚠️ PIPELINE TEST PARTIALLY SUCCESSFUL")
+            logger.warning("=" * 60)
+            
+            action = response.get('action', 'unknown')
+            logger.info(f"📋 Action: {action}")
+            logger.info(f"🧪 Documents Tested: {response.get('documents_tested', 0)}")
+            logger.info(f"✅ Successful Triggers: {response.get('successful_triggers', 0)}")
+            logger.info(f"❌ Failed Triggers: {response.get('failed_triggers', 0)}")
+            logger.info(f"⚠️ VPC Endpoint Limitations: {response.get('vpc_endpoint_limitations', 0)}")
+            logger.info(f"📈 Trigger Success Rate: {response.get('trigger_success_rate', 0):.1f}%")
+            logger.info(f"📄 Total Estimated Pages: {response.get('total_estimated_pages', 0)}")
+            
+            if 'trigger_results' in response:
+                logger.info("\n🚀 Trigger Results:")
+                for i, result in enumerate(response['trigger_results'], 1):
+                    status_icon = "✅" if result['status'] == 'triggered' else "⚠️" if result['status'] == 'vpc_endpoint_limitation' else "❌"
                     logger.info(f"  {i}. {status_icon} {result['doc_id']}: {result['status']}")
                     if result['status'] == 'failed':
                         logger.info(f"     Error: {result.get('error', 'Unknown error')}")
@@ -369,6 +418,8 @@ def main():
                        help='Skip safety confirmations')
     parser.add_argument('--save-results', action='store_true',
                        help='Save results to JSON file')
+    parser.add_argument('--skip-lambda-invocation', action='store_true',
+                       help='Skip Lambda invocation for text extraction (for testing only)')
     
     args = parser.parse_args()
     
@@ -383,7 +434,8 @@ def main():
             'max_size_mb': args.max_size_mb,
             'language': args.language,
             'target_avg_pages': args.target_avg_pages,
-            'force': args.force
+            'force': args.force,
+            'skip_lambda_invocation': args.skip_lambda_invocation
         }
         
         if args.document_types:

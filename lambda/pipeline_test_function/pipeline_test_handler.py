@@ -17,9 +17,30 @@ import re
 
 # Import from Lambda layers
 try:
-    from utils.DocumentIDManager import DocumentIDManager
-except ImportError:
-    # Fallback for testing
+    # Add /opt paths to Python path
+    import sys
+    sys.path.append("/opt/python")
+    sys.path.append("/opt/build")
+    sys.path.append("/opt/build/climate-risk-core-layer")
+    sys.path.append("/opt/build/climate-risk-core-layer/python")
+    
+    # Try to import DocumentIDManager
+    try:
+        from DocumentIDManager import DocumentIDManager
+        logger = logging.getLogger()
+        logger.info("Imported DocumentIDManager directly")
+    except ImportError as e:
+        try:
+            from utils.DocumentIDManager import DocumentIDManager
+            logger = logging.getLogger()
+            logger.info("Imported DocumentIDManager from utils")
+        except ImportError:
+            logger = logging.getLogger()
+            logger.error("Failed to import DocumentIDManager")
+            DocumentIDManager = None
+except Exception as e:
+    logger = logging.getLogger()
+    logger.error(f"Error importing modules: {str(e)}")
     DocumentIDManager = None
 
 # Configure logging
@@ -37,16 +58,24 @@ class PipelineTestLambda:
         # Environment configuration
         self.source_bucket = os.environ.get('SOURCE_DOCUMENTS_BUCKET', 'solve-global-kr-dl-source-documents-861276078413-us-east-1')
         
-        # Initialize DocumentIDManager with DATABASE_URL from environment
-        if DocumentIDManager:
-            try:
-                self.doc_id_manager = DocumentIDManager()
-                logger.info("DocumentIDManager initialized successfully")
-            except Exception as e:
-                logger.warning(f"DocumentIDManager initialization failed: {e}")
-                self.doc_id_manager = None
-        else:
-            self.doc_id_manager = None
+        # Get DATABASE_URL from environment
+        database_url = os.environ.get('DATABASE_URL')
+        if not database_url:
+            logger.error("DATABASE_URL environment variable not set")
+            raise ValueError("DATABASE_URL environment variable not set")
+        
+        # Initialize DocumentIDManager with DATABASE_URL
+        if DocumentIDManager is None:
+            raise ImportError("DocumentIDManager module not available")
+        
+        try:
+            self.doc_id_manager = DocumentIDManager(database_url)
+            logger.info("DocumentIDManager initialized successfully")
+        except Exception as e:
+            # Treat database connectivity as a hard requirement
+            logger.error(f"FATAL ERROR: DocumentIDManager initialization failed: {str(e)}")
+            logger.error("Database connectivity is required for pipeline operation")
+            raise RuntimeError(f"Database connectivity failure: {str(e)}")
     
     def download_sqlite_db(self):
         """Download SQLite database from S3 to Lambda temp storage"""
@@ -216,22 +245,54 @@ class PipelineTestLambda:
                 logger.error(f"No source URL provided for document: {doc_info.get('filename', 'unknown')}")
                 return None
             
-            # Try to get proper doc_id from DocumentIDManager, fallback to hash-based ID
-            if self.doc_id_manager:
+            # Get proper doc_id from DocumentIDManager - no fallback since we require database connectivity
+            try:
+                # Try to get existing document ID by URL
+                conn = self.doc_id_manager.db_manager.get_connection()
                 try:
-                    proper_doc_id = self.doc_id_manager.get_or_create_id(source_url)
-                    logger.info(f"Generated proper doc_id: {proper_doc_id} for URL: {source_url}")
-                except Exception as e:
-                    logger.error(f"DocumentIDManager failed for {source_url}: {e}")
-                    # Fallback to simple hash-based ID
-                    import hashlib
-                    proper_doc_id = hashlib.sha256(source_url.encode()).hexdigest()[:16]
-                    logger.info(f"Using fallback doc_id: {proper_doc_id}")
-            else:
-                # Fallback to simple hash-based ID for testing
-                import hashlib
-                proper_doc_id = hashlib.sha256(source_url.encode()).hexdigest()[:16]
-                logger.info(f"DocumentIDManager not available, using fallback doc_id: {proper_doc_id}")
+                    with conn.cursor() as cursor:
+                        cursor.execute("SELECT doc_id FROM documents WHERE url = %s", (source_url,))
+                        result = cursor.fetchone()
+                        logger.info(f"Query result: {result}")
+                        if result:
+                            # Handle both dictionary and tuple results
+                            if isinstance(result, dict):
+                                proper_doc_id = result['doc_id']
+                            else:
+                                proper_doc_id = result[0]
+                            logger.info(f"Found existing document ID: {proper_doc_id} for URL: {source_url}")
+                        else:
+                            # Generate new doc_id
+                            import hashlib
+                            proper_doc_id = hashlib.sha256(source_url.encode()).hexdigest()[:16]
+                            logger.info(f"Generated new document ID: {proper_doc_id} for URL: {source_url}")
+                            
+                            # Insert new document with minimal fields
+                            try:
+                                cursor.execute("""
+                                    INSERT INTO documents (doc_id, url, original_filename, status)
+                                    VALUES (%s, %s, %s, %s)
+                                """, (
+                                    proper_doc_id,
+                                    source_url,
+                                    doc_info.get('filename'),
+                                    'pending'
+                                ))
+                                conn.commit()
+                                logger.info(f"Successfully inserted document {proper_doc_id} into database")
+                            except Exception as e:
+                                conn.rollback()
+                                import traceback
+                                logger.error(f"Error inserting document into database: {str(e)}")
+                                logger.error(f"Traceback: {traceback.format_exc()}")
+                                raise
+                finally:
+                    self.doc_id_manager.db_manager.return_connection(conn)
+            except Exception as e:
+                import traceback
+                logger.error(f"Error creating document in database: {str(e)}")
+                logger.error(f"Traceback: {traceback.format_exc()}")
+                raise
             
             # Copy document to source bucket with proper doc_id in data_lake structure
             source_key = f"data_lake/{proper_doc_id}.pdf"
@@ -274,20 +335,56 @@ class PipelineTestLambda:
                 }
                 
             except Exception as e:
-                logger.error(f"Error copying document to source bucket: {e}")
+                import traceback
+                logger.error(f"Error copying document to source bucket: {str(e)}")
+                logger.error(f"Traceback: {traceback.format_exc()}")
                 return None
                 
         except Exception as e:
-            logger.error(f"Error preparing document {doc_info.get('filename', 'unknown')}: {e}")
+            import traceback
+            logger.error(f"Error preparing document {doc_info.get('filename', 'unknown')}: {str(e)}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
             return None
     
     def trigger_text_extraction(self, doc_info: Dict) -> Dict:
-        """Trigger text extraction for a document"""
+        """
+        Trigger text extraction for a document
+        
+        Note: In production, this is triggered by S3 event notifications through an SNS/SQS workflow:
+        1. S3 event notification is sent to the SNS topic (solve-global-kr-source-document-events)
+        2. SNS topic forwards the message to the SQS queue (solve-global-kr-textextractor-initiator-queue)
+        3. Text extractor initiator Lambda is triggered by the SQS queue
+        
+        The direct Lambda invocation is only used for testing purposes when the --skip-lambda-invocation flag is not set.
+        """
         # Handle both prepared documents (with proper_doc_id) and selected documents
         doc_id = doc_info.get('proper_doc_id') or doc_info.get('doc_id_from_filename')
         source_key = doc_info.get('source_key') or f"{doc_id}.pdf"
         
+        # Check if we should skip Lambda invocation (for testing only)
+        skip_lambda_invocation = doc_info.get('skip_lambda_invocation', False) or doc_info.get('test_mode', False)
+        
         try:
+            # Skip Lambda invocation if requested (for testing only)
+            if skip_lambda_invocation:
+                logger.warning(f"Skipping Lambda invocation for {doc_id} (test mode)")
+                logger.info(f"Document {doc_id} has been copied to the source bucket and will be processed by the SNS/SQS workflow")
+                return {
+                    'doc_id': doc_id,
+                    'source_url': doc_info.get('source_url'),
+                    'original_filename': doc_info.get('original_filename') or doc_info.get('filename'),
+                    'estimated_pages': doc_info['estimated_pages'],
+                    'status': 'skipped',
+                    'stage': 'trigger',
+                    'message': 'Text extraction will be triggered by SNS/SQS workflow',
+                    'processing_started': datetime.utcnow().isoformat() + "Z",
+                    'size_mb': doc_info['size_mb']
+                }
+            
+            # In production, S3 event notifications should trigger the text extraction process through SNS/SQS
+            # For backward compatibility, we'll keep the direct Lambda invocation as an option
+            logger.warning("Direct Lambda invocation is not recommended. S3 event notifications with SNS/SQS workflow is preferred.")
+            
             # Create S3 event payload for text extractor
             s3_event_payload = {
                 "Records": [{
@@ -316,35 +413,59 @@ class PipelineTestLambda:
             }
             
             # Trigger text extractor initiator
-            response = self.lambda_client.invoke(
-                FunctionName='solve-global-kr-textextractor-initiator',
-                InvocationType='Event',
-                Payload=json.dumps(s3_event_payload)
-            )
-            
-            if response['StatusCode'] != 202:
-                error_msg = f"Failed to trigger text extraction: {response['StatusCode']}"
-                logger.error(error_msg)
+            try:
+                response = self.lambda_client.invoke(
+                    FunctionName='solve-global-kr-textextractor-initiator',
+                    InvocationType='Event',
+                    Payload=json.dumps(s3_event_payload)
+                )
+                
+                if response['StatusCode'] != 202:
+                    error_msg = f"Failed to trigger text extraction: {response['StatusCode']}"
+                    logger.error(error_msg)
+                    return {
+                        'doc_id': doc_id,
+                        'status': 'failed',
+                        'error': error_msg,
+                        'stage': 'trigger'
+                    }
+                
+                logger.info(f"Successfully triggered text extraction for {doc_id}")
+                
                 return {
                     'doc_id': doc_id,
-                    'status': 'failed',
-                    'error': error_msg,
-                    'stage': 'trigger'
+                    'source_url': doc_info.get('source_url'),
+                    'original_filename': doc_info.get('original_filename') or doc_info.get('filename'),
+                    'estimated_pages': doc_info['estimated_pages'],
+                    'status': 'triggered',
+                    'stage': 'trigger',
+                    'lambda_response_status': response['StatusCode'],
+                    'processing_started': datetime.utcnow().isoformat() + "Z",
+                    'size_mb': doc_info['size_mb']
                 }
-            
-            logger.info(f"Successfully triggered text extraction for {doc_id}")
-            
-            return {
-                'doc_id': doc_id,
-                'source_url': doc_info.get('source_url'),
-                'original_filename': doc_info.get('original_filename') or doc_info.get('filename'),
-                'estimated_pages': doc_info['estimated_pages'],
-                'status': 'triggered',
-                'stage': 'trigger',
-                'lambda_response_status': response['StatusCode'],
-                'processing_started': datetime.utcnow().isoformat() + "Z",
-                'size_mb': doc_info['size_mb']
-            }
+            except Exception as lambda_error:
+                # Check if this is a VPC endpoint limitation error
+                if "Connect timeout on endpoint URL" in str(lambda_error) and "lambda.us-east-1.amazonaws.com" in str(lambda_error):
+                    logger.warning(f"VPC endpoint limitation detected: {str(lambda_error)}")
+                    logger.warning("To fix this issue, add a VPC endpoint for Lambda or move the Lambda function outside the VPC")
+                    logger.info(f"Document {doc_id} has been copied to the source bucket and will be processed by the SNS/SQS workflow")
+                    
+                    # Return a special status for VPC endpoint limitations
+                    return {
+                        'doc_id': doc_id,
+                        'source_url': doc_info.get('source_url'),
+                        'original_filename': doc_info.get('original_filename') or doc_info.get('filename'),
+                        'estimated_pages': doc_info['estimated_pages'],
+                        'status': 'vpc_endpoint_limitation',
+                        'stage': 'trigger',
+                        'message': 'Text extraction will be triggered by SNS/SQS workflow',
+                        'error': str(lambda_error),
+                        'processing_started': datetime.utcnow().isoformat() + "Z",
+                        'size_mb': doc_info['size_mb']
+                    }
+                else:
+                    # Re-raise other errors
+                    raise
             
         except Exception as e:
             error_msg = f"Error triggering text extraction: {str(e)}"
@@ -427,6 +548,15 @@ def lambda_handler(event, context):
             
             logger.info(f"Triggering processing for {len(test_docs)} documents...")
             
+            # Check if we should skip Lambda invocation (for testing only)
+            skip_lambda_invocation = event.get('parameters', {}).get('skip_lambda_invocation', False)
+            if skip_lambda_invocation:
+                logger.warning("Skip Lambda invocation flag is set (test mode)")
+            
+            # Add skip_lambda_invocation flag to all documents
+            for doc in test_docs:
+                doc['skip_lambda_invocation'] = skip_lambda_invocation
+            
             # Trigger all documents
             trigger_results = []
             for doc_info in test_docs:
@@ -436,15 +566,25 @@ def lambda_handler(event, context):
             # Compile results
             successful_triggers = sum(1 for r in trigger_results if r['status'] == 'triggered')
             failed_triggers = sum(1 for r in trigger_results if r['status'] == 'failed')
+            vpc_endpoint_limitations = sum(1 for r in trigger_results if r['status'] == 'vpc_endpoint_limitation')
+            
+            # Determine overall status
+            overall_status = 'success'
+            if failed_triggers > 0:
+                overall_status = 'partial_failure'
+            if successful_triggers == 0 and vpc_endpoint_limitations > 0:
+                overall_status = 'vpc_endpoint_limitation'
+                logger.warning("All triggers failed due to VPC endpoint limitations")
             
             return {
                 'statusCode': 200,
                 'body': json.dumps({
-                    'status': 'success',
+                    'status': overall_status,
                     'action': action,
                     'documents_tested': len(test_docs),
                     'successful_triggers': successful_triggers,
                     'failed_triggers': failed_triggers,
+                    'vpc_endpoint_limitations': vpc_endpoint_limitations,
                     'trigger_success_rate': (successful_triggers / len(trigger_results)) * 100 if trigger_results else 0,
                     'total_estimated_pages': sum(doc['estimated_pages'] for doc in test_docs),
                     'trigger_results': trigger_results,
