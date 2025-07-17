@@ -139,7 +139,7 @@ def main():
             # Replace the create_chunks method in the content
             import re
             pattern = r'    def create_chunks\(self, full_text: str, textract_structure: Optional\[Dict\], doc_id: str\) -> List\[Dict\]:[^}]*?try:'
-            replacement = updated_create_chunks + '\n        try:'
+            replacement = updated_create_chunks
             
             new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
             
