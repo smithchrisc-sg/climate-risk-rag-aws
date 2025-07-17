@@ -1,106 +1,111 @@
-# Climate Risk RAG AWS Migration Project
+# Climate Risk RAG System
 
-**Status:** Vector Embeddings Complete - NLP Integration Next  
-**Last Updated:** 2025-07-07  
-**Version:** 1.1.0
+A Retrieval-Augmented Generation (RAG) system for climate risk document processing and analysis.
 
-## Project Overview
+## Overview
 
-This project migrates a climate risk document processing system from a proof-of-concept to production AWS infrastructure. The system processes climate risk documents through a multi-stage pipeline including text extraction, chunking, vector embeddings, and NLP analysis to enable intelligent document retrieval and analysis.
-
-## Current System Status
-
-### ✅ Completed Components
-- **Text Extraction Pipeline** - Amazon Textract integration
-- **Text Chunking Pipeline** - Structured chunking with metadata  
-- **Vector Embeddings Pipeline** - Amazon Bedrock Titan integration
-- **Database Integration** - PostgreSQL with complete schema
-- **OpenSearch Integration** - VECTORSEARCH collection operational
-- **CDK Infrastructure** - Automated deployment ready
-
-### 🔄 In Progress
-- **NLP Integration** - Entity detection and key phrase extraction
-
-### 📋 Planned
-- **Search API** - Vector and hybrid search capabilities
-- **Knowledge Graph** - Entity relationship mapping
-- **Analytics Dashboard** - Processing metrics and insights
+The Climate Risk RAG system processes climate risk documents, extracts meaningful information, and makes it available for search and analysis. The system uses a serverless event-driven architecture on AWS to process documents through various stages including text extraction, chunking, embedding, and indexing.
 
 ## Architecture
 
-The system uses an event-driven architecture with AWS Lambda functions processing documents through multiple stages:
+![Climate Risk RAG Architecture](docs/architecture_diagram.png)
 
-```
-S3 Upload → Textract → Text Chunker → Vector Embeddings → OpenSearch
-     ↓           ↓            ↓              ↓              ↓
-  Database   Database    Database      Database      Search Index
-```
+The system follows a serverless event-driven architecture:
 
-## Key Technologies
+1. **Document Ingestion**:
+   - Documents are uploaded to S3
+   - S3 event triggers the document processing pipeline
 
-- **AWS Services:** Lambda, Textract, Bedrock, OpenSearch Serverless, RDS PostgreSQL
-- **Infrastructure:** AWS CDK (Python)
-- **Processing:** Event-driven with SNS/SQS messaging
-- **Storage:** S3 for documents and intermediate results
-- **Search:** Vector embeddings with semantic search
+2. **Processing Pipeline**:
+   - Text extraction Lambda extracts text from documents using AWS Textract
+   - Text chunker Lambda splits text into semantic chunks using smart structured chunking
+   - Keyword indexer Lambda extracts keywords from chunks
+   - Vector embeddings Lambda creates embeddings for chunks
+   - Knowledge graph Lambda builds relationships between entities
 
-## Performance Metrics
+3. **Storage**:
+   - S3 for raw documents, extracted text, and chunks
+   - PostgreSQL for metadata and processing status
+   - OpenSearch for vector search
+   - Neptune for knowledge graph
 
-- **Vector Processing:** 4.6 seconds per document (19 chunks)
-- **Cost per Document:** $0.002187 (vector embeddings)
-- **Success Rate:** 100% in testing
-- **Daily Capacity:** 1,000+ documents
+## Key Features
 
-## Documentation Structure
+- **Smart Structured Chunking**: Respects document structure and uses sentence-based overlap
+- **Hybrid Search**: Combines keyword and vector search for better results
+- **Knowledge Graph**: Extracts entities and relationships for advanced analysis
+- **Serverless Architecture**: Scales automatically based on demand
+- **Event-Driven Processing**: Processes documents asynchronously through multiple stages
 
-- **`docs/status/`** - Project status and progress tracking
-- **`docs/architecture/`** - System architecture and design
-- **`docs/integration/`** - Component integration plans
-- **`docs/deployment/`** - Deployment guides and procedures
-- **`docs/implementation/`** - Component implementation details
-
-## Quick Start
+## Getting Started
 
 ### Prerequisites
-- AWS CLI configured with appropriate permissions
+
+- AWS Account
+- AWS CLI configured
 - Python 3.11+
-- AWS CDK installed
-- PostgreSQL access
+- Node.js 18+ (for CDK)
 
-### Deployment
-```bash
-# Deploy infrastructure
-cd cdk
-cdk deploy vector-embeddings-pipeline --profile solve-global
+### Installation
 
-# Test the pipeline
-python3 test_vector_embeddings_integration.py
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/climate-risk-rag-aws.git
+   cd climate-risk-rag-aws
+   ```
+
+2. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   npm install
+   ```
+
+3. Deploy the infrastructure:
+   ```
+   cdk deploy --all
+   ```
+
+### Running Tests
+
+To run the end-to-end pipeline test:
+
+```
+python run_test_with_cleanup.py
 ```
 
-## Cost Management
+This will:
+1. Clean up all data from previous tests
+2. Select a test document
+3. Run the pipeline on the test document
+4. Verify the results at each stage
 
-The system includes comprehensive cost monitoring:
-- **Textract:** ~$1.50 per 1000 pages
-- **Bedrock Titan:** ~$0.002 per document
-- **OpenSearch Serverless:** ~$350/month base cost
-- **Total Operational:** <$500/month for 1000 docs/day
+## Project Structure
 
-## Development Workflow
+- `cdk/`: AWS CDK infrastructure code
+- `lambda/`: Lambda function code
+  - `text_extraction/`: Text extraction Lambda
+  - `text_chunker/`: Text chunking Lambda
+  - `keyword_indexer/`: Keyword indexing Lambda
+  - `vector_embeddings/`: Vector embeddings Lambda
+  - `knowledge_graph/`: Knowledge graph Lambda
+  - `shared_layer/`: Shared Lambda layer code
+- `docs/`: Documentation
+- `tests/`: Test code
 
-This project uses milestone-based development with Git tagging:
-- `v1.0.0` - Initial migration complete
-- `v1.1.0` - Vector embeddings production ready
-- `v1.2.0` - NLP integration (in progress)
+## Documentation
 
-## Support
+- [Project Context](PROJECT_CONTEXT.md): Current status and context
+- [Next Steps](NEXT_STEPS.md): Planned future work
+- [API Documentation](docs/API.md): API documentation
 
-For questions or issues, refer to the comprehensive documentation in the `docs/` folder, particularly:
-- `docs/status/PROJECT_CONTEXT_SUMMARY_*.md` for current status
-- `docs/architecture/SYSTEM_ARCHITECTURE_*.md` for technical details
-- `docs/deployment/COMPLETE_CDK_DEPLOYMENT_GUIDE.md` for setup
+## Contributing
 
----
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -am 'Add my feature'`
+4. Push to the branch: `git push origin feature/my-feature`
+5. Submit a pull request
 
-**Project Lead:** Climate Risk Analysis Team  
-**Infrastructure:** AWS us-east-1  
-**Repository:** Private (contains AWS account details)
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

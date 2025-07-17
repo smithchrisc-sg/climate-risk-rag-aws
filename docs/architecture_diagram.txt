@@ -1,0 +1,34 @@
+Climate Risk RAG System Architecture
+
++----------------+     +----------------+     +----------------+
+|                |     |                |     |                |
+|  S3 Buckets    |---->| Text Extraction|---->| Text Chunking  |
+|                |     |    Lambda      |     |    Lambda      |
++----------------+     +----------------+     +----------------+
+                                                      |
+                                                      v
++----------------+     +----------------+     +----------------+
+|                |     |                |     |                |
+|  Knowledge     |<----| Vector         |<----| Keyword        |
+|  Graph Lambda  |     | Embeddings     |     | Indexer Lambda |
+|                |     |                |     |                |
++----------------+     +----------------+     +----------------+
+        |                     |                      |
+        v                     v                      v
++----------------+     +----------------+     +----------------+
+|                |     |                |     |                |
+|  Neptune       |     | OpenSearch     |     | PostgreSQL     |
+|  Database      |     | Service        |     | Database       |
+|                |     |                |     |                |
++----------------+     +----------------+     +----------------+
+                              |
+                              v
++----------------+     +----------------+
+|                |     |                |
+|  Search API    |---->| Web Interface  |
+|  Lambda        |     |                |
+|                |     |                |
++----------------+     +----------------+
+
+Note: This is a text representation of the architecture.
+A proper diagram would be created using a diagramming tool.
