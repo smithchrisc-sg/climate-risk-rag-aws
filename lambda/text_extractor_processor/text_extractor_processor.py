@@ -1,4 +1,45 @@
 #!/usr/bin/env python3
+
+def get_database_url_from_secrets():
+    """Construct DATABASE_URL from standard environment variables and Secrets Manager"""
+    import boto3
+    import json
+    import os
+    import logging
+    
+    logger = logging.getLogger(__name__)
+    
+    try:
+        # Get standard environment variables
+        secret_name = os.environ.get('DATABASE_SECRET_NAME')
+        db_host = os.environ.get('DB_HOST')
+        db_name = os.environ.get('DB_NAME')
+        db_port = os.environ.get('DB_PORT', '5432')
+        
+        logger.info(f"Constructing DATABASE_URL from standard environment variables")
+        
+        if not all([secret_name, db_host, db_name]):
+            raise ValueError("Missing required database environment variables")
+        
+        # Get credentials from Secrets Manager
+        secrets_client = boto3.client('secretsmanager')
+        response = secrets_client.get_secret_value(SecretId=secret_name)
+        secret_data = json.loads(response['SecretString'])
+        
+        username = secret_data.get('username', 'postgres')
+        password = secret_data['password']
+        
+        # Construct DATABASE_URL
+        database_url = f"postgresql://{username}:{password}@{db_host}:{db_port}/{db_name}?sslmode=require"
+        
+        logger.info("✅ DATABASE_URL constructed from Secrets Manager")
+        return database_url
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to construct DATABASE_URL: {str(e)}")
+        raise
+
+
 """
 TextExtractor Processor Lambda Function - STANDARDIZED MESSAGING VERSION
 Processes completed Textract jobs and publishes standardized messages
@@ -23,7 +64,8 @@ try:
     from DocumentIDManager import DocumentIDManager
 except ImportError:
     # Fallback for development/testing
-    class DocumentIDManager:
+    
+class DocumentIDManager:
         def __init__(self, database_url=None):
             self.database_url = database_url
         
@@ -46,7 +88,7 @@ class TextExtractorProcessor:
         
         # Environment configuration
         self.output_bucket = os.environ['OUTPUT_BUCKET']
-        self.database_url = os.environ['DATABASE_URL']
+        self.database_url = get_database_url_from_secrets()
         
         # Standardized messaging - use SNS instead of SQS
         self.text_extraction_complete_topic_arn = os.environ.get(
