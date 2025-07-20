@@ -153,14 +153,14 @@ class DatabaseManager:
     # Textract-related Database Operations
     # ========================================
     
-    def store_textract_job_metadata(self, job_id: str, doc_id: str, source_bucket: str, 
+    def store_textract_job_metadata(self, job_id: str, doc_hash: str, source_bucket: str, 
                                    source_key: str, output_bucket: str) -> bool:
         """
         Store Textract job metadata using existing schema
         
         Args:
             job_id: Textract job ID
-            doc_id: Document ID (consistent with DocumentIDManager)
+            doc_hash: Document hash/ID
             source_bucket: S3 source bucket name
             source_key: S3 source key
             output_bucket: S3 output bucket name
@@ -171,12 +171,12 @@ class DatabaseManager:
         try:
             query = """
                 INSERT INTO textract_jobs (
-                    job_id, doc_id, source_bucket, source_key, output_bucket, 
+                    job_id, doc_hash, source_bucket, source_key, output_bucket, 
                     status, started_at, created_at, updated_at
                 )
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (job_id) DO UPDATE SET
-                    doc_id = EXCLUDED.doc_id,
+                    doc_hash = EXCLUDED.doc_hash,
                     source_bucket = EXCLUDED.source_bucket,
                     source_key = EXCLUDED.source_key,
                     output_bucket = EXCLUDED.output_bucket,
@@ -185,25 +185,25 @@ class DatabaseManager:
             """
             
             now = datetime.utcnow()
-            params = (job_id, doc_id, source_bucket, source_key, output_bucket, 
+            params = (job_id, doc_hash, source_bucket, source_key, output_bucket, 
                      'IN_PROGRESS', now, now, now)
             
             rows_affected = self.execute_update(query, params)
-            logger.info(f"Stored Textract job metadata: {job_id} -> {doc_id}")
+            logger.info(f"Stored Textract job metadata: {job_id} -> {doc_hash}")
             return rows_affected > 0
             
         except Exception as e:
             logger.error(f"Failed to store Textract job metadata: {e}")
             raise
     
-    def update_document_processing_status(self, doc_id: str, filename: str, source_bucket: str, 
+    def update_document_processing_status(self, doc_hash: str, filename: str, source_bucket: str, 
                                         source_key: str, text_extraction_status: str = 'IN_PROGRESS', 
                                         text_extraction_job_id: str = None) -> bool:
         """
         Update document processing status using existing schema
         
         Args:
-            doc_id: Document ID (consistent with DocumentIDManager)
+            doc_hash: Document hash/ID
             filename: Original filename
             source_bucket: S3 source bucket name
             source_key: S3 source key
@@ -216,11 +216,11 @@ class DatabaseManager:
         try:
             query = """
                 INSERT INTO document_processing_status (
-                    doc_id, filename, source_bucket, source_key, 
+                    doc_hash, filename, source_bucket, source_key, 
                     text_extraction_status, text_extraction_job_id, created_at, updated_at
                 )
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                ON CONFLICT (doc_id) DO UPDATE SET
+                ON CONFLICT (doc_hash) DO UPDATE SET
                     filename = EXCLUDED.filename,
                     source_bucket = EXCLUDED.source_bucket,
                     source_key = EXCLUDED.source_key,
@@ -230,23 +230,23 @@ class DatabaseManager:
             """
             
             now = datetime.utcnow()
-            params = (doc_id, filename, source_bucket, source_key, 
+            params = (doc_hash, filename, source_bucket, source_key, 
                      text_extraction_status, text_extraction_job_id, now, now)
             
             rows_affected = self.execute_update(query, params)
-            logger.info(f"Updated document processing status: {doc_id} -> {text_extraction_status}")
+            logger.info(f"Updated document processing status: {doc_hash} -> {text_extraction_status}")
             return rows_affected > 0
             
         except Exception as e:
             logger.error(f"Failed to update document processing status: {e}")
             raise
     
-    def get_text_extraction_status(self, doc_id: str) -> Optional[str]:
+    def get_text_extraction_status(self, doc_hash: str) -> Optional[str]:
         """
         Get current text extraction status for a document
         
         Args:
-            doc_id: Document ID (consistent with DocumentIDManager)
+            doc_hash: Document hash/ID
             
         Returns:
             Optional[str]: Current text extraction status or None if not found
@@ -255,17 +255,17 @@ class DatabaseManager:
             query = """
                 SELECT text_extraction_status 
                 FROM document_processing_status 
-                WHERE doc_id = %s
+                WHERE doc_hash = %s
             """
             
-            results = self.execute_query(query, (doc_id,))
+            results = self.execute_query(query, (doc_hash,))
             
             if results:
                 status = results[0][0]
-                logger.debug(f"Text extraction status for {doc_id}: {status}")
+                logger.debug(f"Text extraction status for {doc_hash}: {status}")
                 return status
             else:
-                logger.debug(f"No text extraction status found for {doc_id}")
+                logger.debug(f"No text extraction status found for {doc_hash}")
                 return None
                 
         except Exception as e:
@@ -324,7 +324,7 @@ class DatabaseManager:
         """
         try:
             query = """
-                SELECT job_id, doc_id, source_bucket, source_key, output_bucket,
+                SELECT job_id, doc_hash, source_bucket, source_key, output_bucket,
                        status, started_at, completed_at, error_message,
                        pages_processed, blocks_extracted, files_created
                 FROM textract_jobs 
@@ -337,7 +337,7 @@ class DatabaseManager:
                 row = results[0]
                 metadata = {
                     'job_id': row[0],
-                    'doc_id': row[1],  # Updated from doc_hash to doc_id
+                    'doc_hash': row[1],
                     'source_bucket': row[2],
                     'source_key': row[3],
                     'output_bucket': row[4],
