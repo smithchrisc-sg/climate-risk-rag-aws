@@ -24,14 +24,14 @@ class CleanupServiceStack(Stack):
         # Import existing VPC
         vpc = ec2.Vpc.from_lookup(self, "ExistingVPC", vpc_id="vpc-051c21d88c7dc3819")
         
-        # Import database subnets for VPC access
+        # Import application subnets for VPC access (like working text extractor)
         subnet1 = ec2.Subnet.from_subnet_id(
-            self, "DatabaseSubnet1", 
-            subnet_id="subnet-0e9efc5fdf29e9da0"
+            self, "ApplicationSubnet1", 
+            subnet_id="subnet-03d8bd6cf3491f38c"
         )
         subnet2 = ec2.Subnet.from_subnet_id(
-            self, "DatabaseSubnet2", 
-            subnet_id="subnet-00efdcc220a613ae3"
+            self, "ApplicationSubnet2", 
+            subnet_id="subnet-0c0be1dd59f70f70e"
         )
         
         # Create security group for cleanup service
@@ -85,11 +85,13 @@ class CleanupServiceStack(Stack):
                                 "s3:ListBucket",
                                 "s3:GetObjectMetadata",
                                 "s3:ListBucketVersions",
-                                "s3:DeleteObjectVersion"
+                                "s3:DeleteObjectVersion",
+                                "s3:ListAllMyBuckets"
                             ],
                             resources=[
                                 "arn:aws:s3:::solve-global-kr-*",
-                                "arn:aws:s3:::solve-global-kr-*/*"
+                                "arn:aws:s3:::solve-global-kr-*/*",
+                                "*"
                             ]
                         ),
                         # OpenSearch permissions
@@ -160,14 +162,14 @@ class CleanupServiceStack(Stack):
             vpc_subnets=ec2.SubnetSelection(subnets=[subnet1, subnet2]),
             security_groups=[cleanup_sg],
             layers=[
-                # Use gold standard layers
+                # Use same layer versions as working text extractor
                 lambda_.LayerVersion.from_layer_version_arn(
                     self, "CoreUtilitiesLayer",
-                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:16"
+                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:12"
                 ),
                 lambda_.LayerVersion.from_layer_version_arn(
                     self, "DatabaseDependenciesLayer",
-                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:database-dependencies-pipeline:9"
+                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:database-dependencies-pipeline:4"
                 ),
                 lambda_.LayerVersion.from_layer_version_arn(
                     self, "OpenSearchDependenciesLayer",
@@ -178,12 +180,13 @@ class CleanupServiceStack(Stack):
                 "AWS_ACCOUNT_ID": "861276078413",
                 "LAMBDA_ENVIRONMENT": "true",
                 "DATABASE_SECRET_NAME": "rds!db-0f16c155-35f6-463b-96d8-4a2d8da7e863",
+                "DATABASE_CONNECTION_METHOD": "secrets_manager",
                 "DB_HOST": "solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com",
                 "DB_PORT": "5432",
                 "DB_NAME": "climate_risk_rag",
                 "OPENSEARCH_VECTOR_ENDPOINT": "https://search-climate-risk-vectorsearch-collection.us-east-1.aoss.amazonaws.com",
                 "OPENSEARCH_KEYWORD_ENDPOINT": "https://search-climate-risk-keyword-index.us-east-1.es.amazonaws.com",
-                "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-abcdefghij.us-east-1.neptune.amazonaws.com",
+                "NEPTUNE_ENDPOINT": "solve-global-kr-neptune.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
                 "NEPTUNE_PORT": "8182"
             }
         )
