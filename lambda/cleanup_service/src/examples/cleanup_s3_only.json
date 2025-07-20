@@ -1,0 +1,34 @@
+{
+  "cleanup_scope": {
+    "databases": {
+      "postgresql": {
+        "enabled": false
+      },
+      "opensearch": {
+        "enabled": false
+      },
+      "neptune": {
+        "enabled": false
+      }
+    },
+    "s3_data_lake": {
+      "enabled": true,
+      "buckets": [
+        "solve-global-kr-dl-source-documents-*",
+        "solve-global-kr-dl-text-*",
+        "solve-global-kr-dl-chunks-*",
+        "solve-global-kr-dl-embeddings-*",
+        "solve-global-kr-dl-keywords-*",
+        "solve-global-kr-dl-nlp-*",
+        "solve-global-kr-dl-neptune-ttl-*"
+      ],
+      "document_ids": [],
+      "preserve_structure": true
+    }
+  },
+  "safety_checks": {
+    "require_confirmation": true,
+    "dry_run": false,
+    "max_documents_to_delete": 1000
+  }
+}

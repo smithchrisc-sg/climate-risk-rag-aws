@@ -1,0 +1,49 @@
+{
+  "cleanup_scope": {
+    "databases": {
+      "postgresql": {
+        "enabled": true,
+        "tables": [
+          "document_processing_status",
+          "nlp_processing_status",
+          "vector_processing_status",
+          "keyword_processing_status",
+          "kg_processing_status"
+        ],
+        "document_ids": []
+      },
+      "opensearch": {
+        "enabled": true,
+        "collections": [
+          "climate-risk-vectorsearch",
+          "climate-risk-keyword-index"
+        ],
+        "document_ids": []
+      },
+      "neptune": {
+        "enabled": true,
+        "clear_all_triples": true,
+        "document_ids": []
+      }
+    },
+    "s3_data_lake": {
+      "enabled": true,
+      "buckets": [
+        "solve-global-kr-dl-source-documents-*",
+        "solve-global-kr-dl-text-*",
+        "solve-global-kr-dl-chunks-*",
+        "solve-global-kr-dl-embeddings-*",
+        "solve-global-kr-dl-keywords-*",
+        "solve-global-kr-dl-nlp-*",
+        "solve-global-kr-dl-neptune-ttl-*"
+      ],
+      "document_ids": [],
+      "preserve_structure": true
+    }
+  },
+  "safety_checks": {
+    "require_confirmation": true,
+    "dry_run": true,
+    "max_documents_to_delete": 1000
+  }
+}

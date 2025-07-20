@@ -116,8 +116,8 @@ class CleanupServiceStack(Stack):
                                 "neptune-db:DeleteDataViaQuery"
                             ],
                             resources=[
-                                f"arn:aws:neptune-db:{self.region}:{self.account}:cluster/*",
-                                f"arn:aws:neptune-db:{self.region}:{self.account}:cluster/*/*"
+                                "arn:aws:neptune-db:{}:{}:cluster/*".format(self.region, self.account),
+                                "arn:aws:neptune-db:{}:{}:cluster/*/*".format(self.region, self.account)
                             ]
                         ),
                         # RDS permissions
@@ -151,7 +151,7 @@ class CleanupServiceStack(Stack):
             self, "CleanupServiceFunction",
             function_name="solve-global-kr-cleanup-service",
             runtime=lambda_.Runtime.PYTHON_3_11,
-            handler="cleanup_service.lambda_handler",
+            handler="handler.lambda_handler",
             code=lambda_.Code.from_asset("../lambda/cleanup_service"),
             role=cleanup_role,
             timeout=Duration.minutes(15),
@@ -160,24 +160,31 @@ class CleanupServiceStack(Stack):
             vpc_subnets=ec2.SubnetSelection(subnets=[subnet1, subnet2]),
             security_groups=[cleanup_sg],
             layers=[
-                # Use existing layers
+                # Use gold standard layers
                 lambda_.LayerVersion.from_layer_version_arn(
                     self, "CoreUtilitiesLayer",
-                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:2"
+                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:16"
                 ),
                 lambda_.LayerVersion.from_layer_version_arn(
                     self, "DatabaseDependenciesLayer",
-                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:database-dependencies:2"
+                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:database-dependencies-pipeline:9"
+                ),
+                lambda_.LayerVersion.from_layer_version_arn(
+                    self, "OpenSearchDependenciesLayer",
+                    layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:opensearch-dependencies:4"
                 )
             ],
             environment={
-                "DATABASE_URL": "postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require",
+                "AWS_ACCOUNT_ID": "861276078413",
+                "LAMBDA_ENVIRONMENT": "true",
+                "DATABASE_SECRET_NAME": "rds!db-0f16c155-35f6-463b-96d8-4a2d8da7e863",
+                "DB_HOST": "solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com",
+                "DB_PORT": "5432",
+                "DB_NAME": "climate_risk_rag",
                 "OPENSEARCH_VECTOR_ENDPOINT": "https://search-climate-risk-vectorsearch-collection.us-east-1.aoss.amazonaws.com",
                 "OPENSEARCH_KEYWORD_ENDPOINT": "https://search-climate-risk-keyword-index.us-east-1.es.amazonaws.com",
                 "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-abcdefghij.us-east-1.neptune.amazonaws.com",
-                "NEPTUNE_PORT": "8182",
-                "AWS_ACCOUNT_ID": "861276078413",
-                "LAMBDA_ENVIRONMENT": "true"
+                "NEPTUNE_PORT": "8182"
             }
         )
         

@@ -14,6 +14,7 @@ Please create a PROJECT_CONTEXT_SUMMARY document named with a timestamp as in th
 
 Also create a NEXT_STEPS document, similarly timestamped to outline what we'll do next.
 
+
 ---
 
 ## 📚 **Session Onboarding Prompt**
@@ -130,6 +131,7 @@ Note direction in the list below. We should always use git to manage things. So,
 - When designing a lambda that calls an external service like textract or comprehend, as a first assumption, design it async with an initiator lambda and another to receive the response, to avoid paying for synchronous idle time
 - When testing or trying to get around a bug, concentrate on fixing the root cause. If you have to create interim code to test, merge into the main code after it's been fixed and delete the test code. Do not do things that leave directories with lambda_processor.py, lambda_processor_updated.py, lambda_processor_fixed.py, lambda_processor_simple.py, etc.  At the end of pertinent development and testing activities we should only have a fully functioning lambda_processor.py
 - All end to end testing should be initiated from /Users/chris/climate-risk-rag-aws/invoke_pipeline_test.py  It, in conjunction with the test lambda at the head of the pipeline that it invokes has the proper logic to provide files and set up the database so that the pipeline can operate correctly. Unit testing of individual pipeline stages can only be done on documents that have completed all previous pipeline stages - this has to be checked and maintained for any unit testing.
+- USE python3 - never use python which will be python 2.7 or some other very old version.
 
 **CURRENT STATUS:**
 - Available in PROJECT CONTEXT SUMMARY and NEXT STEPS documents as specified above
@@ -250,6 +252,104 @@ Note direction in the list below. We should always use git to manage things. So,
 - **Incremental commits** to track progress
 - **Professional commit messages** with clear descriptions
 - **User focuses on technical work** while I manage version control
+
+## 🔧 **Prevent Configuration Drift Prompt** 
+
+## **CONFIGURATION DRIFT PREVENTION PROTOCOL**
+
+MANDATORY CHECKS - Execute BEFORE making ANY infrastructure or configuration changes:
+
+### **1. INFRASTRUCTURE REFERENCE VALIDATION**
+• **ALWAYS** consult /Users/chris/climate-risk-rag-aws/docs/infrastructure/INFRASTRUCTURE_REFERENCE.md FIRST
+• **VERIFY** all environment variables match the reference document exactly
+• **CROSS-CHECK** subnet IDs, security group IDs, bucket names, and endpoints
+• **CONFIRM** Lambda functions are in correct subnets per their purpose (database vs application)
+
+### **2. CONFIGURATION CONSISTENCY AUDIT**
+Before making changes, ALWAYS run these verification commands:
+
+bash
+# Check Lambda environment variables
+aws lambda get-function-configuration --function-name [FUNCTION-NAME] --query 'Environment.Variables'
+
+# Verify VPC configuration
+aws lambda get-function-configuration --function-NAME] --query 'VpcConfig'
+
+# Cross-reference with infrastructure document
+grep -n "BUCKET\|ENDPOINT\|SUBNET" /Users/chris/climate-risk-rag-aws/docs/infrastructure/INFRASTRUCTURE_REFERENCE.md
+
+
+### **3. MANDATORY VALIDATION QUESTIONS**
+Before ANY change, answer these questions:
+
+1. Does this configuration match the infrastructure reference document?
+2. Are all related components using consistent bucket/endpoint names?
+3. Do the subnet assignments match the component's purpose (database vs application)?
+4. Are environment variables consistent across related Lambda functions?
+5. Will this change break the documented pipeline flow?
+
+### **4. CONFIGURATION DRIFT DETECTION**
+ALWAYS check for these common drift patterns:
+
+• **Bucket Mismatches**: Different functions using different bucket names for same purpose
+• **Subnet Misalignment**: Functions in wrong subnet types for their database needs
+• **Endpoint Inconsistencies**: Different OpenSearch/database endpoints across functions
+• **Security Group Drift**: Missing or incorrect security group assignments
+• **Environment Variable Drift**: Inconsistent variable names or values
+
+### **5. CHANGE VALIDATION PROTOCOL**
+After making ANY configuration change:
+
+1. Verify the change took effect: Check actual configuration matches intended change
+2. Test related components: Ensure dependent services still work
+3. Check pipeline flow: Verify end-to-end functionality isn't broken
+4. Update documentation: If infrastructure reference needs updates, flag it immediately
+
+### **6. FORBIDDEN ACTIONS**
+NEVER make these changes without explicit infrastructure reference validation:
+
+• Changing Lambda subnet assignments
+• Modifying S3 bucket names in environment variables
+• Updating OpenSearch endpoints or index names
+• Changing database connection parameters
+• Modifying security group assignments
+• When cleaning up via the cleanup lambda - NEVER clean the solve-global-kr-documents-861276078413-us-east-1  bucket. That is a SOURCE bucket that will only be cleaned manually.
+
+
+### **7. ESCALATION TRIGGERS**
+IMMEDIATELY FLAG these situations:
+
+• Configuration doesn't match infrastructure reference document
+• Multiple functions have inconsistent configurations for same resources
+• Changes would require infrastructure reference document updates
+• Uncertainty about correct configuration values
+
+### **8. VERIFICATION COMMANDS TEMPLATE**
+Use this template for every configuration change:
+
+bash
+echo "🔍 PRE-CHANGE VALIDATION"
+echo "======================="
+# [Insert specific validation commands for the change]
+
+echo "🔧 MAKING CHANGE"
+echo "==============="
+# [Insert change commands]
+
+echo "✅ POST-CHANGE VERIFICATION" 
+echo "=========================="
+# [Insert verification commands]
+
+echo "🧪 FUNCTIONALITY TEST"
+echo "===================="
+# [Insert test commands]
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+CRITICAL REMINDER: The infrastructure reference document at /Users/chris/climate-risk-rag-aws/docs/infrastructure/INFRASTRUCTURE_REFERENCE.md is the SINGLE SOURCE OF TRUTH. Any deviation from it without explicit justification and documentation update is a CONFIGURATION REGRESSION.
+
 
 ---
 
