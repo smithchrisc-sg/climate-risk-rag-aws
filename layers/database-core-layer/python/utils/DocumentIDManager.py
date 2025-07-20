@@ -40,18 +40,18 @@ class DocumentIDManager:
     AWS-optimized with PostgreSQL support and S3 integration.
     """
     
-    def __init__(self, database_url: str = None, s3_bucket: str = None):
+    def __init__(self, s3_bucket: str = None):
         """
         Initialize DocumentIDManager with AWS infrastructure support.
+        Uses gold standard DatabaseManager pattern with environment variables.
         
         Args:
-            database_url: PostgreSQL connection string (defaults to DATABASE_URL env var)
             s3_bucket: S3 bucket for document storage (optional)
         """
         self.logger = logging.getLogger(self.__class__.__name__)
         
-        # Initialize database manager
-        self.db_manager = DatabaseManager(database_url)
+        # Initialize database manager using gold standard pattern (no parameters)
+        self.db_manager = DatabaseManager()
         
         # S3 configuration (optional)
         self.s3_bucket = s3_bucket or os.environ.get('S3_BUCKET')
@@ -401,8 +401,7 @@ class DocumentIDManager:
             List of document metadata dictionaries
         """
         try:
-            conn = self.db_manager.get_connection()
-            try:
+            with self.db_manager.get_connection() as conn:
                 with conn.cursor() as cursor:
                     query = """
                         SELECT d.doc_id, d.url, d.original_filename, d.status, 
@@ -430,9 +429,6 @@ class DocumentIDManager:
                         results.append(doc_dict)
                     
                     return results
-                    
-            finally:
-                self.db_manager.return_connection(conn)
                 
         except Exception as e:
             self.logger.error(f"Error listing documents: {str(e)}")
@@ -446,8 +442,7 @@ class DocumentIDManager:
             Dictionary with processing statistics
         """
         try:
-            conn = self.db_manager.get_connection()
-            try:
+            with self.db_manager.get_connection() as conn:
                 with conn.cursor() as cursor:
                     # Get status counts
                     cursor.execute("""
@@ -475,9 +470,6 @@ class DocumentIDManager:
                         'recent_updates': recent_updates,
                         'timestamp': datetime.now().isoformat()
                     }
-                    
-            finally:
-                self.db_manager.return_connection(conn)
                 
         except Exception as e:
             self.logger.error(f"Error getting processing statistics: {str(e)}")
@@ -495,8 +487,7 @@ class DocumentIDManager:
             Number of documents cleaned up
         """
         try:
-            conn = self.db_manager.get_connection()
-            try:
+            with self.db_manager.get_connection() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
                         DELETE FROM documents
@@ -509,9 +500,6 @@ class DocumentIDManager:
                     
                     self.logger.info(f"Cleaned up {deleted_count} old documents with status '{status}'")
                     return deleted_count
-                    
-            finally:
-                self.db_manager.return_connection(conn)
                 
         except Exception as e:
             self.logger.error(f"Error cleaning up old documents: {str(e)}")

@@ -89,27 +89,27 @@ class PipelineTestLambdaStack(Stack):
             }
         )
         
-        # Import existing Lambda layers with DatabaseManager and DocumentIDManager
+        # Import existing Lambda layers - GOLD STANDARD VERSIONS
         core_utilities_layer = lambda_.LayerVersion.from_layer_version_arn(
             self, "CoreUtilitiesLayer",
-            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:2"
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:16"  # Gold standard
         )
         
-        database_dependencies_layer = lambda_.LayerVersion.from_layer_version_arn(
-            self, "DatabaseDependenciesLayer", 
-            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:database-dependencies:2"
+        database_core_layer = lambda_.LayerVersion.from_layer_version_arn(
+            self, "DatabaseCoreLayer", 
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:database-core-layer:7"  # FINAL GOLD STANDARD
         )
         
-        layers = [core_utilities_layer, database_dependencies_layer]
+        layers = [core_utilities_layer, database_core_layer]
         
-        # Import specific subnets that match the database subnets
+        # Import specific subnets - USE APPLICATION SUBNETS (not database subnets)
         subnet1 = ec2.Subnet.from_subnet_id(
-            self, "DatabaseSubnet1",
-            subnet_id="subnet-0e9efc5fdf29e9da0"
+            self, "ApplicationSubnet1",
+            subnet_id="subnet-03d8bd6cf3491f38c"  # Application subnet 1
         )
         subnet2 = ec2.Subnet.from_subnet_id(
-            self, "DatabaseSubnet2", 
-            subnet_id="subnet-00efdcc220a613ae3"
+            self, "ApplicationSubnet2", 
+            subnet_id="subnet-0c0be1dd59f70f70e"  # Application subnet 2
         )
         
         # Create the pipeline test Lambda function
@@ -117,7 +117,7 @@ class PipelineTestLambdaStack(Stack):
             self, "PipelineTestFunction",
             function_name="solve-global-kr-pipeline-test-function",
             runtime=lambda_.Runtime.PYTHON_3_11,
-            handler="pipeline_test_handler.lambda_handler",
+            handler="handler.lambda_handler",  # Updated to use clean entry point
             code=lambda_.Code.from_asset("../lambda/pipeline_test_function"),
             role=lambda_role,
             timeout=Duration.minutes(15),  # Long timeout for document processing
@@ -137,13 +137,17 @@ class PipelineTestLambdaStack(Stack):
                 "SQLITE_S3_KEY": "database/corpus_document_ids.db",
                 "SQLITE_DB_PATH": "/tmp/corpus_document_ids.db",
                 
-                # Database connection
-                "DATABASE_URL": "postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require",
+                # Gold standard database connection configuration
+                "DATABASE_SECRET_NAME": "rds!db-0f16c155-35f6-463b-96d8-4a2d8da7e863",
+                "DATABASE_CONNECTION_METHOD": "secrets_manager",
+                "DB_HOST": "solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com",
+                "DB_PORT": "5432",
+                "DB_NAME": "climate_risk_rag",
                 
                 # Other configuration
                 "LAMBDA_ENVIRONMENT": "true"
             },
-            description="Pipeline test function for parameterized document processing tests",
+            description="Pipeline test function for parameterized document processing tests - Gold Standard",
             log_retention=logs.RetentionDays.ONE_WEEK
         )
         

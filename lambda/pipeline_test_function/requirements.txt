@@ -1,0 +1,8 @@
+# Pipeline Test Function Dependencies
+# Core dependencies provided by layers:
+# - DatabaseManager (database-core-layer:6)
+# - DocumentIDManager (database-core-layer:6)
+# - psycopg2-binary (database-core-layer:6)
+# - boto3/botocore (climate-risk-core-utilities:16)
+
+# No additional dependencies required - all provided by gold standard layers
