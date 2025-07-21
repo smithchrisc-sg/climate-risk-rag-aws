@@ -12,7 +12,6 @@ from datetime import datetime
 import json
 
 from .DatabaseManager import DatabaseManager
-from ..document_processing.DocumentMetadata import DocumentMetadata
 
 class DocumentIDManager:
     """

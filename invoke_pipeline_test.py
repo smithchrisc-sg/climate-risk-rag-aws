@@ -190,7 +190,7 @@ class PipelineTestInvoker:
         logger.info(f"✅ Safety check passed: {len(documents)} documents (~{total_pages} pages)")
         return True
     
-    def invoke_pipeline_test(self, action: str = 'setup_and_test', **params) -> Dict[str, Any]:
+    def invoke_pipeline_test(self, action: str = 'test', **params) -> Dict[str, Any]:
         """Invoke the pipeline test Lambda function with pre-selected documents"""
         try:
             # Get and filter documents locally
@@ -219,19 +219,33 @@ class PipelineTestInvoker:
                     'error': 'Safety limits exceeded or user cancelled'
                 }
             
-            # Prepare the event payload with pre-selected documents
+            # Convert selected documents to the format expected by Lambda
+            # Lambda expects: [{"legacy_doc_id": str, "source_url": str}, ...]
+            document_pairs = []
+            for doc in selected_docs:
+                # Extract legacy doc ID from filename (remove .pdf extension)
+                legacy_doc_id = doc['filename'].replace('.pdf', '')
+                source_url = doc['source_url']
+                
+                document_pairs.append({
+                    'legacy_doc_id': legacy_doc_id,
+                    'source_url': source_url
+                })
+            
+            # Prepare the event payload in the format expected by restored Lambda
             event = {
-                'action': action,
-                'parameters': params,
-                'selected_documents': selected_docs,  # Send documents to Lambda
-                'invoked_at': datetime.utcnow().isoformat() + "Z",
-                'invoked_by': 'local_client_with_sqlite'
+                'action': 'test',  # Always use 'test' - Lambda only supports this action
+                'document_pairs': document_pairs
             }
             
             logger.info(f"🚀 Invoking pipeline test Lambda: {self.lambda_function_name}")
-            logger.info(f"📋 Action: {action}")
-            logger.info(f"📄 Selected documents: {len(selected_docs)}")
+            logger.info(f"📋 Action: test")
+            logger.info(f"📄 Selected documents: {len(document_pairs)}")
             logger.info(f"📊 Total estimated pages: {sum(doc['estimated_pages'] for doc in selected_docs)}")
+            
+            # Show document pairs being sent
+            for i, pair in enumerate(document_pairs, 1):
+                logger.info(f"  {i}. {pair['legacy_doc_id']} → {pair['source_url'][:50]}...")
             
             # Invoke the Lambda function
             response = self.lambda_client.invoke(
@@ -277,7 +291,7 @@ class PipelineTestInvoker:
             }
     
     def print_results(self, result: Dict[str, Any]):
-        """Print formatted results"""
+        """Print formatted results for simplified pipeline test"""
         if not result['success']:
             logger.error("=" * 60)
             logger.error("❌ PIPELINE TEST FAILED")
@@ -288,103 +302,58 @@ class PipelineTestInvoker:
         response = result['response']
         status = response.get('status', 'unknown')
         
-        if status == 'vpc_endpoint_limitation':
-            logger.warning("=" * 60)
-            logger.warning("⚠️ PIPELINE TEST COMPLETED WITH VPC ENDPOINT LIMITATION")
-            logger.warning("=" * 60)
-            logger.warning("The test Lambda function was able to connect to the database and copy documents")
-            logger.warning("to the source bucket, but could not trigger text extraction due to VPC endpoint")
-            logger.warning("limitations. To fix this issue, add a VPC endpoint for Lambda or move the Lambda")
-            logger.warning("function outside the VPC.")
-            
-            action = response.get('action', 'unknown')
-            logger.info(f"📋 Action: {action}")
-            logger.info(f"🧪 Documents Tested: {response.get('documents_tested', 0)}")
-            logger.info(f"✅ Successful Triggers: {response.get('successful_triggers', 0)}")
-            logger.info(f"❌ Failed Triggers: {response.get('failed_triggers', 0)}")
-            logger.info(f"⚠️ VPC Endpoint Limitations: {response.get('vpc_endpoint_limitations', 0)}")
-            logger.info(f"📈 Trigger Success Rate: {response.get('trigger_success_rate', 0):.1f}%")
-            logger.info(f"📄 Total Estimated Pages: {response.get('total_estimated_pages', 0)}")
-            
-            if 'trigger_results' in response:
-                logger.info("\n🚀 Trigger Results:")
-                for i, result in enumerate(response['trigger_results'], 1):
-                    status_icon = "✅" if result['status'] == 'triggered' else "⚠️" if result['status'] == 'vpc_endpoint_limitation' else "❌"
-                    logger.info(f"  {i}. {status_icon} {result['doc_id']}: {result['status']}")
-            
-        elif status == 'success':
+        if status == 'completed':
             logger.info("=" * 60)
             logger.info("🎉 PIPELINE TEST SUCCESSFUL")
             logger.info("=" * 60)
             
-            action = response.get('action', 'unknown')
-            logger.info(f"📋 Action: {action}")
+            action = response.get('action', 'test')
+            results = response.get('results', {})
             
-            if 'documents_prepared' in response:
-                logger.info(f"📄 Documents Prepared: {response['documents_prepared']}")
+            logger.info(f"📋 Action: {action}")
+            logger.info(f"📄 Total Documents: {results.get('total_documents', 0)}")
+            logger.info(f"✅ Successful Copies: {results.get('successful_copies', 0)}")
+            logger.info(f"❌ Failed Copies: {results.get('failed_copies', 0)}")
+            
+            # Show individual document results
+            if 'results' in results and results['results']:
+                logger.info(f"\n📋 Document Processing Results:")
+                for i, doc_result in enumerate(results['results'], 1):
+                    if doc_result.get('success'):
+                        legacy_id = doc_result.get('legacy_doc_id', 'unknown')
+                        new_id = doc_result.get('new_doc_id', 'unknown')
+                        target_key = doc_result.get('target_key', 'unknown')
+                        logger.info(f"  {i}. ✅ {legacy_id} → {new_id}")
+                        logger.info(f"     Copied to: {target_key}")
+                        logger.info(f"     Source URL: {doc_result.get('source_url', 'unknown')[:60]}...")
+                    else:
+                        legacy_id = doc_result.get('legacy_doc_id', 'unknown')
+                        error = doc_result.get('error', 'Unknown error')
+                        logger.info(f"  {i}. ❌ {legacy_id}: {error}")
+            
+            # Success summary
+            total = results.get('total_documents', 0)
+            successful = results.get('successful_copies', 0)
+            if successful == total:
+                logger.info(f"\n🎉 ALL {total} DOCUMENTS PROCESSED SUCCESSFULLY!")
+                logger.info("Documents copied to source bucket will trigger text extraction pipeline.")
+            else:
+                logger.warning(f"\n⚠️ {successful}/{total} documents processed successfully")
                 
-                if 'statistics' in response:
-                    stats = response['statistics']
-                    logger.info(f"📊 Statistics:")
-                    logger.info(f"  - Total Estimated Pages: {stats.get('total_estimated_pages', 0)}")
-                    logger.info(f"  - Average Pages per Doc: {stats.get('average_pages', 0):.1f}")
-                    logger.info(f"  - Total Size: {stats.get('total_size_mb', 0):.1f} MB")
-                    logger.info(f"  - Average Size per Doc: {stats.get('average_size_mb', 0):.1f} MB")
-            
-            if 'documents_tested' in response:
-                logger.info(f"🧪 Documents Tested: {response['documents_tested']}")
-                logger.info(f"✅ Successful Triggers: {response.get('successful_triggers', 0)}")
-                logger.info(f"❌ Failed Triggers: {response.get('failed_triggers', 0)}")
-                logger.info(f"⚠️ VPC Endpoint Limitations: {response.get('vpc_endpoint_limitations', 0)}")
-                logger.info(f"📈 Trigger Success Rate: {response.get('trigger_success_rate', 0):.1f}%")
-                logger.info(f"📄 Total Estimated Pages: {response.get('total_estimated_pages', 0)}")
-            
-            # Show prepared documents
-            if 'prepared_documents' in response:
-                logger.info(f"\n📋 Prepared Documents:")
-                for i, doc in enumerate(response['prepared_documents'], 1):
-                    logger.info(f"  {i}. {doc['source_key']} ({doc['size_mb']} MB, ~{doc['estimated_pages']} pages)")
-                    logger.info(f"     Source: {doc['source_url']}")
-            
-            # Show trigger results
-            if 'trigger_results' in response:
-                logger.info(f"\n🚀 Trigger Results:")
-                for i, result in enumerate(response['trigger_results'], 1):
-                    status_icon = "✅" if result['status'] == 'triggered' else "⚠️" if result['status'] == 'vpc_endpoint_limitation' else "❌"
-                    logger.info(f"  {i}. {status_icon} {result['doc_id']}: {result['status']}")
-                    if result['status'] == 'failed':
-                        logger.info(f"     Error: {result.get('error', 'Unknown error')}")
-        
-        elif status == 'partial_failure':
-            logger.warning("=" * 60)
-            logger.warning("⚠️ PIPELINE TEST PARTIALLY SUCCESSFUL")
-            logger.warning("=" * 60)
-            
-            action = response.get('action', 'unknown')
-            logger.info(f"📋 Action: {action}")
-            logger.info(f"🧪 Documents Tested: {response.get('documents_tested', 0)}")
-            logger.info(f"✅ Successful Triggers: {response.get('successful_triggers', 0)}")
-            logger.info(f"❌ Failed Triggers: {response.get('failed_triggers', 0)}")
-            logger.info(f"⚠️ VPC Endpoint Limitations: {response.get('vpc_endpoint_limitations', 0)}")
-            logger.info(f"📈 Trigger Success Rate: {response.get('trigger_success_rate', 0):.1f}%")
-            logger.info(f"📄 Total Estimated Pages: {response.get('total_estimated_pages', 0)}")
-            
-            if 'trigger_results' in response:
-                logger.info("\n🚀 Trigger Results:")
-                for i, result in enumerate(response['trigger_results'], 1):
-                    status_icon = "✅" if result['status'] == 'triggered' else "⚠️" if result['status'] == 'vpc_endpoint_limitation' else "❌"
-                    logger.info(f"  {i}. {status_icon} {result['doc_id']}: {result['status']}")
-                    if result['status'] == 'failed':
-                        logger.info(f"     Error: {result.get('error', 'Unknown error')}")
-        
         elif status == 'failed':
             logger.error("=" * 60)
             logger.error("❌ PIPELINE TEST FAILED")
             logger.error("=" * 60)
-            logger.error(f"Error: {response.get('error', 'Unknown error')}")
             
-            if response.get('requires_force'):
-                logger.warning("💡 Hint: Use --force to bypass safety limits")
+            results = response.get('results', {})
+            error = results.get('error', response.get('error', 'Unknown error'))
+            logger.error(f"Error: {error}")
+            
+            # Show partial results if available
+            if 'total_documents' in results:
+                logger.info(f"📄 Total Documents: {results.get('total_documents', 0)}")
+                logger.info(f"✅ Successful Copies: {results.get('successful_copies', 0)}")
+                logger.info(f"❌ Failed Copies: {results.get('failed_copies', 0)}")
         
         else:
             logger.warning(f"⚠️  Unknown status: {status}")
@@ -394,9 +363,9 @@ def main():
     """Main execution with argument parsing"""
     parser = argparse.ArgumentParser(description='Invoke Pipeline Test Lambda Function')
     
-    # Action selection
-    parser.add_argument('--action', choices=['setup_only', 'test_only', 'setup_and_test'], 
-                       default='setup_and_test', help='Action to perform (default: setup_and_test)')
+    # Action selection - simplified to match restored Lambda
+    parser.add_argument('--action', choices=['test'], 
+                       default='test', help='Action to perform (only "test" supported)')
     
     # Document selection parameters
     parser.add_argument('--num-documents', type=int, default=5,

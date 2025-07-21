@@ -1,31 +1,25 @@
 #!/usr/bin/env python3
 """
-Pipeline Test Lambda Function - Modernized
-Runs parameterized pipeline tests from within the VPC with database access
-Uses gold standard DatabaseManager and DocumentIDManager patterns
+Pipeline Test Lambda Function - Restored to July 16th Requirements
+Simple document copying workflow that simulates document discovery subsystem
+NO SQLite operations - everything supplied by invoke_pipeline_test.py
 """
 
 import json
 import boto3
-import sqlite3
-import os
-import time
 import logging
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Dict, List, Optional, Tuple
-import re
+from typing import Dict, List, Any
 
-# Import from Lambda layers using gold standard pattern
+# Import DocumentIDManager from gold standard layer
 try:
-    from utils.DatabaseManager import DatabaseManager
     from utils.DocumentIDManager import DocumentIDManager
     logger = logging.getLogger()
-    logger.info("✅ Successfully imported DatabaseManager and DocumentIDManager from gold standard layer")
+    logger.info("✅ Successfully imported DocumentIDManager from gold standard layer")
 except ImportError as e:
     logger = logging.getLogger()
-    logger.error(f"❌ Failed to import from gold standard layer: {str(e)}")
-    raise ImportError("Required modules not available in layer")
+    logger.error(f"❌ Failed to import DocumentIDManager from layer: {str(e)}")
+    raise ImportError("DocumentIDManager not available in layer")
 
 # Configure logging
 logger = logging.getLogger()
@@ -33,280 +27,181 @@ logger.setLevel(logging.INFO)
 
 class PipelineTestLambda:
     """
-    Modernized Lambda-based pipeline test manager using gold standard patterns
+    Simple pipeline test manager - restored to original July 16th requirements
+    Receives legacy-doc-id/source-url pairs and copies documents to trigger pipeline
     """
     
     def __init__(self):
         # AWS clients
         self.s3_client = boto3.client('s3')
-        self.lambda_client = boto3.client('lambda')
         
-        # Environment configuration
-        self.source_bucket = os.environ.get('SOURCE_DOCUMENTS_BUCKET', 'solve-global-kr-dl-source-documents-861276078413-us-east-1')
+        # S3 bucket configuration
+        self.source_documents_bucket = 'solve-global-kr-documents-861276078413-us-east-1'
+        self.target_documents_bucket = 'solve-global-kr-dl-source-documents-861276078413-us-east-1'
         
-        # Initialize DatabaseManager using gold standard pattern
+        # Initialize DocumentIDManager from gold standard layer
         try:
-            self.db_manager = DatabaseManager()
-            logger.info("✅ DatabaseManager initialized successfully using gold standard pattern")
-        except Exception as e:
-            logger.error(f"❌ FATAL ERROR: DatabaseManager initialization failed: {str(e)}")
-            logger.error("Database connectivity is required for pipeline operation")
-            raise RuntimeError(f"Database connectivity failure: {str(e)}")
-        
-        # Initialize DocumentIDManager using gold standard pattern
-        try:
-            # DocumentIDManager will use the same environment variables as DatabaseManager
             self.doc_id_manager = DocumentIDManager()
-            logger.info("✅ DocumentIDManager initialized successfully using gold standard pattern")
+            logger.info("✅ DocumentIDManager initialized successfully")
         except Exception as e:
-            logger.error(f"❌ FATAL ERROR: DocumentIDManager initialization failed: {str(e)}")
-            logger.error("DocumentIDManager is required for pipeline operation")
-            raise RuntimeError(f"DocumentIDManager initialization failure: {str(e)}")
+            logger.error(f"❌ Failed to initialize DocumentIDManager: {str(e)}")
+            raise
+        
+        logger.info("✅ Pipeline Test Lambda initialized with simplified logic")
+        logger.info(f"Source bucket: {self.source_documents_bucket}")
+        logger.info(f"Target bucket: {self.target_documents_bucket}")
     
-    def download_sqlite_db(self):
-        """Download SQLite database from S3 to Lambda temp storage"""
-        try:
-            sqlite_s3_key = os.environ.get('SQLITE_S3_KEY', 'database/corpus_document_ids.db')
-            sqlite_s3_bucket = os.environ.get('SQLITE_S3_BUCKET', 'solve-global-kr-cache-861276078413-us-east-1')
-            
-            logger.info(f"Downloading SQLite database from s3://{sqlite_s3_bucket}/{sqlite_s3_key}")
-            
-            self.s3_client.download_file(
-                sqlite_s3_bucket,
-                sqlite_s3_key,
-                self.sqlite_db_path
-            )
-            
-            logger.info(f"SQLite database downloaded to {self.sqlite_db_path}")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Failed to download SQLite database: {e}")
-            return False
-    
-    def get_source_url_from_sqlite(self, doc_id_from_filename: str) -> Optional[str]:
-        """Get source URL from SQLite database"""
-        try:
-            conn = sqlite3.connect(self.sqlite_db_path)
-            cursor = conn.cursor()
-            
-            # Try exact match first
-            cursor.execute("SELECT source_url FROM document_ids WHERE doc_id = ?", (doc_id_from_filename,))
-            result = cursor.fetchone()
-            
-            if result:
-                conn.close()
-                return result[0]
-            
-            # Try partial match
-            cursor.execute("SELECT source_url FROM document_ids WHERE doc_id LIKE ?", (f"%{doc_id_from_filename}%",))
-            result = cursor.fetchone()
-            
-            conn.close()
-            return result[0] if result else None
-            
-        except Exception as e:
-            logger.error(f"Error querying SQLite database: {e}")
-            return None
-    
-    def create_test_document(self, source_url: str, doc_id_from_filename: str) -> Optional[str]:
+    def copy_document(self, legacy_doc_id: str, new_doc_id: str) -> Dict[str, Any]:
         """
-        Create a test document using gold standard DocumentIDManager
+        Copy document from source bucket to target bucket with new ID
         
         Args:
-            source_url: Source URL of the document
-            doc_id_from_filename: Document ID extracted from filename
+            legacy_doc_id: Original document ID (filename without .pdf)
+            new_doc_id: New document ID from DocumentIDManager
             
         Returns:
-            Proper document ID from DocumentIDManager or None if failed
+            Dict with copy operation results
         """
         try:
-            logger.info(f"Creating test document for URL: {source_url}")
+            source_key = f"documents/{legacy_doc_id}.pdf"
+            target_key = f"data-lake/{new_doc_id}.pdf"
             
-            if not source_url:
-                logger.error("No source URL provided")
-                return None
+            logger.info(f"Copying {source_key} → {target_key}")
             
-            # Use DocumentIDManager to get or create proper document ID
-            try:
-                # Try to get existing document ID by URL
-                existing_doc_id = self.doc_id_manager.get_document_id_by_url(source_url)
+            # Copy document
+            copy_source = {
+                'Bucket': self.source_documents_bucket,
+                'Key': source_key
+            }
+            
+            self.s3_client.copy_object(
+                CopySource=copy_source,
+                Bucket=self.target_documents_bucket,
+                Key=target_key
+            )
+            
+            logger.info(f"✅ Successfully copied document: {legacy_doc_id} → {new_doc_id}")
+            
+            return {
+                'success': True,
+                'legacy_doc_id': legacy_doc_id,
+                'new_doc_id': new_doc_id,
+                'source_key': source_key,
+                'target_key': target_key,
+                'copied_at': datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to copy document {legacy_doc_id}: {str(e)}")
+            return {
+                'success': False,
+                'legacy_doc_id': legacy_doc_id,
+                'new_doc_id': new_doc_id,
+                'error': str(e)
+            }
+    
+    def process_document_pairs(self, document_pairs: List[Dict[str, str]]) -> Dict[str, Any]:
+        """
+        Process list of legacy-doc-id/source-url pairs
+        
+        Args:
+            document_pairs: List of {'legacy_doc_id': str, 'source_url': str}
+            
+        Returns:
+            Dict with processing results
+        """
+        try:
+            logger.info(f"Processing {len(document_pairs)} document pairs")
+            
+            results = []
+            successful_copies = 0
+            failed_copies = 0
+            
+            for pair in document_pairs:
+                legacy_doc_id = pair.get('legacy_doc_id')
+                source_url = pair.get('source_url')
                 
-                if existing_doc_id:
-                    logger.info(f"Found existing document ID: {existing_doc_id}")
-                    return existing_doc_id
+                if not legacy_doc_id or not source_url:
+                    logger.error(f"Invalid document pair: {pair}")
+                    results.append({
+                        'success': False,
+                        'legacy_doc_id': legacy_doc_id,
+                        'error': 'Missing legacy_doc_id or source_url'
+                    })
+                    failed_copies += 1
+                    continue
                 
-                # Create new document using DocumentIDManager
-                logger.info(f"Creating new document for URL: {source_url}")
-                
-                # Use DocumentIDManager's create_document method
-                proper_doc_id = self.doc_id_manager.create_document(
-                    url=source_url,
-                    original_filename=f"{doc_id_from_filename}.pdf",  # Assume PDF for test
-                    status='pending'
-                )
-                
-                if proper_doc_id:
-                    logger.info(f"✅ Successfully created document {proper_doc_id} using DocumentIDManager")
-                    return proper_doc_id
-                else:
-                    logger.error("❌ DocumentIDManager returned None for document creation")
-                    return None
+                try:
+                    # Download document content first to pass to DocumentIDManager
+                    logger.info(f"Downloading document content for URL: {source_url}")
+                    source_key = f"documents/{legacy_doc_id}.pdf"
                     
-            except Exception as e:
-                import traceback
-                logger.error(f"Error creating document with DocumentIDManager: {str(e)}")
-                logger.error(f"Traceback: {traceback.format_exc()}")
-                raise
-                
+                    # Get document content from S3
+                    response = self.s3_client.get_object(
+                        Bucket=self.source_documents_bucket,
+                        Key=source_key
+                    )
+                    content_bytes = response['Body'].read()
+                    logger.info(f"Downloaded {len(content_bytes)} bytes for {legacy_doc_id}")
+                    
+                    # Get new document ID from DocumentIDManager with content
+                    logger.info(f"Getting new doc ID for URL: {source_url}")
+                    new_doc_id = self.doc_id_manager.get_or_create_id(source_url, content_bytes)
+                    logger.info(f"Got new doc ID: {new_doc_id}")
+                    
+                    # Copy document using existing method
+                    copy_result = self.copy_document(legacy_doc_id, new_doc_id)
+                    copy_result['source_url'] = source_url
+                    
+                    results.append(copy_result)
+                    
+                    if copy_result['success']:
+                        successful_copies += 1
+                    else:
+                        failed_copies += 1
+                        
+                except Exception as e:
+                    logger.error(f"❌ Error processing document pair {legacy_doc_id}: {str(e)}")
+                    results.append({
+                        'success': False,
+                        'legacy_doc_id': legacy_doc_id,
+                        'source_url': source_url,
+                        'error': str(e)
+                    })
+                    failed_copies += 1
+            
+            return {
+                'success': failed_copies == 0,
+                'total_documents': len(document_pairs),
+                'successful_copies': successful_copies,
+                'failed_copies': failed_copies,
+                'results': results,
+                'processed_at': datetime.now().isoformat()
+            }
+            
         except Exception as e:
-            import traceback
-            logger.error(f"Error creating test document: {str(e)}")
-            logger.error(f"Traceback: {traceback.format_exc()}")
-            return None
-    
-    def invoke_lambda_function(self, function_name: str, payload: Dict) -> Dict:
-        """Invoke a Lambda function and return the response"""
-        try:
-            logger.info(f"Invoking Lambda function: {function_name}")
-            
-            response = self.lambda_client.invoke(
-                FunctionName=function_name,
-                InvocationType='RequestResponse',
-                Payload=json.dumps(payload)
-            )
-            
-            response_payload = json.loads(response['Payload'].read())
-            
-            if response.get('StatusCode') == 200:
-                logger.info(f"✅ Successfully invoked {function_name}")
-                return {
-                    'success': True,
-                    'response': response_payload,
-                    'status_code': response['StatusCode']
-                }
-            else:
-                logger.error(f"❌ Lambda function {function_name} returned status code: {response.get('StatusCode')}")
-                return {
-                    'success': False,
-                    'response': response_payload,
-                    'status_code': response.get('StatusCode')
-                }
-                
-        except Exception as e:
-            logger.error(f"Error invoking Lambda function {function_name}: {str(e)}")
+            logger.error(f"❌ Error processing document pairs: {str(e)}")
             return {
                 'success': False,
                 'error': str(e),
-                'status_code': None
-            }
-    
-    def run_pipeline_test(self, test_config: Dict) -> Dict:
-        """
-        Run a complete pipeline test using gold standard patterns
-        
-        Args:
-            test_config: Test configuration dictionary
-            
-        Returns:
-            Test results dictionary
-        """
-        try:
-            test_name = test_config.get('test_name', 'unnamed_test')
-            doc_id_from_filename = test_config.get('doc_id_from_filename')
-            target_functions = test_config.get('target_functions', [])
-            
-            logger.info(f"🧪 Starting pipeline test: {test_name}")
-            logger.info(f"Document ID from filename: {doc_id_from_filename}")
-            logger.info(f"Target functions: {target_functions}")
-            
-            results = {
-                'test_name': test_name,
-                'doc_id_from_filename': doc_id_from_filename,
-                'timestamp': datetime.now().isoformat(),
-                'steps': [],
-                'success': False,
-                'error': None
-            }
-            
-            # Step 1: Get source URL from SQLite (if available)
-            source_url = None
-            if hasattr(self, 'sqlite_db_path') and os.path.exists(self.sqlite_db_path):
-                source_url = self.get_source_url_from_sqlite(doc_id_from_filename)
-                results['steps'].append({
-                    'step': 'get_source_url',
-                    'success': source_url is not None,
-                    'source_url': source_url
-                })
-            
-            # Step 2: Create test document using DocumentIDManager
-            if source_url:
-                proper_doc_id = self.create_test_document(source_url, doc_id_from_filename)
-                results['steps'].append({
-                    'step': 'create_document',
-                    'success': proper_doc_id is not None,
-                    'proper_doc_id': proper_doc_id
-                })
-                
-                if not proper_doc_id:
-                    results['error'] = "Failed to create test document"
-                    return results
-            else:
-                results['error'] = "No source URL found for document"
-                return results
-            
-            # Step 3: Invoke target Lambda functions
-            function_results = []
-            for function_name in target_functions:
-                payload = {
-                    'doc_id': proper_doc_id,
-                    'test_mode': True,
-                    'source_url': source_url
-                }
-                
-                function_result = self.invoke_lambda_function(function_name, payload)
-                function_results.append({
-                    'function_name': function_name,
-                    'result': function_result
-                })
-            
-            results['steps'].append({
-                'step': 'invoke_functions',
-                'function_results': function_results
-            })
-            
-            # Determine overall success
-            all_functions_succeeded = all(
-                result['result'].get('success', False) 
-                for result in function_results
-            )
-            
-            results['success'] = all_functions_succeeded
-            
-            if results['success']:
-                logger.info(f"✅ Pipeline test {test_name} completed successfully")
-            else:
-                logger.warning(f"⚠️ Pipeline test {test_name} completed with some failures")
-            
-            return results
-            
-        except Exception as e:
-            logger.error(f"❌ Pipeline test failed: {str(e)}")
-            import traceback
-            return {
-                'test_name': test_name,
-                'success': False,
-                'error': str(e),
-                'traceback': traceback.format_exc(),
-                'timestamp': datetime.now().isoformat()
+                'processed_at': datetime.now().isoformat()
             }
 
-def lambda_handler(event, context):
+def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
     """
-    Main Lambda handler using gold standard patterns
+    Main Lambda handler - restored to simple July 16th requirements
+    
+    Expected event format:
+    {
+        "action": "test",
+        "document_pairs": [
+            {"legacy_doc_id": "abc123", "source_url": "https://example.com/doc1.pdf"},
+            {"legacy_doc_id": "def456", "source_url": "https://example.com/doc2.pdf"}
+        ]
+    }
     """
     try:
-        logger.info("🚀 Pipeline Test Lambda starting with gold standard patterns")
+        logger.info("🚀 Pipeline Test Lambda starting - simplified version")
         logger.info(f"Event: {json.dumps(event, default=str)}")
         
         # Initialize pipeline test manager
@@ -316,47 +211,48 @@ def lambda_handler(event, context):
         action = event.get('action', 'test')
         
         if action == 'test':
-            # Run pipeline test
-            test_config = event.get('test_config', {})
+            # Get document pairs from event
+            document_pairs = event.get('document_pairs', [])
             
-            # Download SQLite database if needed
-            if event.get('download_sqlite', True):
-                pipeline_test.sqlite_db_path = '/tmp/corpus_document_ids.db'
-                sqlite_downloaded = pipeline_test.download_sqlite_db()
-                if not sqlite_downloaded:
-                    logger.warning("⚠️ SQLite database download failed, proceeding without it")
+            if not document_pairs:
+                logger.warning("No document pairs provided in event")
+                return {
+                    'statusCode': 400,
+                    'body': json.dumps({
+                        'success': False,
+                        'error': 'No document_pairs provided in event'
+                    })
+                }
             
-            # Run the test
-            results = pipeline_test.run_pipeline_test(test_config)
+            # Process the document pairs
+            results = pipeline_test.process_document_pairs(document_pairs)
+            
+            # Return results
+            status_code = 200 if results['success'] else 500
             
             return {
-                'statusCode': 200,
+                'statusCode': status_code,
                 'body': json.dumps({
-                    'status': 'completed',
+                    'status': 'completed' if results['success'] else 'failed',
+                    'action': action,
                     'results': results
                 })
             }
             
         elif action == 'health_check':
-            # Health check using gold standard components
+            # Simple health check
             try:
-                # Test DatabaseManager
-                with pipeline_test.db_manager.get_connection() as conn:
-                    with conn.cursor() as cursor:
-                        cursor.execute("SELECT 1")
-                        db_healthy = cursor.fetchone()[0] == 1
-                
-                # Test DocumentIDManager
-                stats = pipeline_test.doc_id_manager.get_processing_statistics()
-                doc_manager_healthy = isinstance(stats, dict)
+                # Test DocumentIDManager with dummy content
+                test_url = "https://example.com/test.pdf"
+                test_content = b"dummy content for health check"
+                test_doc_id = pipeline_test.doc_id_manager.get_or_create_id(test_url, test_content)
+                doc_manager_healthy = isinstance(test_doc_id, str) and len(test_doc_id) > 0
                 
                 return {
                     'statusCode': 200,
                     'body': json.dumps({
                         'status': 'healthy',
-                        'database_manager': db_healthy,
                         'document_id_manager': doc_manager_healthy,
-                        'processing_stats': stats,
                         'timestamp': datetime.now().isoformat()
                     })
                 }
@@ -376,20 +272,22 @@ def lambda_handler(event, context):
                 'statusCode': 400,
                 'body': json.dumps({
                     'status': 'failed',
-                    'error': f'Unknown action: {action}'
+                    'error': f'Unknown action: {action}. Supported actions: test, health_check'
                 })
             }
         
     except Exception as e:
-        logger.error(f"Pipeline test Lambda failed: {str(e)}")
+        logger.error(f"❌ Pipeline test Lambda failed: {str(e)}")
         import traceback
         traceback.print_exc()
         
         return {
             'statusCode': 500,
             'body': json.dumps({
-                'status': 'failed',
+                'status': 'error',
                 'error': str(e),
-                'traceback': traceback.format_exc()
+                'timestamp': datetime.now().isoformat()
             })
         }
+# Updated Sun Jul 20 16:28:07 PDT 2025
+# Force cold start Sun Jul 20 16:34:42 PDT 2025

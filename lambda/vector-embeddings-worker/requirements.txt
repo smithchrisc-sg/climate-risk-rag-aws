@@ -1,0 +1,12 @@
+# Vector Embeddings Worker Dependencies
+# Core AWS SDK (provided by Lambda runtime)
+boto3>=1.26.0
+botocore>=1.29.0
+
+# OpenSearch client (provided by opensearch-dependencies layer)
+opensearch-py>=2.0.0
+
+# AWS authentication for OpenSearch
+aws-requests-auth>=0.4.3
+
+# No additional dependencies - uses locked layers
