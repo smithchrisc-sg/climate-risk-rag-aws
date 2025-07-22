@@ -1,0 +1,82 @@
+    def process_direct_message(self, message):
+        """Process a direct message (not SNS)"""
+        doc_id = None
+        
+        try:
+            # Extract document information
+            doc_id = message.get('doc_id')
+            if not doc_id:
+                raise ValueError("doc_id not found in message")
+            
+            comprehend_jobs = message.get('comprehend_jobs', {})
+            chunks_location = message.get('chunks_location')
+            cost_analysis = message.get('cost_analysis', {})
+            
+            logger.info(f"Processing NLP results for document: {doc_id}")
+            logger.info(f"Comprehend jobs: {comprehend_jobs}")
+            
+            # Update status to results processing
+            self.update_status(doc_id, 'nlp_results_processing', 'in_progress', {
+                'comprehend_jobs': comprehend_jobs,
+                'chunks_location': chunks_location,
+                'cost_analysis': cost_analysis
+            })
+            
+            # Wait for and retrieve Comprehend results
+            comprehend_results = self.get_comprehend_results(comprehend_jobs)
+            
+            # Load chunks for offset mapping
+            chunks = self.load_chunks_from_s3(chunks_location) if chunks_location else []
+            
+            # Update status to offset mapping
+            self.update_status(doc_id, 'nlp_offset_mapping', 'in_progress', {
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
+                'chunks_count': len(chunks)
+            })
+            
+            # Map results to chunks
+            mapped_results = self.map_results_to_chunks(comprehend_results, chunks)
+            
+            # Update status to storage
+            self.update_status(doc_id, 'nlp_storage', 'in_progress', {
+                'results_summary': {
+                    'entities_count': len(comprehend_results.get('entities', [])),
+                    'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
+                    'chunks_mapped': len(chunks) > 0
+                }
+            })
+            
+            # Store results in S3 data lake
+            s3_locations = self.store_results_in_s3(doc_id, comprehend_results, mapped_results)
+            
+            # Publish completion message
+            self.publish_completion_message(doc_id, s3_locations, comprehend_results)
+            
+            # Update status to completed
+            self.update_status(doc_id, 'nlp_processing', 'completed', {
+                'results_locations': s3_locations,
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', []))
+            })
+            
+            logger.info(f"Successfully processed NLP results for document: {doc_id}")
+            
+            return {
+                'status': 'success',
+                'doc_id': doc_id,
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', []))
+            }
+            
+        except Exception as e:
+            logger.error(f"Error processing NLP results for {doc_id}: {e}")
+            
+            if doc_id:
+                self.update_status(doc_id, 'nlp_processing', 'failed', error_message=str(e))
+            
+            return {
+                'status': 'error',
+                'doc_id': doc_id,
+                'error': str(e)
+            }
