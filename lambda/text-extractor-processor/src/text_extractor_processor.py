@@ -156,7 +156,7 @@ class TextExtractorProcessor:
                           textract_response: Dict[str, Any]) -> Dict[str, str]:
         """Save extracted text and structure to S3"""
         try:
-            base_path = f"dl-text/{doc_id}"
+            base_path = f"data-lake/{doc_id}"
             
             # Save raw text
             text_key = f"{base_path}/raw_text.txt"

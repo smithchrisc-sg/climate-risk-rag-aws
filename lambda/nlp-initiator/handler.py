@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NLP Initiator Lambda Handler
+NLP Processor Lambda Handler (renamed from initiator for compatibility)
 Entry point for NLP processing pipeline
 """
 import sys

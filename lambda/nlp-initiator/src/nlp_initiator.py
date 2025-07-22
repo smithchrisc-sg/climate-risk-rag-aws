@@ -12,8 +12,7 @@ from typing import Dict, Any, List
 from urllib.parse import urlparse
 
 # Import from lambda layers
-from database_manager import DatabaseManager
-from document_id_manager import DocumentIDManager
+from utils.DatabaseManager import DatabaseManager
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -24,7 +23,6 @@ class NLPInitiator:
     def __init__(self):
         """Initialize NLP initiator with database and AWS clients"""
         self.db_manager = DatabaseManager()
-        self.doc_id_manager = DocumentIDManager(self.db_manager)
         
         # AWS clients
         self.s3_client = boto3.client('s3')
@@ -96,7 +94,7 @@ class NLPInitiator:
             logger.info(f"Chunks location: {chunks_location}")
             
             # Update status to processing
-            self.update_status(doc_id, 'nlp_initiate', 'in_progress', {
+            self.update_status(doc_id, 'nlp_initiate', 'in_progress', metadata={
                 'input_data': {
                     'chunks_location': chunks_location,
                     'text_location': text_location
@@ -123,7 +121,7 @@ class NLPInitiator:
             comprehend_jobs = self.start_comprehend_jobs(doc_id, full_text)
             
             # Update status to processing with job information
-            self.update_status(doc_id, 'nlp_processing', 'in_progress', {
+            self.update_status(doc_id, 'nlp_processing', 'in_progress', metadata={
                 'comprehend_jobs': comprehend_jobs,
                 'cost_analysis': {
                     'estimated_cost': estimated_cost,
@@ -153,11 +151,13 @@ class NLPInitiator:
             self.send_to_worker(worker_message)
             
             # Update status to completed (initiator done)
-            self.update_status(doc_id, 'nlp_initiate', 'completed', {
-                'comprehend_jobs_started': comprehend_jobs,
-                'worker_notified': True,
-                'estimated_cost': estimated_cost
-            })
+            self.update_status(doc_id, 'nlp_initiate', 'completed', 
+                             system_id='nlp-processor',
+                             metadata={
+                                 'comprehend_jobs_started': comprehend_jobs,
+                                 'worker_notified': True,
+                                 'estimated_cost': estimated_cost
+                             })
             
             logger.info(f"Successfully initiated NLP processing for document: {doc_id}")
             
@@ -173,10 +173,7 @@ class NLPInitiator:
             logger.error(f"Error processing NLP initiation for {doc_id}: {e}")
             
             if doc_id:
-                self.update_status(doc_id, 'nlp_initiate', 'failed', {
-                    'error': str(e),
-                    'error_type': type(e).__name__
-                })
+                self.update_status(doc_id, 'nlp_initiate', 'failed', error_message=str(e))
             
             return {
                 'status': 'error',
@@ -304,13 +301,15 @@ class NLPInitiator:
             logger.error(f"Error sending message to worker: {e}")
             raise
     
-    def update_status(self, doc_id: str, stage: str, status: str, metadata: Dict = None):
+    def update_status(self, doc_id: str, stage: str, status: str, error_message: str = None, system_id: str = None, metadata: Dict = None):
         """Update document processing status with audit trail"""
         try:
-            self.doc_id_manager.set_document_processing_status(
+            self.db_manager.set_processing_status(
                 doc_id=doc_id,
                 stage=stage,
                 status=status,
+                error_message=error_message,
+                system_id=system_id,
                 metadata=metadata or {}
             )
             logger.info(f"Set document processing status: {doc_id} -> {stage} -> {status}")

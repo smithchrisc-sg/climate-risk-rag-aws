@@ -170,7 +170,7 @@ class TextChunkerProcessor:
         """Upload chunks and metadata to S3"""
         try:
             # Create S3 paths
-            chunks_prefix = f"chunks/{doc_id}/"
+            chunks_prefix = f"data-lake/{doc_id}/"
             
             # Upload individual chunks
             chunk_locations = []

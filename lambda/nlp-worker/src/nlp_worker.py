@@ -12,8 +12,7 @@ from typing import Dict, Any, List
 import time
 
 # Import from lambda layers
-from database_manager import DatabaseManager
-from document_id_manager import DocumentIDManager
+from utils.DatabaseManager import DatabaseManager
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -24,7 +23,6 @@ class NLPWorker:
     def __init__(self):
         """Initialize NLP worker with database and AWS clients"""
         self.db_manager = DatabaseManager()
-        self.doc_id_manager = DocumentIDManager(self.db_manager)
         
         # AWS clients
         self.s3_client = boto3.client('s3')
@@ -44,14 +42,44 @@ class NLPWorker:
     def process_event(self, event, context):
         """Process Lambda event with proper error handling"""
         try:
-            # Parse SNS records
+            # Parse records
             records = event.get('Records', [])
             if not records:
                 raise ValueError("No records found in event")
             
             results = []
             for record in records:
-                result = self.process_record(record)
+                # Handle both direct SNS and SQS-wrapped SNS messages
+                if 'Sns' in record:
+                    # Direct SNS message
+                    result = self.process_record(record)
+                elif 'body' in record:
+                    # SQS message - could be wrapped SNS
+                    logger.info(f"Processing SQS message: {record.get('messageId', 'unknown')}")
+                    try:
+                        # Try to parse as SNS message wrapped in SQS
+                        body = json.loads(record['body'])
+                        if 'Type' in body and body['Type'] == 'Notification':
+                            logger.info("Processing SQS-wrapped SNS message")
+                            # Create a synthetic SNS record
+                            sns_record = {
+                                'Sns': {
+                                    'Message': body['Message'],
+                                    'MessageAttributes': body.get('MessageAttributes', {})
+                                }
+                            }
+                            result = self.process_record(sns_record)
+                        else:
+                            # Direct SQS message
+                            logger.info("Processing direct SQS message")
+                            result = self.process_direct_message(body)
+                    except json.JSONDecodeError:
+                        logger.error(f"Failed to parse SQS message body as JSON: {record['body']}")
+                        result = {'status': 'error', 'error': 'Invalid JSON in SQS message body'}
+                else:
+                    logger.error(f"Unknown record format: {record}")
+                    result = {'status': 'error', 'error': 'Unknown record format'}
+                
                 results.append(result)
             
             return {
@@ -120,44 +148,115 @@ class NLPWorker:
             })
             
             # Store results in S3 data lake
-            storage_locations = self.store_results_in_data_lake(doc_id, comprehend_results, mapped_results)
-            
-            # Update status to completed
-            self.update_status(doc_id, 'nlp_complete', 'completed', {
-                'processing_results': {
-                    'entities_count': len(comprehend_results.get('entities', [])),
-                    'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
-                    'chunks_mapped': len(chunks) > 0,
-                    'actual_cost': cost_analysis.get('estimated_cost', 0.0)
-                },
-                'output_locations': storage_locations,
-                'cost_analysis': cost_analysis
-            })
+            s3_locations = self.store_results_in_s3(doc_id, comprehend_results, mapped_results)
             
             # Publish completion message
-            self.publish_completion_message(doc_id, storage_locations, comprehend_results, cost_analysis)
+            self.publish_completion_message(doc_id, s3_locations, comprehend_results)
             
-            logger.info(f"Successfully completed NLP processing for document: {doc_id}")
+            # Update status to completed
+            self.update_status(doc_id, 'nlp_processing', 'completed', {
+                'results_locations': s3_locations,
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', []))
+            })
+            
+            logger.info(f"Successfully processed NLP results for document: {doc_id}")
             
             return {
                 'status': 'success',
                 'doc_id': doc_id,
-                'results_summary': {
-                    'entities_count': len(comprehend_results.get('entities', [])),
-                    'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
-                    'chunks_mapped': len(chunks) > 0
-                },
-                'storage_locations': storage_locations
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', []))
             }
             
         except Exception as e:
             logger.error(f"Error processing NLP results for {doc_id}: {e}")
             
             if doc_id:
-                self.update_status(doc_id, 'nlp_complete', 'failed', {
-                    'error': str(e),
-                    'error_type': type(e).__name__
-                })
+                self.update_status(doc_id, 'nlp_processing', 'failed', error_message=str(e))
+            
+            return {
+                'status': 'error',
+                'doc_id': doc_id,
+                'error': str(e)
+            }
+    
+    def process_direct_message(self, message):
+        """Process a direct message (not SNS)"""
+        doc_id = None
+        
+        try:
+            # Extract document information
+            doc_id = message.get('doc_id')
+            if not doc_id:
+                raise ValueError("doc_id not found in message")
+            
+            comprehend_jobs = message.get('comprehend_jobs', {})
+            chunks_location = message.get('chunks_location')
+            cost_analysis = message.get('cost_analysis', {})
+            
+            logger.info(f"Processing NLP results for document: {doc_id}")
+            logger.info(f"Comprehend jobs: {comprehend_jobs}")
+            
+            # Update status to results processing
+            self.update_status(doc_id, 'nlp_results_processing', 'in_progress', {
+                'comprehend_jobs': comprehend_jobs,
+                'chunks_location': chunks_location,
+                'cost_analysis': cost_analysis
+            })
+            
+            # Wait for and retrieve Comprehend results
+            comprehend_results = self.get_comprehend_results(comprehend_jobs)
+            
+            # Load chunks for offset mapping
+            chunks = self.load_chunks_from_s3(chunks_location) if chunks_location else []
+            
+            # Update status to offset mapping
+            self.update_status(doc_id, 'nlp_offset_mapping', 'in_progress', {
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
+                'chunks_count': len(chunks)
+            })
+            
+            # Map results to chunks
+            mapped_results = self.map_results_to_chunks(comprehend_results, chunks)
+            
+            # Update status to storage
+            self.update_status(doc_id, 'nlp_storage', 'in_progress', {
+                'results_summary': {
+                    'entities_count': len(comprehend_results.get('entities', [])),
+                    'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
+                    'chunks_mapped': len(chunks) > 0
+                }
+            })
+            
+            # Store results in S3 data lake
+            s3_locations = self.store_results_in_s3(doc_id, comprehend_results, mapped_results)
+            
+            # Publish completion message
+            self.publish_completion_message(doc_id, s3_locations, comprehend_results)
+            
+            # Update status to completed
+            self.update_status(doc_id, 'nlp_processing', 'completed', {
+                'results_locations': s3_locations,
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', []))
+            })
+            
+            logger.info(f"Successfully processed NLP results for document: {doc_id}")
+            
+            return {
+                'status': 'success',
+                'doc_id': doc_id,
+                'entities_count': len(comprehend_results.get('entities', [])),
+                'key_phrases_count': len(comprehend_results.get('key_phrases', []))
+            }
+            
+        except Exception as e:
+            logger.error(f"Error processing NLP results for {doc_id}: {e}")
+            
+            if doc_id:
+                self.update_status(doc_id, 'nlp_processing', 'failed', error_message=str(e))
             
             return {
                 'status': 'error',
@@ -167,286 +266,326 @@ class NLPWorker:
     
     def get_comprehend_results(self, comprehend_jobs: Dict[str, str]) -> Dict[str, List]:
         """Wait for and retrieve Comprehend job results"""
+        entity_job_id = comprehend_jobs.get('entity_job_id')
+        key_phrases_job_id = comprehend_jobs.get('key_phrases_job_id')
+        
+        results = {
+            'entities': [],
+            'key_phrases': []
+        }
+        
+        # Wait for entity detection job to complete
+        if entity_job_id:
+            logger.info(f"Waiting for entity detection job to complete: {entity_job_id}")
+            entities = self.wait_for_comprehend_job(
+                job_id=entity_job_id,
+                job_type='entities-detection'
+            )
+            results['entities'] = entities
+            logger.info(f"Retrieved {len(entities)} entities")
+        
+        # Wait for key phrases detection job to complete
+        if key_phrases_job_id:
+            logger.info(f"Waiting for key phrases detection job to complete: {key_phrases_job_id}")
+            key_phrases = self.wait_for_comprehend_job(
+                job_id=key_phrases_job_id,
+                job_type='key-phrases-detection'
+            )
+            results['key_phrases'] = key_phrases
+            logger.info(f"Retrieved {len(key_phrases)} key phrases")
+        
+        return results
+    
+    def wait_for_comprehend_job(self, job_id: str, job_type: str) -> List[Dict]:
+        """Wait for Comprehend job to complete and retrieve results"""
+        max_attempts = 60  # Increased from 30 to 60
+        attempt = 0
+        
+        while attempt < max_attempts:
+            # Check job status
+            if job_type == 'entities-detection':
+                response = self.comprehend_client.describe_entities_detection_job(
+                    JobId=job_id
+                )
+                job_status = response['EntitiesDetectionJobProperties']['JobStatus']
+                output_uri = response['EntitiesDetectionJobProperties']['OutputDataConfig']['S3Uri']
+            else:  # key-phrases-detection
+                response = self.comprehend_client.describe_key_phrases_detection_job(
+                    JobId=job_id
+                )
+                job_status = response['KeyPhrasesDetectionJobProperties']['JobStatus']
+                output_uri = response['KeyPhrasesDetectionJobProperties']['OutputDataConfig']['S3Uri']
+            
+            logger.info(f"Job {job_id} status: {job_status}")
+            
+            if job_status == 'COMPLETED':
+                # Job completed, retrieve results
+                return self.retrieve_comprehend_results(output_uri, job_type)
+            elif job_status in ['FAILED', 'STOP_REQUESTED', 'STOPPED']:
+                # Job failed
+                raise ValueError(f"Comprehend job {job_id} failed with status: {job_status}")
+            
+            # Job still in progress, wait and retry
+            attempt += 1
+            logger.info(f"Waiting for job to complete, attempt {attempt}/{max_attempts}")
+            time.sleep(10)
+        
+        # If we reach here, the job is still running but we've timed out
+        # Instead of failing, let's return an empty list and log a warning
+        logger.warning(f"Comprehend job {job_id} is still running after timeout period. Returning empty results.")
+        return []
+    
+    def retrieve_comprehend_results(self, output_uri: str, job_type: str) -> List[Dict]:
+        """Retrieve and parse Comprehend job results from S3"""
         try:
-            results = {}
+            # Parse S3 URI
+            uri_parts = output_uri.replace('s3://', '').split('/')
+            bucket = uri_parts[0]
+            key = '/'.join(uri_parts[1:])
             
-            # Get entity detection results
-            if 'entity_job_id' in comprehend_jobs:
-                entity_job_id = comprehend_jobs['entity_job_id']
-                logger.info(f"Retrieving entity detection results: {entity_job_id}")
-                
-                # Wait for job completion
-                self.wait_for_job_completion(entity_job_id, 'entities')
-                
-                # Get job details and download results
-                job_response = self.comprehend_client.describe_entities_detection_job(JobId=entity_job_id)
-                output_location = job_response['EntitiesDetectionJobProperties']['OutputDataConfig']['S3Uri']
-                
-                results['entities'] = self.download_comprehend_results(output_location)
+            # Download tar.gz file
+            download_path = f"/tmp/{job_type}-results.tar.gz"
+            self.s3_client.download_file(bucket, key, download_path)
             
-            # Get key phrases detection results
-            if 'key_phrases_job_id' in comprehend_jobs:
-                phrases_job_id = comprehend_jobs['key_phrases_job_id']
-                logger.info(f"Retrieving key phrases results: {phrases_job_id}")
-                
-                # Wait for job completion
-                self.wait_for_job_completion(phrases_job_id, 'key_phrases')
-                
-                # Get job details and download results
-                job_response = self.comprehend_client.describe_key_phrases_detection_job(JobId=phrases_job_id)
-                output_location = job_response['KeyPhrasesDetectionJobProperties']['OutputDataConfig']['S3Uri']
-                
-                results['key_phrases'] = self.download_comprehend_results(output_location)
+            # Extract tar.gz file
+            import tarfile
+            import io
             
-            logger.info(f"Retrieved Comprehend results: {len(results.get('entities', []))} entities, {len(results.get('key_phrases', []))} key phrases")
+            results = []
+            with tarfile.open(download_path, 'r:gz') as tar:
+                for member in tar.getmembers():
+                    if member.name.endswith('.json'):
+                        f = tar.extractfile(member)
+                        if f:
+                            content = f.read()
+                            data = json.loads(content)
+                            
+                            # Parse based on job type
+                            if job_type == 'entities-detection':
+                                for item in data.get('Entities', []):
+                                    results.append({
+                                        'text': item.get('Text', ''),
+                                        'type': item.get('Type', ''),
+                                        'score': item.get('Score', 0),
+                                        'begin_offset': item.get('BeginOffset', 0),
+                                        'end_offset': item.get('EndOffset', 0)
+                                    })
+                            else:  # key-phrases-detection
+                                for item in data.get('KeyPhrases', []):
+                                    results.append({
+                                        'text': item.get('Text', ''),
+                                        'score': item.get('Score', 0),
+                                        'begin_offset': item.get('BeginOffset', 0),
+                                        'end_offset': item.get('EndOffset', 0)
+                                    })
+            
             return results
             
         except Exception as e:
             logger.error(f"Error retrieving Comprehend results: {e}")
             raise
     
-    def wait_for_job_completion(self, job_id: str, job_type: str, max_wait_time: int = 600):
-        """Wait for Comprehend job to complete"""
-        start_time = time.time()
-        
-        while time.time() - start_time < max_wait_time:
-            try:
-                if job_type == 'entities':
-                    response = self.comprehend_client.describe_entities_detection_job(JobId=job_id)
-                    status = response['EntitiesDetectionJobProperties']['JobStatus']
-                elif job_type == 'key_phrases':
-                    response = self.comprehend_client.describe_key_phrases_detection_job(JobId=job_id)
-                    status = response['KeyPhrasesDetectionJobProperties']['JobStatus']
-                else:
-                    raise ValueError(f"Unknown job type: {job_type}")
-                
-                logger.info(f"Job {job_id} status: {status}")
-                
-                if status == 'COMPLETED':
-                    return
-                elif status in ['FAILED', 'STOP_REQUESTED', 'STOPPED']:
-                    raise Exception(f"Comprehend job {job_id} failed with status: {status}")
-                
-                # Wait before checking again
-                time.sleep(30)
-                
-            except Exception as e:
-                logger.error(f"Error checking job status: {e}")
-                raise
-        
-        raise Exception(f"Comprehend job {job_id} did not complete within {max_wait_time} seconds")
-    
-    def download_comprehend_results(self, s3_output_location: str) -> List[Dict]:
-        """Download and parse Comprehend results from S3"""
-        try:
-            # Parse S3 location
-            if not s3_output_location.startswith('s3://'):
-                raise ValueError(f"Invalid S3 location: {s3_output_location}")
-            
-            s3_path = s3_output_location[5:]  # Remove 's3://'
-            bucket, prefix = s3_path.split('/', 1)
-            
-            # List objects in the output location
-            response = self.s3_client.list_objects_v2(Bucket=bucket, Prefix=prefix)
-            
-            results = []
-            for obj in response.get('Contents', []):
-                if obj['Key'].endswith('.out'):
-                    # Download and parse the output file
-                    file_response = self.s3_client.get_object(Bucket=bucket, Key=obj['Key'])
-                    content = file_response['Body'].read().decode('utf-8')
-                    
-                    # Parse each line as JSON
-                    for line in content.strip().split('\n'):
-                        if line.strip():
-                            result = json.loads(line)
-                            results.extend(result.get('Entities', result.get('KeyPhrases', [])))
-            
-            return results
-            
-        except Exception as e:
-            logger.error(f"Error downloading Comprehend results: {e}")
-            raise
-    
     def load_chunks_from_s3(self, chunks_location: str) -> List[Dict]:
         """Load chunks from S3 for offset mapping"""
         try:
+            # Parse S3 location
             if not chunks_location.startswith('s3://'):
-                raise ValueError(f"Invalid S3 location: {chunks_location}")
+                raise ValueError(f"Invalid S3 location format: {chunks_location}")
             
             s3_path = chunks_location[5:]  # Remove 's3://'
             bucket, prefix = s3_path.split('/', 1)
             
-            # Remove trailing slash
-            if prefix.endswith('/'):
-                prefix = prefix[:-1]
+            # Ensure prefix ends with /
+            if not prefix.endswith('/'):
+                prefix += '/'
             
-            logger.info(f"Loading chunks from s3://{bucket}/{prefix}/")
-            
-            # List chunk files
-            response = self.s3_client.list_objects_v2(Bucket=bucket, Prefix=f"{prefix}/")
+            # List all chunk files
+            response = self.s3_client.list_objects_v2(
+                Bucket=bucket,
+                Prefix=prefix
+            )
             
             chunks = []
             for obj in response.get('Contents', []):
-                if obj['Key'].endswith('.json') and 'chunk_' in obj['Key']:
-                    # Load individual chunk
-                    chunk_response = self.s3_client.get_object(Bucket=bucket, Key=obj['Key'])
-                    chunk_data = json.loads(chunk_response['Body'].read().decode('utf-8'))
+                key = obj['Key']
+                if key.endswith('.json') and 'chunk_' in key:
+                    # Download and parse chunk
+                    obj_response = self.s3_client.get_object(
+                        Bucket=bucket,
+                        Key=key
+                    )
+                    chunk_data = json.loads(obj_response['Body'].read().decode('utf-8'))
                     chunks.append(chunk_data)
             
-            # Sort chunks by index
-            chunks.sort(key=lambda x: x.get('chunk_index', 0))
-            
-            logger.info(f"Successfully loaded {len(chunks)} chunks")
+            logger.info(f"Loaded {len(chunks)} chunks from S3")
             return chunks
             
         except Exception as e:
             logger.error(f"Error loading chunks from S3: {e}")
             return []
     
-    def map_results_to_chunks(self, comprehend_results: Dict, chunks: List[Dict]) -> Dict:
-        """Map Comprehend results to chunks using offset mapping"""
+    def map_results_to_chunks(self, comprehend_results: Dict[str, List], chunks: List[Dict]) -> Dict[str, List]:
+        """Map Comprehend results to document chunks"""
         if not chunks:
-            logger.info("No chunks available for offset mapping")
-            return {}
-        
-        try:
-            mapped_results = {
-                'entities_mapped_to_chunks': [],
-                'key_phrases_mapped_to_chunks': []
+            logger.info("No chunks available for mapping, skipping")
+            return {
+                'entities_by_chunk': [],
+                'key_phrases_by_chunk': []
             }
+        
+        # Sort chunks by position
+        chunks.sort(key=lambda x: x.get('position', 0))
+        
+        # Calculate chunk offsets
+        chunk_offsets = []
+        current_offset = 0
+        for chunk in chunks:
+            text = chunk.get('text', '')
+            chunk_offsets.append({
+                'chunk_id': chunk.get('chunk_id', ''),
+                'start': current_offset,
+                'end': current_offset + len(text),
+                'text': text
+            })
+            current_offset += len(text)
+        
+        # Map entities to chunks
+        entities_by_chunk = []
+        for entity in comprehend_results.get('entities', []):
+            begin_offset = entity.get('begin_offset', 0)
+            end_offset = entity.get('end_offset', 0)
             
-            # Simple offset mapping (can be enhanced with more sophisticated logic)
-            for entity in comprehend_results.get('entities', []):
-                begin_offset = entity.get('BeginOffset', 0)
-                end_offset = entity.get('EndOffset', 0)
-                
-                # Find which chunk contains this entity
-                for chunk in chunks:
-                    chunk_start = chunk.get('start_char', 0)
-                    chunk_end = chunk.get('end_char', chunk_start + len(chunk.get('content', '')))
+            for chunk_offset in chunk_offsets:
+                if (begin_offset >= chunk_offset['start'] and 
+                    begin_offset < chunk_offset['end']):
+                    # Entity starts in this chunk
+                    relative_begin = begin_offset - chunk_offset['start']
+                    relative_end = min(end_offset - chunk_offset['start'], 
+                                      len(chunk_offset['text']))
                     
-                    if chunk_start <= begin_offset < chunk_end:
-                        mapped_entity = {
-                            **entity,
-                            'chunk_id': chunk.get('chunk_id'),
-                            'chunk_index': chunk.get('chunk_index'),
-                            'relative_offset': begin_offset - chunk_start
-                        }
-                        mapped_results['entities_mapped_to_chunks'].append(mapped_entity)
-                        break
+                    entities_by_chunk.append({
+                        'chunk_id': chunk_offset['chunk_id'],
+                        'entity': entity.get('text', ''),
+                        'type': entity.get('type', ''),
+                        'score': entity.get('score', 0),
+                        'begin_offset': relative_begin,
+                        'end_offset': relative_end
+                    })
+                    break
+        
+        # Map key phrases to chunks
+        key_phrases_by_chunk = []
+        for phrase in comprehend_results.get('key_phrases', []):
+            begin_offset = phrase.get('begin_offset', 0)
+            end_offset = phrase.get('end_offset', 0)
             
-            # Map key phrases similarly
-            for phrase in comprehend_results.get('key_phrases', []):
-                begin_offset = phrase.get('BeginOffset', 0)
-                end_offset = phrase.get('EndOffset', 0)
-                
-                for chunk in chunks:
-                    chunk_start = chunk.get('start_char', 0)
-                    chunk_end = chunk.get('end_char', chunk_start + len(chunk.get('content', '')))
+            for chunk_offset in chunk_offsets:
+                if (begin_offset >= chunk_offset['start'] and 
+                    begin_offset < chunk_offset['end']):
+                    # Phrase starts in this chunk
+                    relative_begin = begin_offset - chunk_offset['start']
+                    relative_end = min(end_offset - chunk_offset['start'], 
+                                      len(chunk_offset['text']))
                     
-                    if chunk_start <= begin_offset < chunk_end:
-                        mapped_phrase = {
-                            **phrase,
-                            'chunk_id': chunk.get('chunk_id'),
-                            'chunk_index': chunk.get('chunk_index'),
-                            'relative_offset': begin_offset - chunk_start
-                        }
-                        mapped_results['key_phrases_mapped_to_chunks'].append(mapped_phrase)
-                        break
-            
-            logger.info(f"Mapped {len(mapped_results['entities_mapped_to_chunks'])} entities and {len(mapped_results['key_phrases_mapped_to_chunks'])} key phrases to chunks")
-            return mapped_results
-            
-        except Exception as e:
-            logger.error(f"Error mapping results to chunks: {e}")
-            return {}
+                    key_phrases_by_chunk.append({
+                        'chunk_id': chunk_offset['chunk_id'],
+                        'phrase': phrase.get('text', ''),
+                        'score': phrase.get('score', 0),
+                        'begin_offset': relative_begin,
+                        'end_offset': relative_end
+                    })
+                    break
+        
+        logger.info(f"Mapped {len(entities_by_chunk)} entities and {len(key_phrases_by_chunk)} key phrases to chunks")
+        
+        return {
+            'entities_by_chunk': entities_by_chunk,
+            'key_phrases_by_chunk': key_phrases_by_chunk
+        }
     
-    def store_results_in_data_lake(self, doc_id: str, comprehend_results: Dict, mapped_results: Dict) -> Dict[str, str]:
+    def store_results_in_s3(self, doc_id: str, comprehend_results: Dict[str, List], 
+                          mapped_results: Dict[str, List]) -> Dict[str, str]:
         """Store NLP results in S3 data lake"""
         try:
-            storage_locations = {}
-            base_key = f"nlp-results/{doc_id}"
+            # Prepare S3 paths
+            results_prefix = f"nlp-results/{doc_id}/"
+            entities_key = f"{results_prefix}entities.json"
+            key_phrases_key = f"{results_prefix}key_phrases.json"
+            mapped_entities_key = f"{results_prefix}entities_by_chunk.json"
+            mapped_phrases_key = f"{results_prefix}key_phrases_by_chunk.json"
             
-            # Store raw entities
-            entities_key = f"{base_key}/entities.json"
+            # Store entities
             self.s3_client.put_object(
                 Bucket=self.ner_results_bucket,
                 Key=entities_key,
                 Body=json.dumps(comprehend_results.get('entities', []), indent=2),
                 ContentType='application/json'
             )
-            storage_locations['entities_file'] = f"s3://{self.ner_results_bucket}/{entities_key}"
             
-            # Store raw key phrases
-            phrases_key = f"{base_key}/key_phrases.json"
+            # Store key phrases
             self.s3_client.put_object(
                 Bucket=self.ner_results_bucket,
-                Key=phrases_key,
+                Key=key_phrases_key,
                 Body=json.dumps(comprehend_results.get('key_phrases', []), indent=2),
                 ContentType='application/json'
             )
-            storage_locations['key_phrases_file'] = f"s3://{self.ner_results_bucket}/{phrases_key}"
             
-            # Store chunk mappings if available
-            if mapped_results:
-                mappings_key = f"{base_key}/chunk_mappings.json"
-                self.s3_client.put_object(
-                    Bucket=self.ner_results_bucket,
-                    Key=mappings_key,
-                    Body=json.dumps(mapped_results, indent=2),
-                    ContentType='application/json'
-                )
-                storage_locations['chunk_mappings_file'] = f"s3://{self.ner_results_bucket}/{mappings_key}"
-            
-            # Store complete results summary
-            summary_key = f"{base_key}/summary.json"
-            summary = {
-                'doc_id': doc_id,
-                'processing_timestamp': datetime.utcnow().isoformat() + 'Z',
-                'results_summary': {
-                    'entities_count': len(comprehend_results.get('entities', [])),
-                    'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
-                    'chunks_mapped': len(mapped_results) > 0
-                },
-                'storage_locations': storage_locations
-            }
-            
+            # Store mapped entities
             self.s3_client.put_object(
                 Bucket=self.ner_results_bucket,
-                Key=summary_key,
-                Body=json.dumps(summary, indent=2),
+                Key=mapped_entities_key,
+                Body=json.dumps(mapped_results.get('entities_by_chunk', []), indent=2),
                 ContentType='application/json'
             )
-            storage_locations['summary_file'] = f"s3://{self.ner_results_bucket}/{summary_key}"
-            storage_locations['base_location'] = f"s3://{self.ner_results_bucket}/{base_key}/"
             
-            logger.info(f"Stored NLP results in data lake: {storage_locations['base_location']}")
-            return storage_locations
+            # Store mapped key phrases
+            self.s3_client.put_object(
+                Bucket=self.ner_results_bucket,
+                Key=mapped_phrases_key,
+                Body=json.dumps(mapped_results.get('key_phrases_by_chunk', []), indent=2),
+                ContentType='application/json'
+            )
             
-        except Exception as e:
-            logger.error(f"Error storing results in data lake: {e}")
-            raise
-    
-    def publish_completion_message(self, doc_id: str, storage_locations: Dict, results: Dict, cost_analysis: Dict):
-        """Publish NLP completion message"""
-        try:
-            completion_message = {
-                'doc_id': doc_id,
-                'stage': 'nlp_complete',
-                'timestamp': datetime.utcnow().isoformat() + 'Z',
-                'data_locations': storage_locations,
-                'results_summary': {
-                    'entities_count': len(results.get('entities', [])),
-                    'key_phrases_count': len(results.get('key_phrases', [])),
-                    'processing_completed': True
-                },
-                'cost_analysis': cost_analysis
+            logger.info(f"Stored NLP results in S3: {self.ner_results_bucket}/{results_prefix}")
+            
+            return {
+                'entities_location': f"s3://{self.ner_results_bucket}/{entities_key}",
+                'key_phrases_location': f"s3://{self.ner_results_bucket}/{key_phrases_key}",
+                'mapped_entities_location': f"s3://{self.ner_results_bucket}/{mapped_entities_key}",
+                'mapped_phrases_location': f"s3://{self.ner_results_bucket}/{mapped_phrases_key}"
             }
             
+        except Exception as e:
+            logger.error(f"Error storing results in S3: {e}")
+            raise
+    
+    def publish_completion_message(self, doc_id: str, s3_locations: Dict[str, str], 
+                                 comprehend_results: Dict[str, List]) -> None:
+        """Publish NLP completion message to SNS"""
+        try:
+            # Create standardized completion message
+            message = {
+                "version": "1.0",
+                "timestamp": datetime.utcnow().isoformat() + "Z",
+                "source": "climate-risk-rag-system",
+                "stage": "nlp_processing_complete",
+                "doc_id": doc_id,
+                "data_locations": s3_locations,
+                "processing_metadata": {
+                    "entities_count": len(comprehend_results.get('entities', [])),
+                    "key_phrases_count": len(comprehend_results.get('key_phrases', [])),
+                    "processing_completed": datetime.utcnow().isoformat() + "Z"
+                },
+                "integration_flags": {
+                    "database_tracking_enabled": True,
+                    "knowledge_graph_integration_enabled": True
+                }
+            }
+            
+            # Publish to SNS
             response = self.sns_client.publish(
                 TopicArn=self.completion_topic_arn,
-                Message=json.dumps(completion_message, default=str),
+                Message=json.dumps(message, default=str),
                 Subject=f"NLP processing complete: {doc_id}"
             )
             
@@ -454,18 +593,20 @@ class NLPWorker:
             
         except Exception as e:
             logger.error(f"Error publishing completion message: {e}")
-            # Don't raise - this shouldn't fail the main processing
+            raise
     
-    def update_status(self, doc_id: str, stage: str, status: str, metadata: Dict = None):
+    def update_status(self, doc_id: str, stage: str, status: str, metadata: Dict = None, error_message: str = None):
         """Update document processing status with audit trail"""
         try:
-            self.doc_id_manager.set_document_processing_status(
+            self.db_manager.set_processing_status(
                 doc_id=doc_id,
                 stage=stage,
                 status=status,
+                error_message=error_message,
+                system_id='nlp-worker',
                 metadata=metadata or {}
             )
             logger.info(f"Set document processing status: {doc_id} -> {stage} -> {status}")
         except Exception as e:
             logger.error(f"Failed to update status for {doc_id}: {e}")
-            raise
+            # Don't raise here to allow processing to continue

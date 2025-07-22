@@ -28,7 +28,7 @@ class PipelineTestInvoker:
         self.lambda_client = boto3.client('lambda', region_name='us-east-1', 
                                          config=Config(connect_timeout=5, read_timeout=65))
         self.s3_client = boto3.client('s3', region_name='us-east-1')
-        self.lambda_function_name = 'solve-global-kr-pipeline-test-function'
+        self.lambda_function_name = 'pipeline-test-function'
         self.sqlite_db_path = "/Volumes/G-RAID Photo 24TB/climate_risk_rag/db/corpus_document_ids.db"
         self.existing_bucket = "solve-global-kr-documents-861276078413-us-east-1"
     

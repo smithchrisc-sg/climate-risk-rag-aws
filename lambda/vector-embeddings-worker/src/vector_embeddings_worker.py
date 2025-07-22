@@ -232,7 +232,7 @@ class VectorEmbeddingsWorker:
         """Save embeddings to S3 for backup/reprocessing"""
         try:
             # Create S3 paths
-            embeddings_prefix = f"embeddings/{doc_id}/"
+            embeddings_prefix = f"data-lake/{doc_id}/"
             
             # Save individual embeddings
             embedding_locations = []
