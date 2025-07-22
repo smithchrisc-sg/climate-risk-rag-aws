@@ -13,6 +13,7 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_sns as sns,
     aws_sqs as sqs,
+    aws_sns_subscriptions as sns_subscriptions,
     aws_s3_notifications as s3n,
     aws_lambda_event_sources as lambda_event_sources,
     aws_ec2 as ec2,
@@ -426,6 +427,94 @@ class DocumentProcessingStack(Stack):
                 max_batching_window=Duration.seconds(5)
             )
         )
+        
+        # KG Processing Components
+        
+        # KG Triples Ready Topic
+        self.kg_triples_ready_topic = sns.Topic(
+            self, "KGTriplesReadyTopic",
+            topic_name="kg-triples-ready",
+            display_name="Knowledge Graph Triples Ready for Neptune Loading"
+        )
+        
+        # Reference existing chunks-ready topic
+        chunks_ready_topic_arn = "arn:aws:sns:us-east-1:861276078413:chunks-ready"
+        chunks_ready_topic = sns.Topic.from_topic_arn(
+            self, "ChunksReadyTopic", chunks_ready_topic_arn
+        )
+        
+        # Document Structure KG Processor
+        self.document_structure_kg_processor = _lambda.Function(
+            self, "DocumentStructureKGProcessor",
+            function_name="document-structure-kg-processor",
+            runtime=_lambda.Runtime.PYTHON_3_11,
+            handler="handler.lambda_handler",
+            code=_lambda.Code.from_asset("lambda/document-structure-kg-processor"),
+            role=self.lambda_role_construct.role,
+            timeout=Duration.minutes(5),
+            memory_size=1024,
+            layers=[
+                self.layers_construct.database_core_layer,
+                self.layers_construct.database_dependencies_layer
+            ],
+            environment={
+                **standard_env,
+                "CHUNKS_BUCKET": "solve-global-kr-dl-chunks-861276078413-us-east-1",
+                "TEXT_BUCKET": "solve-global-kr-dl-text-861276078413-us-east-1",
+                "TTL_BUCKET": "solve-global-kr-dl-neptune-ttl-861276078413-us-east-1",
+                "NEPTUNE_ENDPOINT": "solve-global-kr-neptune.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
+                "NEPTUNE_PORT": "8182",
+                "KG_TRIPLES_READY_TOPIC_ARN": self.kg_triples_ready_topic.topic_arn
+            },
+            vpc_config=vpc_config
+        )
+        
+        # Subscribe document structure processor to chunks-ready topic
+        chunks_ready_topic.add_subscription(
+            sns_subscriptions.LambdaSubscription(self.document_structure_kg_processor)
+        )
+        
+        # Grant permission for SNS to invoke the document structure processor
+        self.document_structure_kg_processor.add_permission(
+            "AllowSNSInvoke",
+            principal=iam.ServicePrincipal("sns.amazonaws.com"),
+            source_arn=chunks_ready_topic_arn
+        )
+        
+        # KG Integration Worker (Neptune loader)
+        self.kg_integration_worker = _lambda.Function(
+            self, "KGIntegrationWorker",
+            function_name="kg-integration-worker",
+            runtime=_lambda.Runtime.PYTHON_3_11,
+            handler="handler.lambda_handler",
+            code=_lambda.Code.from_asset("lambda/kg-integration-worker"),
+            role=self.lambda_role_construct.role,
+            timeout=Duration.minutes(10),  # Neptune loading can take time
+            memory_size=512,
+            layers=[
+                self.layers_construct.database_core_layer,
+                self.layers_construct.database_dependencies_layer
+            ],
+            environment={
+                **standard_env,
+                "NEPTUNE_ENDPOINT": "solve-global-kr-neptune.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
+                "NEPTUNE_PORT": "8182",
+                "TTL_BUCKET": "solve-global-kr-dl-neptune-ttl-861276078413-us-east-1"
+            },
+            vpc_config=vpc_config
+        )
+        
+        # Subscribe KG integration worker to kg-triples-ready topic
+        self.kg_triples_ready_topic.add_subscription(
+            sns_subscriptions.LambdaSubscription(self.kg_integration_worker)
+        )
+        
+        # Grant permission for SNS to invoke the KG integration worker
+        self.kg_integration_worker.add_permission(
+            "AllowKGTriplesReadySNSInvoke",
+            principal=iam.ServicePrincipal("sns.amazonaws.com"),
+            source_arn=self.kg_triples_ready_topic.topic_arn
+        )
 
 class S3NotificationStack(Stack):
     """Stack for S3 bucket notifications"""
@@ -508,9 +597,6 @@ class ClimateRiskRAGApp(cdk.App):
         # Add dependencies
         document_processing_stack.add_dependency(messaging_stack)
         s3_notification_stack.add_dependency(messaging_stack)
-
-# Import required modules for SNS subscriptions
-from aws_cdk import aws_sns_subscriptions as sns_subscriptions
 
 if __name__ == "__main__":
     app = ClimateRiskRAGApp()
