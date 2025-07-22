@@ -298,7 +298,14 @@ class DatabaseManager:
             metadata JSONB,
 
         """
+        import json
+        
         try:
+            # Convert metadata dict to JSON string for PostgreSQL
+            metadata_json = None
+            if metadata is not None:
+                metadata_json = json.dumps(metadata)
+            
             query = """
                 INSERT INTO document_processing_status (doc_id, stage, status, error_message, system_id, retry_count, metadata)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -306,7 +313,7 @@ class DatabaseManager:
             
             self.execute_query(
                 query, 
-                (doc_id, stage, status, error_message, system_id, retry_count, metadata),
+                (doc_id, stage, status, error_message, system_id, retry_count, metadata_json),
                 fetch_results=False
             )
             
