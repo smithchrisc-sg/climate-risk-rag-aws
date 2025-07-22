@@ -89,8 +89,13 @@ class VectorEmbeddingsInitiator:
             bucket = s3_parts[0]
             prefix = s3_parts[1] if len(s3_parts) > 1 else ""
             
-            # Ensure prefix ends with /
-            if prefix and not prefix.endswith('/'):
+            # Handle both directory paths and paths ending with "chunks.json"
+            if prefix.endswith('chunks.json'):
+                # If path ends with chunks.json, use the directory instead
+                prefix = '/'.join(prefix.split('/')[:-1]) + '/'
+                logger.info(f"Adjusted chunks path from chunks.json to directory: {prefix}")
+            elif not prefix.endswith('/'):
+                # Ensure prefix ends with /
                 prefix += '/'
             
             logger.info(f"Validating chunks in s3://{bucket}/{prefix}")
@@ -243,30 +248,58 @@ def lambda_handler(event, context):
         initiator = VectorEmbeddingsInitiator()
         results = []
         
-        # Handle SNS notifications (chunks ready messages)
+        # Handle SQS events (primary path)
         if 'Records' in event:
-            for record in event['Records']:
-                if record.get('EventSource') == 'aws:sns':
-                    # Parse SNS message
-                    sns_message = record['Sns']['Message']
-                    
-                    logger.info(f"Processing SNS message for vector embeddings initiation")
-                    result = initiator.process_chunks_ready_message(sns_message)
-                    results.append(result)
-                    
-                elif record.get('eventSource') == 'aws:sqs':
-                    # Handle SQS-wrapped SNS messages
+            logger.info(f"Found {len(event['Records'])} records in event")
+            
+            for i, record in enumerate(event['Records']):
+                logger.info(f"Processing record {i+1}/{len(event['Records'])}")
+                logger.info(f"Record keys: {list(record.keys())}")
+                
+                # Check for standard SQS event structure
+                if record.get('eventSource') == 'aws:sqs':
+                    logger.info("Standard SQS event structure detected")
                     try:
                         sqs_body = json.loads(record['body'])
                         if sqs_body.get('Type') == 'Notification':
+                            logger.info("Processing SQS-wrapped SNS message (standard structure)")
                             sns_message = sqs_body['Message']
-                            
-                            logger.info(f"Processing SQS-wrapped SNS message for vector embeddings initiation")
+                            logger.info(f"SNS Message content: {sns_message[:200]}...")  # Log first 200 chars
                             result = initiator.process_chunks_ready_message(sns_message)
                             results.append(result)
+                        else:
+                            logger.warning(f"Unexpected SQS message format: {sqs_body.get('Type')}")
                     except json.JSONDecodeError as e:
                         logger.error(f"Failed to parse SQS message: {e}")
                         results.append({'status': 'error', 'error': f'SQS parse error: {e}'})
+                
+                # Check for non-standard structure but with body field (likely SQS)
+                elif 'body' in record:
+                    logger.info("Non-standard SQS event structure detected (missing eventSource but has body)")
+                    try:
+                        sqs_body = json.loads(record['body'])
+                        if sqs_body.get('Type') == 'Notification':
+                            logger.info("Processing SQS-wrapped SNS message (non-standard structure)")
+                            sns_message = sqs_body['Message']
+                            logger.info(f"SNS Message content: {sns_message[:200]}...")  # Log first 200 chars
+                            result = initiator.process_chunks_ready_message(sns_message)
+                            results.append(result)
+                        else:
+                            logger.warning(f"Unexpected SQS message format: {sqs_body.get('Type')}")
+                    except json.JSONDecodeError as e:
+                        logger.error(f"Failed to parse SQS message: {e}")
+                        results.append({'status': 'error', 'error': f'SQS parse error: {e}'})
+                
+                # Handle direct SNS invocation
+                elif record.get('EventSource') == 'aws:sns' or ('Sns' in record):
+                    logger.info("SNS event structure detected")
+                    sns_message = record['Sns']['Message']
+                    logger.info(f"SNS Message content: {sns_message[:200]}...")  # Log first 200 chars
+                    result = initiator.process_chunks_ready_message(sns_message)
+                    results.append(result)
+                
+                else:
+                    logger.warning(f"Unexpected record format: {json.dumps(record, default=str)}")
         
         # Handle direct invocation for testing
         elif 'doc_id' in event:
