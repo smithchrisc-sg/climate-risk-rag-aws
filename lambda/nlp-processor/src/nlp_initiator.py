@@ -36,6 +36,10 @@ class NLPInitiator:
         self.comprehend_data_access_role = os.environ.get('COMPREHEND_DATA_ACCESS_ROLE_ARN')
         self.comprehend_output_bucket = os.environ.get('COMPREHEND_OUTPUT_BUCKET',
                                                       'solve-global-kr-dl-comprehend-output-861276078413-us-east-1')
+        self.entity_completion_topic_arn = os.environ.get('ENTITY_COMPLETION_TOPIC_ARN',
+                                                         'arn:aws:sns:us-east-1:861276078413:comprehend-entity-completion')
+        self.keyphrase_completion_topic_arn = os.environ.get('KEYPHRASE_COMPLETION_TOPIC_ARN',
+                                                            'arn:aws:sns:us-east-1:861276078413:comprehend-keyphrase-completion')
         
         logger.info("✅ NLP Initiator initialized")
         logger.info(f"Cost threshold: ${self.cost_threshold}")
@@ -255,21 +259,6 @@ class NLPInitiator:
             }
         })
         
-        # Send message to worker with job information
-        worker_message = {
-            'doc_id': doc_id,
-            'comprehend_jobs': comprehend_jobs,
-            'chunks_location': chunks_location,
-            'text_location': text_location,
-            'processing_metadata': processing_metadata,
-            'cost_analysis': {
-                'estimated_cost': estimated_cost,
-                'character_count': character_count
-            }
-        }
-        
-        self.send_to_worker(worker_message)
-        
         # Update status to completed (initiator done)
         self.update_status(doc_id, 'nlp_initiate', 'completed', 
                          system_id='nlp-processor',
@@ -392,21 +381,6 @@ class NLPInitiator:
             
         except Exception as e:
             logger.error(f"Error starting Comprehend jobs: {e}")
-            raise
-    
-    def send_to_worker(self, message: Dict[str, Any]):
-        """Send message to NLP worker via SNS"""
-        try:
-            response = self.sns_client.publish(
-                TopicArn=self.nlp_worker_topic_arn,
-                Message=json.dumps(message, default=str),
-                Subject=f"NLP worker task: {message['doc_id']}"
-            )
-            
-            logger.info(f"Sent message to worker: {response['MessageId']}")
-            
-        except Exception as e:
-            logger.error(f"Error sending message to worker: {e}")
             raise
     
     def update_status(self, doc_id: str, stage: str, status: str, error_message: str = None, system_id: str = None, metadata: Dict = None):
