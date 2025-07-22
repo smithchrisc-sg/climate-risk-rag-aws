@@ -9,14 +9,17 @@
 5. Subscribed vector-embeddings-initiator-queue to text-chunking-complete SNS topic
 6. Updated SQS queue policy to allow messages from both SNS topics
 7. Tested the vector embeddings pipeline end-to-end
+8. Fixed NLP processor to handle SQS messages from text-chunking-complete SNS topic
+9. Created a new SQS queue for the NLP processor and subscribed it to the text-chunking-complete SNS topic
+10. Updated the NLP processor code to derive the text location from the chunks location
+11. Tested the NLP processor end-to-end
 
 ## Next Steps
 
-1. Verify NLP pipeline configuration:
-   - Check if nlp-processor is correctly processing messages from text-chunking-complete
-   - Ensure IAM permissions are correctly set up for NLP Lambda functions
-   - Test the NLP pipeline with a sample document
-   - Monitor logs to ensure the pipeline is working correctly
+1. Verify NLP worker functionality:
+   - Monitor logs to ensure the worker is receiving messages from the NLP processor
+   - Check if Comprehend jobs are completing successfully
+   - Ensure the NLP worker is processing the results correctly
 
 2. Integrate keyword indexing:
    - Set up keyword-indexer-initiator Lambda function
