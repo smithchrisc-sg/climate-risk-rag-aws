@@ -128,7 +128,7 @@ class KGIntegrationWorker:
             # Update status to in_progress
             self.db_manager.set_processing_status(
                 doc_id=doc_id,
-                stage='kg_doc_structure',
+                stage='kg_triples_load',
                 status='in_progress',
                 metadata={'kg_loading_started': datetime.utcnow().isoformat() + 'Z'}
             )
@@ -149,7 +149,7 @@ class KGIntegrationWorker:
             # Update status to completed
             self.db_manager.set_processing_status(
                 doc_id=doc_id,
-                stage='kg_doc_structure',
+                stage='kg_triples_load',
                 status='completed',
                 metadata={
                     'kg_loading_completed': datetime.utcnow().isoformat() + 'Z',
