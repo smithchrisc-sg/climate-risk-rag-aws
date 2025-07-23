@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Knowledge Graph Integration Worker - Modernized
-Handles SPARQL loading of TTL data into Neptune for document structure processing
+Knowledge Graph Integration Worker - Refactored
+Handles loading of TTL data into Neptune using Knowledge Graph Layer
 
 This Lambda function:
 1. Receives SNS messages from document structure KG processor (kg-triples-ready)
-2. Downloads TTL files from S3
-3. Loads data into Neptune using SPARQL INSERT operations
+2. Uses KG Layer for optimized Neptune operations
+3. Handles both SPARQL INSERT and bulk load scenarios
 4. Validates loaded data with SPARQL queries
 5. Updates processing status in database
 
-Modernized for standardized deployment process.
+Refactored to use Knowledge Graph Layer v1.0.0
 """
 
 import json
@@ -18,58 +18,39 @@ import boto3
 import os
 import sys
 import logging
-import requests
-from requests_aws4auth import AWS4Auth
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-import re
 
 # Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-# Import from standardized database layer
+# Import from standardized layers
 try:
     from utils.DatabaseManager import DatabaseManager
-    logger.info("Successfully imported DatabaseManager from standardized layer")
+    from utils.KnowledgeGraphManager import KnowledgeGraphManager
+    logger.info("Successfully imported from standardized layers")
 except ImportError as e:
-    logger.error(f"Failed to import DatabaseManager from layer: {e}")
+    logger.error(f"Failed to import from layers: {e}")
     raise
 
 class KGIntegrationWorker:
-    """Worker for integrating TTL data into Neptune knowledge graph"""
+    """Worker for integrating TTL data into Neptune knowledge graph using KG Layer"""
     
     def __init__(self):
         self.s3_client = boto3.client('s3')
         self.sns_client = boto3.client('sns')
         
-        # Initialize database manager with standardized layer
+        # Initialize managers with standardized layers
         try:
             self.db_manager = DatabaseManager()
-            logger.info("DatabaseManager initialized successfully")
+            self.kg_manager = KnowledgeGraphManager()
+            logger.info("Managers initialized successfully")
         except Exception as e:
-            logger.error(f"DatabaseManager initialization failed: {e}")
+            logger.error(f"Manager initialization failed: {e}")
             raise
         
-        # Environment configuration
-        self.neptune_endpoint = os.environ.get('NEPTUNE_ENDPOINT', 
-            'solve-global-kr-neptune.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com')
-        self.neptune_port = os.environ.get('NEPTUNE_PORT', '8182')
-        self.ttl_bucket = os.environ.get('TTL_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
-        
-        # AWS credentials for Neptune authentication
-        session = boto3.Session()
-        credentials = session.get_credentials()
-        self.auth = AWS4Auth(
-            credentials.access_key,
-            credentials.secret_key,
-            'us-east-1',
-            'neptune-db',
-            session_token=credentials.token
-        )
-        
-        logger.info(f"Initialized KG worker - Neptune: {self.neptune_endpoint}:{self.neptune_port}")
-        logger.info(f"TTL bucket: {self.ttl_bucket}")
+        logger.info(f"Initialized KG worker - Neptune: {self.kg_manager.neptune_endpoint}")
     
     def lambda_handler(self, event, context):
         """Main Lambda handler for KG integration processing"""
@@ -111,40 +92,73 @@ class KGIntegrationWorker:
             }
     
     def process_kg_triples_ready_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
-        """Process a kg-triples-ready message"""
+        """Process a kg-triples-ready message using KG Layer"""
         
+        doc_id = None
         try:
             doc_id = message.get('doc_id')
-            processing_type = message.get('processing_type', 'document_structure')
+            processing_type = message.get('processing_type', 'kg_triples_ready')
             ttl_location = message.get('ttl_location')
-            ttl_key = message.get('ttl_key')
+            insertion_method = message.get('insertion_method', 'unknown')
+            records_processed = message.get('records_processed', 0)
             
             if not doc_id:
                 raise ValueError("Missing doc_id in kg-triples-ready message")
             
-            logger.info(f"Processing KG integration for document: {doc_id}, type: {processing_type}")
-            logger.info(f"TTL location: {ttl_location}")
+            logger.info(f"Processing KG integration for document: {doc_id}")
+            logger.info(f"Insertion method: {insertion_method}, Records: {records_processed}")
             
             # Update status to in_progress
             self.db_manager.set_processing_status(
                 doc_id=doc_id,
                 stage='kg_triples_load',
                 status='in_progress',
-                metadata={'kg_loading_started': datetime.utcnow().isoformat() + 'Z'}
+                metadata={
+                    'kg_loading_started': datetime.utcnow().isoformat() + 'Z',
+                    'insertion_method': insertion_method,
+                    'expected_records': records_processed
+                }
             )
             
-            # Download TTL from S3
-            ttl_content = self.download_ttl_from_s3(ttl_location, ttl_key)
-            if not ttl_content:
-                raise Exception("Failed to download TTL content from S3")
-            
-            # Load TTL into Neptune
-            load_result = self.load_ttl_to_neptune(doc_id, ttl_content, processing_type)
-            if not load_result['success']:
-                raise Exception(f"Failed to load TTL to Neptune: {load_result['error']}")
-            
-            # Validate loaded data
-            validation_result = self.validate_loaded_data(doc_id, processing_type)
+            # Handle different insertion methods
+            if insertion_method == 'bulk_load':
+                # Data was already loaded via bulk load, just validate
+                validation_result = self.validate_bulk_loaded_data(doc_id, ttl_location, records_processed)
+                load_result = {
+                    'success': True,
+                    'method': 'bulk_load',
+                    'records_loaded': records_processed,
+                    'already_loaded': True
+                }
+            elif insertion_method == 'sparql_insert':
+                # Data was already loaded via SPARQL INSERT, just validate
+                validation_result = self.validate_sparql_loaded_data(doc_id, records_processed)
+                load_result = {
+                    'success': True,
+                    'method': 'sparql_insert',
+                    'records_loaded': records_processed,
+                    'already_loaded': True
+                }
+            else:
+                # Legacy mode - download TTL and load using KG layer optimization
+                if ttl_location:
+                    ttl_content = self.download_ttl_from_s3(ttl_location)
+                    if not ttl_content:
+                        raise Exception("Failed to download TTL content from S3")
+                    
+                    # Use KG layer's optimized insertion
+                    load_result = self.kg_manager.triple_manager.insert_triples_optimized(
+                        ttl_content=ttl_content,
+                        s3_key_prefix=f"kg-integration/{doc_id}"
+                    )
+                    
+                    if not load_result['success']:
+                        raise Exception(f"Failed to load TTL using KG layer: {load_result.get('error', 'Unknown error')}")
+                    
+                    # Validate loaded data
+                    validation_result = self.validate_loaded_data(doc_id, load_result)
+                else:
+                    raise Exception("No TTL location provided and insertion method unknown")
             
             # Update status to completed
             self.db_manager.set_processing_status(
@@ -153,31 +167,35 @@ class KGIntegrationWorker:
                 status='completed',
                 metadata={
                     'kg_loading_completed': datetime.utcnow().isoformat() + 'Z',
-                    'triples_loaded': load_result.get('triples_count', 0),
-                    'operations_count': load_result.get('operations_count', 0),
+                    'insertion_method': load_result['method'],
+                    'records_loaded': load_result.get('records_loaded', load_result.get('estimated_records', 0)),
                     'validation_passed': validation_result.get('success', False),
-                    'validation_count': validation_result.get('count', 0)
+                    'validation_count': validation_result.get('count', 0),
+                    'already_loaded': load_result.get('already_loaded', False),
+                    's3_location': load_result.get('s3_uri')
                 }
             )
             
-            logger.info(f"Successfully completed KG integration for {doc_id}")
+            logger.info(f"Successfully completed KG integration for {doc_id} using {load_result['method']}")
             
             return {
                 'doc_id': doc_id,
                 'status': 'success',
-                'triples_loaded': load_result.get('triples_count', 0),
-                'validation_passed': validation_result.get('success', False)
+                'insertion_method': load_result['method'],
+                'records_loaded': load_result.get('records_loaded', load_result.get('estimated_records', 0)),
+                'validation_passed': validation_result.get('success', False),
+                'already_loaded': load_result.get('already_loaded', False)
             }
             
         except Exception as e:
             logger.error(f"Error processing kg-triples-ready message for {doc_id}: {str(e)}")
             
             # Update status to failed
-            if 'doc_id' in locals():
+            if doc_id:
                 try:
                     self.db_manager.set_processing_status(
                         doc_id=doc_id,
-                        stage='kg_doc_structure',
+                        stage='kg_triples_load',
                         status='failed',
                         metadata={
                             'error': str(e),
@@ -188,279 +206,164 @@ class KGIntegrationWorker:
                     logger.error(f"Failed to update database status: {db_error}")
             
             return {
-                'doc_id': doc_id if 'doc_id' in locals() else 'unknown',
+                'doc_id': doc_id or 'unknown',
                 'status': 'error',
                 'error': str(e)
             }
     
-    def download_ttl_from_s3(self, ttl_location: str, ttl_key: str) -> Optional[str]:
+    def download_ttl_from_s3(self, ttl_location: str) -> Optional[str]:
         """Download TTL content from S3"""
         try:
-            # Use ttl_location if provided, otherwise construct from ttl_key
-            if ttl_location and ttl_location.startswith('s3://'):
-                # Parse S3 location
-                s3_path = ttl_location[5:]  # Remove 's3://'
-                bucket, key = s3_path.split('/', 1)
-            elif ttl_key:
-                bucket = self.ttl_bucket
-                key = ttl_key
-            else:
-                logger.error("No TTL location or key provided")
-                return None
+            if not ttl_location or not ttl_location.startswith('s3://'):
+                raise ValueError(f"Invalid S3 location: {ttl_location}")
             
-            logger.info(f"Downloading TTL from s3://{bucket}/{key}")
+            # Parse S3 location
+            s3_path = ttl_location[5:]  # Remove 's3://'
+            bucket_name = s3_path.split('/')[0]
+            key = '/'.join(s3_path.split('/')[1:])
             
-            response = self.s3_client.get_object(Bucket=bucket, Key=key)
+            logger.info(f"Downloading TTL from s3://{bucket_name}/{key}")
+            
+            response = self.s3_client.get_object(Bucket=bucket_name, Key=key)
             ttl_content = response['Body'].read().decode('utf-8')
             
             logger.info(f"Downloaded TTL content ({len(ttl_content)} characters)")
             return ttl_content
             
         except Exception as e:
-            logger.error(f"Error downloading TTL from S3: {e}")
+            logger.error(f"Error downloading TTL from {ttl_location}: {str(e)}")
             return None
     
-    def load_ttl_to_neptune(self, doc_id: str, ttl_content: str, processing_type: str) -> Dict[str, Any]:
-        """Load TTL content into Neptune using SPARQL INSERT operations"""
+    def validate_bulk_loaded_data(self, doc_id: str, ttl_location: str, expected_records: int) -> Dict[str, Any]:
+        """Validate data loaded via bulk load"""
         try:
-            logger.info(f"Loading TTL to Neptune for document: {doc_id}")
+            doc_uri = self.kg_manager.mint_document_uri(doc_id)
             
-            # Split TTL into manageable chunks
-            ttl_chunks = self._split_ttl_content(ttl_content)
-            logger.info(f"Split TTL into {len(ttl_chunks)} chunks")
+            # Query for document and its chunks
+            query = f"""
+            {self.kg_manager.uri_manager.get_prefixes_sparql()}
             
-            total_operations = 0
-            total_triples = 0
-            
-            for i, chunk in enumerate(ttl_chunks):
-                logger.info(f"Processing chunk {i+1}/{len(ttl_chunks)}")
-                
-                # Convert TTL to SPARQL INSERT
-                sparql_insert = self._convert_ttl_to_sparql_insert(chunk)
-                
-                if sparql_insert:
-                    # Execute SPARQL INSERT
-                    result = self._execute_sparql_update(sparql_insert)
-                    
-                    if result['success']:
-                        total_operations += 1
-                        # Estimate triples from chunk
-                        total_triples += self._estimate_triples_in_chunk(chunk)
-                        logger.info(f"Successfully loaded chunk {i+1}")
-                    else:
-                        logger.error(f"Failed to execute SPARQL INSERT for chunk {i+1}: {result.get('error')}")
-                        return {
-                            'success': False,
-                            'error': f"SPARQL execution failed on chunk {i+1}: {result.get('error')}"
-                        }
-            
-            logger.info(f"Successfully loaded {total_triples} triples in {total_operations} operations")
-            
-            return {
-                'success': True,
-                'triples_count': total_triples,
-                'operations_count': total_operations
-            }
-            
-        except Exception as e:
-            logger.error(f"Error loading TTL to Neptune: {e}")
-            return {
-                'success': False,
-                'error': str(e)
-            }
-    
-    def validate_loaded_data(self, doc_id: str, processing_type: str) -> Dict[str, Any]:
-        """Validate that data was loaded correctly into Neptune"""
-        try:
-            logger.info(f"Validating loaded data for document: {doc_id}")
-            
-            # Validation query for document structure
-            validation_query = f"""
-                PREFIX dc: <http://purl.org/dc/elements/1.1/>
-                PREFIX dcterms: <http://purl.org/dc/terms/>
-                PREFIX cr: <http://climate-risk.org/ontology/>
-                
-                SELECT (COUNT(*) as ?count) WHERE {{
-                    <http://climate-risk.org/documents/{doc_id}> a dcterms:Text ;
-                        dc:identifier "{doc_id}" .
+            SELECT (COUNT(*) as ?count)
+            WHERE {{
+                {{
+                    <{doc_uri}> ?p ?o .
                 }}
+                UNION
+                {{
+                    ?chunk dcterms:isPartOf <{doc_uri}> .
+                    ?chunk ?p ?o .
+                }}
+            }}
             """
             
-            result = self._execute_sparql_query(validation_query)
+            results = self.kg_manager.execute_sparql_query(query)
+            actual_count = int(results[0]['count']) if results else 0
             
-            if result['success']:
-                count = self._extract_count_from_sparql_result(result['data'])
-                logger.info(f"Validation query returned count: {count}")
-                
-                return {
-                    'success': count > 0,
-                    'count': count,
-                    'message': f"Found {count} document records for {doc_id}"
-                }
-            else:
-                logger.error(f"Validation query failed: {result.get('error')}")
-                return {
-                    'success': False,
-                    'error': result.get('error')
-                }
-                
+            # Validation is successful if we have data
+            success = actual_count > 0
+            
+            logger.info(f"Bulk load validation for {doc_id}: {actual_count} triples found")
+            
+            return {
+                'success': success,
+                'count': actual_count,
+                'expected': expected_records,
+                'method': 'bulk_load_validation'
+            }
+            
         except Exception as e:
-            logger.error(f"Error validating loaded data: {e}")
+            logger.error(f"Error validating bulk loaded data for {doc_id}: {str(e)}")
             return {
                 'success': False,
-                'error': str(e)
+                'error': str(e),
+                'count': 0
             }
     
-    def _split_ttl_content(self, ttl_content: str) -> List[str]:
-        """Split TTL content into manageable chunks"""
-        # Split by triple statements (lines ending with .)
-        lines = ttl_content.split('\n')
-        chunks = []
-        current_chunk = []
-        prefixes = []
-        
-        # Extract prefixes
-        for line in lines:
-            if line.strip().startswith('@prefix'):
-                prefixes.append(line)
-            else:
-                break
-        
-        # Split content into chunks
-        for line in lines:
-            if not line.strip().startswith('@prefix'):
-                current_chunk.append(line)
-                
-                # If line ends with '.', it's end of a statement
-                if line.strip().endswith('.') and len(current_chunk) > 10:  # Reasonable chunk size
-                    # Add prefixes to chunk
-                    chunk_content = '\n'.join(prefixes + current_chunk)
-                    chunks.append(chunk_content)
-                    current_chunk = []
-        
-        # Add remaining content
-        if current_chunk:
-            chunk_content = '\n'.join(prefixes + current_chunk)
-            chunks.append(chunk_content)
-        
-        return chunks if chunks else [ttl_content]  # Return original if splitting failed
-    
-    def _convert_ttl_to_sparql_insert(self, ttl_chunk: str) -> str:
-        """Convert TTL chunk to SPARQL INSERT statement"""
+    def validate_sparql_loaded_data(self, doc_id: str, expected_records: int) -> Dict[str, Any]:
+        """Validate data loaded via SPARQL INSERT"""
         try:
-            # Extract prefixes
-            prefixes = []
-            content_lines = []
+            doc_uri = self.kg_manager.mint_document_uri(doc_id)
             
-            for line in ttl_chunk.split('\n'):
-                if line.strip().startswith('@prefix'):
-                    # Convert TTL prefix to SPARQL prefix
-                    sparql_prefix = line.replace('@prefix', 'PREFIX').replace(' .', '')
-                    prefixes.append(sparql_prefix)
-                elif line.strip() and not line.strip().startswith('#'):
-                    content_lines.append(line)
+            # Query for document chunks
+            query = f"""
+            {self.kg_manager.uri_manager.get_prefixes_sparql()}
             
-            if not content_lines:
-                return None
+            SELECT (COUNT(DISTINCT ?chunk) as ?chunkCount) (COUNT(*) as ?tripleCount)
+            WHERE {{
+                ?chunk dcterms:isPartOf <{doc_uri}> .
+                ?chunk ?p ?o .
+            }}
+            """
             
-            # Build SPARQL INSERT
-            sparql_insert = '\n'.join(prefixes) + '\n\n'
-            sparql_insert += 'INSERT DATA {\n'
-            sparql_insert += '\n'.join(content_lines)
-            sparql_insert += '\n}'
+            results = self.kg_manager.execute_sparql_query(query)
+            if results:
+                chunk_count = int(results[0]['chunkCount'])
+                triple_count = int(results[0]['tripleCount'])
+            else:
+                chunk_count = 0
+                triple_count = 0
             
-            return sparql_insert
+            # Validation is successful if we have chunks
+            success = chunk_count > 0
+            
+            logger.info(f"SPARQL validation for {doc_id}: {chunk_count} chunks, {triple_count} triples")
+            
+            return {
+                'success': success,
+                'count': triple_count,
+                'chunk_count': chunk_count,
+                'expected': expected_records,
+                'method': 'sparql_validation'
+            }
             
         except Exception as e:
-            logger.error(f"Error converting TTL to SPARQL: {e}")
-            return None
-    
-    def _execute_sparql_update(self, sparql_update: str) -> Dict[str, Any]:
-        """Execute SPARQL UPDATE operation on Neptune"""
-        try:
-            sparql_url = f"https://{self.neptune_endpoint}:{self.neptune_port}/sparql"
-            
-            response = requests.post(
-                sparql_url,
-                data={'update': sparql_update},
-                headers={'Content-Type': 'application/x-www-form-urlencoded'},
-                auth=self.auth,
-                timeout=60
-            )
-            
-            if response.status_code == 200:
-                return {'success': True}
-            else:
-                logger.error(f"SPARQL UPDATE failed: {response.status_code} - {response.text}")
-                return {
-                    'success': False,
-                    'error': f"HTTP {response.status_code}: {response.text}"
-                }
-                
-        except Exception as e:
-            logger.error(f"Error executing SPARQL UPDATE: {e}")
+            logger.error(f"Error validating SPARQL loaded data for {doc_id}: {str(e)}")
             return {
                 'success': False,
-                'error': str(e)
+                'error': str(e),
+                'count': 0
             }
     
-    def _execute_sparql_query(self, sparql_query: str) -> Dict[str, Any]:
-        """Execute SPARQL SELECT query on Neptune"""
+    def validate_loaded_data(self, doc_id: str, load_result: Dict[str, Any]) -> Dict[str, Any]:
+        """Validate data loaded using KG layer optimization"""
         try:
-            sparql_url = f"https://{self.neptune_endpoint}:{self.neptune_port}/sparql"
+            method = load_result['method']
             
-            response = requests.post(
-                sparql_url,
-                data={'query': sparql_query},
-                headers={
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'application/sparql-results+json'
-                },
-                auth=self.auth,
-                timeout=30
-            )
-            
-            if response.status_code == 200:
-                return {
-                    'success': True,
-                    'data': response.json()
-                }
+            if method == 'bulk_load':
+                return self.validate_bulk_loaded_data(
+                    doc_id, 
+                    load_result.get('s3_uri', ''), 
+                    load_result.get('records_loaded', 0)
+                )
             else:
-                logger.error(f"SPARQL QUERY failed: {response.status_code} - {response.text}")
-                return {
-                    'success': False,
-                    'error': f"HTTP {response.status_code}: {response.text}"
-                }
+                return self.validate_sparql_loaded_data(
+                    doc_id, 
+                    load_result.get('estimated_records', 0)
+                )
                 
         except Exception as e:
-            logger.error(f"Error executing SPARQL QUERY: {e}")
+            logger.error(f"Error validating loaded data for {doc_id}: {str(e)}")
             return {
                 'success': False,
-                'error': str(e)
+                'error': str(e),
+                'count': 0
             }
     
-    def _estimate_triples_in_chunk(self, ttl_chunk: str) -> int:
-        """Estimate number of triples in TTL chunk"""
-        # Count lines ending with '.' (excluding prefixes)
-        lines = ttl_chunk.split('\n')
-        triple_count = 0
-        
-        for line in lines:
-            stripped = line.strip()
-            if stripped.endswith('.') and not stripped.startswith('@prefix'):
-                # Count semicolons and commas for multiple predicates/objects
-                triple_count += 1 + stripped.count(';') + stripped.count(',')
-        
-        return max(1, triple_count)  # At least 1 triple per chunk
-    
-    def _extract_count_from_sparql_result(self, sparql_result: Dict) -> int:
-        """Extract count value from SPARQL result"""
+    def get_health_status(self) -> Dict[str, Any]:
+        """Get health status of KG integration worker"""
         try:
-            bindings = sparql_result.get('results', {}).get('bindings', [])
-            if bindings:
-                count_value = bindings[0].get('count', {}).get('value', '0')
-                return int(count_value)
-            return 0
+            # Use KG layer's health check
+            kg_health = self.kg_manager.get_health_status()
+            
+            return {
+                'status': 'healthy' if kg_health['status'] == 'healthy' else 'unhealthy',
+                'kg_layer_status': kg_health,
+                'timestamp': datetime.utcnow().isoformat() + 'Z'
+            }
+            
         except Exception as e:
-            logger.error(f"Error extracting count from SPARQL result: {e}")
-            return 0
+            return {
+                'status': 'unhealthy',
+                'error': str(e),
+                'timestamp': datetime.utcnow().isoformat() + 'Z'
+            }
