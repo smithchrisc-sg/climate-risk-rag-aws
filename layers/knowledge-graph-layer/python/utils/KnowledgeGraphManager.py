@@ -17,6 +17,7 @@ from .SPARQLQueryBuilder import SPARQLQueryBuilder
 from .URIManager import URIManager
 from .OntologyManager import OntologyManager
 from .TripleManager import TripleManager
+from .BulkLoadManager import BulkLoadManager
 from .kg_exceptions import (
     KGConnectionError, 
     KGQueryError, 
@@ -55,6 +56,7 @@ class KnowledgeGraphManager:
         self.query_builder = SPARQLQueryBuilder(self.uri_manager)
         self.ontology_manager = OntologyManager(self)
         self.triple_manager = TripleManager(self)
+        self.bulk_load_manager = BulkLoadManager(self)
         
         # Connection configuration
         self.timeout = int(os.environ.get('NEPTUNE_TIMEOUT', '30'))
@@ -242,6 +244,112 @@ class KnowledgeGraphManager:
             True if insertion successful
         """
         return self.triple_manager.bulk_insert_ttl(ttl_content, graph_uri)
+    
+    # === BULK LOAD OPERATIONS ===
+    
+    def bulk_load_from_s3(self, 
+                         s3_uri: str, 
+                         format: str = 'turtle',
+                         graph_uri: Optional[str] = None,
+                         wait: bool = True,
+                         timeout: int = 3600) -> Dict[str, Any]:
+        """
+        Bulk load RDF data from S3 into Neptune
+        
+        Args:
+            s3_uri: S3 URI of the data file
+            format: Data format ('turtle', 'ntriples', 'rdfxml', 'nquads')
+            graph_uri: Optional named graph URI
+            wait: Whether to wait for completion
+            timeout: Maximum time to wait if wait=True
+            
+        Returns:
+            Load result dictionary
+        """
+        load_id = self.bulk_load_manager.initiate_bulk_load(
+            s3_source_uri=s3_uri,
+            format=format,
+            graph_uri=graph_uri
+        )
+        
+        if wait:
+            return self.bulk_load_manager.wait_for_completion(load_id, timeout)
+        else:
+            return {'load_id': load_id, 'status': 'INITIATED'}
+    
+    def get_bulk_load_status(self, load_id: str) -> Dict[str, Any]:
+        """
+        Get status of a bulk load operation
+        
+        Args:
+            load_id: Load ID from bulk_load_from_s3
+            
+        Returns:
+            Load status dictionary
+        """
+        return self.bulk_load_manager.get_load_status(load_id)
+    
+    def list_recent_bulk_loads(self, limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        List recent bulk load operations
+        
+        Args:
+            limit: Maximum number of loads to return
+            
+        Returns:
+            List of load information dictionaries
+        """
+        return self.bulk_load_manager.list_recent_loads(limit)
+    
+    def cancel_bulk_load(self, load_id: str) -> bool:
+        """
+        Cancel a running bulk load operation
+        
+        Args:
+            load_id: Load ID to cancel
+            
+        Returns:
+            True if cancellation successful
+        """
+        return self.bulk_load_manager.cancel_load(load_id)
+    
+    def upload_ttl_to_s3(self, ttl_content: str, s3_key: str, bucket: Optional[str] = None) -> str:
+        """
+        Upload TTL content to S3 for bulk loading
+        
+        Args:
+            ttl_content: TTL content to upload
+            s3_key: S3 key for the file
+            bucket: S3 bucket (uses default if not specified)
+            
+        Returns:
+            S3 URI of uploaded file
+        """
+        import boto3
+        import os
+        
+        # Use default bucket if not specified
+        if not bucket:
+            bucket = os.environ.get('TTL_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
+        
+        s3_client = boto3.client('s3')
+        
+        try:
+            # Upload TTL content
+            s3_client.put_object(
+                Bucket=bucket,
+                Key=s3_key,
+                Body=ttl_content.encode('utf-8'),
+                ContentType='text/turtle'
+            )
+            
+            s3_uri = f"s3://{bucket}/{s3_key}"
+            self.logger.info(f"Uploaded TTL to S3: {s3_uri}")
+            return s3_uri
+            
+        except Exception as e:
+            self.logger.error(f"Failed to upload TTL to S3: {e}")
+            raise KGInsertError(f"S3 upload failed: {e}")
     
     # === QUERY OPERATIONS ===
     

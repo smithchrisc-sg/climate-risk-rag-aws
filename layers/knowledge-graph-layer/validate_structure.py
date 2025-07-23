@@ -18,6 +18,7 @@ def validate_file_structure():
         'python/utils/SPARQLQueryBuilder.py',
         'python/utils/OntologyManager.py',
         'python/utils/TripleManager.py',
+        'python/utils/BulkLoadManager.py',
         'python/utils/kg_exceptions.py',
         'requirements.txt',
         'README.md',
@@ -49,6 +50,7 @@ def validate_python_syntax():
         'python/utils/SPARQLQueryBuilder.py',
         'python/utils/OntologyManager.py',
         'python/utils/TripleManager.py',
+        'python/utils/BulkLoadManager.py',
         'python/utils/kg_exceptions.py'
     ]
     
@@ -86,7 +88,8 @@ def validate_imports():
             'SPARQLQueryBuilder',
             'URIManager',
             'OntologyManager',
-            'TripleManager'
+            'TripleManager',
+            'BulkLoadManager'
         ]
         
         missing_exports = []

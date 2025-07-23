@@ -7,12 +7,15 @@ from .SPARQLQueryBuilder import SPARQLQueryBuilder
 from .URIManager import URIManager
 from .OntologyManager import OntologyManager
 from .TripleManager import TripleManager
+from .BulkLoadManager import BulkLoadManager
 from .kg_exceptions import (
     KGConnectionError,
     KGQueryError,
     KGInsertError,
     KGValidationError,
-    KGAuthenticationError
+    KGAuthenticationError,
+    KGTimeoutError,
+    KGDataFormatError
 )
 
 __version__ = "1.0.0"
@@ -22,9 +25,12 @@ __all__ = [
     "URIManager",
     "OntologyManager",
     "TripleManager",
+    "BulkLoadManager",
     "KGConnectionError",
     "KGQueryError", 
     "KGInsertError",
     "KGValidationError",
-    "KGAuthenticationError"
+    "KGAuthenticationError",
+    "KGTimeoutError",
+    "KGDataFormatError"
 ]

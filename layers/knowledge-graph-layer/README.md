@@ -16,6 +16,7 @@ The Knowledge Graph Layer provides a consistent abstraction for Neptune/SPARQL o
 - **SPARQLQueryBuilder**: Safe SPARQL query construction with injection prevention
 - **OntologyManager**: Ontology concept retrieval and management
 - **TripleManager**: Triple insertion and manipulation operations
+- **BulkLoadManager**: Neptune bulk load operations from S3 for large datasets
 
 ### Exception Classes
 
@@ -120,6 +121,31 @@ kcc:doc123 a dcterms:Document ;
     dcterms:creator "Author Name" .
 '''
 kg_manager.bulk_insert_ttl(ttl_content)
+
+# Optimized insertion (automatically chooses best method)
+result = kg_manager.triple_manager.insert_triples_optimized(large_ttl_content)
+if result['method'] == 'bulk_load':
+    print(f"Used bulk load, loaded {result['records_loaded']} records")
+else:
+    print(f"Used SPARQL insert, estimated {result['estimated_records']} records")
+```
+
+#### Bulk Load Operations
+
+```python
+# Upload TTL to S3 and bulk load into Neptune
+s3_uri = kg_manager.upload_ttl_to_s3(large_ttl_content, "bulk-data/dataset.ttl")
+load_result = kg_manager.bulk_load_from_s3(s3_uri, format='turtle', wait=True)
+
+# Asynchronous bulk load
+load_id = kg_manager.bulk_load_from_s3("s3://bucket/large-dataset.ttl", wait=False)
+status = kg_manager.get_bulk_load_status(load_id)
+
+# List recent bulk loads
+recent_loads = kg_manager.list_recent_bulk_loads(limit=5)
+
+# Cancel a running load
+kg_manager.cancel_bulk_load(load_id)
 ```
 
 #### Query Operations

@@ -318,6 +318,86 @@ class TripleManager:
             self.logger.error(f"Error in bulk TTL insert: {e}")
             raise KGInsertError(f"Failed to bulk insert TTL: {e}")
     
+    def bulk_insert_from_s3(self, 
+                           s3_uri: str, 
+                           format: str = 'turtle',
+                           graph_uri: Optional[str] = None,
+                           wait: bool = True) -> Dict[str, Any]:
+        """
+        Bulk insert from S3 using Neptune loader (for very large datasets)
+        
+        Args:
+            s3_uri: S3 URI of the data file
+            format: Data format
+            graph_uri: Optional named graph URI
+            wait: Whether to wait for completion
+            
+        Returns:
+            Load result dictionary
+        """
+        return self.kg_manager.bulk_load_from_s3(s3_uri, format, graph_uri, wait)
+    
+    def insert_triples_optimized(self, 
+                                ttl_content: str, 
+                                graph_uri: Optional[str] = None,
+                                s3_key_prefix: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Automatically choose optimal insertion method based on content size
+        
+        Args:
+            ttl_content: TTL content to insert
+            graph_uri: Optional named graph URI
+            s3_key_prefix: S3 key prefix for bulk load (auto-generated if not provided)
+            
+        Returns:
+            Dictionary with insertion result and method used
+        """
+        try:
+            # Check if bulk load should be used
+            if self.kg_manager.bulk_load_manager.should_use_bulk_load(ttl_content):
+                self.logger.info("Using Neptune bulk load for large dataset")
+                
+                # Generate S3 key if not provided
+                if not s3_key_prefix:
+                    import uuid
+                    s3_key_prefix = f"bulk-load/{uuid.uuid4().hex}"
+                
+                s3_key = f"{s3_key_prefix}.ttl"
+                
+                # Upload to S3
+                s3_uri = self.kg_manager.upload_ttl_to_s3(ttl_content, s3_key)
+                
+                # Perform bulk load
+                load_result = self.kg_manager.bulk_load_from_s3(s3_uri, format='turtle', graph_uri=graph_uri)
+                
+                return {
+                    'method': 'bulk_load',
+                    'success': load_result.get('status') == 'LOAD_COMPLETED',
+                    'load_id': load_result.get('load_id'),
+                    'records_loaded': load_result.get('total_records', 0),
+                    's3_uri': s3_uri,
+                    'details': load_result
+                }
+            else:
+                self.logger.info("Using SPARQL INSERT for small dataset")
+                
+                # Use regular SPARQL insert
+                success = self.bulk_insert_ttl(ttl_content, graph_uri)
+                
+                # Estimate record count for consistency
+                estimated_records = self.kg_manager.bulk_load_manager.estimate_triple_count(ttl_content)
+                
+                return {
+                    'method': 'sparql_insert',
+                    'success': success,
+                    'estimated_records': estimated_records,
+                    'details': {'status': 'COMPLETED' if success else 'FAILED'}
+                }
+                
+        except Exception as e:
+            self.logger.error(f"Error in optimized triple insertion: {e}")
+            raise KGInsertError(f"Optimized insertion failed: {e}")
+    
     def delete_document_triples(self, doc_id: str, graph_uri: Optional[str] = None) -> bool:
         """
         Delete all triples related to a document
