@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Knowledge Graph Manager - Neptune/SPARQL abstraction layer with RDFLib integration
-Provides consistent interface for all knowledge graph operations with proper RDF graph building
+Knowledge Graph Manager - Neptune/SPARQL abstraction layer
+Provides consistent interface for all knowledge graph operations
+Similar to DatabaseManager but for Neptune/RDF operations
 """
 import os
 import logging
@@ -11,11 +12,6 @@ import requests
 from requests_aws4auth import AWS4Auth
 import json
 import time
-
-# RDFLib imports for proper graph handling
-import rdflib
-from rdflib import Graph, Namespace, URIRef, Literal, BNode
-from rdflib.namespace import RDF, RDFS, XSD, DCTERMS
 
 from .SPARQLQueryBuilder import SPARQLQueryBuilder
 from .URIManager import URIManager
@@ -32,12 +28,12 @@ from .kg_exceptions import (
 
 class KnowledgeGraphManager:
     """
-    Centralized manager for all Neptune/Knowledge Graph operations with RDFLib integration
-    Provides consistent interface for graph building and Neptune operations
+    Centralized manager for all Neptune/Knowledge Graph operations
+    Provides consistent interface similar to DatabaseManager
     """
     
     def __init__(self):
-        """Initialize KG manager with Neptune connection, RDFLib graph, and utilities"""
+        """Initialize KG manager with Neptune connection and utilities"""
         self.logger = logging.getLogger(self.__class__.__name__)
         
         # Neptune configuration from environment
@@ -52,199 +48,53 @@ class KnowledgeGraphManager:
         self.sparql_endpoint = f"https://{self.neptune_endpoint}:{self.neptune_port}/sparql"
         self.gremlin_endpoint = f"wss://{self.neptune_endpoint}:{self.neptune_port}/gremlin"
         
-        # Initialize RDFLib graph and namespaces
-        self.graph = Graph()
-        self._setup_namespaces()
+        # Initialize AWS authentication
+        self._setup_auth()
         
-        # AWS authentication
-        self.session = boto3.Session()
-        self.credentials = self.session.get_credentials()
-        self.auth = AWS4Auth(
-            self.credentials.access_key,
-            self.credentials.secret_key,
-            self.aws_region,
-            'neptune-db',
-            session_token=self.credentials.token
-        )
-        
-        # Initialize utility managers
-        self.query_builder = SPARQLQueryBuilder()
+        # Initialize utility components
         self.uri_manager = URIManager()
-        self.ontology_manager = OntologyManager()
+        self.query_builder = SPARQLQueryBuilder(self.uri_manager)
+        self.ontology_manager = OntologyManager(self)
         self.triple_manager = TripleManager(self)
         self.bulk_load_manager = BulkLoadManager(self)
         
-        # Connection settings
-        self.timeout = 30
-        self.max_retries = 3
+        # Connection configuration
+        self.timeout = int(os.environ.get('NEPTUNE_TIMEOUT', '30'))
+        self.max_retries = int(os.environ.get('NEPTUNE_MAX_RETRIES', '3'))
         
-        # Validate connection
+        # Connection validation
         self._validate_connection()
         
         self.logger.info(f"KnowledgeGraphManager initialized for {self.neptune_endpoint}")
     
-    def _setup_namespaces(self):
-        """Setup standard namespaces and bind them to the graph"""
-        # Define standard namespaces
-        self.kr_ns = Namespace("https://solve.global/kr/")
-        self.dcterms_ns = Namespace("http://purl.org/dc/terms/")
-        self.foaf_ns = Namespace("http://xmlns.com/foaf/0.1/")
-        self.skos_ns = Namespace("http://www.w3.org/2004/02/skos/core#")
-        
-        # Bind namespaces to graph for clean serialization
-        self.graph.bind("kr", self.kr_ns)
-        self.graph.bind("dcterms", self.dcterms_ns)
-        self.graph.bind("foaf", self.foaf_ns)
-        self.graph.bind("skos", self.skos_ns)
-        self.graph.bind("rdf", RDF)
-        self.graph.bind("rdfs", RDFS)
-        self.graph.bind("xsd", XSD)
-        
-        self.logger.debug("Namespaces bound to RDFLib graph")
-    
-    def _validate_connection(self):
-        """Validate Neptune connection"""
+    def _setup_auth(self):
+        """Setup AWS4Auth for Neptune access"""
         try:
-            # Simple SPARQL query to test connection
-            test_query = "SELECT (COUNT(*) as ?count) WHERE { ?s ?p ?o } LIMIT 1"
-            response = requests.get(
-                self.sparql_endpoint,
-                params={'query': test_query},
-                headers={'Accept': 'application/sparql-results+json'},
-                auth=self.auth,
-                timeout=self.timeout
+            credentials = boto3.Session().get_credentials()
+            if not credentials:
+                raise KGAuthenticationError("Unable to retrieve AWS credentials")
+            
+            self.auth = AWS4Auth(
+                credentials.access_key,
+                credentials.secret_key,
+                self.aws_region,
+                'neptune-db',
+                session_token=credentials.token
             )
-            response.raise_for_status()
-            self.logger.info("Neptune connection validated successfully")
-        except Exception as e:
-            self.logger.error(f"Neptune connection validation failed: {e}")
-            raise KGConnectionError(f"Cannot connect to Neptune: {e}")
-    
-    # === RDFLib GRAPH OPERATIONS ===
-    
-    def create_graph(self, named_graph: URIRef = None) -> Graph:
-        """Create a new RDFLib graph with standard namespace bindings"""
-        graph = Graph()
-        
-        # Bind standard namespaces
-        graph.bind("kr", self.kr_ns)
-        graph.bind("dcterms", self.dcterms_ns)
-        graph.bind("foaf", self.foaf_ns)
-        graph.bind("skos", self.skos_ns)
-        graph.bind("rdf", RDF)
-        graph.bind("rdfs", RDFS)
-        graph.bind("xsd", XSD)
-        
-        return graph
-    
-    def add_triple(self, subject: URIRef, predicate: URIRef, obj: Union[URIRef, Literal], 
-                   graph: Graph = None, named_graph: URIRef = None):
-        """Add a triple to the specified graph or default graph"""
-        target_graph = graph if graph is not None else self.graph
-        
-        if named_graph:
-            # For named graphs, we'll handle this in serialization
-            # For now, add to the target graph with context
-            target_graph.add((subject, predicate, obj))
-        else:
-            target_graph.add((subject, predicate, obj))
-        
-        self.logger.debug(f"Added triple: {subject} {predicate} {obj}")
-    
-    def add_type_triple(self, subject: URIRef, rdf_type: URIRef, graph: Graph = None):
-        """Add a type triple (subject rdf:type type)"""
-        self.add_triple(subject, RDF.type, rdf_type, graph)
-    
-    def serialize_graph(self, graph: Graph = None, format: str = 'turtle') -> str:
-        """Serialize the graph to specified format"""
-        target_graph = graph if graph is not None else self.graph
-        
-        try:
-            serialized = target_graph.serialize(format=format)
-            if isinstance(serialized, bytes):
-                serialized = serialized.decode('utf-8')
             
-            self.logger.debug(f"Serialized graph to {format} format ({len(serialized)} characters)")
-            return serialized
+            self.logger.debug("AWS4Auth configured successfully")
             
         except Exception as e:
-            self.logger.error(f"Graph serialization failed: {e}")
-            raise KGInsertError(f"Failed to serialize graph: {e}")
-    
-    def clear_graph(self, graph: Graph = None):
-        """Clear the specified graph or default graph"""
-        target_graph = graph if graph is not None else self.graph
-        target_graph.remove((None, None, None))
-        self.logger.debug("Graph cleared")
-    
-    def get_graph_size(self, graph: Graph = None) -> int:
-        """Get the number of triples in the graph"""
-        target_graph = graph if graph is not None else self.graph
-        return len(target_graph)
-    
-    # === URI MANAGEMENT WITH RDFLIB ===
-    
-    def mint_uri(self, unique_id: str, namespace: Namespace, ontology_concept: str,
-                 ontology_uri: URIRef, named_graph: URIRef = None) -> URIRef:
-        """
-        Generic URI minting with ontology validation and optional named graph support
-        
-        Args:
-            unique_id: Unique identifier for the resource
-            namespace: RDF namespace for the generated URI (e.g., kr:)
-            ontology_concept: Concept type from ontology (e.g., "Document", "DocumentSection")
-            ontology_uri: Ontology identifier URI for validation and type triples
-            named_graph: Optional named graph URI (defaults to default graph)
-        
-        Returns:
-            rdflib.URIRef: Generated resource URI
-        """
-        # Sanitize unique_id for URI safety
-        safe_id = self._sanitize_uri_component(unique_id)
-        
-        # Generate URI: namespace + concept + "_" + unique_id
-        uri = URIRef(f"{namespace}{ontology_concept}_{safe_id}")
-        
-        self.logger.debug(f"Minted URI: {uri} for concept {ontology_concept}")
-        return uri
-    
-    def _sanitize_uri_component(self, component: str) -> str:
-        """Sanitize string component for safe URI usage"""
-        if not component:
-            return ""
-        
-        # Replace problematic characters
-        sanitized = component.replace(' ', '_')
-        sanitized = sanitized.replace('/', '_')
-        sanitized = sanitized.replace('\\', '_')
-        sanitized = sanitized.replace('#', '_')
-        sanitized = sanitized.replace('?', '_')
-        
-        return sanitized
-    
-    # === LEGACY URI METHODS (for backward compatibility) ===
-    
-    def mint_document_uri(self, doc_id: str) -> URIRef:
-        """Generate consistent document URI (legacy method)"""
-        return self.mint_uri(doc_id, self.kr_ns, "Document", self.kr_ns)
-    
-    def mint_chunk_uri(self, doc_id: str, chunk_id: str) -> URIRef:
-        """Generate consistent chunk URI (legacy method)"""
-        return self.mint_uri(f"{doc_id}_{chunk_id}", self.kr_ns, "DocumentChunk", self.kr_ns)
-    
-    def mint_concept_mention_uri(self, chunk_id: str, concept_uri: str, position: int) -> URIRef:
-        """Generate consistent concept mention URI (legacy method)"""
-        unique_id = f"{chunk_id}_{hash(concept_uri)}_{position}"
-        return self.mint_uri(unique_id, self.kr_ns, "ConceptMention", self.kr_ns)
+            raise KGAuthenticationError(f"Failed to setup Neptune authentication: {e}")
     
     # === ONTOLOGY OPERATIONS ===
     
     def get_ontology_concepts(self, concept_type: Optional[str] = None) -> List[Dict[str, Any]]:
         """
-        Get all ontology concepts or filter by type
+        Get ontology concepts, optionally filtered by type
         
         Args:
-            concept_type: Optional filter by concept type ('domain', 'process', etc.)
+            concept_type: Optional filter by concept type ('domain' or 'range')
             
         Returns:
             List of concept dictionaries
@@ -287,6 +137,47 @@ class KnowledgeGraphManager:
             List of relationship dictionaries
         """
         return self.ontology_manager.get_relationships(concept_uri)
+    
+    # === URI MANAGEMENT ===
+    
+    def mint_document_uri(self, doc_id: str) -> str:
+        """
+        Generate consistent document URI
+        
+        Args:
+            doc_id: Document identifier
+            
+        Returns:
+            Consistent document URI
+        """
+        return self.uri_manager.mint_document_uri(doc_id)
+    
+    def mint_chunk_uri(self, doc_id: str, chunk_id: str) -> str:
+        """
+        Generate consistent chunk URI
+        
+        Args:
+            doc_id: Document identifier
+            chunk_id: Chunk identifier
+            
+        Returns:
+            Consistent chunk URI
+        """
+        return self.uri_manager.mint_chunk_uri(doc_id, chunk_id)
+    
+    def mint_concept_mention_uri(self, chunk_id: str, concept_uri: str, position: int) -> str:
+        """
+        Generate consistent concept mention URI
+        
+        Args:
+            chunk_id: Chunk identifier
+            concept_uri: Concept URI being mentioned
+            position: Position in text
+            
+        Returns:
+            Consistent concept mention URI
+        """
+        return self.uri_manager.mint_concept_mention_uri(chunk_id, concept_uri, position)
     
     # === TRIPLE OPERATIONS ===
     
@@ -619,6 +510,15 @@ class KnowledgeGraphManager:
     
     # === UTILITY METHODS ===
     
+    def _validate_connection(self):
+        """Validate Neptune connection"""
+        try:
+            test_query = "SELECT (COUNT(*) as ?count) WHERE { ?s ?p ?o } LIMIT 1"
+            self.execute_sparql_query(test_query)
+            self.logger.info("Neptune connection validated successfully")
+        except Exception as e:
+            raise KGConnectionError(f"Neptune connection validation failed: {e}")
+    
     def _process_sparql_results(self, results: Dict) -> List[Dict[str, Any]]:
         """
         Process SPARQL JSON results into Python dictionaries
@@ -708,5 +608,5 @@ class KnowledgeGraphManager:
         """
         return {
             'ontology_cache': self.ontology_manager.get_cache_stats(),
-            'uri_manager_info': self.uri_manager.get_namespace_info() if hasattr(self.uri_manager, 'get_namespace_info') else {}
+            'uri_manager_info': self.uri_manager.get_namespace_info()
         }

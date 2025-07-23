@@ -21,7 +21,7 @@ fi
 mkdir -p "$BUILD_DIR/$PYTHON_DIR"
 
 echo "📦 Installing dependencies..."
-pip install -r requirements.txt -t "$BUILD_DIR/$PYTHON_DIR" --no-deps
+pip3 install -r requirements.txt -t "$BUILD_DIR/$PYTHON_DIR"
 
 echo "📁 Copying layer code..."
 cp -r python/* "$BUILD_DIR/$PYTHON_DIR/"

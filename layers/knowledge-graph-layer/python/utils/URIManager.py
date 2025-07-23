@@ -1,282 +1,169 @@
 #!/usr/bin/env python3
 """
-URI Manager - Consistent URI generation for knowledge graph entities
-Ensures all URIs follow consistent patterns across the system
+URI Manager - Consistent URI generation for Knowledge Graph resources
+Updated to work with RDFLib URIRef objects and generic mint_uri approach
 """
-import hashlib
-import re
-from typing import Optional
-from urllib.parse import quote
 import logging
+import hashlib
+from typing import Dict, List, Any, Optional
+from urllib.parse import quote
+
+import rdflib
+from rdflib import URIRef, Namespace
 
 class URIManager:
-    """Manages consistent URI generation across the knowledge graph"""
+    """
+    Manages consistent URI generation for all KG resources
+    Updated to use RDFLib URIRef objects and generic minting approach
+    """
     
-    def __init__(self, base_namespace: Optional[str] = None):
-        """
-        Initialize URI manager with configurable base namespace
-        
-        Args:
-            base_namespace: Base namespace for all URIs (defaults to solve.global)
-        """
+    def __init__(self, base_namespace: str = "https://solve.global/kr/"):
+        """Initialize URI manager with base namespace"""
         self.logger = logging.getLogger(self.__class__.__name__)
         
-        # Base namespaces - configurable for different environments
-        self.base_namespace = base_namespace or "http://solve.global/knowledge-commons/"
-        self.document_namespace = f"{self.base_namespace}document/"
-        self.chunk_namespace = f"{self.base_namespace}chunk/"
-        self.mention_namespace = f"{self.base_namespace}mention/"
-        self.co_occurrence_namespace = f"{self.base_namespace}co-occurrence/"
-        self.ontology_namespace = f"{self.base_namespace}ontology/"
+        # Set up base namespace
+        self.base_namespace = base_namespace
+        self.kr_ns = Namespace(base_namespace)
         
-        # Common prefixes for TTL generation
-        self.prefixes = {
-            'kcc': self.base_namespace,
-            'doc': self.document_namespace,
-            'chunk': self.chunk_namespace,
-            'mention': self.mention_namespace,
-            'cooc': self.co_occurrence_namespace,
-            'ont': self.ontology_namespace
-        }
+        # Standard namespaces
+        self.dcterms_ns = Namespace("http://purl.org/dc/terms/")
+        self.foaf_ns = Namespace("http://xmlns.com/foaf/0.1/")
+        self.skos_ns = Namespace("http://www.w3.org/2004/02/skos/core#")
         
         self.logger.debug(f"URIManager initialized with base namespace: {self.base_namespace}")
     
-    def mint_document_uri(self, doc_id: str) -> str:
+    def mint_uri(self, unique_id: str, namespace: Namespace, ontology_concept: str,
+                 ontology_uri: URIRef, named_graph: URIRef = None) -> URIRef:
         """
-        Generate consistent document URI
+        Generic URI minting with ontology validation and optional named graph support
         
         Args:
-            doc_id: Document identifier
-            
-        Returns:
-            Consistent document URI
-        """
-        if not doc_id:
-            raise ValueError("Document ID cannot be empty")
+            unique_id: Unique identifier for the resource
+            namespace: RDF namespace for the generated URI (e.g., kr:)
+            ontology_concept: Concept type from ontology (e.g., "Document", "DocumentSection")
+            ontology_uri: Ontology identifier URI for validation and type triples
+            named_graph: Optional named graph URI (defaults to default graph)
         
-        clean_id = self._clean_identifier(doc_id)
-        uri = f"{self.document_namespace}{clean_id}"
-        self.logger.debug(f"Minted document URI: {uri}")
+        Returns:
+            rdflib.URIRef: Generated resource URI
+        """
+        # Validate inputs
+        if not unique_id:
+            raise ValueError("unique_id cannot be empty")
+        if not ontology_concept:
+            raise ValueError("ontology_concept cannot be empty")
+        
+        # Sanitize unique_id for URI safety
+        safe_id = self._sanitize_uri_component(unique_id)
+        
+        # Generate URI: namespace + concept + "_" + unique_id
+        uri_string = f"{namespace}{ontology_concept}_{safe_id}"
+        uri = URIRef(uri_string)
+        
+        self.logger.debug(f"Minted URI: {uri} for concept {ontology_concept}")
         return uri
     
-    def mint_chunk_uri(self, doc_id: str, chunk_id: str) -> str:
-        """
-        Generate consistent chunk URI
+    def _sanitize_uri_component(self, component: str) -> str:
+        """Sanitize string component for safe URI usage"""
+        if not component:
+            return ""
         
-        Args:
-            doc_id: Document identifier
-            chunk_id: Chunk identifier
-            
-        Returns:
-            Consistent chunk URI
-        """
-        if not doc_id or not chunk_id:
-            raise ValueError("Document ID and Chunk ID cannot be empty")
-        
-        clean_doc_id = self._clean_identifier(doc_id)
-        clean_chunk_id = self._clean_identifier(chunk_id)
-        uri = f"{self.chunk_namespace}{clean_doc_id}/{clean_chunk_id}"
-        self.logger.debug(f"Minted chunk URI: {uri}")
-        return uri
-    
-    def mint_concept_mention_uri(self, chunk_id: str, concept_uri: str, position: int) -> str:
-        """
-        Generate consistent concept mention URI
-        
-        Args:
-            chunk_id: Chunk identifier
-            concept_uri: Concept URI being mentioned
-            position: Position in text (start offset)
-            
-        Returns:
-            Consistent concept mention URI
-        """
-        if not chunk_id or not concept_uri:
-            raise ValueError("Chunk ID and Concept URI cannot be empty")
-        
-        # Create deterministic hash from chunk + concept + position
-        content = f"{chunk_id}#{concept_uri}#{position}"
-        mention_hash = hashlib.md5(content.encode()).hexdigest()[:12]
-        uri = f"{self.mention_namespace}{mention_hash}"
-        self.logger.debug(f"Minted concept mention URI: {uri}")
-        return uri
-    
-    def mint_co_occurrence_uri(self, chunk_id: str, concept1_uri: str, concept2_uri: str) -> str:
-        """
-        Generate consistent co-occurrence URI
-        
-        Args:
-            chunk_id: Chunk identifier
-            concept1_uri: First concept URI
-            concept2_uri: Second concept URI
-            
-        Returns:
-            Consistent co-occurrence URI
-        """
-        if not chunk_id or not concept1_uri or not concept2_uri:
-            raise ValueError("Chunk ID and both Concept URIs cannot be empty")
-        
-        # Sort concepts for consistent ordering regardless of input order
-        concepts = sorted([concept1_uri, concept2_uri])
-        content = f"{chunk_id}#{concepts[0]}#{concepts[1]}"
-        cooc_hash = hashlib.md5(content.encode()).hexdigest()[:12]
-        uri = f"{self.co_occurrence_namespace}{cooc_hash}"
-        self.logger.debug(f"Minted co-occurrence URI: {uri}")
-        return uri
-    
-    def mint_graph_uri(self, graph_type: str, identifier: str) -> str:
-        """
-        Generate consistent named graph URI
-        
-        Args:
-            graph_type: Type of graph (e.g., 'document', 'ontology', 'inference')
-            identifier: Graph identifier
-            
-        Returns:
-            Consistent named graph URI
-        """
-        if not graph_type or not identifier:
-            raise ValueError("Graph type and identifier cannot be empty")
-        
-        clean_type = self._clean_identifier(graph_type)
-        clean_id = self._clean_identifier(identifier)
-        uri = f"{self.base_namespace}graph/{clean_type}/{clean_id}"
-        self.logger.debug(f"Minted graph URI: {uri}")
-        return uri
-    
-    def get_prefixes_ttl(self) -> str:
-        """
-        Get TTL prefix declarations for use in SPARQL queries and TTL files
-        
-        Returns:
-            TTL prefix declarations
-        """
-        prefixes = []
-        for prefix, namespace in self.prefixes.items():
-            prefixes.append(f"@prefix {prefix}: <{namespace}> .")
-        
-        # Add common RDF prefixes
-        prefixes.extend([
-            "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .",
-            "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .",
-            "@prefix dcterms: <http://purl.org/dc/terms/> .",
-            "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> ."
-        ])
-        
-        return "\n".join(prefixes)
-    
-    def get_prefixes_sparql(self) -> str:
-        """
-        Get SPARQL prefix declarations for use in SPARQL queries
-        
-        Returns:
-            SPARQL prefix declarations
-        """
-        prefixes = []
-        for prefix, namespace in self.prefixes.items():
-            prefixes.append(f"PREFIX {prefix}: <{namespace}>")
-        
-        # Add common RDF prefixes
-        prefixes.extend([
-            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
-            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
-            "PREFIX dcterms: <http://purl.org/dc/terms/>",
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
-        ])
-        
-        return "\n".join(prefixes)
-    
-    def extract_local_name(self, uri: str) -> str:
-        """
-        Extract local name from URI (part after last # or /)
-        
-        Args:
-            uri: Full URI
-            
-        Returns:
-            Local name portion of URI
-        """
-        if '#' in uri:
-            return uri.split('#')[-1]
-        elif '/' in uri:
-            return uri.split('/')[-1]
-        else:
-            return uri
-    
-    def is_valid_uri(self, uri: str) -> bool:
-        """
-        Validate URI format
-        
-        Args:
-            uri: URI to validate
-            
-        Returns:
-            True if URI is valid format
-        """
-        # Basic URI validation - starts with http/https and contains valid characters
-        uri_pattern = re.compile(
-            r'^https?://'  # http:// or https://
-            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
-            r'localhost|'  # localhost...
-            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
-            r'(?::\d+)?'  # optional port
-            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-        
-        return bool(uri_pattern.match(uri))
-    
-    def _clean_identifier(self, identifier: str) -> str:
-        """
-        Clean identifier for URI usage
-        
-        Args:
-            identifier: Raw identifier
-            
-        Returns:
-            Cleaned identifier safe for URI usage
-        """
-        if not identifier:
-            raise ValueError("Identifier cannot be empty")
-        
-        # Replace problematic characters
-        cleaned = identifier.replace(' ', '_').replace('#', '_').replace('?', '_')
+        # Replace problematic characters with underscores
+        sanitized = component.replace(' ', '_')
+        sanitized = sanitized.replace('/', '_')
+        sanitized = sanitized.replace('\\', '_')
+        sanitized = sanitized.replace('#', '_')
+        sanitized = sanitized.replace('?', '_')
+        sanitized = sanitized.replace('&', '_')
+        sanitized = sanitized.replace('=', '_')
+        sanitized = sanitized.replace('%', '_')
         
         # Remove any remaining problematic characters
-        cleaned = re.sub(r'[^\w\-_.]', '_', cleaned)
+        sanitized = ''.join(c for c in sanitized if c.isalnum() or c in ['_', '-', '.'])
         
-        # Remove multiple consecutive underscores
-        cleaned = re.sub(r'_+', '_', cleaned)
-        
-        # Remove leading/trailing underscores
-        cleaned = cleaned.strip('_')
-        
-        # URL encode for safety
-        return quote(cleaned, safe='_-.')
+        return sanitized
     
-    def validate_namespace_consistency(self, uri: str) -> bool:
-        """
-        Validate that URI uses consistent namespace
-        
-        Args:
-            uri: URI to validate
-            
-        Returns:
-            True if URI uses expected namespace
-        """
-        return uri.startswith(self.base_namespace)
+    def get_prefixes_ttl(self) -> str:
+        """Generate TTL prefix declarations for standard namespaces"""
+        prefixes = [
+            f"@prefix kr: <{self.kr_ns}> .",
+            f"@prefix dcterms: <{self.dcterms_ns}> .",
+            f"@prefix foaf: <{self.foaf_ns}> .",
+            f"@prefix skos: <{self.skos_ns}> .",
+            "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .",
+            "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .",
+            "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> ."
+        ]
+        return "\n".join(prefixes)
     
-    def get_namespace_info(self) -> dict:
-        """
-        Get information about configured namespaces
-        
-        Returns:
-            Dictionary with namespace information
-        """
-        return {
-            'base_namespace': self.base_namespace,
-            'document_namespace': self.document_namespace,
-            'chunk_namespace': self.chunk_namespace,
-            'mention_namespace': self.mention_namespace,
-            'co_occurrence_namespace': self.co_occurrence_namespace,
-            'ontology_namespace': self.ontology_namespace,
-            'prefixes': self.prefixes
-        }
+    def bind_namespaces_to_graph(self, graph: rdflib.Graph):
+        """Bind standard namespaces to an RDFLib graph"""
+        graph.bind("kr", self.kr_ns)
+        graph.bind("dcterms", self.dcterms_ns)
+        graph.bind("foaf", self.foaf_ns)
+        graph.bind("skos", self.skos_ns)
+        graph.bind("rdf", rdflib.RDF)
+        graph.bind("rdfs", rdflib.RDFS)
+        graph.bind("xsd", rdflib.XSD)
+    
+    # === LEGACY METHODS (for backward compatibility) ===
+    
+    def mint_document_uri(self, doc_id: str) -> URIRef:
+        """Generate consistent document URI (legacy method)"""
+        return self.mint_uri(doc_id, self.kr_ns, "Document", self.kr_ns)
+    
+    def mint_chunk_uri(self, doc_id: str, chunk_id: str) -> URIRef:
+        """Generate consistent chunk URI (legacy method)"""
+        unique_id = f"{doc_id}_{chunk_id}"
+        return self.mint_uri(unique_id, self.kr_ns, "DocumentChunk", self.kr_ns)
+    
+    def mint_concept_mention_uri(self, chunk_id: str, concept_uri: str, position: int) -> URIRef:
+        """Generate consistent concept mention URI (legacy method)"""
+        # Create deterministic hash for concept URI
+        concept_hash = hashlib.md5(str(concept_uri).encode()).hexdigest()[:8]
+        unique_id = f"{chunk_id}_{concept_hash}_{position}"
+        return self.mint_uri(unique_id, self.kr_ns, "ConceptMention", self.kr_ns)
+    
+    def mint_co_occurrence_uri(self, chunk_id: str, concept1_uri: str, concept2_uri: str) -> URIRef:
+        """Generate consistent co-occurrence URI (legacy method)"""
+        # Create deterministic hash for concept pair
+        concept_pair = f"{concept1_uri}|{concept2_uri}"
+        pair_hash = hashlib.md5(concept_pair.encode()).hexdigest()[:8]
+        unique_id = f"{chunk_id}_{pair_hash}"
+        return self.mint_uri(unique_id, self.kr_ns, "ConceptCoOccurrence", self.kr_ns)
+    
+    def mint_graph_uri(self, graph_type: str, identifier: str) -> URIRef:
+        """Generate consistent named graph URI (legacy method)"""
+        unique_id = f"{graph_type}_{identifier}"
+        return self.mint_uri(unique_id, self.kr_ns, "Graph", self.kr_ns)
+    
+    # === UTILITY METHODS ===
+    
+    def is_valid_uri(self, uri_string: str) -> bool:
+        """Validate if a string is a valid URI"""
+        try:
+            uri = URIRef(uri_string)
+            return True
+        except Exception:
+            return False
+    
+    def extract_local_name(self, uri: URIRef) -> str:
+        """Extract the local name from a URI"""
+        uri_str = str(uri)
+        if '#' in uri_str:
+            return uri_str.split('#')[-1]
+        elif '/' in uri_str:
+            return uri_str.split('/')[-1]
+        else:
+            return uri_str
+    
+    def get_namespace_from_uri(self, uri: URIRef) -> str:
+        """Extract the namespace from a URI"""
+        uri_str = str(uri)
+        if '#' in uri_str:
+            return uri_str.split('#')[0] + '#'
+        elif '/' in uri_str:
+            parts = uri_str.split('/')
+            return '/'.join(parts[:-1]) + '/'
+        else:
+            return ""
