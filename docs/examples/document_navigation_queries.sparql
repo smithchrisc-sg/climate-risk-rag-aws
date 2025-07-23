@@ -1,0 +1,226 @@
+# Document Structure Navigation Query Examples
+# Demonstrates traversal patterns supported by the kr: schema
+# Date: 2025-07-23
+
+PREFIX kr: <http://solve.global/knowledge-commons/schema#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX kcc: <http://solve.global/knowledge-commons/>
+
+# =============================================================================
+# CORE NAVIGATION PATTERNS
+# =============================================================================
+
+# Query 1: Find chunk from vector search result, get its section context
+# Use case: Vector search returns chunk URI, need section context
+SELECT ?chunk ?chunkText ?section ?sectionTitle ?document ?docTitle
+WHERE {
+    # Starting point: chunk URI from vector search
+    BIND(<http://solve.global/knowledge-commons/document/doc123/chunk/chunk_001> AS ?chunk)
+    
+    # Navigate up to section
+    ?chunk kr:parentSection ?section .
+    ?section dcterms:title ?sectionTitle .
+    
+    # Navigate up to document
+    ?chunk kr:parentDocument ?document .
+    ?document dcterms:title ?docTitle .
+    
+    # Get chunk metadata
+    ?chunk kr:wordCount ?wordCount .
+    OPTIONAL { ?chunk kr:s3Location ?s3Location }
+}
+
+# Query 2: Get all chunks in the same section as a target chunk
+# Use case: Found relevant chunk, want to see all related chunks in section
+SELECT ?chunk ?chunkSequence ?wordCount ?s3Location
+WHERE {
+    # Starting point: target chunk
+    BIND(<http://solve.global/knowledge-commons/document/doc123/chunk/chunk_001> AS ?targetChunk)
+    
+    # Find the section
+    ?targetChunk kr:parentSection ?section .
+    
+    # Get all chunks in that section
+    ?section kr:hasChunk ?chunk .
+    ?chunk kr:chunkSequence ?chunkSequence .
+    ?chunk kr:wordCount ?wordCount .
+    
+    OPTIONAL { ?chunk kr:s3Location ?s3Location }
+}
+ORDER BY ?chunkSequence
+
+# Query 3: Get adjacent chunks (previous and next) for context
+# Use case: Need surrounding context for a specific chunk
+SELECT ?chunk ?chunkSequence ?relation
+WHERE {
+    # Starting point: target chunk
+    BIND(<http://solve.global/knowledge-commons/document/doc123/chunk/chunk_005> AS ?targetChunk)
+    
+    # Get target chunk sequence
+    ?targetChunk kr:chunkSequence ?targetSequence .
+    ?targetChunk kr:parentSection ?section .
+    
+    # Find adjacent chunks in same section
+    ?section kr:hasChunk ?chunk .
+    ?chunk kr:chunkSequence ?chunkSequence .
+    
+    # Filter for adjacent chunks (previous and next)
+    FILTER(?chunkSequence >= ?targetSequence - 1 && ?chunkSequence <= ?targetSequence + 1)
+    
+    # Label the relationship
+    BIND(
+        IF(?chunkSequence = ?targetSequence - 1, "previous",
+        IF(?chunkSequence = ?targetSequence + 1, "next", "current")) AS ?relation
+    )
+}
+ORDER BY ?chunkSequence
+
+# Query 4: Walk document structure - all sections and their chunks
+# Use case: Build document outline or navigation tree
+SELECT ?document ?section ?sectionSequence ?sectionTitle ?chunk ?chunkSequence
+WHERE {
+    ?document a kr:Document .
+    ?document kr:hasSection ?section .
+    ?section kr:sectionSequence ?sectionSequence .
+    ?section dcterms:title ?sectionTitle .
+    
+    ?section kr:hasChunk ?chunk .
+    ?chunk kr:chunkSequence ?chunkSequence .
+}
+ORDER BY ?sectionSequence ?chunkSequence
+
+# =============================================================================
+# ENTITY/CONCEPT INTEGRATION PATTERNS
+# (These will be populated by NLP processing)
+# =============================================================================
+
+# Query 5: Find all entities mentioned in a section
+# Use case: Get broader context of entities around a specific chunk
+SELECT ?section ?sectionTitle ?chunk ?entity ?entityText ?confidence
+WHERE {
+    # Starting from a chunk found via vector search
+    BIND(<http://solve.global/knowledge-commons/document/doc123/chunk/chunk_001> AS ?targetChunk)
+    
+    # Get the section
+    ?targetChunk kr:parentSection ?section .
+    ?section dcterms:title ?sectionTitle .
+    
+    # Get all chunks in that section
+    ?section kr:hasChunk ?chunk .
+    
+    # Get entities mentioned in those chunks (from NLP processing)
+    ?chunk kcc:hasConceptMention ?mention .
+    ?mention kcc:hasConcept ?entity .
+    ?mention kcc:hasText ?entityText .
+    ?mention kcc:confidence ?confidence .
+}
+ORDER BY DESC(?confidence)
+
+# Query 6: Find chunks that mention the same entities as a target chunk
+# Use case: Find related content based on entity overlap
+SELECT ?relatedChunk ?sharedEntity ?entityText ?targetSection ?relatedSection
+WHERE {
+    # Starting chunk
+    BIND(<http://solve.global/knowledge-commons/document/doc123/chunk/chunk_001> AS ?targetChunk)
+    
+    # Get entities in target chunk
+    ?targetChunk kcc:hasConceptMention ?targetMention .
+    ?targetMention kcc:hasConcept ?sharedEntity .
+    ?targetMention kcc:hasText ?entityText .
+    
+    # Find other chunks with same entities
+    ?relatedChunk kcc:hasConceptMention ?relatedMention .
+    ?relatedMention kcc:hasConcept ?sharedEntity .
+    
+    # Exclude the original chunk
+    FILTER(?relatedChunk != ?targetChunk)
+    
+    # Get section context for both
+    ?targetChunk kr:parentSection ?targetSection .
+    ?relatedChunk kr:parentSection ?relatedSection .
+}
+
+# Query 7: Section-level entity aggregation
+# Use case: Get all unique entities mentioned in a section with counts
+SELECT ?section ?sectionTitle ?entity ?entityText (COUNT(?mention) AS ?mentionCount)
+WHERE {
+    ?section a kr:DocumentSection .
+    ?section dcterms:title ?sectionTitle .
+    
+    # Get all chunks in section
+    ?section kr:hasChunk ?chunk .
+    
+    # Get all entity mentions in those chunks
+    ?chunk kcc:hasConceptMention ?mention .
+    ?mention kcc:hasConcept ?entity .
+    ?mention kcc:hasText ?entityText .
+}
+GROUP BY ?section ?sectionTitle ?entity ?entityText
+ORDER BY DESC(?mentionCount)
+
+# =============================================================================
+# CONTENT RETRIEVAL PATTERNS
+# =============================================================================
+
+# Query 8: Get S3 locations for content retrieval
+# Use case: Need to fetch actual text content for chunks in a section
+SELECT ?chunk ?chunkSequence ?s3Location ?wordCount
+WHERE {
+    # Starting from section (could be derived from chunk)
+    BIND(<http://solve.global/knowledge-commons/document/doc123/section/01-introduction> AS ?section)
+    
+    ?section kr:hasChunk ?chunk .
+    ?chunk kr:chunkSequence ?chunkSequence .
+    ?chunk kr:s3Location ?s3Location .
+    ?chunk kr:wordCount ?wordCount .
+}
+ORDER BY ?chunkSequence
+
+# Query 9: Document statistics and overview
+# Use case: Get document overview with section and chunk counts
+SELECT ?document ?docTitle (COUNT(DISTINCT ?section) AS ?sectionCount) 
+       (COUNT(DISTINCT ?chunk) AS ?chunkCount) (SUM(?wordCount) AS ?totalWords)
+WHERE {
+    ?document a kr:Document .
+    ?document dcterms:title ?docTitle .
+    
+    ?document kr:hasSection ?section .
+    ?section kr:hasChunk ?chunk .
+    ?chunk kr:wordCount ?wordCount .
+}
+GROUP BY ?document ?docTitle
+
+# =============================================================================
+# PERFORMANCE-OPTIMIZED PATTERNS
+# =============================================================================
+
+# Query 10: Fast chunk lookup with minimal traversal
+# Use case: Given chunk URI, get essential navigation info
+SELECT ?chunk ?document ?section ?chunkSeq ?sectionSeq ?sectionTitle
+WHERE {
+    BIND(<http://solve.global/knowledge-commons/document/doc123/chunk/chunk_001> AS ?chunk)
+    
+    # Direct parent references (no intermediate joins)
+    ?chunk kr:parentDocument ?document .
+    ?chunk kr:parentSection ?section .
+    ?chunk kr:chunkSequence ?chunkSeq .
+    
+    ?section kr:sectionSequence ?sectionSeq .
+    ?section dcterms:title ?sectionTitle .
+}
+
+# Query 11: Breadcrumb navigation
+# Use case: Build breadcrumb trail for UI navigation
+SELECT ?document ?docTitle ?section ?sectionTitle ?chunk ?chunkSeq
+WHERE {
+    BIND(<http://solve.global/knowledge-commons/document/doc123/chunk/chunk_001> AS ?targetChunk)
+    
+    ?targetChunk kr:parentDocument ?document .
+    ?document dcterms:title ?docTitle .
+    
+    ?targetChunk kr:parentSection ?section .
+    ?section dcterms:title ?sectionTitle .
+    
+    BIND(?targetChunk AS ?chunk)
+    ?chunk kr:chunkSequence ?chunkSeq .
+}

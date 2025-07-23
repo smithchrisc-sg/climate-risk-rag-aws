@@ -280,40 +280,67 @@ class KGIntegrationWorker:
             }
     
     def validate_sparql_loaded_data(self, doc_id: str, expected_records: int) -> Dict[str, Any]:
-        """Validate data loaded via SPARQL INSERT"""
+        """Validate data loaded via SPARQL INSERT - check navigation structure"""
         try:
             doc_uri = self.kg_manager.mint_document_uri(doc_id)
             
-            # Query for document chunks
+            # Query for complete document hierarchy: Document → Section → Chunk
             query = f"""
             {self.kg_manager.uri_manager.get_prefixes_sparql()}
+            PREFIX kr: <http://solve.global/knowledge-commons/schema#>
             
-            SELECT (COUNT(DISTINCT ?chunk) as ?chunkCount) (COUNT(*) as ?tripleCount)
+            SELECT (COUNT(DISTINCT ?section) as ?sectionCount) 
+                   (COUNT(DISTINCT ?chunk) as ?chunkCount) 
+                   (COUNT(*) as ?tripleCount)
             WHERE {{
-                ?chunk dcterms:isPartOf <{doc_uri}> .
-                ?chunk ?p ?o .
+                # Document has sections
+                <{doc_uri}> kr:hasSection ?section .
+                
+                # Sections have chunks
+                ?section kr:hasChunk ?chunk .
+                
+                # Count all triples for these entities
+                {{
+                    <{doc_uri}> ?p1 ?o1 .
+                }}
+                UNION
+                {{
+                    ?section ?p2 ?o2 .
+                }}
+                UNION
+                {{
+                    ?chunk ?p3 ?o3 .
+                }}
             }}
             """
             
             results = self.kg_manager.execute_sparql_query(query)
             if results:
+                section_count = int(results[0]['sectionCount'])
                 chunk_count = int(results[0]['chunkCount'])
                 triple_count = int(results[0]['tripleCount'])
             else:
+                section_count = 0
                 chunk_count = 0
                 triple_count = 0
             
-            # Validation is successful if we have chunks
-            success = chunk_count > 0
+            # Validation is successful if we have proper hierarchy
+            success = section_count > 0 and chunk_count > 0
             
-            logger.info(f"SPARQL validation for {doc_id}: {chunk_count} chunks, {triple_count} triples")
+            # Additional validation: check navigation properties
+            if success:
+                navigation_valid = self.validate_navigation_properties(doc_uri)
+                success = success and navigation_valid['valid']
+            
+            logger.info(f"SPARQL validation for {doc_id}: {section_count} sections, {chunk_count} chunks, {triple_count} triples")
             
             return {
                 'success': success,
                 'count': triple_count,
+                'section_count': section_count,
                 'chunk_count': chunk_count,
                 'expected': expected_records,
-                'method': 'sparql_validation'
+                'method': 'sparql_validation_with_navigation'
             }
             
         except Exception as e:
@@ -323,6 +350,49 @@ class KGIntegrationWorker:
                 'error': str(e),
                 'count': 0
             }
+    
+    def validate_navigation_properties(self, doc_uri: str) -> Dict[str, Any]:
+        """Validate that navigation properties are properly set"""
+        try:
+            # Check that chunks have proper parent references for navigation
+            query = f"""
+            {self.kg_manager.uri_manager.get_prefixes_sparql()}
+            PREFIX kr: <http://solve.global/knowledge-commons/schema#>
+            
+            SELECT (COUNT(?chunk) as ?chunksWithParents) 
+                   (COUNT(?sequence) as ?chunksWithSequence)
+            WHERE {{
+                <{doc_uri}> kr:hasSection ?section .
+                ?section kr:hasChunk ?chunk .
+                
+                # Check parent references
+                ?chunk kr:parentDocument <{doc_uri}> .
+                ?chunk kr:parentSection ?section .
+                
+                # Check sequencing
+                OPTIONAL {{ ?chunk kr:chunkSequence ?sequence }}
+            }}
+            """
+            
+            results = self.kg_manager.execute_sparql_query(query)
+            if results:
+                chunks_with_parents = int(results[0]['chunksWithParents'])
+                chunks_with_sequence = int(results[0]['chunksWithSequence'])
+                valid = chunks_with_parents > 0 and chunks_with_sequence > 0
+            else:
+                valid = False
+                chunks_with_parents = 0
+                chunks_with_sequence = 0
+            
+            return {
+                'valid': valid,
+                'chunks_with_parents': chunks_with_parents,
+                'chunks_with_sequence': chunks_with_sequence
+            }
+            
+        except Exception as e:
+            logger.error(f"Error validating navigation properties: {str(e)}")
+            return {'valid': False, 'error': str(e)}
     
     def validate_loaded_data(self, doc_id: str, load_result: Dict[str, Any]) -> Dict[str, Any]:
         """Validate data loaded using KG layer optimization"""

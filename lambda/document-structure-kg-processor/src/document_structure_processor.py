@@ -218,7 +218,7 @@ class DocumentStructureKGProcessor:
             }
     
     def generate_document_structure_ttl(self, doc_id: str, data_locations: Dict = None, processing_metadata: Dict = None) -> Dict[str, Any]:
-        """Generate TTL for document structure using Dublin Core AND document structure ontology"""
+        """Generate TTL for document structure using proper kr: schema for navigation"""
         
         try:
             logger.info(f"Generating TTL for document structure: {doc_id}")
@@ -232,20 +232,20 @@ class DocumentStructureKGProcessor:
             # Get TTL prefixes from KG layer
             prefixes = self.kg_manager.uri_manager.get_prefixes_ttl()
             
-            # Add document structure ontology prefix
-            prefixes += "\n@prefix ds: <http://solve.global/ontology/document-structure/> ."
+            # Add proper kr: schema prefix
+            prefixes += "\n@prefix kr: <http://solve.global/knowledge-commons/schema#> ."
             
-            # Build document metadata using Dublin Core + document structure ontology
+            # Build document metadata using Dublin Core
             document_metadata = self.build_document_metadata(doc_id, chunks_data, processing_metadata)
             
             # Insert document metadata using KG layer
             self.kg_manager.insert_document_triples(doc_id, document_metadata)
             
-            # Build chunk triples with document structure concepts
-            chunk_triples = self.build_chunk_triples(doc_id, chunks_data)
+            # Build complete document hierarchy: Document → Section → Chunk
+            hierarchy_triples = self.build_document_hierarchy(doc_id, chunks_data)
             
             # Combine all TTL content
-            ttl_content = prefixes + "\n\n" + chunk_triples
+            ttl_content = prefixes + "\n\n" + hierarchy_triples
             
             logger.info(f"Generated TTL content ({len(ttl_content)} characters) for document: {doc_id}")
             
@@ -336,60 +336,171 @@ class DocumentStructureKGProcessor:
         
         return metadata
     
-    def build_chunk_triples(self, doc_id: str, chunks_data: Dict) -> str:
-        """Build chunk triples with document structure ontology concepts"""
+    def build_document_hierarchy(self, doc_id: str, chunks_data: Dict) -> str:
+        """Build complete Document → Section → Chunk hierarchy for navigation"""
         
-        chunk_triples = []
+        triples = []
         doc_uri = self.kg_manager.mint_document_uri(doc_id)
         
-        for i, chunk in enumerate(chunks_data.get('chunks', [])):
-            chunk_id = chunk.get('chunk_id', f'chunk_{i:03d}')
-            chunk_uri = self.kg_manager.mint_chunk_uri(doc_id, chunk_id)
-            
-            # Basic chunk metadata
-            triples = [
-                f"<{chunk_uri}> a ds:DocumentChunk ;",
-                f"    dcterms:identifier \"{chunk_id}\" ;",
-                f"    dcterms:isPartOf <{doc_uri}> ;",
-                f"    ds:chunkIndex {i} ;"
-            ]
-            
-            # Add content information
-            content = chunk.get('content', '')
-            if content:
-                # Escape content for TTL
-                escaped_content = self.escape_ttl_string(content[:500] + ('...' if len(content) > 500 else ''))
-                triples.append(f'    dcterms:abstract "{escaped_content}" ;')
-                triples.append(f'    ds:contentLength {len(content)} ;')
-            
-            # Add document structure concepts
-            if chunk.get('section_title'):
-                triples.append(f'    ds:sectionTitle "{self.escape_ttl_string(chunk["section_title"])}" ;')
-                triples.append(f'    ds:hasStructuralRole ds:SectionContent ;')
-            
-            if chunk.get('chunk_type'):
-                chunk_type = chunk['chunk_type']
-                if chunk_type == 'paragraph':
-                    triples.append(f'    ds:hasStructuralRole ds:Paragraph ;')
-                elif chunk_type == 'heading':
-                    triples.append(f'    ds:hasStructuralRole ds:Heading ;')
-                elif chunk_type == 'list_item':
-                    triples.append(f'    ds:hasStructuralRole ds:ListItem ;')
-                else:
-                    triples.append(f'    ds:chunkType "{chunk_type}" ;')
-            
-            # Add position information
-            if chunk.get('start_char') is not None:
-                triples.append(f'    ds:startPosition {chunk["start_char"]} ;')
-            if chunk.get('end_char') is not None:
-                triples.append(f'    ds:endPosition {chunk["end_char"]} ;')
-            
-            # Close chunk description
-            triples[-1] = triples[-1].rstrip(' ;') + ' .'
-            chunk_triples.extend(triples)
-            chunk_triples.append('')  # Add blank line between chunks
+        # Group chunks by section for proper hierarchy
+        sections = self.group_chunks_by_section(chunks_data.get('chunks', []))
         
-        return '\n'.join(chunk_triples)
+        # Build Document triples (already handled by insert_document_triples, but add hierarchy links)
+        document_triples = [
+            f"<{doc_uri}> a kr:Document ;"
+        ]
+        
+        section_sequence = 1
+        for section_title, section_chunks in sections.items():
+            # Generate section URI
+            section_id = self.generate_section_id(section_title, section_sequence)
+            section_uri = f"{doc_uri}/section/{section_id}"
+            
+            # Add section reference to document
+            document_triples.append(f"    kr:hasSection <{section_uri}> ;")
+            
+            # Build section triples
+            section_triples = self.build_section_triples(
+                doc_uri, section_uri, section_title, section_sequence, section_chunks
+            )
+            triples.extend(section_triples)
+            
+            section_sequence += 1
+        
+        # Close document triples
+        if document_triples[-1].endswith(' ;'):
+            document_triples[-1] = document_triples[-1][:-2] + ' .'
+        else:
+            document_triples.append('.')
+        
+        triples = document_triples + [''] + triples
+        
+        return '\n'.join(triples)
+    
+    def group_chunks_by_section(self, chunks: List[Dict]) -> Dict[str, List[Dict]]:
+        """Group chunks by section title for proper hierarchy"""
+        
+        sections = {}
+        current_section = "Introduction"  # Default section
+        
+        for chunk in chunks:
+            # Check if chunk has a section title (indicates new section)
+            section_title = chunk.get('section_title')
+            if section_title:
+                current_section = section_title
+            
+            # Add chunk to current section
+            if current_section not in sections:
+                sections[current_section] = []
+            sections[current_section].append(chunk)
+        
+        return sections
+    
+    def generate_section_id(self, section_title: str, sequence: int) -> str:
+        """Generate clean section ID for URI"""
+        if section_title:
+            # Clean section title for URI
+            clean_title = section_title.lower().replace(' ', '-').replace('_', '-')
+            clean_title = ''.join(c for c in clean_title if c.isalnum() or c == '-')
+            return f"{sequence:02d}-{clean_title}"
+        else:
+            return f"{sequence:02d}-section"
+    
+    def build_section_triples(self, doc_uri: str, section_uri: str, section_title: str, 
+                            section_sequence: int, chunks: List[Dict]) -> List[str]:
+        """Build section triples with proper navigation properties"""
+        
+        triples = [
+            f"<{section_uri}> a kr:DocumentSection ;",
+            f"    dcterms:title \"{self.escape_ttl_string(section_title or 'Untitled Section')}\" ;",
+            f"    kr:parentDocument <{doc_uri}> ;",
+            f"    kr:sectionSequence {section_sequence} ;",
+            f"    kr:hierarchyLevel 1 ;"  # Top-level section for now
+        ]
+        
+        # Add chunk references and build chunk triples
+        chunk_triples = []
+        chunk_sequence = 1
+        
+        for chunk in chunks:
+            chunk_id = chunk.get('chunk_id', f'chunk_{chunk_sequence:03d}')
+            chunk_uri = self.kg_manager.mint_chunk_uri(doc_uri.split('/')[-1], chunk_id)  # Extract doc_id from URI
+            
+            # Add chunk reference to section
+            triples.append(f"    kr:hasChunk <{chunk_uri}> ;")
+            
+            # Build individual chunk triples
+            chunk_triples.extend(self.build_chunk_triples_for_navigation(
+                doc_uri, section_uri, chunk_uri, chunk, chunk_sequence
+            ))
+            
+            chunk_sequence += 1
+        
+        # Close section triples
+        if triples[-1].endswith(' ;'):
+            triples[-1] = triples[-1][:-2] + ' .'
+        else:
+            triples.append('.')
+        
+        # Add blank line and chunk triples
+        triples.append('')
+        triples.extend(chunk_triples)
+        
+        return triples
+    
+    def build_chunk_triples_for_navigation(self, doc_uri: str, section_uri: str, chunk_uri: str, 
+                                         chunk: Dict, chunk_sequence: int) -> List[str]:
+        """Build chunk triples optimized for navigation queries"""
+        
+        chunk_id = chunk.get('chunk_id', f'chunk_{chunk_sequence:03d}')
+        
+        triples = [
+            f"<{chunk_uri}> a kr:DocumentChunk ;",
+            f"    dcterms:identifier \"{chunk_id}\" ;",
+            f"    kr:parentDocument <{doc_uri}> ;",
+            f"    kr:parentSection <{section_uri}> ;",  # Key for section navigation
+            f"    kr:chunkSequence {chunk_sequence} ;"
+        ]
+        
+        # Add content metadata (not the actual text)
+        content = chunk.get('content', '')
+        if content:
+            word_count = len(content.split())
+            sentence_count = content.count('.') + content.count('!') + content.count('?')
+            
+            triples.extend([
+                f"    kr:wordCount {word_count} ;",
+                f"    kr:sentenceCount {sentence_count} ;"
+            ])
+        
+        # Add S3 location for content retrieval
+        # This will be populated by the chunking process
+        if chunk.get('s3_location'):
+            triples.append(f"    kr:s3Location <{chunk['s3_location']}> ;")
+        
+        # Add chunking strategy metadata
+        triples.append(f"    kr:chunkingStrategy \"smart_structured\" ;")
+        
+        # Add position information for document order navigation
+        if chunk.get('start_char') is not None:
+            triples.append(f"    kr:startPosition {chunk['start_char']} ;")
+        if chunk.get('end_char') is not None:
+            triples.append(f"    kr:endPosition {chunk['end_char']} ;")
+        
+        # Add processing timestamp
+        from datetime import datetime
+        timestamp = datetime.utcnow().isoformat() + 'Z'
+        triples.append(f"    dcterms:modified \"{timestamp}\"^^xsd:dateTime ;")
+        
+        # Close chunk triples
+        if triples[-1].endswith(' ;'):
+            triples[-1] = triples[-1][:-2] + ' .'
+        else:
+            triples.append('.')
+        
+        triples.append('')  # Blank line between chunks
+        
+        return triples
     
     def escape_ttl_string(self, text: str) -> str:
         """Escape string for TTL format"""
