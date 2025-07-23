@@ -70,7 +70,31 @@ vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS)
 - `sg-048961fc0bd1504c5` - Pipeline Test Lambda
 - `174.165.97.22/32` - External IP access
 
+### Neptune Security Group
+- **ID**: `sg-0c8afac0f49164069`
+- **Name**: Neptune Database Security Group
+- **Purpose**: Controls access to Neptune graph database cluster
+
+#### Inbound Rules (Port 8182)
+- `sg-0c9e10b9cfb4c9eb0` - Lambda functions requiring Neptune access
+- **Critical**: Must include Lambda security group for KG integration worker connectivity
+
+#### Configuration Notes
+- **SPARQL Endpoint**: Port 8182 for SPARQL queries and updates
+- **Gremlin Endpoint**: Port 8182 for Gremlin graph traversal queries
+- **VPC Access Only**: No public internet access configured
+
 ### Lambda Security Groups
+
+#### Standard Lambda Security Group
+- **ID**: `sg-0c9e10b9cfb4c9eb0`
+- **Name**: Lambda Functions Security Group
+- **Purpose**: General Lambda function network access
+- **Outbound Rules**:
+  - TCP 5432 to `sg-09bc56a537bf7ac12` (Database access)
+  - TCP 8182 to `sg-0c8afac0f49164069` (Neptune access)
+  - TCP 443 to `0.0.0.0/0` (HTTPS)
+  - All traffic to `0.0.0.0/0` (General egress)
 
 #### Text Extractor Lambda Security Group
 - **ID**: `sg-08518057bfb59e735`
@@ -90,13 +114,39 @@ vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS)
 ### Security Group Creation Pattern
 
 ```python
-# Lambda security group with database access
+# Lambda security group with database and Neptune access
 lambda_sg = ec2.SecurityGroup(
     self, "LambdaSecurityGroup",
     vpc=vpc,
-    description="Security group for Lambda function with database access",
+    description="Security group for Lambda function with database and Neptune access",
     allow_all_outbound=True
 )
+
+# Neptune security group
+neptune_sg = ec2.SecurityGroup(
+    self, "NeptuneSecurityGroup",
+    vpc=vpc,
+    description="Security group for Neptune database cluster",
+    allow_all_outbound=False
+)
+
+# Add ingress rule for Lambda to Neptune access
+neptune_sg.add_ingress_rule(
+    peer=lambda_sg,
+    connection=ec2.Port.tcp(8182),
+    description="Lambda access to Neptune SPARQL/Gremlin endpoint"
+)
+```
+
+### Critical Security Group Configuration for KG Integration
+
+**Important**: The KG Integration Worker requires specific security group configuration to access Neptune:
+
+1. **Lambda Security Group** (`sg-0c9e10b9cfb4c9eb0`) must be assigned to KG Integration Worker
+2. **Neptune Security Group** (`sg-0c8afac0f49164069`) must have ingress rule allowing Lambda security group on port 8182
+3. **Subnets** must be Neptune-accessible subnets (`subnet-03d8bd6cf3491f38c`, `subnet-0c0be1dd59f70f70e`)
+
+**Common Issue**: Lambda functions cannot connect to Neptune without proper security group ingress rules, even with correct VPC and subnet configuration.
 
 # Add specific database outbound rule
 lambda_sg.add_egress_rule(
@@ -157,6 +207,93 @@ environment={
 }
 ```
 
+### Neptune Graph Database Configuration
+
+#### Neptune Cluster Details
+- **Cluster Endpoint**: `solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com`
+- **Reader Endpoint**: `solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-ro-cqhsckw0edl1.neptune.amazonaws.com`
+- **Port**: `8182`
+- **Engine**: `neptune`
+- **Version**: Latest
+- **Subnets**: `subnet-03d8bd6cf3491f38c`, `subnet-0c0be1dd59f70f70e`
+
+#### Neptune Access Configuration
+
+##### SPARQL Endpoint
+```
+https://solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com:8182/sparql
+```
+
+##### Gremlin Endpoint
+```
+wss://solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com:8182/gremlin
+```
+
+#### Lambda Environment Variables for Neptune
+
+```python
+environment={
+    "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com",
+    "NEPTUNE_PORT": "8182",
+    "NEPTUNE_SPARQL_ENDPOINT": "https://solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com:8182/sparql",
+    "AWS_REGION": "us-east-1"
+}
+```
+
+#### Neptune Authentication
+- **Method**: AWS Signature Version 4 (AWS4Auth)
+- **Service**: `neptune-db`
+- **Required Libraries**: `requests-aws4auth`, `requests`
+- **IAM Permissions**: `neptune-db:*` actions required
+
+#### Neptune Connection Pattern (Python)
+
+```python
+import requests
+from requests_aws4auth import AWS4Auth
+import boto3
+
+# Get AWS credentials
+credentials = boto3.Session().get_credentials()
+awsauth = AWS4Auth(
+    credentials.access_key,
+    credentials.secret_key,
+    'us-east-1',
+    'neptune-db',
+    session_token=credentials.token
+)
+
+# SPARQL query example
+sparql_endpoint = "https://your-neptune-endpoint:8182/sparql"
+query = "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 10"
+
+response = requests.post(
+    sparql_endpoint,
+    data={'query': query},
+    headers={'Content-Type': 'application/x-www-form-urlencoded'},
+    auth=awsauth
+)
+```
+
+#### Database Schema Updates for KG Integration
+
+```sql
+-- Updated processing stages to include KG stages
+ALTER TABLE document_processing_status 
+DROP CONSTRAINT IF EXISTS valid_stages;
+
+ALTER TABLE document_processing_status 
+ADD CONSTRAINT valid_stages 
+CHECK (stage IN (
+    'text_extraction', 
+    'text_chunking', 
+    'vector_embeddings', 
+    'nlp_processing', 
+    'kg_doc_structure',     -- Document structure KG processing
+    'kg_triples_load'       -- Neptune knowledge graph loading
+));
+```
+
 ---
 
 ## Lambda Configuration
@@ -193,6 +330,122 @@ lambda_.Function(
         "LAMBDA_ENVIRONMENT": "true"
     }
 )
+```
+
+### Knowledge Graph Integration Components
+
+#### Document Structure KG Processor Configuration
+
+```python
+document_structure_kg_processor = lambda_.Function(
+    self, "DocumentStructureKGProcessor",
+    function_name="solve-global-kr-document-structure-kg-processor",
+    runtime=lambda_.Runtime.PYTHON_3_11,
+    handler="handler.lambda_handler",
+    code=lambda_.Code.from_asset("../lambda/document-structure-kg-processor"),
+    role=lambda_role,
+    timeout=Duration.minutes(15),
+    memory_size=1024,
+    vpc=vpc,
+    vpc_subnets=ec2.SubnetSelection(subnets=[
+        ec2.Subnet.from_subnet_id(self, "DatabaseSubnet1", subnet_id="subnet-0e9efc5fdf29e9da0"),
+        ec2.Subnet.from_subnet_id(self, "DatabaseSubnet2", subnet_id="subnet-00efdcc220a613ae3")
+    ]),
+    layers=[database_layer, requests_layer],
+    environment={
+        "DATABASE_URL": database_url,
+        "KG_TRIPLES_READY_TOPIC_ARN": kg_triples_ready_topic.topic_arn,
+        "LAMBDA_ENVIRONMENT": "true"
+    }
+)
+```
+
+#### KG Integration Worker Configuration
+
+```python
+kg_integration_worker = lambda_.Function(
+    self, "KGIntegrationWorker",
+    function_name="solve-global-kr-kg-integration-worker",
+    runtime=lambda_.Runtime.PYTHON_3_11,
+    handler="handler.lambda_handler",
+    code=lambda_.Code.from_asset("../lambda/kg-integration-worker"),
+    role=lambda_role,
+    timeout=Duration.minutes(15),
+    memory_size=1024,
+    vpc=vpc,
+    vpc_subnets=ec2.SubnetSelection(subnets=[
+        ec2.Subnet.from_subnet_id(self, "NeptuneSubnet1", subnet_id="subnet-03d8bd6cf3491f38c"),
+        ec2.Subnet.from_subnet_id(self, "NeptuneSubnet2", subnet_id="subnet-0c0be1dd59f70f70e")
+    ]),
+    security_groups=[
+        ec2.SecurityGroup.from_security_group_id(
+            self, "LambdaSecurityGroup", 
+            security_group_id="sg-0c9e10b9cfb4c9eb0"
+        )
+    ],
+    layers=[database_layer, requests_layer],
+    environment={
+        "DATABASE_URL": database_url,
+        "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com",
+        "NEPTUNE_PORT": "8182",
+        "LAMBDA_ENVIRONMENT": "true"
+    }
+)
+```
+
+### SNS Topic Configuration for KG Integration
+
+#### KG Triples Ready Topic
+
+```python
+kg_triples_ready_topic = sns.Topic(
+    self, "KGTriplesReadyTopic",
+    topic_name="solve-global-kr-kg-triples-ready",
+    display_name="KG Triples Ready Topic"
+)
+
+# Subscribe KG Integration Worker to the topic
+kg_triples_ready_topic.add_subscription(
+    sns_subscriptions.LambdaSubscription(kg_integration_worker)
+)
+```
+
+### Processing Stages Configuration
+
+#### Database Schema Updates
+
+```sql
+-- Updated valid stages constraint to include KG processing stages
+ALTER TABLE document_processing_status 
+DROP CONSTRAINT IF EXISTS valid_stages;
+
+ALTER TABLE document_processing_status 
+ADD CONSTRAINT valid_stages 
+CHECK (stage IN (
+    'text_extraction', 
+    'text_chunking', 
+    'vector_embeddings', 
+    'nlp_processing', 
+    'kg_doc_structure', 
+    'kg_triples_load'
+));
+```
+
+#### Standard SNS Message Format for KG Processing
+
+```json
+{
+  "doc_id": "document_identifier",
+  "processing_type": "kg_triples_ready",
+  "ttl_location": "s3://solve-global-kr-processed-documents/kg-ttl/document_id.ttl",
+  "schema_version": "1.0",
+  "timestamp": "2025-07-23T00:33:00Z",
+  "metadata": {
+    "ttl_size": 58808,
+    "chunk_count": 72,
+    "dublin_core_elements": ["title", "creator", "subject", "description", "date", "type", "format", "identifier"]
+  }
+}
 ```
 
 ---
