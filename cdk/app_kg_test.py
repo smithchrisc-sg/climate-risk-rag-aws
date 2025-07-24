@@ -45,10 +45,10 @@ class KGTestStack(Stack):
             display_name="Knowledge Graph Triples Ready for Neptune Loading"
         )
         
-        # Reference existing chunks-ready topic
-        chunks_ready_topic = sns.Topic.from_topic_arn(
-            self, "ChunksReadyTopic",
-            topic_arn="arn:aws:sns:us-east-1:861276078413:chunks-ready"
+        # Reference existing text-chunking-complete topic
+        text_chunking_complete_topic = sns.Topic.from_topic_arn(
+            self, "TextChunkingCompleteTopic",
+            topic_arn="arn:aws:sns:us-east-1:861276078413:text-chunking-complete"
         )
         
         # Standard environment variables
@@ -83,8 +83,8 @@ class KGTestStack(Stack):
             security_groups=[security_group]
         )
         
-        # Subscribe to chunks-ready topic
-        chunks_ready_topic.add_subscription(
+        # Subscribe to text-chunking-complete topic
+        text_chunking_complete_topic.add_subscription(
             sns_subscriptions.LambdaSubscription(document_structure_kg_processor)
         )
         
@@ -92,7 +92,7 @@ class KGTestStack(Stack):
         document_structure_kg_processor.add_permission(
             "AllowSNSInvoke",
             principal=iam.ServicePrincipal("sns.amazonaws.com"),
-            source_arn="arn:aws:sns:us-east-1:861276078413:chunks-ready"
+            source_arn="arn:aws:sns:us-east-1:861276078413:text-chunking-complete"
         )
         
         # KG Integration Worker

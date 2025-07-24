@@ -186,12 +186,12 @@ class NLPIntegrationStack(Stack):
         # SQS permissions for worker
         nlp_worker_queue.grant_consume_messages(nlp_worker)
         
-        # Subscribe processor to existing chunks-ready topic
-        chunks_ready_topic_arn = "arn:aws:sns:us-east-1:861276078413:chunks-ready"
-        chunks_ready_topic = sns.Topic.from_topic_arn(
-            self, "ChunksReadyTopic", chunks_ready_topic_arn)
+        # Subscribe processor to existing text-chunking-complete topic
+        text_chunking_complete_topic_arn = "arn:aws:sns:us-east-1:861276078413:text-chunking-complete"
+        text_chunking_complete_topic = sns.Topic.from_topic_arn(
+            self, "TextChunkingCompleteTopic", text_chunking_complete_topic_arn)
         
-        chunks_ready_topic.add_subscription(
+        text_chunking_complete_topic.add_subscription(
             sns_subscriptions.LambdaSubscription(nlp_processor)
         )
         
@@ -199,7 +199,7 @@ class NLPIntegrationStack(Stack):
         nlp_processor.add_permission(
             "AllowSNSInvoke",
             principal=iam.ServicePrincipal("sns.amazonaws.com"),
-            source_arn=chunks_ready_topic_arn
+            source_arn=text_chunking_complete_topic_arn
         )
         
         # Outputs

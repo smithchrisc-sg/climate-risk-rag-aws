@@ -70,10 +70,10 @@ class TextChunkerPipelineStack(cdk.Stack):
         )
         
         # SNS Topic for text chunker output (chunks ready)
-        self.chunks_ready_topic = sns.Topic(
-            self, "ChunksReadyTopic",
-            topic_name="chunks-ready",
-            display_name="Text Chunks Ready for Processing"
+        self.text_chunking_complete_topic = sns.Topic(
+            self, "TextChunkingCompleteTopic",
+            topic_name="text-chunking-complete",
+            display_name="Text Chunking Complete - Ready for Processing"
         )
         
         # SNS Topic for text extraction completion (input to text chunker)
@@ -121,7 +121,7 @@ class TextChunkerPipelineStack(cdk.Stack):
             'CHUNKS_BUCKET': f'solve-global-kr-chunks-{self.account}-{self.region}',
             'TEXT_BUCKET': f'solve-global-kr-text-new-{self.account}-{self.region}',
             'DATABASE_URL': 'postgresql://postgres:-VroWHWQBS5!V)yAcsDC3(3)NHJ5@solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com:5432/climate_risk_rag?sslmode=require',
-            'CHUNKS_READY_TOPIC_ARN': self.chunks_ready_topic.topic_arn,
+            'CHUNKS_READY_TOPIC_ARN': self.text_chunking_complete_topic.topic_arn,
             'PHASE': 'PRODUCTION_PIPELINE',
         }
         
@@ -159,7 +159,7 @@ class TextChunkerPipelineStack(cdk.Stack):
                                 "sns:Publish"
                             ],
                             resources=[
-                                self.chunks_ready_topic.topic_arn
+                                self.text_chunking_complete_topic.topic_arn
                             ]
                         ),
                         # SQS permissions for receiving messages
@@ -281,9 +281,9 @@ class TextChunkerPipelineStack(cdk.Stack):
         )
         
         CfnOutput(
-            self, "ChunksReadyTopicArn",
-            value=self.chunks_ready_topic.topic_arn,
-            description="Chunks Ready SNS Topic ARN"
+            self, "TextChunkingCompleteTopicArn",
+            value=self.text_chunking_complete_topic.topic_arn,
+            description="Text Chunking Complete SNS Topic ARN"
         )
         
         CfnOutput(

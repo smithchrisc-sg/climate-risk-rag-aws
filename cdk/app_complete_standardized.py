@@ -437,10 +437,10 @@ class DocumentProcessingStack(Stack):
             display_name="Knowledge Graph Triples Ready for Neptune Loading"
         )
         
-        # Reference existing chunks-ready topic
-        chunks_ready_topic_arn = "arn:aws:sns:us-east-1:861276078413:chunks-ready"
-        chunks_ready_topic = sns.Topic.from_topic_arn(
-            self, "ChunksReadyTopic", chunks_ready_topic_arn
+        # Reference existing text-chunking-complete topic
+        text_chunking_complete_topic_arn = "arn:aws:sns:us-east-1:861276078413:text-chunking-complete"
+        text_chunking_complete_topic = sns.Topic.from_topic_arn(
+            self, "TextChunkingCompleteTopic", text_chunking_complete_topic_arn
         )
         
         # Document Structure KG Processor
@@ -469,8 +469,8 @@ class DocumentProcessingStack(Stack):
             vpc_config=vpc_config
         )
         
-        # Subscribe document structure processor to chunks-ready topic
-        chunks_ready_topic.add_subscription(
+        # Subscribe document structure processor to text-chunking-complete topic
+        text_chunking_complete_topic.add_subscription(
             sns_subscriptions.LambdaSubscription(self.document_structure_kg_processor)
         )
         
@@ -478,7 +478,7 @@ class DocumentProcessingStack(Stack):
         self.document_structure_kg_processor.add_permission(
             "AllowSNSInvoke",
             principal=iam.ServicePrincipal("sns.amazonaws.com"),
-            source_arn=chunks_ready_topic_arn
+            source_arn=text_chunking_complete_topic_arn
         )
         
         # KG Integration Worker (Neptune loader)
