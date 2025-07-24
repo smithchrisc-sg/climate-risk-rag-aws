@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
 """
-SPARQL Query Builder - Consistent SPARQL query construction
-Provides reusable query patterns and prevents SPARQL injection
+SPARQL Query Builder - Consistent SPARQL query construction with RDFLib integration
+Provides reusable query patterns and prevents SPARQL injection using proper RDF handling
 """
 import logging
 from typing import List, Dict, Any, Optional, Union
+import re
+
+# RDFLib imports for proper URI handling
+import rdflib
+from rdflib import Graph, Namespace, URIRef, Literal
+from rdflib.namespace import RDF, RDFS, XSD, DCTERMS
+
 from .URIManager import URIManager
 from .kg_exceptions import KGValidationError
 
 class SPARQLQueryBuilder:
-    """Builds consistent SPARQL queries for common knowledge graph operations"""
+    """Builds consistent SPARQL queries for common knowledge graph operations with RDFLib integration"""
     
     def __init__(self, uri_manager: Optional[URIManager] = None):
         """
-        Initialize query builder
+        Initialize query builder with RDFLib integration
         
         Args:
             uri_manager: URIManager instance for consistent URI handling
@@ -21,10 +28,102 @@ class SPARQLQueryBuilder:
         self.logger = logging.getLogger(self.__class__.__name__)
         self.uri_manager = uri_manager or URIManager()
         
-        # Common query patterns
-        self.prefixes = self.uri_manager.get_prefixes_sparql()
+        # Set up namespaces using RDFLib
+        self.kr_ns = Namespace("https://solve.global/kr/")
+        self.dcterms_ns = Namespace("http://purl.org/dc/terms/")
+        self.foaf_ns = Namespace("http://xmlns.com/foaf/0.1/")
+        self.skos_ns = Namespace("http://www.w3.org/2004/02/skos/core#")
         
-    def build_document_concept_query(self, concept_uris: List[str], limit: int = 100) -> str:
+        # Build prefixes for SPARQL queries
+        self.prefixes = self._build_sparql_prefixes()
+        
+        self.logger.debug("SPARQLQueryBuilder initialized with RDFLib integration")
+        
+    def _build_sparql_prefixes(self) -> str:
+        """Build SPARQL prefix declarations using RDFLib namespaces"""
+        return f"""
+        PREFIX kr: <{self.kr_ns}>
+        PREFIX dcterms: <{self.dcterms_ns}>
+        PREFIX foaf: <{self.foaf_ns}>
+        PREFIX skos: <{self.skos_ns}>
+        PREFIX rdf: <{RDF}>
+        PREFIX rdfs: <{RDFS}>
+        PREFIX xsd: <{XSD}>
+        """
+    
+    def validate_uri(self, uri: Union[str, URIRef]) -> URIRef:
+        """
+        Validate and convert URI to RDFLib URIRef
+        
+        Args:
+            uri: URI string or URIRef to validate
+            
+        Returns:
+            Validated URIRef object
+            
+        Raises:
+            KGValidationError: If URI is invalid
+        """
+        try:
+            if isinstance(uri, URIRef):
+                return uri
+            elif isinstance(uri, str):
+                # Use RDFLib to validate URI format
+                uri_ref = URIRef(uri)
+                # Additional validation - must be absolute URI
+                if not uri.startswith(('http://', 'https://', 'urn:')):
+                    raise KGValidationError(f"URI must be absolute: {uri}")
+                return uri_ref
+            else:
+                raise KGValidationError(f"URI must be string or URIRef, got: {type(uri)}")
+                
+        except Exception as e:
+            raise KGValidationError(f"Invalid URI format: {uri} - {e}")
+    
+    def validate_uris(self, uris: List[Union[str, URIRef]]) -> List[URIRef]:
+        """
+        Validate a list of URIs
+        
+        Args:
+            uris: List of URI strings or URIRefs to validate
+            
+        Returns:
+            List of validated URIRef objects
+        """
+        if not uris:
+            raise KGValidationError("URI list cannot be empty")
+        
+        validated_uris = []
+        for uri in uris:
+            validated_uris.append(self.validate_uri(uri))
+        
+        return validated_uris
+    
+    def escape_literal(self, text: str) -> str:
+        """
+        Escape string literal for safe SPARQL usage
+        
+        Args:
+            text: Text to escape
+            
+        Returns:
+            Escaped text safe for SPARQL
+        """
+        if not isinstance(text, str):
+            text = str(text)
+        
+        # Use RDFLib Literal to handle proper escaping
+        literal = Literal(text)
+        # Get the N3 representation which properly escapes the content
+        escaped = literal.n3()
+        
+        # Remove the surrounding quotes since we'll add them in the query
+        if escaped.startswith('"') and escaped.endswith('"'):
+            escaped = escaped[1:-1]
+        
+        return escaped
+    
+    def build_document_concept_query(self, concept_uris: List[Union[str, URIRef]], limit: int = 100) -> str:
         """
         Build query to find documents containing specific concepts
         
@@ -35,83 +134,79 @@ class SPARQLQueryBuilder:
         Returns:
             SPARQL SELECT query
         """
-        if not concept_uris:
-            raise KGValidationError("Concept URIs list cannot be empty")
+        # Validate URIs using RDFLib
+        validated_uris = self.validate_uris(concept_uris)
         
-        # Validate URIs
-        for uri in concept_uris:
-            if not self.uri_manager.is_valid_uri(uri):
-                raise KGValidationError(f"Invalid concept URI: {uri}")
-        
-        # Build VALUES clause for concepts
-        concept_values = " ".join([f"<{uri}>" for uri in concept_uris])
+        # Build VALUES clause for concepts using proper URI formatting
+        concept_values = " ".join([f"<{uri}>" for uri in validated_uris])
         
         query = f"""
         {self.prefixes}
         
-        SELECT DISTINCT ?document ?title ?concept ?conceptText ?confidence
+        SELECT DISTINCT ?document ?documentTitle ?conceptCount
         WHERE {{
             VALUES ?concept {{ {concept_values} }}
             
-            ?chunk kcc:mentionsConcept ?concept ;
+            ?chunk kr:mentionsConcept ?concept ;
                    dcterms:isPartOf ?document .
             
-            ?document dcterms:title ?title .
+            OPTIONAL {{ ?document dcterms:title ?documentTitle }}
             
-            ?chunk kcc:hasConceptMention ?mention .
-            ?mention kcc:hasConcept ?concept ;
-                     kcc:hasText ?conceptText ;
-                     kcc:confidence ?confidence .
+            # Count concepts per document
+            {{
+                SELECT ?document (COUNT(DISTINCT ?concept) AS ?conceptCount)
+                WHERE {{
+                    VALUES ?concept {{ {concept_values} }}
+                    ?chunk kr:mentionsConcept ?concept ;
+                           dcterms:isPartOf ?document .
+                }}
+                GROUP BY ?document
+            }}
         }}
-        ORDER BY DESC(?confidence)
+        ORDER BY DESC(?conceptCount) ?documentTitle
         LIMIT {limit}
         """
         
-        self.logger.debug(f"Built document concept query for {len(concept_uris)} concepts")
+        self.logger.debug(f"Built document concept query for {len(validated_uris)} concepts")
         return query.strip()
     
-    def build_co_occurrence_query(self, concept_uri: str, limit: int = 50) -> str:
+    def build_co_occurrence_query(self, concept_uri: Union[str, URIRef], limit: int = 50) -> str:
         """
         Build query to find concepts that co-occur with a given concept
         
         Args:
-            concept_uri: URI of the concept to find co-occurrences for
+            concept_uri: URI of the concept
             limit: Maximum number of results
             
         Returns:
             SPARQL SELECT query
         """
-        if not concept_uri:
-            raise KGValidationError("Concept URI cannot be empty")
-        
-        if not self.uri_manager.is_valid_uri(concept_uri):
-            raise KGValidationError(f"Invalid concept URI: {concept_uri}")
+        # Validate URI using RDFLib
+        validated_uri = self.validate_uri(concept_uri)
         
         query = f"""
         {self.prefixes}
         
-        SELECT DISTINCT ?coOccurringConcept ?conceptText ?confidence ?chunkId ?document
+        SELECT ?coOccurringConcept ?conceptText ?confidence ?chunkId ?document
         WHERE {{
-            ?chunk kcc:hasCoOccurrence ?cooc .
-            
             # Find co-occurrences where our concept is concept1
             {{
-                ?cooc kcc:hasConcept1 <{concept_uri}> ;
-                      kcc:hasConcept2 ?coOccurringConcept ;
-                      kcc:confidence ?confidence .
+                ?cooc kr:hasConcept1 <{validated_uri}> ;
+                      kr:hasConcept2 ?coOccurringConcept ;
+                      kr:confidence ?confidence .
             }}
             UNION
             # Find co-occurrences where our concept is concept2
             {{
-                ?cooc kcc:hasConcept2 <{concept_uri}> ;
-                      kcc:hasConcept1 ?coOccurringConcept ;
-                      kcc:confidence ?confidence .
+                ?cooc kr:hasConcept2 <{validated_uri}> ;
+                      kr:hasConcept1 ?coOccurringConcept ;
+                      kr:confidence ?confidence .
             }}
             
             # Get additional information about the co-occurring concept
-            ?chunk kcc:hasConceptMention ?mention .
-            ?mention kcc:hasConcept ?coOccurringConcept ;
-                     kcc:hasText ?conceptText .
+            ?chunk kr:hasConceptMention ?mention .
+            ?mention kr:hasConcept ?coOccurringConcept ;
+                     kr:hasText ?conceptText .
             
             # Get chunk and document information
             ?chunk dcterms:isPartOf ?document .
@@ -121,7 +216,7 @@ class SPARQLQueryBuilder:
         LIMIT {limit}
         """
         
-        self.logger.debug(f"Built co-occurrence query for concept: {concept_uri}")
+        self.logger.debug(f"Built co-occurrence query for concept: {validated_uri}")
         return query.strip()
     
     def build_document_summary_query(self, doc_id: str) -> str:
@@ -137,7 +232,13 @@ class SPARQLQueryBuilder:
         if not doc_id:
             raise KGValidationError("Document ID cannot be empty")
         
-        doc_uri = self.uri_manager.mint_document_uri(doc_id)
+        # Generate document URI using URIManager
+        doc_uri = self.uri_manager.mint_uri(
+            unique_id=doc_id,
+            namespace=self.kr_ns,
+            ontology_concept="Document",
+            ontology_uri=self.kr_ns
+        )
         
         query = f"""
         {self.prefixes}
@@ -146,18 +247,18 @@ class SPARQLQueryBuilder:
         WHERE {{
             <{doc_uri}> ^dcterms:isPartOf ?chunk .
             
-            ?chunk kcc:hasConceptMention ?mention .
-            ?mention kcc:hasConcept ?concept ;
-                     kcc:hasText ?conceptText ;
-                     kcc:conceptType ?conceptType ;
-                     kcc:confidence ?confidence .
+            ?chunk kr:hasConceptMention ?mention .
+            ?mention kr:hasConcept ?concept ;
+                     kr:hasText ?conceptText ;
+                     kr:conceptType ?conceptType ;
+                     kr:confidence ?confidence .
             
             # Count chunks containing this concept
             {{
                 SELECT ?concept (COUNT(DISTINCT ?chunk) AS ?chunkCount)
                 WHERE {{
                     <{doc_uri}> ^dcterms:isPartOf ?chunk .
-                    ?chunk kcc:mentionsConcept ?concept .
+                    ?chunk kr:mentionsConcept ?concept .
                 }}
                 GROUP BY ?concept
             }}
@@ -168,7 +269,7 @@ class SPARQLQueryBuilder:
         self.logger.debug(f"Built document summary query for: {doc_id}")
         return query.strip()
     
-    def build_chunk_concept_search(self, concept_uri: str, confidence_threshold: float = 0.5) -> str:
+    def build_chunk_concept_search(self, concept_uri: Union[str, URIRef], confidence_threshold: float = 0.5) -> str:
         """
         Build query to search chunks containing a specific concept above confidence threshold
         
@@ -179,11 +280,8 @@ class SPARQLQueryBuilder:
         Returns:
             SPARQL SELECT query
         """
-        if not concept_uri:
-            raise KGValidationError("Concept URI cannot be empty")
-        
-        if not self.uri_manager.is_valid_uri(concept_uri):
-            raise KGValidationError(f"Invalid concept URI: {concept_uri}")
+        # Validate URI and confidence threshold
+        validated_uri = self.validate_uri(concept_uri)
         
         if not 0 <= confidence_threshold <= 1:
             raise KGValidationError("Confidence threshold must be between 0 and 1")
@@ -193,213 +291,133 @@ class SPARQLQueryBuilder:
         
         SELECT ?chunk ?document ?conceptText ?confidence ?startPosition ?endPosition
         WHERE {{
-            ?chunk kcc:mentionsConcept <{concept_uri}> ;
+            ?chunk kr:mentionsConcept <{validated_uri}> ;
                    dcterms:isPartOf ?document .
             
-            ?chunk kcc:hasConceptMention ?mention .
-            ?mention kcc:hasConcept <{concept_uri}> ;
-                     kcc:hasText ?conceptText ;
-                     kcc:confidence ?confidence ;
-                     kcc:startPosition ?startPosition ;
-                     kcc:endPosition ?endPosition .
+            ?chunk kr:hasConceptMention ?mention .
+            ?mention kr:hasConcept <{validated_uri}> ;
+                     kr:hasText ?conceptText ;
+                     kr:confidence ?confidence ;
+                     kr:startPosition ?startPosition ;
+                     kr:endPosition ?endPosition .
             
             FILTER(?confidence >= {confidence_threshold})
         }}
-        ORDER BY DESC(?confidence)
+        ORDER BY DESC(?confidence) ?document ?startPosition
         """
         
-        self.logger.debug(f"Built chunk concept search for: {concept_uri} (threshold: {confidence_threshold})")
+        self.logger.debug(f"Built chunk concept search for: {validated_uri} (threshold: {confidence_threshold})")
         return query.strip()
     
-    def build_ontology_concepts_query(self, concept_type: Optional[str] = None) -> str:
+    def build_insert_document_query(self, doc_uri: URIRef, metadata: Dict[str, Any], 
+                                   graph_uri: Optional[URIRef] = None) -> str:
         """
-        Build query to retrieve ontology concepts
+        Build SPARQL INSERT query for document metadata using RDFLib objects
         
         Args:
-            concept_type: Optional filter by concept type ('domain' or 'range')
-            
-        Returns:
-            SPARQL SELECT query
-        """
-        type_filter = ""
-        if concept_type:
-            if concept_type not in ['domain', 'range']:
-                raise KGValidationError("Concept type must be 'domain' or 'range'")
-            type_filter = f'FILTER(?conceptType = "{concept_type}")'
-        
-        query = f"""
-        {self.prefixes}
-        
-        SELECT DISTINCT ?concept ?label ?conceptType ?description
-        WHERE {{
-            ?concept a rdfs:Class ;
-                     rdfs:label ?label .
-            
-            OPTIONAL {{ ?concept rdfs:comment ?description }}
-            OPTIONAL {{ ?concept kcc:conceptType ?conceptType }}
-            
-            {type_filter}
-        }}
-        ORDER BY ?label
-        """
-        
-        self.logger.debug(f"Built ontology concepts query (type: {concept_type})")
-        return query.strip()
-    
-    def build_concept_relationships_query(self, concept_uri: str) -> str:
-        """
-        Build query to get relationships for a concept
-        
-        Args:
-            concept_uri: Concept URI to get relationships for
-            
-        Returns:
-            SPARQL SELECT query
-        """
-        if not concept_uri:
-            raise KGValidationError("Concept URI cannot be empty")
-        
-        if not self.uri_manager.is_valid_uri(concept_uri):
-            raise KGValidationError(f"Invalid concept URI: {concept_uri}")
-        
-        query = f"""
-        {self.prefixes}
-        
-        SELECT ?property ?propertyLabel ?relatedConcept ?relatedLabel ?relationshipType
-        WHERE {{
-            # Find properties where this concept is domain
-            {{
-                ?property rdfs:domain <{concept_uri}> ;
-                         rdfs:label ?propertyLabel ;
-                         rdfs:range ?relatedConcept .
-                ?relatedConcept rdfs:label ?relatedLabel .
-                BIND("domain" AS ?relationshipType)
-            }}
-            UNION
-            # Find properties where this concept is range
-            {{
-                ?property rdfs:range <{concept_uri}> ;
-                         rdfs:label ?propertyLabel ;
-                         rdfs:domain ?relatedConcept .
-                ?relatedConcept rdfs:label ?relatedLabel .
-                BIND("range" AS ?relationshipType)
-            }}
-        }}
-        ORDER BY ?propertyLabel ?relatedLabel
-        """
-        
-        self.logger.debug(f"Built concept relationships query for: {concept_uri}")
-        return query.strip()
-    
-    def build_insert_document_query(self, doc_uri: str, metadata: Dict[str, Any], graph_uri: Optional[str] = None) -> str:
-        """
-        Build SPARQL INSERT query for document metadata
-        
-        Args:
-            doc_uri: Document URI
+            doc_uri: Document URI as URIRef
             metadata: Document metadata dictionary
             graph_uri: Optional named graph URI
             
         Returns:
             SPARQL INSERT query
         """
-        if not doc_uri:
-            raise KGValidationError("Document URI cannot be empty")
+        # Validate document URI
+        if not isinstance(doc_uri, URIRef):
+            doc_uri = self.validate_uri(doc_uri)
         
-        # Build triples from metadata
-        triples = [f"<{doc_uri}> a dcterms:Document"]
+        # Build triples using RDFLib for proper formatting
+        triples = []
         
-        # Map common metadata fields to Dublin Core terms
-        dc_mappings = {
-            'title': 'dcterms:title',
-            'creator': 'dcterms:creator',
-            'subject': 'dcterms:subject',
-            'description': 'dcterms:description',
-            'date': 'dcterms:date',
-            'type': 'dcterms:type',
-            'format': 'dcterms:format',
-            'identifier': 'dcterms:identifier'
-        }
+        # Add type triple
+        triples.append(f"<{doc_uri}> rdf:type kr:Document")
         
+        # Add metadata triples with proper escaping
         for key, value in metadata.items():
-            if key in dc_mappings and value:
-                # Escape quotes in literal values
-                escaped_value = str(value).replace('"', '\\"')
-                triples.append(f'<{doc_uri}> {dc_mappings[key]} "{escaped_value}"')
+            if value is None:
+                continue
+                
+            predicate = self._get_metadata_predicate(key)
+            if predicate:
+                if isinstance(value, str):
+                    escaped_value = self.escape_literal(value)
+                    triples.append(f'<{doc_uri}> {predicate} "{escaped_value}"')
+                elif isinstance(value, (int, float)):
+                    triples.append(f'<{doc_uri}> {predicate} {value}')
+                elif isinstance(value, bool):
+                    triples.append(f'<{doc_uri}> {predicate} {str(value).lower()}')
         
-        triples_str = " ;\n    ".join(triples) + " ."
-        
-        graph_clause = f"GRAPH <{graph_uri}> {{ " if graph_uri else ""
-        graph_close = " }" if graph_uri else ""
+        # Build complete query
+        graph_clause = f"GRAPH <{graph_uri}>" if graph_uri else ""
+        triples_content = " .\n    ".join(triples) + " ."
         
         query = f"""
         {self.prefixes}
         
         INSERT DATA {{
-            {graph_clause}
-            {triples_str}
-            {graph_close}
+            {graph_clause} {{
+                {triples_content}
+            }}
         }}
         """
         
         self.logger.debug(f"Built document insert query for: {doc_uri}")
         return query.strip()
     
-    def build_bulk_insert_query(self, ttl_content: str, graph_uri: Optional[str] = None) -> str:
+    def build_concept_search_query(self, search_term: str, concept_types: List[str] = None, 
+                                 limit: int = 50) -> str:
         """
-        Build SPARQL INSERT query for bulk TTL content
+        Build query to search for concepts by text
         
         Args:
-            ttl_content: TTL content to insert
-            graph_uri: Optional named graph URI
+            search_term: Text to search for in concept labels
+            concept_types: Optional list of concept types to filter by
+            limit: Maximum number of results
             
         Returns:
-            SPARQL INSERT query
+            SPARQL SELECT query
         """
-        if not ttl_content:
-            raise KGValidationError("TTL content cannot be empty")
+        if not search_term:
+            raise KGValidationError("Search term cannot be empty")
         
-        graph_clause = f"GRAPH <{graph_uri}> {{ " if graph_uri else ""
-        graph_close = " }" if graph_uri else ""
+        # Escape search term for SPARQL
+        escaped_term = self.escape_literal(search_term)
+        
+        # Build type filter if provided
+        type_filter = ""
+        if concept_types:
+            escaped_types = [f'"{self.escape_literal(t)}"' for t in concept_types]
+            type_values = " ".join(escaped_types)
+            type_filter = f"""
+            VALUES ?conceptType {{ {type_values} }}
+            ?concept kr:conceptType ?conceptType .
+            """
         
         query = f"""
         {self.prefixes}
         
-        INSERT DATA {{
-            {graph_clause}
-            {ttl_content}
-            {graph_close}
-        }}
-        """
-        
-        self.logger.debug("Built bulk insert query")
-        return query.strip()
-    
-    def escape_literal(self, value: str) -> str:
-        """
-        Escape string literal for SPARQL
-        
-        Args:
-            value: String value to escape
+        SELECT DISTINCT ?concept ?label ?conceptType ?description
+        WHERE {{
+            ?concept rdfs:label ?label ;
+                     kr:conceptType ?conceptType .
             
-        Returns:
-            Escaped string safe for SPARQL
+            OPTIONAL {{ ?concept rdfs:comment ?description }}
+            
+            {type_filter}
+            
+            # Text search in labels (case-insensitive)
+            FILTER(CONTAINS(LCASE(?label), LCASE("{escaped_term}")))
+        }}
+        ORDER BY ?label
+        LIMIT {limit}
         """
-        if not isinstance(value, str):
-            value = str(value)
         
-        # Escape quotes and other special characters
-        escaped = value.replace('\\', '\\\\')  # Escape backslashes first
-        escaped = escaped.replace('"', '\\"')   # Escape quotes
-        escaped = escaped.replace('\n', '\\n')  # Escape newlines
-        escaped = escaped.replace('\r', '\\r')  # Escape carriage returns
-        escaped = escaped.replace('\t', '\\t')  # Escape tabs
-        
-        return escaped
+        self.logger.debug(f"Built concept search query for term: {search_term}")
+        return query.strip()
     
     def validate_sparql_injection(self, query: str) -> bool:
         """
-        Basic validation to prevent SPARQL injection
+        Basic validation to prevent SPARQL injection attacks
         
         Args:
             query: SPARQL query to validate
@@ -407,22 +425,98 @@ class SPARQLQueryBuilder:
         Returns:
             True if query appears safe
         """
-        # Basic checks for suspicious patterns
-        suspicious_patterns = [
-            'DROP',
-            'CLEAR',
-            'DELETE WHERE',
-            'LOAD',
-            'CREATE',
-            'COPY',
-            'MOVE',
-            'ADD'
+        if not query:
+            return False
+        
+        # Check for dangerous patterns
+        dangerous_patterns = [
+            r';\s*DROP',
+            r';\s*DELETE\s+WHERE\s*\{[^}]*\}',
+            r'LOAD\s+<[^>]*>',
+            r'CLEAR\s+(GRAPH|DEFAULT|NAMED|ALL)',
+            r'CREATE\s+GRAPH',
+            r'DROP\s+GRAPH'
         ]
         
         query_upper = query.upper()
-        for pattern in suspicious_patterns:
-            if pattern in query_upper:
+        for pattern in dangerous_patterns:
+            if re.search(pattern, query_upper, re.IGNORECASE):
                 self.logger.warning(f"Potentially dangerous SPARQL pattern detected: {pattern}")
                 return False
         
+        # Check for balanced braces and parentheses
+        if query.count('{') != query.count('}'):
+            self.logger.warning("Unbalanced braces in SPARQL query")
+            return False
+        
+        if query.count('(') != query.count(')'):
+            self.logger.warning("Unbalanced parentheses in SPARQL query")
+            return False
+        
         return True
+    
+    def _get_metadata_predicate(self, key: str) -> Optional[str]:
+        """
+        Map metadata keys to SPARQL predicate strings
+        
+        Args:
+            key: Metadata key
+            
+        Returns:
+            SPARQL predicate string or None
+        """
+        predicate_map = {
+            'title': 'dcterms:title',
+            'creator': 'dcterms:creator',
+            'subject': 'dcterms:subject',
+            'description': 'dcterms:description',
+            'date': 'dcterms:date',
+            'type': 'dcterms:type',
+            'format': 'dcterms:format',
+            'language': 'dcterms:language',
+            'publisher': 'dcterms:publisher',
+            'contributor': 'dcterms:contributor',
+            'rights': 'dcterms:rights',
+            'source': 'dcterms:source',
+            'relation': 'dcterms:relation',
+            'coverage': 'dcterms:coverage',
+            # Custom kr: namespace predicates
+            'file_path': 'kr:filePath',
+            'file_size': 'kr:fileSize',
+            'page_count': 'kr:pageCount',
+            'processing_status': 'kr:processingStatus'
+        }
+        
+        return predicate_map.get(key)
+    
+    def get_namespace_info(self) -> Dict[str, str]:
+        """
+        Get information about configured namespaces
+        
+        Returns:
+            Dictionary mapping namespace prefixes to URIs
+        """
+        return {
+            'kr': str(self.kr_ns),
+            'dcterms': str(self.dcterms_ns),
+            'foaf': str(self.foaf_ns),
+            'skos': str(self.skos_ns),
+            'rdf': str(RDF),
+            'rdfs': str(RDFS),
+            'xsd': str(XSD)
+        }
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """
+        Get statistics about the query builder
+        
+        Returns:
+            Dictionary with statistics
+        """
+        return {
+            'builder_type': 'SPARQLQueryBuilder',
+            'rdflib_integration': True,
+            'namespaces_configured': len(self.get_namespace_info()),
+            'injection_protection': True,
+            'uri_validation': True
+        }
