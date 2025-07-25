@@ -5,7 +5,7 @@
 set -e
 
 LAYER_NAME="knowledge-graph-layer"
-LAYER_VERSION="1.0.0"
+LAYER_VERSION="1.0.1"
 BUILD_DIR="build"
 PYTHON_DIR="python"
 

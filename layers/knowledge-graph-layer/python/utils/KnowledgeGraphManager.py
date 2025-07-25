@@ -67,10 +67,15 @@ class KnowledgeGraphManager:
             session_token=self.credentials.token
         )
         
-        # Initialize utility managers
+        # Initialize utility managers with dependency injection
         self.query_builder = SPARQLQueryBuilder()
         self.uri_manager = URIManager()
-        self.ontology_manager = OntologyManager()
+        self.ontology_manager = OntologyManager(
+            self.kr_ns, 
+            self.dcterms_ns, 
+            self.foaf_ns, 
+            self.skos_ns
+        )
         self.triple_manager = TripleManager(self)
         self.bulk_load_manager = BulkLoadManager(self)
         

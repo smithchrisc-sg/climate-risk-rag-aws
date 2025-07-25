@@ -25,7 +25,7 @@ Use this prompt to quickly bring a new AI session up to speed on the project:
 
 **PROMPT:**
 
-I need you to get up to speed on our Climate Risk RAG system project. Please read and analyze the following documents to understand the current state of our work:
+I need you to get up to speed on our Solve Global Knowledge Repository system project. Please read and analyze the following documents to understand the current state of our work:
 
 **REQUIRED READING (in order):**
 

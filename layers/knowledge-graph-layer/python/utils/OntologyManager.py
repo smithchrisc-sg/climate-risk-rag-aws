@@ -20,26 +20,26 @@ from .kg_exceptions import KGQueryError, KGValidationError, KGDataFormatError
 class OntologyManager:
     """Manages ontology concepts and relationships using RDFLib for proper RDF handling"""
     
-    def __init__(self, kg_manager):
+    def __init__(self, kr_ns, dcterms_ns, foaf_ns, skos_ns):
         """
-        Initialize ontology manager with RDFLib integration
+        Initialize ontology manager with dependency injection
         
         Args:
-            kg_manager: KnowledgeGraphManager instance for SPARQL operations
+            kr_ns: Knowledge representation namespace
+            dcterms_ns: Dublin Core terms namespace
+            foaf_ns: Friend of a Friend namespace
+            skos_ns: Simple Knowledge Organization System namespace
         """
         self.logger = logging.getLogger(self.__class__.__name__)
-        self.kg_manager = kg_manager
-        self.uri_manager = kg_manager.uri_manager
-        self.query_builder = kg_manager.query_builder
         
         # S3 client for ontology data loading
         self.s3_client = boto3.client('s3')
         
-        # Set up namespaces using RDFLib
-        self.kr_ns = kg_manager.kr_ns
-        self.dcterms_ns = kg_manager.dcterms_ns
-        self.foaf_ns = kg_manager.foaf_ns
-        self.skos_ns = kg_manager.skos_ns
+        # Set up namespaces using RDFLib (injected dependencies)
+        self.kr_ns = kr_ns
+        self.dcterms_ns = dcterms_ns
+        self.foaf_ns = foaf_ns
+        self.skos_ns = skos_ns
         
         # Configuration
         self.ontology_bucket = self._get_env_var('ONTOLOGY_BUCKET', 'solve-global-kr-dl-ontology-861276078413-us-east-1')
