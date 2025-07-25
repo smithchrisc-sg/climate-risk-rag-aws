@@ -199,11 +199,11 @@ class ClimateRiskRAGProductionStack(Stack):
             display_name="Text Ready Topic"
         )
         
-        # Chunks ready (chunking complete)
-        self.chunks_ready_topic = sns.Topic(
-            self, "ChunksReadyTopic",
-            topic_name="solve-global-kr-chunks-ready",
-            display_name="Chunks Ready Topic"
+        # Text chunking complete (matches deployed system)
+        self.text_chunking_complete_topic = sns.Topic(
+            self, "TextChunkingCompleteTopic",
+            topic_name="text-chunking-complete",
+            display_name="Text Chunking Complete Topic"
         )
         
         # Vector embeddings ready
@@ -437,7 +437,7 @@ class ClimateRiskRAGProductionStack(Stack):
             layers=[self.database_layer, self.database_dependencies_layer],
             environment={
                 **common_env,
-                "CHUNKS_READY_TOPIC_ARN": self.chunks_ready_topic.topic_arn,
+                "CHUNKS_READY_TOPIC_ARN": self.text_chunking_complete_topic.topic_arn,
                 "CHUNKS_BUCKET": self.chunks_bucket.bucket_name
             }
         )
@@ -544,11 +544,11 @@ class ClimateRiskRAGProductionStack(Stack):
             sns_subscriptions.LambdaSubscription(self.text_chunker_processor)
         )
         
-        # Chunks ready -> Vector embeddings worker AND Document structure KG processor
-        self.chunks_ready_topic.add_subscription(
+        # Text chunking complete -> Vector embeddings worker AND Document structure KG processor
+        self.text_chunking_complete_topic.add_subscription(
             sns_subscriptions.LambdaSubscription(self.vector_embeddings_worker)
         )
-        self.chunks_ready_topic.add_subscription(
+        self.text_chunking_complete_topic.add_subscription(
             sns_subscriptions.LambdaSubscription(self.document_structure_kg_processor)
         )
         
@@ -588,9 +588,9 @@ class ClimateRiskRAGProductionStack(Stack):
         )
         
         CfnOutput(
-            self, "TextExtractionReadyTopicArn",
-            value=self.text_extraction_ready_topic.topic_arn,
-            description="Text extraction ready SNS topic ARN"
+            self, "TextChunkingCompleteTopicArn",
+            value=self.text_chunking_complete_topic.topic_arn,
+            description="Text chunking complete SNS topic ARN"
         )
         
         CfnOutput(
