@@ -1,6 +1,7 @@
 """
 OpenSearch Cleanup Module
-Handles cleanup of vector embeddings and keyword indices
+Handles cleanup of vector embeddings and keyword indices for AWS Managed OpenSearch
+Updated from OpenSearch Serverless to Managed OpenSearch cluster
 """
 
 import logging
@@ -13,7 +14,6 @@ import json
 # Try to import OpenSearch dependencies, handle gracefully if not available
 try:
     from opensearchpy import OpenSearch, RequestsHttpConnection
-    from requests_aws4auth import AWS4Auth
     OPENSEARCH_AVAILABLE = True
 except ImportError:
     OPENSEARCH_AVAILABLE = False
@@ -21,53 +21,48 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 class OpenSearchCleanup:
-    """Handles OpenSearch cleanup operations"""
+    """Handles OpenSearch cleanup operations for AWS Managed OpenSearch cluster"""
     
     def __init__(self):
         if not OPENSEARCH_AVAILABLE:
             logger.warning("OpenSearch dependencies not available - OpenSearch cleanup will be skipped")
-            self.region = None
-            self.vector_endpoint = None
-            self.keyword_endpoint = None
-            self.awsauth = None
+            self.opensearch_endpoint = None
+            self.opensearch_username = None
+            self.opensearch_password = None
             return
             
-        self.region = boto3.Session().region_name or 'us-east-1'
-        self.vector_endpoint = os.environ.get('OPENSEARCH_VECTOR_ENDPOINT')
-        self.keyword_endpoint = os.environ.get('OPENSEARCH_KEYWORD_ENDPOINT')
+        # Use single managed cluster endpoint (same as vector-embeddings-worker and keyword-indexer)
+        self.opensearch_endpoint = os.environ.get('OPENSEARCH_ENDPOINT')
+        self.opensearch_username = os.environ.get('OPENSEARCH_USERNAME', 'admin')
+        self.opensearch_password = os.environ.get('OPENSEARCH_PASSWORD')
         
-        # Set up AWS authentication for OpenSearch Serverless
-        credentials = boto3.Session().get_credentials()
-        self.awsauth = AWS4Auth(
-            credentials.access_key,
-            credentials.secret_key,
-            self.region,
-            'aoss',  # Use 'aoss' for OpenSearch Serverless
-            session_token=credentials.token
-        )
+        logger.info(f"OpenSearch cleanup initialized for managed cluster: {self.opensearch_endpoint}")
     
-    def _get_opensearch_client(self, endpoint: str) -> OpenSearch:
+    def _get_opensearch_client(self) -> OpenSearch:
         """
-        Create OpenSearch client for the given endpoint
+        Create OpenSearch client for managed cluster with basic authentication
         
-        Args:
-            endpoint: OpenSearch endpoint URL
-            
         Returns:
             OpenSearch client instance
         """
         if not OPENSEARCH_AVAILABLE:
             raise Exception("OpenSearch dependencies not available")
             
+        if not self.opensearch_endpoint:
+            raise Exception("OPENSEARCH_ENDPOINT environment variable not set")
+            
+        if not self.opensearch_password:
+            raise Exception("OPENSEARCH_PASSWORD environment variable not set")
+        
         # Extract host from endpoint URL
-        host = endpoint.replace('https://', '').replace('http://', '')
-        logger.info(f"Creating OpenSearch client for host: {host}")
+        host = self.opensearch_endpoint.replace('https://', '').replace('http://', '')
+        logger.info(f"Creating OpenSearch client for managed cluster host: {host}")
         
         try:
-            # Create client for OpenSearch Serverless
+            # Create client for AWS Managed OpenSearch with basic auth
             client = OpenSearch(
                 hosts=[{'host': host, 'port': 443}],
-                http_auth=self.awsauth,
+                http_auth=(self.opensearch_username, self.opensearch_password),
                 use_ssl=True,
                 verify_certs=True,
                 connection_class=RequestsHttpConnection,
@@ -76,16 +71,20 @@ class OpenSearchCleanup:
                 retry_on_timeout=True
             )
             
-            logger.info(f"Successfully created OpenSearch client for {host}")
+            # Test connection
+            info = client.info()
+            logger.info(f"Connected to OpenSearch cluster: {info.get('cluster_name', 'unknown')}")
+            logger.info(f"OpenSearch version: {info.get('version', {}).get('number', 'unknown')}")
+            
             return client
             
         except Exception as e:
-            logger.error(f"Failed to create OpenSearch client for {host}: {str(e)}", exc_info=True)
-            raise Exception(f"OpenSearch client creation failed for {host}: {str(e)}")
+            logger.error(f"Failed to create OpenSearch client for managed cluster: {str(e)}", exc_info=True)
+            raise Exception(f"OpenSearch client creation failed: {str(e)}")
     
     def cleanup_opensearch(self, config: Dict[str, Any], dry_run: bool = False) -> Dict[str, Any]:
         """
-        Clean up OpenSearch collections
+        Clean up OpenSearch indices in managed cluster
         
         Args:
             config: OpenSearch cleanup configuration
@@ -94,14 +93,14 @@ class OpenSearchCleanup:
         Returns:
             Dict containing cleanup results
         """
-        logger.info(f"Starting OpenSearch cleanup. Dry run: {dry_run}")
+        logger.info(f"Starting OpenSearch cleanup for managed cluster. Dry run: {dry_run}")
         
         if not OPENSEARCH_AVAILABLE:
             return {
                 'success': False,
                 'operations_performed': [],
                 'documents_affected': {},
-                'errors': ['OpenSearch dependencies not available - install opensearch-py and requests-aws4auth']
+                'errors': ['OpenSearch dependencies not available - install opensearch-py']
             }
         
         results = {
@@ -112,36 +111,51 @@ class OpenSearchCleanup:
         }
         
         try:
-            collections = config.get('collections', ['climate-risk-vectorsearch', 'climate-risk-keyword-index'])
+            # Map old collection names to actual index names used in managed cluster
+            collections = config.get('collections', [])
             document_ids = config.get('document_ids', [])
             
+            # Convert collection names to actual index names
+            index_mapping = {
+                'climate-risk-vectorsearch': 'chunks_vector',  # From vector-embeddings-worker
+                'climate-risk-keyword-index': 'documents',     # From keyword-indexer
+                'solve-global-kr-vectors-v2': 'chunks_vector', # Legacy mapping
+                'solve-global-kr-search-v2': 'documents'       # Legacy mapping
+            }
+            
+            # Get actual indices to clean
+            indices_to_clean = []
             for collection in collections:
+                if collection in index_mapping:
+                    indices_to_clean.append(index_mapping[collection])
+                else:
+                    # Try the collection name as-is (might be an actual index name)
+                    indices_to_clean.append(collection)
+            
+            # If no specific collections specified, clean the known indices
+            if not indices_to_clean:
+                indices_to_clean = ['chunks_vector', 'documents']
+            
+            logger.info(f"Will clean indices: {indices_to_clean}")
+            
+            # Get single OpenSearch client for managed cluster
+            client = self._get_opensearch_client()
+            
+            for index_name in indices_to_clean:
                 try:
-                    if 'vectorsearch' in collection.lower():
-                        collection_result = self._cleanup_vector_collection(
-                            collection, document_ids, dry_run
-                        )
-                    elif 'keyword' in collection.lower():
-                        collection_result = self._cleanup_keyword_collection(
-                            collection, document_ids, dry_run
-                        )
-                    else:
-                        # Generic cleanup approach
-                        collection_result = self._cleanup_generic_collection(
-                            collection, document_ids, dry_run
-                        )
+                    index_result = self._cleanup_index(client, index_name, document_ids, dry_run)
                     
-                    results['documents_affected'][collection] = collection_result['documents_affected']
-                    results['operations_performed'].extend(collection_result['operations_performed'])
+                    results['documents_affected'][index_name] = index_result['documents_affected']
+                    results['operations_performed'].extend(index_result['operations_performed'])
                     
-                    if not collection_result['success']:
+                    if not index_result['success']:
                         results['success'] = False
-                        results['errors'].extend(collection_result['errors'])
+                        results['errors'].extend(index_result['errors'])
                     
-                    logger.info(f"Collection {collection}: {collection_result['documents_affected']} documents {'would be' if dry_run else ''} deleted")
+                    logger.info(f"Index {index_name}: {index_result['documents_affected']} documents {'would be' if dry_run else ''} deleted")
                     
                 except Exception as e:
-                    error_msg = f"Failed to clean collection {collection}: {str(e)}"
+                    error_msg = f"Failed to clean index {index_name}: {str(e)}"
                     logger.error(error_msg)
                     results['errors'].append(error_msg)
                     results['success'] = False
@@ -154,82 +168,10 @@ class OpenSearchCleanup:
         
         return results
     
-    def _cleanup_vector_collection(self, collection: str, document_ids: List[str], dry_run: bool) -> Dict[str, Any]:
-        """Clean up vector search collection"""
-        if not self.vector_endpoint:
-            return {
-                'success': False,
-                'documents_affected': 0,
-                'operations_performed': [],
-                'errors': ['Vector endpoint not configured']
-            }
-        
-        return self._cleanup_collection_by_endpoint(
-            self.vector_endpoint, collection, document_ids, dry_run, 'vector'
-        )
-    
-    def _cleanup_keyword_collection(self, collection: str, document_ids: List[str], dry_run: bool) -> Dict[str, Any]:
-        """Clean up keyword search collection"""
-        if not self.keyword_endpoint:
-            return {
-                'success': False,
-                'documents_affected': 0,
-                'operations_performed': [],
-                'errors': ['Keyword endpoint not configured']
-            }
-        
-        return self._cleanup_collection_by_endpoint(
-            self.keyword_endpoint, collection, document_ids, dry_run, 'keyword'
-        )
-    
-    def _cleanup_generic_collection(self, collection: str, document_ids: List[str], dry_run: bool) -> Dict[str, Any]:
-        """Generic collection cleanup - maps collection names to correct endpoints"""
-        # Map known collection names to their correct endpoints
-        collection_endpoint_map = {
-            'solve-global-kr-vectors-v2': (self.vector_endpoint, 'vector'),
-            'solve-global-kr-search-v2': (self.keyword_endpoint, 'keyword')
-        }
-        
-        # Check if we have a specific mapping for this collection
-        if collection in collection_endpoint_map:
-            endpoint, endpoint_type = collection_endpoint_map[collection]
-            if endpoint:
-                try:
-                    return self._cleanup_collection_by_endpoint(
-                        endpoint, collection, document_ids, dry_run, endpoint_type
-                    )
-                except Exception as e:
-                    logger.error(f"Failed to clean {collection} via {endpoint_type} endpoint: {str(e)}")
-                    return {
-                        'success': False,
-                        'documents_affected': 0,
-                        'operations_performed': [],
-                        'errors': [f'Failed to connect to {endpoint_type} endpoint for collection {collection}: {str(e)}']
-                    }
-        
-        # Fallback: Try both endpoints for unknown collections
-        for endpoint, endpoint_type in [(self.vector_endpoint, 'vector'), (self.keyword_endpoint, 'keyword')]:
-            if endpoint:
-                try:
-                    result = self._cleanup_collection_by_endpoint(
-                        endpoint, collection, document_ids, dry_run, endpoint_type
-                    )
-                    if result['success'] or result['documents_affected'] > 0:
-                        return result
-                except Exception as e:
-                    logger.warning(f"Failed to clean {collection} via {endpoint_type} endpoint: {str(e)}")
-        
-        return {
-            'success': False,
-            'documents_affected': 0,
-            'operations_performed': [],
-            'errors': [f'No valid endpoint found for collection {collection}']
-        }
-    
-    def _cleanup_collection_by_endpoint(self, endpoint: str, collection: str, document_ids: List[str], 
-                                      dry_run: bool, endpoint_type: str) -> Dict[str, Any]:
-        """Clean up collection using specific endpoint"""
-        logger.info(f"Starting cleanup for collection {collection} via {endpoint_type} endpoint: {endpoint}")
+    def _cleanup_index(self, client: OpenSearch, index_name: str, document_ids: List[str], 
+                      dry_run: bool) -> Dict[str, Any]:
+        """Clean up specific index in managed OpenSearch cluster"""
+        logger.info(f"Starting cleanup for index {index_name}")
         
         results = {
             'success': True,
@@ -239,223 +181,232 @@ class OpenSearchCleanup:
         }
         
         try:
-            # Get OpenSearch client
-            logger.info(f"Creating OpenSearch client for {endpoint_type} endpoint")
-            client = self._get_opensearch_client(endpoint)
-            logger.info(f"Successfully created OpenSearch client for {endpoint_type}")
-            
-            # Try to discover what indices actually exist in the collection
-            logger.info(f"Attempting to discover indices in collection {collection}")
-            
-            # Try different approaches to find indices
-            possible_indices = [
-                collection,  # Same as collection name
-                f"{collection}-index",  # Collection name with -index suffix
-                "documents",  # Generic documents index
-                "vectors",  # Generic vectors index
-                "embeddings",  # Generic embeddings index
-                "*"  # Wildcard to match any index
-            ]
-            
-            documents_found = 0
-            indices_found = []
-            
-            for index_name in possible_indices:
-                try:
-                    logger.info(f"Trying index name: {index_name}")
-                    
-                    if index_name == "*":
-                        # Try to list all indices
-                        try:
-                            indices_response = client.cat.indices(format='json')
-                            logger.info(f"Found indices via cat.indices: {indices_response}")
-                            if indices_response:
-                                for idx in indices_response:
-                                    index_name = idx.get('index', idx.get('i', 'unknown'))
-                                    doc_count = int(idx.get('docs.count', '0'))
-                                    indices_found.append(index_name)
-                                    documents_found += doc_count
-                                    logger.info(f"Index {index_name} has {doc_count} documents")
-                        except Exception as cat_error:
-                            logger.info(f"cat.indices failed: {cat_error}")
-                    else:
-                        # Try to search this specific index
-                        response = client.search(
-                            index=index_name,
-                            body={
-                                "query": {"match_all": {}},
-                                "size": 0
-                            }
-                        )
-                        doc_count = response['hits']['total']['value']
-                        if doc_count > 0:
-                            logger.info(f"Found {doc_count} documents in index {index_name}")
-                            documents_found += doc_count
-                            indices_found.append(index_name)
-                        else:
-                            logger.info(f"Index {index_name} exists but is empty")
-                            indices_found.append(index_name)
-                            
-                except Exception as e:
-                    error_str = str(e).lower()
-                    if 'index_not_found' in error_str or '404' in error_str:
-                        logger.info(f"Index {index_name} does not exist")
-                    else:
-                        logger.warning(f"Error checking index {index_name}: {e}")
-            
-            logger.info(f"Discovery complete. Found indices: {indices_found}, Total documents: {documents_found}")
-            
-            if documents_found > 0 or indices_found:
-                results['documents_affected'] = documents_found
+            # Check if index exists
+            if not client.indices.exists(index=index_name):
+                logger.info(f"Index {index_name} does not exist")
                 results['operations_performed'].append({
-                    'operation': 'discovery_successful',
-                    'collection': collection,
-                    'endpoint_type': endpoint_type,
-                    'indices_found': indices_found,
-                    'documents_found': documents_found,
+                    'operation': 'index_not_found',
+                    'index': index_name,
+                    'dry_run': dry_run
+                })
+                return results
+            
+            # Get document count
+            try:
+                count_response = client.count(index=index_name)
+                doc_count = count_response['count']
+                logger.info(f"Index {index_name} contains {doc_count} documents")
+                
+                results['documents_affected'] = doc_count
+                results['operations_performed'].append({
+                    'operation': 'index_discovered',
+                    'index': index_name,
+                    'documents_found': doc_count,
                     'dry_run': dry_run
                 })
                 
-                if not dry_run and documents_found > 0:
-                    # Actually delete documents from found indices
-                    for index_name in indices_found:
-                        try:
-                            logger.info(f"Attempting to delete all documents from index {index_name}")
-                            
-                            # OpenSearch Serverless doesn't support delete_by_query
-                            # So we need to get all document IDs first, then delete individually
-                            
-                            # First, get all document IDs
-                            search_response = client.search(
-                                index=index_name,
-                                body={
-                                    "query": {"match_all": {}},
-                                    "size": 1000,  # Get up to 1000 docs
-                                    "_source": False  # We only need IDs
-                                }
-                            )
-                            
-                            hits = search_response.get('hits', {}).get('hits', [])
-                            deleted_count = 0
-                            
-                            logger.info(f"Found {len(hits)} documents to delete from {index_name}")
-                            
-                            # Delete each document individually
-                            for hit in hits:
-                                doc_id = hit['_id']
-                                try:
-                                    client.delete(index=index_name, id=doc_id)
-                                    deleted_count += 1
-                                    logger.debug(f"Deleted document {doc_id} from {index_name}")
-                                except Exception as doc_delete_error:
-                                    logger.warning(f"Failed to delete document {doc_id}: {doc_delete_error}")
-                            
-                            logger.info(f"Successfully deleted {deleted_count} documents from index {index_name}")
-                            
-                            # Update the operation result
-                            for op in results['operations_performed']:
-                                if op.get('operation') == 'discovery_successful' and op.get('collection') == collection:
-                                    op['documents_actually_deleted'] = deleted_count
-                                    op['deletion_method'] = 'individual_document_deletion'
-                                    break
-                            
-                        except Exception as delete_error:
-                            logger.error(f"Failed to delete from index {index_name}: {delete_error}")
-                            results['errors'].append(f"Failed to delete from index {index_name}: {str(delete_error)}")
-                            results['success'] = False
-            else:
-                # No indices found
-                results['operations_performed'].append({
-                    'operation': 'collection_empty_or_not_found',
-                    'collection': collection,
-                    'endpoint_type': endpoint_type,
-                    'dry_run': dry_run
-                })
+                if doc_count == 0:
+                    logger.info(f"Index {index_name} is already empty")
+                    return results
+                
+            except Exception as e:
+                logger.error(f"Failed to count documents in index {index_name}: {e}")
+                results['errors'].append(f"Failed to count documents: {str(e)}")
+                results['success'] = False
+                return results
+            
+            if not dry_run and doc_count > 0:
+                # Delete documents from index
+                try:
+                    if document_ids:
+                        # Delete specific documents
+                        deleted_count = self._delete_specific_documents(client, index_name, document_ids)
+                    else:
+                        # Delete all documents
+                        deleted_count = self._delete_all_documents(client, index_name)
+                    
+                    results['operations_performed'].append({
+                        'operation': 'documents_deleted',
+                        'index': index_name,
+                        'documents_deleted': deleted_count,
+                        'deletion_method': 'specific_documents' if document_ids else 'all_documents',
+                        'dry_run': dry_run
+                    })
+                    
+                    logger.info(f"Successfully deleted {deleted_count} documents from index {index_name}")
+                    
+                except Exception as delete_error:
+                    logger.error(f"Failed to delete from index {index_name}: {delete_error}")
+                    results['errors'].append(f"Failed to delete from index {index_name}: {str(delete_error)}")
+                    results['success'] = False
         
         except Exception as e:
-            error_msg = f"OpenSearch client error for {collection} on {endpoint_type}: {str(e)}"
+            error_msg = f"OpenSearch index cleanup error for {index_name}: {str(e)}"
             logger.error(error_msg, exc_info=True)
             results['success'] = False
             results['errors'].append(error_msg)
         
-        logger.info(f"Cleanup completed for {collection} via {endpoint_type}: {results}")
+        logger.info(f"Cleanup completed for index {index_name}: {results}")
         return results
+    
+    def _delete_all_documents(self, client: OpenSearch, index_name: str) -> int:
+        """Delete all documents from an index"""
+        try:
+            # Use delete_by_query to delete all documents
+            response = client.delete_by_query(
+                index=index_name,
+                body={
+                    "query": {
+                        "match_all": {}
+                    }
+                },
+                wait_for_completion=True,
+                refresh=True
+            )
+            
+            deleted_count = response.get('deleted', 0)
+            logger.info(f"Deleted {deleted_count} documents using delete_by_query")
+            return deleted_count
+            
+        except Exception as e:
+            logger.warning(f"delete_by_query failed, falling back to individual deletion: {e}")
+            # Fallback to individual document deletion
+            return self._delete_documents_individually(client, index_name)
+    
+    def _delete_specific_documents(self, client: OpenSearch, index_name: str, document_ids: List[str]) -> int:
+        """Delete specific documents by ID"""
+        deleted_count = 0
+        
+        for doc_id in document_ids:
+            try:
+                client.delete(index=index_name, id=doc_id)
+                deleted_count += 1
+                logger.debug(f"Deleted document {doc_id} from {index_name}")
+            except Exception as e:
+                if '404' not in str(e):  # Ignore not found errors
+                    logger.warning(f"Failed to delete document {doc_id}: {e}")
+        
+        # Refresh index after deletions
+        client.indices.refresh(index=index_name)
+        
+        logger.info(f"Deleted {deleted_count} specific documents from {index_name}")
+        return deleted_count
+    
+    def _delete_documents_individually(self, client: OpenSearch, index_name: str) -> int:
+        """Delete all documents individually (fallback method)"""
+        deleted_count = 0
+        
+        try:
+            # Get all document IDs in batches
+            scroll_response = client.search(
+                index=index_name,
+                body={
+                    "query": {"match_all": {}},
+                    "size": 1000,
+                    "_source": False
+                },
+                scroll='5m'
+            )
+            
+            scroll_id = scroll_response['_scroll_id']
+            hits = scroll_response['hits']['hits']
+            
+            while hits:
+                # Delete this batch of documents
+                for hit in hits:
+                    try:
+                        client.delete(index=index_name, id=hit['_id'])
+                        deleted_count += 1
+                    except Exception as e:
+                        logger.warning(f"Failed to delete document {hit['_id']}: {e}")
+                
+                # Get next batch
+                scroll_response = client.scroll(scroll_id=scroll_id, scroll='5m')
+                hits = scroll_response['hits']['hits']
+            
+            # Clear scroll
+            client.clear_scroll(scroll_id=scroll_id)
+            
+            # Refresh index
+            client.indices.refresh(index=index_name)
+            
+        except Exception as e:
+            logger.error(f"Individual deletion failed: {e}")
+            raise
+        
+        logger.info(f"Individually deleted {deleted_count} documents from {index_name}")
+        return deleted_count
     
     def get_opensearch_status(self) -> Dict[str, Any]:
         """
-        Get current OpenSearch status for reporting
+        Get current OpenSearch status for managed cluster
         
         Returns:
             Dict containing OpenSearch status information
         """
         status = {
-            'vector_endpoint': {
-                'endpoint': self.vector_endpoint,
+            'managed_cluster': {
+                'endpoint': self.opensearch_endpoint,
                 'status': 'unknown',
-                'collections': {}
-            },
-            'keyword_endpoint': {
-                'endpoint': self.keyword_endpoint,
-                'status': 'unknown',
-                'collections': {}
+                'indices': {}
             },
             'errors': []
         }
         
-        # Check vector endpoint
-        if self.vector_endpoint:
-            try:
-                client = OpenSearch(
-                    hosts=[{'host': self.vector_endpoint.replace('https://', ''), 'port': 443}],
-                    http_auth=self.awsauth,
-                    use_ssl=True,
-                    verify_certs=True,
-                    connection_class=RequestsHttpConnection
-                )
-                
-                # Get cluster health
-                health = client.cluster.health()
-                status['vector_endpoint']['status'] = health['status']
-                
-                # Get indices
-                indices = client.indices.get_alias(index="*")
-                for index_name in indices:
-                    try:
-                        count_response = client.count(index=index_name)
-                        status['vector_endpoint']['collections'][index_name] = count_response['count']
-                    except Exception as e:
-                        status['vector_endpoint']['collections'][index_name] = f"Error: {str(e)}"
-                        
-            except Exception as e:
-                status['vector_endpoint']['status'] = 'failed'
-                status['errors'].append(f"Vector endpoint error: {str(e)}")
+        if not OPENSEARCH_AVAILABLE:
+            status['errors'].append("OpenSearch dependencies not available")
+            return status
         
-        # Check keyword endpoint
-        if self.keyword_endpoint:
+        # Check managed cluster
+        if self.opensearch_endpoint:
             try:
-                client = OpenSearch(
-                    hosts=[{'host': self.keyword_endpoint.replace('https://', ''), 'port': 443}],
-                    http_auth=self.awsauth,
-                    use_ssl=True,
-                    verify_certs=True,
-                    connection_class=RequestsHttpConnection
-                )
+                client = self._get_opensearch_client()
                 
                 # Get cluster health
                 health = client.cluster.health()
-                status['keyword_endpoint']['status'] = health['status']
+                status['managed_cluster']['status'] = health['status']
                 
-                # Get indices
-                indices = client.indices.get_alias(index="*")
-                for index_name in indices:
-                    try:
-                        count_response = client.count(index=index_name)
-                        status['keyword_endpoint']['collections'][index_name] = count_response['count']
-                    except Exception as e:
-                        status['keyword_endpoint']['collections'][index_name] = f"Error: {str(e)}"
+                # Get indices information
+                try:
+                    indices_response = client.cat.indices(format='json')
+                    for idx in indices_response:
+                        index_name = idx.get('index', idx.get('i', 'unknown'))
+                        doc_count = idx.get('docs.count', '0')
+                        status['managed_cluster']['indices'][index_name] = {
+                            'document_count': int(doc_count) if doc_count.isdigit() else 0,
+                            'health': idx.get('health', 'unknown'),
+                            'status': idx.get('status', 'unknown')
+                        }
+                except Exception as indices_error:
+                    logger.warning(f"Failed to get indices info: {indices_error}")
+                    # Fallback: try to get info for known indices
+                    known_indices = ['chunks_vector', 'documents']
+                    for index_name in known_indices:
+                        try:
+                            if client.indices.exists(index=index_name):
+                                count_response = client.count(index=index_name)
+                                status['managed_cluster']['indices'][index_name] = {
+                                    'document_count': count_response['count'],
+                                    'health': 'unknown',
+                                    'status': 'exists'
+                                }
+                            else:
+                                status['managed_cluster']['indices'][index_name] = {
+                                    'document_count': 0,
+                                    'health': 'unknown',
+                                    'status': 'not_found'
+                                }
+                        except Exception as e:
+                            status['managed_cluster']['indices'][index_name] = {
+                                'document_count': 0,
+                                'health': 'error',
+                                'status': f"Error: {str(e)}"
+                            }
                         
             except Exception as e:
-                status['keyword_endpoint']['status'] = 'failed'
-                status['errors'].append(f"Keyword endpoint error: {str(e)}")
+                status['managed_cluster']['status'] = 'failed'
+                status['errors'].append(f"Managed cluster error: {str(e)}")
+        else:
+            status['errors'].append("OPENSEARCH_ENDPOINT not configured")
         
         return status
