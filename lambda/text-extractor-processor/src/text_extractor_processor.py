@@ -101,11 +101,13 @@ class TextExtractorProcessor:
             text_lines = []
             tables = []
             forms = []
+            layout_elements = []
             
             # Group blocks by type
             line_blocks = [b for b in blocks if b.get('BlockType') == 'LINE']
             table_blocks = [b for b in blocks if b.get('BlockType') == 'TABLE']
             key_value_blocks = [b for b in blocks if b.get('BlockType') == 'KEY_VALUE_SET']
+            layout_blocks = [b for b in blocks if b.get('BlockType') == 'LAYOUT']
             
             # Extract line text
             for block in line_blocks:
@@ -113,8 +115,21 @@ class TextExtractorProcessor:
                     text_lines.append({
                         'text': block['Text'],
                         'confidence': block.get('Confidence', 0),
-                        'geometry': block.get('Geometry', {})
+                        'geometry': block.get('Geometry', {}),
+                        'page': block.get('Page', 1)
                     })
+            
+            # Extract layout information
+            for layout in layout_blocks:
+                layout_elements.append({
+                    'id': layout.get('Id'),
+                    'layout_type': layout.get('LayoutType'),
+                    'confidence': layout.get('Confidence', 0),
+                    'geometry': layout.get('Geometry', {}),
+                    'page': layout.get('Page', 1),
+                    'text': layout.get('Text', ''),
+                    'reading_order': layout.get('ReadingOrder')
+                })
             
             # Extract table information (simplified)
             for table in table_blocks:
@@ -122,7 +137,8 @@ class TextExtractorProcessor:
                     'id': table.get('Id'),
                     'confidence': table.get('Confidence', 0),
                     'row_count': len([r for r in table.get('Relationships', []) if r.get('Type') == 'CHILD']),
-                    'geometry': table.get('Geometry', {})
+                    'geometry': table.get('Geometry', {}),
+                    'page': table.get('Page', 1)
                 })
             
             # Extract form information (simplified)
@@ -131,7 +147,8 @@ class TextExtractorProcessor:
                     forms.append({
                         'id': kv.get('Id'),
                         'confidence': kv.get('Confidence', 0),
-                        'geometry': kv.get('Geometry', {})
+                        'geometry': kv.get('Geometry', {}),
+                        'page': kv.get('Page', 1)
                     })
             
             # Combine all text
@@ -142,10 +159,12 @@ class TextExtractorProcessor:
                 'line_count': len(text_lines),
                 'table_count': len(tables),
                 'form_count': len(forms),
+                'layout_count': len(layout_elements),
                 'character_count': len(full_text),
                 'lines': text_lines,
                 'tables': tables,
-                'forms': forms
+                'forms': forms,
+                'layout_elements': layout_elements
             }
             
         except Exception as e:

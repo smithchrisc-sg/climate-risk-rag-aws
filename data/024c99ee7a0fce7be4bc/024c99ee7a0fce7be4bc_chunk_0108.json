@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        58
+    ], 
+    "chunk_index": 108, 
+    "semantic_context": "", 
+    "text": "[Previous context: However, the topography is quite variable and landscape\n\nposition is probably the best method of determining the effect of topography on soil and\n\nvegetation development and land use planning.] The original lava flows, indicated by most recent lava flows in the island of Savai'i, have\n\na rolling surface to a highly irregular surface with abrupt depressions and mounds. Steep\n\nhills and ridges are created by individual streams of lava, and steep slopes exist on the\n\nsides of cones. The overall slope of island varies from nearly level along the coastal areas\n\n[Context: sides of cones. The overall slope of island varies from nearly level along the coastal areas]\n(shoreline) to moderately sloping, following the slopes of the original lava flows.\n\nHowever, in some areas, geologic erosion has cut steep sloping valleys into the original\n\nslopes, creating some very steep backslopes or abrupt cliffs, and occasionally a nearly\n\nlevel valley floors. All these conditions have significant effect on soil formation, its depth\n\nand rockiness.\n\nClimate\n\n3.7\n\n[Context: 3.7]\nSamoa is characterized by a tropical rain-forest climate and is generally hot and wet.\nMean lowland and upland temperatures range from 26 - 28\u00b0C and 20 - 22\u00b0C respectively.\nThere is relatively little seasonal variation in both temperature and relative humidity.", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0108", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1139, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

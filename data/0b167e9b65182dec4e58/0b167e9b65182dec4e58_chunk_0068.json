@@ -1,0 +1,26 @@
+{
+    "page_numbers": [
+        35
+    ], 
+    "chunk_index": 68, 
+    "semantic_context": "", 
+    "text": "[Previous context: Government budget documents show that Vanuatu MoH expenditure was VT] 1,750,451,526 in 2010. With an estimated population of about 245,619, this means per capita, government\n\n[Context: 1,750,451,526 in 2010. With an estimated population of about 245,619, this means per capita, government]\nexpenditure (from its own appropriations) to MoH equal to VT 7,126 or about $77 per capita in 2010. But WHO\nstatistics show a per capita government expenditure on health of $143 in 2010. If the $143 figure is correct, this\nwould suggest external financing of $66 per capita, or 46 percent total expenditure. This seems high. The second\ndiscrepancy concerns differences within government of Vanuatu's own statistics. As noted in paragraph 3.13 below,\nMFEM budget documents show that external financing was VT 344 million (16.9 percent of total MoH expenditure)\n\nin 2012. However MoH Summary Report to the Executive on September 30, 2012, states that development partners\n\n[Context: in 2012. However MoH Summary Report to the Executive on September 30, 2012, states that development partners]\nbudget for 2012 was VT 890 million, or 37 percent of total combined development partners' and Government of\n\nVanuatu budget.\n\nPage\n\n17", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0068", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1145, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

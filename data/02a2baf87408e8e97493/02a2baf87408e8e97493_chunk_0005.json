@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        3
+    ], 
+    "chunk_index": 5, 
+    "semantic_context": "", 
+    "text": "[Previous context: Sewerage]\nsystem of toilets will be connected to the Tskaltubo Town's sewage network.] Construction of pedestrian bridges #1 and #2 - the bridges of 18.6m length and 2.5m width will be\n\n[Context: Construction of pedestrian bridges #1 and #2 - the bridges of 18.6m length and 2.5m width will be]\nidentical and represent the metal structure with in-situ reinforced concrete abutments.\n\n(A) IMPACT IDENTIFICATION\n\nHas the subproject a tangible impact on the\n\nThe SP has tangible positive social impact.\n\nenvironment?\n\nWhat are the significant beneficial and adverse\n\nThe SP has a long term positive impact on the\n\nenvironment through improving living conditions\n\nenvironmental effects of the subproject?\n\nof the local population. Arrangement of new infra\n\nstructure will Improve the tourist services of the\n\ncity and attract the tourists, which will improve\n\nquality of life and optimize the social and\n\neconomic development.\n\nThe expected negative environmental and social\n\nimpacts are likely to be short term and typical for\n\nsmall to medium scale rehabilitation works: noise,\n\ndust, vibration, and emissions from the operation\n\nof construction machinery; generation of\n\nconstruction waste; disruption of traffic and\n\npedestrian access.\n\nThe long term positive social impact will be", 
+    "chunk_id": "02a2baf87408e8e97493_chunk_0005", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1194, 
+    "doc_id": "02a2baf87408e8e97493", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

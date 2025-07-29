@@ -481,13 +481,13 @@ class DocumentProcessingStack(Stack):
             source_arn=text_chunking_complete_topic_arn
         )
         
-        # KG Integration Worker (Neptune loader)
-        self.kg_integration_worker = _lambda.Function(
-            self, "KGIntegrationWorker",
-            function_name="kg-integration-worker",
+        # KG Triple Loader (Neptune loader)
+        self.kg_triple_loader = _lambda.Function(
+            self, "KGTripleLoader",
+            function_name="kg-triple-loader",
             runtime=_lambda.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
-            code=_lambda.Code.from_asset("lambda/kg-integration-worker"),
+            code=_lambda.Code.from_asset("lambda/kg-triple-loader"),
             role=self.lambda_role_construct.role,
             timeout=Duration.minutes(10),  # Neptune loading can take time
             memory_size=512,
@@ -504,13 +504,13 @@ class DocumentProcessingStack(Stack):
             vpc_config=vpc_config
         )
         
-        # Subscribe KG integration worker to kg-triples-ready topic
+        # Subscribe KG triple loader to kg-triples-ready topic
         self.kg_triples_ready_topic.add_subscription(
-            sns_subscriptions.LambdaSubscription(self.kg_integration_worker)
+            sns_subscriptions.LambdaSubscription(self.kg_triple_loader)
         )
         
-        # Grant permission for SNS to invoke the KG integration worker
-        self.kg_integration_worker.add_permission(
+        # Grant permission for SNS to invoke the KG triple loader
+        self.kg_triple_loader.add_permission(
             "AllowKGTriplesReadySNSInvoke",
             principal=iam.ServicePrincipal("sns.amazonaws.com"),
             source_arn=self.kg_triples_ready_topic.topic_arn

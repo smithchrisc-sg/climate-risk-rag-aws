@@ -486,13 +486,13 @@ class ClimateRiskRAGProductionStack(Stack):
             }
         )
         
-        # 6. KG Integration Worker (using Knowledge Graph Layer with bulk load)
-        self.kg_integration_worker = lambda_.Function(
-            self, "KGIntegrationWorker",
-            function_name="solve-global-kr-kg-integration-worker",
+        # 6. KG Triple Loader (using Knowledge Graph Layer with bulk load)
+        self.kg_triple_loader = lambda_.Function(
+            self, "KGTripleLoader",
+            function_name="solve-global-kr-kg-triple-loader",
             runtime=lambda_.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
-            code=lambda_.Code.from_asset("../lambda/kg-integration-worker"),
+            code=lambda_.Code.from_asset("../lambda/kg-triple-loader"),
             role=self.lambda_role,
             timeout=Duration.minutes(15),
             memory_size=1024,
@@ -552,9 +552,9 @@ class ClimateRiskRAGProductionStack(Stack):
             sns_subscriptions.LambdaSubscription(self.document_structure_kg_processor)
         )
         
-        # KG triples ready -> KG integration worker
+        # KG triples ready -> KG triple loader
         self.kg_triples_ready_topic.add_subscription(
-            sns_subscriptions.LambdaSubscription(self.kg_integration_worker)
+            sns_subscriptions.LambdaSubscription(self.kg_triple_loader)
         )
         
         # Vector embeddings ready -> NLP processor (future)

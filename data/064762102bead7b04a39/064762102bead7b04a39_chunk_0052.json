@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        23
+    ], 
+    "chunk_index": 52, 
+    "semantic_context": "", 
+    "text": "[Previous context: There are indications that ever-greening of bad loans is a recurring\n\nissue, leading to an understatement of the NPL ratio, the potential occurrence of under-] provisioning, and - as a consequence - an overstatement of the capital adequacy ratio.\n\nBanks have incentives to resort to ever-greening to keep NPL ratios below 5 percent to be\n\nable to pay dividends. Stress tests undertaken as part of the FSAP signal a high sensitivity\n\nof the banking system to a (modest) reclassification of the loan portfolio. Inadequate\n\ngovernance and risk management in combination with a lack of consolidated supervision\n\nhas heightened systemic fragility. This manifests itself primarily through financial\n\ninterconnectedness, including through connected lending, and possible cross-shareholding\n\n[Context: interconnectedness, including through connected lending, and possible cross-shareholding]\namong banks arising from pledging of equity shares as loan collateral.\n\n47.\n\nExcessive credit growth during FY08-11, weak supervision and enforcement\n\nof prudential regulations, and a liberal bank licensing policy have contributed to the\n\nfragility of the sector. A dramatic proliferation of banks took place in an environment of\n\nweak supervision, accommodative monetary policy, and excessive lending in the real estate", 
+    "chunk_id": "064762102bead7b04a39_chunk_0052", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1144, 
+    "doc_id": "064762102bead7b04a39", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

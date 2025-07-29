@@ -1,0 +1,27 @@
+{
+    "page_numbers": [
+        32, 
+        33
+    ], 
+    "chunk_index": 83, 
+    "semantic_context": "", 
+    "text": "[Previous context: 20\n\n19 The full recapitalization of both RBB and NBL was specifically recommended by the FSAP (FSAP Technical Note on] State-Controlled Banks) and in multiple IMF Article IV reports. The decision to resolve RBB and NBL on an open basis\nwas made more than a decade ago and attempting to revisit the resolution approach at this point in time - when the banks\nare profitable and, in RBB's case fully capitalized and NBL's well on the way to full recapitalization - would pose a\nsignificant risk of undermining public confidence in the policy reform measures taken so far. There is also now no legal\n\nbasis for attempting to close NBL.\n\n20 For NBL, the FSAP Technical Note on State-Controlled Banks also specifically recommended that the Government\n\n[Context: 20 For NBL, the FSAP Technical Note on State-Controlled Banks also specifically recommended that the Government]\nstructure the bank's recapitalization to create a Government-owned majority stake which would be attractive for a\n\nstrategic investor to purchase.\n\n24\n\nPrior action 4: The decision to reduce the number of state-controlled commercial banks\n\nto one by divesting control of the NBL to a bank strategic investor has been announced", 
+    "chunk_id": "064762102bead7b04a39_chunk_0083", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1076, 
+    "doc_id": "064762102bead7b04a39", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

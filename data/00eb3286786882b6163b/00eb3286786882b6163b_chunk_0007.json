@@ -1,0 +1,23 @@
+{
+    "page_numbers": [
+        6
+    ], 
+    "chunk_index": 7, 
+    "semantic_context": "", 
+    "text": "[Previous context: Description of Original Project: Grenada Disaster Vulnerability Reduction Project (2011)] The project aims to reduce vulnerability of human and physical assets to natural hazards. It entails a\nrange of civil works which would consist of new construction and rehabilitation of existing infrastructure\nin order to reduce their vulnerability to natural hazards and climate change. The investments include a\nsuite of civil works activities designed to improve resilience to disaster events and adapt to impacts\n\nrelating to climate change\n\nThe original Project consists of four (4) Components:\n\nComponent 1 - Prevention and Adaptation Investments. This component includes a broad set of\n\n[Context: Component 1 - Prevention and Adaptation Investments. This component includes a broad set of]\ninvestments, such as drainage improvement measures, improved water storage capacity, risk reduction,\nrehabilitation of critical infrastructure bridges, and some roads), retrofitting of critical public buildings\n(including schools and health centres), investments in satellite emergency centres, etc. Civil works will be\nbuilt to internationally recognized standards for hazard and climate resilience.", 
+    "chunk_id": "00eb3286786882b6163b_chunk_0007", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1097, 
+    "doc_id": "00eb3286786882b6163b", 
+    "section_types": [
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

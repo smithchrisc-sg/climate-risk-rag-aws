@@ -1,0 +1,608 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix sgi: <http://solve.global/knowledge-commons/impact-ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+# =============================================================================
+# SOLVE.GLOBAL KNOWLEDGE REPOSITORY DOCUMENT STRUCTURE SCHEMA
+# Semantic Document Structure Schema with Hierarchical Chunker Integration
+# Version: 3.0 - Semantic Content Model with Processing Separation
+# Date: 2025-07-28
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CORE SEMANTIC DOCUMENT CLASSES
+# -----------------------------------------------------------------------------
+
+sgd:Document rdf:type rdfs:Class ;
+    rdfs:label "Document" ;
+    rdfs:comment "A processed document in the knowledge repository with semantic structure" ;
+    rdfs:subClassOf foaf:Document ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:DocumentPage rdf:type rdfs:Class ;
+    rdfs:label "Document Page" ;
+    rdfs:comment "A single page within a document" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:DocumentElement rdf:type rdfs:Class ;
+    rdfs:label "Document Element" ;
+    rdfs:comment "Base class for all semantic document elements" ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+# -----------------------------------------------------------------------------
+# SEMANTIC CONTENT CLASSES
+# Maps to section_type values from hierarchical chunker
+# -----------------------------------------------------------------------------
+
+sgd:Section rdf:type rdfs:Class ;
+    rdfs:label "Section" ;
+    rdfs:comment "A logical section within a document, typically containing a title and related content" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:Heading rdf:type rdfs:Class ;
+    rdfs:label "Heading" ;
+    rdfs:comment "A section heading or subheading that organizes document content" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:Paragraph rdf:type rdfs:Class ;
+    rdfs:label "Paragraph" ;
+    rdfs:comment "A coherent paragraph of text expressing a particular idea or concept" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:ParagraphPart rdf:type rdfs:Class ;
+    rdfs:label "Paragraph Part" ;
+    rdfs:comment "A part of a paragraph that was split for processing while maintaining semantic unity" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:List rdf:type rdfs:Class ;
+    rdfs:label "List" ;
+    rdfs:comment "An enumerated or bulleted list of items" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:Table rdf:type rdfs:Class ;
+    rdfs:label "Table" ;
+    rdfs:comment "A table structure containing tabular data" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:Figure rdf:type rdfs:Class ;
+    rdfs:label "Figure" ;
+    rdfs:comment "A figure, chart, or visual element within the document" ;
+    rdfs:subClassOf sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+# -----------------------------------------------------------------------------
+# SEMANTIC RELATIONSHIPS
+# Tree-based structure with Dublin Core inheritance
+# -----------------------------------------------------------------------------
+
+sgd:hasChild rdf:type rdf:Property ;
+    rdfs:label "has child" ;
+    rdfs:comment "Links a document element to its child elements in the document tree structure" ;
+    rdfs:subPropertyOf dcterms:hasPart ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:hasParent rdf:type rdf:Property ;
+    rdfs:label "has parent" ;
+    rdfs:comment "Links a document element to its parent element in the document tree structure" ;
+    rdfs:subPropertyOf dcterms:isPartOf ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range sgd:DocumentElement ;
+    owl:inverseOf sgd:hasChild ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:firstChild rdf:type rdf:Property ;
+    rdfs:label "first child" ;
+    rdfs:comment "Links a document element to its first child in document order" ;
+    rdfs:subPropertyOf sgd:hasChild ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:lastChild rdf:type rdf:Property ;
+    rdfs:label "last child" ;
+    rdfs:comment "Links a document element to its last child in document order" ;
+    rdfs:subPropertyOf sgd:hasChild ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:nextSibling rdf:type rdf:Property ;
+    rdfs:label "next sibling" ;
+    rdfs:comment "Links a document element to the next sibling element in document order" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range sgd:DocumentElement ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+# -----------------------------------------------------------------------------
+# PARAGRAPH SPLITTING RELATIONSHIPS
+# -----------------------------------------------------------------------------
+
+sgd:hasPart rdf:type rdf:Property ;
+    rdfs:label "has part" ;
+    rdfs:comment "Links a paragraph to its constituent parts when split for processing" ;
+    rdfs:domain sgd:Paragraph ;
+    rdfs:range sgd:ParagraphPart ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:partNumber rdf:type rdf:Property ;
+    rdfs:label "part number" ;
+    rdfs:comment "The sequential number of this part within the parent paragraph" ;
+    rdfs:domain sgd:ParagraphPart ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+sgd:totalParts rdf:type rdf:Property ;
+    rdfs:label "total parts" ;
+    rdfs:comment "The total number of parts the parent paragraph was split into" ;
+    rdfs:domain sgd:ParagraphPart ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/document-structure> .
+
+# -----------------------------------------------------------------------------
+# CONTENT STORAGE AND ACCESS
+# Technical storage details - moved to processing metadata namespace
+# -----------------------------------------------------------------------------
+
+# Note: Content storage properties moved to sgm: namespace
+# See sgm:s3Location, sgm:s3Bucket, sgm:s3Key below
+
+# -----------------------------------------------------------------------------
+# SEQUENCING PROPERTIES
+# Document order information - moved to processing metadata namespace
+# -----------------------------------------------------------------------------
+
+# Note: Sequencing properties moved to sgm: namespace
+# See sgm:sequenceNumber, sgm:pageNumber below
+
+# -----------------------------------------------------------------------------
+# DUBLIN CORE INTEGRATION
+# Standard document metadata using Dublin Core Terms vocabulary
+# -----------------------------------------------------------------------------
+
+# Document Identification - Use Dublin Core standard terms
+# dcterms:identifier - Document UUID/GUID
+# dcterms:title - Document title or element title
+# dcterms:alternative - Alternative titles
+
+# Content Description - Use Dublin Core for standard semantics
+# dcterms:description - Element description or summary
+# dcterms:subject - Subject keywords/topics
+# dcterms:type - Document or element type
+
+# Authorship and Attribution - Dublin Core for bibliographic data
+# dcterms:creator - Document author(s)
+# dcterms:contributor - Additional contributors
+# dcterms:publisher - Publishing organization
+# dcterms:rights - Copyright/license information
+
+# Temporal Information - Dublin Core for date semantics
+# dcterms:created - Original creation date
+# dcterms:issued - Publication/release date
+# dcterms:modified - Last processing timestamp
+
+# Source and Provenance - Dublin Core for document lifecycle
+# dcterms:source - Original source location
+# dcterms:provenance - Processing history
+
+# Format and Technical - Dublin Core for technical metadata
+# dcterms:format - MIME type
+# dcterms:extent - Document extent
+# dcterms:language - Document language
+
+# Relationships - Dublin Core for document relationships
+# dcterms:isPartOf - Part of larger collection
+# dcterms:references - References to other documents
+# dcterms:isReferencedBy - Referenced by other documents
+
+# =============================================================================
+# PROCESSING METADATA NAMESPACE
+# Technical processing details separated from semantic structure
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CONTENT STORAGE AND POSITIONING
+# Technical storage and positioning details
+# -----------------------------------------------------------------------------
+
+sgm:s3Location rdf:type rdf:Property ;
+    rdfs:label "S3 location" ;
+    rdfs:comment "The S3 URI where the element's content is stored" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:s3Bucket rdf:type rdf:Property ;
+    rdfs:label "S3 bucket" ;
+    rdfs:comment "The S3 bucket name where content is stored" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:s3Key rdf:type rdf:Property ;
+    rdfs:label "S3 key" ;
+    rdfs:comment "The S3 object key for the stored content" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:sequenceNumber rdf:type rdf:Property ;
+    rdfs:label "sequence number" ;
+    rdfs:comment "The sequential order of this element within its parent (processing artifact)" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:pageNumber rdf:type rdf:Property ;
+    rdfs:label "page number" ;
+    rdfs:comment "The page number where this element appears (publishing artifact)" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:chunkId rdf:type rdf:Property ;
+    rdfs:label "chunk ID" ;
+    rdfs:comment "The original chunk identifier from the hierarchical chunker" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:chunkIndex rdf:type rdf:Property ;
+    rdfs:label "chunk index" ;
+    rdfs:comment "The sequential index of this chunk in the processing pipeline" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:originalSectionType rdf:type rdf:Property ;
+    rdfs:label "original section type" ;
+    rdfs:comment "The section_type value from the hierarchical chunker output" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:originalHierarchyLevel rdf:type rdf:Property ;
+    rdfs:label "original hierarchy level" ;
+    rdfs:comment "The hierarchy_level value from the hierarchical chunker output" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+# -----------------------------------------------------------------------------
+# CONTENT METRICS
+# Processing-derived content statistics
+# -----------------------------------------------------------------------------
+
+sgm:characterCount rdf:type rdf:Property ;
+    rdfs:label "character count" ;
+    rdfs:comment "The number of characters in the element's text content" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:wordCount rdf:type rdf:Property ;
+    rdfs:label "word count" ;
+    rdfs:comment "The number of words in the element's text content" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:sentenceCount rdf:type rdf:Property ;
+    rdfs:label "sentence count" ;
+    rdfs:comment "The number of sentences in the element's text content" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+# -----------------------------------------------------------------------------
+# PROCESSING PROVENANCE
+# Technical details about how elements were processed
+# -----------------------------------------------------------------------------
+
+sgm:chunkingStrategy rdf:type rdf:Property ;
+    rdfs:label "chunking strategy" ;
+    rdfs:comment "The strategy used to create this element (e.g., 'layout_based', 'sentence_based')" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:processingTimestamp rdf:type rdf:Property ;
+    rdfs:label "processing timestamp" ;
+    rdfs:comment "When this element was processed by the chunking pipeline" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:dateTime ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:textractJobId rdf:type rdf:Property ;
+    rdfs:label "Textract job ID" ;
+    rdfs:comment "The AWS Textract job ID that processed the source document" ;
+    rdfs:domain sgd:Document ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:textractConfidence rdf:type rdf:Property ;
+    rdfs:label "Textract confidence" ;
+    rdfs:comment "Textract confidence score for the extracted element" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+# -----------------------------------------------------------------------------
+# SPLIT PARAGRAPH PROCESSING METADATA
+# Technical details about paragraph splitting
+# -----------------------------------------------------------------------------
+
+sgm:isSplitParagraph rdf:type rdf:Property ;
+    rdfs:label "is split paragraph" ;
+    rdfs:comment "Boolean indicating if this paragraph was split during processing" ;
+    rdfs:domain sgd:Paragraph ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:sentenceOverlap rdf:type rdf:Property ;
+    rdfs:label "sentence overlap" ;
+    rdfs:comment "Number of sentences overlapped when splitting paragraphs" ;
+    rdfs:domain sgd:ParagraphPart ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+# -----------------------------------------------------------------------------
+# GEOMETRIC AND POSITIONING METADATA
+# Textract-derived spatial information
+# -----------------------------------------------------------------------------
+
+sgm:boundingBox rdf:type rdf:Property ;
+    rdfs:label "bounding box" ;
+    rdfs:comment "The geometric bounding box coordinates of the element on the page" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:pageHeight rdf:type rdf:Property ;
+    rdfs:label "page height" ;
+    rdfs:comment "The height of the page in Textract coordinate units" ;
+    rdfs:domain sgd:DocumentPage ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:pageWidth rdf:type rdf:Property ;
+    rdfs:label "page width" ;
+    rdfs:comment "The width of the page in Textract coordinate units" ;
+    rdfs:domain sgd:DocumentPage ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+# -----------------------------------------------------------------------------
+# TABLE-SPECIFIC PROCESSING METADATA
+# Technical details for table elements
+# -----------------------------------------------------------------------------
+
+sgm:tableCount rdf:type rdf:Property ;
+    rdfs:label "table count" ;
+    rdfs:comment "Number of tables contained in this element" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:listCount rdf:type rdf:Property ;
+    rdfs:label "list count" ;
+    rdfs:comment "Number of lists contained in this element" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+sgm:figureCount rdf:type rdf:Property ;
+    rdfs:label "figure count" ;
+    rdfs:comment "Number of figures contained in this element" ;
+    rdfs:domain sgd:DocumentElement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <http://solve.global/knowledge-commons/process-metadata> .
+
+# =============================================================================
+# EXAMPLE USAGE WITH HIERARCHICAL CHUNKER OUTPUT
+# Demonstrates mapping from chunker output to semantic structure
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Document with Semantic Structure and Dublin Core Inheritance
+# -----------------------------------------------------------------------------
+
+# sg:document_064762102bead7b04a39 rdf:type sgd:Document ;
+#     # Dublin Core metadata
+#     dcterms:identifier "064762102bead7b04a39" ;
+#     dcterms:title "Post Disaster Second Financial Sector Stability Credit" ;
+#     dcterms:format "application/pdf" ;
+#     dcterms:language "en" ;
+#     dcterms:modified "2025-07-28T12:49:49Z"^^xsd:dateTime ;
+#     
+#     # Dublin Core part-of relationships (inherited by sgd:hasChild)
+#     dcterms:hasPart sg:chunk_0009, sg:chunk_0108, sg:chunk_0168 ;
+#     
+#     # Document structure relationships (inherit from Dublin Core)
+#     sgd:hasChild sg:chunk_0009, sg:chunk_0108, sg:chunk_0168 ;
+#     sgd:firstChild sg:chunk_0009 ;
+#     sgd:lastChild sg:chunk_0168 ;
+#     
+#     # Processing metadata
+#     sgm:textractJobId "textract-job-abc123" ;
+#     sgm:processingTimestamp "2025-07-28T12:49:49Z"^^xsd:dateTime .
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Section with Title Content and Dublin Core Inheritance
+# -----------------------------------------------------------------------------
+
+# sg:chunk_0009 rdf:type sgd:Section ;
+#     # Dublin Core semantic metadata
+#     dcterms:title "ABBREVIATIONS AND ACRONYMS" ;
+#     dcterms:isPartOf sg:document_064762102bead7b04a39 ;
+#     
+#     # Dublin Core part-of relationships (inherited by our properties)
+#     dcterms:hasPart sg:chunk_0000, sg:chunk_0001, sg:chunk_0002 ;
+#     
+#     # Document structure relationships (inherit from Dublin Core)
+#     sgd:hasChild sg:chunk_0000, sg:chunk_0001, sg:chunk_0002 ;
+#     sgd:firstChild sg:chunk_0000 ;
+#     sgd:lastChild sg:chunk_0002 ;
+#     
+#     # Processing metadata (separate namespace)
+#     sgm:s3Location <s3://chunks-bucket/data-lake/064762102bead7b04a39/064762102bead7b04a39_chunk_0009.json> ;
+#     sgm:pageNumber 1 ;
+#     sgm:sequenceNumber 9 ;
+#     sgm:chunkId "064762102bead7b04a39_chunk_0009" ;
+#     sgm:chunkIndex 9 ;
+#     sgm:originalSectionType "title" ;
+#     sgm:originalHierarchyLevel 1 ;
+#     sgm:characterCount 28 ;
+#     sgm:chunkingStrategy "layout_based" ;
+#     sgm:processingTimestamp "2025-07-28T12:49:49Z"^^xsd:dateTime .
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Paragraph Element with Ordered Sibling Navigation
+# -----------------------------------------------------------------------------
+
+# sg:chunk_0000 rdf:type sgd:Paragraph ;
+#     # Dublin Core relationships
+#     dcterms:isPartOf sg:chunk_0009 ;
+#     
+#     # Document structure relationships (inherit from Dublin Core)
+#     sgd:hasParent sg:chunk_0009 ;
+#     sgd:nextSibling sg:chunk_0001 ;
+#     
+#     # Processing metadata
+#     sgm:s3Location <s3://chunks-bucket/data-lake/064762102bead7b04a39/064762102bead7b04a39_chunk_0000.json> ;
+#     sgm:pageNumber 1 ;
+#     sgm:sequenceNumber 0 ;
+#     sgm:chunkId "064762102bead7b04a39_chunk_0000" ;
+#     sgm:chunkIndex 0 ;
+#     sgm:originalSectionType "paragraph" ;
+#     sgm:originalHierarchyLevel 2 ;
+#     sgm:characterCount 28 ;
+#     sgm:wordCount 3 ;
+#     sgm:chunkingStrategy "layout_based" .
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Split Paragraph with Parts
+# -----------------------------------------------------------------------------
+
+# sg:chunk_0182 rdf:type sgd:Paragraph ;
+#     # Semantic relationships
+#     sgd:hasPart sg:chunk_0182_part1, sg:chunk_0182_part2 ;
+#     
+#     # Processing metadata
+#     sgm:isSplitParagraph true ;
+#     sgm:chunkingStrategy "sentence_based" .
+
+# sg:chunk_0182_part1 rdf:type sgd:ParagraphPart ;
+#     # Semantic relationships
+#     sgd:partOf sg:chunk_0182 ;
+#     sgd:partNumber 1 ;
+#     sgd:totalParts 2 ;
+#     
+#     # Content storage
+#     sgd:s3Location <s3://chunks-bucket/data-lake/064762102bead7b04a39/064762102bead7b04a39_chunk_0182_part1.json> ;
+#     
+#     # Processing metadata
+#     sgm:sentenceOverlap 2 ;
+#     sgm:characterCount 750 .
+
+# sg:chunk_0182_part2 rdf:type sgd:ParagraphPart ;
+#     # Semantic relationships
+#     sgd:partOf sg:chunk_0182 ;
+#     sgd:partNumber 2 ;
+#     sgd:totalParts 2 ;
+#     
+#     # Content storage
+#     sgd:s3Location <s3://chunks-bucket/data-lake/064762102bead7b04a39/064762102bead7b04a39_chunk_0182_part2.json> ;
+#     
+#     # Processing metadata
+#     sgm:sentenceOverlap 2 ;
+#     sgm:characterCount 680 .
+
+# -----------------------------------------------------------------------------
+# EXAMPLE: Table Element
+# -----------------------------------------------------------------------------
+
+# sg:chunk_0166 rdf:type sgd:Table ;
+#     # Semantic relationships
+#     sgd:hasParent sg:chunk_0164 ;
+#     sgd:partOf sg:chunk_0164 ;
+#     
+#     # Content storage
+#     sgd:s3Location <s3://chunks-bucket/data-lake/064762102bead7b04a39/064762102bead7b04a39_chunk_0166.json> ;
+#     
+#     # Processing metadata
+#     sgm:originalSectionType "table" ;
+#     sgm:originalHierarchyLevel 3 ;
+#     sgm:tableCount 1 ;
+#     sgm:characterCount 245 .
+
+# =============================================================================
+# SECTION TYPE MAPPING AND QUERY PATTERNS
+# Maps hierarchical chunker section_type values to semantic classes
+# =============================================================================
+
+# Chunker Output -> Semantic Class Mapping:
+# section_type: "title"     -> sgd:Section (with title content)
+# section_type: "header"    -> sgd:Heading
+# section_type: "paragraph" -> sgd:Paragraph
+# section_type: "list"      -> sgd:List
+# section_type: "table"     -> sgd:Table
+# section_type: "figure"    -> sgd:Figure
+
+# Split Paragraph Handling:
+# is_split_paragraph: true  -> sgd:Paragraph with sgd:ParagraphPart children
+# split_part: 1, 2, 3...    -> sgd:partNumber property
+# total_splits: 2, 3, 4...  -> sgd:totalParts property
+
+# =============================================================================
+# QUERY PATTERNS WITH DUBLIN CORE INHERITANCE
+# =============================================================================
+
+# Find all parts of a document (Dublin Core level):
+# SELECT ?part WHERE {
+#     sg:document_064762102bead7b04a39 dcterms:hasPart ?part .
+# }
+
+# Find direct children (document structure level):
+# SELECT ?child WHERE {
+#     sg:chunk_0009 sgd:hasChild ?child .
+# }
+
+# Find first and last children (convenience level):
+# SELECT ?first ?last WHERE {
+#     sg:chunk_0009 sgd:firstChild ?first ;
+#                   sgd:lastChild ?last .
+# }
+
+# Traverse siblings in order:
+# SELECT ?sibling WHERE {
+#     sg:chunk_0000 sgd:nextSibling+ ?sibling .
+# }
+
+# Find previous sibling (inverse query):
+# SELECT ?previous WHERE {
+#     ?previous sgd:nextSibling sg:chunk_0001 .
+# }
+
+# Mixed Dublin Core and document structure queries:
+# SELECT ?document ?paragraph WHERE {
+#     ?document dcterms:hasPart ?paragraph .
+#     ?paragraph a sgd:Paragraph .
+#     ?paragraph sgd:nextSibling ?next .
+# }

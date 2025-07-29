@@ -1,0 +1,7 @@
+{
+  "Records": [
+    {
+      "body": "{\"Type\": \"Notification\", \"Message\": \"{\\\"doc_id\\\": \\\"test-doc-001\\\", \\\"stage\\\": \\\"text_ready\\\", \\\"data_locations\\\": {\\\"text_location\\\": \\\"s3://solve-global-kr-dl-text-861276078413-us-east-1/test-doc-001/extracted_text.txt\\\", \\\"structure_location\\\": \\\"s3://solve-global-kr-dl-text-861276078413-us-east-1/test-doc-001/textract_response.json\\\"}, \\\"processing_metadata\\\": {\\\"test\\\": true}, \\\"document_metadata\\\": {\\\"title\\\": \\\"Test Document\\\"}}\"}"
+    }
+  ]
+}

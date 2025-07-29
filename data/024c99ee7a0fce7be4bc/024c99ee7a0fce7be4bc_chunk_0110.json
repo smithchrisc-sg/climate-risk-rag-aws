@@ -1,0 +1,26 @@
+{
+    "page_numbers": [
+        59, 
+        60
+    ], 
+    "chunk_index": 110, 
+    "semantic_context": "", 
+    "text": "[Previous context: The Tmax and Tmin officially recorded in Samoa are 35.3\u00b0C] recorded at Asau station on 24\u1d57\u02b0 December 1968, and 11.1\u00b0C recorded at Afiamalu\n\nstation in Savai'i on 29 September 1971 (Saifaleupolu, 1986). Table 9 presents the\n\n[Context: station in Savai'i on 29 September 1971 (Saifaleupolu, 1986). Table 9 presents the]\nclimatic norms for the period of 1971 - 2000 for Apia based on the available data.\n\nSoutheasterly surface winds, better known as trade winds, blow more than 50% of the\n\ntime during the year (Kammer, 1978). During the dry seasons of Might to October, the\n\nsouth-east winds blow for more than 80% of the time. During the wet season, however,\n\nthe wind direction is less consistent, but the south-easterlies still prevail for more than\n\n30% of the time. The change in wind direction in Samoan islands is contributed to the\n\nmigration of the South Pacific Convergence Zone (SPCZ).\n\n59\n\nTable 9: Climatic Norms 1971 - 2000, Station Apia (Meteorology Division data, Apia)\n\nMIG\n\nTotal\n\nOCT\n\nNOV\n\nSEP\n\nJUL\n\nAUG\n\nNorms\n\nDEC\n\nMAR\n\nFEB\n\nAPR\n\nJUN\n\nJAN\n\nHT\n\nRainfall (mm)\n\n224\n\n2965\n\n489\n\n262\n\n121\n\n389\n\n352\n\n121\n\n358\n\n211\n\n154\n\n113\n\n193\n\nPressure (bar)\n\n10 13\n\n1013\n\n1013\n\n1010\n\n1009\n\n1008\n\n1011\n\n1011\n\n1010\n\n1013\n\n1012\n\n1012\n\nSunshine (h)\n\n160\n\n186", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0110", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1196, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

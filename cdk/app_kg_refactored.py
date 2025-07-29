@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Refactored KG Integration Deployment with Knowledge Graph Layer
-Deploys document-structure-kg-processor and kg-integration-worker using KG Layer v1.0.0
+Deploys document-structure-kg-processor and kg-triple-loader using KG Layer v1.0.0
 """
 
 from aws_cdk import (
@@ -134,13 +134,13 @@ class KGRefactoredStack(Stack):
         # Grant permission to publish to KG triples ready topic
         kg_triples_ready_topic.grant_publish(document_structure_kg_processor)
         
-        # KG Integration Worker (Refactored)
-        kg_integration_worker = lambda_.Function(
-            self, "KGIntegrationWorkerRefactored",
-            function_name="kg-integration-worker-refactored",
+        # KG Triple Loader (Refactored)
+        kg_triple_loader = lambda_.Function(
+            self, "KGTripleLoaderRefactored",
+            function_name="kg-triple-loader-refactored",
             runtime=lambda_.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
-            code=lambda_.Code.from_asset("../lambda/kg-integration-worker"),
+            code=lambda_.Code.from_asset("../lambda/kg-triple-loader"),
             role=lambda_role,
             timeout=Duration.minutes(15),  # Increased for bulk load monitoring
             memory_size=1024,
@@ -157,11 +157,11 @@ class KGRefactoredStack(Stack):
         
         # Subscribe to KG triples ready topic
         kg_triples_ready_topic.add_subscription(
-            sns_subscriptions.LambdaSubscription(kg_integration_worker)
+            sns_subscriptions.LambdaSubscription(kg_triple_loader)
         )
         
         # Grant permission for SNS to invoke
-        kg_integration_worker.add_permission(
+        kg_triple_loader.add_permission(
             "AllowKGTriplesReadySNSInvoke",
             principal=iam.ServicePrincipal("sns.amazonaws.com"),
             source_arn=kg_triples_ready_topic.topic_arn
@@ -197,7 +197,7 @@ class KGRefactoredStack(Stack):
         
         # Add enhanced permissions to both Lambda functions
         document_structure_kg_processor.add_to_role_policy(enhanced_policy)
-        kg_integration_worker.add_to_role_policy(enhanced_policy)
+        kg_triple_loader.add_to_role_policy(enhanced_policy)
         
         # Output important information
         from aws_cdk import CfnOutput
@@ -221,9 +221,9 @@ class KGRefactoredStack(Stack):
         )
         
         CfnOutput(
-            self, "KGIntegrationWorkerArn",
-            value=kg_integration_worker.function_arn,
-            description="Refactored KG Integration Worker ARN"
+            self, "KGTripleLoaderArn",
+            value=kg_triple_loader.function_arn,
+            description="Refactored KG Triple Loader ARN"
         )
 
 app = App()

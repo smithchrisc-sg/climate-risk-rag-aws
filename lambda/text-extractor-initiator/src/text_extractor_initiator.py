@@ -64,7 +64,7 @@ class TextExtractorInitiator:
                         'Name': key
                     }
                 },
-                FeatureTypes=['TABLES', 'FORMS'],
+                FeatureTypes=['TABLES', 'FORMS', 'LAYOUT'],
                 NotificationChannel={
                     'SNSTopicArn': self.textract_sns_topic,
                     'RoleArn': self.textract_service_role

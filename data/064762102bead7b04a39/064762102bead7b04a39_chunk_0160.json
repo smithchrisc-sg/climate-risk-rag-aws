@@ -1,0 +1,23 @@
+{
+    "page_numbers": [
+        61
+    ], 
+    "chunk_index": 160, 
+    "semantic_context": "", 
+    "text": "[Previous context: A stress test conducted during the] recent FSAP suggests that the recapitalization needs for the entire banking sector (public and\n\nprivate) from a financial sector shock in which nonperforming assets increase by 2 percentage\n\npoints (implying a 50 percent increase) could amount to 43/4 percent of GDP. This test, based on\n\nupdated calibration, supersedes the one conducted in the previous DSA. According to the most recent\n\nDSA, the financial sector shock assumed in the previous DSA, which led to sustained breaches on\n\nmultiple debt indicators, is considered unlikely in view of the stress test findings in the recent\n\nassessment under the FSAP. and of some progress on financial sector reforms.\n\n7. The banking sector has surplus liquidity. The government has recently made efforts\n\nto tighten the monetary policy stance. However, as those efforts have just started and\n\n[Context: to tighten the monetary policy stance. However, as those efforts have just started and]\nhave yet to yield substantial effects, there is excess liquidity in the financial systems.\n\nWhile the market has been enjoying liquidity surplus for more than 2 years, there has", 
+    "chunk_id": "064762102bead7b04a39_chunk_0160", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1115, 
+    "doc_id": "064762102bead7b04a39", 
+    "section_types": [
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

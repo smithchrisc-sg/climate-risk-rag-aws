@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        11
+    ], 
+    "chunk_index": 20, 
+    "semantic_context": "", 
+    "text": "[Previous context: Detailed Description of Modified or New Project Activities - Additional Financing\n\n(January 2015)\n\nComponent 1: Prevention and Adaptation Investments\n\nThe proposed AF would support carrying out of selected infrastructure investments and\n\nrelated supporting studies, including: (a) works pre-engineering studies and design for] drainage mitigation system in the Morne Rouge area; b) river defense systems; and c)\n\ninvestment in fiber optic upgrades to assist agencies with participating in a national data\n\nsharing platform (i.e. GeoNode, national hydro-met network) which will store, manage and\n\ndisseminate large datasets required to incorporate climate information in planning, design\n\nand engineering activities.\n\nThis component would be used to scale up to increase the impact of RDVRP in terms of\n\nbuilding disaster and climate resilience of the built infrastructure in the proposed Project\n\nlocations. Specific sub-projects and activities identified under this component are\n\nsummarized as follows:\n\nActivity\n\nMourne Rouge drainage\n\nproject pre-engineering\n\nstudies and design\n\nSt Johns River Defense\n\nSystem\n\nFiber optic upgrades\n\nMourne Rouge drainage project pre-engineering studies and design\n\nBackground.\n\nFlooding in the Morne Rouge area has now become an annual occurrence with each event\n\n[Context: Flooding in the Morne Rouge area has now become an annual occurrence with each event]\nincreasing in severity due to increased local development and impacts from sea level rise.", 
+    "chunk_id": "00eb3286786882b6163b_chunk_0020", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1162, 
+    "doc_id": "00eb3286786882b6163b", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

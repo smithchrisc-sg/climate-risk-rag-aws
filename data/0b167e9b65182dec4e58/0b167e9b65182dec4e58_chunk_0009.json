@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        12, 
+        13, 
+        14
+    ], 
+    "chunk_index": 9, 
+    "semantic_context": "", 
+    "text": "[Previous context: (http://data.worldbank.org/indicator/SH.XPD.PUB.)\n\nPurchasing power parity (PPP) approaches seek to avoid distortions caused by market\n\nPurchasing] fluctuations in exchange rates. PPP approaches recognize that actual costs may well be\n\npower parity\n\nlower in one country compared to another, so that the actual \"purchasing power\" of local\n\ncurrency may be higher than might otherwise seem to be the case. PPP uses a notional\n\n\"international dollar\" (I$) to distinguish it from US$.\n\nAdjusted for inflation (see also nominal).\n\nReal\n\nexpenditure\n\nTotal health expenditure is the sum of public and private health expenditure. It covers the\n\nTotal health\n\nprovision of health services (preventive and curative), family planning and nutrition\n\nexpenditure\n\nactivities, and emergency aid designated for health, but does not include provision of water\n\nand sanitation. (http://data.worldbank.org/indicator/SH.XPD.PUB.)\n\nxi\n\nEXECUTIVE SUMMARY\n\nVanuatu faces important public sector health challenges that can undermine social\n\nand economic growth and development gains made to date. Those health challenges\n\ncome from increased demands on maternal and child health services from a rapidly\n\ngrowing population; an unfinished agenda of controlling communicable diseases and", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0009", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1116, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

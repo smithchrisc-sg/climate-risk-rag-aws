@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        48
+    ], 
+    "chunk_index": 88, 
+    "semantic_context": "", 
+    "text": "[Previous context: Upolu\n\nSamoa\n\nRest of Upolu\n\nArea\n\nCATTLE\n\n16\n\nCows\n\n2\n\n6\n\n7\n\n1\n\nHeifers\n\n10\n\n3\n\n4\n\n2\n\n1\n\nBulls\n\n3\n\n4\n\n1\n\n1\n\n9\n\n0.5\n\n0.5\n\nSteers\n\n5\n\n2\n\n2\n\nCalves\n\n10\n\n4\n\n4\n\n1\n\n1\n\nPIG\n\nSows\n\n12\n\n19\n\n5\n\n15\n\n51\n\nBreeding\n\n3\n\n36\n\n13\n\n9\n\n11\n\nBoars\n\nGilts\n\n28\n\n6\n\n11\n\n2\n\n9\n\n8\n\n2\n\n24\n\n5\n\n9\n\nBarrows\n\nPiglets\n\n48\n\n12\n\n17\n\n15\n\n4\n\n20\n\n69\n\n18\n\n10\n\n21\n\nCHICKEN\n\nSource: MAF/MOF, Agricultural Survey (2005)\n\nAgricultural Production\n\n2.8] Agricultural production is varied and diversified. Approximately 60,000 ha or 21% of the\n\ntotal land area is under crops or grazing regimes. Cropping areas are closely aligned with\n\nthe undulating coastal and alluvial soils close to village settlements. Pastoral and grazing\n\nareas are restricted to the steeper slopes where water supply is adequate. The cultivated\n\n[Context: areas are restricted to the steeper slopes where water supply is adequate. The cultivated]\nland per capita is estimated at 0.65 ha, and the average farm size at about nine ha.\n\nThe national food demand rises by about 2.3 percent annually, largely because of\n\npopulation growth and changes in population structure. The main food crops are taro,\n\nbanana, coconut, cocoa, fruit trees, vegetables and other root crops. The composition,\n\nstability and reliability of local food supplies have been negatively influenced by natural\n\ndisasters like cyclones and the recent tsunami and the devastation of taro by Taro Leaf\n\nBlight (TLB) that seriously reduced taro production.\n\nLocal consumption and export of Taro has increased significantly over the last four", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0088", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1129, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

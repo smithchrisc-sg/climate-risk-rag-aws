@@ -1,0 +1,23 @@
+{
+    "page_numbers": [
+        19
+    ], 
+    "chunk_index": 24, 
+    "semantic_context": "", 
+    "text": "[Previous context: Together, they affect and are affected by] 1.2\n\n[Context: 1.2]\nbroader macroeconomic prospects. Health interacts with the broader economy in several ways.\n\nSome interactions are positive: healthy populations can be more economically productive, and\n\n[Context: Some interactions are positive: healthy populations can be more economically productive, and]\nset in train favorable demographic trends that lay a foundation for sustained economic growth.\n\nAnd economic growth can in turn provide additional resources for investing in health and\n\nprotecting the poor from health-related financial distress. The health sector can provide\n\nmeaningful and productive work for health workers, including in rural areas where other\n\nemployment opportunities are limited. Expenditure by government can also finance public goods\n\nnot adequately supplied by the private sector (disease surveillance, vector control of\n\ncommunicable diseases); reduce inequity (through progressive taxation that is then spent on pro-\n\npoor health needs); and address other market failures. But some interactions between health and\n\nthe broader economy create problems. Money and resources spent by government and", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0024", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1135, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

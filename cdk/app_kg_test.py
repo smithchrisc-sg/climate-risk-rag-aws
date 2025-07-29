@@ -95,13 +95,13 @@ class KGTestStack(Stack):
             source_arn="arn:aws:sns:us-east-1:861276078413:text-chunking-complete"
         )
         
-        # KG Integration Worker
-        kg_integration_worker = lambda_.Function(
-            self, "KGIntegrationWorker",
-            function_name="kg-integration-worker",
+        # KG Triple Loader
+        kg_triple_loader = lambda_.Function(
+            self, "KGTripleLoader",
+            function_name="kg-triple-loader",
             runtime=lambda_.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
-            code=lambda_.Code.from_asset("../lambda/kg-integration-worker"),
+            code=lambda_.Code.from_asset("../lambda/kg-triple-loader"),
             role=lambda_role,
             timeout=Duration.minutes(10),
             memory_size=512,
@@ -118,11 +118,11 @@ class KGTestStack(Stack):
         
         # Subscribe to kg-triples-ready topic
         kg_triples_ready_topic.add_subscription(
-            sns_subscriptions.LambdaSubscription(kg_integration_worker)
+            sns_subscriptions.LambdaSubscription(kg_triple_loader)
         )
         
         # Grant permission for SNS to invoke
-        kg_integration_worker.add_permission(
+        kg_triple_loader.add_permission(
             "AllowKGTriplesReadySNSInvoke",
             principal=iam.ServicePrincipal("sns.amazonaws.com"),
             source_arn=kg_triples_ready_topic.topic_arn

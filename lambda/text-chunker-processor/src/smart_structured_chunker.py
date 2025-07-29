@@ -107,38 +107,22 @@ class SmartStructuredChunker:
     def analyze_document_structure(self, textract_response: Dict) -> List[DocumentSection]:
         """
         Analyze Textract response to identify document structure
-        PRESERVED FUNCTIONALITY - NO CHANGES
+        Enhanced to use LAYOUT blocks when available
         """
         try:
             blocks = textract_response.get('blocks', [])
             sections = []
             
-            # Group blocks by page
-            pages = {}
-            for block in blocks:
-                if block.get('BlockType') == 'PAGE':
-                    page_num = block.get('Page', 1)
-                    pages[page_num] = {'lines': [], 'tables': [], 'forms': []}
+            # Check if we have layout information
+            layout_blocks = [b for b in blocks if b.get('BlockType') == 'LAYOUT']
+            has_layout = len(layout_blocks) > 0
             
-            # Organize content by page
-            for block in blocks:
-                page_num = block.get('Page', 1)
-                block_type = block.get('BlockType')
-                
-                if block_type == 'LINE':
-                    if page_num in pages:
-                        pages[page_num]['lines'].append(block)
-                elif block_type == 'TABLE':
-                    if page_num in pages:
-                        pages[page_num]['tables'].append(block)
-                elif block_type in ['KEY_VALUE_SET']:
-                    if page_num in pages:
-                        pages[page_num]['forms'].append(block)
-            
-            # Process each page
-            for page_num, page_content in pages.items():
-                page_sections = self._analyze_page_structure(page_content, page_num)
-                sections.extend(page_sections)
+            if has_layout:
+                logger.info(f"Using LAYOUT analysis: {len(layout_blocks)} layout blocks found")
+                sections = self._analyze_structure_with_layout(blocks)
+            else:
+                logger.info("Using fallback LINE-based analysis")
+                sections = self._analyze_structure_fallback(blocks)
             
             logger.info(f"Analyzed document structure: {len(sections)} sections identified")
             return sections
@@ -146,6 +130,116 @@ class SmartStructuredChunker:
         except Exception as e:
             logger.error(f"Error analyzing document structure: {e}")
             return []
+
+    def _analyze_structure_with_layout(self, blocks: List[Dict]) -> List[DocumentSection]:
+        """
+        Analyze document structure using LAYOUT blocks
+        """
+        sections = []
+        layout_blocks = [b for b in blocks if b.get('BlockType') == 'LAYOUT']
+        
+        # Sort layout blocks by reading order and page
+        layout_blocks.sort(key=lambda x: (
+            x.get('Page', 1),
+            x.get('ReadingOrder', 999)
+        ))
+        
+        for layout_block in layout_blocks:
+            layout_type = layout_block.get('LayoutType', '').upper()
+            text = layout_block.get('Text', '').strip()
+            
+            if not text:
+                continue
+            
+            # Map Textract layout types to our section types
+            section_type = self._map_layout_type_to_section_type(layout_type)
+            hierarchy_level = self._determine_hierarchy_from_layout(layout_type, text)
+            
+            section = DocumentSection(
+                text=text,
+                section_type=section_type,
+                hierarchy_level=hierarchy_level,
+                page_number=layout_block.get('Page', 1),
+                bounding_box=layout_block.get('Geometry', {}).get('BoundingBox', {}),
+                confidence=layout_block.get('Confidence', 1.0),
+                start_char=0  # Will be set when processing chunks
+            )
+            
+            sections.append(section)
+        
+        return sections
+
+    def _analyze_structure_fallback(self, blocks: List[Dict]) -> List[DocumentSection]:
+        """
+        Fallback analysis using LINE blocks (original method)
+        """
+        sections = []
+        
+        # Group blocks by page
+        pages = {}
+        for block in blocks:
+            if block.get('BlockType') == 'PAGE':
+                page_num = block.get('Page', 1)
+                pages[page_num] = {'lines': [], 'tables': [], 'forms': []}
+        
+        # Organize content by page
+        for block in blocks:
+            page_num = block.get('Page', 1)
+            block_type = block.get('BlockType')
+            
+            if block_type == 'LINE':
+                if page_num in pages:
+                    pages[page_num]['lines'].append(block)
+            elif block_type == 'TABLE':
+                if page_num in pages:
+                    pages[page_num]['tables'].append(block)
+            elif block_type in ['KEY_VALUE_SET']:
+                if page_num in pages:
+                    pages[page_num]['forms'].append(block)
+        
+        # Process each page
+        for page_num, page_content in pages.items():
+            page_sections = self._analyze_page_structure(page_content, page_num)
+            sections.extend(page_sections)
+        
+        return sections
+
+    def _map_layout_type_to_section_type(self, layout_type: str) -> SectionType:
+        """
+        Map Textract layout types to our section types
+        """
+        layout_mapping = {
+            'TITLE': SectionType.TITLE,
+            'SECTION_HEADER': SectionType.HEADER,
+            'HEADER': SectionType.HEADER,
+            'FOOTER': SectionType.FOOTER,
+            'PAGE_HEADER': SectionType.HEADER,
+            'PAGE_FOOTER': SectionType.FOOTER,
+            'LIST': SectionType.LIST,
+            'TABLE': SectionType.TABLE,
+            'FIGURE': SectionType.CAPTION,
+            'TEXT': SectionType.PARAGRAPH
+        }
+        
+        return layout_mapping.get(layout_type, SectionType.PARAGRAPH)
+
+    def _determine_hierarchy_from_layout(self, layout_type: str, text: str) -> int:
+        """
+        Determine hierarchy level from layout type and text
+        """
+        if layout_type == 'TITLE':
+            return 1
+        elif layout_type in ['SECTION_HEADER', 'HEADER']:
+            # Check for numbered headers for sub-levels
+            if any(char.isdigit() for char in text[:10]):
+                return 2
+            return 3
+        elif layout_type == 'PAGE_HEADER':
+            return 2
+        elif layout_type in ['LIST', 'TABLE']:
+            return 4
+        else:
+            return 5
 
     def _analyze_page_structure(self, page_content: Dict, page_num: int) -> List[DocumentSection]:
         """

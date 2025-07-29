@@ -1,0 +1,23 @@
+{
+    "page_numbers": [
+        22
+    ], 
+    "chunk_index": 35, 
+    "semantic_context": "", 
+    "text": "[Previous context: Financial data is collected by function (salaries,] drugs) and level (hospital, health centers.), but there is little information on expenditure by\n\ndisease types (communicable versus noncommunicable) or how costs of service delivery vary\n\nbetween levels of the health system. The recent Public Expenditure Review of the Health Sector\n\n2011 asked if (public) money is being spent efficiently on health in Vanuatu and concluded \"the\n\nanswer to this question is probably no. It is 'probably' no because the lack of data on the impact\n\n[Context: answer to this question is probably no. It is 'probably' no because the lack of data on the impact]\nof health services makes it tricky to give a definitive answer\" (Government of Vanuatu, 2012e ).\n\nSimilarly, AusAID, which contributes almost one-quarter of total government expenditure on\n\nhealth under a multiyear agreement, notes that \"it is difficult to adequately assess progress\n\nagainst the (higher-level) target results\n\nbecause there is not enough reliable data coming out\n\nof the health information system\" (Australian Government, 2011). Importantly, there is little\n\navailable data on the equity implications of health financing; for instance, who contributes and", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0035", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1164, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

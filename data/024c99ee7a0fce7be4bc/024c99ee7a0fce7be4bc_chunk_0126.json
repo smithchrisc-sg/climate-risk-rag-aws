@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        70
+    ], 
+    "chunk_index": 126, 
+    "semantic_context": "", 
+    "text": "[Previous context: There\n\nare 48 districts in Samoa.\n\n69] The census indicates that for persons 15 years and older 32 percent of females are actively\n\n[Context: The census indicates that for persons 15 years and older 32 percent of females are actively]\ninvolved in economic activities and 65 percent mainly involved in non-economic activities.\n\nThe reverse was the case for males: 68 percent are actively involved and 35 percent are mainly\n\ninvolved in non-economic activities. This pattern reflects the traditional Samoan household\n\nwhere men deal mostly with the heavier work outside the house such as farming, planting and\n\nfishing and income generating activities whereas women are more involved in less physical\n\nwork and household work.\n\nTable 1 shows trends in the economically active population in the 2006 and 2001 censuses.\n\nTable 1: Economically active population Persons 15+ 2006 & 2001\n\n2001\n\n2006\n\nTotal\n\nTotal\n\n%\n\nEconomically Active\n\n%\n\nPaid job\n\n46.2\n\n24468\n\n51.6\n\n28179\n\nSubsistence for sale\n\n3.5\n\n1219\n\n2.2\n\n1831\n\nSubsistence for family use\n\n44.2\n\n23408\n\n28.6\n\n15652\n\nSubsistence for sale & family use\n\n612\n\n16.2\n\n8878\n\n1.2\n\nLooking for work\n\n2620\n\n707\n\n1.3\n\n5.0\n\n54,635\u00b9\u00b9\n\nTotal\n\n100\n\n100\n\n52,954", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0126", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1159, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

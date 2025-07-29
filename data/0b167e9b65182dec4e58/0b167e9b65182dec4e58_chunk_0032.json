@@ -1,0 +1,26 @@
+{
+    "page_numbers": [
+        21
+    ], 
+    "chunk_index": 32, 
+    "semantic_context": "", 
+    "text": "[Previous context: It comes at a time when there are new - and] disturbing - insights delivered through the WHO NCD STEPS survey and soon to be released\n\nestimates of the Global Burden of Disease Study 2010 (Murray et al., 2012), about the health\n\nburdens and risk factors for ill health in 187 countries globally, including Vanuatu. 6 WHO is also\n\ncurrently working with the government on a Crisis Mitigating Package, which will have\n\n4. \"Fiscal space\" is defined by Heller (2005) as \"the capacity of government to provide additional budgetary\n\n[Context: 4. \"Fiscal space\" is defined by Heller (2005) as \"the capacity of government to provide additional budgetary]\nresources for a desired purpose without any prejudice to the sustainability of its financial position.\" Tandon and\n\nCashin (2010) further state that \"fiscal space exists when a government has budgetary room to increase spending and\n\n[Context: Cashin (2010) further state that \"fiscal space exists when a government has budgetary room to increase spending and]\ncan do so without impairing fiscal solvency, that is, the government's present and future ability to cover its recurrent\n\nexpenditures and service its debt.\"\n\n5\n\n[Context: 5]\nThe initial draft of this paper was written in 2012.", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0032", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1189, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

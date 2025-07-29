@@ -1,0 +1,27 @@
+{
+    "page_numbers": [
+        22, 
+        23
+    ], 
+    "chunk_index": 36, 
+    "semantic_context": "", 
+    "text": "[Previous context: Importantly, there is little\n\navailable data on the equity implications of health financing; for instance, who contributes and] who benefits the most from scarce government resources.\n\n7. This is then followed by 35 neonatal deaths, 30 heart-related deaths, 25 asthma deaths, 24 stroke-related deaths,\n\n20 cancer deaths, 18 hypertension deaths, 18 diabetes deaths, 10 diarrhea deaths, and 9 pneumonia deaths.\n\nPage 4\n\nCHAPTER 2: HEALTH OUTCOMES AND CHALLENGES IN VANUATU\n\nContext\n\nVanuatu is a lower-middle-income country in the southwest Pacific, comprising about 80\n\n2.1\n\n[Context: 2.1]\nislands spread over vast distances. Basic data about Vanuatu are summarized in table 2.1 below.\n\nTable 2.1 Summary Data on Vanuatu\n\nIndicator\n\nEconomy and income\n\nUS$2,870\n\nGross national income (GNI) per capita 2011\n\nGNI per capita 2011 (PPP) 8\n\nI$ 4,500\n\nGross domestic product (GDP), 2011 (US$ current)\n\n819.2 million\n\nDemographics\n\nTotal population, 2011\n\n245,619\n\nTotal fertility rate per woman, 2010\u1d43\n\n3.5\n\nAnnual population growth rate per annum, 2010\u1d43\n\n2.5 percent\n\nPopulation age 0-14, percent of total, 2011\n\n37 percent\n\nPopulation age 15-64, percent of total, 2011\n\n58 percent\n\nPopulation age 65 and above, percent of total, 2011\n\n3 percent\n\nPopulation median age\u1d43\n\n21 years", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0036", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1146, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

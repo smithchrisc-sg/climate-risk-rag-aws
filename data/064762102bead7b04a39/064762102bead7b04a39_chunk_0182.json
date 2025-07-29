@@ -1,0 +1,27 @@
+{
+    "page_numbers": [
+        69, 
+        70
+    ], 
+    "chunk_index": 182, 
+    "semantic_context": "", 
+    "text": "[Previous context: While humanitarian assistance may alleviate human distress in\n\nthe short term, rapid and substantial funding is needed for recover and reconstruction to\n\n[Context: the short term, rapid and substantial funding is needed for recover and reconstruction to]\nstart and to mitigate the negative impacts which will be felt over months and years to come.\n\n4.\n\nWhile the earthquake has not principally affected Nepal's poorest areas, the\n\ndependence of affected communities on rural activity and their isolation could lead to] a rapid deterioration in livelihoods. Six affected districts (Sindhuli, Rasuwa,\n\nMakawanpur, Dolakha, Ramechhap and Sindhupalchowk) have poverty rate higher than\n\nthe national average. Many rural households have lost key assets as well as means of\n\nproduction (land, buildings, permanent crops and cattle, agricultural equipment).\n\n[Context: production (land, buildings, permanent crops and cattle, agricultural equipment).]\nOpportunities to work (on self-operated farms or as daily laborers) have dwindled.\n\nAdditionally there are strong multiplier effects to the informal sector (basic services) which\n\nconstitutes a large share of the economy.\n\n30 Sindhupalchowk, Kathmandu, Nuwakot, Dhading, Rasuwa, Gorkha, Kavrepalanchowk, Bhaktapur, Lalitpur,\n\nDolakha, Makawanpur, Ramechhap, Okhaldhunga, Sindhuli.\n\n61\n\nThe health status of the population in the affected areas could worsen, as\n\n5.\n\nhealth service infrastructure has sustained significant damage while health risks and\n\nhealth care needs have surged. Initial reports indicate that more than 700 government\n\nhospitals and rural health units have sustained damage, of which 266 are fully destroyed;", 
+    "chunk_id": "064762102bead7b04a39_chunk_0182", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1154, 
+    "doc_id": "064762102bead7b04a39", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

@@ -21,7 +21,7 @@ class BulkLoadManager:
     LOAD_FAILED = "LOAD_FAILED"
     
     # Bulk load threshold (number of estimated triples)
-    BULK_LOAD_THRESHOLD = 1000
+    BULK_LOAD_THRESHOLD = 5000
     
     def __init__(self, kg_manager):
         """

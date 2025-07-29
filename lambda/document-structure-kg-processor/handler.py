@@ -10,7 +10,7 @@ import os
 sys.path.append('/opt/python')
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from document_structure_processor_refactored import DocumentStructureKGProcessor
+from document_structure_processor import DocumentStructureKGProcessor
 
 def lambda_handler(event, context):
     """Lambda entry point for document structure KG processing"""

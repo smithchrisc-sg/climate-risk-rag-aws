@@ -7,13 +7,14 @@ This document provides comprehensive infrastructure mappings and configurations 
 1. [VPC and Networking](#vpc-and-networking)
 2. [Security Groups](#security-groups)
 3. [Database Configuration](#database-configuration)
-4. [Lambda Configuration](#lambda-configuration)
-5. [IAM Roles and Policies](#iam-roles-and-policies)
-6. [Lambda Layers](#lambda-layers)
-7. [S3 Buckets](#s3-buckets)
-8. [Secrets Manager](#secrets-manager)
-9. [Common Patterns](#common-patterns)
-10. [Troubleshooting Checklist](#troubleshooting-checklist)
+4. [OpenSearch Configuration](#opensearch-configuration)
+5. [Lambda Configuration](#lambda-configuration)
+6. [IAM Roles and Policies](#iam-roles-and-policies)
+7. [Lambda Layers](#lambda-layers)
+8. [S3 Buckets](#s3-buckets)
+9. [Secrets Manager](#secrets-manager)
+10. [Common Patterns](#common-patterns)
+11. [Troubleshooting Checklist](#troubleshooting-checklist)
 
 ---
 
@@ -293,6 +294,285 @@ CHECK (stage IN (
     'kg_triples_load'       -- Neptune knowledge graph loading
 ));
 ```
+
+---
+
+## OpenSearch Configuration
+
+### Managed OpenSearch Domain (Cost-Optimized)
+- **Domain Name**: `solve-global-kr-search`
+- **Endpoint**: `https://vpc-solve-global-kr-search-hsacnclbjsoclui75hefj2espq.us-east-1.es.amazonaws.com`
+- **Version**: OpenSearch 2.19.0
+- **Configuration**: 2-node m6g.large.search cluster
+- **Cost**: ~$170/month (94% savings vs OpenSearch Serverless)
+- **Network**: VPC access only (private)
+
+### OpenSearch Cluster Details
+- **Instance Type**: m6g.large.search
+- **Node Count**: 2 (multi-AZ deployment)
+- **Storage**: 20GB EBS gp3 per node (40GB total)
+- **IOPS**: 3000 per volume
+- **Throughput**: 125 MiB/s per volume
+- **Subnets**: `subnet-0e9efc5fdf29e9da0`, `subnet-00efdcc220a613ae3` (database subnets)
+- **Security Group**: `sg-09820dfa36321a5e1`
+
+### Authentication Configuration
+- **Method**: Basic Authentication (username/password)
+- **Master Username**: `admin`
+- **Master Password**: `veqpat-kegba2-zapbyZ`
+- **Fine-grained Access Control**: Enabled
+- **Encryption**: At rest, in transit, and node-to-node
+
+### Dual Index Strategy
+
+#### Documents Keyword Index (`documents_keyword`)
+- **Purpose**: Document-level TF-IDF keyword search
+- **Mapping**: Full document text with proper term frequency analysis
+- **Analyzer**: Custom climate_analyzer with stemming and stop words
+- **Fields**:
+  - `doc_id` (keyword)
+  - `title` (text with keyword field)
+  - `content` (text with climate_analyzer)
+  - `document_keywords` (keyword array)
+  - `structure_info` (object with page/table counts)
+  - `metadata` (object, not indexed)
+  - `timestamp` (date)
+
+#### Chunks Vector Index (`chunks_vector`)
+- **Purpose**: Chunk-level semantic vector search with k-NN
+- **Vector Dimension**: 1536 (Titan embeddings)
+- **Vector Method**: HNSW with L2 distance
+- **Fields**:
+  - `chunk_id` (keyword)
+  - `doc_id` (keyword) - Links chunks to documents
+  - `chunk_index` (integer)
+  - `text` (text)
+  - `vector` (knn_vector with HNSW index)
+  - `chunk_metadata` (object with page numbers, section types)
+  - `embedding_metadata` (object with model info)
+  - `timestamp` (date)
+
+### Lambda Environment Variables for OpenSearch
+
+```python
+environment={
+    "OPENSEARCH_ENDPOINT": "https://vpc-solve-global-kr-search-hsacnclbjsoclui75hefj2espq.us-east-1.es.amazonaws.com",
+    "OPENSEARCH_USERNAME": "admin",
+    "OPENSEARCH_PASSWORD": "veqpat-kegba2-zapbyZ"
+}
+```
+
+### OpenSearch Connection Pattern (Python)
+
+```python
+from opensearchpy import OpenSearch, RequestsHttpConnection
+
+def create_opensearch_client():
+    client = OpenSearch(
+        hosts=[{'host': 'vpc-solve-global-kr-search-hsacnclbjsoclui75hefj2espq.us-east-1.es.amazonaws.com', 'port': 443}],
+        http_auth=('admin', 'veqpat-kegba2-zapbyZ'),
+        use_ssl=True,
+        verify_certs=True,
+        connection_class=RequestsHttpConnection,
+        timeout=30,
+        max_retries=3,
+        retry_on_timeout=True
+    )
+    return client
+
+# Test connection
+client = create_opensearch_client()
+info = client.info()
+print(f"Connected to: {info.get('cluster_name')}")
+```
+
+### Security Group Configuration for OpenSearch
+
+#### OpenSearch Security Group (`sg-09820dfa36321a5e1`)
+- **Inbound Rules**:
+  - TCP 443 from `sg-0c9e10b9cfb4c9eb0` (Lambda functions)
+  - Description: "HTTPS from Lambda functions"
+
+#### Lambda Functions Requiring OpenSearch Access
+- **keyword-indexer**: Uses `documents_keyword` index
+- **vector-embeddings-worker**: Uses `chunks_vector` index
+- **Security Group**: `sg-0c9e10b9cfb4c9eb0`
+
+### Index Management Commands
+
+#### Create Documents Index
+```python
+documents_mapping = {
+    "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 1,
+        "analysis": {
+            "analyzer": {
+                "climate_analyzer": {
+                    "type": "custom",
+                    "tokenizer": "standard",
+                    "filter": ["lowercase", "stop", "stemmer"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "doc_id": {"type": "keyword"},
+            "title": {
+                "type": "text",
+                "analyzer": "climate_analyzer",
+                "fields": {"keyword": {"type": "keyword"}}
+            },
+            "content": {"type": "text", "analyzer": "climate_analyzer"},
+            "document_keywords": {"type": "keyword"},
+            "structure_info": {
+                "properties": {
+                    "page_count": {"type": "integer"},
+                    "table_count": {"type": "integer"},
+                    "has_tables": {"type": "boolean"}
+                }
+            },
+            "timestamp": {"type": "date"}
+        }
+    }
+}
+
+client.indices.create(index="documents_keyword", body=documents_mapping)
+```
+
+#### Create Chunks Vector Index
+```python
+chunks_mapping = {
+    "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 1,
+        "index": {
+            "knn": True,
+            "knn.algo_param.ef_search": 100
+        }
+    },
+    "mappings": {
+        "properties": {
+            "chunk_id": {"type": "keyword"},
+            "doc_id": {"type": "keyword"},
+            "chunk_index": {"type": "integer"},
+            "text": {"type": "text", "analyzer": "standard"},
+            "vector": {
+                "type": "knn_vector",
+                "dimension": 1536,
+                "method": {
+                    "name": "hnsw",
+                    "space_type": "l2"
+                }
+            },
+            "chunk_metadata": {
+                "properties": {
+                    "character_count": {"type": "integer"},
+                    "page_numbers": {"type": "integer"},
+                    "section_types": {"type": "keyword"}
+                }
+            },
+            "timestamp": {"type": "date"}
+        }
+    }
+}
+
+client.indices.create(index="chunks_vector", body=chunks_mapping)
+```
+
+### Search Examples
+
+#### Document-Level Keyword Search
+```python
+def search_documents(query_text, size=10):
+    search_body = {
+        "query": {
+            "multi_match": {
+                "query": query_text,
+                "fields": ["title^2", "content", "document_keywords^1.5"],
+                "type": "best_fields",
+                "fuzziness": "AUTO"
+            }
+        },
+        "highlight": {
+            "fields": {
+                "content": {"fragment_size": 150, "number_of_fragments": 3},
+                "title": {}
+            }
+        },
+        "size": size
+    }
+    
+    response = client.search(index="documents_keyword", body=search_body)
+    return response['hits']['hits']
+```
+
+#### Chunk-Level Vector Search
+```python
+def search_chunks_by_vector(query_vector, size=10, doc_id_filter=None):
+    search_body = {
+        "query": {
+            "bool": {
+                "must": [
+                    {
+                        "knn": {
+                            "vector": {
+                                "vector": query_vector,
+                                "k": size
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "size": size
+    }
+    
+    # Optional: Filter by specific document
+    if doc_id_filter:
+        search_body["query"]["bool"]["filter"] = [
+            {"term": {"doc_id": doc_id_filter}}
+        ]
+    
+    response = client.search(index="chunks_vector", body=search_body)
+    return response['hits']['hits']
+```
+
+### Migration Notes
+
+#### From OpenSearch Serverless (DEPRECATED)
+- **Previous Collections**: 
+  - `solve-global-kr-search-v2` (keyword) - DELETED
+  - `solve-global-kr-vectors-v2` (vector) - DELETED
+- **Cost Savings**: $1,500-2,200/month → $170/month (90-94% reduction)
+- **Authentication Change**: AWS IAM → Basic authentication
+- **Network Change**: Public serverless → VPC-private managed domain
+
+#### Lambda Function Updates Required
+- **Environment Variables**: Update `OPENSEARCH_ENDPOINT`, add `OPENSEARCH_USERNAME`/`OPENSEARCH_PASSWORD`
+- **Authentication Code**: Replace AWS4Auth with basic authentication
+- **Connection Class**: Continue using RequestsHttpConnection
+- **Index Names**: Update to `documents_keyword` and `chunks_vector`
+
+### Monitoring and Maintenance
+
+#### CloudWatch Metrics
+- **Cluster Health**: Monitor cluster status (green/yellow/red)
+- **Storage Utilization**: Monitor EBS usage (currently 40GB total)
+- **Search Latency**: Monitor query performance
+- **Indexing Rate**: Monitor document ingestion
+
+#### Scaling Considerations
+- **Vertical Scaling**: Upgrade from m6g.large to m6g.xlarge if needed
+- **Horizontal Scaling**: Add more nodes if search volume increases
+- **Storage Scaling**: Increase EBS volume size as data grows
+- **Regional Deployment**: Deploy in ap-southeast-1 for Singapore users
+
+#### Backup and Recovery
+- **Automated Snapshots**: Configured for 02:00 UTC daily
+- **Manual Snapshots**: Available via AWS console or API
+- **Cross-Region Backup**: Consider for production deployment
 
 ---
 
@@ -769,5 +1049,5 @@ postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-post
 
 ---
 
-*Last Updated: 2025-07-11*  
-*Version: 1.0*
+*Last Updated: 2025-07-27 (OpenSearch Migration Complete)*  
+*Version: 2.0*

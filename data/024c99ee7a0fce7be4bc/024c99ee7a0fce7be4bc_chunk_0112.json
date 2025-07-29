@@ -1,0 +1,24 @@
+{
+    "page_numbers": [
+        61
+    ], 
+    "chunk_index": 112, 
+    "semantic_context": "", 
+    "text": "[Previous context: The necessary data were obtained by the consultant from the\n\nMeteorological Station in Apia, being the only station that measures wind speed and] relative humidity in Samoa. However, since the mean temperature, wind speed and\n\nhumidity fluctuate very little in the coastal and low-lying areas of Samoa where most\n\nsuitable land for farming are located, it is believed that the calculated data for Apia,\n\npresented in Table 11, can also be used with adequate accuracy for other locations within\n\nagricultural areas.\n\nTable 11: Values of ETo for Apia (mm/day)\n\nMigh\n\nSe\n\nDe\n\nNo\n\nAp\n\nOc\n\nMa\n\nJu\n\nFe\n\nAu\n\nJu\n\nTotal\n\nJan\n\nb\n\nI\n\nt\n\nt\n\nr\n\nV\n\nc\n\ng\n\nr\n\nn\n\nn\n\nETo\n\n1483\n\n4.\n\n3.8\n\n3.4\n\n4.2\n\n4.2\n\n3.7\n\n4.0\n\n4.6\n\n3.5\n\n4.5\n\n4.4\n\n4.5\n\n(mm/\n\nmm\n\n1\n\n/d\n\nVegetation Classification\n\n3.6\n\nVegetation of the West Samoan islands is divided to five major units through the\n\nwork of whistler (1980):\n\nStrand vegetation;\n\nVegetation of the plains and lower montane region\n\nForest of the upper montane region, rainforest and fern forest;\n\nRidge forest vegetation; and\n\nVegetation of recent lava flows.\n\nThe natural vegetation, specific to these islands, consists of cloud forest and smaller\n\namount of lava flow scrub and herbaceous vegetation of cinder and ash deposits, and\n\nmontane meadows, especially in Savai'i. Many species of animals and plants found are", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0112", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1189, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

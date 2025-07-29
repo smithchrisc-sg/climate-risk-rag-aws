@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Document Structure Knowledge Graph Processor - Refactored
-Processes document structure completion events and generates TTL for Neptune loading
+Document Structure Knowledge Graph Processor - Refactored for RDFLib Graph Building
+Processes document structure completion events and generates TTL files using proper RDF graph construction
 
 This Lambda function:
 1. Receives SNS messages from text chunker completion (chunks_ready)
-2. Generates document structure TTL using Dublin Core vocabulary AND document structure ontology
-3. Uses Knowledge Graph Layer for consistent URI generation and triple management
-4. Leverages bulk load optimization for large documents
+2. Generates document structure TTL using RDFLib Graph building with Dublin Core vocabulary
+3. Uses Knowledge Graph Layer for consistent URI generation and proper RDF triple management
+4. Writes TTL files to S3 for decoupled Neptune loading via kg-integration-worker
 5. Updates processing status in PostgreSQL
 
-Refactored to use Knowledge Graph Layer v1.0.0
+Refactored to use Knowledge Graph Layer v1.0.0 with RDFLib Graph building approach
 """
 
 import json
@@ -20,6 +20,11 @@ import sys
 import logging
 from datetime import datetime
 from typing import Dict, List, Any, Optional
+
+# RDFLib imports for proper graph handling
+import rdflib
+from rdflib import Graph, Namespace, URIRef, Literal
+from rdflib.namespace import RDF, RDFS, XSD, DCTERMS
 
 # Configure logging
 logger = logging.getLogger()
@@ -35,11 +40,10 @@ except ImportError as e:
     raise
 
 class DocumentStructureKGProcessor:
-    """Processes document structure for knowledge graph integration using KG Layer"""
+    """Processes document structure for knowledge graph integration using RDFLib Graph building"""
     
     def __init__(self):
         self.s3_client = boto3.client('s3')
-        self.sns_client = boto3.client('sns')
         
         # Initialize managers with standardized layers
         try:
@@ -50,132 +54,149 @@ class DocumentStructureKGProcessor:
             logger.error(f"Manager initialization failed: {e}")
             raise
         
-        # S3 buckets from environment
-        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET', 'solve-global-kr-dl-chunks-861276078413-us-east-1')
-        self.text_bucket = os.environ.get('TEXT_BUCKET', 'solve-global-kr-dl-text-861276078413-us-east-1')
+        # S3 configuration
+        self.chunks_bucket = os.environ.get('CHUNKS_BUCKET')
+        self.text_bucket = os.environ.get('TEXT_BUCKET')
+        self.ttl_bucket = os.environ.get('TTL_BUCKET')
         
-        # SNS topics for downstream processing
-        self.kg_triples_ready_topic = os.environ.get('KG_TRIPLES_READY_TOPIC_ARN')
+        # Set up RDFLib namespaces for semantic schema v3.1
+        self.sgd_ns = Namespace("http://solve.global/knowledge-commons/document-structure#")
+        self.sgm_ns = Namespace("http://solve.global/knowledge-commons/process-metadata#")
+        self.sg_ns = Namespace("http://solve.global/knowledge-commons/")
+        self.dcterms_ns = DCTERMS
         
-        logger.info(f"Initialized with buckets - chunks: {self.chunks_bucket}, text: {self.text_bucket}")
-        logger.info(f"Neptune endpoint: {self.kg_manager.neptune_endpoint}")
-        
+        logger.info(f"Initialized with buckets - chunks: {self.chunks_bucket}, text: {self.text_bucket}, ttl: {self.ttl_bucket}")
+        logger.info(f"Neptune endpoint: {os.environ.get('NEPTUNE_ENDPOINT')}")
+        logger.info("RDFLib graph building enabled for document structure processing")
+    
+    def _map_section_type_to_semantic_class(self, section_type: str):
+        """Map hierarchical chunker section_type to semantic RDF class"""
+        mapping = {
+            'title': self.sgd_ns.Section,      # Sections with title content
+            'header': self.sgd_ns.Heading,     # Section headings
+            'paragraph': self.sgd_ns.Paragraph, # Text paragraphs
+            'list': self.sgd_ns.List,          # Enumerated content
+            'table': self.sgd_ns.Table,        # Tabular data
+            'figure': self.sgd_ns.Figure       # Visual content
+        }
+        return mapping.get(section_type, self.sgd_ns.DocumentElement)
+    
+    def _get_chunk_uri(self, chunk_id: str) -> URIRef:
+        """Generate consistent chunk URI from chunk_id"""
+        if '_chunk_' in chunk_id:
+            chunk_number = chunk_id.split('_chunk_')[-1]
+        else:
+            chunk_number = chunk_id
+        return URIRef(f"{self.sg_ns}chunk_{chunk_number}")
+    
     def lambda_handler(self, event, context):
         """Main Lambda handler for document structure KG processing"""
         
+        logger.info(f"Processing document structure KG event: {json.dumps(event)}")
+        
         try:
-            logger.info(f"Processing document structure KG event: {json.dumps(event, default=str)}")
-            
             # Parse SNS message
-            records = event.get('Records', [])
-            results = []
-            
-            for record in records:
-                if record.get('EventSource') == 'aws:sns':
-                    # Parse the SNS message
-                    sns_message = record['Sns']['Message']
-                    message = json.loads(sns_message)
-                    result = self.process_chunks_ready_message(message)
-                    results.append(result)
-                else:
-                    logger.warning(f"Unexpected event source: {record.get('EventSource')}")
-            
-            return {
-                'statusCode': 200,
-                'body': json.dumps({
-                    'message': 'Document structure KG processing completed',
-                    'processed_count': len(results),
-                    'results': results
-                })
-            }
-            
+            if 'Records' in event:
+                for record in event['Records']:
+                    if record.get('EventSource') == 'aws:sns':
+                        message = json.loads(record['Sns']['Message'])
+                        return self.process_chunks_ready_message(message)
+            else:
+                # Direct invocation for testing
+                return self.process_chunks_ready_message(event)
+                
         except Exception as e:
-            logger.error(f"Error in document structure KG processing: {str(e)}")
-            return {
-                'statusCode': 500,
-                'body': json.dumps({
-                    'error': str(e),
-                    'message': 'Document structure KG processing failed'
-                })
-            }
+            logger.error(f"Error processing event: {str(e)}")
+            raise
     
     def process_chunks_ready_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
-        """Process a chunks_ready message for document structure KG generation"""
+        """Process chunks_ready message and generate document structure TTL using RDFLib"""
         
-        doc_id = None
+        doc_id = message.get('doc_id')
+        data_locations = message.get('data_locations', {})
+        processing_metadata = message.get('processing_metadata', {})
+        
+        if not doc_id:
+            raise ValueError("doc_id is required in chunks_ready message")
+        
+        logger.info(f"Processing document structure KG for document: {doc_id}")
+        logger.info(f"Chunks location: {data_locations.get('chunks_location')}")
+        
         try:
-            # Validate message format
-            if message.get('stage') != 'chunks_ready':
-                logger.warning(f"Unexpected message stage: {message.get('stage')}")
-                return {
-                    'status': 'skipped',
-                    'reason': f'Message stage is {message.get("stage")}, expected chunks_ready'
-                }
-            
-            doc_id = message.get('doc_id')
-            if not doc_id:
-                raise ValueError("Missing doc_id in chunks_ready message")
-            
-            data_locations = message.get('data_locations', {})
-            processing_metadata = message.get('processing_metadata', {})
-            
-            logger.info(f"Processing document structure KG for document: {doc_id}")
-            logger.info(f"Chunks location: {data_locations.get('chunks_location')}")
-            
-            # Update status to in_progress
+            # Set processing status to in_progress
             self.db_manager.set_processing_status(
                 doc_id=doc_id,
                 stage='kg_doc_structure',
                 status='in_progress'
             )
             
-            # Generate document structure TTL using KG layer
-            ttl_result = self.generate_document_structure_ttl(
+            # Generate document structure TTL using RDFLib graph building
+            ttl_result = self.generate_document_structure_ttl_rdflib(
                 doc_id, 
                 data_locations=data_locations,
                 processing_metadata=processing_metadata
             )
             
             if ttl_result['success']:
-                # Use KG layer's optimized insertion (automatically chooses SPARQL vs bulk load)
-                insertion_result = self.kg_manager.triple_manager.insert_triples_optimized(
-                    ttl_content=ttl_result['ttl_content'],
-                    s3_key_prefix=f"document-structure/{doc_id}"
-                )
-                
-                # Trigger downstream processing if topic configured
-                integration_result = {'success': True, 'message': 'No kg-triples-ready topic configured'}
-                if self.kg_triples_ready_topic:
-                    integration_result = self.trigger_kg_integration(doc_id, ttl_result, insertion_result)
-                
-                # Update processing status to completed
-                self.db_manager.set_processing_status(
+                # Write TTL to S3 instead of direct Neptune insertion
+                s3_result = self.write_ttl_to_s3(
                     doc_id=doc_id,
-                    stage='kg_doc_structure',
-                    status='completed',
-                    metadata={
-                        'ttl_generated': True,
-                        'insertion_method': insertion_result['method'],
-                        'records_processed': insertion_result.get('records_loaded', insertion_result.get('estimated_records', 0)),
-                        'integration_triggered': integration_result['success'],
-                        'chunks_count': processing_metadata.get('chunks_created', 0),
-                        'processing_completed_at': datetime.utcnow().isoformat() + 'Z',
-                        's3_location': insertion_result.get('s3_uri'),  # Only present for bulk load
-                        'ttl_size': ttl_result['ttl_size']
-                    }
+                    ttl_content=ttl_result['ttl_content']
                 )
                 
-                logger.info(f"Successfully processed document structure KG for {doc_id} using {insertion_result['method']}")
-                
-                return {
-                    'doc_id': doc_id,
-                    'status': 'success',
-                    'insertion_method': insertion_result['method'],
-                    'records_processed': insertion_result.get('records_loaded', insertion_result.get('estimated_records', 0)),
-                    'integration_triggered': integration_result['success']
-                }
+                if s3_result['success']:
+                    # Update processing status to completed
+                    self.db_manager.set_processing_status(
+                        doc_id=doc_id,
+                        stage='kg_doc_structure',
+                        status='completed',
+                        metadata={
+                            'ttl_generated': True,
+                            'ttl_s3_location': s3_result['s3_uri'],
+                            'ttl_size': ttl_result['ttl_size'],
+                            'chunks_count': processing_metadata.get('chunks_created', 0),
+                            'chunks_processed': ttl_result['chunks_processed'],
+                            'triples_generated': ttl_result['triples_generated'],
+                            'sections_processed': ttl_result['sections_processed'],
+                            'rdflib_used': True,
+                            'processing_completed_at': datetime.utcnow().isoformat() + 'Z'
+                        }
+                    )
+                    
+                    logger.info(f"Successfully processed document structure KG for {doc_id}")
+                    logger.info(f"TTL written to: {s3_result['s3_uri']}")
+                    logger.info(f"Generated {ttl_result['triples_generated']} triples from {ttl_result['sections_processed']} sections")
+                    
+                    return {
+                        'doc_id': doc_id,
+                        'status': 'completed',
+                        'ttl_location': s3_result['s3_uri'],
+                        'ttl_size': ttl_result['ttl_size'],
+                        'chunks_processed': ttl_result['chunks_processed'],
+                        'triples_generated': ttl_result['triples_generated'],
+                        'sections_processed': ttl_result['sections_processed'],
+                        'rdflib_used': True
+                    }
+                else:
+                    # S3 write failed
+                    self.db_manager.set_processing_status(
+                        doc_id=doc_id,
+                        stage='kg_doc_structure',
+                        status='failed',
+                        metadata={
+                            'error': s3_result['error'],
+                            'failed_at': datetime.utcnow().isoformat() + 'Z'
+                        }
+                    )
+                    
+                    logger.error(f"Failed to write TTL to S3 for {doc_id}: {s3_result['error']}")
+                    return {
+                        'doc_id': doc_id,
+                        'status': 'failed',
+                        'error': s3_result['error']
+                    }
             else:
-                # Update status to failed
+                # TTL generation failed
                 self.db_manager.set_processing_status(
                     doc_id=doc_id,
                     stage='kg_doc_structure',
@@ -186,7 +207,7 @@ class DocumentStructureKGProcessor:
                     }
                 )
                 
-                logger.error(f"TTL generation failed for {doc_id}: {ttl_result['error']}")
+                logger.error(f"Failed to generate TTL for {doc_id}: {ttl_result['error']}")
                 return {
                     'doc_id': doc_id,
                     'status': 'failed',
@@ -194,372 +215,385 @@ class DocumentStructureKGProcessor:
                 }
                 
         except Exception as e:
-            logger.error(f"Error processing chunks_ready message for {doc_id}: {str(e)}")
+            # Update processing status to failed
+            self.db_manager.set_processing_status(
+                doc_id=doc_id,
+                stage='kg_doc_structure',
+                status='failed',
+                metadata={
+                    'error': str(e),
+                    'failed_at': datetime.utcnow().isoformat() + 'Z'
+                }
+            )
             
-            # Update status to failed
-            if doc_id:
-                try:
-                    self.db_manager.set_processing_status(
-                        doc_id=doc_id,
-                        stage='kg_doc_structure',
-                        status='failed',
-                        metadata={
-                            'error': str(e),
-                            'failed_at': datetime.utcnow().isoformat() + 'Z'
-                        }
-                    )
-                except Exception as db_error:
-                    logger.error(f"Failed to update database status: {db_error}")
+            logger.error(f"Error processing document structure KG for {doc_id}: {str(e)}")
+            raise
+    
+    def write_ttl_to_s3(self, doc_id: str, ttl_content: str) -> Dict[str, Any]:
+        """Write TTL content to S3 for Neptune loading"""
+        
+        try:
+            # S3 key: data-lake/{doc_id}/{doc_id}_document_structure.ttl
+            s3_key = f"data-lake/{doc_id}/{doc_id}_document_structure.ttl"
+            
+            logger.info(f"Writing TTL to S3: s3://{self.ttl_bucket}/{s3_key}")
+            
+            # Write TTL content to S3
+            self.s3_client.put_object(
+                Bucket=self.ttl_bucket,
+                Key=s3_key,
+                Body=ttl_content.encode('utf-8'),
+                ContentType='text/turtle',
+                Metadata={
+                    'doc_id': doc_id,
+                    'content_type': 'document_structure',
+                    'generated_at': datetime.utcnow().isoformat() + 'Z',
+                    'rdflib_generated': 'true'
+                }
+            )
+            
+            s3_uri = f"s3://{self.ttl_bucket}/{s3_key}"
+            logger.info(f"TTL successfully written to: {s3_uri} ({len(ttl_content)} bytes)")
             
             return {
-                'doc_id': doc_id or 'unknown',
-                'status': 'error',
+                'success': True,
+                's3_uri': s3_uri,
+                'bucket': self.ttl_bucket,
+                'key': s3_key,
+                'size': len(ttl_content)
+            }
+            
+        except Exception as e:
+            logger.error(f"Failed to write TTL to S3: {str(e)}")
+            return {
+                'success': False,
                 'error': str(e)
             }
     
-    def generate_document_structure_ttl(self, doc_id: str, data_locations: Dict = None, processing_metadata: Dict = None) -> Dict[str, Any]:
-        """Generate TTL for document structure using proper kr: schema for navigation"""
+    def generate_document_structure_ttl_rdflib(self, doc_id: str, data_locations: Dict = None, 
+                                             processing_metadata: Dict = None) -> Dict[str, Any]:
+        """Generate TTL for document structure using RDFLib Graph building"""
         
         try:
-            logger.info(f"Generating TTL for document structure: {doc_id}")
+            logger.info(f"Generating TTL using RDFLib for document structure: {doc_id}")
             
             # Load document chunks and metadata
-            chunks_data = self.load_chunks_data(data_locations)
+            chunks_data = self.load_document_chunks(doc_id, data_locations)
             
-            # Generate document URI using KG layer
-            doc_uri = self.kg_manager.mint_document_uri(doc_id)
+            # Create RDFLib graph for document structure
+            graph = self.kg_manager.create_graph()
             
-            # Get TTL prefixes from KG layer
-            prefixes = self.kg_manager.uri_manager.get_prefixes_ttl()
+            # Bind namespaces for semantic schema v3.1
+            graph.bind("sgd", self.sgd_ns)
+            graph.bind("sgm", self.sgm_ns)
+            graph.bind("sg", self.sg_ns)
+            graph.bind("dcterms", self.dcterms_ns)
             
-            # Add proper kr: schema prefix
-            prefixes += "\n@prefix kr: <http://solve.global/knowledge-commons/schema#> ."
+            # Build document hierarchy using RDFLib graph operations
+            result = self.build_document_hierarchy_rdflib(doc_id, chunks_data, graph)
             
-            # Build document metadata using Dublin Core
-            document_metadata = self.build_document_metadata(doc_id, chunks_data, processing_metadata)
-            
-            # Insert document metadata using KG layer
-            self.kg_manager.insert_document_triples(doc_id, document_metadata)
-            
-            # Build complete document hierarchy: Document → Section → Chunk
-            hierarchy_triples = self.build_document_hierarchy(doc_id, chunks_data)
-            
-            # Combine all TTL content
-            ttl_content = prefixes + "\n\n" + hierarchy_triples
+            # Serialize graph to TTL
+            ttl_content = graph.serialize(format='turtle')
+            if isinstance(ttl_content, bytes):
+                ttl_content = ttl_content.decode('utf-8')
             
             logger.info(f"Generated TTL content ({len(ttl_content)} characters) for document: {doc_id}")
+            logger.info(f"Graph contains {len(graph)} triples")
             
             return {
                 'success': True,
                 'ttl_content': ttl_content,
                 'ttl_size': len(ttl_content),
-                'chunks_processed': len(chunks_data.get('chunks', []))
+                'chunks_processed': result['chunks_processed'],
+                'triples_generated': len(graph),
+                'sections_processed': result['sections_processed']
             }
             
         except Exception as e:
-            logger.error(f"Error generating TTL for {doc_id}: {str(e)}")
+            logger.error(f"Error generating RDFLib TTL for {doc_id}: {str(e)}")
             return {
                 'success': False,
                 'error': str(e)
             }
     
-    def load_chunks_data(self, data_locations: Dict = None) -> Dict[str, Any]:
-        """Load chunks and metadata from S3"""
+    def load_document_chunks(self, doc_id: str, data_locations: Dict = None) -> Dict[str, Any]:
+        """Load document chunks from S3"""
         
         try:
-            chunks_data = {
-                'chunks': [],
-                'metadata': {},
-                'document_info': {}
-            }
+            chunks_location = data_locations.get('chunks_location') if data_locations else None
             
-            chunks_location = data_locations.get('chunks_location', '') if data_locations else ''
+            if not chunks_location:
+                # Fallback to standard location
+                chunks_location = f"s3://{self.chunks_bucket}/data-lake/{doc_id}/"
             
-            if chunks_location and chunks_location.startswith('s3://'):
-                # Parse S3 location
+            # Parse S3 location
+            if chunks_location.startswith('s3://'):
                 bucket_and_prefix = chunks_location[5:]
-                bucket_name = bucket_and_prefix.split('/')[0]
-                prefix = '/'.join(bucket_and_prefix.split('/')[1:])
-                
-                # List all chunk files
-                response = self.s3_client.list_objects_v2(
-                    Bucket=bucket_name,
-                    Prefix=prefix
-                )
-                
-                for obj in response.get('Contents', []):
-                    key = obj['Key']
-                    if key.endswith('.json'):
-                        if key.endswith('metadata.json'):
-                            # Load metadata
-                            metadata_obj = self.s3_client.get_object(Bucket=bucket_name, Key=key)
-                            chunks_data['metadata'] = json.loads(metadata_obj['Body'].read().decode('utf-8'))
-                        elif 'chunk_' in key:
-                            # Load chunk
-                            chunk_obj = self.s3_client.get_object(Bucket=bucket_name, Key=key)
-                            chunk_data = json.loads(chunk_obj['Body'].read().decode('utf-8'))
-                            chunks_data['chunks'].append(chunk_data)
+                bucket, prefix = bucket_and_prefix.split('/', 1)
+            else:
+                raise ValueError(f"Invalid chunks location format: {chunks_location}")
             
-            # Sort chunks by chunk_id for consistent ordering
-            chunks_data['chunks'].sort(key=lambda x: x.get('chunk_id', ''))
+            # List chunk files
+            response = self.s3_client.list_objects_v2(
+                Bucket=bucket,
+                Prefix=prefix
+            )
             
-            logger.info(f"Loaded {len(chunks_data['chunks'])} chunks")
-            return chunks_data
+            chunks = []
+            for obj in response.get('Contents', []):
+                if obj['Key'].endswith('.json') and not obj['Key'].endswith('metadata.json'):
+                    # Load chunk content
+                    chunk_response = self.s3_client.get_object(
+                        Bucket=bucket,
+                        Key=obj['Key']
+                    )
+                    chunk_data = json.loads(chunk_response['Body'].read().decode('utf-8'))
+                    chunks.append(chunk_data)
+            
+            logger.info(f"Loaded {len(chunks)} chunks for RDFLib processing")
+            
+            return {
+                'chunks': chunks,
+                'chunks_location': chunks_location
+            }
             
         except Exception as e:
-            logger.error(f"Error loading chunks data: {str(e)}")
-            return {'chunks': [], 'metadata': {}, 'document_info': {}}
+            logger.error(f"Error loading chunks for {doc_id}: {str(e)}")
+            raise
     
-    def build_document_metadata(self, doc_id: str, chunks_data: Dict, processing_metadata: Dict = None) -> Dict[str, Any]:
-        """Build document metadata using Dublin Core vocabulary"""
+    def build_document_hierarchy_rdflib(self, doc_id: str, chunks_data: Dict[str, Any], 
+                                       graph: Graph) -> Dict[str, Any]:
+        """Build document hierarchy using semantic schema v3.1 with Dublin Core inheritance"""
         
-        metadata = {
-            'identifier': doc_id,
-            'created': datetime.utcnow().isoformat() + 'Z',
-            'modified': datetime.utcnow().isoformat() + 'Z',
-            'type': 'Text'
+        chunks = chunks_data.get('chunks', [])
+        if not chunks:
+            logger.warning(f"No chunks found for document: {doc_id}")
+            return {
+                'chunks_processed': 0,
+                'sections_processed': 0
+            }
+        
+        logger.info(f"Building document hierarchy using semantic schema v3.1 for {len(chunks)} chunks")
+        
+        # Generate document URI
+        doc_uri = URIRef(f"{self.sg_ns}document_{doc_id}")
+        
+        # Add document triples using semantic schema
+        graph.add((doc_uri, RDF.type, self.sgd_ns.Document))
+        graph.add((doc_uri, DCTERMS.identifier, Literal(doc_id)))
+        graph.add((doc_uri, DCTERMS.created, Literal(datetime.utcnow().isoformat() + 'Z', datatype=XSD.dateTime)))
+        
+        chunks_processed = 0
+        
+        # Process individual chunks
+        for chunk in chunks:
+            chunk_uri = self._process_single_chunk(chunk, doc_uri, graph)
+            if chunk_uri:
+                chunks_processed += 1
+        
+        # Process hierarchical relationships after all chunks are created
+        self._process_hierarchical_relationships(chunks, graph)
+        
+        logger.info(f"Semantic schema v3.1 processing complete: {chunks_processed} chunks")
+        logger.info(f"Generated {len(graph)} RDF triples")
+        
+        return {
+            'chunks_processed': chunks_processed,
+            'sections_processed': chunks_processed
         }
-        
-        # Add metadata from chunks data
-        doc_metadata = chunks_data.get('metadata', {})
-        if doc_metadata:
-            document_info = doc_metadata.get('document_info', {})
-            if document_info.get('title'):
-                metadata['title'] = document_info['title']
-            if document_info.get('source_url'):
-                metadata['source'] = document_info['source_url']
-        
-        # Add processing metadata
-        if processing_metadata:
-            chunks_created = processing_metadata.get('chunks_created', 0)
-            metadata['extent'] = f"{chunks_created} chunks"
-        
-        return metadata
     
-    def build_document_hierarchy(self, doc_id: str, chunks_data: Dict) -> str:
-        """Build complete Document → Section → Chunk hierarchy for navigation"""
-        
-        triples = []
-        doc_uri = self.kg_manager.mint_document_uri(doc_id)
-        
-        # Group chunks by section for proper hierarchy
-        sections = self.group_chunks_by_section(chunks_data.get('chunks', []))
-        
-        # Build Document triples (already handled by insert_document_triples, but add hierarchy links)
-        document_triples = [
-            f"<{doc_uri}> a kr:Document ;"
-        ]
-        
-        section_sequence = 1
-        for section_title, section_chunks in sections.items():
-            # Generate section URI
-            section_id = self.generate_section_id(section_title, section_sequence)
-            section_uri = f"{doc_uri}/section/{section_id}"
-            
-            # Add section reference to document
-            document_triples.append(f"    kr:hasSection <{section_uri}> ;")
-            
-            # Build section triples
-            section_triples = self.build_section_triples(
-                doc_uri, section_uri, section_title, section_sequence, section_chunks
-            )
-            triples.extend(section_triples)
-            
-            section_sequence += 1
-        
-        # Close document triples
-        if document_triples[-1].endswith(' ;'):
-            document_triples[-1] = document_triples[-1][:-2] + ' .'
-        else:
-            document_triples.append('.')
-        
-        triples = document_triples + [''] + triples
-        
-        return '\n'.join(triples)
     
-    def group_chunks_by_section(self, chunks: List[Dict]) -> Dict[str, List[Dict]]:
-        """Group chunks by section title for proper hierarchy"""
+    def _process_single_chunk(self, chunk_data: Dict, doc_uri: URIRef, graph: Graph) -> Optional[URIRef]:
+        """Process single chunk with semantic class assignment and Dublin Core inheritance"""
         
-        sections = {}
-        current_section = "Introduction"  # Default section
+        chunk_id = chunk_data.get('chunk_id')
+        if not chunk_id:
+            logger.warning("Chunk missing chunk_id, skipping")
+            return None
         
+        # Generate chunk URI
+        chunk_uri = self._get_chunk_uri(chunk_id)
+        
+        # Get semantic class from section_type
+        section_type = chunk_data.get('section_type', 'paragraph')
+        semantic_class = self._map_section_type_to_semantic_class(section_type)
+        
+        # Add semantic triples
+        graph.add((chunk_uri, RDF.type, semantic_class))
+        
+        # Add Dublin Core relationships (explicit assertion for compatibility)
+        graph.add((chunk_uri, DCTERMS.isPartOf, doc_uri))
+        graph.add((doc_uri, DCTERMS.hasPart, chunk_uri))
+        
+        # Add document structure relationships (inherit from Dublin Core)
+        graph.add((chunk_uri, self.sgd_ns.hasParent, doc_uri))
+        graph.add((doc_uri, self.sgd_ns.hasChild, chunk_uri))
+        
+        # Add content metadata
+        if 'text' in chunk_data and len(chunk_data['text']) > 0:
+            # Add title for sections, description for others
+            if section_type == 'title':
+                graph.add((chunk_uri, DCTERMS.title, Literal(chunk_data['text'])))
+            else:
+                # Truncate long text for RDF storage
+                text_preview = chunk_data['text'][:200] + "..." if len(chunk_data['text']) > 200 else chunk_data['text']
+                graph.add((chunk_uri, DCTERMS.description, Literal(text_preview)))
+        
+        # Process split paragraphs
+        if chunk_data.get('is_split_paragraph', False):
+            self._process_split_paragraph(chunk_data, chunk_uri, graph)
+        
+        # Add processing metadata (separate namespace)
+        self._add_processing_metadata(chunk_data, chunk_uri, graph)
+        
+        return chunk_uri
+    
+    def _process_hierarchical_relationships(self, chunks: List[Dict], graph: Graph):
+        """Process hierarchical relationships with Dublin Core inheritance and ordered navigation"""
+        
+        # Group chunks by parent for relationship processing
+        parent_groups = {}
         for chunk in chunks:
-            # Check if chunk has a section title (indicates new section)
-            section_title = chunk.get('section_title')
-            if section_title:
-                current_section = section_title
+            parent_id = chunk.get('parent_chunk_id')
+            if parent_id:
+                if parent_id not in parent_groups:
+                    parent_groups[parent_id] = []
+                parent_groups[parent_id].append(chunk)
+        
+        # Process parent-child relationships
+        for parent_id, children in parent_groups.items():
+            parent_uri = self._get_chunk_uri(parent_id)
             
-            # Add chunk to current section
-            if current_section not in sections:
-                sections[current_section] = []
-            sections[current_section].append(chunk)
-        
-        return sections
-    
-    def generate_section_id(self, section_title: str, sequence: int) -> str:
-        """Generate clean section ID for URI"""
-        if section_title:
-            # Clean section title for URI
-            clean_title = section_title.lower().replace(' ', '-').replace('_', '-')
-            clean_title = ''.join(c for c in clean_title if c.isalnum() or c == '-')
-            return f"{sequence:02d}-{clean_title}"
-        else:
-            return f"{sequence:02d}-section"
-    
-    def build_section_triples(self, doc_uri: str, section_uri: str, section_title: str, 
-                            section_sequence: int, chunks: List[Dict]) -> List[str]:
-        """Build section triples with proper navigation properties"""
-        
-        triples = [
-            f"<{section_uri}> a kr:DocumentSection ;",
-            f"    dcterms:title \"{self.escape_ttl_string(section_title or 'Untitled Section')}\" ;",
-            f"    kr:parentDocument <{doc_uri}> ;",
-            f"    kr:sectionSequence {section_sequence} ;",
-            f"    kr:hierarchyLevel 1 ;"  # Top-level section for now
-        ]
-        
-        # Add chunk references and build chunk triples
-        chunk_triples = []
-        chunk_sequence = 1
-        
-        for chunk in chunks:
-            chunk_id = chunk.get('chunk_id', f'chunk_{chunk_sequence:03d}')
-            chunk_uri = self.kg_manager.mint_chunk_uri(doc_uri.split('/')[-1], chunk_id)  # Extract doc_id from URI
+            # Sort children by chunk_index for document order
+            children.sort(key=lambda x: x.get('chunk_index', 0))
             
-            # Add chunk reference to section
-            triples.append(f"    kr:hasChunk <{chunk_uri}> ;")
+            # Add parent-child relationships with Dublin Core inheritance
+            for child in children:
+                child_uri = self._get_chunk_uri(child['chunk_id'])
+                
+                # Dublin Core relationships (explicit assertion)
+                graph.add((parent_uri, DCTERMS.hasPart, child_uri))
+                graph.add((child_uri, DCTERMS.isPartOf, parent_uri))
+                
+                # Document structure relationships (inherit from Dublin Core)
+                graph.add((parent_uri, self.sgd_ns.hasChild, child_uri))
+                graph.add((child_uri, self.sgd_ns.hasParent, parent_uri))
             
-            # Build individual chunk triples
-            chunk_triples.extend(self.build_chunk_triples_for_navigation(
-                doc_uri, section_uri, chunk_uri, chunk, chunk_sequence
-            ))
+            # Add convenience relationships
+            if len(children) > 0:
+                first_child_uri = self._get_chunk_uri(children[0]['chunk_id'])
+                last_child_uri = self._get_chunk_uri(children[-1]['chunk_id'])
+                
+                graph.add((parent_uri, self.sgd_ns.firstChild, first_child_uri))
+                graph.add((parent_uri, self.sgd_ns.lastChild, last_child_uri))
             
-            chunk_sequence += 1
-        
-        # Close section triples
-        if triples[-1].endswith(' ;'):
-            triples[-1] = triples[-1][:-2] + ' .'
-        else:
-            triples.append('.')
-        
-        # Add blank line and chunk triples
-        triples.append('')
-        triples.extend(chunk_triples)
-        
-        return triples
+            # Add nextSibling chain for ordered navigation
+            for i in range(len(children) - 1):
+                current_uri = self._get_chunk_uri(children[i]['chunk_id'])
+                next_uri = self._get_chunk_uri(children[i + 1]['chunk_id'])
+                graph.add((current_uri, self.sgd_ns.nextSibling, next_uri))
     
-    def build_chunk_triples_for_navigation(self, doc_uri: str, section_uri: str, chunk_uri: str, 
-                                         chunk: Dict, chunk_sequence: int) -> List[str]:
-        """Build chunk triples optimized for navigation queries"""
+    def _process_split_paragraph(self, chunk_data: Dict, chunk_uri: URIRef, graph: Graph):
+        """Handle split paragraph relationships"""
         
-        chunk_id = chunk.get('chunk_id', f'chunk_{chunk_sequence:03d}')
+        if not chunk_data.get('is_split_paragraph', False):
+            return
         
-        triples = [
-            f"<{chunk_uri}> a kr:DocumentChunk ;",
-            f"    dcterms:identifier \"{chunk_id}\" ;",
-            f"    kr:parentDocument <{doc_uri}> ;",
-            f"    kr:parentSection <{section_uri}> ;",  # Key for section navigation
-            f"    kr:chunkSequence {chunk_sequence} ;"
-        ]
+        # This chunk is a paragraph part
+        graph.add((chunk_uri, RDF.type, self.sgd_ns.ParagraphPart))
         
-        # Add content metadata (not the actual text)
-        content = chunk.get('content', '')
-        if content:
-            word_count = len(content.split())
-            sentence_count = content.count('.') + content.count('!') + content.count('?')
-            
-            triples.extend([
-                f"    kr:wordCount {word_count} ;",
-                f"    kr:sentenceCount {sentence_count} ;"
-            ])
+        # Add part information
+        split_part = chunk_data.get('split_part', 1)
+        total_splits = chunk_data.get('total_splits', 1)
         
-        # Add S3 location for content retrieval
-        # This will be populated by the chunking process
-        if chunk.get('s3_location'):
-            triples.append(f"    kr:s3Location <{chunk['s3_location']}> ;")
-        
-        # Add chunking strategy metadata
-        triples.append(f"    kr:chunkingStrategy \"smart_structured\" ;")
-        
-        # Add position information for document order navigation
-        if chunk.get('start_char') is not None:
-            triples.append(f"    kr:startPosition {chunk['start_char']} ;")
-        if chunk.get('end_char') is not None:
-            triples.append(f"    kr:endPosition {chunk['end_char']} ;")
-        
-        # Add processing timestamp
-        from datetime import datetime
-        timestamp = datetime.utcnow().isoformat() + 'Z'
-        triples.append(f"    dcterms:modified \"{timestamp}\"^^xsd:dateTime ;")
-        
-        # Close chunk triples
-        if triples[-1].endswith(' ;'):
-            triples[-1] = triples[-1][:-2] + ' .'
-        else:
-            triples.append('.')
-        
-        triples.append('')  # Blank line between chunks
-        
-        return triples
+        graph.add((chunk_uri, self.sgd_ns.partNumber, Literal(split_part, datatype=XSD.positiveInteger)))
+        graph.add((chunk_uri, self.sgd_ns.totalParts, Literal(total_splits, datatype=XSD.positiveInteger)))
     
-    def escape_ttl_string(self, text: str) -> str:
-        """Escape string for TTL format"""
-        if not text:
-            return ""
+    def _add_processing_metadata(self, chunk_data: Dict, chunk_uri: URIRef, graph: Graph):
+        """Add processing metadata in sgm: namespace"""
         
-        # Escape quotes and other special characters
-        escaped = text.replace('\\', '\\\\')
-        escaped = escaped.replace('"', '\\"')
-        escaped = escaped.replace('\n', '\\n')
-        escaped = escaped.replace('\r', '\\r')
-        escaped = escaped.replace('\t', '\\t')
+        # Original chunker output
+        graph.add((chunk_uri, self.sgm_ns.chunkId, Literal(chunk_data.get('chunk_id', ''))))
+        graph.add((chunk_uri, self.sgm_ns.chunkIndex, Literal(chunk_data.get('chunk_index', 0), datatype=XSD.nonNegativeInteger)))
+        graph.add((chunk_uri, self.sgm_ns.originalSectionType, Literal(chunk_data.get('section_type', ''))))
         
-        return escaped
+        # Keep hierarchy level for backward compatibility (but mark as deprecated)
+        if 'hierarchy_level' in chunk_data:
+            graph.add((chunk_uri, self.sgm_ns.originalHierarchyLevel, Literal(chunk_data['hierarchy_level'], datatype=XSD.positiveInteger)))
+        
+        # Content metrics
+        if 'character_count' in chunk_data:
+            graph.add((chunk_uri, self.sgm_ns.characterCount, Literal(chunk_data['character_count'], datatype=XSD.nonNegativeInteger)))
+        
+        # S3 storage location (processing metadata)
+        s3_location = f"s3://{self.chunks_bucket}/data-lake/{chunk_data['doc_id']}/{chunk_data['chunk_id']}.json"
+        graph.add((chunk_uri, self.sgm_ns.s3Location, URIRef(s3_location)))
+        
+        # Page and sequence information (processing artifacts)
+        if 'page_numbers' in chunk_data and chunk_data['page_numbers']:
+            graph.add((chunk_uri, self.sgm_ns.pageNumber, Literal(chunk_data['page_numbers'][0], datatype=XSD.positiveInteger)))
+        
+        if 'chunk_index' in chunk_data:
+            graph.add((chunk_uri, self.sgm_ns.sequenceNumber, Literal(chunk_data['chunk_index'], datatype=XSD.positiveInteger)))
+        
+        # Chunking strategy
+        graph.add((chunk_uri, self.sgm_ns.chunkingStrategy, Literal("layout_based")))
+        
+        # Processing timestamp
+        graph.add((chunk_uri, self.sgm_ns.processingTimestamp, Literal(datetime.utcnow().isoformat() + 'Z', datatype=XSD.dateTime)))
+        
+        # Content type counts
+        for count_type in ['table_count', 'list_count', 'figure_count']:
+            if count_type in chunk_data:
+                property_name = count_type.replace('_count', 'Count')
+                graph.add((chunk_uri, getattr(self.sgm_ns, property_name), Literal(chunk_data[count_type], datatype=XSD.nonNegativeInteger)))
     
-    def trigger_kg_integration(self, doc_id: str, ttl_result: Dict[str, Any], insertion_result: Dict[str, Any]) -> Dict[str, Any]:
-        """Trigger downstream processing with KG integration information"""
+    def validate_generated_ttl(self, ttl_content: str) -> Dict[str, Any]:
+        """Validate generated TTL using RDFLib parsing"""
         
         try:
-            message = {
-                'doc_id': doc_id,
-                'processing_type': 'kg_triples_ready',
-                'ttl_location': insertion_result.get('s3_uri'),  # Only present for bulk load
-                'insertion_method': insertion_result['method'],
-                'records_processed': insertion_result.get('records_loaded', insertion_result.get('estimated_records', 0)),
-                'schema_version': '2.0',
-                'timestamp': datetime.utcnow().isoformat() + 'Z'
+            # Use RDFLib to parse and validate the generated TTL
+            test_graph = Graph()
+            test_graph.parse(data=ttl_content, format='turtle')
+            
+            validation_result = {
+                'valid': True,
+                'triples_count': len(test_graph),
+                'namespaces_used': len(list(test_graph.namespaces())),
+                'validation_method': 'rdflib_parsing'
             }
             
-            response = self.sns_client.publish(
-                TopicArn=self.kg_triples_ready_topic,
-                Message=json.dumps(message),
-                Subject=f'KG Triples Ready: Document Structure - {doc_id}',
-                MessageAttributes={
-                    'processing_type': {
-                        'DataType': 'String',
-                        'StringValue': 'kg_triples_ready'
-                    },
-                    'doc_id': {
-                        'DataType': 'String', 
-                        'StringValue': doc_id
-                    },
-                    'insertion_method': {
-                        'DataType': 'String',
-                        'StringValue': insertion_result['method']
-                    }
-                }
-            )
-            
-            logger.info(f"KG triples ready message sent for {doc_id}: {response['MessageId']}")
-            
-            return {
-                'success': True,
-                'message_id': response['MessageId']
-            }
+            logger.info(f"TTL validation successful: {validation_result['triples_count']} triples, {validation_result['namespaces_used']} namespaces")
+            return validation_result
             
         except Exception as e:
-            logger.error(f"Error triggering KG integration for {doc_id}: {str(e)}")
+            logger.error(f"TTL validation failed: {e}")
             return {
-                'success': False,
-                'error': str(e)
+                'valid': False,
+                'error': str(e),
+                'validation_method': 'rdflib_parsing'
             }
+    
+    def get_processing_stats(self) -> Dict[str, Any]:
+        """Get processing statistics for monitoring"""
+        
+        return {
+            'processor_type': 'DocumentStructureKGProcessor',
+            'schema_version': '3.1',
+            'dublin_core_inheritance': True,
+            'rdflib_enabled': True,
+            'kg_layer_version': '1.0.0',
+            'namespaces_configured': {
+                'sgd': str(self.sgd_ns),
+                'sgm': str(self.sgm_ns),
+                'sg': str(self.sg_ns),
+                'dcterms': str(self.dcterms_ns)
+            },
+            'buckets_configured': {
+                'chunks': self.chunks_bucket,
+                'text': self.text_bucket,
+                'ttl': self.ttl_bucket
+            },
+            'graph_building_approach': 'semantic_schema_v3.1_dublin_core_inheritance',
+            'relationship_strategy': 'hierarchical_with_ordered_navigation'
+        }

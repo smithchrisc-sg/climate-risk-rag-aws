@@ -1,0 +1,26 @@
+{
+    "page_numbers": [
+        8, 
+        10
+    ], 
+    "chunk_index": 4, 
+    "semantic_context": "", 
+    "text": "[Previous context: Susan Ivatts, Task Team Leader,] World Bank. Early drafts were shared and discussed with the government of Vanuatu and\n\nother key stakeholders, and revisions made to this report. The research and analysis was\n\nmade possible through financing provided by the Australian government's development\n\nassistance program.\n\nvi\n\nACKNOWLEDGMENTS\n\nThis report was prepared by Ian Anderson, Consultant Economist to the World Bank,\n\nunder the direction of Ms. Susan Ivatts, Task Team Leader and Senior Health Specialist,\n\nthe World Bank.\n\n[Context: the World Bank.]\nHelpful comments and inputs were received on earlier drafts from several sources. Mr.\n\nHoward Aru, Director General, Ministry of Health and his team in the Ministry of Health\n\nprovided valuable comments and background data. David Knight, Economist, Poverty\n\nReduction and Economic Management, East Asia and the Pacific Region; and Tania\n\nDmytraczenko, Senior Economist, Human Development, Latin America and the\n\nCaribbean Region, provided formal World Bank peer review comments. Mr. Nazzareno\n\nTodini, former Public Financial Management Specialist, the World Bank, provided\n\nanalytical input; and Mr. Peter Wallace, Public Financial Management Specialist, the", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0004", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1179, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

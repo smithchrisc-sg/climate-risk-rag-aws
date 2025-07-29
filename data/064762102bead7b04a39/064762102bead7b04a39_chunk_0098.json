@@ -1,0 +1,26 @@
+{
+    "page_numbers": [
+        37
+    ], 
+    "chunk_index": 98, 
+    "semantic_context": "", 
+    "text": "[Previous context: The legal framework for bank] resolution was outdated and incomplete, limiting the NRB's ability to resolve BFIs quickly.\nConflicts between laws provide scope for BFIs to challenge NRB's resolution authority.\n\nThe NRB's prompt corrective action framework reflects the limited resolution powers\n\ngiven to the NRB under existing laws.\n\n88.\n\nDPC1 supported the approval by the MoF of the text, prepared with the\n\nassistance of DFID, the IMF and the World Bank, of a bill (the NRB Act Amendments\n\nBill) to amend the NRB Act to strengthen and clarify the bank resolution powers of\n\nthe NRB in line with international practices. In 2014 this text was further improved to\n\nstrengthen the crisis management framework and bank supervisory powers of NRB in\n\naccordance with recommendations made by the FSAP. The authorities also completed\n\npreparation of a new BAFIA to conform to the NRBAA and DCGFA bills and to remove\n\nopportunities for different laws to be used as justification for hindering the exercise of\n\nsupervisory authority. DPC2 supported preparation of the NRBAA and its submission to\n\nParliament. This will result in establishing a modernized legal framework for bank", 
+    "chunk_id": "064762102bead7b04a39_chunk_0098", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1142, 
+    "doc_id": "064762102bead7b04a39", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

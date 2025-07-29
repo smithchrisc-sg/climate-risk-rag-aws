@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        12
+    ], 
+    "chunk_index": 23, 
+    "semantic_context": "", 
+    "text": "[Previous context: The social impacts are particularly significant\n\nbecause in this area, the presence of three schools (primary, secondary, high schools] hosting a total of 900 students) whose activities are disrupted by the floods. Impact on\n\neconomic activities is equally important given the extent of development and the\n\nimportance of River Road for commuting into the capital city. Furthermore, Queen's Park\n\nPower Station, operated by Grenada's electricity company GRENLEC, poses an additional\n\nflood risk to St Johns River. For this reason alone the consequences of major flooding\n\n[Context: flood risk to St Johns River. For this reason alone the consequences of major flooding]\ncould be devastating on a national scale, not only affecting the project area.\n\nSub-project rationale.\n\nA 2006 flood hazard assessment for the entire country was done within the Grenada\n\nNational Hazard Mitigation Plan The assessment highlighted that flooding occurs along the\n\nSt. John's River on the floodplain, with most vulnerable areas in the vicinity of two sharp\n\nbends and around the stadium by the Humpback Bridge, both of which flood even for a\n\nfrequent 2-year rainfall return period. The assessment found that danger posed by flooding\n\nfrom the 2-year rainfall event generally is low to medium except around the Humpback", 
+    "chunk_id": "00eb3286786882b6163b_chunk_0023", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1166, 
+    "doc_id": "00eb3286786882b6163b", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

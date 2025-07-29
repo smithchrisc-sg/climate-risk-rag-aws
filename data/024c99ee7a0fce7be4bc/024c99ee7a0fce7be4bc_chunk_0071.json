@@ -1,0 +1,27 @@
+{
+    "page_numbers": [
+        38, 
+        39
+    ], 
+    "chunk_index": 71, 
+    "semantic_context": "", 
+    "text": "[Previous context: A Preliminary Environmental Assessment Report might be required by the Agency for any\n\ndevelopment application to which any of the qualifying criteria specified in these\n\nRegulations apply, but which the Agency considers is not likely to have a significant\n\nadverse impact on the environment.] 3. A Comprehensive EIA might be required by the Agency for any development application to\n\nwhich any of the qualifying criteria specified in these Regulations apply, and which the\n\n[Context: which any of the qualifying criteria specified in these Regulations apply, and which the]\nAgency considers is likely to have a significant adverse impact on the environment.\n\n38\n\n4. As a consequence of learning more about any particular development the Agency might,\n\nwithin 1 month of issuing any such requirement, alter its requirement, including changing its\n\nrequirement from a PEAR to a CEAR or vice-versa.\n\n5. A requirement or alteration under this Part shall be notified in writing to the proponent.\n\n5. Qualifying Criteria for an EIA\n\nAn EIA might be required where the Agency considers that the development application and its\n\nassociated activities could give rise to any of the following:\n\na. adverse impacts on people, an existing activity, building or land;\n\nb. adverse impacts on a place, species or habitat of environmental (including social and\n\ncultural) importance;\n\nc. adverse impacts in conjunction with natural hazard risks; (d) adverse impacts on or in the\n\ncoastal zone;", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0071", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1184, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

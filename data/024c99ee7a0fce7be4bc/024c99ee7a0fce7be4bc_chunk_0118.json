@@ -1,0 +1,24 @@
+{
+    "page_numbers": [
+        64, 
+        65
+    ], 
+    "chunk_index": 118, 
+    "semantic_context": "", 
+    "text": "Area_Ha\n\nName_of_site\n\nLaulii CA\n\nLake Lanotoo\n\nCommunity Conservation Area\n\n722.166\n\nFalealupo CA\n\nProposed extension to\n\nNP\n\nUafato CA\n\nCommunity Conservation Area\n\n1,161.37\n\nOLPP NP\n\nNational Park/Reserve\n\nO le Pupu Pue NP\n\n4,230.62\n\nNational Park/Reserve\n\nMt Vaea Reserve\n\n89.1303\n\nCommunity Conservation Area\n\nSaanapu-Sataoa CA\n\n52.8378\n\nUafato CA\n\nAsau-Falelima NP\n\nNational Park/Reserve\n\n1,887.61\n\nLata NP\n\nNational Park/Reserve\n\n3,731.98\n\nOle Pupu Pue NP\n\n5,973.59\n\nMauga Salafai NP\n\nNational Park/Reserve\n\n469.952\n\nNational Park/Reserve\n\nLake Lanotoo NP\n\nNational Park/Reserve\n\nForestry Site\n\n768.64\n\nSafata MPA\n\nCommunity Conservation Area\n\n400\n\nLaulii CA\n\nAleipata MPA\n\nProposed extension to NP\n\nNational Park/Reserve\n\n10,000\n\nN\n\n30\n\n0\n\n15\n\nW\n\nE\n\nkilometres\n\nArea_Ha\n\nName_of_site\n\nConservation_Type\n\nCONSERVATION\n\nINTERNATIONAL\n\nAleipata MPA\n\nMarine Protected Area\n\n4,255\n\nPACIFIC ISLANDS\n\nSafata MPA\n\n1,845\n\nMarine Protected Area\n\nPalolo Deep Marine Reserve\n\n22\n\nMarine Protected Area\n\n[Context: Marine Protected Area]\nMajor conservation sites identified in Figure 4.2 are further explained in Table 12.\n\n64\n\nTable 12: List of Major Conservation/Nature reserve sites in Samoa\n\nArea (ha)", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0118", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        5
+    ], 
+    "overlap_with_previous": false, 
+    "character_count": 1199, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": false
+}

@@ -1,0 +1,26 @@
+{
+    "page_numbers": [
+        38, 
+        39
+    ], 
+    "chunk_index": 102, 
+    "semantic_context": "", 
+    "text": "[Previous context: Ongoing dialogue has resulted\n\nin a strategy to develop a contingency funding plan in cooperation with the Ministry of\n\nFinance and /or NRB, under (i) a three parties special funding arrangement agreement, and/\n\nor (ii) providing for a stand- by credit line at the disposal of the fund in case of the\n\nemergency need for the pay-out.] Prior action 11: The board of NRB has approved the Nepal Payments System\n\nDevelopment Strategy (NPSDS)\n\nAlthough the NRB has as a formal objective \"to develop a secure, healthy, and\n\n92.\n\nefficient system of payment,\" progress in payment system modernization has been\n\nslow. Cash and checks remain the dominant modes of payment. The use of electronic\n\npayment means remains limited, there are no robust payment system risk-management\n\n30\n\nframeworks, and lack of NRB oversight reduces the efficiency of the financial system and\n\ncould potentially result in the payment systems contributing to financial instability. While\n\nNRB managed post disaster payments without too much disruption, it became evident that\n\n[Context: NRB managed post disaster payments without too much disruption, it became evident that]\nweaknesses exist in the payments system - which can be addressed by the NPSDS.\n\nSettlement risk is a serious concern in the Electronic Check Clearing System,\n\n93.\n\nwhich could be addressed through some simple operational measures, including\n\nthrough an extension of SWIFT operating hours in the Banking Department, facilitating", 
+    "chunk_id": "064762102bead7b04a39_chunk_0102", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        2, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1136, 
+    "doc_id": "064762102bead7b04a39", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

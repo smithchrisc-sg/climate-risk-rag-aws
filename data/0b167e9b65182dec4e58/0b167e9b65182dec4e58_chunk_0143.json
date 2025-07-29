@@ -1,0 +1,23 @@
+{
+    "page_numbers": [
+        65
+    ], 
+    "chunk_index": 143, 
+    "semantic_context": "", 
+    "text": "[Previous context: This might be especially so for\n\nrelatively minor, relatively inexpensive curative treatments where the individual could be] expected to share some responsibility for payments. User fees will never make a health system\n\nsimultaneously financially self-sufficient and accessible to all those in need. But as countries\n\ndevelop, there comes a point where notionally \"free\" services to everyone, including the\n\nwealthier members of society, for virtually all services must be managed and brought into\n\nbalance with rising GDP per capita.\n\n4.43 The overarching guiding principle should then be that cost sharing must only be\n\nconsidered if there is good evidence it will produce significant revenue without causing\n\ndetrimental impact on access, equity, and financial protection. Furthermore, some items\n\nshould definitely be \"free\" at the point of delivery for most, if not all, citizens in Vanuatu -\n\nantenatal and birth care, immunizations, family planning advice, infectious disease control, and\n\nscreening for NCDs among high-risk groups. Indeed, there is a case for paying poorer people,\n\nthrough conditional cash transfers, to fully immunize their children, attend antenatal care visits\n\nearlier in pregnancy, and adopt targeted preventive measures against NCDs and other high-cost\n\ndiseases.", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0143", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1170, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

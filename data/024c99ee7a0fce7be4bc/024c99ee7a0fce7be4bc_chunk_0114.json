@@ -1,0 +1,26 @@
+{
+    "page_numbers": [
+        62, 
+        63
+    ], 
+    "chunk_index": 114, 
+    "semantic_context": "", 
+    "text": "[Previous context: The proposed\n\nvegetation classification is presented below:\n\nLittoral Vegetation\n\nLepturus rock strand\n\nIpomoea sand strand\n\nLittoral shrubland\n\nPandanus littoral strand\n\nBarringtonia littoral forest\n\nWetland Vegetation\n\nCostal marsh\n\nMangrove forest\n\nRain Forest Vegetation\n\n\"Au'auli\" (Diospyros spp., Syzygium spp.) coastal forest\n\nAsi (Syzygium inophylloides) ridge forest\n\nMamala (Dysoxylum samoense) lowland forest\n\nTava (Poemtia pinnata) lowland forest\n\nMaota-mea (Dysoxylum huntii) montane forest] Fega-vao (Syzygium samoense) cloud forest\n\nScrubby Summit Vegetation\n\nMontane scrub\n\nDisturbed Vegetation\n\nManaged land\n\nKula (Dicranopeteris) fernland\n\nDisturbed forest\n\nRhus secondary forest\n\nA relatively recent attempt by FAO and MAFFM (2004) to map the land cover, using\n\nAPI and groundtruthing has provided an inventory of major land uses related to forestry\n\nand forest cover. This mapping, produced based on 1999 aerial photography, although is\n\nnot providing with a taxonomic classification or cataloguing of flora and fauna, provide a\n\ngood visual representation of the forest cover and to a lesser extent agro forestry activities\n\nin the two main islands (Figure 1).\n\nBiodiversity National Parks and nature Reserves\n\n3.7\n\nAccording to the newly prepared publication by CI, MNREM, and SCREP (2010),\n\n62\n\nterrestrial fauna of Samoa include more than 2,500 species of insect, 770 species of\n\n[Context: terrestrial fauna of Samoa include more than 2,500 species of insect, 770 species of]\nnative plants, 64 native land snails, 31 breeding birds, 14 reptiles and 3 native mammals.\n\nMarine diversity is also high with 890 coral reef fish, over 200 corals and several turtles,", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0114", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1179, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

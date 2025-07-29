@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        38
+    ], 
+    "chunk_index": 70, 
+    "semantic_context": "", 
+    "text": "[Previous context: Interpretation\n\nIn these Regulations, unless the contrary intention appears:\n\n\"EIA\" means an Environmental Impact Assessment, required for public and private\n\ndevelopment proposals as set out in these Regulations, and includes a PEAR;\n\n\"PEAR\" means the form of EIA referred to in subregulation 4(2) as a Preliminary\n\nEnvironmental] Assessment Report, and applied in accordance with these Regulations;\n\n\"Proponent\" means the person proposing and assuming responsibility for any development\n\nproposal;\n\n[Context: proposal;]\n\"The Act\" means the Planning and Urban Management Act 2004.\n\n3. When an EIA is required\n\n1. If, as part of any development consent application made pursuant to section 37 of the Act,\n\nan EIA is required by the Agency pursuant to section 42 of the Act, the EIA must be\n\nprepared and provided in the manner prescribed under these regulations, unless the Agency\n\ndirects otherwise in writing.\n\n2. In deciding whether to require an EIA, the Agency would take into consideration all the\n\ninformation and documentation provided with the application.\n\n4. Forms of EIA\n\n1. A Preliminary Environmental Assessment Report (PEAR) and a Comprehensive\n\nEnvironmental Assessment Report (CEAR) are the two forms of EIA.\n\n2. A Preliminary Environmental Assessment Report might be required by the Agency for any\n\ndevelopment application to which any of the qualifying criteria specified in these\n\nRegulations apply, but which the Agency considers is not likely to have a significant\n\nadverse impact on the environment.", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0070", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1190, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

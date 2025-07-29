@@ -5,7 +5,7 @@ Deploys Lambda functions for integrating document structure into Neptune KG
 
 This CDK app creates:
 1. Document Structure KG Processor Lambda
-2. KG Integration Worker Lambda  
+2. KG Triple Loader Lambda  
 3. SNS topics for messaging
 4. IAM roles and policies
 5. VPC configuration for Neptune access
@@ -174,13 +174,13 @@ class DocumentStructureKGStack(Stack):
             log_retention=logs.RetentionDays.ONE_WEEK
         )
         
-        # KG Integration Worker Lambda
-        kg_integration_worker = _lambda.Function(
-            self, "KGIntegrationWorker",
-            function_name="kg-integration-worker",
+        # KG Triple Loader Lambda
+        kg_triple_loader = _lambda.Function(
+            self, "KGTripleLoader",
+            function_name="kg-triple-loader",
             runtime=_lambda.Runtime.PYTHON_3_11,
-            handler="kg_integration_worker.lambda_handler", 
-            code=_lambda.Code.from_asset("../lambda/kg_integration_worker"),
+            handler="kg_triple_loader.lambda_handler", 
+            code=_lambda.Code.from_asset("../lambda/kg_triple_loader"),
             layers=[core_utilities_layer, database_layer],
             role=kg_lambda_role,
             vpc=vpc,
@@ -198,7 +198,7 @@ class DocumentStructureKGStack(Stack):
         
         # SNS subscriptions
         kg_integration_topic.add_subscription(
-            subscriptions.LambdaSubscription(kg_integration_worker)
+            subscriptions.LambdaSubscription(kg_triple_loader)
         )
         
         # Future: Text chunker completion → Document Structure KG Processor
@@ -210,9 +210,9 @@ class DocumentStructureKGStack(Stack):
             description="Document Structure KG Processor Lambda ARN"
         )
         
-        cdk.CfnOutput(self, "KGIntegrationWorkerArn", 
-            value=kg_integration_worker.function_arn,
-            description="KG Integration Worker Lambda ARN"
+        cdk.CfnOutput(self, "KGTripleLoaderArn", 
+            value=kg_triple_loader.function_arn,
+            description="KG Triple Loader Lambda ARN"
         )
         
         cdk.CfnOutput(self, "KGIntegrationTopicArn",

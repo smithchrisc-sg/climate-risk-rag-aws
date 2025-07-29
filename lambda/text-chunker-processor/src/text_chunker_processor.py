@@ -20,8 +20,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__)))
 # Import from locked database core layer - DO NOT CHANGE
 from utils.DatabaseManager import DatabaseManager
 
-# Import smart structured chunker - PRESERVED FUNCTIONALITY
+# Import chunkers
 from smart_structured_chunker import SmartStructuredChunker
+from textract_layout_chunker import TextractLayoutChunker
 
 # Configure logging
 logger = logging.getLogger()
@@ -45,7 +46,8 @@ class TextChunkerProcessor:
         # Initialize DatabaseManager - LOCKED LAYER
         self.db_manager = DatabaseManager()
         
-        # Initialize smart structured chunker - PRESERVED FUNCTIONALITY
+        # Initialize chunkers
+        # Legacy smart structured chunker - PRESERVED FUNCTIONALITY
         self.structured_chunker = SmartStructuredChunker(
             min_chunk_size=150,         # Larger for complete thoughts
             max_chunk_size=1200,        # Allow larger chunks for sections
@@ -55,6 +57,13 @@ class TextChunkerProcessor:
             preserve_tables=True,       # Keep tables intact
             preserve_lists=True,        # Keep lists intact
             header_context=True         # Include context with headers
+        )
+        
+        # New hierarchical layout-based chunker
+        self.layout_chunker = TextractLayoutChunker(
+            max_paragraph_size=1500,    # Max size for single paragraph
+            sentence_overlap=2,         # Sentences to overlap when splitting
+            min_chunk_size=50          # Minimum chunk size
         )
         
         logger.info("✅ Text Chunker Processor initialized")
@@ -138,32 +147,76 @@ class TextChunkerProcessor:
             raise
     
     def create_smart_chunks(self, doc_id: str, raw_text: str, textract_response: Dict) -> List[Dict]:
-        """Create smart structured chunks using preserved functionality"""
+        """Create chunks using hierarchical layout-based chunker with fallback"""
         try:
-            logger.info(f"Creating smart structured chunks for doc_id: {doc_id}")
+            logger.info(f"Creating hierarchical chunks for doc_id: {doc_id}")
             
-            # Use smart structured chunker - PRESERVED FUNCTIONALITY
-            chunks = self.structured_chunker.create_smart_chunks(
-                raw_text=raw_text,
-                textract_response=textract_response,
-                doc_id=doc_id
-            )
+            # Check if LAYOUT blocks are available
+            blocks = textract_response.get('blocks', [])
+            has_layout_blocks = any(block.get('BlockType', '').startswith('LAYOUT_') for block in blocks)
             
-            logger.info(f"Created {len(chunks)} smart structured chunks")
+            if has_layout_blocks:
+                logger.info("LAYOUT blocks detected - using hierarchical layout chunker")
+                
+                # Create text analysis structure for compatibility
+                text_analysis = {
+                    'raw_text': raw_text,
+                    'total_pages': max((block.get('Page', 1) for block in blocks), default=1)
+                }
+                
+                # Use new hierarchical layout chunker
+                chunk_metadata_list = self.layout_chunker.chunk_document(
+                    doc_id=doc_id,
+                    textract_response=textract_response,
+                    text_analysis=text_analysis
+                )
+                
+                # Convert to dictionary format
+                chunks = self.layout_chunker.chunks_to_dict(chunk_metadata_list)
+                
+                logger.info(f"Created {len(chunks)} hierarchical chunks")
+                
+            else:
+                logger.info("No LAYOUT blocks detected - falling back to smart structured chunker")
+                
+                # Fallback to legacy smart structured chunker
+                chunks = self.structured_chunker.create_smart_chunks(
+                    raw_text=raw_text,
+                    textract_response=textract_response,
+                    doc_id=doc_id
+                )
+                
+                logger.info(f"Created {len(chunks)} smart structured chunks (fallback)")
             
             # Log chunk statistics
-            total_chars = sum(chunk['character_count'] for chunk in chunks)
+            total_chars = sum(chunk.get('character_count', 0) for chunk in chunks)
             avg_chunk_size = total_chars / len(chunks) if chunks else 0
+            
+            # Count hierarchical structure
+            hierarchy_levels = set()
+            section_types = set()
+            parent_child_pairs = 0
+            
+            for chunk in chunks:
+                if 'hierarchy_level' in chunk:
+                    hierarchy_levels.add(chunk['hierarchy_level'])
+                if 'section_type' in chunk:
+                    section_types.add(chunk['section_type'])
+                if chunk.get('parent_chunk_id'):
+                    parent_child_pairs += 1
             
             logger.info(f"Chunk statistics:")
             logger.info(f"  Total chunks: {len(chunks)}")
             logger.info(f"  Total characters: {total_chars}")
             logger.info(f"  Average chunk size: {avg_chunk_size:.0f} characters")
+            logger.info(f"  Hierarchy levels: {sorted(hierarchy_levels)}")
+            logger.info(f"  Section types: {sorted(section_types)}")
+            logger.info(f"  Parent-child relationships: {parent_child_pairs}")
             
             return chunks
             
         except Exception as e:
-            logger.error(f"Failed to create smart chunks: {e}")
+            logger.error(f"Failed to create chunks: {e}")
             raise
     
     def upload_chunks_to_s3(self, doc_id: str, chunks: List[Dict]) -> Dict[str, str]:

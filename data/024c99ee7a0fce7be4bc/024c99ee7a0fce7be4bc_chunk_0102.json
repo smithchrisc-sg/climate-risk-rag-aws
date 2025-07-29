@@ -1,0 +1,23 @@
+{
+    "page_numbers": [
+        54
+    ], 
+    "chunk_index": 102, 
+    "semantic_context": "", 
+    "text": "[Previous context: Most of the high intensity agricultural production lands]\nare within the 75 masl and within the coastal lowland physiographic unit of both islands.\n\nThe \"typical\" distribution of crops relative to elevation and slope in Upolu is summarized\n\nin Table 6.\n\nTable 6: Cropping pattern (land use) in Samoa by physiographic position\n\nCrop Classification\n\nElevation\n\nMain crop types\n\n(masl)\n\n53\n\nCoconuts\u2075, food crops, pineapples,\n\nFood crops\n\n0-30\n\nbreadfruit, taro, pasture &cattle\n\nCocoa, coconut, taro (main coconut\n\nCash & plantation crops\n\n30-150\n\nBanana and cocoa plantations (mainly\n\n150-225\n\nbanana plantations)\n\nTa'amu, coconut, pasture and cattle, taro\n\nSelected root crops\n\n225-300\n\nSporadic pasture and cattle\n\nPrimary and close\n\n>300\n\ncanopy secondary\n\nSource: Fox and Cumberland, 1972.\n\nADB (1985) produced a land use pattern and the area under trees crops based on aerial\n\nphoto interpretation that is presented in Table 7 that estimated the total area under tree\n\ncrops in the two islands to be 77,211 ha.] Table 7: Major area of tree crops in Islands of Upolu and Savai'I based on API\n\nIsland\n\nTotal\n\nCocoa\n\nCoconut\n\nCoconut +\n\nCoconut\n\nCocoa +\n\nCoconut\n\n+ Cocoa\n\nCocoa +\n\nBanana\n\n+\n\nBanana\n\nBanana\n\n3,598\n\nUpolu\n\n3,496\n\n3,617\n\n2,152\n\n21,190\n\n45,377\n\n11,324\n\nSavai'i\n\n8,332\n\n628\n\n156\n\n2,546\n\n31,838\n\n4,556\n\n15,616\n\nTotal\n\n19,656\n\n36,806\n\n3,773\n\n6,042\n\n8,154\n\n77,211\n\n2,780\n\nMost recently FAO in cooperation with then MAFFM (2004) prepared an inventory of\n\nSamoa land cover with emphasis on forest types using the 1999 aerial photography and\n\nspatial analysis, using GIS based SamFRIS program. The results, although does not\n\nprovide full distribution of land use due to concentrating on forestry inventory, is very\n\nuseful in identifying major tree crops and forest types in all Samoan islands. Figures 1\n\npresents the FAO/MAFFRA produced land cover map of Upolu and Savai'i,\n\n[Context: presents the FAO/MAFFRA produced land cover map of Upolu and Savai'i,]\nrespectively. Table 8 presents the major vegetation types in the two major islands.\n\nTable 8: Major vegetation types in the two islands of Upolu and Savai'I based on\n\nAPI and ground-truthing by FAO/MAFFM (2004)\n\nPercent of Samoa\n\nSavai'i", 
+    "chunk_id": "024c99ee7a0fce7be4bc_chunk_0102", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1189, 
+    "doc_id": "024c99ee7a0fce7be4bc", 
+    "section_types": [
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": false
+}

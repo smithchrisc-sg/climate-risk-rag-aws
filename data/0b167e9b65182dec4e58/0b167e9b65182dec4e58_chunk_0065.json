@@ -1,0 +1,24 @@
+{
+    "page_numbers": [
+        34, 
+        35
+    ], 
+    "chunk_index": 65, 
+    "semantic_context": "", 
+    "text": "[Previous context: It is apparent from that annex that Vanuatu exhibits many] of the health-financing characteristics of its comparable neighbors. These include the dominant\n\nrole of public expenditure in total health expenditure. General government expenditure on health,\n\nwhich includes external financing from donors, accounts for 90.6 percent of total health\n\nexpenditure, second only to the Solomon Islands. External resources are also an important part of\n\nhealth, financing almost one-quarter or 23.4 percent of total (that is, public and private) health\n\n16\n\nPage\n\nexpenditure in 2010. More recent figures from the Ministry of Health in Vanuatu confirm that\n\ndevelopment partners provided over one-third (37 percent) of the total government expenditure\n\non health in 2012. More specifically, total government expenditure by the MOH was VT\n\n2,424,723,687 ($26.9 million) in 2012. Of this, government financed VT 1,534,639,563 ($16.7\n\nmillion), and development partners provided VT 890,084,124 ($9.7 million). The corollary of\n\ngovernment (with external support from development partners) providing a high share of total\n\nhealth expenditure is that private expenditure on health and out-of-pocket expenditure on health\n\nare low in Vanuatu.", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0065", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1167, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

@@ -1,0 +1,25 @@
+{
+    "page_numbers": [
+        65
+    ], 
+    "chunk_index": 171, 
+    "semantic_context": "", 
+    "text": "[Previous context: The Secured Transactions Act has been enacted but] implementation is pending. Loan recoveries through the Debt Recovery Tribunal are lengthy. There is\n\n[Context: implementation is pending. Loan recoveries through the Debt Recovery Tribunal are lengthy. There is]\nlimited use of the insolvency regime because it is poorly understood. Going forward, the root causes of\nlimited access, including poor physical and information infrastructure, could be targeted more directly\n\nthrough improvements in the enabling environment.\n\nRecent Reforms\n\n13. There has been improvement in regulation and supervision. On the regulatory\n\nside, the NRB is enlarging the prompt corrective action framework to include liquidity\n\nand nonperforming asset ratio triggers with the previous CAR trigger. Further\n\nstrengthening of minimum capital adequacy by adopting some elements of Basel III,\n\nincluding 4.5 percent common equity Tier 1 is also under consideration. Stress test\n\nguidelines were recently issued as well as guidelines on the Internal Capital Adequacy\n\nAssessment Process. An internal reorganization in the NRB broke up a department in\n\ncharge of both Class B and Class C banks into two dedicated departments (per the", 
+    "chunk_id": "064762102bead7b04a39_chunk_0171", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3, 
+        5
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1156, 
+    "doc_id": "064762102bead7b04a39", 
+    "section_types": [
+        "header", 
+        "paragraph", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

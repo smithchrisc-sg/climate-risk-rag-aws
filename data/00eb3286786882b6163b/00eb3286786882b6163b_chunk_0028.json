@@ -1,0 +1,24 @@
+{
+    "page_numbers": [
+        14, 
+        15
+    ], 
+    "chunk_index": 28, 
+    "semantic_context": "", 
+    "text": "[Previous context: Investments are designed to\n\nmodernize the current rain and stream gauge network in order to improve field data] resolution to capture and analyze the recurrence of short-term events to support the\n\ndevelopment of Intensity, Duration and Frequency curves to be used in engineering and\n\nplanning. Together with the geospatial data developed, hydro-meteorological data provides\n\nthe analytical input for hydraulic and hydrologic analysis. Investments in hydro-\n\nmeteorological infrastructure and data management include inter-alia: (i) Hydrologic\n\nanalysis and station optimization study; (ii) Hydromet Data management system; and (iii)\n\nRain and stream gauge instrument network.\n\nThere is significant capacity, locally and especially regionally for meteorological analysis.\n\nLacking is the ability to assess the orographic effect on Grenada's rainfall distribution with\n\nrespect to intensity and duration. Local variability is substantial and significant and\n\ndepends on the interaction of the landscape with weather systems. This behavior varies\n\nfrom watershed to watershed. The project is designed to provide data to calibrate and\n\n14\n\nanalyze watershed interactions accounting for orographic effect on a large (watershed)", 
+    "chunk_id": "00eb3286786882b6163b_chunk_0028", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1111, 
+    "doc_id": "00eb3286786882b6163b", 
+    "section_types": [
+        "header", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}

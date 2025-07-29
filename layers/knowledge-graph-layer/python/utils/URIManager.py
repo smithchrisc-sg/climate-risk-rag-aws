@@ -96,6 +96,19 @@ class URIManager:
         ]
         return "\n".join(prefixes)
     
+    def get_prefixes_sparql(self) -> str:
+        """Generate SPARQL PREFIX declarations for standard namespaces"""
+        prefixes = [
+            f"PREFIX kr: <{self.kr_ns}>",
+            f"PREFIX dcterms: <{self.dcterms_ns}>",
+            f"PREFIX foaf: <{self.foaf_ns}>",
+            f"PREFIX skos: <{self.skos_ns}>",
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+        ]
+        return "\n".join(prefixes)
+    
     def bind_namespaces_to_graph(self, graph: rdflib.Graph):
         """Bind standard namespaces to an RDFLib graph"""
         graph.bind("kr", self.kr_ns)

@@ -1,0 +1,23 @@
+{
+    "page_numbers": [
+        28
+    ], 
+    "chunk_index": 51, 
+    "semantic_context": "", 
+    "text": "[Previous context: Recent studies (Anderson, 2013) found that the cost for diabetes-related kidney] dialysis in Samoa was expensive - approximately $38,600 per patient per year to the\n\ngovernment, or more than eleven times the GNI per capita of the country. Despite the high cost,\n\ntreatment was not particularly effective: two-thirds of patients had died within two years. But\n\neven low-cost items can impose financial burdens on government health budgets when large\n\nnumbers of people use the items over many years. Glucose testing strips for diabetes patients\n\nmay cost only VT 42 ($0.45) per day, but used daily as normally required, these amount to $164\n\nper patient per year, more than the total government expenditure on health per capita. The basic\n\ntesting strips alone would cost the government of Vanuatu $1,642 per patient over a ten-year\n\nperiod in nominal terms (Anderson I et al., 2013) (The World Bank, 2012). Costs to government\n\nalso rise when NCDs such as diabetes, cancers, and heart disease progress to more advanced and\n\ncomplex stages, requiring hospitalization, and training and salaries for specialists, and in some\n\ncases overseas medical treatment (Anderson 2013).\n\n2.13 Recent analysis (Anderson et al. 2013) shows that pharmaceutical costs to the", 
+    "chunk_id": "0b167e9b65182dec4e58_chunk_0051", 
+    "table_count": 0, 
+    "list_count": 0, 
+    "hierarchy_levels": [
+        1, 
+        3
+    ], 
+    "overlap_with_previous": true, 
+    "character_count": 1175, 
+    "doc_id": "0b167e9b65182dec4e58", 
+    "section_types": [
+        "header", 
+        "title"
+    ], 
+    "overlap_with_next": true
+}
