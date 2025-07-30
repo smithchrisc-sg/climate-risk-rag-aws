@@ -1,0 +1,6 @@
+This is a simple test document to verify SNS notifications from Comprehend jobs.
+
+Climate change poses significant risks to global financial systems. Companies must assess their exposure to physical and transition risks. The Task Force on Climate-related Financial Disclosures (TCFD) provides a framework for climate risk reporting.
+
+Key entities mentioned: TCFD, climate change, financial systems.
+Key phrases: climate risk assessment, financial disclosure, transition risks.
