@@ -80,7 +80,7 @@ class AsyncNLPProcessingStack(Stack):
             self, "EntityWorkerQueue",
             queue_name="nlp-worker-entity-queue",
             visibility_timeout=Duration.minutes(16),  # Longer than Lambda timeout
-            message_retention_period=Duration.days(14),
+            retention_period=Duration.days(14),
             dead_letter_queue=sqs.DeadLetterQueue(
                 max_receive_count=3,
                 queue=entity_worker_dlq
@@ -97,7 +97,7 @@ class AsyncNLPProcessingStack(Stack):
             self, "KeyphraseWorkerQueue",
             queue_name="nlp-worker-keyphrase-queue",
             visibility_timeout=Duration.minutes(16),  # Longer than Lambda timeout
-            message_retention_period=Duration.days(14),
+            retention_period=Duration.days(14),
             dead_letter_queue=sqs.DeadLetterQueue(
                 max_receive_count=3,
                 queue=keyphrase_worker_dlq
@@ -226,7 +226,7 @@ class AsyncNLPProcessingStack(Stack):
             self, "NLPProcessor",
             runtime=lambda_.Runtime.PYTHON_3_9,
             handler="handler.lambda_handler",
-            code=lambda_.Code.from_asset("../lambda/nlp-processor"),
+            code=lambda_.Code.from_asset("../lambda/nlp-initiator"),
             layers=[database_layer],
             timeout=Duration.minutes(5),
             memory_size=512,

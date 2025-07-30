@@ -1,4 +1,0 @@
-# Database dependencies for DatabaseManager and DocumentIDManager
-psycopg2-binary==2.9.7
-boto3>=1.26.0
-botocore>=1.29.0

@@ -511,10 +511,10 @@ class ClimateRiskRAGProductionStack(Stack):
         # 7. NLP Processor (future - placeholder for now)
         self.nlp_processor = lambda_.Function(
             self, "NLPProcessor",
-            function_name="solve-global-kr-nlp-processor",
+            function_name="solve-global-kr-nlp-initiator",
             runtime=lambda_.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
-            code=lambda_.Code.from_asset("../lambda/nlp-processor"),
+            code=lambda_.Code.from_asset("../lambda/nlp-initiator"),
             role=self.lambda_role,
             timeout=Duration.minutes(15),
             memory_size=1024,
