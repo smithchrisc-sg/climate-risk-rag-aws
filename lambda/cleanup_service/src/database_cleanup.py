@@ -53,17 +53,10 @@ class DatabaseCleanup:
         }
         
         try:
-            # Default to all major tables if none specified
+            # Default to all tables if none specified
             default_tables = [
                 'documents',
-                'document_metadata', 
-                'document_processing_status',
-                'nlp_processing_status',
-                'vector_embeddings_status',
-                'keyword_indexing_status',
-                'text_chunking_status',
-                'textract_jobs',
-                'chunks'
+                'document_processing_status'
             ]
             
             tables = config.get('tables', default_tables)
@@ -131,74 +124,46 @@ class DatabaseCleanup:
         Returns:
             Number of records affected
         """
-        # Map table names to their actual names and document ID columns
-        table_mappings = {
-            'document_processing_status': ('document_processing_status', 'doc_hash'),  # Uses doc_hash, not doc_id
-            'nlp_processing_status': ('nlp_processing_status', 'doc_id'),
-            'vector_processing_status': ('vector_embeddings_status', 'doc_id'),  # Actual table name
-            'keyword_processing_status': ('keyword_indexing_status', 'doc_id'),  # Actual table name
-            'kg_processing_status': ('text_chunking_status', 'doc_id'),  # Closest equivalent
-            # Additional tables found in database
-            'documents': ('documents', 'doc_id'),
-            'document_metadata': ('document_metadata', 'doc_id'),
-            'textract_jobs': ('textract_jobs', 'doc_hash'),
-            'chunks': ('chunks', 'doc_id'),
-            # Direct table name mappings (for when user specifies actual table names)
-            'vector_embeddings_status': ('vector_embeddings_status', 'doc_id'),
-            'keyword_indexing_status': ('keyword_indexing_status', 'doc_id'),
-            'text_chunking_status': ('text_chunking_status', 'doc_id')
-        }
-        
-        # Get actual table name and column
-        if table_name in table_mappings:
-            actual_table, doc_column = table_mappings[table_name]
-        else:
-            # Default assumption - use table name as-is with doc_id column
-            actual_table = table_name
-            doc_column = 'doc_id'
-            logger.warning(f"Table {table_name} not in mappings, using default: {actual_table}.{doc_column}")
-        
-        logger.info(f"Cleaning table {actual_table} using column {doc_column}, dry_run={dry_run}")
         
         try:
             # Build query based on whether specific document IDs are provided
             if document_ids:
                 # Clean specific documents
                 if dry_run:
-                    query = f"SELECT COUNT(*) as count FROM {actual_table} WHERE {doc_column} = ANY(%s)"
+                    query = f"SELECT COUNT(*) as count FROM {table_name} WHERE doc_id = ANY(%s)"
                     logger.debug(f"Executing count query: {query} with params: {document_ids}")
                     cursor.execute(query, (document_ids,))
                     result = cursor.fetchone()
                     count = result['count'] if result else 0
-                    logger.info(f"Found {count} records in {actual_table} for specific documents")
+                    logger.info(f"Found {count} records in {table_name} for specific documents")
                     return count
                 else:
-                    query = f"DELETE FROM {actual_table} WHERE {doc_column} = ANY(%s)"
+                    query = f"DELETE FROM {table_name} WHERE doc_id = ANY(%s)"
                     logger.debug(f"Executing delete query: {query} with params: {document_ids}")
                     cursor.execute(query, (document_ids,))
                     deleted = cursor.rowcount
-                    logger.info(f"Deleted {deleted} records from {actual_table}")
+                    logger.info(f"Deleted {deleted} records from {table_name}")
                     return deleted
             else:
                 # Clean all records
                 if dry_run:
-                    query = f"SELECT COUNT(*) as count FROM {actual_table}"
+                    query = f"SELECT COUNT(*) as count FROM {table_name}"
                     logger.debug(f"Executing count query: {query}")
                     cursor.execute(query)
                     result = cursor.fetchone()
                     count = result['count'] if result else 0
-                    logger.info(f"Found {count} total records in {actual_table}")
+                    logger.info(f"Found {count} total records in {table_name}")
                     return count
                 else:
-                    query = f"DELETE FROM {actual_table}"
+                    query = f"DELETE FROM {table_name}"
                     logger.debug(f"Executing delete query: {query}")
                     cursor.execute(query)
                     deleted = cursor.rowcount
-                    logger.info(f"Deleted {deleted} records from {actual_table}")
+                    logger.info(f"Deleted {deleted} records from {table_name}")
                     return deleted
                     
         except Exception as e:
-            error_msg = f"Error executing query on {actual_table}: {str(e)}"
+            error_msg = f"Error executing query on {table_name}: {str(e)}"
             logger.error(error_msg, exc_info=True)
             raise Exception(error_msg)
     
@@ -222,11 +187,8 @@ class DatabaseCleanup:
                     
                     # Get record counts for key tables
                     tables = [
-                        'document_processing_status',
-                        'nlp_processing_status',
-                        'vector_processing_status',
-                        'keyword_processing_status',
-                        'kg_processing_status'
+                        'documents',
+                        'document_processing_status'
                     ]
                     
                     for table in tables:
@@ -256,11 +218,8 @@ class DatabaseCleanup:
         """
         if tables is None:
             tables = [
-                'document_processing_status',
-                'nlp_processing_status',
-                'vector_processing_status',
-                'keyword_processing_status',
-                'kg_processing_status'
+                'documents',
+                'document_processing_status'
             ]
         
         results = {
