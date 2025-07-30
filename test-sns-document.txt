@@ -1,0 +1,32 @@
+Climate Risk Assessment Test Document
+
+This is a simple test document to verify that our SNS notification system is working correctly for Comprehend job completion.
+
+The document discusses climate change impacts on financial institutions. Banks and insurance companies face significant transition risks as the economy shifts toward renewable energy sources. Physical risks include extreme weather events that can damage infrastructure and disrupt operations.
+
+Key entities in this document include:
+- Financial institutions
+- Banks
+- Insurance companies
+- Climate change
+- Renewable energy
+- Infrastructure
+
+Key phrases that should be detected:
+- climate risk assessment
+- transition risks
+- physical risks
+- extreme weather events
+- renewable energy sources
+- financial institutions
+
+This document is designed to trigger both entity detection and key phrase detection jobs in Amazon Comprehend, which should then send notifications via SNS to trigger the NLP worker functions immediately.
+
+The test will verify that:
+1. Comprehend jobs are created with NotificationConfig
+2. SNS notifications are sent when jobs complete
+3. SQS queues receive the messages
+4. NLP worker functions are triggered immediately
+5. No 2-minute polling delay occurs
+
+End of test document.

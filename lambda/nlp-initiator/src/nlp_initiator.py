@@ -355,10 +355,7 @@ class NLPInitiator:
                 },
                 DataAccessRoleArn=self.comprehend_data_access_role,
                 JobName=f"entities-{doc_id}-{int(datetime.utcnow().timestamp())}",
-                LanguageCode='en',
-                NotificationConfig={
-                    'JobCompletionNotificationTopicArn': self.entity_completion_topic_arn
-                }
+                LanguageCode='en'
             )
             
             jobs['entity_job_id'] = entity_response['JobId']
@@ -374,10 +371,7 @@ class NLPInitiator:
                 },
                 DataAccessRoleArn=self.comprehend_data_access_role,
                 JobName=f"phrases-{doc_id}-{int(datetime.utcnow().timestamp())}",
-                LanguageCode='en',
-                NotificationConfig={
-                    'JobCompletionNotificationTopicArn': self.keyphrase_completion_topic_arn
-                }
+                LanguageCode='en'
             )
             
             jobs['key_phrases_job_id'] = phrases_response['JobId']
