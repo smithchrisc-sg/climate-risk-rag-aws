@@ -32,11 +32,14 @@ class NLPWorker:
         # Configuration
         self.ner_results_bucket = os.environ.get('NER_RESULTS_BUCKET',
                                                 'solve-global-kr-dl-ner-results-861276078413-us-east-1')
+        self.text_bucket = os.environ.get('TEXT_BUCKET',
+                                         'solve-global-kr-text-861276078413-us-east-1')
         self.completion_topic_arn = os.environ.get('NLP_COMPLETION_TOPIC_ARN',
                                                   'arn:aws:sns:us-east-1:861276078413:nlp-processing-complete')
         
         logger.info("✅ NLP Worker initialized")
         logger.info(f"NER results bucket: {self.ner_results_bucket}")
+        logger.info(f"Text bucket: {self.text_bucket}")
         logger.info(f"Completion topic: {self.completion_topic_arn}")
     
     def process_event(self, event, context):
@@ -136,7 +139,7 @@ class NLPWorker:
             })
             
             # Map results to chunks
-            mapped_results = self.map_results_to_chunks(comprehend_results, chunks)
+            mapped_results = self.map_results_to_chunks(comprehend_results, chunks, doc_id)
             
             # Update status to storage
             self.update_status(doc_id, 'nlp_storage', 'in_progress', {
@@ -219,7 +222,7 @@ class NLPWorker:
             })
             
             # Map results to chunks
-            mapped_results = self.map_results_to_chunks(comprehend_results, chunks)
+            mapped_results = self.map_results_to_chunks(comprehend_results, chunks, doc_id)
             
             # Update status to storage
             self.update_status(doc_id, 'nlp_storage', 'in_progress', {
@@ -424,8 +427,71 @@ class NLPWorker:
             logger.error(f"Error loading chunks from S3: {e}")
             return []
     
-    def map_results_to_chunks(self, comprehend_results: Dict[str, List], chunks: List[Dict]) -> Dict[str, List]:
-        """Map Comprehend results to document chunks"""
+    def load_original_document_text(self, doc_id: str) -> str:
+        """Load the original document text that was sent to Comprehend"""
+        try:
+            # The text that nlp-initiator sends to Comprehend
+            text_key = f"text/{doc_id}.txt"
+            
+            response = self.s3_client.get_object(
+                Bucket=self.text_bucket,
+                Key=text_key
+            )
+            
+            original_text = response['Body'].read().decode('utf-8')
+            logger.info(f"Loaded original document text: {len(original_text)} characters")
+            return original_text
+            
+        except Exception as e:
+            logger.error(f"Error loading original document text: {e}")
+            raise
+    
+    def find_chunk_positions_in_original_text(self, chunks: List[Dict], original_text: str) -> List[Dict]:
+        """Find where each chunk's text appears in the original document"""
+        chunk_positions = []
+        
+        for chunk in chunks:
+            chunk_text = chunk.get('text', '').strip()
+            if not chunk_text:
+                continue
+            
+            # Find where this chunk's text appears in the original document
+            pos = original_text.find(chunk_text)
+            if pos != -1:
+                chunk_position = {
+                    'chunk_id': chunk.get('chunk_id', ''),
+                    'chunk_text': chunk_text,
+                    'start_offset': pos,
+                    'end_offset': pos + len(chunk_text),
+                    'chunk_index': chunk.get('chunk_index', 0),
+                    'section_type': chunk.get('section_type', 'unknown'),
+                    'hierarchy_level': chunk.get('hierarchy_level', 0),
+                    'parent_chunk_id': chunk.get('parent_chunk_id')
+                }
+                chunk_positions.append(chunk_position)
+            else:
+                logger.warning(f"Chunk {chunk.get('chunk_id')} text not found in original document")
+        
+        # Sort by position in document
+        chunk_positions.sort(key=lambda x: x['start_offset'])
+        
+        logger.info(f"Found {len(chunk_positions)} chunk positions in original document")
+        return chunk_positions
+
+    def map_results_to_chunks(self, comprehend_results: Dict[str, List], chunks: List[Dict], doc_id: str) -> Dict[str, List]:
+        """
+        CORRECTED: Map Comprehend results to document chunks using original document positions
+        
+        The previous implementation was flawed because it:
+        1. Assumed chunks were sequential segments that could be concatenated
+        2. Used wrong sort key ('position' instead of 'chunk_index')
+        3. Created fictional document text that didn't match Comprehend input
+        
+        CORRECTED APPROACH:
+        1. Load the original document text that Comprehend analyzed
+        2. Find where each chunk appears in the original document
+        3. Map entity/keyphrase offsets (relative to original) to chunks
+        """
         if not chunks:
             logger.info("No chunks available for mapping, skipping")
             return {
@@ -433,75 +499,99 @@ class NLPWorker:
                 'key_phrases_by_chunk': []
             }
         
-        # Sort chunks by position
-        chunks.sort(key=lambda x: x.get('position', 0))
-        
-        # Calculate chunk offsets
-        chunk_offsets = []
-        current_offset = 0
-        for chunk in chunks:
-            text = chunk.get('text', '')
-            chunk_offsets.append({
-                'chunk_id': chunk.get('chunk_id', ''),
-                'start': current_offset,
-                'end': current_offset + len(text),
-                'text': text
-            })
-            current_offset += len(text)
-        
-        # Map entities to chunks
-        entities_by_chunk = []
-        for entity in comprehend_results.get('entities', []):
-            begin_offset = entity.get('begin_offset', 0)
-            end_offset = entity.get('end_offset', 0)
+        try:
+            # Load the original document text that Comprehend analyzed
+            original_text = self.load_original_document_text(doc_id)
             
-            for chunk_offset in chunk_offsets:
-                if (begin_offset >= chunk_offset['start'] and 
-                    begin_offset < chunk_offset['end']):
-                    # Entity starts in this chunk
-                    relative_begin = begin_offset - chunk_offset['start']
-                    relative_end = min(end_offset - chunk_offset['start'], 
-                                      len(chunk_offset['text']))
-                    
-                    entities_by_chunk.append({
-                        'chunk_id': chunk_offset['chunk_id'],
-                        'entity': entity.get('text', ''),
-                        'type': entity.get('type', ''),
-                        'score': entity.get('score', 0),
-                        'begin_offset': relative_begin,
-                        'end_offset': relative_end
-                    })
-                    break
-        
-        # Map key phrases to chunks
-        key_phrases_by_chunk = []
-        for phrase in comprehend_results.get('key_phrases', []):
-            begin_offset = phrase.get('begin_offset', 0)
-            end_offset = phrase.get('end_offset', 0)
+            # Find where each chunk appears in the original document
+            chunk_positions = self.find_chunk_positions_in_original_text(chunks, original_text)
             
-            for chunk_offset in chunk_offsets:
-                if (begin_offset >= chunk_offset['start'] and 
-                    begin_offset < chunk_offset['end']):
-                    # Phrase starts in this chunk
-                    relative_begin = begin_offset - chunk_offset['start']
-                    relative_end = min(end_offset - chunk_offset['start'], 
-                                      len(chunk_offset['text']))
-                    
-                    key_phrases_by_chunk.append({
-                        'chunk_id': chunk_offset['chunk_id'],
-                        'phrase': phrase.get('text', ''),
-                        'score': phrase.get('score', 0),
-                        'begin_offset': relative_begin,
-                        'end_offset': relative_end
-                    })
-                    break
-        
-        logger.info(f"Mapped {len(entities_by_chunk)} entities and {len(key_phrases_by_chunk)} key phrases to chunks")
-        
-        return {
-            'entities_by_chunk': entities_by_chunk,
-            'key_phrases_by_chunk': key_phrases_by_chunk
-        }
+            if not chunk_positions:
+                logger.error("Could not find any chunk positions in original document")
+                return {
+                    'entities_by_chunk': [],
+                    'key_phrases_by_chunk': []
+                }
+            
+            # Map entities to chunks using correct positions
+            entities_by_chunk = []
+            for entity in comprehend_results.get('entities', []):
+                entity_start = entity.get('begin_offset', 0)
+                entity_end = entity.get('end_offset', 0)
+                entity_text = entity.get('text', '')
+                
+                # Find chunks that contain this entity
+                for chunk_pos in chunk_positions:
+                    # Check if entity overlaps with this chunk
+                    if (entity_start < chunk_pos['end_offset'] and 
+                        entity_end > chunk_pos['start_offset']):
+                        
+                        # Calculate relative position within chunk
+                        relative_start = max(0, entity_start - chunk_pos['start_offset'])
+                        relative_end = min(len(chunk_pos['chunk_text']), 
+                                         entity_end - chunk_pos['start_offset'])
+                        
+                        entities_by_chunk.append({
+                            'chunk_id': chunk_pos['chunk_id'],
+                            'chunk_index': chunk_pos['chunk_index'],
+                            'section_type': chunk_pos['section_type'],
+                            'hierarchy_level': chunk_pos['hierarchy_level'],
+                            'parent_chunk_id': chunk_pos['parent_chunk_id'],
+                            'entity': entity_text,
+                            'type': entity.get('type', ''),
+                            'score': entity.get('score', 0),
+                            'original_begin_offset': entity_start,
+                            'original_end_offset': entity_end,
+                            'chunk_relative_begin': relative_start,
+                            'chunk_relative_end': relative_end
+                        })
+            
+            # Map key phrases to chunks using correct positions
+            key_phrases_by_chunk = []
+            for phrase in comprehend_results.get('key_phrases', []):
+                phrase_start = phrase.get('begin_offset', 0)
+                phrase_end = phrase.get('end_offset', 0)
+                phrase_text = phrase.get('text', '')
+                
+                # Find chunks that contain this phrase
+                for chunk_pos in chunk_positions:
+                    # Check if phrase overlaps with this chunk
+                    if (phrase_start < chunk_pos['end_offset'] and 
+                        phrase_end > chunk_pos['start_offset']):
+                        
+                        # Calculate relative position within chunk
+                        relative_start = max(0, phrase_start - chunk_pos['start_offset'])
+                        relative_end = min(len(chunk_pos['chunk_text']), 
+                                         phrase_end - chunk_pos['start_offset'])
+                        
+                        key_phrases_by_chunk.append({
+                            'chunk_id': chunk_pos['chunk_id'],
+                            'chunk_index': chunk_pos['chunk_index'],
+                            'section_type': chunk_pos['section_type'],
+                            'hierarchy_level': chunk_pos['hierarchy_level'],
+                            'parent_chunk_id': chunk_pos['parent_chunk_id'],
+                            'phrase': phrase_text,
+                            'score': phrase.get('score', 0),
+                            'original_begin_offset': phrase_start,
+                            'original_end_offset': phrase_end,
+                            'chunk_relative_begin': relative_start,
+                            'chunk_relative_end': relative_end
+                        })
+            
+            logger.info(f"Mapped {len(entities_by_chunk)} entities and {len(key_phrases_by_chunk)} key phrases to chunks")
+            
+            return {
+                'entities_by_chunk': entities_by_chunk,
+                'key_phrases_by_chunk': key_phrases_by_chunk
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in corrected chunk mapping: {e}")
+            # Return empty results rather than failing completely
+            return {
+                'entities_by_chunk': [],
+                'key_phrases_by_chunk': []
+            }
     
     def store_results_in_s3(self, doc_id: str, comprehend_results: Dict[str, List], 
                           mapped_results: Dict[str, List]) -> Dict[str, str]:
