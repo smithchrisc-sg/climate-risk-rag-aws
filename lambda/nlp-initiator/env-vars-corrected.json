@@ -1,0 +1,11 @@
+{
+  "Variables": {
+    "LAYER_VERSION": "16",
+    "DATABASE_SECRET_NAME": "rds!db-0f16c155-35f6-463b-96d8-4a2d8da7e863",
+    "DB_PORT": "5432",
+    "COMPREHEND_OUTPUT_BUCKET": "solve-global-kr-dl-ner-results-861276078413-us-east-1",
+    "DB_NAME": "climate_risk_rag",
+    "COMPREHEND_DATA_ACCESS_ROLE_ARN": "arn:aws:iam::861276078413:role/comprehend-data-access-role",
+    "DB_HOST": "solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com"
+  }
+}
