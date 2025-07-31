@@ -1,0 +1,1001 @@
+@prefix cro: <http://solve.global/knowledge-commons/climate-risk-ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://solve.global/knowledge-commons/climate-risk-ontology> a owl:Ontology ;
+    dc:creator "Solve Global"@en ;
+    dc:date "2023-06-16"^^xsd:date ;
+    dc:description "An ontology for representing climate risks, impacts, adaptation strategies, and mitigation efforts across various domains."@en ;
+    dc:title "Climate Risk, Adaptation, and Mitigation Ontology"@en ;
+    owl:versionInfo "2.0" .
+
+cro:AcademicInstitution rdfs:label "Academic Institution"@en ;
+    rdfs:comment "Educational and research organizations."@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:Airport rdfs:label "Airport"@en ;
+    rdfs:subClassOf cro:TransportationInfrastructure .
+
+cro:AmazonRainforest a cro:GeographicArea ;
+    rdfs:label "Amazon Rainforest"@en ;
+    cro:hasLandCover cro:TropicalForest ;
+    rdfs:comment "Large tropical rainforest covering much of northwestern Brazil and extending into other South American countries."@en .
+
+cro:Aquifer rdfs:label "Aquifer"@en ;
+    rdfs:comment "An underground layer of water-bearing permeable rock."@en ;
+    rdfs:subClassOf cro:WaterBody .
+
+cro:ArcticRegion rdfs:label "Arctic Region"@en ;
+    cro:hasLandCover cro:Tundra ;
+    rdfs:comment "Polar regions characterized by extreme cold and unique ecosystems."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:ArcticSeaIceLoss a cro:ClimateRisk ;
+    rdfs:label "Arctic Sea Ice Loss"@en ;
+    cro:manifestsAs cro:ArcticIceMelt ;
+    rdfs:comment "Risk of diminishing sea ice in the Arctic due to global warming."@en .
+
+cro:AridRegion rdfs:label "Arid Region"@en ;
+    cro:experiencesClimateEvent cro:Drought ;
+    rdfs:comment "Areas with little precipitation and challenging growing conditions."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:Beach rdfs:label "Beach"@en ;
+    rdfs:subClassOf cro:CoastalFeature .
+
+cro:Bridge rdfs:label "Bridge"@en ;
+    cro:hasCharacteristic cro:Resilience ;
+    rdfs:subClassOf cro:TransportationInfrastructure .
+
+cro:BroadcastingSystem rdfs:label "Broadcasting System"@en ;
+    rdfs:comment "Systems for distributing audio and video content to a dispersed audience."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:Building rdfs:label "Building"@en ;
+    cro:adaptedBy cro:GreenRoof ;
+    rdfs:subClassOf cro:UrbanInfrastructure .
+
+cro:Capacity rdfs:label "Capacity"@en ;
+    rdfs:subClassOf cro:InfrastructureCharacteristic .
+
+cro:CellularNetwork rdfs:label "Cellular Network"@en ;
+    cro:hasCoverage 0.95 ;
+    cro:vulnerableTo cro:ExtremeWeatherEvent ;
+    rdfs:comment "Radio network distributed over land through cells for mobile communication."@en ;
+    rdfs:subClassOf cro:TelecommunicationSystem .
+
+cro:Citizen rdfs:label "Citizen"@en ;
+    rdfs:comment "Individual members of the general public."@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:ClimateInformationService rdfs:label "Climate Information Service"@en ;
+    cro:providesService cro:WeatherForecasting ;
+    rdfs:comment "Services that provide climate-related data, forecasts, and analysis to various stakeholders."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:ClimateScientist rdfs:label "Climate Scientist"@en ;
+    cro:providesExpertise "Climate Modeling"^^xsd:string ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:CoastalFloodingMumbai a cro:ClimateRisk ;
+    rdfs:label "Coastal Flooding in Mumbai"@en ;
+    rdfs:comment "Risk of increased coastal flooding in Mumbai due to sea level rise and extreme weather events."@en .
+
+cro:CoastalInfrastructure cro:vulnerableTo cro:SeaLevelRiseRisk .
+
+cro:CommunicationTower rdfs:label "Communication Tower"@en ;
+    cro:vulnerableTo cro:HighWinds ;
+    rdfs:comment "Tall structures designed to support antennas for communication purposes."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:CommunityEducation rdfs:label "Community Education"@en ;
+    cro:requiresStakeholderEngagement true ;
+    rdfs:comment "Programs to educate communities about climate risks and adaptation measures."@en ;
+    rdfs:subClassOf cro:SocialStrategy .
+
+cro:CoralReef rdfs:label "Coral Reef"@en ;
+    rdfs:subClassOf cro:CoastalFeature .
+
+cro:CropFailure rdfs:label "Crop Failure"@en ;
+    rdfs:comment "Significant reduction in crop yield due to climate-related factors."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:DataCenter rdfs:label "Data Center"@en ;
+    cro:vulnerableTo cro:Flooding ;
+    rdfs:comment "Facility used to house computer systems and associated components."@en ;
+    rdfs:subClassOf cro:CommunicationInfrastructure,
+        cro:CommunicationSystem .
+
+cro:DisasterResponseCommunication rdfs:label "Disaster Response Communication"@en ;
+    cro:mitigatesImpact cro:CommunicationDisruption ;
+    rdfs:comment "Communication systems and protocols used during and after disaster events."@en ;
+    rdfs:subClassOf cro:EmergencyCommunicationSystem .
+
+cro:DroughtResistantCrops rdfs:label "Drought Resistant Crops"@en ;
+    cro:addressesRisk cro:DroughtRisk ;
+    cro:enhancesResilience cro:Agriculture ;
+    rdfs:comment "Use of crop varieties that are more resilient to drought conditions."@en ;
+    rdfs:subClassOf cro:EcosystemBasedStrategy .
+
+cro:EarlyWarningSystem rdfs:label "Early Warning System"@en ;
+    cro:hasCostLevel cro:Medium ;
+    cro:supportsAdaptation cro:DisasterPreparedness ;
+    rdfs:comment "System designed to predict and communicate warnings about impending hazards."@en,
+        "System for detecting and alerting about impending climate hazards."@en ;
+    rdfs:subClassOf cro:EmergencyCommunicationSystem,
+        cro:NonStructuralStrategy .
+
+cro:ElectricityGrid rdfs:label "Electricity Grid"@en ;
+    rdfs:subClassOf cro:EnergyInfrastructure .
+
+cro:EmergencyBroadcastSystem_USA a cro:EmergencyCommunicationSystem ;
+    rdfs:label "Emergency Broadcast System USA"@en ;
+    cro:supportsAdaptation cro:DisasterPreparedness ;
+    rdfs:comment "National public warning system in the United States."@en .
+
+cro:EmergencyResponder rdfs:label "Emergency Responder"@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:Estuary rdfs:label "Estuary"@en ;
+    rdfs:subClassOf cro:CoastalFeature .
+
+cro:EuropeanHeatwave_2003 a cro:ClimateEvent ;
+    rdfs:label "European Heatwave 2003"@en ;
+    cro:hasDuration "P2M"^^xsd:duration ;
+    rdfs:comment "Extreme heat event that affected much of Europe in the summer of 2003."@en .
+
+cro:ExtremeHeatRisk rdfs:label "Extreme Heat Risk"@en ;
+    rdfs:comment "Risk of prolonged periods of abnormally high temperatures."@en ;
+    rdfs:subClassOf cro:ClimateRisk .
+
+cro:Farmer rdfs:label "Farmer"@en ;
+    cro:affectedBy cro:DroughtImpact ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:FiberOpticNetwork rdfs:label "Fiber Optic Network"@en ;
+    cro:providesService cro:HighSpeedInternet ;
+    rdfs:comment "Network using fiber optic cables for high-speed data transmission."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:FlashFlood cro:hasFrequency 0.05 .
+
+cro:FloodBarrier rdfs:label "Flood Barrier"@en ;
+    cro:addressesRisk cro:FloodingRisk ;
+    rdfs:comment "Physical structure designed to prevent or control flooding."@en ;
+    rdfs:subClassOf cro:StructuralStrategy .
+
+cro:Forest rdfs:label "Forest"@en ;
+    rdfs:subClassOf cro:LandCoverType .
+
+cro:ForestConservation rdfs:label "Forest Conservation"@en ;
+    cro:hasImplementationTimeline cro:LongTerm ;
+    rdfs:comment "Preservation and sustainable management of forests to maintain carbon sinks."@en ;
+    rdfs:subClassOf cro:LandUseStrategy .
+
+cro:GermanyEnergiewende a cro:MitigationStrategy ;
+    rdfs:label "Germany Energiewende"@en ;
+    cro:reducesEmissions cro:CarbonDioxideEmission ;
+    rdfs:comment "German initiative for transitioning to a low carbon, environmentally sound energy supply."@en .
+
+cro:GlobalPositioningSystem a cro:SatelliteCommunicationSystem ;
+    rdfs:label "Global Positioning System"@en ;
+    cro:hasReliability 0.9999 ;
+    cro:providesService cro:LocationTracking ;
+    rdfs:comment "Global navigation satellite system providing geolocation and time information."@en .
+
+cro:Grassland rdfs:label "Grassland"@en ;
+    rdfs:subClassOf cro:LandCoverType .
+
+cro:GreatBarrierReefBleaching a cro:ClimateImpact ;
+    rdfs:label "Great Barrier Reef Bleaching"@en ;
+    cro:affectedBy cro:OceanAcidification ;
+    rdfs:comment "Coral bleaching events in the Great Barrier Reef due to rising ocean temperatures."@en .
+
+cro:GreenpeaceInternational a cro:EnvironmentalNGO ;
+    rdfs:label "Greenpeace International"@en ;
+    cro:implementsStrategy cro:PublicAwarenessRaising ;
+    rdfs:comment "Global environmental organization promoting solutions for environmental issues."@en .
+
+cro:HeatWave rdfs:label "Heat Wave"@en ;
+    cro:hasDuration "P5D"^^xsd:duration ;
+    rdfs:comment "A prolonged period of abnormally high temperatures."@en ;
+    rdfs:subClassOf cro:ClimateEvent .
+
+cro:Heatstress rdfs:label "Heat Stress"@en ;
+    rdfs:comment "Negative effects on human health and ecosystems due to extreme heat."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:HurricaneEvent cro:hasIntensity 4.0 .
+
+cro:Hurricane_Katrina_2005 a cro:ClimateEvent ;
+    rdfs:label "Hurricane Katrina 2005"@en ;
+    cro:causesImpact cro:NewOrleansFlooding ;
+    cro:hasIntensity 5 ;
+    rdfs:comment "Category 5 hurricane that severely impacted the Gulf Coast of the United States in August 2005."@en .
+
+cro:IPCC a cro:InternationalOrganization ;
+    rdfs:label "Intergovernmental Panel on Climate Change"@en ;
+    cro:collaboratesWith cro:WorldMeteorologicalOrganization ;
+    cro:providesExpertise "Climate Science Assessment"^^xsd:string ;
+    rdfs:comment "United Nations body for assessing the science related to climate change."@en .
+
+cro:IndigenousCommunity rdfs:label "Indigenous Community"@en ;
+    cro:hasVulnerability cro:ClimateChangeImpact ;
+    rdfs:comment "Native populations with traditional knowledge and practices."@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:IndustrialEfficiency rdfs:label "Industrial Efficiency"@en ;
+    rdfs:comment "Implementation of energy-efficient technologies and processes in industrial settings."@en ;
+    rdfs:subClassOf cro:IndustrialStrategy .
+
+cro:InfrastructureDamage rdfs:label "Infrastructure Damage"@en ;
+    rdfs:comment "Physical damage to communication infrastructure caused by climate events."@en,
+        "Physical harm to built structures and systems due to climate events."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:InsuranceCompany rdfs:label "Insurance Company"@en ;
+    cro:hasInterest cro:ClimateRiskAssessment ;
+    rdfs:subClassOf cro:PrivateSector .
+
+cro:IntenseStorm rdfs:label "Intense Storm"@en ;
+    rdfs:comment "A severe weather event with strong winds, heavy precipitation, or both."@en ;
+    rdfs:subClassOf cro:ClimateEvent .
+
+cro:InternetInfrastructure rdfs:label "Internet Infrastructure"@en ;
+    rdfs:comment "The physical network and facilities that support internet connectivity and services."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:Lake rdfs:label "Lake"@en ;
+    rdfs:subClassOf cro:WaterBody .
+
+cro:LocalGovernment rdfs:label "Local Government"@en ;
+    cro:implementsStrategy cro:FloodManagementPlan,
+        cro:GreenInfrastructurePlan ;
+    rdfs:subClassOf cro:GovernmentEntity .
+
+cro:MaldivesIslands a cro:CoastalArea ;
+    rdfs:label "Maldives Islands"@en ;
+    cro:hasElevation 1.5 ;
+    cro:vulnerableTo cro:SeaLevelRise ;
+    rdfs:comment "Island nation in the Indian Ocean highly vulnerable to sea level rise."@en .
+
+cro:Mangrove rdfs:label "Mangrove"@en ;
+    rdfs:subClassOf cro:CoastalFeature .
+
+cro:MountainousRegion rdfs:label "Mountainous Region"@en ;
+    cro:containsWaterBody cro:Glacier ;
+    rdfs:comment "Areas characterized by elevated terrain and steep slopes."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:NationalGovernment rdfs:label "National Government"@en ;
+    cro:hasResponsibility cro:ClimatePolicy ;
+    rdfs:subClassOf cro:GovernmentEntity .
+
+cro:Ocean rdfs:label "Ocean"@en ;
+    rdfs:subClassOf cro:WaterBody .
+
+cro:ParisAgreement a cro:MitigationStrategy ;
+    rdfs:label "Paris Agreement"@en ;
+    cro:hasCobenefits cro:ImprovedAirQuality ;
+    cro:hasImplementationTimeline cro:LongTerm ;
+    rdfs:comment "International treaty on climate change mitigation, adaptation, and finance."@en .
+
+cro:PolicyMaker rdfs:label "Policy Maker"@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:PowerPlant rdfs:label "Power Plant"@en ;
+    cro:locatedIn cro:CoastalArea ;
+    rdfs:subClassOf cro:EnergyInfrastructure .
+
+cro:PrecipitationChange rdfs:label "Precipitation Change"@en ;
+    rdfs:comment "Long-term changes in the amount, intensity, and pattern of precipitation."@en ;
+    rdfs:subClassOf cro:ClimateDriver .
+
+cro:PublicSpace rdfs:label "Public Space"@en ;
+    rdfs:subClassOf cro:UrbanInfrastructure .
+
+cro:RailwaySystem rdfs:label "Railway System"@en ;
+    rdfs:subClassOf cro:TransportationInfrastructure .
+
+cro:RenewableEnergyAdoption rdfs:label "Renewable Energy Adoption"@en ;
+    cro:reducesEmissions cro:CarbonDioxideEmission ;
+    rdfs:comment "Promotion and implementation of renewable energy sources to reduce greenhouse gas emissions."@en ;
+    rdfs:subClassOf cro:EnergyStrategy .
+
+cro:RenewableEnergyFacility rdfs:label "Renewable Energy Facility"@en ;
+    rdfs:subClassOf cro:EnergyInfrastructure .
+
+cro:RenewableEnergyPlant cro:locatedIn cro:RuralArea .
+
+cro:River rdfs:label "River"@en ;
+    cro:adjacentTo cro:FloodPlain ;
+    rdfs:subClassOf cro:WaterBody .
+
+cro:Road rdfs:label "Road"@en ;
+    rdfs:subClassOf cro:TransportationInfrastructure .
+
+cro:RotterdamClimateAdaptationStrategy a cro:AdaptationStrategy ;
+    rdfs:label "Rotterdam Climate Adaptation Strategy"@en ;
+    cro:addressesRisk cro:CoastalFlooding ;
+    cro:implementsStrategy cro:FloodResilienceImprovement ;
+    rdfs:comment "Comprehensive plan to make Rotterdam climate-proof by 2025."@en .
+
+cro:SahelDesertification a cro:ClimateImpact ;
+    rdfs:label "Sahel Desertification"@en ;
+    rdfs:comment "Ongoing desertification in the Sahel region of Africa, exacerbated by climate change."@en .
+
+cro:Satellite rdfs:label "Satellite"@en ;
+    rdfs:comment "Artificial object placed in orbit around Earth for communication purposes."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:SeaWall cro:adaptedBy cro:ElevationIncrease .
+
+cro:Seaport rdfs:label "Seaport"@en ;
+    cro:vulnerableTo cro:SeaLevelRiseRisk ;
+    rdfs:subClassOf cro:TransportationInfrastructure .
+
+cro:ServiceLife rdfs:label "Service Life"@en ;
+    rdfs:subClassOf cro:InfrastructureCharacteristic .
+
+cro:SignalInterference rdfs:label "Signal Interference"@en ;
+    rdfs:comment "Disturbance in signal transmission due to climate-related factors."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:StateGovernment rdfs:label "State Government"@en ;
+    rdfs:subClassOf cro:GovernmentEntity .
+
+cro:StormIntensificationRisk rdfs:label "Storm Intensification Risk"@en ;
+    rdfs:comment "Risk of increased frequency and severity of storms due to climate change."@en ;
+    rdfs:subClassOf cro:ClimateRisk .
+
+cro:StormwaterManagementSystem rdfs:label "Stormwater Management System"@en ;
+    rdfs:subClassOf cro:WaterInfrastructure .
+
+cro:SustainableTransport rdfs:label "Sustainable Transport"@en ;
+    cro:hasEffectivenessRating cro:High ;
+    rdfs:comment "Promotion of low-emission transportation options and infrastructure."@en ;
+    rdfs:subClassOf cro:TransportationStrategy .
+
+cro:TelecommunicationNetwork rdfs:label "Telecommunication Network"@en ;
+    rdfs:subClassOf cro:CommunicationInfrastructure .
+
+cro:TemperatureIncrease rdfs:label "Temperature Increase"@en ;
+    cro:drivesRisk cro:DroughtRisk ;
+    cro:exacerbatesEvent cro:Drought ;
+    rdfs:comment "Long-term rise in the Earth's average surface temperature."@en ;
+    rdfs:subClassOf cro:ClimateDriver .
+
+cro:ThamesBarrier a cro:WaterInfrastructure ;
+    rdfs:label "Thames Barrier"@en ;
+    cro:locatedIn cro:London ;
+    cro:mitigatesImpact cro:CoastalFlooding ;
+    rdfs:comment "Movable flood barrier in London designed to prevent the floodplain of Greater London from being flooded."@en .
+
+cro:ThreeGorgesDam a cro:WaterInfrastructure ;
+    rdfs:label "Three Gorges Dam"@en ;
+    cro:vulnerableTo cro:ExtremeRainfall ;
+    rdfs:comment "Hydroelectric gravity dam that spans the Yangtze River in China."@en .
+
+cro:TropicalRegion rdfs:label "Tropical Region"@en ;
+    cro:implementsAdaptationStrategy cro:MangroveRestoration ;
+    rdfs:comment "Areas near the Earth's equator characterized by warm temperatures."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:UrbanFlooding rdfs:label "Urban Flooding"@en ;
+    rdfs:comment "Inundation of urban areas due to excessive rainfall or storm surge."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:UrbanForest rdfs:label "Urban Forest"@en ;
+    cro:mitigatesClimateImpact cro:UrbanHeatIsland ;
+    rdfs:subClassOf cro:GreenInfrastructure .
+
+cro:UrbanForestry cro:hasCobenefits cro:AirQualityImprovement .
+
+cro:UrbanPlanner rdfs:label "Urban Planner"@en ;
+    cro:operatesIn cro:UrbanArea ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:VerticalForestMilan a cro:GreenInfrastructureStrategy ;
+    rdfs:label "Vertical Forest Milan"@en ;
+    cro:mitigatesImpact cro:UrbanHeatIslandEffect ;
+    rdfs:comment "Pair of residential towers in Milan with trees and plants integrated into the facade."@en .
+
+cro:WastewaterTreatmentPlant rdfs:label "Wastewater Treatment Plant"@en ;
+    rdfs:subClassOf cro:WaterInfrastructure .
+
+cro:WaterTreatmentPlant rdfs:label "Water Treatment Plant"@en ;
+    cro:hasComponent cro:WaterDistributionNetwork ;
+    rdfs:subClassOf cro:WaterInfrastructure .
+
+cro:Wetland rdfs:label "Wetland"@en ;
+    rdfs:subClassOf cro:GreenInfrastructure,
+        cro:LandCoverType .
+
+cro:adaptedBy a owl:ObjectProperty ;
+    rdfs:label "adapted by"@en ;
+    rdfs:comment "Relates an infrastructure to an adaptation strategy applied to it."@en ;
+    rdfs:domain cro:CriticalInfrastructure ;
+    rdfs:range cro:AdaptationStrategy .
+
+cro:addressesRisk a owl:ObjectProperty ;
+    rdfs:label "addresses risk"@en ;
+    rdfs:comment "Relates an adaptation strategy to the climate risk it addresses."@en ;
+    rdfs:domain cro:AdaptationStrategy ;
+    rdfs:range cro:ClimateRisk .
+
+cro:adjacentTo a owl:ObjectProperty ;
+    rdfs:label "adjacent to"@en ;
+    rdfs:comment "Indicates that two geographic areas are next to each other."@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range cro:GeographicArea .
+
+cro:affectedBy a owl:ObjectProperty ;
+    rdfs:label "affected by"@en ;
+    rdfs:comment "Indicates that a stakeholder is impacted by a particular climate impact."@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range cro:ClimateImpact .
+
+cro:causesImpact a owl:ObjectProperty ;
+    rdfs:label "causes impact"@en ;
+    rdfs:comment "Relates a climate event to its resulting impacts."@en ;
+    rdfs:domain cro:ClimateEvent ;
+    rdfs:range cro:ClimateImpact .
+
+cro:collaboratesWith a owl:ObjectProperty ;
+    rdfs:label "collaborates with"@en ;
+    rdfs:comment "Indicates collaboration between different stakeholders."@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range cro:Stakeholder .
+
+cro:containsFeature a owl:ObjectProperty ;
+    rdfs:label "contains feature"@en ;
+    rdfs:comment "Indicates that a geographic area contains a particular geographic feature."@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range cro:GeographicArea .
+
+cro:containsWaterBody a owl:ObjectProperty ;
+    rdfs:label "contains water body"@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range cro:WaterBody .
+
+cro:directlyContributesTo a owl:ObjectProperty ;
+    rdfs:label "directly contributes to"@en ;
+    rdfs:domain cro:ClimateEvent ;
+    rdfs:range cro:ClimateImpact .
+
+cro:drivesRisk a owl:ObjectProperty ;
+    rdfs:label "drives risk"@en ;
+    rdfs:domain cro:ClimateDriver ;
+    rdfs:range cro:ClimateRisk .
+
+cro:enhancesResilience a owl:ObjectProperty ;
+    rdfs:label "enhances resilience"@en ;
+    rdfs:domain cro:AdaptationStrategy ;
+    rdfs:range owl:Thing .
+
+cro:exacerbatesEvent a owl:ObjectProperty ;
+    rdfs:label "exacerbates event"@en ;
+    rdfs:domain cro:ClimateDriver ;
+    rdfs:range cro:ClimateEvent .
+
+cro:exacerbatesRisk a owl:ObjectProperty ;
+    rdfs:label "exacerbates risk"@en ;
+    rdfs:comment "Indicates that one climate risk increases the severity or likelihood of another."@en ;
+    rdfs:domain cro:ClimateRisk ;
+    rdfs:range cro:ClimateRisk .
+
+cro:experiencesClimateEvent a owl:ObjectProperty ;
+    rdfs:label "experiences climate event"@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range cro:ClimateEvent .
+
+cro:hasCharacteristic a owl:ObjectProperty ;
+    rdfs:label "has characteristic"@en ;
+    rdfs:domain cro:CriticalInfrastructure ;
+    rdfs:range cro:InfrastructureCharacteristic .
+
+cro:hasCobenefits a owl:ObjectProperty ;
+    rdfs:label "has co-benefits"@en ;
+    rdfs:comment "Indicates additional benefits of an adaptation or mitigation strategy."@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ] ;
+    rdfs:range cro:Benefit .
+
+cro:hasComponent a owl:ObjectProperty ;
+    rdfs:label "has component"@en ;
+    rdfs:domain cro:CriticalInfrastructure ;
+    rdfs:range cro:CriticalInfrastructure .
+
+cro:hasCostLevel a owl:ObjectProperty ;
+    rdfs:label "has cost level"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ] ;
+    rdfs:range cro:CostLevel .
+
+cro:hasCoverage a owl:DatatypeProperty ;
+    rdfs:label "has coverage"@en ;
+    rdfs:domain cro:CommunicationSystem ;
+    rdfs:range xsd:decimal .
+
+cro:hasDuration a owl:DatatypeProperty ;
+    rdfs:label "has duration"@en ;
+    rdfs:comment "Specifies the duration of an event or action."@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:duration .
+
+cro:hasEffectivenessRating a owl:ObjectProperty ;
+    rdfs:label "has effectiveness rating"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ] ;
+    rdfs:range cro:EffectivenessRating .
+
+cro:hasElevation a owl:DatatypeProperty ;
+    rdfs:label "has elevation"@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range xsd:decimal .
+
+cro:hasExposure a owl:ObjectProperty ;
+    rdfs:label "has exposure"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range cro:Exposure .
+
+cro:hasFrequency a owl:DatatypeProperty ;
+    rdfs:label "has frequency"@en ;
+    rdfs:comment "Specifies how often a climate event occurs."@en ;
+    rdfs:domain cro:ClimateEvent ;
+    rdfs:range xsd:decimal .
+
+cro:hasImplementationTimeline a owl:ObjectProperty ;
+    rdfs:label "has implementation timeline"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ] ;
+    rdfs:range cro:ImplementationTimeline .
+
+cro:hasInfluence a owl:ObjectProperty ;
+    rdfs:label "has influence"@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range cro:Influence .
+
+cro:hasIntensity a owl:DatatypeProperty ;
+    rdfs:label "has intensity"@en ;
+    rdfs:comment "Specifies the intensity or severity of a climate event or impact."@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cro:ClimateEvent cro:ClimateImpact ) ] ;
+    rdfs:range xsd:decimal .
+
+cro:hasInterest a owl:ObjectProperty ;
+    rdfs:label "has interest"@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range cro:Interest .
+
+cro:hasLandCover a owl:ObjectProperty ;
+    rdfs:label "has land cover"@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range cro:LandCoverType .
+
+cro:hasPopulationDensity a owl:DatatypeProperty ;
+    rdfs:label "has population density"@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range xsd:decimal .
+
+cro:hasRealizedConsequence a owl:ObjectProperty ;
+    rdfs:label "has realized consequence"@en ;
+    rdfs:domain cro:ClimateRisk ;
+    rdfs:range cro:ClimateImpact .
+
+cro:hasReliability a owl:DatatypeProperty ;
+    rdfs:label "has reliability"@en ;
+    rdfs:domain cro:CommunicationSystem ;
+    rdfs:range xsd:decimal .
+
+cro:hasResponsibility a owl:ObjectProperty ;
+    rdfs:label "has responsibility"@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range cro:Responsibility .
+
+cro:hasVulnerability a owl:ObjectProperty ;
+    rdfs:label "has vulnerability"@en ;
+    rdfs:domain cro:Stakeholder,
+        owl:Thing ;
+    rdfs:range cro:Vulnerability .
+
+cro:impactsSystem a owl:ObjectProperty ;
+    rdfs:label "impacts system"@en ;
+    rdfs:domain cro:ClimateImpact ;
+    rdfs:range owl:Thing .
+
+cro:implementsAdaptationStrategy a owl:ObjectProperty ;
+    rdfs:label "implements adaptation strategy"@en ;
+    rdfs:domain cro:GeographicArea ;
+    rdfs:range cro:AdaptationStrategy .
+
+cro:implementsStrategy a owl:ObjectProperty ;
+    rdfs:label "implements strategy"@en ;
+    rdfs:comment "Relates a stakeholder to an adaptation or mitigation strategy they implement."@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ],
+        [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ],
+        [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ] .
+
+cro:indirectlyInfluences a owl:ObjectProperty ;
+    rdfs:label "indirectly influences"@en ;
+    rdfs:domain cro:ClimateEvent ;
+    rdfs:range cro:ClimateImpact .
+
+cro:intensifies a owl:ObjectProperty ;
+    rdfs:label "intensifies"@en ;
+    rdfs:domain cro:ClimateEvent ;
+    rdfs:range cro:ClimateImpact .
+
+cro:involvesStakeholder a owl:ObjectProperty ;
+    rdfs:label "involves stakeholder"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ] ;
+    rdfs:range cro:Stakeholder .
+
+cro:locatedIn a owl:ObjectProperty ;
+    rdfs:label "located in"@en ;
+    rdfs:comment "Specifies the geographic location of an entity."@en ;
+    rdfs:domain cro:CriticalInfrastructure,
+        owl:Thing ;
+    rdfs:range cro:GeographicArea .
+
+cro:manifestsAs a owl:ObjectProperty ;
+    rdfs:label "manifests as"@en ;
+    rdfs:comment "Relates a climate risk to its manifestation as a climate event."@en ;
+    rdfs:domain cro:ClimateRisk ;
+    rdfs:range cro:ClimateEvent .
+
+cro:mitigates a owl:ObjectProperty ;
+    rdfs:label "mitigates"@en ;
+    rdfs:domain cro:MitigationStrategy ;
+    rdfs:range cro:ClimateImpact .
+
+cro:mitigatesClimateImpact a owl:ObjectProperty ;
+    rdfs:label "mitigates climate impact"@en ;
+    rdfs:domain cro:CriticalInfrastructure ;
+    rdfs:range cro:ClimateImpact .
+
+cro:mitigatesImpact a owl:ObjectProperty ;
+    rdfs:label "mitigates impact"@en ;
+    rdfs:comment "Indicates that an infrastructure helps reduce a particular climate impact."@en ;
+    rdfs:domain cro:CommunicationSystem,
+        cro:CriticalInfrastructure ;
+    rdfs:range cro:ClimateImpact .
+
+cro:operatesIn a owl:ObjectProperty ;
+    rdfs:label "operates in"@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range cro:GeographicArea .
+
+cro:precedes a owl:ObjectProperty ;
+    rdfs:label "precedes"@en ;
+    rdfs:comment "Indicates that one event or action occurs before another."@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range owl:Thing .
+
+cro:preventsOrReduces a owl:ObjectProperty ;
+    rdfs:label "prevents or reduces"@en ;
+    rdfs:domain cro:AdaptationStrategy ;
+    rdfs:range cro:ClimateRisk .
+
+cro:providesExpertise a owl:DatatypeProperty ;
+    rdfs:label "provides expertise"@en ;
+    rdfs:domain cro:Stakeholder ;
+    rdfs:range xsd:string .
+
+cro:providesService a owl:ObjectProperty ;
+    rdfs:label "provides service"@en ;
+    rdfs:domain cro:CommunicationSystem ;
+    rdfs:range cro:CommunicationService .
+
+cro:reducesEmissions a owl:ObjectProperty ;
+    rdfs:label "reduces emissions"@en ;
+    rdfs:comment "Relates a mitigation strategy to the type of emissions it reduces."@en ;
+    rdfs:domain cro:MitigationStrategy ;
+    rdfs:range cro:GreenhouseGasEmission .
+
+cro:requiresStakeholderEngagement a owl:DatatypeProperty ;
+    rdfs:label "requires stakeholder engagement"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cro:AdaptationStrategy cro:MitigationStrategy ) ] ;
+    rdfs:range xsd:boolean .
+
+cro:supportsAdaptation a owl:ObjectProperty ;
+    rdfs:label "supports adaptation"@en ;
+    rdfs:domain cro:CommunicationSystem ;
+    rdfs:range cro:AdaptationStrategy .
+
+cro:vulnerableTo a owl:ObjectProperty ;
+    rdfs:label "vulnerable to"@en ;
+    rdfs:comment "Indicates that an infrastructure is susceptible to a particular climate risk."@en ;
+    rdfs:domain cro:CommunicationSystem,
+        cro:CriticalInfrastructure,
+        cro:GeographicArea ;
+    rdfs:range cro:ClimateRisk .
+
+cro:CivilSocietyOrganization rdfs:label "Civil Society Organization"@en ;
+    rdfs:comment "Non-governmental organizations representing community interests."@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:CommunicationDisruption rdfs:label "Communication Disruption"@en ;
+    rdfs:comment "Interruption or degradation of communication services due to climate-related events."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:CostLevel a owl:Class ;
+    rdfs:label "Cost Level"@en ;
+    rdfs:comment "The relative cost of implementing an adaptation or mitigation strategy."@en .
+
+cro:EcosystemBasedStrategy rdfs:label "Ecosystem-Based Strategy"@en ;
+    rdfs:comment "Use of biodiversity and ecosystem services as part of an overall adaptation strategy to help people adapt to the adverse effects of climate change."@en ;
+    rdfs:subClassOf cro:AdaptationStrategy .
+
+cro:EcosystemDisruption rdfs:label "Ecosystem Disruption"@en ;
+    rdfs:comment "Alteration or damage to ecosystems due to climate change."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:EffectivenessRating a owl:Class ;
+    rdfs:label "Effectiveness Rating"@en ;
+    rdfs:comment "A measure of how well a strategy addresses the targeted climate risk or impact."@en .
+
+cro:EnergyStrategy rdfs:label "Energy Strategy"@en ;
+    rdfs:comment "Strategies aimed at reducing greenhouse gas emissions through changes in energy production and consumption."@en ;
+    rdfs:subClassOf cro:MitigationStrategy .
+
+cro:EnvironmentalNGO rdfs:label "Environmental NGO"@en ;
+    cro:collaboratesWith cro:RenewableEnergyCompany ;
+    rdfs:subClassOf cro:CivilSocietyOrganization .
+
+cro:Exposure a owl:Class ;
+    rdfs:label "Exposure"@en ;
+    rdfs:comment "The presence of people, livelihoods, species or ecosystems, environmental functions, services, and resources, infrastructure, or economic, social, or cultural assets in places and settings that could be adversely affected by climate risks."@en .
+
+cro:Flooding rdfs:label "Flooding"@en ;
+    rdfs:comment "Submergence of normally dry land by a large amount of water."@en ;
+    rdfs:subClassOf cro:ClimateEvent .
+
+cro:FloodingRisk rdfs:label "Flooding Risk"@en ;
+    rdfs:comment "Risk of submergence of normally dry land by a large amount of water."@en ;
+    rdfs:subClassOf cro:ClimateRisk .
+
+cro:Glacier rdfs:label "Glacier"@en ;
+    rdfs:subClassOf cro:WaterBody .
+
+cro:GreenRoof rdfs:label "Green Roof"@en ;
+    rdfs:subClassOf cro:GreenInfrastructure .
+
+cro:ImplementationTimeline a owl:Class ;
+    rdfs:label "Implementation Timeline"@en ;
+    rdfs:comment "The time frame for implementing an adaptation or mitigation strategy."@en .
+
+cro:IndustrialStrategy rdfs:label "Industrial Strategy"@en ;
+    rdfs:comment "Strategies to reduce emissions from industrial processes and promote cleaner production methods."@en ;
+    rdfs:subClassOf cro:MitigationStrategy .
+
+cro:Influence a owl:Class ;
+    rdfs:label "Influence"@en ;
+    rdfs:subClassOf cro:StakeholderCharacteristic .
+
+cro:Interest a owl:Class ;
+    rdfs:label "Interest"@en ;
+    rdfs:subClassOf cro:StakeholderCharacteristic .
+
+cro:InternationalOrganization rdfs:label "International Organization"@en ;
+    rdfs:comment "Organizations operating on a global or multinational scale."@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:LandUseStrategy rdfs:label "Land Use Strategy"@en ;
+    rdfs:comment "Strategies that focus on land use changes to reduce emissions and enhance carbon sinks."@en ;
+    rdfs:subClassOf cro:MitigationStrategy .
+
+cro:MangroveRestoration cro:mitigatesImpact cro:CoastalErosion .
+
+cro:NonStructuralStrategy rdfs:label "Non-Structural Strategy"@en ;
+    rdfs:comment "Strategies that do not involve physical changes to infrastructure, such as policy changes or operational adjustments."@en ;
+    rdfs:subClassOf cro:AdaptationStrategy .
+
+cro:OceanAcidification rdfs:label "Ocean Acidification"@en ;
+    rdfs:comment "Decrease in the pH of the Earth's oceans due to uptake of carbon dioxide from the atmosphere."@en ;
+    rdfs:subClassOf cro:ClimateDriver .
+
+cro:RenewableEnergyCompany rdfs:label "Renewable Energy Company"@en ;
+    rdfs:subClassOf cro:PrivateSector .
+
+cro:Resilience rdfs:label "Resilience"@en ;
+    rdfs:subClassOf cro:InfrastructureCharacteristic .
+
+cro:Responsibility a owl:Class ;
+    rdfs:label "Responsibility"@en ;
+    rdfs:subClassOf cro:StakeholderCharacteristic .
+
+cro:RuralArea rdfs:label "Rural Area"@en ;
+    rdfs:comment "Less densely populated areas, often with more natural landscapes."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:SatelliteCommunicationSystem rdfs:label "Satellite Communication System"@en ;
+    cro:mitigatesImpact cro:TerrestrialNetworkFailure ;
+    rdfs:comment "Systems using satellites to relay and amplify radio telecommunications signals."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:SeaLevelRise rdfs:label "Sea Level Rise"@en ;
+    rdfs:comment "Increase in the level of the world's oceans due to climate change effects."@en ;
+    rdfs:subClassOf cro:ClimateEvent .
+
+cro:SocialStrategy rdfs:label "Social Strategy"@en ;
+    rdfs:comment "Strategies that address the social and behavioral aspects of climate change adaptation."@en ;
+    rdfs:subClassOf cro:AdaptationStrategy .
+
+cro:StructuralStrategy rdfs:label "Structural Strategy"@en ;
+    rdfs:comment "Physical modifications or additions to infrastructure to enhance resilience."@en ;
+    rdfs:subClassOf cro:AdaptationStrategy .
+
+cro:TelecommunicationSystem rdfs:label "Telecommunication System"@en ;
+    rdfs:comment "Systems for transmitting signals, messages, or information over a distance."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:TransportationStrategy rdfs:label "Transportation Strategy"@en ;
+    rdfs:comment "Strategies to reduce emissions from transportation systems and promote sustainable mobility."@en ;
+    rdfs:subClassOf cro:MitigationStrategy .
+
+cro:Tundra rdfs:label "Tundra"@en ;
+    rdfs:subClassOf cro:LandCoverType .
+
+cro:UrbanArea rdfs:label "Urban Area"@en ;
+    cro:hasLandCover cro:UrbanLandCover ;
+    rdfs:comment "Densely populated areas with significant built environment."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:UrbanLandCover rdfs:label "Urban Land Cover"@en ;
+    rdfs:subClassOf cro:LandCoverType .
+
+cro:Vulnerability a owl:Class ;
+    rdfs:label "Vulnerability"@en ;
+    rdfs:comment "The propensity or predisposition to be adversely affected by climate risks."@en ;
+    rdfs:subClassOf cro:StakeholderCharacteristic .
+
+cro:WaterDistributionNetwork rdfs:label "Water Distribution Network"@en ;
+    rdfs:subClassOf cro:WaterInfrastructure .
+
+cro:WaterScarcity rdfs:label "Water Scarcity"@en ;
+    cro:impactsSystem cro:Agriculture ;
+    rdfs:comment "Insufficient available water resources to meet water needs within a region."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:Agriculture rdfs:label "Agriculture"@en ;
+    rdfs:subClassOf cro:LandCoverType .
+
+cro:CoastalArea rdfs:label "Coastal Area"@en ;
+    cro:vulnerableTo cro:SeaLevelRiseRisk ;
+    rdfs:comment "Areas adjacent to the sea or ocean."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:CoastalErosion rdfs:label "Coastal Erosion"@en ;
+    rdfs:comment "Wearing away of coastal lands due to sea level rise and increased storm activity."@en ;
+    rdfs:subClassOf cro:ClimateImpact .
+
+cro:CommunicationInfrastructure rdfs:label "Communication Infrastructure"@en ;
+    rdfs:comment "Systems and networks for information exchange and communication."@en ;
+    rdfs:subClassOf cro:CriticalInfrastructure .
+
+cro:DisasterPreparedness cro:precedes cro:DisasterResponse .
+
+cro:DroughtRisk rdfs:label "Drought Risk"@en ;
+    cro:manifestsAs cro:Drought ;
+    rdfs:comment "Risk of prolonged periods of abnormally low rainfall, leading to water shortages."@en ;
+    rdfs:subClassOf cro:ClimateRisk .
+
+cro:PrivateSector rdfs:label "Private Sector"@en ;
+    rdfs:comment "For-profit businesses and industries."@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:UrbanInfrastructure rdfs:label "Urban Infrastructure"@en ;
+    rdfs:comment "Built environment systems in urban areas, including buildings and public spaces."@en ;
+    rdfs:subClassOf cro:CriticalInfrastructure .
+
+cro:CoastalFlooding cro:causesImpact cro:CoastalErosion .
+
+cro:Drought rdfs:label "Drought"@en ;
+    cro:directlyContributesTo cro:WaterScarcity ;
+    cro:exacerbatesRisk cro:WildfireRisk ;
+    cro:indirectlyInfluences cro:EcosystemDisruption ;
+    rdfs:comment "A period of abnormally low rainfall, leading to water shortages."@en ;
+    rdfs:subClassOf cro:ClimateEvent .
+
+cro:EmergencyCommunicationSystem rdfs:label "Emergency Communication System"@en ;
+    cro:hasReliability 0.99 ;
+    rdfs:comment "Systems designed for communication during emergencies or disasters."@en ;
+    rdfs:subClassOf cro:CommunicationSystem .
+
+cro:EnergyInfrastructure rdfs:label "Energy Infrastructure"@en ;
+    rdfs:comment "Systems for energy generation, transmission, and distribution."@en ;
+    rdfs:subClassOf cro:CriticalInfrastructure .
+
+cro:GovernmentEntity rdfs:label "Government Entity"@en ;
+    rdfs:comment "Official governing bodies at various levels."@en ;
+    rdfs:subClassOf cro:Stakeholder .
+
+cro:GreenInfrastructure rdfs:label "Green Infrastructure"@en ;
+    rdfs:comment "Natural or semi-natural systems that provide ecosystem services and climate resilience benefits."@en ;
+    rdfs:subClassOf cro:CriticalInfrastructure .
+
+cro:SeaLevelRiseRisk rdfs:label "Sea Level Rise Risk"@en ;
+    cro:manifestsAs cro:CoastalFlooding ;
+    rdfs:comment "Risk associated with the increase in the level of the world's oceans due to climate change effects."@en ;
+    rdfs:subClassOf cro:ClimateRisk .
+
+cro:CoastalFeature a owl:Class ;
+    rdfs:label "Coastal Feature"@en ;
+    rdfs:comment "Natural or artificial features found in coastal areas."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:InfrastructureCharacteristic a owl:Class ;
+    rdfs:label "Infrastructure Characteristic"@en ;
+    rdfs:comment "Attributes or properties of infrastructure systems or components."@en .
+
+cro:StakeholderCharacteristic a owl:Class ;
+    rdfs:label "Stakeholder Characteristic"@en ;
+    rdfs:comment "Attributes or properties of stakeholders."@en .
+
+cro:ClimateDriver a owl:Class ;
+    rdfs:label "Climate Driver"@en ;
+    rdfs:comment "Factors that drive or exacerbate climate risks and events."@en .
+
+cro:TransportationInfrastructure rdfs:label "Transportation Infrastructure"@en ;
+    rdfs:comment "Systems and networks for moving people and goods."@en ;
+    rdfs:subClassOf cro:CriticalInfrastructure .
+
+cro:WaterBody a owl:Class ;
+    rdfs:label "Water Body"@en ;
+    rdfs:comment "A significant accumulation of water on the surface of the Earth."@en ;
+    rdfs:subClassOf cro:GeographicArea .
+
+cro:WaterInfrastructure rdfs:label "Water Infrastructure"@en ;
+    rdfs:comment "Systems for water supply, treatment, and distribution."@en ;
+    rdfs:subClassOf cro:CriticalInfrastructure .
+
+cro:LandCoverType a owl:Class ;
+    rdfs:label "Land Cover Type"@en ;
+    rdfs:comment "The physical material at the surface of the earth."@en .
+
+cro:ClimateRisk a owl:Class ;
+    rdfs:label "Climate Risk"@en ;
+    rdfs:comment "A potential negative impact caused by climate change on natural and human systems."@en .
+
+cro:CriticalInfrastructure a owl:Class ;
+    rdfs:label "Critical Infrastructure"@en ;
+    rdfs:comment "Essential systems and assets vital for the functioning of a society and economy."@en .
+
+cro:ClimateEvent a owl:Class ;
+    rdfs:label "Climate Event"@en ;
+    rdfs:comment "A realized consequence of a climate risk, which can lead to various impacts."@en .
+
+cro:CommunicationSystem rdfs:label "Communication System"@en ;
+    rdfs:comment "Systems and networks for information exchange and communication."@en ;
+    rdfs:subClassOf cro:CriticalInfrastructure .
+
+cro:MitigationStrategy a owl:Class ;
+    rdfs:label "Mitigation Strategy"@en ;
+    rdfs:comment "Actions taken to reduce or prevent the emission of greenhouse gases."@en .
+
+cro:AdaptationStrategy a owl:Class ;
+    rdfs:label "Adaptation Strategy"@en ;
+    rdfs:comment "Actions taken to help communities and ecosystems cope with changing climate conditions."@en .
+
+cro:ClimateImpact a owl:Class ;
+    rdfs:label "Climate Impact"@en ;
+    rdfs:comment "The effects of climate events on natural and human systems."@en .
+
+cro:GeographicArea a owl:Class ;
+    rdfs:label "Geographic Area"@en ;
+    rdfs:comment "A specific region or location affected by or relevant to climate risks."@en .
+
+cro:Stakeholder a owl:Class ;
+    rdfs:label "Stakeholder"@en ;
+    rdfs:comment "An individual, group, or organization with an interest or concern in climate risks and their management."@en .
+

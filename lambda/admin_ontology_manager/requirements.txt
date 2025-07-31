@@ -1,0 +1,8 @@
+# Admin Ontology Manager Lambda Requirements
+# Uses knowledge-graph-layer for ontology operations
+
+# No additional requirements - all dependencies come from the knowledge-graph-layer
+# The layer provides:
+# - rdflib for RDF/ontology processing
+# - boto3 for AWS services
+# - All KG utilities and exceptions

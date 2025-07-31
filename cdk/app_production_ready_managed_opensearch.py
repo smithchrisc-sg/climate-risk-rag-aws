@@ -5,7 +5,7 @@ Comprehensive deployment with AWS Managed OpenSearch instead of serverless
 
 This CDK app deploys the complete system with:
 - AWS Managed OpenSearch Domain (cost-optimized)
-- Knowledge Graph Layer v1.0.0 integration
+- Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration integration
 - Proper subnet, security group, and IAM configurations per infrastructure guide
 - Consistent SNS messaging patterns
 - All current working pipeline components
@@ -604,7 +604,7 @@ class ClimateRiskRAGProductionManagedOpenSearchStack(Stack):
         # 6. Document Structure KG Processor (using Knowledge Graph Layer)
         self.document_structure_kg_processor = lambda_.Function(
             self, "DocumentStructureKGProcessor",
-            function_name="solve-global-kr-document-structure-kg-processor",
+            function_name="solve-global-kr-document-structure-kg-processor-v2",
             runtime=lambda_.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
             code=lambda_.Code.from_asset("../lambda/document-structure-kg-processor"),
@@ -695,7 +695,7 @@ class ClimateRiskRAGProductionManagedOpenSearchStack(Stack):
         CfnOutput(
             self, "KnowledgeGraphLayerArn",
             value=self.knowledge_graph_layer.layer_version_arn,
-            description="Knowledge Graph Layer v1.0.0 ARN"
+            description="Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration ARN"
         )
         
         CfnOutput(

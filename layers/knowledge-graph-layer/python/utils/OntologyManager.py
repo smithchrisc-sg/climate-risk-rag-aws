@@ -45,8 +45,9 @@ class OntologyManager:
         self.ontology_bucket = self._get_env_var('ONTOLOGY_BUCKET', 'solve-global-kr-dl-ontology-861276078413-us-east-1')
         self.ontology_graph_uri = URIRef("https://solve.global/graphs/ontology")
         
-        # RDFLib graph for ontology data
-        self.ontology_graph = Graph()
+        # RDFLib graph for ontology data (use ConjunctiveGraph for named graph support)
+        from rdflib import ConjunctiveGraph
+        self.ontology_graph = ConjunctiveGraph()
         self._setup_ontology_namespaces()
         
         # Caching for performance
@@ -75,7 +76,7 @@ class OntologyManager:
         import os
         return os.environ.get(var_name, default)
     
-    def load_ontology_from_s3(self, s3_key: str, format: str = 'turtle', force_reload: bool = False) -> bool:
+    def load_ontology_from_s3(self, s3_key: str, format: str = 'turtle', force_reload: bool = False, named_graph: str = None) -> bool:
         """
         Load ontology from S3 using RDFLib parsing
         
@@ -83,6 +84,7 @@ class OntologyManager:
             s3_key: S3 key for the ontology file
             format: RDF format ('turtle', 'xml', 'n3', 'json-ld')
             force_reload: Force reload even if already loaded
+            named_graph: Optional named graph URI to load ontology into
             
         Returns:
             True if loading successful
@@ -102,9 +104,24 @@ class OntologyManager:
             temp_graph = Graph()
             temp_graph.parse(data=ontology_content, format=format)
             
-            # Clear existing ontology and load new one
-            self.ontology_graph.remove((None, None, None))
-            self.ontology_graph += temp_graph
+            # Handle named graph loading
+            if named_graph:
+                named_graph_uri = URIRef(named_graph)
+                self.logger.info(f"Loading ontology into named graph: {named_graph}")
+                
+                # Get or create the named graph
+                named_graph_obj = self.ontology_graph.get_context(named_graph_uri)
+                
+                # Clear existing named graph content
+                named_graph_obj.remove((None, None, None))
+                
+                # Add triples to named graph
+                for triple in temp_graph:
+                    named_graph_obj.add(triple)
+            else:
+                # Clear existing ontology and load new one (default behavior)
+                self.ontology_graph.remove((None, None, None))
+                self.ontology_graph += temp_graph
             
             # Clear caches
             self._concept_cache.clear()
@@ -112,20 +129,22 @@ class OntologyManager:
             self._ontology_loaded = True
             self._last_cache_update = datetime.now()
             
-            self.logger.info(f"Successfully loaded ontology: {len(self.ontology_graph)} triples")
+            graph_info = f"named graph {named_graph}" if named_graph else "default graph"
+            self.logger.info(f"Successfully loaded ontology into {graph_info}: {len(temp_graph)} triples")
             return True
             
         except Exception as e:
             self.logger.error(f"Failed to load ontology from S3: {e}")
             raise KGDataFormatError(f"Ontology loading failed: {e}")
     
-    def load_ontology_from_ttl(self, ttl_content: str, force_reload: bool = False) -> bool:
+    def load_ontology_from_ttl(self, ttl_content: str, force_reload: bool = False, named_graph: str = None) -> bool:
         """
         Load ontology from TTL content using RDFLib parsing
         
         Args:
             ttl_content: TTL content string
             force_reload: Force reload even if already loaded
+            named_graph: Optional named graph URI to load ontology into
             
         Returns:
             True if loading successful
@@ -141,9 +160,24 @@ class OntologyManager:
             temp_graph = Graph()
             temp_graph.parse(data=ttl_content, format='turtle')
             
-            # Clear existing ontology and load new one
-            self.ontology_graph.remove((None, None, None))
-            self.ontology_graph += temp_graph
+            # Handle named graph loading
+            if named_graph:
+                named_graph_uri = URIRef(named_graph)
+                self.logger.info(f"Loading TTL ontology into named graph: {named_graph}")
+                
+                # Get or create the named graph
+                named_graph_obj = self.ontology_graph.get_context(named_graph_uri)
+                
+                # Clear existing named graph content
+                named_graph_obj.remove((None, None, None))
+                
+                # Add triples to named graph
+                for triple in temp_graph:
+                    named_graph_obj.add(triple)
+            else:
+                # Clear existing ontology and load new one (default behavior)
+                self.ontology_graph.remove((None, None, None))
+                self.ontology_graph += temp_graph
             
             # Clear caches
             self._concept_cache.clear()
@@ -151,7 +185,8 @@ class OntologyManager:
             self._ontology_loaded = True
             self._last_cache_update = datetime.now()
             
-            self.logger.info(f"Successfully loaded ontology from TTL: {len(self.ontology_graph)} triples")
+            graph_info = f"named graph {named_graph}" if named_graph else "default graph"
+            self.logger.info(f"Successfully loaded TTL ontology into {graph_info}: {len(temp_graph)} triples")
             return True
             
         except Exception as e:

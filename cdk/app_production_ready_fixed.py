@@ -4,7 +4,7 @@ Production-Ready Climate Risk RAG System CDK App
 Comprehensive deployment aligned with infrastructure guide and current working components
 
 This CDK app deploys the complete system with:
-- Knowledge Graph Layer v1.0.0 integration
+- Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration integration
 - Proper subnet, security group, and IAM configurations per infrastructure guide
 - Consistent SNS messaging patterns
 - All current working pipeline components
@@ -228,14 +228,16 @@ class ClimateRiskRAGProductionStack(Stack):
         )
     
     def create_lambda_layers(self):
-        """Create Lambda layers including Knowledge Graph Layer v1.0.0"""
+        """Create Lambda layers including Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration"""
         
-        # Knowledge Graph Layer v1.0.0
+        # Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration
+        # Updated to Knowledge Graph Layer v2.0.0 - Maintains backward compatibility
+
         self.knowledge_graph_layer = lambda_.LayerVersion(
             self, "KnowledgeGraphLayer",
-            code=lambda_.Code.from_asset("../layers/knowledge-graph-layer/knowledge-graph-layer-v1.0.0.zip"),
+            code=lambda_.Code.from_asset("../layers/knowledge-graph-layer/knowledge-graph-layer-v2.0.0-minimal.zip"),
             compatible_runtimes=[lambda_.Runtime.PYTHON_3_11],
-            description="Knowledge Graph operations layer v1.0.0 with Neptune integration"
+            description="Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration with Neptune integration"
         )
         
         # Database Core Layer (existing)
@@ -466,7 +468,7 @@ class ClimateRiskRAGProductionStack(Stack):
         # 5. Document Structure KG Processor (using Knowledge Graph Layer)
         self.document_structure_kg_processor = lambda_.Function(
             self, "DocumentStructureKGProcessor",
-            function_name="solve-global-kr-document-structure-kg-processor",
+            function_name="solve-global-kr-document-structure-kg-processor-v2",
             runtime=lambda_.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
             code=lambda_.Code.from_asset("../lambda/document-structure-kg-processor"),
@@ -489,7 +491,7 @@ class ClimateRiskRAGProductionStack(Stack):
         # 6. KG Triple Loader (using Knowledge Graph Layer with bulk load)
         self.kg_triple_loader = lambda_.Function(
             self, "KGTripleLoader",
-            function_name="solve-global-kr-kg-triple-loader",
+            function_name="solve-global-kr-kg-triple-loader-v2",
             runtime=lambda_.Runtime.PYTHON_3_11,
             handler="handler.lambda_handler",
             code=lambda_.Code.from_asset("../lambda/kg-triple-loader"),
@@ -584,7 +586,7 @@ class ClimateRiskRAGProductionStack(Stack):
         CfnOutput(
             self, "KnowledgeGraphLayerArn",
             value=self.knowledge_graph_layer.layer_version_arn,
-            description="Knowledge Graph Layer v1.0.0 ARN"
+            description="Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration ARN"
         )
         
         CfnOutput(

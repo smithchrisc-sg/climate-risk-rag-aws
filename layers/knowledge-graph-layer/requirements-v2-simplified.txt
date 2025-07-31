@@ -1,0 +1,51 @@
+# Knowledge Graph Layer Dependencies - v2.0.0 Simplified
+# Compatible with: Python 3.11/3.13, AWS Lambda
+# Focuses on core functionality without problematic ML dependencies
+
+# === EXISTING DEPENDENCIES (UNCHANGED) ===
+# Core RDF and SPARQL libraries
+rdflib==7.0.0
+
+# HTTP requests with AWS authentication
+requests==2.31.0
+requests-aws4auth==1.2.3
+charset-normalizer==3.3.2
+
+# AWS SDK
+boto3==1.34.0
+botocore==1.34.0
+
+# === CORE NLP DEPENDENCIES (SIMPLIFIED) ===
+# Basic fuzzy string matching (without Levenshtein for now)
+fuzzywuzzy==0.18.0
+
+# Text processing and normalization
+nltk==3.8.1
+
+# Scientific computing (lightweight)
+numpy==1.24.3
+
+# === FUTURE DEPENDENCIES (COMMENTED OUT FOR NOW) ===
+# These will be added in a future version when compatibility is resolved
+# python-Levenshtein==0.21.1      # Fast string distance - COMPATIBILITY ISSUE
+# sentence-transformers==2.2.2    # Semantic similarity - TOO HEAVY FOR INITIAL VERSION
+# ahocorasick-rs==0.20.0          # Fast pattern matching - WILL ADD LATER
+# torch==2.0.1+cpu                # PyTorch - TOO HEAVY FOR INITIAL VERSION
+# scikit-learn==1.3.0             # ML utilities - WILL ADD LATER
+
+# === STANDARD LIBRARY DEPENDENCIES (DOCUMENTED) ===
+# The following are included in Python standard library:
+# - json: JSON handling
+# - logging: Logging utilities  
+# - os: Operating system interface
+# - time: Time-related functions
+# - typing: Type hints
+# - datetime: Date and time handling
+# - hashlib: Hash algorithms
+# - re: Regular expressions
+# - urllib.parse: URL parsing
+# - collections: Specialized container datatypes
+# - itertools: Iterator utilities
+# - functools: Higher-order functions
+# - string: String operations
+# - math: Mathematical functions

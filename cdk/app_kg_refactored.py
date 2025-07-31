@@ -35,7 +35,7 @@ class KGRefactoredStack(Stack):
             self, "KnowledgeGraphLayer",
             code=lambda_.Code.from_asset("../layers/knowledge-graph-layer"),
             compatible_runtimes=[lambda_.Runtime.PYTHON_3_11],
-            description="Knowledge Graph operations layer v1.0.0 with Neptune bulk load support"
+            description="Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration with Neptune bulk load support"
         )
         
         # Import VPC and networking
