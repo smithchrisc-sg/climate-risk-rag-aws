@@ -476,10 +476,14 @@ class TripleManager:
     def _sparql_insert_ttl(self, ttl_content: str) -> bool:
         """Insert TTL using SPARQL INSERT"""
         try:
-            # Build SPARQL INSERT query
+            # Separate TTL prefixes from content
+            ttl_prefixes, ttl_triples = self._separate_ttl_prefixes(ttl_content)
+            
+            # Build SPARQL INSERT query with prefixes outside INSERT DATA block
             query = f"""
+            {ttl_prefixes}
             INSERT DATA {{
-                {ttl_content}
+                {ttl_triples}
             }}
             """
             
@@ -488,6 +492,41 @@ class TripleManager:
         except Exception as e:
             self.logger.error(f"SPARQL INSERT failed: {e}")
             return False
+    
+    def _separate_ttl_prefixes(self, ttl_content: str) -> tuple[str, str]:
+        """
+        Separate TTL prefixes from content for SPARQL INSERT DATA
+        
+        Args:
+            ttl_content: Full TTL content with prefixes and triples
+            
+        Returns:
+            Tuple of (sparql_prefixes, ttl_triples_only)
+        """
+        lines = ttl_content.split('\n')
+        prefix_lines = []
+        content_lines = []
+        
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith('@prefix'):
+                # Convert TTL @prefix to SPARQL PREFIX
+                # @prefix kr: <https://solve.global/kr/> .
+                # becomes: PREFIX kr: <https://solve.global/kr/>
+                sparql_prefix = stripped.replace('@prefix', 'PREFIX').rstrip(' .')
+                prefix_lines.append(sparql_prefix)
+            elif stripped.startswith('@base'):
+                # Convert TTL @base to SPARQL BASE
+                sparql_base = stripped.replace('@base', 'BASE').rstrip(' .')
+                prefix_lines.append(sparql_base)
+            elif stripped and not stripped.startswith('#'):
+                # Keep non-empty, non-comment lines as content
+                content_lines.append(line)
+        
+        sparql_prefixes = '\n'.join(prefix_lines)
+        ttl_triples = '\n'.join(content_lines)
+        
+        return sparql_prefixes, ttl_triples
     
     def _get_metadata_predicate(self, key: str) -> Optional[URIRef]:
         """Map metadata keys to RDF predicates"""

@@ -21,7 +21,7 @@ class BulkLoadManager:
     LOAD_FAILED = "LOAD_FAILED"
     
     # Bulk load threshold (number of estimated triples)
-    BULK_LOAD_THRESHOLD = 5000
+    BULK_LOAD_THRESHOLD = 20000
     
     def __init__(self, kg_manager):
         """
@@ -37,7 +37,7 @@ class BulkLoadManager:
         self.loader_endpoint = f"https://{kg_manager.neptune_endpoint}:{kg_manager.neptune_port}/loader"
         
         # Configuration
-        self.default_parallelism = "MEDIUM"  # LOW, MEDIUM, HIGH, OVERSUBSCRIBE
+        self.default_parallelism = "AUTO"  # AUTO, RESUME, NEW
         self.default_timeout = 3600  # 1 hour default timeout
         self.poll_interval = 10  # Poll every 10 seconds
         
@@ -75,10 +75,10 @@ class BulkLoadManager:
             # Build load request
             load_request = {
                 "source": s3_source_uri,
-                "format": format.lower(),
+                "format": format.lower(),  # must be one of: rdfxml, turtle, ntriples, nquads, csv
                 "region": self.kg_manager.aws_region,
-                "failOnError": "TRUE" if fail_on_error else "FALSE",
-                "parallelism": parallelism or self.default_parallelism,
+                "failOnError": "FALSE" if not fail_on_error else "TRUE",
+                "parallelism": parallelism or self.default_parallelism,  # AUTO, RESUME, NEW
                 "updateSingleCardinalityProperties": "FALSE",
                 "queueRequest": "TRUE",
                 "iamRoleArn": iam_role_arn
@@ -97,7 +97,7 @@ class BulkLoadManager:
                 json=load_request,
                 headers={'Content-Type': 'application/json'},
                 auth=self.kg_manager.auth,
-                timeout=30
+                timeout=180  # Increased from 30s to 180s for bulk load initiation
             )
             
             response.raise_for_status()
