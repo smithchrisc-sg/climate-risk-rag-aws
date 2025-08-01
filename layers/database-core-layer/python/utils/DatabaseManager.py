@@ -322,4 +322,43 @@ class DatabaseManager:
         except Exception as e:
             logger.error(f"Failed to set document processing status: {e}")
             raise
+    
+    def get_active_bulk_loads(self) -> List[Dict[str, Any]]:
+        """
+        Find documents with active bulk loads that need monitoring.
+        
+        Returns documents where:
+        - kg_triples_load stage is 'in_progress' 
+        - system_id is NOT NULL (indicates bulk load)
+        - No subsequent 'completed'/'failed' status exists
+        
+        Returns:
+            List of dicts with keys: doc_id, load_id, started_at, metadata
+        """
+        try:
+            query = """
+                SELECT DISTINCT 
+                    dps1.doc_id,
+                    dps1.system_id as load_id,
+                    dps1.timestamp as started_at,
+                    dps1.metadata
+                FROM document_processing_status dps1
+                WHERE dps1.stage = 'kg_triples_load' 
+                AND dps1.status = 'in_progress'
+                AND dps1.system_id IS NOT NULL
+                AND NOT EXISTS (
+                    SELECT 1 FROM document_processing_status dps2 
+                    WHERE dps2.doc_id = dps1.doc_id 
+                    AND dps2.stage = 'kg_triples_load'
+                    AND dps2.status IN ('completed', 'failed')
+                    AND dps2.timestamp > dps1.timestamp
+                )
+                ORDER BY dps1.timestamp ASC
+            """
+            
+            return self.execute_query(query, fetch_results=True)
+            
+        except Exception as e:
+            logger.error(f"Failed to get active bulk loads: {e}")
+            raise
 

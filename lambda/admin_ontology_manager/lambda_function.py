@@ -122,6 +122,22 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         elif operation == 'clear_cache':
             result = handle_clear_cache(ontology_manager, parameters)
             
+        # === MULTI-ONTOLOGY OPERATIONS ===
+        elif operation == 'load_multi_ontology_config':
+            result = handle_load_multi_ontology_config(parameters)
+            
+        elif operation == 'load_ontology_set':
+            result = handle_load_ontology_set(parameters)
+            
+        elif operation == 'find_concepts_multi_ontology':
+            result = handle_find_concepts_multi_ontology(parameters)
+            
+        elif operation == 'get_multi_ontology_stats':
+            result = handle_get_multi_ontology_stats(parameters)
+            
+        elif operation == 'update_ontology_config':
+            result = handle_update_ontology_config(parameters)
+            
         else:
             return {
                 'statusCode': 400,
@@ -139,7 +155,13 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         'validate_concept',
                         'get_concept_relationships',
                         'get_ontology_stats',
-                        'clear_cache'
+                        'clear_cache',
+                        # Multi-ontology operations
+                        'load_multi_ontology_config',
+                        'load_ontology_set',
+                        'find_concepts_multi_ontology',
+                        'get_multi_ontology_stats',
+                        'update_ontology_config'
                     ]
                 })
             }
@@ -471,3 +493,275 @@ def handle_clear_cache(ontology_manager, parameters: Dict[str, Any]) -> Dict[str
         'cache_cleared': True,
         'message': 'Ontology cache has been cleared'
     }
+
+
+# === MULTI-ONTOLOGY HANDLER FUNCTIONS ===
+
+def handle_load_multi_ontology_config(parameters: Dict[str, Any]) -> Dict[str, Any]:
+    """Handle loading multi-ontology configuration"""
+    logger.info("Loading multi-ontology configuration")
+    
+    try:
+        from utils.MultiOntologyManager import MultiOntologyManager
+        
+        config_path = parameters.get('config_path', 'ontology/multi-ontology-config-dev.json')
+        
+        # Download config from S3
+        import boto3
+        s3_client = boto3.client('s3')
+        bucket = os.environ.get('ONTOLOGY_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
+        
+        response = s3_client.get_object(Bucket=bucket, Key=config_path)
+        config_content = response['Body'].read().decode('utf-8')
+        config_data = json.loads(config_content)
+        
+        # Create temporary config file
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(config_data, f)
+            temp_config_path = f.name
+        
+        try:
+            # Initialize multi-ontology manager
+            multi_manager = MultiOntologyManager(temp_config_path)
+            
+            return {
+                'config_loaded': True,
+                'config_path': config_path,
+                'ontology_count': len(multi_manager.ontology_configs),
+                'ontologies': list(multi_manager.ontology_configs.keys())
+            }
+        finally:
+            os.unlink(temp_config_path)
+            
+    except Exception as e:
+        logger.error(f"Failed to load multi-ontology config: {e}")
+        raise KGDataFormatError(f"Failed to load multi-ontology configuration: {e}")
+
+
+def handle_load_ontology_set(parameters: Dict[str, Any]) -> Dict[str, Any]:
+    """Handle loading a set of ontologies"""
+    logger.info("Loading ontology set")
+    
+    try:
+        from utils.MultiOntologyManager import MultiOntologyManager
+        
+        config_path = parameters.get('config_path', 'ontology/multi-ontology-config-dev.json')
+        ontology_ids = parameters.get('ontology_ids', None)
+        force_reload = parameters.get('force_reload', False)
+        
+        # Download and load config
+        import boto3
+        s3_client = boto3.client('s3')
+        bucket = os.environ.get('ONTOLOGY_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
+        
+        response = s3_client.get_object(Bucket=bucket, Key=config_path)
+        config_content = response['Body'].read().decode('utf-8')
+        config_data = json.loads(config_content)
+        
+        # Create temporary config file
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(config_data, f)
+            temp_config_path = f.name
+        
+        try:
+            # Initialize and load ontologies
+            multi_manager = MultiOntologyManager(temp_config_path)
+            results = multi_manager.load_ontologies(ontology_ids)
+            
+            return {
+                'ontologies_loaded': results,
+                'successful_loads': sum(1 for success in results.values() if success),
+                'total_requested': len(results),
+                'config_path': config_path
+            }
+        finally:
+            os.unlink(temp_config_path)
+            
+    except Exception as e:
+        logger.error(f"Failed to load ontology set: {e}")
+        raise KGValidationError(f"Failed to load ontology set: {e}")
+
+
+def handle_find_concepts_multi_ontology(parameters: Dict[str, Any]) -> Dict[str, Any]:
+    """Handle finding concepts across multiple ontologies"""
+    logger.info("Finding concepts across multiple ontologies")
+    
+    try:
+        from utils.MultiOntologyManager import MultiOntologyManager, OntologyScope
+        
+        text = parameters.get('text')
+        if not text:
+            raise KGValidationError("Missing required parameter: text")
+        
+        config_path = parameters.get('config_path', 'ontology/multi-ontology-config-dev.json')
+        scopes = parameters.get('scopes', None)
+        max_results = parameters.get('max_results', 10)
+        min_confidence = parameters.get('min_confidence', 0.5)
+        
+        # Convert scope strings to OntologyScope enums
+        if scopes:
+            scope_enums = []
+            for scope_str in scopes:
+                try:
+                    scope_enums.append(OntologyScope(scope_str))
+                except ValueError:
+                    logger.warning(f"Invalid scope: {scope_str}")
+            scopes = scope_enums if scope_enums else None
+        
+        # Download and load config
+        import boto3
+        s3_client = boto3.client('s3')
+        bucket = os.environ.get('ONTOLOGY_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
+        
+        response = s3_client.get_object(Bucket=bucket, Key=config_path)
+        config_content = response['Body'].read().decode('utf-8')
+        config_data = json.loads(config_content)
+        
+        # Create temporary config file
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(config_data, f)
+            temp_config_path = f.name
+        
+        try:
+            # Initialize multi-ontology manager and load ontologies
+            multi_manager = MultiOntologyManager(temp_config_path)
+            load_results = multi_manager.load_ontologies()
+            
+            # Find concepts
+            matches = multi_manager.find_concepts(
+                text=text,
+                scopes=scopes,
+                max_results=max_results,
+                min_confidence=min_confidence
+            )
+            
+            # Convert matches to serializable format
+            serializable_matches = []
+            for match in matches:
+                serializable_matches.append({
+                    'concept_uri': match.concept_uri,
+                    'concept_label': match.concept_label,
+                    'ontology_uri': match.ontology_uri,
+                    'ontology_priority': match.ontology_priority,
+                    'match_type': match.match_type,
+                    'confidence': match.confidence,
+                    'context': match.context
+                })
+            
+            return {
+                'query_text': text,
+                'matches': serializable_matches,
+                'match_count': len(matches),
+                'scopes_used': [scope.value for scope in scopes] if scopes else None,
+                'ontologies_loaded': load_results
+            }
+        finally:
+            os.unlink(temp_config_path)
+            
+    except Exception as e:
+        logger.error(f"Failed to find concepts across ontologies: {e}")
+        raise KGQueryError(f"Failed to find concepts across ontologies: {e}")
+
+
+def handle_get_multi_ontology_stats(parameters: Dict[str, Any]) -> Dict[str, Any]:
+    """Handle getting multi-ontology statistics"""
+    logger.info("Getting multi-ontology statistics")
+    
+    try:
+        from utils.MultiOntologyManager import MultiOntologyManager
+        
+        config_path = parameters.get('config_path', 'ontology/multi-ontology-config-dev.json')
+        
+        # Download and load config
+        import boto3
+        s3_client = boto3.client('s3')
+        bucket = os.environ.get('ONTOLOGY_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
+        
+        response = s3_client.get_object(Bucket=bucket, Key=config_path)
+        config_content = response['Body'].read().decode('utf-8')
+        config_data = json.loads(config_content)
+        
+        # Create temporary config file
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(config_data, f)
+            temp_config_path = f.name
+        
+        try:
+            # Initialize multi-ontology manager and load ontologies
+            multi_manager = MultiOntologyManager(temp_config_path)
+            load_results = multi_manager.load_ontologies()
+            
+            # Get statistics
+            stats = multi_manager.get_ontology_stats()
+            
+            return {
+                'multi_ontology_stats': stats,
+                'load_results': load_results,
+                'config_path': config_path
+            }
+        finally:
+            os.unlink(temp_config_path)
+            
+    except Exception as e:
+        logger.error(f"Failed to get multi-ontology stats: {e}")
+        raise KGQueryError(f"Failed to get multi-ontology statistics: {e}")
+
+
+def handle_update_ontology_config(parameters: Dict[str, Any]) -> Dict[str, Any]:
+    """Handle updating ontology configuration"""
+    logger.info("Updating ontology configuration")
+    
+    try:
+        config_path = parameters.get('config_path', 'ontology/multi-ontology-config-dev.json')
+        ontology_id = parameters.get('ontology_id')
+        updates = parameters.get('updates', {})
+        
+        if not ontology_id:
+            raise KGValidationError("Missing required parameter: ontology_id")
+        
+        if not updates:
+            raise KGValidationError("Missing required parameter: updates")
+        
+        # Download current config
+        import boto3
+        s3_client = boto3.client('s3')
+        bucket = os.environ.get('ONTOLOGY_BUCKET', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
+        
+        response = s3_client.get_object(Bucket=bucket, Key=config_path)
+        config_content = response['Body'].read().decode('utf-8')
+        config_data = json.loads(config_content)
+        
+        # Update the specific ontology configuration
+        if ontology_id not in config_data.get('ontologies', {}):
+            raise KGValidationError(f"Ontology not found in configuration: {ontology_id}")
+        
+        # Apply updates
+        ontology_config = config_data['ontologies'][ontology_id]
+        for key, value in updates.items():
+            if key in ontology_config:
+                ontology_config[key] = value
+                logger.info(f"Updated {ontology_id}.{key} = {value}")
+        
+        # Upload updated configuration
+        updated_config_content = json.dumps(config_data, indent=2)
+        s3_client.put_object(
+            Bucket=bucket,
+            Key=config_path,
+            Body=updated_config_content,
+            ContentType='application/json'
+        )
+        
+        return {
+            'ontology_id': ontology_id,
+            'updates_applied': updates,
+            'config_path': config_path,
+            'updated_successfully': True
+        }
+        
+    except Exception as e:
+        logger.error(f"Failed to update ontology config: {e}")
+        raise KGValidationError(f"Failed to update ontology configuration: {e}")

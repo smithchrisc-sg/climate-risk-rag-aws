@@ -1,0 +1,84 @@
+{
+  "settings": {
+    "cache_enabled": true,
+    "fuzzy_matching_threshold": 0.7,
+    "max_concurrent_loads": 3,
+    "default_timeout": 300
+  },
+  "ontologies": {
+    "climate-risk-core": {
+      "uri": "https://solve.global/kr/climate-risk-impact",
+      "named_graph_uri": "https://solve.global/kr/climate-risk-impact",
+      "priority": 1,
+      "scopes": ["climate_risk"],
+      "source_type": "s3",
+      "source_location": "ontology/climate-risk-ontology-v3.ttl",
+      "format": "turtle",
+      "enabled": true,
+      "description": "Core climate risk ontology with disaster types, risks, and adaptation concepts",
+      "version": "3.0",
+      "last_updated": "2025-07-31"
+    },
+    "insurance-protection-gaps": {
+      "uri": "https://solve.global/kr/insurance-protection-gaps",
+      "named_graph_uri": "https://solve.global/kr/insurance-protection-gaps",
+      "priority": 2,
+      "scopes": ["insurance"],
+      "source_type": "s3",
+      "source_location": "ontology/insurance-protection-gaps-v1.ttl",
+      "format": "turtle",
+      "enabled": false,
+      "description": "Insurance protection gaps and solutions ontology",
+      "version": "1.0",
+      "last_updated": "2025-08-01"
+    },
+    "financial-instruments": {
+      "uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/",
+      "named_graph_uri": "https://solve.global/kr/financial-instruments",
+      "priority": 3,
+      "scopes": ["financial"],
+      "source_type": "url",
+      "source_location": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments.rdf",
+      "format": "xml",
+      "enabled": false,
+      "description": "FIBO Financial Instruments ontology subset",
+      "version": "external",
+      "last_updated": "2025-08-01"
+    },
+    "geographic-entities": {
+      "uri": "http://www.geonames.org/ontology#",
+      "named_graph_uri": "https://solve.global/kr/geographic-entities",
+      "priority": 4,
+      "scopes": ["geographic"],
+      "source_type": "url", 
+      "source_location": "http://www.geonames.org/ontology/ontology_v3.1.rdf",
+      "format": "xml",
+      "enabled": false,
+      "description": "GeoNames geographic entities ontology",
+      "version": "3.1",
+      "last_updated": "2025-08-01"
+    }
+  },
+  "pipeline_configurations": {
+    "climate_risk_documents": {
+      "enabled_ontologies": ["climate-risk-core", "geographic-entities"],
+      "min_confidence": 0.7,
+      "max_results_per_entity": 3
+    },
+    "insurance_documents": {
+      "enabled_ontologies": ["climate-risk-core", "insurance-protection-gaps", "financial-instruments"],
+      "min_confidence": 0.6,
+      "max_results_per_entity": 5
+    },
+    "financial_documents": {
+      "enabled_ontologies": ["financial-instruments", "geographic-entities"],
+      "min_confidence": 0.8,
+      "max_results_per_entity": 3
+    },
+    "general_documents": {
+      "enabled_ontologies": ["climate-risk-core"],
+      "min_confidence": 0.6,
+      "max_results_per_entity": 5
+    }
+  }
+}

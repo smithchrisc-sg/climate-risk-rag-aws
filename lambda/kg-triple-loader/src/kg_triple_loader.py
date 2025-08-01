@@ -114,11 +114,15 @@ class KGTripleLoader:
             logger.info(f"TTL location: {ttl_location}")
             logger.info(f"Insertion method: {insertion_method}, Records: {records_processed}")
             
+            # Initialize system_id for tracking bulk loads
+            system_id = None
+            
             # Update status to in_progress
             self.db_manager.set_processing_status(
                 doc_id=doc_id,
                 stage='kg_triples_load',
                 status='in_progress',
+                system_id=system_id,  # Will be updated after load initiation
                 metadata={
                     'kg_loading_started': datetime.utcnow().isoformat() + 'Z',
                     'insertion_method': insertion_method,
@@ -161,7 +165,40 @@ class KGTripleLoader:
                     if not load_result['success']:
                         raise Exception(f"Failed to load TTL using KG layer: {load_result.get('error', 'Unknown error')}")
                     
-                    # Validate loaded data
+                    # If this was a bulk load, update status with load_id for monitoring
+                    if load_result.get('method') == 'bulk_load' and 'load_id' in load_result:
+                        load_id = load_result['load_id']
+                        logger.info(f"Bulk load initiated with ID: {load_id}")
+                        
+                        # Update status with load_id for monitoring
+                        self.db_manager.set_processing_status(
+                            doc_id=doc_id,
+                            stage='kg_triples_load',
+                            status='in_progress',
+                            system_id=load_id,
+                            metadata={
+                                'kg_loading_started': datetime.utcnow().isoformat() + 'Z',
+                                'insertion_method': 'bulk_load',
+                                'expected_records': records_processed,
+                                'load_id': load_id,
+                                'bulk_load_initiated': True
+                            }
+                        )
+                        
+                        # For bulk loads, we don't wait - let the monitor handle completion
+                        logger.info(f"Bulk load {load_id} initiated successfully. Monitor will track completion.")
+                        
+                        # Return early - bulk load monitor will handle completion
+                        return {
+                            'statusCode': 200,
+                            'body': json.dumps({
+                                'message': f'Bulk load initiated successfully for document {doc_id}',
+                                'load_id': load_id,
+                                'method': 'bulk_load'
+                            })
+                        }
+                    
+                    # For SPARQL inserts, validate immediately
                     validation_result = self.validate_loaded_data(doc_id, load_result)
                 else:
                     raise Exception("No TTL location provided and insertion method unknown")

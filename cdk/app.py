@@ -21,6 +21,8 @@ from aws_cdk import (
     aws_sns_subscriptions as sns_subscriptions,
     aws_s3_notifications as s3n,
     aws_ec2 as ec2,
+    aws_events as events,
+    aws_events_targets as targets,
     Duration,
     RemovalPolicy,
     CfnOutput
@@ -230,20 +232,16 @@ class ClimateRiskRAGProductionStack(Stack):
     def create_lambda_layers(self):
         """Create Lambda layers including Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration"""
         
-        # Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration
-        # Updated to Knowledge Graph Layer v2.0.0 - Maintains backward compatibility
-
-        self.knowledge_graph_layer = lambda_.LayerVersion(
+        # Knowledge Graph Layer v2.0.4 (deployed version with timeout fix)
+        self.knowledge_graph_layer = lambda_.LayerVersion.from_layer_version_arn(
             self, "KnowledgeGraphLayer",
-            code=lambda_.Code.from_asset("../layers/knowledge-graph-layer/knowledge-graph-layer-v2.0.0-minimal.zip"),
-            compatible_runtimes=[lambda_.Runtime.PYTHON_3_11],
-            description="Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration with Neptune integration"
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:knowledge-graph-layer:13"
         )
         
         # Database Core Layer (existing)
         self.database_layer = lambda_.LayerVersion.from_layer_version_arn(
             self, "DatabaseLayer",
-            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:2"
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:17"
         )
         
         # Database Dependencies Layer (existing)
@@ -510,6 +508,27 @@ class ClimateRiskRAGProductionStack(Stack):
             }
         )
         
+        # 6.5. Bulk Load Monitor - Monitors Neptune bulk loads and updates status when complete
+        self.bulk_load_monitor = lambda_.Function(
+            self, "BulkLoadMonitor",
+            function_name="solve-global-kr-bulk-load-monitor",
+            runtime=lambda_.Runtime.PYTHON_3_11,
+            handler="handler.lambda_handler",
+            code=lambda_.Code.from_asset("../lambda/bulk-load-monitor"),
+            role=self.lambda_role,
+            timeout=Duration.minutes(5),
+            memory_size=512,
+            vpc=self.vpc,
+            vpc_subnets=ec2.SubnetSelection(subnets=[self.database_subnet_1, self.database_subnet_2]),
+            security_groups=[self.lambda_sg],
+            layers=[self.database_layer, self.database_dependencies_layer, self.knowledge_graph_layer],
+            environment={
+                **common_env,
+                "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com",
+                "NEPTUNE_PORT": "8182"
+            }
+        )
+        
         # 7. NLP Processor (future - placeholder for now)
         self.nlp_processor = lambda_.Function(
             self, "NLPProcessor",
@@ -597,6 +616,33 @@ class ClimateRiskRAGProductionStack(Stack):
         )
     
     def create_outputs(self):
+        # === EVENTBRIDGE RULES ===
+        
+        # Bulk Load Monitor Schedule - Runs every 10 minutes to check active bulk loads
+        bulk_load_monitor_rule = events.Rule(
+            self, "BulkLoadMonitorSchedule",
+            rule_name="solve-global-kr-bulk-load-monitor-schedule",
+            description="Triggers bulk load monitor every 10 minutes to check Neptune bulk load status",
+            schedule=events.Schedule.rate(Duration.minutes(10))
+        )
+        
+        # Add bulk load monitor as target
+        bulk_load_monitor_rule.add_target(
+            targets.LambdaFunction(
+                self.bulk_load_monitor,
+                retry_attempts=2
+            )
+        )
+        
+        # Grant EventBridge permission to invoke the bulk load monitor
+        self.bulk_load_monitor.add_permission(
+            "AllowEventBridgeInvoke",
+            principal=iam.ServicePrincipal("events.amazonaws.com"),
+            source_arn=bulk_load_monitor_rule.rule_arn
+        )
+        
+        # === CLOUDFORMATION OUTPUTS ===
+        
         """Create CloudFormation outputs for key resources"""
         
         CfnOutput(

@@ -1,0 +1,8 @@
+{
+  "operation": "load_ontology_set",
+  "parameters": {
+    "config_path": "ontology/multi-ontology-config-dev.json",
+    "ontology_ids": ["climate-risk-core"],
+    "force_reload": true
+  }
+}

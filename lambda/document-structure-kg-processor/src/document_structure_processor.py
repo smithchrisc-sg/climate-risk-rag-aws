@@ -44,6 +44,7 @@ class DocumentStructureKGProcessor:
     
     def __init__(self):
         self.s3_client = boto3.client('s3')
+        self.sns_client = boto3.client('sns')
         
         # Initialize managers with standardized layers
         try:
@@ -58,6 +59,9 @@ class DocumentStructureKGProcessor:
         self.chunks_bucket = os.environ.get('CHUNKS_BUCKET')
         self.text_bucket = os.environ.get('TEXT_BUCKET')
         self.ttl_bucket = os.environ.get('TTL_BUCKET')
+        
+        # SNS topic for downstream processing
+        self.kg_triples_ready_topic = os.environ.get('KG_TRIPLES_READY_TOPIC_ARN')
         
         # Set up RDFLib namespaces for semantic schema v3.1
         self.sgd_ns = Namespace("http://solve.global/knowledge-commons/document-structure#")
@@ -167,6 +171,12 @@ class DocumentStructureKGProcessor:
                     logger.info(f"TTL written to: {s3_result['s3_uri']}")
                     logger.info(f"Generated {ttl_result['triples_generated']} triples from {ttl_result['sections_processed']} sections")
                     
+                    # Trigger downstream processing if topic configured
+                    integration_result = {'success': True, 'message': 'No kg-triples-ready topic configured'}
+                    if self.kg_triples_ready_topic:
+                        integration_result = self.trigger_kg_integration(doc_id, ttl_result, s3_result)
+                        logger.info(f"SNS integration result: {integration_result}")
+                    
                     return {
                         'doc_id': doc_id,
                         'status': 'completed',
@@ -175,7 +185,8 @@ class DocumentStructureKGProcessor:
                         'chunks_processed': ttl_result['chunks_processed'],
                         'triples_generated': ttl_result['triples_generated'],
                         'sections_processed': ttl_result['sections_processed'],
-                        'rdflib_used': True
+                        'rdflib_used': True,
+                        'integration_result': integration_result
                     }
                 else:
                     # S3 write failed
@@ -597,3 +608,56 @@ class DocumentStructureKGProcessor:
             'graph_building_approach': 'semantic_schema_v3.1_dublin_core_inheritance',
             'relationship_strategy': 'hierarchical_with_ordered_navigation'
         }
+    
+    def trigger_kg_integration(self, doc_id: str, ttl_result: Dict[str, Any], s3_result: Dict[str, Any]) -> Dict[str, Any]:
+        """Trigger downstream processing with KG integration information"""
+        
+        try:
+            message = {
+                'doc_id': doc_id,
+                'processing_type': 'kg_triples_ready',
+                'ttl_location': s3_result['s3_uri'],
+                'ttl_size': ttl_result['ttl_size'],
+                'triples_generated': ttl_result['triples_generated'],
+                'sections_processed': ttl_result['sections_processed'],
+                'chunks_processed': ttl_result['chunks_processed'],
+                'schema_version': '3.1',
+                'processing_method': 'rdflib_graph_building',
+                'timestamp': datetime.utcnow().isoformat() + 'Z'
+            }
+            
+            response = self.sns_client.publish(
+                TopicArn=self.kg_triples_ready_topic,
+                Message=json.dumps(message),
+                Subject=f'KG Triples Ready: Document Structure - {doc_id}',
+                MessageAttributes={
+                    'processing_type': {
+                        'DataType': 'String',
+                        'StringValue': 'kg_triples_ready'
+                    },
+                    'doc_id': {
+                        'DataType': 'String',
+                        'StringValue': doc_id
+                    },
+                    'schema_version': {
+                        'DataType': 'String',
+                        'StringValue': '3.1'
+                    }
+                }
+            )
+            
+            logger.info(f"Published kg-triples-ready message for {doc_id} to {self.kg_triples_ready_topic}")
+            logger.info(f"SNS MessageId: {response['MessageId']}")
+            
+            return {
+                'success': True,
+                'message_id': response['MessageId'],
+                'topic_arn': self.kg_triples_ready_topic
+            }
+            
+        except Exception as e:
+            logger.error(f"Failed to publish kg-triples-ready message for {doc_id}: {e}")
+            return {
+                'success': False,
+                'error': str(e)
+            }

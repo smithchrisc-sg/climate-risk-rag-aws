@@ -68,20 +68,21 @@ class BulkLoadManager:
             if not s3_source_uri or not s3_source_uri.startswith('s3://'):
                 raise KGValidationError(f"Invalid S3 URI: {s3_source_uri}")
             
+            # Use Neptune service role if no IAM role provided
+            if not iam_role_arn:
+                iam_role_arn = f"arn:aws:iam::{self.kg_manager.account_id}:role/NeptuneLoadFromS3Role"
+            
             # Build load request
             load_request = {
                 "source": s3_source_uri,
-                "format": format.lower(),
+                "format": format.lower(),  # must be one of: rdfxml, turtle, ntriples, nquads, csv
                 "region": self.kg_manager.aws_region,
-                "failOnError": "TRUE" if fail_on_error else "FALSE",
-                "parallelism": parallelism or self.default_parallelism,
-                "updateSingleCardinalityProperties": "FALSE",
-                "queueRequest": "TRUE"
+                "failOnError": fail_on_error,
+                "mode": parallelism or self.default_parallelism,  # Use "AUTO" or "PARALLEL"
+                "updateSingleCardinalityProperties": False,
+                "queueRequest": True,
+                "iamRoleArn": iam_role_arn
             }
-            
-            # Add IAM role if provided
-            if iam_role_arn:
-                load_request["iamRoleArn"] = iam_role_arn
             
             # Add named graph if specified
             if graph_uri:
@@ -96,7 +97,7 @@ class BulkLoadManager:
                 json=load_request,
                 headers={'Content-Type': 'application/json'},
                 auth=self.kg_manager.auth,
-                timeout=30
+                timeout=180  # Increased from 30s to 180s for bulk load initiation
             )
             
             response.raise_for_status()

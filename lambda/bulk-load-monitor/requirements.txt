@@ -1,0 +1,3 @@
+# Bulk Load Monitor Lambda Requirements
+# Uses layers for core dependencies
+boto3>=1.26.0

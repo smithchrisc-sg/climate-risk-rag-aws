@@ -1,0 +1,48 @@
+{
+  "settings": {
+    "cache_enabled": true,
+    "fuzzy_matching_threshold": 0.6,
+    "max_concurrent_loads": 2,
+    "default_timeout": 180
+  },
+  "ontologies": {
+    "climate-risk-core": {
+      "uri": "https://solve.global/kr/climate-risk-impact",
+      "named_graph_uri": "https://solve.global/kr/climate-risk-impact",
+      "priority": 1,
+      "scopes": ["climate_risk"],
+      "source_type": "s3",
+      "source_location": "ontology/climate-risk-ontology-v3.ttl",
+      "format": "turtle",
+      "enabled": true,
+      "description": "Core climate risk ontology - development version",
+      "version": "3.0-dev",
+      "last_updated": "2025-07-31"
+    },
+    "insurance-protection-gaps": {
+      "uri": "https://solve.global/kr/insurance-protection-gaps",
+      "named_graph_uri": "https://solve.global/kr/insurance-protection-gaps",
+      "priority": 2,
+      "scopes": ["insurance"],
+      "source_type": "s3",
+      "source_location": "ontology/insurance-protection-gaps-v1-dev.ttl",
+      "format": "turtle",
+      "enabled": false,
+      "description": "Insurance protection gaps ontology - development version",
+      "version": "1.0-dev",
+      "last_updated": "2025-08-01"
+    }
+  },
+  "pipeline_configurations": {
+    "development_testing": {
+      "enabled_ontologies": ["climate-risk-core"],
+      "min_confidence": 0.5,
+      "max_results_per_entity": 10
+    },
+    "climate_risk_documents": {
+      "enabled_ontologies": ["climate-risk-core"],
+      "min_confidence": 0.6,
+      "max_results_per_entity": 5
+    }
+  }
+}
