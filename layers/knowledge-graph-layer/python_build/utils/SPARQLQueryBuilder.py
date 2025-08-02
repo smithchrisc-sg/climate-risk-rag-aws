@@ -444,16 +444,65 @@ class SPARQLQueryBuilder:
                 self.logger.warning(f"Potentially dangerous SPARQL pattern detected: {pattern}")
                 return False
         
-        # Check for balanced braces and parentheses
+        # Check for balanced braces and parentheses (excluding content in string literals)
         if query.count('{') != query.count('}'):
             self.logger.warning("Unbalanced braces in SPARQL query")
             return False
         
-        if query.count('(') != query.count(')'):
+        # For parentheses, we need to be smarter and exclude content in string literals
+        # since RDF literals can contain unbalanced parentheses
+        if not self._check_balanced_parentheses_excluding_literals(query):
             self.logger.warning("Unbalanced parentheses in SPARQL query")
             return False
         
         return True
+    
+    def _check_balanced_parentheses_excluding_literals(self, query: str) -> bool:
+        """
+        Check if parentheses are balanced, excluding content within string literals
+        
+        Args:
+            query: SPARQL query to check
+            
+        Returns:
+            True if parentheses are balanced outside of string literals
+        """
+        paren_count = 0
+        in_single_quote = False
+        in_double_quote = False
+        in_triple_quote = False
+        i = 0
+        
+        while i < len(query):
+            char = query[i]
+            
+            # Check for triple quotes first
+            if i <= len(query) - 3 and query[i:i+3] == '"""':
+                if not in_single_quote and not in_double_quote:
+                    in_triple_quote = not in_triple_quote
+                    i += 2  # Skip the next 2 characters
+            elif char == '"' and not in_single_quote and not in_triple_quote:
+                # Handle escaped quotes
+                if i > 0 and query[i-1] != '\\':
+                    in_double_quote = not in_double_quote
+            elif char == "'" and not in_double_quote and not in_triple_quote:
+                # Handle escaped quotes
+                if i > 0 and query[i-1] != '\\':
+                    in_single_quote = not in_single_quote
+            elif not in_single_quote and not in_double_quote and not in_triple_quote:
+                # Only count parentheses outside of string literals
+                if char == '(':
+                    paren_count += 1
+                elif char == ')':
+                    paren_count -= 1
+                    # If we have more closing than opening, it's unbalanced
+                    if paren_count < 0:
+                        return False
+            
+            i += 1
+        
+        # Should end with balanced parentheses
+        return paren_count == 0
     
     def _get_metadata_predicate(self, key: str) -> Optional[str]:
         """
