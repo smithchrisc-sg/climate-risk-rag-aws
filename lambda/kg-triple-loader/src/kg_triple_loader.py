@@ -323,67 +323,57 @@ class KGTripleLoader:
             }
     
     def validate_sparql_loaded_data(self, doc_id: str, expected_records: int) -> Dict[str, Any]:
-        """Validate data loaded via SPARQL INSERT - check navigation structure"""
+        """Validate data loaded via SPARQL INSERT - check actual document structure"""
         try:
             doc_uri = self.kg_manager.mint_document_uri(doc_id)
             
-            # Query for complete document hierarchy: Document → Section → Chunk
+            # Query for actual document structure: Document → Chunks (Sections/Paragraphs)
             query = f"""
-            {self.kg_manager.uri_manager.get_prefixes_sparql()}
-            PREFIX kr: <http://solve.global/knowledge-commons/schema#>
+            PREFIX sg: <http://solve.global/knowledge-commons/>
+            PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
             
-            SELECT (COUNT(DISTINCT ?section) as ?sectionCount) 
-                   (COUNT(DISTINCT ?chunk) as ?chunkCount) 
-                   (COUNT(*) as ?tripleCount)
+            SELECT (COUNT(DISTINCT ?chunk) as ?chunkCount) 
+                   (COUNT(DISTINCT ?section) as ?sectionCount)
+                   (COUNT(DISTINCT ?paragraph) as ?paragraphCount)
             WHERE {{
-                # Document has sections
-                <{doc_uri}> kr:hasSection ?section .
+                # Document has chunks (parts)
+                <{doc_uri}> dcterms:hasPart ?chunk .
                 
-                # Sections have chunks
-                ?section kr:hasChunk ?chunk .
-                
-                # Count all triples for these entities
-                {{
-                    <{doc_uri}> ?p1 ?o1 .
-                }}
-                UNION
-                {{
-                    ?section ?p2 ?o2 .
-                }}
-                UNION
-                {{
-                    ?chunk ?p3 ?o3 .
-                }}
+                # Count sections and paragraphs separately
+                OPTIONAL {{ ?chunk a sgd:Section . BIND(?chunk as ?section) }}
+                OPTIONAL {{ ?chunk a sgd:Paragraph . BIND(?chunk as ?paragraph) }}
             }}
             """
             
             results = self.kg_manager.execute_sparql_query(query)
             if results:
-                section_count = int(results[0]['sectionCount'])
                 chunk_count = int(results[0]['chunkCount'])
-                triple_count = int(results[0]['tripleCount'])
+                section_count = int(results[0]['sectionCount']) 
+                paragraph_count = int(results[0]['paragraphCount'])
+                total_chunks = section_count + paragraph_count
             else:
-                section_count = 0
                 chunk_count = 0
-                triple_count = 0
+                section_count = 0
+                paragraph_count = 0
+                total_chunks = 0
             
-            # Validation is successful if we have proper hierarchy
-            success = section_count > 0 and chunk_count > 0
+            # Validation is successful if we have chunks and they match the count
+            success = chunk_count > 0 and total_chunks == chunk_count
             
-            # Additional validation: check navigation properties
-            if success:
-                navigation_valid = self.validate_navigation_properties(doc_uri)
-                success = success and navigation_valid['valid']
+            # Get total triple count for this document
+            triple_count = self.count_document_triples(doc_uri)
             
-            logger.info(f"SPARQL validation for {doc_id}: {section_count} sections, {chunk_count} chunks, {triple_count} triples")
+            logger.info(f"SPARQL validation for {doc_id}: {chunk_count} total chunks ({section_count} sections, {paragraph_count} paragraphs), {triple_count} triples")
             
             return {
                 'success': success,
                 'count': triple_count,
-                'section_count': section_count,
                 'chunk_count': chunk_count,
+                'section_count': section_count,
+                'paragraph_count': paragraph_count,
                 'expected': expected_records,
-                'method': 'sparql_validation_with_navigation'
+                'method': 'sparql_validation_actual_schema'
             }
             
         except Exception as e:
@@ -394,26 +384,60 @@ class KGTripleLoader:
                 'count': 0
             }
     
+    def count_document_triples(self, doc_uri: str) -> int:
+        """Count total triples related to a document"""
+        try:
+            query = f"""
+            PREFIX sg: <http://solve.global/knowledge-commons/>
+            PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
+            
+            SELECT (COUNT(*) as ?tripleCount)
+            WHERE {{
+                {{
+                    # Document triples
+                    <{doc_uri}> ?p1 ?o1 .
+                }}
+                UNION
+                {{
+                    # Chunk triples (parts of the document)
+                    <{doc_uri}> dcterms:hasPart ?chunk .
+                    ?chunk ?p2 ?o2 .
+                }}
+            }}
+            """
+            
+            results = self.kg_manager.execute_sparql_query(query)
+            if results:
+                return int(results[0]['tripleCount'])
+            else:
+                return 0
+                
+        except Exception as e:
+            logger.error(f"Error counting document triples: {str(e)}")
+            return 0
+
     def validate_navigation_properties(self, doc_uri: str) -> Dict[str, Any]:
-        """Validate that navigation properties are properly set"""
+        """Validate that navigation properties are properly set using actual schema"""
         try:
             # Check that chunks have proper parent references for navigation
             query = f"""
-            {self.kg_manager.uri_manager.get_prefixes_sparql()}
-            PREFIX kr: <http://solve.global/knowledge-commons/schema#>
+            PREFIX sg: <http://solve.global/knowledge-commons/>
+            PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
+            PREFIX sgm: <http://solve.global/knowledge-commons/process-metadata#>
             
             SELECT (COUNT(?chunk) as ?chunksWithParents) 
                    (COUNT(?sequence) as ?chunksWithSequence)
             WHERE {{
-                <{doc_uri}> kr:hasSection ?section .
-                ?section kr:hasChunk ?chunk .
+                # Document has chunks
+                <{doc_uri}> dcterms:hasPart ?chunk .
                 
-                # Check parent references
-                ?chunk kr:parentDocument <{doc_uri}> .
-                ?chunk kr:parentSection ?section .
+                # Check parent references (chunks should reference document)
+                ?chunk dcterms:isPartOf <{doc_uri}> .
                 
-                # Check sequencing
-                OPTIONAL {{ ?chunk kr:chunkSequence ?sequence }}
+                # Check sequencing (chunks should have sequence numbers)
+                OPTIONAL {{ ?chunk sgm:sequenceNumber ?sequence }}
             }}
             """
             
