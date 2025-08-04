@@ -21,8 +21,7 @@ class BulkLoadManager:
     LOAD_FAILED = "LOAD_FAILED"
     
     # Bulk load threshold (number of estimated triples)
-    # TEMPORARILY LOWERED FOR TESTING - RESTORE TO 20000 AFTER BULK LOAD TEST
-    BULK_LOAD_THRESHOLD = 500
+    BULK_LOAD_THRESHOLD = 20000
     
     def __init__(self, kg_manager):
         """
