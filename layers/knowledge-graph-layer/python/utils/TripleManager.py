@@ -527,7 +527,7 @@ class TripleManager:
         ttl_triples = '\n'.join(content_lines)
         
         return sparql_prefixes, ttl_triples
-    
+
     def _get_metadata_predicate(self, key: str) -> Optional[URIRef]:
         """Map metadata keys to RDF predicates"""
         predicate_map = {

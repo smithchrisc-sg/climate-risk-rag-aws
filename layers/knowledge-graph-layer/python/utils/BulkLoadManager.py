@@ -37,7 +37,7 @@ class BulkLoadManager:
         self.loader_endpoint = f"https://{kg_manager.neptune_endpoint}:{kg_manager.neptune_port}/loader"
         
         # Configuration
-        self.default_parallelism = "MEDIUM"  # LOW, MEDIUM, HIGH, OVERSUBSCRIBE
+        self.default_parallelism = "AUTO"  # AUTO, RESUME, NEW
         self.default_timeout = 3600  # 1 hour default timeout
         self.poll_interval = 10  # Poll every 10 seconds
         
@@ -78,7 +78,7 @@ class BulkLoadManager:
                 "format": format.lower(),  # must be one of: rdfxml, turtle, ntriples, nquads, csv
                 "region": self.kg_manager.aws_region,
                 "failOnError": "FALSE" if not fail_on_error else "TRUE",
-                "parallelism": parallelism or self.default_parallelism,  # LOW, MEDIUM, HIGH, OVERSUBSCRIBE
+                "parallelism": parallelism or self.default_parallelism,  # AUTO, RESUME, NEW
                 "updateSingleCardinalityProperties": "FALSE",
                 "queueRequest": "TRUE",
                 "iamRoleArn": iam_role_arn
