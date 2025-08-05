@@ -4,6 +4,7 @@
 
 # Core RDF and SPARQL libraries
 rdflib==7.1.4
+isodate>=0.7.2,<1.0.0
 
 # HTTP requests with AWS authentication
 requests==2.31.0
