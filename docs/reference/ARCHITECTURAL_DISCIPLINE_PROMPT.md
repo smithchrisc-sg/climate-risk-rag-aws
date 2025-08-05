@@ -207,3 +207,5 @@ If you must update a layer - and you have permission - Always use the standard b
 
 
 **When in doubt**: Ask first, implement second. It's better to discuss architectural decisions upfront than to refactor later.
+
+**Note:**: python3 is required
