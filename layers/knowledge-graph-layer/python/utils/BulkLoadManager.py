@@ -77,10 +77,10 @@ class BulkLoadManager:
                 "source": s3_source_uri,
                 "format": format.lower(),  # must be one of: rdfxml, turtle, ntriples, nquads, csv
                 "region": self.kg_manager.aws_region,
-                "failOnError": False if not fail_on_error else True,
-                "parallelism": parallelism or self.default_parallelism,  # AUTO, RESUME, NEW
-                "updateSingleCardinalityProperties": False,
-                "queueRequest": True,
+                "failOnError": "FALSE" if not fail_on_error else "TRUE",
+                "parallelism": parallelism or self.default_parallelism,  # LOW, MEDIUM, HIGH, OVERSUBSCRIBE
+                "updateSingleCardinalityProperties": "FALSE",
+                "queueRequest": "TRUE",
                 "iamRoleArn": iam_role_arn
             }
             

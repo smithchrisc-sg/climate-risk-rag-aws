@@ -481,7 +481,7 @@ class ClimateRiskRAGProductionStack(Stack):
                 **common_env,
                 "KG_TRIPLES_READY_TOPIC_ARN": self.kg_triples_ready_topic.topic_arn,
                 "KG_BUCKET": self.kg_bucket.bucket_name,
-                "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com",
+                "NEPTUNE_ENDPOINT": "solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
                 "NEPTUNE_PORT": "8182"
             }
         )
@@ -502,7 +502,7 @@ class ClimateRiskRAGProductionStack(Stack):
             layers=[self.database_layer, self.database_dependencies_layer, self.knowledge_graph_layer],
             environment={
                 **common_env,
-                "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com",
+                "NEPTUNE_ENDPOINT": "solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
                 "NEPTUNE_PORT": "8182",
                 "TTL_BUCKET": self.kg_bucket.bucket_name
             }
@@ -524,7 +524,7 @@ class ClimateRiskRAGProductionStack(Stack):
             layers=[self.database_layer, self.database_dependencies_layer, self.knowledge_graph_layer],
             environment={
                 **common_env,
-                "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com",
+                "NEPTUNE_ENDPOINT": "solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
                 "NEPTUNE_PORT": "8182"
             }
         )

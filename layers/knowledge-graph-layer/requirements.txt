@@ -1,9 +1,9 @@
 # Knowledge Graph Layer Dependencies
-# Version: 1.0.0
+# Version: 1.0.1
 # Compatible with: Python 3.11, AWS Lambda
 
 # Core RDF and SPARQL libraries
-rdflib==7.0.0
+rdflib==7.1.4
 
 # HTTP requests with AWS authentication
 requests==2.31.0

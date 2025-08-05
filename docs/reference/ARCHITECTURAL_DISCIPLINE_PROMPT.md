@@ -203,5 +203,7 @@ A change is considered successful when:
 ---
 
 **Remember**: We've built a solid, working system. The goal is to enhance it thoughtfully while maintaining the architectural integrity that makes it reliable and cost-effective.
+If you must update a layer - and you have permission - Always use the standard build scripts to update layers. Same with lambda - always use standard build and deployment scripts.
+
 
 **When in doubt**: Ask first, implement second. It's better to discuss architectural decisions upfront than to refactor later.

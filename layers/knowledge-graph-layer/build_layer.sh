@@ -1,11 +1,11 @@
 #!/bin/bash
 # Build script for Knowledge Graph Layer
-# Version: 1.0.0
+# Version: 1.0.2
 
 set -e
 
 LAYER_NAME="knowledge-graph-layer"
-LAYER_VERSION="1.0.1"
+LAYER_VERSION="1.0.2"
 BUILD_DIR="build"
 PYTHON_DIR="python"
 
