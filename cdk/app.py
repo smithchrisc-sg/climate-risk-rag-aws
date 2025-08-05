@@ -232,10 +232,10 @@ class ClimateRiskRAGProductionStack(Stack):
     def create_lambda_layers(self):
         """Create Lambda layers including Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration"""
         
-        # Knowledge Graph Layer v2.0.4 (deployed version with timeout fix)
+        # Knowledge Graph Layer v30 (corrected structure with rdflib 7.1.4 and isodate 0.7.2)
         self.knowledge_graph_layer = lambda_.LayerVersion.from_layer_version_arn(
             self, "KnowledgeGraphLayer",
-            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:knowledge-graph-layer:13"
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:knowledge-graph-layer:30"
         )
         
         # Database Core Layer (existing)
