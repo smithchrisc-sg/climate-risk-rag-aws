@@ -1,0 +1,545 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright 2019 Amazon.com, Inc. or its affiliates.
+# All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License.
+# A copy of the License is located at
+#
+#    http://aws.amazon.com/apache2.0/
+#
+# or in the "license" file accompanying this file.
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+# either express or implied. See the License for the specific language governing permissions
+# and limitations under the License.
+
+
+import logging
+from retrying import retry
+from opensearchpy import OpenSearch, RequestsHttpConnection, TransportError
+from opensearchpy.helpers import bulk, BulkIndexError
+from requests_aws4auth import AWS4Auth
+import abc
+import six
+from cachetools import cached, TTLCache
+from commons import *
+from aggregator.es_aggregator import ElasticSearchAggregator
+from neptune_to_es import es_helper
+from config_provider import config_provider
+from credential_provider import credential_provider
+from replication_handler import ReplicationHandler
+import json
+import re
+
+# Logger
+logger = logging.getLogger(__name__)
+logger.setLevel(config_provider.logging_level)
+
+
+# Elastic Search Literals
+ES_AGGREGATE_QUERY_SIZE = 50
+SERVICE = 'es'
+AOSS_SERVICE = 'aoss'
+CLIENT_TIMEOUT = 90
+
+TARGET_WRITE_BATCH_SIZE = int(config_provider.get_handler_additional_param('TargetWriteBatchSize', '2500'))
+
+# Elastic Search Configuration
+ES_ENDPOINT = es_helper.get_url_components(config_provider
+                                                    .get_handler_additional_param('ElasticSearchEndpoint'))
+IGNORE_MISSING_DOCUMENT_ERROR = config_provider.get_handler_additional_param('IgnoreMissingDocument') != 'false'
+
+# Painless Script to add field to respective ES document.
+# Painless Script is used to update specific field within a document.
+# Reference Doc - https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting-painless.html
+# Queries generated using painless script are idempotent and thus can handle duplicate
+# records. Painless script can also update multiple fields for same document in one go.
+# Below script append different values for same property Key in a list.
+ADD_FIELD_SCRIPT = '''void add(def object, def key, def value){
+                         if (object[key] != null) {
+                            if(!object[key].contains(value)) {
+                                object[key].add(value)
+                            } 
+                         }else {
+                            object[key] = [value]
+                         }
+                      }
+                      for (predicate in params.predicates){
+                          if (predicate["key"]=="entity_type"){
+                              add(ctx._source, predicate["key"], predicate["value"])
+                          }
+                          else {
+                              if (ctx._source["predicates"] == null){
+                                 ctx._source["predicates"] = new HashMap()
+                              }  
+                              add(ctx._source.predicates, predicate["key"], predicate["value"])
+                          }
+                      }'''
+
+
+# Painless Script to delete Property from respective ES document.
+# This script take care of duplicate requests using Delete only if present
+# check. Script also removes property key from Vertex document if no more
+# values present after delete.
+DROP_FIELD_SCRIPT = '''void remove(def object, def key, def value){
+                         if (object[key] != null) {
+                             object[key].removeIf(x -> x.equals(value));
+                             if (object[key].length == 0){
+                                object.remove(key)
+                             }
+                         }
+                       }  
+                       for (predicate in params.predicates){
+                           if (predicate["key"]=="entity_type"){
+                               remove(ctx._source, predicate["key"], predicate["value"])
+                           }
+                           else if(ctx._source["predicates"] != null){
+                               remove(ctx._source.predicates, predicate["key"], predicate["value"])
+                           }   
+                       }
+                       if (ctx._source["predicates"] != null && ctx._source.predicates.size() == 0){
+                           ctx._source.remove("predicates")    
+                       }
+                       if(ctx._source.size() == 2){
+                           ctx.op = "delete" 
+                       }else{ 
+                           ctx.op = "index"
+                       }'''
+
+# ES Client connection Cache with TTL
+_es_connection_cache = TTLCache(maxsize=1, ttl=900)   # TTL is in Seconds
+
+# Record Aggregator
+aggregator = ElasticSearchAggregator()
+
+
+def __initial_setup__(self, es_client):
+
+    """
+    Do initial setup for Elastic Search by creating relevant indices
+    """
+
+    # Checking Elastic Search version if it's not serverless
+    es_service = self.getOSServiceName()
+    if es_service == SERVICE:
+        es_helper.validate_es_version(es_client)
+
+    logger.info("Trying to Create Index for Elastic Search")
+    es_helper.create_index(es_client, es_helper.INDEX)
+
+
+def __base_action__(document_id, query_type):
+
+    """
+    Generates action object with generic fields for Elastic search bulk API.
+    This action object needs to be updated for doing specific Bulk operations.
+
+    :param document_id: Unique Id for ES document
+    :param query_type: Type of operation on ES
+    :return: Json object to be used to generate actions for Elastic search Bulk API
+    """
+
+    return {
+        "_index": es_helper.INDEX,
+        "_id": document_id,
+        "_op_type": query_type
+    }
+
+
+def __update_action__(document_id, script_source, params_json, upsert_json=None):
+
+    """
+    Generates action object to perform update operation in Elastic Search using Bulk API.
+    Update action object is generated using base action object.
+    Update action can have upsert field for use cases like update or insert. Upsert field can
+    be assigned a document object using :upsert_json parameter. When no document with :document_id
+    is present to update , document object from upsert field will be inserted as new Elastic Search
+    document.
+
+    :param document_id: Unique Id for ES document
+    :param script_source: Painless script source
+    :param params_json: Value referenced from Painless Script. Ex : For updating Properties it can be property values.
+                        For Vertex / Edge  insert it can be Labels.
+    :param upsert_json: Document json to be inserted in Elastic Search when no valid Document found to update.
+    :return: Json object to be used as an Action for Elastic search Update Operation
+    """
+
+    action = __base_action__(document_id, "update")
+    action["script"] = {
+        "source": script_source,
+        "lang": "painless",
+        "params": {
+            "predicates": params_json
+        }
+    }
+
+    if upsert_json:
+        action["upsert"] = upsert_json
+
+    return action
+
+
+def __delete_action__(document_id):
+
+    """
+    Generate action object to perform delete operation in Elastic Search using Bulk API.
+    Delete action object is generated using base action object.
+
+    :param document_id: Unique Id for Elastic Search document
+    :return: Json object to be used as an action for Elastic search delete operation
+    """
+
+    return __base_action__(document_id, "delete")
+
+
+def __retryable_error__(exception):
+
+    """
+    Checks if exception is retry-able
+    :param exception: Exception thrown
+    :return: True or False
+    """
+
+    if exception is not None and isinstance(exception, TransportError):
+        logger.info("Retrying...")
+        return True
+    return False
+
+
+def __check_missing_document_error__(error):
+
+    """
+    Check if Elastic Search error is due to missing document.
+    :param error: Elastic Search error object
+    :return: boolean
+    """
+
+    try:
+        if 'update' in error and error['update']['status'] == 404 \
+                and 'type' in error['update']['error'] and \
+                error['update']['error']['type'] == 'document_missing_exception':
+            return True
+    except Exception:
+        # Process should not fail due to unknown error parsing exception.
+        return False
+
+    return False
+
+
+class ElasticSearchBaseHandler(ReplicationHandler):
+
+    """
+    Abstract class to replicate Stream Records to a target Elastic Search Service.
+    Stream Records are converted to appropriate Elastic Search documents and updated in
+    Elastic Search Service using Bulk API.
+    """
+
+    def __init__(self):
+        __initial_setup__(self, self.get_es_client())
+
+    @cached(_es_connection_cache)
+    def get_es_client(self):
+
+        """
+           Returns Elastic Search Client. If no client exists this method will
+           create new client else will return a client from Cache
+           :return: Elastic Search Client
+        """
+
+        try:
+            logger.info("Creating an Elastic Search client with endpoint - {}:{}".format(ES_ENDPOINT["host"],
+                                                                                         ES_ENDPOINT["port"]))
+
+            # Determing whether this is opensearch serverless or not and set service accordingly
+            es_service = self.getOSServiceName()
+
+            # Authentication
+            aws_auth = AWS4Auth(credential_provider.get_access_key(), credential_provider.get_secret_key(),
+                                config_provider.region, es_service, session_token=credential_provider.get_security_token())
+
+            # Elastic Search service connection
+            return OpenSearch(
+                hosts=[{'host': ES_ENDPOINT["host"], 'port': int(ES_ENDPOINT["port"])}],
+                http_auth=aws_auth,
+                use_ssl=True,
+                verify_certs=True,
+                connection_class=RequestsHttpConnection,
+                timeout=CLIENT_TIMEOUT
+            )
+        except Exception as e:
+            logger.error("Error Creating elastic search client with endpoint - {}:{}".format(ES_ENDPOINT["host"],
+                                                                                             ES_ENDPOINT["port"]))
+            raise e
+
+    def get_es_endpoint_host(self):
+        return ES_ENDPOINT["host"]
+
+    def get_es_endpoint_port(self):
+        return ES_ENDPOINT["port"]
+
+    def get_target_write_batch_size(self):
+        return TARGET_WRITE_BATCH_SIZE
+
+    def get_max_target_write_batch_size(self):
+        return TARGET_WRITE_BATCH_SIZE
+
+    @abc.abstractmethod
+    def build_query(self, operation_type, record_data_lists):
+
+        """
+        Abstract Method to build  Elastic Search query from stream records. Different query statement are built
+        based on Stream Record Operation values.
+
+        :param operation_type: Operation Type corresponding to Stream record Ex: ADD_vl, REMOVE_e
+        :param record_data_lists: Aggregated List of stream records data object
+        :return: Elastic Search Query statement
+        """
+
+        pass
+
+    @abc.abstractmethod
+    def add_query_builder_map(self):
+        """
+        Abstract method to build query builder map
+        """
+        pass
+
+    @abc.abstractmethod
+    def generate_es_field_key(self, record_data):
+
+        """
+        Abstract Method to generate Elastic Search document field Key from Stream Record data.
+
+        :param record_data: Stream Record data
+        :return: Elastic Search Document field key
+        """
+
+        pass
+
+    @abc.abstractmethod
+    def generate_es_field_value(self, record_data):
+
+        """
+        Abstract Method to generate Elastic Search document field value from Stream Record data.
+
+        :param record_data: Stream Record data
+        :return: Elastic Search Document field value
+        """
+
+        pass
+
+    @abc.abstractmethod
+    def filter_records(self, records, es_client):
+
+        """
+        Abstract Method to filter records to be stored in Elastic Search.
+
+        :param records: Stream Records list
+        :param es_client: Client for ES connection
+        :return: Filtered Record List
+        """
+
+        pass
+
+    def get_add_field_script(self):
+
+        """
+        Returns Elastic Search Painless script to add/update fields in Elastic Search Document.
+        This method can be overriden by sub-classes to source another script for Elastic search
+        document update.
+        :return: Elastic Search Painless script to add/update Fields in Document
+        """
+
+        return ADD_FIELD_SCRIPT
+
+    def get_drop_field_script(self):
+
+        """
+        Returns Elastic Search Painless script to delete fields from Elastic Search Document.
+        This method can be overriden by sub-classes to source another script for Elastic search
+        document update.
+        :return: Elastic Search Painless script to delete Fields from Document
+        """
+
+        return DROP_FIELD_SCRIPT
+
+    def __generate_Action__(self, record_data_list, operation):
+
+        """
+        Generates an Elastic search bulk update action using list of Stream records.
+
+        :param record_data_list: List of stream record data referenced to generate single Elastic Search action
+        :param operation: Stream record operation i.e. ADD or REMOVE
+        :return: Elastic Search Bulk API Action to perform
+        """
+
+        script_source = self.get_add_field_script() if operation == "ADD" else self.get_drop_field_script()
+        params_json = []
+        document_id = es_helper.generate_es_document_id(record_data_list[0])
+        for record_data in record_data_list:
+            # Adding Stream Record Property key & property value as Elastic search query parameter
+            params_json.append(
+                {
+                    "key": self.generate_es_field_key(record_data),
+                    "value": self.generate_es_field_value(record_data)
+                }
+            )
+        return __update_action__(document_id, script_source,
+                                 params_json, None)
+
+    @abc.abstractmethod
+    def get_upsert_json(self, record_data_list):
+
+        """
+        Abstract Method to generate Upsert Document value. Upsert Document value is used by Elastic search update query
+        to insert a new document if no document is present for update.
+
+        :param record_data_list: List of stream record data referenced to generate Elastic Search query upsert document
+        :return: Upsert document Json
+        """
+        pass
+
+    def __update_query__(self, record_data_lists, operation, require_upsert=False):
+        """
+        Generates Elastic Search action to update a document.
+
+        :param record_data_lists: List of bundle of Stream records data which can be combined together to  create
+         single Elastic search action.
+        :param operation: Stream record operation i.e. ADD or REMOVE
+        :param require_upsert: Boolean to check if Upsert Document is required for Elastic Search Update Action.
+        :return: Elastic Search action to update a document
+        """
+
+        for record_data_list in record_data_lists:
+            action = self.__generate_Action__(record_data_list, operation)
+            if require_upsert:
+                action["upsert"] = self.get_upsert_json(record_data_list)
+            yield action
+
+    def __delete_query__(self, record_data_lists):
+
+        """
+        Generates Elastic Search action to delete a document.
+
+        :param record_data_lists: List of bundle of Stream records data which can be combined together to  create
+         single Elastic search action.
+        :return: Elastic Search action to delete a document
+        """
+
+        for record_data_list in record_data_lists:
+            for record_data in record_data_list:
+                yield __delete_action__(es_helper.generate_es_document_id(record_data))
+
+    def generate_aggregated_es_actions(self, records):
+
+        """
+        Generate list of Elastic search Actions for Bulk API call. This method take stream records
+        & aggregate them before generating Actions from them.
+
+        :param records: Stream Records
+        :return: List of Elastic search Actions for Bulk API call
+        """
+
+        action_list = []
+
+        # Aggregate Stream records in appropriate bundles
+        aggregate_map = aggregator.aggregate_records(records)
+        for aggregate_entry in aggregate_map.values():
+            for records_set in aggregate_entry[RECORDS_SET_STR]:
+                action_list.extend(list(self.build_query(records_set[OPERATION_STR],
+                                                         split_list(records_set[RECORDS_STR],
+                                                                    ES_AGGREGATE_QUERY_SIZE))))
+        return action_list
+
+    @retry(retry_on_exception=__retryable_error__, wait_exponential_multiplier=1000, stop_max_attempt_number=5)
+    def execute_query(self, actions, batch_size, raise_error=True):
+
+        """
+        Executes query on Elastic Search. Will do retry using exponential backoff
+        for retryable exceptions.
+        :param actions: Elastic Search Bulk API actions
+        """
+
+        try:
+            logger.debug("Executing bulk actions on Elastic Search - {}".format(str(actions)))
+            success, errors = bulk(self.get_es_client(), actions, max_retries=3, chunk_size=batch_size,
+                                   stats_only=False, raise_on_error=raise_error, raise_on_exception=True)
+        # START UTF-8 ERROR HANDLING - Added 2025-08-11 to handle multilingual geonames data
+        except UnicodeEncodeError as unicode_err:
+            logger.error("UTF-8 encoding error in bulk operation: {}. Attempting to process records individually.".format(unicode_err))
+            # Process actions individually to isolate problematic records
+            success, errors = self._process_actions_individually(actions, batch_size, raise_error)
+        # END UTF-8 ERROR HANDLING
+
+            if not raise_error:
+                # When Ignoring Missing Document exceptions, check all bulk api errors are due to missing Document only.
+                # If not appropriate Exception is thrown.
+                for error in errors:
+                    if not __check_missing_document_error__(error):
+                        raise BulkIndexError("%i document(s) failed to index." % len(errors), errors)
+                logger.info("Completed Elastic search Bulk query after ignoring Missing document exception. "
+                            "Success: {}, Ignored Missing Document: {}".format(success, len(errors)))
+            else:
+                logger.info("Completed Elastic search Bulk query. "
+                            "Success: {}, Failed: {}, Errors: {}".format(success, len(errors), errors))
+        except BulkIndexError as err:
+            # Checking if Bulk update can be retried in case of Document Missing Exception.
+            if IGNORE_MISSING_DOCUMENT_ERROR and len(err.errors) > 0 and \
+                    __check_missing_document_error__(err.errors[0]) and raise_error:
+
+                logger.info("Retrying after ignoring Document Missing Exception - {}.".format(err.errors[0]))
+                self.execute_query(actions, batch_size, False)
+            else:
+                logger.error("Error Occurred: {}, Message: {}, Errors: {}".format("BulkIndexError", err, err.errors))
+                raise
+        except TransportError as err:
+            logger.error("Exception Occurred: {}, Message: {}".format("TransportError", err))
+            raise
+
+    # START UTF-8 ERROR HANDLING - Added 2025-08-11 to handle multilingual geonames data
+    def _process_actions_individually(self, actions, batch_size, raise_error):
+        """
+        Process actions individually when bulk operation fails due to UTF-8 encoding errors.
+        This allows us to skip problematic records and continue processing good ones.
+        
+        Added to handle UTF-8 encoding issues with multilingual geonames data.
+        Can be removed by deleting this method and the UnicodeEncodeError catch block above.
+        """
+        success_count = 0
+        error_list = []
+        
+        for action in actions:
+            try:
+                # Process single action
+                single_success, single_errors = bulk(self.get_es_client(), [action], max_retries=3, chunk_size=1,
+                                                   stats_only=False, raise_on_error=False, raise_on_exception=False)
+                success_count += single_success
+                if single_errors:
+                    error_list.extend(single_errors)
+            except UnicodeEncodeError as unicode_err:
+                logger.warning("Skipping record due to UTF-8 encoding error: {}. Action: {}".format(
+                    unicode_err, str(action)[:200] + "..." if len(str(action)) > 200 else str(action)))
+                error_list.append({
+                    "error": "UTF-8 encoding error",
+                    "action": str(action)[:200] + "..." if len(str(action)) > 200 else str(action),
+                    "exception": str(unicode_err)
+                })
+            except Exception as other_err:
+                logger.warning("Skipping record due to unexpected error: {}. Action: {}".format(
+                    other_err, str(action)[:200] + "..." if len(str(action)) > 200 else str(action)))
+                error_list.append({
+                    "error": "Unexpected error",
+                    "action": str(action)[:200] + "..." if len(str(action)) > 200 else str(action),
+                    "exception": str(other_err)
+                })
+        
+        logger.info("Individual processing completed. Success: {}, Errors: {}".format(success_count, len(error_list)))
+        return success_count, error_list
+    # END UTF-8 ERROR HANDLING
+
+    def getOSServiceName(self):
+        if "aoss.amazonaws.com" in ES_ENDPOINT["host"]:
+            return AOSS_SERVICE
+        return SERVICE
