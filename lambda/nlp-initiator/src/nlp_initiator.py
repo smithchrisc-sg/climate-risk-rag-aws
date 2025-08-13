@@ -33,6 +33,8 @@ class NLPInitiator:
         self.cost_threshold = float(os.environ.get('NLP_COST_THRESHOLD', '0.50'))
         self.nlp_worker_topic_arn = os.environ.get('NLP_WORKER_TOPIC_ARN', 
                                                   'arn:aws:sns:us-east-1:861276078413:nlp-worker')
+        self.nlp_jobs_submitted_topic_arn = os.environ.get('NLP_JOBS_SUBMITTED_TOPIC_ARN',
+                                                          'arn:aws:sns:us-east-1:861276078413:nlp-jobs-submitted')
         self.comprehend_data_access_role = os.environ.get('COMPREHEND_DATA_ACCESS_ROLE_ARN')
         self.comprehend_output_bucket = os.environ.get('COMPREHEND_OUTPUT_BUCKET',
                                                       'solve-global-kr-dl-comprehend-output-861276078413-us-east-1')
@@ -243,6 +245,41 @@ class NLPInitiator:
         
         # Start async Comprehend jobs
         comprehend_jobs = self.start_comprehend_jobs(doc_id, full_text)
+        
+        # Publish nlp_jobs_submitted message to notify nlp-worker
+        nlp_jobs_message = {
+            "version": "1.0",
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "source": "climate-risk-rag-system",
+            "stage": "nlp_jobs_submitted",
+            "doc_id": doc_id,
+            "data_locations": {
+                "chunks_location": chunks_location,
+                "text_location": text_location
+            },
+            "comprehend_jobs": comprehend_jobs,
+            "processing_metadata": {
+                "chunks_created": processing_metadata.get('chunks_created'),
+                "character_count": character_count,
+                "estimated_cost": estimated_cost
+            }
+        }
+        
+        try:
+            self.sns_client.publish(
+                TopicArn=self.nlp_jobs_submitted_topic_arn,
+                Message=json.dumps(nlp_jobs_message),
+                Subject=f"NLP jobs submitted: {doc_id}",
+                MessageAttributes={
+                    'stage': {'DataType': 'String', 'StringValue': 'nlp_jobs_submitted'},
+                    'doc_id': {'DataType': 'String', 'StringValue': doc_id}
+                }
+            )
+            logger.info(f"Published nlp_jobs_submitted message for document: {doc_id}")
+        except Exception as e:
+            logger.error(f"Failed to publish nlp_jobs_submitted message: {e}")
+            # Don't fail the whole process if message publishing fails
+        
         
         # Update status to processing with job information
         self.update_status(doc_id, 'nlp_processing', 'in_progress', metadata={

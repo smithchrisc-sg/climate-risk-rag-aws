@@ -3,6 +3,9 @@
 ## Overview
 This document provides comprehensive infrastructure mappings and configurations for the Climate Risk RAG system. Use this as a reference to ensure correct configuration on the first attempt when creating new Lambda functions, database connections, and other AWS resources.
 
+**Last Updated:** August 5, 2025 - Post Knowledge Graph Layer Fix  
+**Current Status:** Operational with corrected KG processing and dual-layer configuration
+
 ## Table of Contents
 1. [VPC and Networking](#vpc-and-networking)
 2. [Security Groups](#security-groups)
@@ -27,17 +30,18 @@ This document provides comprehensive infrastructure mappings and configurations 
 
 ### Subnet Configuration
 
-#### Database Subnets (Use for Lambda functions that need database access)
+#### Database Subnets (Use for Lambda functions that need PostgreSQL access)
 - **Primary**: `subnet-0e9efc5fdf29e9da0`
 - **Secondary**: `subnet-00efdcc220a613ae3`
 - **Type**: Private subnets with database access
 - **Use Case**: Lambda functions requiring PostgreSQL connectivity
 
-#### Application Subnets (General purpose)
+#### Application/Neptune Subnets (General purpose + Neptune access)
 - **Primary**: `subnet-03d8bd6cf3491f38c`
 - **Secondary**: `subnet-0c0be1dd59f70f70e`
-- **Type**: Private subnets with egress
-- **Use Case**: Lambda functions without database requirements
+- **Type**: Private subnets with egress and S3 VPC endpoint access
+- **Use Case**: Lambda functions requiring Neptune access, general processing
+- **Special Features**: Enhanced routing for Neptune to reach S3 for bulk loading
 
 ### CDK Subnet Selection Patterns
 
@@ -210,33 +214,34 @@ environment={
 
 ### Neptune Graph Database Configuration
 
-#### Neptune Cluster Details
-- **Cluster Endpoint**: `solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com`
-- **Reader Endpoint**: `solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-ro-cqhsckw0edl1.neptune.amazonaws.com`
+#### Neptune Cluster Details (CURRENT)
+- **Cluster Endpoint**: `solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com`
+- **Reader Endpoint**: `solve-global-kr-neptune-s3.cluster-ro-cqhsckw0edl1.us-east-1.neptune.amazonaws.com`
 - **Port**: `8182`
 - **Engine**: `neptune`
 - **Version**: Latest
-- **Subnets**: `subnet-03d8bd6cf3491f38c`, `subnet-0c0be1dd59f70f70e`
+- **Subnets**: `subnet-03d8bd6cf3491f38c`, `subnet-0c0be1dd59f70f70e` (Application/Neptune subnets)
+- **Special Features**: Enhanced S3 access for bulk loading TTL files
 
 #### Neptune Access Configuration
 
 ##### SPARQL Endpoint
 ```
-https://solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com:8182/sparql
+https://solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com:8182/sparql
 ```
 
 ##### Gremlin Endpoint
 ```
-wss://solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com:8182/gremlin
+wss://solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com:8182/gremlin
 ```
 
 #### Lambda Environment Variables for Neptune
 
 ```python
 environment={
-    "NEPTUNE_ENDPOINT": "solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com",
+    "NEPTUNE_ENDPOINT": "solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com",
     "NEPTUNE_PORT": "8182",
-    "NEPTUNE_SPARQL_ENDPOINT": "https://solve-global-kr-rag-data-neptunedbcluster-1234567890.cluster-cqhsckw0edl1.neptune.amazonaws.com:8182/sparql",
+    "NEPTUNE_SPARQL_ENDPOINT": "https://solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com:8182/sparql",
     "AWS_REGION": "us-east-1"
 }
 ```
@@ -299,13 +304,14 @@ CHECK (stage IN (
 
 ## OpenSearch Configuration
 
-### Managed OpenSearch Domain (Cost-Optimized)
+### Managed OpenSearch Domain (Cost-Optimized - CURRENT)
 - **Domain Name**: `solve-global-kr-search`
 - **Endpoint**: `https://vpc-solve-global-kr-search-hsacnclbjsoclui75hefj2espq.us-east-1.es.amazonaws.com`
 - **Version**: OpenSearch 2.19.0
 - **Configuration**: 2-node m6g.large.search cluster
 - **Cost**: ~$170/month (94% savings vs OpenSearch Serverless)
 - **Network**: VPC access only (private)
+- **Migration Date**: July 2025 (from OpenSearch Serverless)
 
 ### OpenSearch Cluster Details
 - **Instance Type**: m6g.large.search
@@ -673,20 +679,150 @@ kg_integration_worker = lambda_.Function(
 )
 ```
 
-### SNS Topic Configuration for KG Integration
+### SNS Topic Configuration
 
-#### KG Triples Ready Topic
+#### NLP Processing Topics
 
+**Text Chunking Complete Topic**
+```python
+text_chunking_complete_topic = sns.Topic(
+    self, "TextChunkingCompleteTopic", 
+    topic_name="text-chunking-complete",
+    display_name="Text Chunking Complete Topic"
+)
+
+# Subscribe nlp-initiator to chunks ready messages
+text_chunking_complete_topic.add_subscription(
+    sns_subscriptions.SqsSubscription(nlp_initiator_queue)
+)
+```
+
+**NLP Jobs Submitted Topic (NEW - August 2025)**
+```python
+nlp_jobs_submitted_topic = sns.Topic(
+    self, "NLPJobsSubmittedTopic",
+    topic_name="nlp-jobs-submitted", 
+    display_name="NLP Jobs Submitted Topic"
+)
+
+# Subscribe nlp-worker to jobs submitted messages
+nlp_jobs_submitted_topic.add_subscription(
+    sns_subscriptions.SqsSubscription(nlp_worker_queue)
+)
+```
+
+**NLP Processing Complete Topic**
+```python
+nlp_processing_complete_topic = sns.Topic(
+    self, "NLPProcessingCompleteTopic",
+    topic_name="nlp-processing-complete",
+    display_name="NLP Processing Complete Topic"
+)
+```
+
+#### KG Integration Topics
+
+**KG Triples Ready Topic**
 ```python
 kg_triples_ready_topic = sns.Topic(
     self, "KGTriplesReadyTopic",
-    topic_name="solve-global-kr-kg-triples-ready",
+    topic_name="kg-triples-ready",
     display_name="KG Triples Ready Topic"
 )
 
 # Subscribe KG Integration Worker to the topic
 kg_triples_ready_topic.add_subscription(
     sns_subscriptions.LambdaSubscription(kg_integration_worker)
+)
+```
+
+### NLP Processing Lambda Functions
+
+#### NLP Initiator Function
+```python
+nlp_initiator = _lambda.Function(
+    self, "NLPInitiator",
+    function_name="nlp-initiator",
+    runtime=_lambda.Runtime.PYTHON_3_11,
+    handler="handler.lambda_handler",
+    code=_lambda.Code.from_asset("lambda/nlp-initiator"),
+    timeout=Duration.minutes(5),
+    memory_size=512,
+    vpc=vpc,
+    vpc_subnets=ec2.SubnetSelection(subnets=[
+        ec2.Subnet.from_subnet_id(self, "NLPInitiatorSubnet1", "subnet-03d8bd6cf3491f38c"),
+        ec2.Subnet.from_subnet_id(self, "NLPInitiatorSubnet2", "subnet-0c0be1dd59f70f70e")
+    ]),
+    security_groups=[nlp_security_group],
+    layers=[database_core_layer, database_dependencies_layer],
+    environment={
+        "DATABASE_SECRET_NAME": database_secret.secret_name,
+        "DB_HOST": database.cluster_endpoint.hostname,
+        "DB_PORT": "5432",
+        "DB_NAME": "climate_risk_rag",
+        "COMPREHEND_REGION": "us-east-1",
+        "COMPREHEND_OUTPUT_BUCKET": ner_results_bucket.bucket_name,
+        "COMPREHEND_DATA_ACCESS_ROLE_ARN": comprehend_data_access_role.role_arn,
+        "NLP_JOBS_SUBMITTED_TOPIC_ARN": nlp_jobs_submitted_topic.topic_arn
+    }
+)
+```
+
+#### NLP Worker Function  
+```python
+nlp_worker = _lambda.Function(
+    self, "NLPWorker",
+    function_name="nlp-worker", 
+    runtime=_lambda.Runtime.PYTHON_3_11,
+    handler="handler.lambda_handler",
+    code=_lambda.Code.from_asset("lambda/nlp-worker"),
+    timeout=Duration.minutes(15),
+    memory_size=1024,
+    vpc=vpc,
+    vpc_subnets=ec2.SubnetSelection(subnets=[
+        ec2.Subnet.from_subnet_id(self, "NLPWorkerSubnet1", "subnet-03d8bd6cf3491f38c"),
+        ec2.Subnet.from_subnet_id(self, "NLPWorkerSubnet2", "subnet-0c0be1dd59f70f70e")
+    ]),
+    security_groups=[nlp_security_group],
+    layers=[database_core_layer, database_dependencies_layer],
+    environment={
+        "DATABASE_SECRET_NAME": database_secret.secret_name,
+        "DB_HOST": database.cluster_endpoint.hostname,
+        "DB_PORT": "5432", 
+        "DB_NAME": "climate_risk_rag",
+        "COMPREHEND_REGION": "us-east-1",
+        "NER_RESULTS_BUCKET": ner_results_bucket.bucket_name,
+        "NLP_COMPLETION_TOPIC_ARN": nlp_processing_complete_topic.topic_arn
+    }
+)
+```
+
+#### Text Chunker Processor Function
+```python
+text_chunker_processor = _lambda.Function(
+    self, "TextChunkerProcessor",
+    function_name="text-chunker-processor",
+    runtime=_lambda.Runtime.PYTHON_3_11,
+    handler="handler.lambda_handler", 
+    code=_lambda.Code.from_asset("lambda/text-chunker-processor"),
+    timeout=Duration.minutes(10),
+    memory_size=1024,
+    vpc=vpc,
+    vpc_subnets=ec2.SubnetSelection(subnets=[
+        ec2.Subnet.from_subnet_id(self, "ChunkerSubnet1", "subnet-03d8bd6cf3491f38c"),
+        ec2.Subnet.from_subnet_id(self, "ChunkerSubnet2", "subnet-0c0be1dd59f70f70e")
+    ]),
+    security_groups=[processing_security_group],
+    layers=[database_core_layer, database_dependencies_layer],
+    environment={
+        "DATABASE_SECRET_NAME": database_secret.secret_name,
+        "DB_HOST": database.cluster_endpoint.hostname,
+        "DB_PORT": "5432",
+        "DB_NAME": "climate_risk_rag", 
+        "TEXT_BUCKET": text_bucket.bucket_name,
+        "CHUNKS_BUCKET": chunks_bucket.bucket_name,
+        "CHUNKS_READY_TOPIC_ARN": text_chunking_complete_topic.topic_arn
+    }
 )
 ```
 
@@ -729,6 +865,89 @@ CHECK (stage IN (
 ```
 
 ---
+
+### NLP Integration IAM Policy
+
+#### Policy Document (Updated August 2025)
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "comprehend:DetectEntities",
+        "comprehend:DetectKeyPhrases", 
+        "comprehend:StartEntitiesDetectionJob",
+        "comprehend:StartKeyPhrasesDetectionJob",
+        "comprehend:DescribeEntitiesDetectionJob",
+        "comprehend:DescribeKeyPhrasesDetectionJob",
+        "comprehend:ListEntitiesDetectionJobs",
+        "comprehend:ListKeyPhrasesDetectionJobs"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject", 
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::solve-global-kr-*/*",
+        "arn:aws:s3:::solve-global-kr-*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sns:Publish"
+      ],
+      "Resource": [
+        "arn:aws:sns:us-east-1:861276078413:nlp-worker",
+        "arn:aws:sns:us-east-1:861276078413:nlp-processing-complete",
+        "arn:aws:sns:us-east-1:861276078413:comprehend-entity-completion",
+        "arn:aws:sns:us-east-1:861276078413:comprehend-keyphrase-completion",
+        "arn:aws:sns:us-east-1:861276078413:nlp-jobs-submitted"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
+      ],
+      "Resource": [
+        "arn:aws:sqs:us-east-1:861276078413:nlp-worker-queue",
+        "arn:aws:sqs:us-east-1:861276078413:nlp-worker-entity-queue", 
+        "arn:aws:sqs:us-east-1:861276078413:nlp-worker-keyphrase-queue"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:PassRole"
+      ],
+      "Resource": "arn:aws:iam::861276078413:role/comprehend-data-access-role"
+    }
+  ]
+}
+```
+
+#### CDK Policy Creation
+```python
+nlp_integration_policy = iam.ManagedPolicy(
+    self, "NLPIntegrationPolicy",
+    managed_policy_name="nlp-integration-policy",
+    description="Policy for NLP integration Lambda functions",
+    document=iam.PolicyDocument.from_json(nlp_policy_document)
+)
+
+# Attach to NLP Lambda role
+nlp_lambda_role.add_managed_policy(nlp_integration_policy)
+```
 
 ## IAM Roles and Policies
 
@@ -792,22 +1011,47 @@ lambda_role = iam.Role(
 
 ## Lambda Layers
 
-### Available Layers
+### Available Layers (CURRENT VERSIONS)
 
-#### Core Utilities Layer (Contains DocumentIDManager)
-- **ARN**: `arn:aws:lambda:us-east-1:861276078413:layer:climate-risk-core-utilities:2`
-- **Contents**: DocumentIDManager, DatabaseManager, core utilities
-- **Use Case**: Functions requiring document ID management
+#### Knowledge Graph Layer (CORRECTED - v30)
+- **ARN**: `arn:aws:lambda:us-east-1:861276078413:layer:knowledge-graph-layer:30`
+- **Contents**: rdflib 7.1.4, isodate 0.7.2, requests-aws4auth, KG processing utilities
+- **Size**: 16.5MB (32 packages)
+- **Use Case**: Functions requiring knowledge graph processing and RDF operations
+- **Build Script**: `layers/knowledge-graph-layer/build_layer.sh` (ONLY use this script)
+- **Critical Fix**: Proper `/python/` directory structure, explicit isodate dependency
 
-#### Database Dependencies Layer
-- **ARN**: `arn:aws:lambda:us-east-1:861276078413:layer:database-dependencies:2`
-- **Contents**: PostgreSQL drivers, database connection libraries
-- **Use Case**: Functions requiring database connectivity
+#### Database Core Layer (STABLE - v17)
+- **ARN**: `arn:aws:lambda:us-east-1:861276078413:layer:climate-risk-core-utilities:17`
+- **Contents**: DatabaseManager, PostgreSQL drivers, core utilities
+- **Size**: 17.3MB
+- **Use Case**: Functions requiring database connectivity and document ID management
 
-#### Text Extractor Layer
-- **ARN**: `arn:aws:lambda:us-east-1:861276078413:layer:textextractor-layer:1`
-- **Contents**: Text extraction utilities
-- **Use Case**: Document processing functions
+#### Dual Layer Requirement for KG Functions
+**CRITICAL**: Knowledge graph functions MUST have BOTH layers:
+```python
+layers=[
+    lambda_.LayerVersion.from_layer_version_arn(
+        self, "KnowledgeGraphLayer",
+        layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:knowledge-graph-layer:30"
+    ),
+    lambda_.LayerVersion.from_layer_version_arn(
+        self, "DatabaseLayer",
+        layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:climate-risk-core-utilities:17"
+    )
+]
+```
+
+### Layer Build Standards (CRITICAL)
+- **Python Version**: ALWAYS use `python3` command, never `python`
+- **Build Script**: Use ONLY `layers/knowledge-graph-layer/build_layer.sh`
+- **Structure Validation**: ALWAYS verify `/python/` directory structure before deployment
+- **Testing**: Run end-to-end pipeline test after layer updates
+- **CDK Sync**: Update CDK layer references immediately after deployment
+
+### Current KG Functions Using Dual Layers
+- **document-structure-kg-processor**: Processes document structure, generates RDF triples
+- **kg-triple-loader**: Loads TTL files into Neptune graph database
 
 ### Layer Usage Pattern
 
@@ -831,24 +1075,21 @@ layers = [
 ### Standard Bucket Naming Convention
 `solve-global-kr-{purpose}-{account}-{region}`
 
-### Core Buckets
-- **Documents**: `solve-global-kr-documents-861276078413-us-east-1`
-- **Source Documents**: `solve-global-kr-dl-source-documents-861276078413-us-east-1`
+### Core Buckets (CURRENT)
+- **Source Documents**: `solve-global-kr-dl-source-861276078413-us-east-1`
 - **Text**: `solve-global-kr-dl-text-861276078413-us-east-1`
 - **Chunks**: `solve-global-kr-dl-chunks-861276078413-us-east-1`
+- **Neptune TTL**: `solve-global-kr-dl-neptune-ttl-861276078413-us-east-1` (KG triples)
 - **Cache**: `solve-global-kr-cache-861276078413-us-east-1`
 
 ### Environment Variables Pattern
 
 ```python
 environment={
-    "EXISTING_DOCUMENTS_BUCKET": f"solve-global-kr-documents-{self.account}-{self.region}",
-    "SOURCE_DOCUMENTS_BUCKET": f"solve-global-kr-dl-source-documents-{self.account}-{self.region}",
+    "SOURCE_DOCUMENTS_BUCKET": f"solve-global-kr-dl-source-{self.account}-{self.region}",
     "TEXT_BUCKET": f"solve-global-kr-dl-text-{self.account}-{self.region}",
     "CHUNKS_BUCKET": f"solve-global-kr-dl-chunks-{self.account}-{self.region}",
-    "SQLITE_S3_BUCKET": f"solve-global-kr-cache-{self.account}-{self.region}",
-    "SQLITE_S3_KEY": "database/corpus_document_ids.db",
-    "SQLITE_DB_PATH": "/tmp/corpus_document_ids.db"
+    "TTL_BUCKET": f"solve-global-kr-dl-neptune-ttl-{self.account}-{self.region}"
 }
 ```
 
@@ -1049,5 +1290,6 @@ postgresql://postgres:c0xfd_t#PBUqV(pLM-9IqM59G:>c@solve-global-kr-rag-data-post
 
 ---
 
-*Last Updated: 2025-07-27 (OpenSearch Migration Complete)*  
-*Version: 2.0*
+*Last Updated: 2025-08-05 (Knowledge Graph Layer Fixed - v30 Deployed)*  
+*Version: 3.0*  
+*Status: Operational with corrected KG processing and dual-layer configuration*
