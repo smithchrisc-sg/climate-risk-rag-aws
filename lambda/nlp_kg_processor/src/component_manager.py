@@ -34,22 +34,8 @@ class ComponentManager:
             # Initialize knowledge graph manager first (needed by other components)
             kg_manager = KnowledgeGraphManager()
             
-            # Initialize ontology manager
+            # Initialize ontology manager (for potential future use)
             ontology_manager = OntologyManager()
-            
-            # Load ontologies from Neptune (for backward compatibility)
-            # FIXME ontology manager doesn't have a load_xxx method
-            try:
-                climate_ontology = ontology_manager.load_climate_risk_ontology()
-            except Exception as e:
-                logger.warning(f"Could not load climate ontology: {e}")
-                climate_ontology = None
-                
-            try:
-                geonames_ontology = ontology_manager.load_geonames_ontology()
-            except Exception as e:
-                logger.warning(f"Could not load geonames ontology: {e}")
-                geonames_ontology = None
             
             # CHANGE: Use EntityAlignmentManager instead of EntityAligner
             # This provides both basic and contextual alignment based on environment variables
@@ -66,9 +52,7 @@ class ComponentManager:
                 'entity_aligner': entity_aligner,  # Same interface, enhanced implementation
                 'nlp_kg_integrator': nlp_kg_integrator,
                 'triple_manager': triple_manager,
-                'uri_manager': uri_manager,
-                'climate_ontology': climate_ontology,    # Maintained for backward compatibility
-                'geonames_ontology': geonames_ontology   # Maintained for backward compatibility
+                'uri_manager': uri_manager
             }
             
             # Log alignment configuration
