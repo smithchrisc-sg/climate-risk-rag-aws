@@ -589,8 +589,8 @@ class NLPWorker:
             logger.info(f"FAST_CHUNK_MAPPING: Mapped {len(mapped_entities)} entities and {len(mapped_key_phrases)} key phrases")
             
             return {
-                'entities': mapped_entities,
-                'key_phrases': mapped_key_phrases,
+                'entities_by_chunk': mapped_entities,
+                'key_phrases_by_chunk': mapped_key_phrases,
                 'mapping_method': 'fast_chunk_mapping',
                 'total_chunks': len(chunk_mapping)
             }
@@ -598,8 +598,8 @@ class NLPWorker:
         except Exception as e:
             logger.error(f"Error in fast chunk mapping: {e}")
             return {
-                'entities': [],
-                'key_phrases': [],
+                'entities_by_chunk': [],
+                'key_phrases_by_chunk': [],
                 'mapping_method': 'fast_chunk_mapping_failed',
                 'error': str(e)
             }
