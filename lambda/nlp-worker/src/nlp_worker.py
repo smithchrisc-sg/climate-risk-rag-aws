@@ -151,27 +151,31 @@ class NLPWorker:
             else:
                 logger.error(f"COMPREHEND_DEBUG_ERROR results_not_dict={comprehend_results}")
             
-            # Load chunks for offset mapping
-            logger.info(f"DEBUG: About to load chunks. chunks_location = {chunks_location}")
-            chunks = self.load_chunks_from_s3(chunks_location) if chunks_location else []
-            logger.info(f"DEBUG: Loaded {len(chunks)} chunks from S3")
+            # Load chunk mapping for fast offset mapping
+            chunk_mapping_s3_uri = comprehend_jobs.get('chunk_mapping_s3_uri')
+            if not chunk_mapping_s3_uri:
+                raise ValueError("chunk_mapping_s3_uri not found in comprehend_jobs")
+            
+            logger.info(f"DEBUG: About to load chunk mapping. chunk_mapping_s3_uri = {chunk_mapping_s3_uri}")
+            chunk_mapping = self.load_chunk_mapping_from_s3(chunk_mapping_s3_uri)
+            logger.info(f"DEBUG: Loaded chunk mapping for {len(chunk_mapping)} chunks")
             
             # Update status to offset mapping
             self.update_status(doc_id, 'nlp_offset_mapping', 'in_progress', {
                 'entities_count': len(comprehend_results.get('entities', [])),
                 'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
-                'chunks_count': len(chunks)
+                'chunks_count': len(chunk_mapping)
             })
             
-            # Map results to chunks
-            mapped_results = self.map_results_to_chunks(comprehend_results, chunks, doc_id)
+            # Map results to chunks using fast mapping
+            mapped_results = self.map_results_to_chunks_fast(comprehend_results, chunk_mapping, doc_id)
             
             # Update status to storage
             self.update_status(doc_id, 'nlp_storage', 'in_progress', {
                 'results_summary': {
                     'entities_count': len(comprehend_results.get('entities', [])),
                     'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
-                    'chunks_mapped': len(chunks) > 0
+                    'chunks_mapped': len(chunk_mapping) > 0
                 }
             })
             
@@ -237,27 +241,31 @@ class NLPWorker:
             # Wait for and retrieve Comprehend results
             comprehend_results = self.get_comprehend_results(comprehend_jobs)
             
-            # Load chunks for offset mapping
-            logger.info(f"DEBUG: About to load chunks. chunks_location = {chunks_location}")
-            chunks = self.load_chunks_from_s3(chunks_location) if chunks_location else []
-            logger.info(f"DEBUG: Loaded {len(chunks)} chunks from S3")
+            # Load chunk mapping for fast offset mapping
+            chunk_mapping_s3_uri = comprehend_jobs.get('chunk_mapping_s3_uri')
+            if not chunk_mapping_s3_uri:
+                raise ValueError("chunk_mapping_s3_uri not found in comprehend_jobs")
+            
+            logger.info(f"DEBUG: About to load chunk mapping. chunk_mapping_s3_uri = {chunk_mapping_s3_uri}")
+            chunk_mapping = self.load_chunk_mapping_from_s3(chunk_mapping_s3_uri)
+            logger.info(f"DEBUG: Loaded chunk mapping for {len(chunk_mapping)} chunks")
             
             # Update status to offset mapping
             self.update_status(doc_id, 'nlp_offset_mapping', 'in_progress', {
                 'entities_count': len(comprehend_results.get('entities', [])),
                 'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
-                'chunks_count': len(chunks)
+                'chunks_count': len(chunk_mapping)
             })
             
-            # Map results to chunks
-            mapped_results = self.map_results_to_chunks(comprehend_results, chunks, doc_id)
+            # Map results to chunks using fast mapping
+            mapped_results = self.map_results_to_chunks_fast(comprehend_results, chunk_mapping, doc_id)
             
             # Update status to storage
             self.update_status(doc_id, 'nlp_storage', 'in_progress', {
                 'results_summary': {
                     'entities_count': len(comprehend_results.get('entities', [])),
                     'key_phrases_count': len(comprehend_results.get('key_phrases', [])),
-                    'chunks_mapped': len(chunks) > 0
+                    'chunks_mapped': len(chunk_mapping) > 0
                 }
             })
             
@@ -449,43 +457,204 @@ class NLPWorker:
             logger.error(f"Error retrieving Comprehend results: {e}")
             raise
     
-    def load_chunks_from_s3(self, chunks_location: str) -> List[Dict]:
-        """Load chunks from S3 for offset mapping"""
+    def load_chunk_mapping_from_s3(self, chunk_mapping_s3_uri: str) -> Dict:
+        """Load the pre-computed chunk mapping from S3"""
         try:
-            # Parse S3 location
-            if not chunks_location.startswith('s3://'):
-                raise ValueError(f"Invalid S3 location format: {chunks_location}")
+            if not chunk_mapping_s3_uri.startswith('s3://'):
+                raise ValueError(f"Invalid S3 URI format: {chunk_mapping_s3_uri}")
             
-            s3_path = chunks_location[5:]  # Remove 's3://'
-            bucket, prefix = s3_path.split('/', 1)
+            s3_path = chunk_mapping_s3_uri[5:]  # Remove 's3://'
+            bucket, key = s3_path.split('/', 1)
             
-            # Ensure prefix ends with /
-            if not prefix.endswith('/'):
-                prefix += '/'
+            logger.info(f"CHUNK_MAPPING_DEBUG: Loading chunk mapping from {bucket}/{key}")
             
-            # List all chunk files
-            response = self.s3_client.list_objects_v2(
+            # Download the chunk mapping file
+            response = self.s3_client.get_object(
                 Bucket=bucket,
-                Prefix=prefix
+                Key=key
             )
             
-            chunks = []
-            for obj in response.get('Contents', []):
-                key = obj['Key']
-                if key.endswith('.json') and 'chunk_' in key:
-                    # Download and parse chunk
-                    obj_response = self.s3_client.get_object(
-                        Bucket=bucket,
-                        Key=key
-                    )
-                    chunk_data = json.loads(obj_response['Body'].read().decode('utf-8'))
-                    chunks.append(chunk_data)
+            chunk_mapping_data = json.loads(response['Body'].read().decode('utf-8'))
             
-            logger.info(f"Loaded {len(chunks)} chunks from S3")
-            return chunks
+            # Extract the actual chunk mapping from the nested structure
+            chunk_mapping = chunk_mapping_data.get('chunk_offset_map', {})
+            
+            logger.info(f"CHUNK_MAPPING_DEBUG: Loaded mapping for {len(chunk_mapping)} chunks")
+            
+            return chunk_mapping
             
         except Exception as e:
-            logger.error(f"Error loading chunks from S3: {e}")
+            logger.error(f"Error loading chunk mapping from S3: {e}")
+            return {}
+
+    def map_entities_to_chunks_fast(self, entities: List[Dict], chunk_mapping: Dict) -> List[Dict]:
+        """Fast entity-to-chunk mapping using pre-computed chunk positions"""
+        try:
+            mapped_entities = []
+            
+            logger.info(f"FAST_MAPPING_DEBUG: Mapping {len(entities)} entities using chunk mapping")
+            
+            for i, entity in enumerate(entities):
+                entity_start = entity['begin_offset']
+                entity_end = entity['end_offset']
+                
+                # Find which chunk(s) this entity belongs to
+                matching_chunks = []
+                for chunk_id, chunk_info in chunk_mapping.items():
+                    chunk_start = chunk_info['start']  # Fixed: use 'start' instead of 'start_offset'
+                    chunk_end = chunk_info['end']      # Fixed: use 'end' instead of 'end_offset'
+                    
+                    # Check if entity overlaps with this chunk
+                    if not (entity_end <= chunk_start or chunk_end <= entity_start):
+                        matching_chunks.append({
+                            'chunk_id': chunk_id,
+                            'chunk_start': chunk_start,
+                            'chunk_end': chunk_end
+                        })
+                
+                if matching_chunks:
+                    # Use the first matching chunk (most entities will be in a single chunk)
+                    primary_chunk = matching_chunks[0]
+                    
+                    mapped_entity = {
+                        'entity_id': f"entity_{i}",
+                        'text': entity['text'],
+                        'type': entity['type'],
+                        'score': entity['score'],
+                        'begin_offset': entity_start,
+                        'end_offset': entity_end,
+                        'chunk_id': primary_chunk['chunk_id'],
+                        'chunk_start_offset': primary_chunk['chunk_start'],
+                        'chunk_end_offset': primary_chunk['chunk_end'],
+                        'overlapping_chunks_count': len(matching_chunks)
+                    }
+                    mapped_entities.append(mapped_entity)
+                    
+                    if i < 5:  # Debug first 5 entities
+                        logger.info(f"FAST_MAPPING_DEBUG_{i}: Entity '{entity['text']}' ({entity_start}-{entity_end}) -> chunk {primary_chunk['chunk_id']}")
+                else:
+                    logger.warning(f"FAST_MAPPING_WARNING: Entity '{entity['text']}' ({entity_start}-{entity_end}) not found in any chunk")
+            
+            logger.info(f"FAST_MAPPING_RESULT: Mapped {len(mapped_entities)}/{len(entities)} entities to chunks")
+            return mapped_entities
+            
+        except Exception as e:
+            logger.error(f"Error in fast entity mapping: {e}")
+            return []
+
+    def map_results_to_chunks_fast(self, comprehend_results: Dict, chunk_mapping: Dict, doc_id: str) -> Dict:
+        """Fast mapping of Comprehend results to chunks using pre-computed chunk positions"""
+        try:
+            logger.info(f"FAST_CHUNK_MAPPING: Starting fast mapping for document {doc_id}")
+            
+            entities = comprehend_results.get('entities', [])
+            key_phrases = comprehend_results.get('key_phrases', [])
+            
+            # Map entities to chunks
+            mapped_entities = self.map_entities_to_chunks_fast(entities, chunk_mapping)
+            
+            # Map key phrases to chunks (same logic)
+            mapped_key_phrases = []
+            for i, phrase in enumerate(key_phrases):
+                phrase_start = phrase['begin_offset']
+                phrase_end = phrase['end_offset']
+                
+                # Find matching chunk
+                matching_chunks = []
+                for chunk_id, chunk_info in chunk_mapping.items():
+                    chunk_start = chunk_info['start']  # Fixed: use 'start' instead of 'start_offset'
+                    chunk_end = chunk_info['end']      # Fixed: use 'end' instead of 'end_offset'
+                    
+                    if not (phrase_end <= chunk_start or chunk_end <= phrase_start):
+                        matching_chunks.append({
+                            'chunk_id': chunk_id,
+                            'chunk_start': chunk_start,
+                            'chunk_end': chunk_end
+                        })
+                
+                if matching_chunks:
+                    primary_chunk = matching_chunks[0]
+                    mapped_phrase = {
+                        'phrase_id': f"phrase_{i}",
+                        'text': phrase['text'],
+                        'score': phrase['score'],
+                        'begin_offset': phrase_start,
+                        'end_offset': phrase_end,
+                        'chunk_id': primary_chunk['chunk_id'],
+                        'chunk_start_offset': primary_chunk['chunk_start'],
+                        'chunk_end_offset': primary_chunk['chunk_end']
+                    }
+                    mapped_key_phrases.append(mapped_phrase)
+            
+            logger.info(f"FAST_CHUNK_MAPPING: Mapped {len(mapped_entities)} entities and {len(mapped_key_phrases)} key phrases")
+            
+            return {
+                'entities': mapped_entities,
+                'key_phrases': mapped_key_phrases,
+                'mapping_method': 'fast_chunk_mapping',
+                'total_chunks': len(chunk_mapping)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in fast chunk mapping: {e}")
+            return {
+                'entities': [],
+                'key_phrases': [],
+                'mapping_method': 'fast_chunk_mapping_failed',
+                'error': str(e)
+            }
+        """Fast entity-to-chunk mapping using pre-computed chunk positions"""
+        try:
+            mapped_entities = []
+            
+            logger.info(f"FAST_MAPPING_DEBUG: Mapping {len(entities)} entities using chunk mapping")
+            
+            for i, entity in enumerate(entities):
+                entity_start = entity['begin_offset']
+                entity_end = entity['end_offset']
+                
+                # Find which chunk(s) this entity belongs to
+                matching_chunks = []
+                for chunk_id, chunk_info in chunk_mapping.items():
+                    chunk_start = chunk_info['start_offset']
+                    chunk_end = chunk_info['end_offset']
+                    
+                    # Check if entity overlaps with this chunk
+                    if not (entity_end <= chunk_start or chunk_end <= entity_start):
+                        matching_chunks.append({
+                            'chunk_id': chunk_id,
+                            'chunk_start': chunk_start,
+                            'chunk_end': chunk_end
+                        })
+                
+                if matching_chunks:
+                    # Use the first matching chunk (most entities will be in a single chunk)
+                    primary_chunk = matching_chunks[0]
+                    
+                    mapped_entity = {
+                        'entity_id': f"entity_{i}",
+                        'text': entity['text'],
+                        'type': entity['type'],
+                        'score': entity['score'],
+                        'begin_offset': entity_start,
+                        'end_offset': entity_end,
+                        'chunk_id': primary_chunk['chunk_id'],
+                        'chunk_start_offset': primary_chunk['chunk_start'],
+                        'chunk_end_offset': primary_chunk['chunk_end'],
+                        'overlapping_chunks_count': len(matching_chunks)
+                    }
+                    mapped_entities.append(mapped_entity)
+                    
+                    if i < 5:  # Debug first 5 entities
+                        logger.info(f"FAST_MAPPING_DEBUG_{i}: Entity '{entity['text']}' ({entity_start}-{entity_end}) -> chunk {primary_chunk['chunk_id']}")
+                else:
+                    logger.warning(f"FAST_MAPPING_WARNING: Entity '{entity['text']}' ({entity_start}-{entity_end}) not found in any chunk")
+            
+            logger.info(f"FAST_MAPPING_RESULT: Mapped {len(mapped_entities)}/{len(entities)} entities to chunks")
+            return mapped_entities
+            
+        except Exception as e:
+            logger.error(f"Error in fast entity mapping: {e}")
             return []
     
     def load_original_document_text(self, doc_id: str) -> str:
@@ -548,7 +717,7 @@ class NLPWorker:
 
 
     # Add debug to your ranges_overlap function
-    def ranges_overlap(start1, end1, start2, end2):
+    def ranges_overlap(self, start1, end1, start2, end2):
         overlap = not (end1 <= start2 or end2 <= start1)
         # Temporarily log overlap checks for debugging
         if logger.level <= logging.INFO:
@@ -879,7 +1048,7 @@ class NLPWorker:
         # Chunk coverage metrics
         chunks_with_entities = len(set(e['chunk_id'] for e in entities_mapped))
         chunks_with_keyphrases = len(set(k['chunk_id'] for k in keyphrases_mapped))
-        total_chunks = len(chunks)
+        total_chunks = len(chunk_mapping)
         chunks_found = len(chunk_positions)
         
         # Entity type analysis for search impact

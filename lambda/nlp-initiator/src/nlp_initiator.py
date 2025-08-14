@@ -214,7 +214,7 @@ class NLPInitiator:
             }
     
     def _process_document(self, doc_id, chunks_location, text_location, processing_metadata):
-        """Common document processing logic"""
+        """Common document processing logic with document reconstruction"""
         logger.info(f"Processing NLP initiation for document: {doc_id}")
         logger.info(f"Text location: {text_location}")
         logger.info(f"Chunks location: {chunks_location}")
@@ -228,13 +228,23 @@ class NLPInitiator:
             'processing_metadata': processing_metadata
         })
         
-        # Load and validate text
-        full_text = self.load_text_from_s3(text_location)
-        if not full_text:
+        # NEW: Reconstruct document from chunks for perfect entity-to-chunk mapping
+        logger.info("🔄 Starting document reconstruction from chunks for Comprehend processing...")
+        reconstructed_text, chunk_mapping_info = self.reconstruct_document_from_chunks(doc_id, chunks_location)
+        
+        if not reconstructed_text:
+            # Fallback to original text if reconstruction fails
+            logger.warning("⚠️ Document reconstruction failed, falling back to original text")
+            reconstructed_text = self.load_text_from_s3(text_location)
+            chunk_mapping_info = None
+        else:
+            logger.info(f"✅ Document reconstruction successful: {len(reconstructed_text)} characters from chunks")
+            
+        if not reconstructed_text:
             raise ValueError("Could not load text content for NLP processing")
         
-        character_count = len(full_text)
-        logger.info(f"Loaded text: {character_count} characters")
+        character_count = len(reconstructed_text)
+        logger.info(f"Using text for Comprehend: {character_count} characters")
         
         # Validate cost before processing
         estimated_cost = self.estimate_comprehend_cost(character_count)
@@ -243,8 +253,8 @@ class NLPInitiator:
         
         logger.info(f"Cost validation passed: ${estimated_cost:.4f} <= ${self.cost_threshold}")
         
-        # Start async Comprehend jobs
-        comprehend_jobs = self.start_comprehend_jobs(doc_id, full_text)
+        # Start async Comprehend jobs with reconstructed text
+        comprehend_jobs = self.start_comprehend_jobs(doc_id, reconstructed_text, chunk_mapping_info)
         
         # Publish nlp_jobs_submitted message to notify nlp-worker
         nlp_jobs_message = {
@@ -315,7 +325,171 @@ class NLPInitiator:
             'character_count': character_count
         }
     
-    def load_text_from_s3(self, text_location: str) -> str:
+    def reconstruct_document_from_chunks(self, doc_id: str, chunks_location: str) -> tuple:
+        """
+        Reconstruct full document text from chunks in proper reading order.
+        
+        Args:
+            doc_id: Document identifier
+            chunks_location: S3 location of chunks (e.g., s3://bucket/chunks/doc_id/)
+            
+        Returns:
+            Tuple of (reconstructed_text, chunk_mapping_info) or (None, None) if failed
+        """
+        try:
+            # Load all chunks for this document
+            chunks = self.load_chunks_from_s3(doc_id, chunks_location)
+            
+            if not chunks:
+                logger.error(f"No chunks found for document {doc_id}")
+                return None, None
+            
+            logger.info(f"Loaded {len(chunks)} chunks for document reconstruction")
+            
+            # Sort chunks by chunk_index (which should be document reading order)
+            sorted_chunks = sorted(chunks, key=lambda x: x.get('chunk_index', 999))
+            
+            # Reconstruct document text and create offset mapping
+            reconstructed_parts = []
+            chunk_offset_map = {}
+            current_offset = 0
+            
+            for chunk in sorted_chunks:
+                chunk_text = chunk.get('text', '')
+                chunk_id = chunk.get('chunk_id', '')
+                
+                if not chunk_text or not chunk_id:
+                    logger.warning(f"Skipping chunk with missing text or ID: {chunk}")
+                    continue
+                
+                # Record this chunk's position in reconstructed text
+                chunk_offset_map[chunk_id] = {
+                    'start': current_offset,
+                    'end': current_offset + len(chunk_text),
+                    'chunk_index': chunk.get('chunk_index', -1),
+                    'page_numbers': chunk.get('page_numbers', []),
+                    'section_types': chunk.get('section_types', [])
+                }
+                
+                # Add chunk text (no separators needed - chunks are in document flow order)
+                reconstructed_parts.append(chunk_text)
+                current_offset += len(chunk_text)
+            
+            reconstructed_text = ''.join(reconstructed_parts)
+            
+            chunk_mapping_info = {
+                'chunk_offset_map': chunk_offset_map,
+                'total_length': current_offset,
+                'chunk_count': len(sorted_chunks),
+                'doc_id': doc_id
+            }
+            
+            logger.info(f"Document reconstruction complete:")
+            logger.info(f"  - Total length: {current_offset} characters")
+            logger.info(f"  - Chunks processed: {len(sorted_chunks)}")
+            logger.info(f"  - Offset mapping created for {len(chunk_offset_map)} chunks")
+            
+            return reconstructed_text, chunk_mapping_info
+            
+        except Exception as e:
+            logger.error(f"Error reconstructing document from chunks: {e}")
+            return None, None
+    
+    def load_chunks_from_s3(self, doc_id: str, chunks_location: str) -> List[Dict]:
+        """
+        Load all chunk files for a document from S3.
+        
+        Args:
+            doc_id: Document identifier
+            chunks_location: S3 location (e.g., s3://bucket/chunks/doc_id/)
+            
+        Returns:
+            List of chunk dictionaries
+        """
+        try:
+            # Parse S3 location
+            if not chunks_location.startswith('s3://'):
+                raise ValueError(f"Invalid S3 location format: {chunks_location}")
+            
+            s3_path = chunks_location[5:]  # Remove 's3://'
+            if not s3_path.endswith('/'):
+                s3_path += '/'
+            
+            bucket, prefix = s3_path.split('/', 1)
+            
+            logger.info(f"Loading chunks from s3://{bucket}/{prefix}")
+            
+            # List all chunk files
+            response = self.s3_client.list_objects_v2(
+                Bucket=bucket,
+                Prefix=prefix
+            )
+            
+            chunks = []
+            
+            if 'Contents' not in response:
+                logger.warning(f"No chunk files found at {chunks_location}")
+                return chunks
+            
+            # Load each chunk file
+            for obj in response['Contents']:
+                key = obj['Key']
+                
+                # Skip non-JSON files
+                if not key.endswith('.json'):
+                    continue
+                
+                # Skip if not a chunk file (should contain doc_id and 'chunk')
+                if doc_id not in key or 'chunk' not in key:
+                    continue
+                
+                try:
+                    # Load chunk data
+                    chunk_response = self.s3_client.get_object(Bucket=bucket, Key=key)
+                    chunk_data = json.loads(chunk_response['Body'].read().decode('utf-8'))
+                    chunks.append(chunk_data)
+                    
+                except Exception as e:
+                    logger.warning(f"Failed to load chunk file {key}: {e}")
+                    continue
+            
+            logger.info(f"Successfully loaded {len(chunks)} chunk files")
+            return chunks
+            
+        except Exception as e:
+            logger.error(f"Error loading chunks from S3: {e}")
+            return []
+    
+    def store_chunk_mapping_s3(self, doc_id: str, chunk_mapping_info: Dict) -> str:
+        """
+        Store chunk mapping metadata in S3 for nlp-worker to use.
+        
+        Args:
+            doc_id: Document identifier
+            chunk_mapping_info: Chunk offset mapping information
+            
+        Returns:
+            S3 URI of stored mapping file
+        """
+        try:
+            # Store in comprehend input bucket for organization
+            mapping_key = f"comprehend-input/{doc_id}/chunk_mapping.json"
+            
+            self.s3_client.put_object(
+                Bucket=self.comprehend_output_bucket,
+                Key=mapping_key,
+                Body=json.dumps(chunk_mapping_info, indent=2).encode('utf-8'),
+                ContentType='application/json'
+            )
+            
+            mapping_s3_uri = f"s3://{self.comprehend_output_bucket}/{mapping_key}"
+            logger.info(f"Stored chunk mapping at: {mapping_s3_uri}")
+            
+            return mapping_s3_uri
+            
+        except Exception as e:
+            logger.error(f"Error storing chunk mapping to S3: {e}")
+            raise
         """Load full text from S3 location"""
         try:
             # Parse S3 location
@@ -357,14 +531,14 @@ class NLPInitiator:
         estimated_cost = (character_count / 100.0) * cost_per_100_chars
         return round(estimated_cost, 4)
     
-    def start_comprehend_jobs(self, doc_id: str, text: str) -> Dict[str, str]:
-        """Start async Comprehend entity and key phrase detection jobs"""
+    def start_comprehend_jobs(self, doc_id: str, text: str, chunk_mapping_info: Dict = None) -> Dict[str, str]:
+        """Start async Comprehend entity and key phrase detection jobs with reconstructed text"""
         try:
             # Prepare S3 input location for Comprehend
-            input_key = f"comprehend-input/{doc_id}/input.txt"
+            input_key = f"comprehend-input/{doc_id}/reconstructed_text.txt"
             input_bucket = self.comprehend_output_bucket  # Use same bucket for input/output
             
-            # Upload text to S3 for Comprehend processing
+            # Upload reconstructed text to S3 for Comprehend processing
             self.s3_client.put_object(
                 Bucket=input_bucket,
                 Key=input_key,
@@ -372,12 +546,19 @@ class NLPInitiator:
                 ContentType='text/plain'
             )
             
+            # Store chunk mapping metadata if available
+            mapping_s3_uri = None
+            if chunk_mapping_info:
+                mapping_s3_uri = self.store_chunk_mapping_s3(doc_id, chunk_mapping_info)
+            
             input_s3_uri = f"s3://{input_bucket}/{input_key}"
             output_s3_uri = f"s3://{self.comprehend_output_bucket}/comprehend-output/{doc_id}/"
             
             logger.info(f"Starting Comprehend jobs for {doc_id}")
             logger.info(f"Input: {input_s3_uri}")
             logger.info(f"Output: {output_s3_uri}")
+            if mapping_s3_uri:
+                logger.info(f"Chunk mapping: {mapping_s3_uri}")
             
             jobs = {}
             
@@ -412,6 +593,13 @@ class NLPInitiator:
             )
             
             jobs['key_phrases_job_id'] = phrases_response['JobId']
+            
+            # Add mapping information to job metadata
+            if mapping_s3_uri:
+                jobs['chunk_mapping_s3_uri'] = mapping_s3_uri
+                jobs['reconstruction_method'] = 'chunk_based'
+            else:
+                jobs['reconstruction_method'] = 'original_text'
             
             logger.info(f"Started Comprehend jobs: {jobs}")
             return jobs
