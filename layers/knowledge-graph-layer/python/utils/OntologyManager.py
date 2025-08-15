@@ -13,33 +13,68 @@ from datetime import datetime, timedelta
 # RDFLib imports for proper ontology handling
 import rdflib
 from rdflib import Graph, Namespace, URIRef, Literal
-from rdflib.namespace import RDF, RDFS, OWL, SKOS
+from rdflib.namespace import RDF, RDFS, OWL, SKOS, DCTERMS, FOAF, XSD
 
 from .kg_exceptions import KGQueryError, KGValidationError, KGDataFormatError
+
+# =============================================================================
+# GRAPH IRI CONSTANTS
+# =============================================================================
+
+# String constants for SPARQL queries and general use
+GEONAMES_ONTOLOGY_GRAPH_IRI = "http://www.geonames.org/ontology"
+GEONAMES_ONTOLOGY_DATA_GRAPH_IRI = "http://www.geonames.org/ontology/data"
+CLIMATE_RISK_ONTOLOGY_GRAPH_IRI = "http://solve.global/knowledge-commons/climate-risk-ontology"
+NEPTUNE_DEFAULT_GRAPH_IRI = "http://aws.amazon.com/neptune/vocab/v01/DefaultNamedGraph"
+
+# RDFLib URIRef constants for RDFLib operations
+GEONAMES_ONTOLOGY_GRAPH = URIRef(GEONAMES_ONTOLOGY_GRAPH_IRI)
+GEONAMES_ONTOLOGY_DATA_GRAPH = URIRef(GEONAMES_ONTOLOGY_DATA_GRAPH_IRI)
+CLIMATE_RISK_ONTOLOGY_GRAPH = URIRef(CLIMATE_RISK_ONTOLOGY_GRAPH_IRI)
+NEPTUNE_DEFAULT_GRAPH = URIRef(NEPTUNE_DEFAULT_GRAPH_IRI)
+
+# =============================================================================
+# NAMESPACE PREFIX CONSTANTS
+# =============================================================================
+
+# String constants for SPARQL PREFIX declarations
+GEONAMES_PREFIX_IRI = "http://www.geonames.org/ontology#"
+CLIMATE_RISK_PREFIX_IRI = "https://solve.global/kr/"
+SOLVE_GLOBAL_PREFIX_IRI = "https://solve.global/"
+
+# RDFLib Namespace objects for RDFLib operations
+GEONAMES_PREFIX = Namespace(GEONAMES_PREFIX_IRI)
+CLIMATE_RISK_PREFIX = Namespace(CLIMATE_RISK_PREFIX_IRI)
+SOLVE_GLOBAL_PREFIX = Namespace(SOLVE_GLOBAL_PREFIX_IRI)
+
+# Common aliases for convenience
+GN = GEONAMES_PREFIX
+KR = CLIMATE_RISK_PREFIX
+SG = SOLVE_GLOBAL_PREFIX
 
 class OntologyManager:
     """Manages ontology concepts and relationships using RDFLib for proper RDF handling"""
     
-    def __init__(self, kr_ns, dcterms_ns, foaf_ns, skos_ns):
+    # Standard RDF namespace constants
+    KR_NS = Namespace("https://solve.global/kr/")
+    
+    def __init__(self, kg_manager=None):
         """
-        Initialize ontology manager with dependency injection
+        Initialize ontology manager with standard RDF namespaces
         
         Args:
-            kr_ns: Knowledge representation namespace
-            dcterms_ns: Dublin Core terms namespace
-            foaf_ns: Friend of a Friend namespace
-            skos_ns: Simple Knowledge Organization System namespace
+            kg_manager: KnowledgeGraphManager instance for Neptune operations (optional for backward compatibility)
         """
         self.logger = logging.getLogger(self.__class__.__name__)
+        
+        # KnowledgeGraphManager for Neptune operations
+        self.kg_manager = kg_manager
         
         # S3 client for ontology data loading
         self.s3_client = boto3.client('s3')
         
-        # Set up namespaces using RDFLib (injected dependencies)
-        self.kr_ns = kr_ns
-        self.dcterms_ns = dcterms_ns
-        self.foaf_ns = foaf_ns
-        self.skos_ns = skos_ns
+        # Set up namespaces using standard constants
+        self.kr_ns = self.KR_NS
         
         # Configuration
         self.ontology_bucket = self._get_env_var('ONTOLOGY_BUCKET', 'solve-global-kr-dl-ontology-861276078413-us-east-1')
@@ -62,9 +97,9 @@ class OntologyManager:
     def _setup_ontology_namespaces(self):
         """Setup standard ontology namespaces in the ontology graph"""
         self.ontology_graph.bind("kr", self.kr_ns)
-        self.ontology_graph.bind("dcterms", self.dcterms_ns)
-        self.ontology_graph.bind("foaf", self.foaf_ns)
-        self.ontology_graph.bind("skos", self.skos_ns)
+        self.ontology_graph.bind("dcterms", DCTERMS)
+        self.ontology_graph.bind("foaf", FOAF)
+        self.ontology_graph.bind("skos", SKOS)
         self.ontology_graph.bind("rdf", RDF)
         self.ontology_graph.bind("rdfs", RDFS)
         self.ontology_graph.bind("owl", OWL)
@@ -94,6 +129,8 @@ class OntologyManager:
                 self.logger.debug("Ontology already loaded, skipping")
                 return True
             
+            # FIXME need to fix the caller, but also need to put the ontology into the bucket.  Need to consider whether we should really be retrieving it from Neptune via SPARQL query 
+            # FIXME or if this is even needed anymore - we should be just doing alignment queries via SPARQL FTS queries. 
             self.logger.info(f"Loading ontology from S3: s3://{self.ontology_bucket}/{s3_key}")
             
             # Download ontology file from S3
@@ -695,6 +732,251 @@ class OntologyManager:
             'cache_ttl_seconds': self._cache_ttl
         }
     
+    def list_ontologies(self) -> List[Dict[str, Any]]:
+        """
+        List available ontologies with metadata and priority ordering.
+        
+        Returns:
+            List of ontology metadata with search configuration:
+            [
+                {
+                    'id': 'climate-risk',
+                    'domain': 'climate', 
+                    'priority': 1,
+                    'version': 'v3',
+                    'search_fields': ['rdfs:label', 'skos:prefLabel', 'skos:altLabel', 'cro:description'],
+                    'entity_types': ['ORGANIZATION', 'EVENT', 'OTHER'],
+                    'graph_context': '<http://climate-risk-ontology>',
+                    'fts_enabled': True
+                },
+                {
+                    'id': 'geonames',
+                    'domain': 'geography',
+                    'priority': 2, 
+                    'version': 'latest',
+                    'search_fields': ['gn:name', 'gn:alternateName', 'gn:asciiname'],
+                    'entity_types': ['LOCATION'],
+                    'graph_context': f'<{GEONAMES_ONTOLOGY_DATA_GRAPH_IRI}>',
+                    'fts_enabled': True
+                }
+            ]
+        """
+        try:
+            ontology_configs = {
+                'climate-risk': {
+                    'id': 'climate-risk',
+                    'domain': 'climate',
+                    'priority': 1,
+                    'version': 'v3',
+                    'search_fields': ['rdfs:label', 'skos:prefLabel', 'skos:altLabel', 'cro:description'],
+                    'entity_types': ['ORGANIZATION', 'EVENT', 'OTHER'],
+                    'graph_context': '<http://climate-risk-ontology>',
+                    'fts_enabled': True,
+                    'neptune_endpoint': self._get_env_var('NEPTUNE_ENDPOINT', ''),
+                    'multilanguage_enabled': False
+                },
+                'geonames': {
+                    'id': 'geonames',
+                    'domain': 'geography', 
+                    'priority': 2,
+                    'version': 'latest',
+                    'search_fields': ['gn:name', 'gn:alternateName', 'gn:asciiname'],
+                    'entity_types': ['LOCATION'],
+                    'graph_context': f'<{GEONAMES_ONTOLOGY_DATA_GRAPH_IRI}>',
+                    'fts_enabled': True,
+                    'neptune_endpoint': self._get_env_var('NEPTUNE_ENDPOINT', ''),
+                    'multilanguage_enabled': True
+                }
+            }
+            
+            # Return as sorted list by priority
+            ontology_list = list(ontology_configs.values())
+            ontology_list.sort(key=lambda x: x['priority'])
+            
+            self.logger.debug(f"Listed {len(ontology_list)} available ontologies")
+            return ontology_list
+            
+        except Exception as e:
+            self.logger.error(f"Failed to list ontologies: {str(e)}")
+            raise KGQueryError(f"Ontology listing failed: {str(e)}")
+    
+    def load_ontology(self, ontology_id: str) -> Dict[str, Any]:
+        """
+        Load specific ontology by ID using Neptune-FTS integration.
+        
+        Args:
+            ontology_id: Ontology identifier ('climate-risk', 'geonames', etc.)
+            
+        Returns:
+            Loaded ontology metadata and status
+        """
+        try:
+            # Get ontology configuration
+            available_ontologies = self.list_ontologies()
+            ontology_config = None
+            
+            for config in available_ontologies:
+                if config['id'] == ontology_id:
+                    ontology_config = config
+                    break
+            
+            if not ontology_config:
+                raise KGValidationError(f"Unknown ontology ID: {ontology_id}")
+            
+            # For now, return the configuration as "loaded"
+            # In a full implementation, this would load the ontology data into Neptune
+            # if not already present, but since we're using existing Neptune data,
+            # we assume ontologies are already loaded
+            
+            self.logger.info(f"Loaded ontology: {ontology_id}")
+            
+            return {
+                'ontology_id': ontology_id,
+                'status': 'loaded',
+                'config': ontology_config,
+                'fts_ready': ontology_config.get('fts_enabled', False),
+                'load_timestamp': datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Failed to load ontology {ontology_id}: {str(e)}")
+            raise KGQueryError(f"Ontology loading failed: {str(e)}")
+    
+    def search_ontology_specific(self, ontology_id: str, search_term: str, limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        Search within specific ontology using Neptune FTS.
+        
+        Args:
+            ontology_id: Target ontology ID ('climate-risk', 'geonames')
+            search_term: Search query text
+            limit: Maximum results to return
+            
+        Returns:
+            List of matching concepts with relevance scores
+        """
+        try:
+            # Get ontology configuration
+            available_ontologies = self.list_ontologies()
+            ontology_config = None
+            
+            for config in available_ontologies:
+                if config['id'] == ontology_id:
+                    ontology_config = config
+                    break
+            
+            if not ontology_config:
+                raise KGValidationError(f"Unknown ontology ID: {ontology_id}")
+            
+            if not ontology_config.get('fts_enabled', False):
+                raise KGValidationError(f"FTS not enabled for ontology: {ontology_id}")
+            
+            # Build search fields string
+            search_fields = ' '.join(ontology_config['search_fields'])
+            
+            # Escape special characters in search term
+            escaped_term = self._escape_fts_query(search_term)
+            
+            # Build Neptune FTS SPARQL query
+            query = f"""
+            PREFIX neptune-fts: <http://aws.amazon.com/neptune/vocab/v01/services/fts#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            PREFIX cro: <http://climate-risk-ontology#>
+            PREFIX gn: <http://www.geonames.org/ontology#>
+            
+            SELECT ?concept ?label ?type ?description ?score
+            FROM {ontology_config['graph_context']}
+            WHERE {{
+                ?concept ?labelProp ?label .
+                OPTIONAL {{ ?concept rdf:type ?type }}
+                OPTIONAL {{ ?concept rdfs:comment|cro:description|gn:featureClass ?description }}
+                FILTER(neptune-fts:query(
+                    neptune-fts:field('{search_fields}'), 
+                    '{escaped_term}'
+                ))
+                BIND(neptune-fts:score() AS ?score)
+            }}
+            ORDER BY DESC(?score)
+            LIMIT {limit}
+            """
+            
+            # Execute SPARQL query (this would use existing Neptune connection)
+            results = self._execute_sparql_query(query)
+            
+            # Convert to standardized format
+            standardized_results = []
+            for result in results:
+                standardized_results.append({
+                    'concept': result.get('concept', {}).get('value', ''),
+                    'label': result.get('label', {}).get('value', ''),
+                    'type': result.get('type', {}).get('value', ''),
+                    'description': result.get('description', {}).get('value', ''),
+                    'score': float(result.get('score', {}).get('value', 0.0)),
+                    'ontology_id': ontology_id,
+                    'search_term': search_term,
+                    'matching_method': 'neptune-fts'
+                })
+            
+            self.logger.info(f"Found {len(standardized_results)} results for '{search_term}' in {ontology_id}")
+            return standardized_results
+            
+        except Exception as e:
+            self.logger.error(f"FTS search failed for {ontology_id} with term '{search_term}': {str(e)}")
+            raise KGQueryError(f"Ontology search failed: {str(e)}")
+    
+    def _escape_fts_query(self, query_text: str) -> str:
+        """
+        Escape special characters for Neptune FTS queries.
+        
+        Args:
+            query_text: Raw search text
+            
+        Returns:
+            Escaped query text safe for FTS
+        """
+        # Characters that need escaping in FTS queries
+        # Note: backslash must be escaped first to avoid double-escaping
+        special_chars = ['\\', ':', '(', ')', '[', ']', '{', '}', '~', '^', '"', '+', '-', '!']
+        
+        escaped = query_text
+        for char in special_chars:
+            escaped = escaped.replace(char, f'\\{char}')
+        
+        return escaped
+    
+    def _execute_sparql_query(self, query: str) -> List[Dict[str, Any]]:
+        """
+        Execute SPARQL query against Neptune endpoint using KnowledgeGraphManager.
+        
+        Args:
+            query: SPARQL query string
+            
+        Returns:
+            Query results in standard format
+        """
+        try:
+            if not self.kg_manager:
+                self.logger.warning("No KnowledgeGraphManager available - returning empty results")
+                return []
+            
+            self.logger.debug(f"Executing SPARQL query via KnowledgeGraphManager: {query[:100]}...")
+            
+            # Use KnowledgeGraphManager to execute the query
+            results = self.kg_manager.execute_sparql_query(query)
+            
+            # KnowledgeGraphManager returns results in the format we expect
+            if isinstance(results, dict) and 'results' in results and 'bindings' in results['results']:
+                return results['results']['bindings']
+            elif isinstance(results, list):
+                return results
+            else:
+                self.logger.warning(f"Unexpected query result format: {type(results)}")
+                return []
+                
+        except Exception as e:
+            self.logger.error(f"SPARQL query execution failed: {str(e)}")
+            raise KGQueryError(f"SPARQL query failed: {str(e)}")
+
     def get_stats(self) -> Dict[str, Any]:
         """Get ontology manager statistics"""
         return {
