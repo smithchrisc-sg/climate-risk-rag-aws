@@ -34,23 +34,23 @@ CLIMATE_RISK_ONTOLOGY_GRAPH = URIRef(CLIMATE_RISK_ONTOLOGY_GRAPH_IRI)
 NEPTUNE_DEFAULT_GRAPH = URIRef(NEPTUNE_DEFAULT_GRAPH_IRI)
 
 # =============================================================================
-# NAMESPACE PREFIX CONSTANTS
+# NAMESPACE CONSTANTS
 # =============================================================================
 
 # String constants for SPARQL PREFIX declarations
-GEONAMES_PREFIX_IRI = "http://www.geonames.org/ontology#"
-CLIMATE_RISK_PREFIX_IRI = "https://solve.global/kr/"
-SOLVE_GLOBAL_PREFIX_IRI = "https://solve.global/"
+GEONAMES_NAMESPACE_IRI = "http://www.geonames.org/ontology#"
+CLIMATE_RISK_NAMESPACE_IRI = "https://solve.global/kr/"
+SOLVE_GLOBAL_NAMESPACE_IRI = "https://solve.global/"
 
 # RDFLib Namespace objects for RDFLib operations
-GEONAMES_PREFIX = Namespace(GEONAMES_PREFIX_IRI)
-CLIMATE_RISK_PREFIX = Namespace(CLIMATE_RISK_PREFIX_IRI)
-SOLVE_GLOBAL_PREFIX = Namespace(SOLVE_GLOBAL_PREFIX_IRI)
+GEONAMES_NAMESPACE = Namespace(GEONAMES_NAMESPACE_IRI)
+CLIMATE_RISK_NAMESPACE = Namespace(CLIMATE_RISK_NAMESPACE_IRI)
+SOLVE_GLOBAL_NAMESPACE = Namespace(SOLVE_GLOBAL_NAMESPACE_IRI)
 
 # Common aliases for convenience
-GN = GEONAMES_PREFIX
-KR = CLIMATE_RISK_PREFIX
-SG = SOLVE_GLOBAL_PREFIX
+GN = GEONAMES_NAMESPACE
+KR = CLIMATE_RISK_NAMESPACE
+SG = SOLVE_GLOBAL_NAMESPACE
 
 class OntologyManager:
     """Manages ontology concepts and relationships using RDFLib for proper RDF handling"""
