@@ -8,7 +8,9 @@ import logging
 from typing import Dict, List, Any, Optional, Union
 import boto3
 import requests
-from requests_aws4auth import AWS4Auth
+from botocore.session import Session
+from botocore.awsrequest import AWSRequest
+from botocore.auth import SigV4Auth
 import json
 import time
 
@@ -56,34 +58,23 @@ class KnowledgeGraphManager:
         self.graph = Graph()
         self._setup_namespaces()
         
-        # AWS authentication
-        self.session = boto3.Session()
-        self.credentials = self.session.get_credentials()
+        # AWS authentication using botocore (same as working Jupyter approach)
+        self.session = Session()
+        self.credentials = self.session.get_credentials().get_frozen_credentials()
         
         # Get AWS account ID
         try:
-            sts_client = self.session.client('sts')
+            sts_client = boto3.client('sts')
             self.account_id = sts_client.get_caller_identity()['Account']
         except Exception as e:
-            logger.warning(f"Could not determine AWS account ID: {e}")
+            self.logger.warning(f"Could not determine AWS account ID: {e}")
             self.account_id = "861276078413"  # Fallback to known account ID
-        
-        self.auth = AWS4Auth(
-            self.credentials.access_key,
-            self.credentials.secret_key,
-            self.aws_region,
-            'neptune-db',
-            session_token=self.credentials.token
-        )
         
         # Initialize utility managers with dependency injection
         self.query_builder = SPARQLQueryBuilder()
         self.uri_manager = URIManager()
         self.ontology_manager = OntologyManager(
-            self.kr_ns, 
-            self.dcterms_ns, 
-            self.foaf_ns, 
-            self.skos_ns
+            self  # Pass self as kg_manager for Neptune operations
         )
         self.triple_manager = TripleManager(self)
         self.bulk_load_manager = BulkLoadManager(self)
@@ -119,20 +110,11 @@ class KnowledgeGraphManager:
     def _validate_connection(self):
         """Validate Neptune connection"""
         try:
-            # Simple SPARQL query to test connection
-            test_query = "SELECT (COUNT(*) as ?count) WHERE { ?s ?p ?o } LIMIT 1"
-            response = requests.get(
-                self.sparql_endpoint,
-                params={'query': test_query},
-                headers={'Accept': 'application/sparql-results+json'},
-                auth=self.auth,
-                timeout=self.timeout
-            )
-            response.raise_for_status()
+            test_query = "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 1"
+            self.execute_sparql_query(test_query)
             self.logger.info("Neptune connection validated successfully")
         except Exception as e:
-            self.logger.error(f"Neptune connection validation failed: {e}")
-            raise KGConnectionError(f"Cannot connect to Neptune: {e}")
+            raise KGConnectionError(f"Neptune connection validation failed: {e}")
     
     # === RDFLib GRAPH OPERATIONS ===
     
@@ -547,18 +529,26 @@ class KnowledgeGraphManager:
             try:
                 self.logger.debug(f"Executing SPARQL query (attempt {attempt + 1})")
                 
+                # Always log the query for debugging
+                self.logger.info(f"KnowledgeGraphManager: Executing SPARQL query:\n{query}")
+                
                 # Validate query for basic safety
                 if not self.query_builder.validate_sparql_injection(query):
                     raise KGQueryError("Query failed SPARQL injection validation")
                 
+                # Use botocore signing approach (same as working Jupyter code)
+                request_data = {'query': query}
+                aws_request = AWSRequest(
+                    method="POST", 
+                    url=self.sparql_endpoint, 
+                    data=request_data
+                )
+                SigV4Auth(self.credentials, "neptune-db", self.aws_region).add_auth(aws_request)
+                
                 response = requests.post(
                     self.sparql_endpoint,
-                    data={'query': query},
-                    headers={
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Accept': 'application/sparql-results+json'
-                    },
-                    auth=self.auth,
+                    headers=dict(aws_request.headers.items()),
+                    data=request_data,
                     timeout=self.timeout
                 )
                 
@@ -577,13 +567,19 @@ class KnowledgeGraphManager:
                 time.sleep(2 ** attempt)  # Exponential backoff
                 
             except requests.exceptions.RequestException as e:
+                # Log the exact query that caused the error
                 self.logger.error(f"SPARQL query request failed (attempt {attempt + 1}): {e}")
+                self.logger.error(f"Failed query was:\n{query}")
+                if hasattr(e, 'response') and e.response is not None:
+                    self.logger.error(f"Response status: {e.response.status_code}")
+                    self.logger.error(f"Response text: {e.response.text}")
                 if attempt == self.max_retries - 1:
                     raise KGQueryError(f"SPARQL query failed: {e}")
                 time.sleep(2 ** attempt)  # Exponential backoff
                 
             except Exception as e:
                 self.logger.error(f"Error processing SPARQL results: {e}")
+                self.logger.error(f"Query that caused error:\n{query}")
                 raise KGQueryError(f"Error processing SPARQL results: {e}")
     
     def execute_sparql_update(self, update_query: str) -> bool:
@@ -604,13 +600,19 @@ class KnowledgeGraphManager:
                 if not self.query_builder.validate_sparql_injection(update_query):
                     raise KGInsertError("Update query failed SPARQL injection validation")
                 
+                # Use botocore signing approach (same as working Jupyter code)
+                request_data = {'update': update_query}
+                aws_request = AWSRequest(
+                    method="POST", 
+                    url=self.sparql_endpoint, 
+                    data=request_data
+                )
+                SigV4Auth(self.credentials, "neptune-db", self.aws_region).add_auth(aws_request)
+                
                 response = requests.post(
                     self.sparql_endpoint,
-                    data={'update': update_query},
-                    headers={
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    auth=self.auth,
+                    headers=dict(aws_request.headers.items()),
+                    data=request_data,
                     timeout=self.timeout * 2  # Updates may take longer
                 )
                 

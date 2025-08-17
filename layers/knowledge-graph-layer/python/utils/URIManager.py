@@ -180,3 +180,140 @@ class URIManager:
             return '/'.join(parts[:-1]) + '/'
         else:
             return ""
+    
+    def generate_uris_for_entities(self, 
+                                  aligned_entities: List[Dict[str, Any]], 
+                                  document_id: str) -> List[Dict[str, Any]]:
+        """
+        Generate URIs for aligned entities using existing URI patterns.
+        
+        This method creates consistent URIs for entities that have been aligned
+        to ontology concepts, following the established URI minting patterns.
+        
+        Args:
+            aligned_entities: Entities with ontology alignments
+                Format: [
+                    {
+                        'entity': {...},
+                        'chunk_id': 'chunk_001',
+                        'ontology_alignment': {
+                            'concept': 'http://climate-risk-ontology#SeaLevelRise',
+                            'label': 'Sea Level Rise',
+                            'ontology_id': 'climate-risk',
+                            'confidence_score': 0.89
+                        }
+                    }
+                ]
+            document_id: Document identifier for URI context
+            
+        Returns:
+            Entities with generated URIs added:
+            [
+                {
+                    'entity': {...},
+                    'chunk_id': 'chunk_001', 
+                    'ontology_alignment': {...},
+                    'generated_uri': 'https://solve.global/kr/entity/doc123_jakarta_location_001',
+                    'uri_type': 'entity_instance',
+                    'uri_namespace': 'kr'
+                }
+            ]
+        """
+        try:
+            self.logger.info(f"Generating URIs for {len(aligned_entities)} aligned entities")
+            
+            entities_with_uris = []
+            uri_counter = {}  # Track URI uniqueness per entity type
+            
+            for entity_data in aligned_entities:
+                try:
+                    entity = entity_data.get('entity', {})
+                    ontology_alignment = entity_data.get('ontology_alignment', {})
+                    
+                    if not ontology_alignment:
+                        self.logger.warning(f"Skipping entity without ontology alignment: {entity.get('text', 'unknown')}")
+                        continue
+                    
+                    # Extract entity information
+                    entity_text = entity.get('text', '').lower()
+                    entity_type = entity.get('type', 'OTHER').lower()
+                    ontology_id = ontology_alignment.get('ontology_id', 'unknown')
+                    
+                    # Create unique identifier for URI
+                    # Format: {document_id}_{normalized_text}_{type}_{counter}
+                    normalized_text = self._normalize_text_for_uri(entity_text)
+                    
+                    # Ensure uniqueness
+                    uri_key = f"{document_id}_{normalized_text}_{entity_type}"
+                    if uri_key not in uri_counter:
+                        uri_counter[uri_key] = 0
+                    uri_counter[uri_key] += 1
+                    
+                    unique_identifier = f"{uri_key}_{uri_counter[uri_key]:03d}"
+                    
+                    # Generate URI using existing minting pattern
+                    entity_uri = self.mint_uri(
+                        identifier=unique_identifier,
+                        namespace=self.kr_ns,
+                        concept_type="EntityInstance",
+                        base_namespace=self.kr_ns
+                    )
+                    
+                    # Add URI information to entity data
+                    entity_with_uri = entity_data.copy()
+                    entity_with_uri.update({
+                        'generated_uri': str(entity_uri),
+                        'uri_type': 'entity_instance',
+                        'uri_namespace': 'kr',
+                        'uri_generation_method': 'standard_minting',
+                        'uri_uniqueness_key': unique_identifier,
+                        'ontology_concept_uri': ontology_alignment.get('concept', ''),
+                        'document_context_uri': self.mint_document_uri(document_id)
+                    })
+                    
+                    entities_with_uris.append(entity_with_uri)
+                    
+                    self.logger.debug(f"Generated URI for '{entity_text}': {str(entity_uri)}")
+                    
+                except Exception as e:
+                    self.logger.error(f"Failed to generate URI for entity {entity.get('text', 'unknown')}: {str(e)}")
+                    # Continue processing other entities
+                    continue
+            
+            self.logger.info(f"Successfully generated URIs for {len(entities_with_uris)} entities")
+            return entities_with_uris
+            
+        except Exception as e:
+            self.logger.error(f"URI generation failed: {str(e)}")
+            raise Exception(f"URI generation failed: {str(e)}")
+    
+    def _normalize_text_for_uri(self, text: str) -> str:
+        """
+        Normalize text for use in URI identifiers.
+        
+        Args:
+            text: Raw text to normalize
+            
+        Returns:
+            Normalized text suitable for URI identifiers
+        """
+        import re
+        
+        # Convert to lowercase
+        normalized = text.lower()
+        
+        # Replace spaces and special characters with underscores
+        normalized = re.sub(r'[^\w\s-]', '', normalized)  # Remove special chars except word chars, spaces, hyphens
+        normalized = re.sub(r'[\s-]+', '_', normalized)   # Replace spaces and hyphens with underscores
+        normalized = re.sub(r'_+', '_', normalized)       # Collapse multiple underscores
+        normalized = normalized.strip('_')                # Remove leading/trailing underscores
+        
+        # Limit length to prevent overly long URIs
+        if len(normalized) > 50:
+            normalized = normalized[:50].rstrip('_')
+        
+        # Ensure it's not empty
+        if not normalized:
+            normalized = 'entity'
+        
+        return normalized

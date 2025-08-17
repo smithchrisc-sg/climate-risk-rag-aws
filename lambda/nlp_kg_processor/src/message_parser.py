@@ -20,14 +20,34 @@ class MessageParser:
         """
         Parse SNS message to extract processing requests.
         
-        Expected message format from nlp_processing Lambda:
+        Expected message format from nlp_processing Lambda (SNS wraps in Records array):
         {
-            "processing_requests": [
+            "Records": [
                 {
-                    "document_id": "doc123",
-                    "s3_bucket": "bucket-name",
-                    "nlp_results_key": "nlp-results/doc123/comprehend_results.json",
-                    "chunks_key": "chunks/doc123/chunks.json"
+                    "Sns": {
+                        "Message": "{
+                            \"version\": \"1.0\",
+                            \"timestamp\": \"2025-08-14T16:29:00.685614Z\",
+                            \"source\": \"climate-risk-rag-system\",
+                            \"stage\": \"nlp_processing_complete\",
+                            \"doc_id\": \"064762102bead7b04a39\",
+                            \"data_locations\": {
+                                \"entities_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities.json\",
+                                \"key_phrases_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases.json\",
+                                \"mapped_phrases_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases_by_chunk.json\",
+                                \"mapped_entities_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities_by_chunk.json\"
+                            },
+                            \"processing_metadata\": {
+                                \"entities_count\": 3345,
+                                \"key_phrases_count\": 8709,
+                                \"processing_completed\": \"2025-08-14T16:29:00.685614Z\"
+                            },
+                            \"integration_flags\": {
+                                \"database_tracking_enabled\": true,
+                                \"knowledge_graph_integration_enabled\": true
+                            }
+                        }"
+                    }
                 }
             ]
         }
@@ -36,29 +56,24 @@ class MessageParser:
             event: Lambda event containing SNS message
             
         Returns:
-            List of valid processing requests
+            List of valid processing requests (always single item from SNS)
         """
         try:
             # Handle SNS event structure
             if 'Records' in event:
-                # Standard SNS event
+                # Standard SNS event - unwrap the message
                 sns_message = json.loads(event['Records'][0]['Sns']['Message'])
             else:
                 # Direct invocation for testing
                 sns_message = event
             
-            processing_requests = sns_message.get('processing_requests', [])
-            
-            # Validate each request has required fields
-            valid_requests = []
-            for request in processing_requests:
-                if self._validate_request(request):
-                    valid_requests.append(request)
-                else:
-                    logger.warning(f"Invalid request missing required fields: {request}")
-            
-            logger.info(f"Parsed {len(valid_requests)} valid processing requests")
-            return valid_requests
+            # SNS sends single message, but we return as list for consistency
+            if self._validate_request(sns_message):
+                logger.info(f"Parsed valid processing request for doc_id: {sns_message.get('doc_id')}")
+                return [sns_message]
+            else:
+                logger.warning(f"Invalid request missing required fields: {sns_message}")
+                return []
             
         except Exception as e:
             logger.error(f"Failed to parse SNS message: {str(e)}")
@@ -74,5 +89,5 @@ class MessageParser:
         Returns:
             True if request is valid, False otherwise
         """
-        required_fields = ['document_id', 's3_bucket', 'nlp_results_key', 'chunks_key']
+        required_fields = ['doc_id', 'data_locations', 'processing_metadata', 'integration_flags']
         return all(key in request and request[key] for key in required_fields)

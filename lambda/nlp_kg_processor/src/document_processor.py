@@ -33,8 +33,32 @@ class DocumentProcessor:
             
         Returns:
             Processing result with status and output locations
+
+        Event json looks like this (SNS unwrapped):
+        {
+            "version": "1.0",
+            "timestamp": "2025-08-14T16:29:00.685614Z",
+            "source": "climate-risk-rag-system",
+            "stage": "nlp_processing_complete",
+            "doc_id": "064762102bead7b04a39",
+            "data_locations": {
+                "entities_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities.json",
+                "key_phrases_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases.json",
+                "mapped_phrases_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases_by_chunk.json",
+                "mapped_entities_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities_by_chunk.json"
+            },
+            "processing_metadata": {
+                "entities_count": 3345,
+                "key_phrases_count": 8709,
+                "processing_completed": "2025-08-14T16:29:00.685614Z"
+            },
+            "integration_flags": {
+                "database_tracking_enabled": true,
+                "knowledge_graph_integration_enabled": true
+            }
+        }
         """
-        document_id = request['document_id']
+        document_id = request['doc_id']
         logger.info(f"Processing document: {document_id}")
         
         try:
@@ -42,8 +66,8 @@ class DocumentProcessor:
             logger.info(f"Phase 3: Retrieving NLP results for {document_id}")
             nlp_results = self.data_retriever.retrieve_nlp_results(request)
             
-            # Phase 5: Ontology Alignment using EntityAlignmentManager (handles TYPE/ontology mapping via env vars)
-            logger.info(f"Phase 5: Aligning entities with ontologies for {document_id}")
+            # Phase 4: Ontology Alignment using EntityAlignmentManager (handles TYPE/ontology mapping via env vars)
+            logger.info(f"Phase 4: Aligning entities with ontologies for {document_id}")
             
             # Convert NLP results to format expected by EntityAlignmentManager
             entities_by_chunk = self._convert_nlp_results_to_entities(nlp_results, document_id)
@@ -75,30 +99,35 @@ class DocumentProcessor:
                     'triples_generated': 0
                 }
             
-            # Phase 7: Knowledge Graph Construction (Triple generation)
-            logger.info(f"Phase 7: Constructing knowledge graph for {len(successful_alignments)} aligned entities")
-            triples = components['triple_manager'].create_triples_from_entities(
+            # Phase 5: Knowledge Graph Construction (Triple generation)
+            logger.info(f"Phase 5: Constructing knowledge graph for {len(successful_alignments)} aligned entities")
+            ttl_content = components['triple_manager'].create_triples_from_entities(
                 successful_alignments, document_id
             )
             
-            # Phase 8: Serialize to TTL and save to Neptune TTL bucket
-            logger.info(f"Phase 8: Serializing {len(triples)} triples to TTL")
-            ttl_location = self._serialize_triples_to_ttl(
-                triples, document_id, request.get('s3_bucket', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
+            logger.info(f"Phase 5: Received TTL content type: {type(ttl_content)}")
+            logger.info(f"Phase 5: Received TTL content length: {len(ttl_content)}")
+            logger.info(f"Phase 5: TTL content preview (first 500 chars): {repr(ttl_content[:500])}")
+            
+            # Phase 6: Write TTL content to S3
+            logger.info(f"Phase 6: Writing {len(ttl_content)} characters of TTL content to S3")
+            logger.info(f"nlp-kg-processor: document_processor: TTL content: {ttl_content[:500]}")
+            ttl_location = self._write_ttl_to_s3(
+                ttl_content, document_id, request.get('s3_bucket', 'solve-global-kr-dl-neptune-ttl-861276078413-us-east-1')
             )
             
-            # Phase 9: Trigger kg-triple-loader
-            logger.info(f"Phase 9: Triggering kg-triple-loader for {document_id}")
+            # Phase 7: Trigger kg-triple-loader
+            logger.info(f"Phase 7: Triggering kg-triple-loader for {document_id}")
             self.pipeline_integrator.trigger_kg_triple_loader(document_id, ttl_location)
             
-            logger.info(f"Successfully processed {document_id}: {len(successful_alignments)} entities aligned, {len(triples)} triples generated")
+            logger.info(f"Successfully processed {document_id}: {len(successful_alignments)} entities aligned, TTL content generated ({len(ttl_content)} chars)")
             
             return {
                 'document_id': document_id,
                 'status': 'success',
                 'entities_processed': len(entities_by_chunk),
                 'entities_aligned': len(successful_alignments),
-                'triples_generated': len(triples),
+                'ttl_content_size': len(ttl_content),
                 'ttl_location': ttl_location
             }
             
@@ -122,13 +151,14 @@ class DocumentProcessor:
         
         for entity in entities:
             # Convert to format expected by EntityAlignmentManager
+            # Note: Using actual field names from Comprehend output (lowercase)
             entity_dict = {
-                'entity': entity.get('Text', ''),
-                'type': entity.get('Type', 'OTHER'),
-                'score': entity.get('Score', 0.0),
-                'chunk_id': entity.get('chunk_id', ''),  # Already mapped by nlp-worker
-                'begin_offset': entity.get('BeginOffset', 0),
-                'end_offset': entity.get('EndOffset', 0),
+                'entity': entity.get('text', ''),                    # Comprehend uses 'text' (lowercase)
+                'type': entity.get('type', 'OTHER'),                 # Comprehend uses 'type' (lowercase)
+                'score': entity.get('score', 0.0),                   # Comprehend uses 'score' (lowercase)
+                'chunk_id': entity.get('chunk_id', ''),              # Already mapped by nlp-worker
+                'begin_offset': entity.get('begin_offset', 0),       # Comprehend uses 'begin_offset' (lowercase)
+                'end_offset': entity.get('end_offset', 0),           # Comprehend uses 'end_offset' (lowercase)
                 'document_id': document_id
             }
             entities_by_chunk.append(entity_dict)
@@ -136,12 +166,12 @@ class DocumentProcessor:
         logger.info(f"Converted {len(entities_by_chunk)} entities from NLP results")
         return entities_by_chunk
     
-    def _serialize_triples_to_ttl(self, triples: List[str], document_id: str, ttl_bucket: str) -> str:
+    def _write_ttl_to_s3(self, ttl_content: str, document_id: str, ttl_bucket: str) -> str:
         """
-        Serialize triples to TTL format and save to S3 Neptune TTL bucket.
+        Write TTL content directly to S3 bucket for kg-triple-loader processing.
         
         Args:
-            triples: List of RDF triples
+            ttl_content: TTL serialized RDF triples
             document_id: Document identifier
             ttl_bucket: S3 bucket for TTL files (Neptune TTL bucket)
             
@@ -150,25 +180,30 @@ class DocumentProcessor:
         """
         import boto3
         
-        # Create TTL content with standard prefixes
-        ttl_content = """@prefix kr: <https://solve.global/kr/> .
-@prefix gn: <http://www.geonames.org/ontology#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-"""
-        
-        # Add triples
-        for triple in triples:
-            ttl_content += triple + "\n"
+        logger.info(f"_write_ttl_to_s3: Received TTL content type: {type(ttl_content)}")
+        logger.info(f"_write_ttl_to_s3: Received TTL content length: {len(ttl_content)}")
+        logger.info(f"_write_ttl_to_s3: TTL content preview (first 500 chars): {repr(ttl_content[:500])}")
         
         # Save to Neptune TTL bucket with standard path
         s3_key = f"data-lake/{document_id}/entity_triples.ttl"
         
         s3_client = boto3.client('s3')
+        
+        # Ensure ttl_content is a string and encode properly
+        if isinstance(ttl_content, bytes):
+            body_content = ttl_content
+            logger.info(f"_write_ttl_to_s3: Using bytes content directly")
+        else:
+            body_content = ttl_content.encode('utf-8')
+            logger.info(f"_write_ttl_to_s3: Encoded string to bytes, length: {len(body_content)}")
+        
+        logger.info(f"_write_ttl_to_s3: Body content type: {type(body_content)}")
+        logger.info(f"_write_ttl_to_s3: Body content length: {len(body_content)}")
+        
         s3_client.put_object(
             Bucket=ttl_bucket,
             Key=s3_key,
-            Body=ttl_content.encode('utf-8'),
+            Body=body_content,
             ContentType='text/turtle'
         )
         

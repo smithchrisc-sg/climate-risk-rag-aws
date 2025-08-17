@@ -34,6 +34,9 @@ class TripleManager:
         self.dcterms_ns = kg_manager.dcterms_ns
         self.foaf_ns = kg_manager.foaf_ns
         self.skos_ns = kg_manager.skos_ns
+
+        self.LOCATION_PREDICATE = URIRef("https://solve.global/kr/hasLocation")
+        self.CONCEPT_PREDICATE = URIRef("https://solve.global/kr/hasConcept")
         
         # Default graph URIs
         self.document_graph_uri = URIRef("https://solve.global/graphs/documents")
@@ -245,7 +248,7 @@ class TripleManager:
             
             # Generate chunk URI
             chunk_uri = self.kg_manager.mint_uri(
-                unique_id=f"{doc_id}_{chunk_id}",
+                unique_id=f"{chunk_id}",
                 namespace=self.kr_ns,
                 ontology_concept="DocumentChunk",
                 ontology_uri=self.kr_ns,
@@ -253,42 +256,20 @@ class TripleManager:
             )
             
             for mention in mentions:
-                concept_uri = mention.get('concept_uri')
-                text = mention.get('text', '')
-                start_pos = mention.get('start_position', 0)
-                end_pos = mention.get('end_position', 0)
-                confidence = mention.get('confidence', 1.0)
                 concept_type = mention.get('concept_type', '')
-                source = mention.get('source', 'unknown')
+
+                if concept_type == 'LOCATION':
+                    predicate = self.LOCATION_PREDICATE
+                else:
+                    predicate = self.CONCEPT_PREDICATE
+
+                concept_uri = mention.get('concept_uri')
                 
                 if not concept_uri:
                     self.logger.warning(f"Skipping mention without concept URI: {mention}")
                     continue
                 
-                # Generate mention URI
-                mention_uri = self.kg_manager.mint_uri(
-                    unique_id=f"{chunk_id}_{hash(concept_uri)}_{start_pos}",
-                    namespace=self.kr_ns,
-                    ontology_concept="ConceptMention",
-                    ontology_uri=self.kr_ns,
-                    named_graph=named_graph
-                )
-                
-                # Add mention triples
-                target_graph.add((chunk_uri, self.kr_ns.hasConceptMention, mention_uri))
-                target_graph.add((mention_uri, RDF.type, self.kr_ns.ConceptMention))
-                target_graph.add((mention_uri, self.kr_ns.hasConcept, URIRef(concept_uri)))
-                target_graph.add((mention_uri, self.kr_ns.hasText, Literal(text)))
-                target_graph.add((mention_uri, self.kr_ns.startPosition, Literal(start_pos, datatype=XSD.integer)))
-                target_graph.add((mention_uri, self.kr_ns.endPosition, Literal(end_pos, datatype=XSD.integer)))
-                target_graph.add((mention_uri, self.kr_ns.confidence, Literal(confidence, datatype=XSD.float)))
-                target_graph.add((mention_uri, self.kr_ns.source, Literal(source)))
-                
-                if concept_type:
-                    target_graph.add((mention_uri, self.kr_ns.conceptType, Literal(concept_type)))
-                
-                # Add timestamp
-                target_graph.add((mention_uri, DCTERMS.created, Literal(datetime.now().isoformat(), datatype=XSD.dateTime)))
+                target_graph.add((chunk_uri, predicate, URIRef(concept_uri)))
             
             # If no external graph provided, serialize and insert
             if graph is None:
@@ -399,6 +380,73 @@ class TripleManager:
         except Exception as e:
             self.logger.error(f"Error inserting co-occurrences for {chunk_id}: {e}")
             raise KGInsertError(f"Failed to insert co-occurrences: {e}")
+    
+    def create_triples_from_entities(self, entities: List[Dict[str, Any]], doc_id: str) -> str:
+        """
+        Create RDF triples from aligned entities and return as TTL string
+        
+        Args:
+            entities: List of aligned entity dictionaries
+            doc_id: Document identifier
+            
+        Returns:
+            str: TTL serialized RDF triples
+        """
+        try:
+            from rdflib import Graph
+            
+            # Create target graph for triple generation
+            target_graph = Graph()
+            
+            self.logger.info(f"TripleManager: Creating triples from {len(entities)} entities for document {doc_id}")
+            
+            # Group entities by chunk_id for processing
+            entities_by_chunk = {}
+            for entity in entities:
+                chunk_id = entity.get('chunk_id', 'unknown')
+                if chunk_id not in entities_by_chunk:
+                    entities_by_chunk[chunk_id] = []
+                entities_by_chunk[chunk_id].append(entity)
+            
+            # Process each chunk and add triples to target graph
+            for chunk_id, chunk_entities in entities_by_chunk.items():
+                mentions = []
+                for entity in chunk_entities:
+                    if entity.get('ontology_alignment'):
+                        alignment = entity['ontology_alignment']
+                        mention = {
+                            'concept_uri': alignment.get('aligned_uri', ''),
+                            'text': entity.get('entity', ''),
+                            'start_position': entity.get('start_pos', 0),
+                            'end_position': entity.get('end_pos', 0),
+                            'confidence': alignment.get('confidence_score', 0.0),
+                            'concept_type': entity.get('type', 'OTHER'),
+                            'source': alignment.get('ontology', 'contextual_alignment')
+                        }
+                        mentions.append(mention)
+                
+                if mentions:
+                    # Add triples to target graph using your simplified implementation
+                    self.insert_concept_mentions(chunk_id, mentions, doc_id, graph=target_graph)
+                    self.logger.info(f"TripleManager: Added {len(mentions)} mentions to graph for chunk {chunk_id}")
+            
+            # Serialize graph to TTL string
+            self.logger.info(f"TripleManager: Graph has {len(target_graph)} triples before serialization")
+            ttl_content = target_graph.serialize(format='turtle')
+            self.logger.info(f"TripleManager: Raw TTL content type: {type(ttl_content)}")
+            self.logger.info(f"TripleManager: Raw TTL content (first 500 chars): {repr(ttl_content[:500])}")
+            
+            if isinstance(ttl_content, bytes):
+                ttl_content = ttl_content.decode('utf-8')
+                self.logger.info(f"TripleManager: Decoded TTL content (first 500 chars): {repr(ttl_content[:500])}")
+            
+            self.logger.info(f"TripleManager: Final TTL content ({len(ttl_content)} characters)")
+            self.logger.info(f"TripleManager: Final TTL content type: {type(ttl_content)}")
+            return ttl_content
+            
+        except Exception as e:
+            self.logger.error(f"TripleManager: Failed to create triples from entities: {e}")
+            return ""  # Return empty string on error
     
     def bulk_insert_ttl(self, ttl_content: str, graph_uri: Optional[str] = None) -> bool:
         """

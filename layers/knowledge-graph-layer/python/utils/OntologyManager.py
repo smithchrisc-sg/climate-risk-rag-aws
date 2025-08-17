@@ -38,7 +38,7 @@ NEPTUNE_DEFAULT_GRAPH = URIRef(NEPTUNE_DEFAULT_GRAPH_IRI)
 # =============================================================================
 
 # String constants for SPARQL PREFIX declarations
-GEONAMES_NAMESPACE_IRI = "http://www.geonames.org/ontology#"
+GEONAMES_NAMESPACE_IRI = "https://sws.geonames.org/"
 CLIMATE_RISK_NAMESPACE_IRI = "https://solve.global/kr/"
 SOLVE_GLOBAL_NAMESPACE_IRI = "https://solve.global/"
 

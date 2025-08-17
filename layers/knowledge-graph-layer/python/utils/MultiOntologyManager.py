@@ -169,7 +169,7 @@ class MultiOntologyManager:
                 foaf_ns = Namespace("http://xmlns.com/foaf/0.1/")
                 skos_ns = Namespace("http://www.w3.org/2004/02/skos/core#")
                 
-                ontology_manager = OntologyManager(kr_ns, dcterms_ns, foaf_ns, skos_ns)
+                ontology_manager = OntologyManager()
                 
                 # Load based on source type
                 if config.source_type == 's3':

@@ -451,6 +451,177 @@ class NLPKGIntegrator:
         }
         
         return queries
+    
+    def map_entities_to_chunks(self, 
+                              nlp_results: Dict[str, Any], 
+                              chunks_data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Map NLP entities to their source document chunks.
+        
+        This method creates the entity-chunk mappings needed for the nlp-kg-processor
+        pipeline by matching entity positions with chunk boundaries.
+        
+        Args:
+            nlp_results: Comprehend NLP results with entities
+                Format: {
+                    'entities': [
+                        {
+                            'text': 'Jakarta',
+                            'type': 'LOCATION',
+                            'score': 0.95,
+                            'begin_offset': 45,
+                            'end_offset': 52
+                        }
+                    ]
+                }
+            chunks_data: Document chunks with position metadata
+                Format: [
+                    {
+                        'chunk_id': 'chunk_001',
+                        'text': 'Document text containing Jakarta...',
+                        'start_offset': 0,
+                        'end_offset': 100,
+                        'metadata': {...}
+                    }
+                ]
+                
+        Returns:
+            List of entity-chunk mappings:
+            [
+                {
+                    'entity': {
+                        'text': 'Jakarta',
+                        'type': 'LOCATION', 
+                        'score': 0.95,
+                        'begin_offset': 45,
+                        'end_offset': 52
+                    },
+                    'chunk_id': 'chunk_001',
+                    'chunk_text': 'Document text containing Jakarta...',
+                    'position_in_chunk': {
+                        'start': 45,
+                        'end': 52,
+                        'relative_start': 45,  # relative to chunk start
+                        'relative_end': 52
+                    },
+                    'mapping_confidence': 1.0
+                }
+            ]
+        """
+        try:
+            self.logger.info("Starting entity-to-chunk mapping")
+            
+            entities = nlp_results.get('entities', [])
+            if not entities:
+                self.logger.warning("No entities found in NLP results")
+                return []
+            
+            if not chunks_data:
+                self.logger.warning("No chunks data provided")
+                return []
+            
+            entity_chunk_mappings = []
+            
+            # Process each entity
+            for entity in entities:
+                try:
+                    entity_start = entity.get('begin_offset', 0)
+                    entity_end = entity.get('end_offset', 0)
+                    
+                    # Find the chunk that contains this entity
+                    containing_chunk = self._find_containing_chunk(
+                        entity_start, entity_end, chunks_data
+                    )
+                    
+                    if containing_chunk:
+                        # Calculate relative position within chunk
+                        chunk_start = containing_chunk.get('start_offset', 0)
+                        relative_start = entity_start - chunk_start
+                        relative_end = entity_end - chunk_start
+                        
+                        mapping = {
+                            'entity': {
+                                'text': entity.get('text', ''),
+                                'type': entity.get('type', 'OTHER'),
+                                'score': entity.get('score', 0.0),
+                                'begin_offset': entity_start,
+                                'end_offset': entity_end
+                            },
+                            'chunk_id': containing_chunk.get('chunk_id', ''),
+                            'chunk_text': containing_chunk.get('text', ''),
+                            'position_in_chunk': {
+                                'start': entity_start,
+                                'end': entity_end,
+                                'relative_start': relative_start,
+                                'relative_end': relative_end
+                            },
+                            'mapping_confidence': 1.0,  # High confidence for exact position matches
+                            'chunk_metadata': containing_chunk.get('metadata', {})
+                        }
+                        
+                        entity_chunk_mappings.append(mapping)
+                        
+                    else:
+                        self.logger.warning(
+                            f"No containing chunk found for entity '{entity.get('text', '')}' "
+                            f"at position {entity_start}-{entity_end}"
+                        )
+                        
+                except Exception as e:
+                    self.logger.error(f"Failed to map entity {entity.get('text', 'unknown')}: {str(e)}")
+                    continue
+            
+            self.logger.info(f"Mapped {len(entity_chunk_mappings)} entities to chunks")
+            
+            # Update statistics
+            self.stats['entity_chunk_mappings_created'] = len(entity_chunk_mappings)
+            self.stats['entities_without_chunks'] = len(entities) - len(entity_chunk_mappings)
+            
+            return entity_chunk_mappings
+            
+        except Exception as e:
+            self.logger.error(f"Entity-chunk mapping failed: {str(e)}")
+            raise KGQueryError(f"Entity-chunk mapping failed: {str(e)}")
+    
+    def _find_containing_chunk(self, entity_start: int, entity_end: int, 
+                              chunks_data: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+        """
+        Find the chunk that contains the given entity position.
+        
+        Args:
+            entity_start: Entity start offset in document
+            entity_end: Entity end offset in document
+            chunks_data: List of chunks with position information
+            
+        Returns:
+            Chunk dictionary if found, None otherwise
+        """
+        for chunk in chunks_data:
+            chunk_start = chunk.get('start_offset', 0)
+            chunk_end = chunk.get('end_offset', 0)
+            
+            # Check if entity is fully contained within chunk
+            if chunk_start <= entity_start and entity_end <= chunk_end:
+                return chunk
+        
+        # If no exact match, find chunk with maximum overlap
+        best_chunk = None
+        max_overlap = 0
+        
+        for chunk in chunks_data:
+            chunk_start = chunk.get('start_offset', 0)
+            chunk_end = chunk.get('end_offset', 0)
+            
+            # Calculate overlap
+            overlap_start = max(entity_start, chunk_start)
+            overlap_end = min(entity_end, chunk_end)
+            overlap = max(0, overlap_end - overlap_start)
+            
+            if overlap > max_overlap:
+                max_overlap = overlap
+                best_chunk = chunk
+        
+        return best_chunk if max_overlap > 0 else None
 
 # Example usage and testing
 if __name__ == "__main__":

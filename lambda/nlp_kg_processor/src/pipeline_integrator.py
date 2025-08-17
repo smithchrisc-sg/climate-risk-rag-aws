@@ -74,10 +74,17 @@ class PipelineIntegrator:
                 return
             
             message = {
-                'document_id': document_id,
-                'ttl_s3_key': ttl_s3_key,
-                'processing_stage': 'kg_loading'
+                'doc_id': document_id,
+                'processing_type': 'kg_triples_ready',
+                'data_locations': {
+                    'ttl_location': ttl_s3_key
+                },
+                'insertion_method': 'unknown',  # This will trigger legacy mode to download and load TTL
+                'records_processed': 0,  # We don't know the count yet
+                'source': 'nlp_kg_processor'
             }
+            
+            logger.info(f"Sending kg-triple-loader message: {json.dumps(message)}")
             
             self.sns_client.publish(
                 TopicArn=kg_loader_topic_arn,
