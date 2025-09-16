@@ -41,31 +41,6 @@ class FTSSparqlQueryBuilder:
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         """
     
-    def _should_skip_entity(self, entity_text: str) -> bool:
-        """Determine if entity should be skipped due to likely poor match quality"""
-        
-        # Skip entities with 2+ words (more aggressive filtering)
-        word_count = len(entity_text.split())
-        if word_count >= 2:
-            self.logger.info(f"FTSSparqlQueryBuilder: Skipping multi-word entity '{entity_text}' ({word_count} words)")
-            return True
-        
-        # Skip entities with problematic terms that cause timeouts
-        problematic_terms = {
-            'region', 'area', 'zone', 'district', 'territory', 
-            'sector', 'division', 'department', 'office', 'center',
-            'administration', 'administrative', 'municipality', 'province',
-            'asia', 'africa', 'europe', 'america'  # Geographic regions that are too broad
-        }
-        
-        entity_lower = entity_text.lower()
-        for term in problematic_terms:
-            if term in entity_lower:
-                self.logger.info(f"FTSSparqlQueryBuilder: Skipping entity '{entity_text}' containing problematic term '{term}'")
-                return True
-        
-        return False
-    
     def build_location_query(self, entity_text: str, document_metadata: Dict[str, Any], 
                            chunk_context: Dict[str, Any]) -> Optional[str]:
         """
@@ -82,9 +57,8 @@ class FTSSparqlQueryBuilder:
         
         self.logger.info(f"FTSSparqlQueryBuilder: Building location query for entity '{entity_text}'")
         
-        # Pre-filter problematic entities
-        if self._should_skip_entity(entity_text):
-            return None  # Signal to skip this entity
+        # Note: Multi-word entity filtering removed - Neptune data contains entities like "Kuala Lumpur"
+        # FTS queries work correctly with proper graph URI configuration
         
         self.logger.info(f"FTSSparqlQueryBuilder: OpenSearch endpoint: {self.opensearch_endpoint}")
         

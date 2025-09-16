@@ -77,7 +77,10 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         foaf_ns = Namespace("http://xmlns.com/foaf/0.1/")
         skos_ns = Namespace("http://www.w3.org/2004/02/skos/core#")
         
-        ontology_manager = OntologyManager(kr_ns, dcterms_ns, foaf_ns, skos_ns)
+        # Initialize KG manager for Neptune operations (needed for FTS queries)
+        kg_manager = KnowledgeGraphManager()
+        
+        ontology_manager = OntologyManager(kr_ns, dcterms_ns, foaf_ns, skos_ns, kg_manager)
         
         # Route to appropriate operation
         if operation == 'load_ontology_from_s3':
@@ -87,18 +90,15 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             result = handle_load_ontology_from_content(ontology_manager, parameters)
             
         elif operation == 'persist_ontology_to_neptune':
-            # Initialize KG manager for Neptune operations
-            kg_manager = KnowledgeGraphManager()
+            # Use existing KG manager from ontology_manager
             result = handle_persist_ontology_to_neptune(ontology_manager, kg_manager, parameters)
             
         elif operation == 'load_and_persist_ontology':
-            # Initialize KG manager for Neptune operations
-            kg_manager = KnowledgeGraphManager()
+            # Use existing KG manager from ontology_manager
             result = handle_load_and_persist_ontology(ontology_manager, kg_manager, parameters)
             
         elif operation == 'execute_sparql_query':
-            # Initialize KG manager for Neptune operations
-            kg_manager = KnowledgeGraphManager()
+            # Use existing KG manager from ontology_manager
             result = handle_execute_sparql_query(kg_manager, parameters)
             
         elif operation == 'get_concepts':
