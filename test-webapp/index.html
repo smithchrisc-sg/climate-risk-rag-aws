@@ -25,7 +25,7 @@
     
     <div class="form-group">
         <label>API Key (Bearer Token):</label>
-        <textarea id="apiKey" rows="3" placeholder="Paste your JWT token here">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyZXNlYXJjaGVyQHNvbHZlLmdsb2JhbCIsIm9yZyI6InNvbHZlLWdsb2JhbCIsInJvbGVzIjpbInNlYXJjaCJdLCJpYXQiOjE3NTgwNjQ1MzAsImV4cCI6MTc2MDY1NjUzMCwidHlwZSI6ImFwaV9rZXkifQ.BVtSC3sr4hOUOHj7Cj3olGEh784s9TDo9HoIiWVhf04</textarea>
+        <textarea id="apiKey" rows="3" placeholder="Paste your JWT token here"></textarea>
     </div>
     
     <div class="form-group">
@@ -130,11 +130,13 @@
                         <div class="result-item">
                             <h4>${result.title || 'Untitled'}</h4>
                             <p><strong>Score:</strong> ${result.score.toFixed(3)}</p>
-                            <p><strong>Type:</strong> ${result.document_type}</p>
-                            <p><strong>Categories:</strong> ${result.categories.join(', ')}</p>
-                            <p><strong>Regions:</strong> ${result.regions.join(', ')}</p>
-                            <p><strong>Summary:</strong> ${result.summary}</p>
-                            ${result.highlights.content ? `<p><strong>Highlights:</strong> ${result.highlights.content.join(' ... ')}</p>` : ''}
+                            ${result.document_type && result.document_type !== 'unknown' ? `<p><strong>Type:</strong> ${result.document_type}</p>` : ''}
+                            ${result.categories && result.categories.length > 0 ? `<p><strong>Categories:</strong> ${result.categories.join(', ')}</p>` : ''}
+                            ${result.regions && result.regions.length > 0 ? `<p><strong>Regions:</strong> ${result.regions.join(', ')}</p>` : ''}
+                            ${result.summary && result.summary.trim() ? `<p><strong>Summary:</strong> ${result.summary}</p>` : ''}
+                            ${result.content_highlights && result.content_highlights.length > 0 ? `<p><strong>Highlights:</strong> ${result.content_highlights.join(' ... ')}</p>` : ''}
+                            ${result.title_highlights && result.title_highlights.length > 0 ? `<p><strong>Title Highlights:</strong> ${result.title_highlights.join(' ... ')}</p>` : ''}
+                            ${result.source_url ? `<p><strong>Source:</strong> <a href="${result.source_url}" target="_blank" rel="noopener noreferrer">Open Document &#8599;</a></p>` : ''}
                             <p><strong>Search Types:</strong> ${result.metadata.search_types?.join(', ') || 'N/A'}</p>
                             <p><strong>Document ID:</strong> ${result.document_id}</p>
                         </div>

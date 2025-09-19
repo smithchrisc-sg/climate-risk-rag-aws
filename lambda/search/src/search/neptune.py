@@ -6,6 +6,8 @@ from typing import Dict, Any, List
 from botocore.session import Session
 from botocore.awsrequest import AWSRequest
 from botocore.auth import SigV4Auth
+import logging
+from models.search_models import SearchResult, SearchResponse, ResultType
 
 class NeptuneProcessor:
     """Handles Neptune graph operations via SPARQL over HTTPS"""
@@ -24,26 +26,45 @@ class NeptuneProcessor:
         
         self.timeout = 30
         self.max_retries = 3
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        self.logger.info("NeptuneProcessor initialized")
     
     async def graph_search(self, query: str, filters: Dict[str, Any], 
-                          parameters: Dict[str, Any]) -> List[Dict[str, Any]]:
+                          parameters: Dict[str, Any]) -> SearchResponse:
         """Execute graph-based search for concept expansion"""
+        
+        self.logger.info(f"Executing graph-based search for query: {query}")
         
         try:
             # Extract location entities from query
             locations = self._extract_locations(query)
+            self.logger.info(f"Extracted locations: {locations}")
             
             if not locations:
-                return []
+                self.logger.info("No location entities found in query")
+                sr = SearchResponse(
+                    search_type="graph",
+                    total_results=0,
+                    results=[],
+                    metadata={"message": "No location entities found in query"}
+                )
+                self.logger.info(f"Search response: {sr}")
+                return sr
             
             # Find documents related to these locations via graph
             related_documents = await self._find_location_documents(locations, filters)
-            
+            self.logger.info(f"Related documents: {related_documents}")
             return self._format_graph_results(related_documents, locations)
             
         except Exception as e:
-            print(f"Graph search error: {e}")
-            return []
+            self.logger.error(f"Graph search error: {e}")
+            return SearchResponse(
+                search_type="graph",
+                total_results=0,
+                results=[],
+                metadata={"error": str(e)}
+            )
     
     def _extract_locations(self, query: str) -> List[str]:
         """Extract location names from query text"""
@@ -82,9 +103,10 @@ class NeptuneProcessor:
         }}
         LIMIT 50
         """
-        
+        self.logger.info(f"Executing SPARQL query: {sparql_query}")
         try:
             results = self._execute_sparql_query(sparql_query)
+            self.logger.info(f"SPARQL query results: {results}")
             
             # Group by document
             document_scores = {}
@@ -92,33 +114,145 @@ class NeptuneProcessor:
                 doc_id = result.get('document', '')
                 confidence = float(result.get('confidence', 0.5))
                 
-                if doc_id:
-                    if doc_id in document_scores:
-                        document_scores[doc_id] = max(document_scores[doc_id], confidence)
-                    else:
-                        document_scores[doc_id] = confidence
+                if doc_id not in document_scores:
+                    document_scores[doc_id] = {
+                        'document_id': doc_id,
+                        'max_confidence': confidence,
+                        'total_confidence': confidence,
+                        'chunk_count': 1,
+                        'locations': [result.get('location', '')]
+                    }
+                else:
+                    document_scores[doc_id]['max_confidence'] = max(
+                        document_scores[doc_id]['max_confidence'], confidence
+                    )
+                    document_scores[doc_id]['total_confidence'] += confidence
+                    document_scores[doc_id]['chunk_count'] += 1
+                    if result.get('location') not in document_scores[doc_id]['locations']:
+                        document_scores[doc_id]['locations'].append(result.get('location', ''))
             
-            # Convert to result format
-            documents = []
-            for doc_id, score in document_scores.items():
-                documents.append({
-                    'document_id': doc_id,
-                    'score': score,
-                    'source': 'neptune_graph'
-                })
-            
-            return documents
+            self.logger.info(f"Document scores (as dict): {document_scores}")
+            self.logger.info(f"Document scores (as list): {list(document_scores.values())}")
+            return list(document_scores.values())
             
         except Exception as e:
-            print(f"SPARQL query error: {e}")
+            self.logger.error(f"SPARQL query error: {e}")
             return []
     
+    def _format_graph_results(self, documents: List[Dict[str, Any]], 
+                            locations: List[str]) -> SearchResponse:
+        """Format graph search results into SearchResponse"""
+        
+        results = []
+        for doc_data in documents:
+            # Calculate graph relevance score
+            # Use average confidence weighted by chunk count
+            avg_confidence = doc_data['total_confidence'] / doc_data['chunk_count']
+            chunk_bonus = min(doc_data['chunk_count'] * 0.1, 0.5)  # Bonus for multiple chunks
+            graph_score = avg_confidence + chunk_bonus
+            
+            result = SearchResult(
+                document_id=doc_data['document_id'],
+                title="",  # Will be enriched later from PostgreSQL
+                score=graph_score,
+                content="",  # Graph search doesn't provide content directly
+                content_highlights=[],
+                title_highlights=[],
+                source=ResultType.GRAPH,
+                search_type="graph",
+                metadata={
+                    'graph_confidence': avg_confidence,
+                    'chunk_count': doc_data['chunk_count'],
+                    'max_confidence': doc_data['max_confidence'],
+                    'matched_locations': doc_data['locations'],
+                    'query_locations': locations
+                }
+            )
+            results.append(result)
+        
+        # Sort by score
+        results.sort(key=lambda x: x.score, reverse=True)
+        self.logger.info(f"Formatted graph results: {results}")
+
+        sr = SearchResponse(
+            search_type="graph",
+            total_results=len(results),
+            results=results,
+            metadata={
+                'query_locations': locations,
+                'sparql_endpoint': self.sparql_endpoint,
+                'total_documents_found': len(documents)
+            }
+        )
+        self.logger.info(f"Search response: {sr}")
+        return sr
+    
+    def _execute_sparql_query(self, query: str) -> List[Dict[str, Any]]:
+        """Execute SPARQL query with AWS SigV4 authentication"""
+        
+        for attempt in range(self.max_retries):
+            try:
+                # Prepare request
+                headers = {
+                    'Content-Type': 'application/sparql-query',
+                    'Accept': 'application/sparql-results+json'
+                }
+                
+                # Create AWS request for signing
+                request = AWSRequest(
+                    method='POST',
+                    url=self.sparql_endpoint,
+                    data=query,
+                    headers=headers
+                )
+                
+                # Sign request
+                SigV4Auth(self.credentials, 'neptune-db', self.aws_region).add_auth(request)
+                
+                # Execute request
+                response = requests.post(
+                    self.sparql_endpoint,
+                    data=query,
+                    headers=dict(request.headers),
+                    timeout=self.timeout
+                )
+                
+                if response.status_code == 200:
+                    result_data = response.json()
+                    self.logger.info(f"SPARQL query results: {result_data}")
+                    return self._parse_sparql_results(result_data)
+                else:
+                    self.logger.warning(f"SPARQL query failed with status {response.status_code}: {response.text}")
+                    
+            except Exception as e:
+                self.logger.warning(f"SPARQL query attempt {attempt + 1} failed: {e}")
+                if attempt < self.max_retries - 1:
+                    time.sleep(2 ** attempt)  # Exponential backoff
+        
+        return []
+    
+    def _parse_sparql_results(self, result_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Parse SPARQL JSON results into list of dictionaries"""
+        
+        results = []
+        self.logger.info(f"Parsing SPARQL query results: {result_data}")
+        bindings = result_data.get('results', {}).get('bindings', [])
+        self.logger.info(f"Bindings: {bindings}")
+        
+        for binding in bindings:
+            result = {}
+            for var, value_data in binding.items():
+                result[var] = value_data.get('value', '')
+            results.append(result)
+        
+        return results
+
     def _execute_sparql_query(self, query: str) -> List[Dict[str, Any]]:
         """Execute SPARQL query using signed HTTPS requests"""
         
         for attempt in range(self.max_retries):
             try:
-                print(f"Executing Neptune SPARQL query (attempt {attempt + 1})")
+                self.logger.info(f"Executing Neptune SPARQL query (attempt {attempt + 1})")
                 
                 # Use botocore signing (same as KnowledgeGraphManager)
                 request_data = {'query': query}
@@ -142,13 +276,13 @@ class NeptuneProcessor:
                 return self._process_sparql_results(results)
                 
             except requests.exceptions.Timeout:
-                print(f"Neptune SPARQL timeout (attempt {attempt + 1})")
+                self.logger.error(f"Neptune SPARQL timeout (attempt {attempt + 1})")
                 if attempt == self.max_retries - 1:
                     raise Exception("Neptune SPARQL query timed out")
                 time.sleep(2 ** attempt)
                 
             except requests.exceptions.RequestException as e:
-                print(f"Neptune SPARQL request failed (attempt {attempt + 1}): {e}")
+                self.logger.error(f"Neptune SPARQL request failed (attempt {attempt + 1}): {e}")
                 if attempt == self.max_retries - 1:
                     raise Exception(f"Neptune SPARQL query failed: {e}")
                 time.sleep(2 ** attempt)
@@ -171,13 +305,4 @@ class NeptuneProcessor:
         
         return processed
     
-    def _format_graph_results(self, documents: List[Dict[str, Any]], 
-                            locations: List[str]) -> List[Dict[str, Any]]:
-        """Format graph search results"""
-        
-        for doc in documents:
-            doc['matched_concepts'] = locations
-            doc['search_method'] = 'graph_location_search'
-            doc['result_type'] = 'graph'
-        
-        return documents
+

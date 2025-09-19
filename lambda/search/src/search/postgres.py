@@ -1,11 +1,15 @@
 import os
 from typing import Dict, Any, List
+import logging
 
 class PostgresProcessor:
     """Handles PostgreSQL operations for document metadata via DatabaseManager"""
     
     def __init__(self):
         self.db_manager = None
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        self.logger.info("PostgresProcessor initialized")
     
     def _get_db_manager(self):
         """Get DatabaseManager instance"""
@@ -32,5 +36,5 @@ class PostgresProcessor:
             return metadata
             
         except Exception as e:
-            print(f"PostgreSQL metadata query error: {e}")
+            self.logger.error(f"PostgreSQL metadata query error: {e}")
             return {}
