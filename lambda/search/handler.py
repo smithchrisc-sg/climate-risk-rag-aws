@@ -24,6 +24,31 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     start_time = time.time()
     
     try:
+        # Determine endpoint from path
+        path = event.get('path', '/search')
+        http_method = event.get('httpMethod', 'POST')
+        
+        logger.info(f"Request path: {path}, method: {http_method}")
+        
+        # Handle repository metadata endpoints
+        if path == '/repository/last-update' and http_method == 'GET':
+            return handle_repository_metadata('last-update')
+        elif path == '/repository/solution-count' and http_method == 'GET':
+            return handle_repository_metadata('solution-count')
+        elif path == '/search' and http_method == 'POST':
+            return handle_search_request(event, context, start_time)
+        else:
+            return error_response(404, 'NOT_FOUND', f'Endpoint not found: {http_method} {path}')
+            
+    except Exception as e:
+        logger.error(f"Handler error: {str(e)}")
+        return error_response(500, 'INTERNAL_ERROR', 'Request processing failed')
+
+def handle_search_request(event: Dict[str, Any], context: Any, start_time: float) -> Dict[str, Any]:
+    """Handle search requests"""
+    logger = logging.getLogger("search_handler")
+    
+    try:
         # Parse request
         request_body = json.loads(event['body'])
         user_context = event.get('requestContext', {}).get('authorizer', {})
@@ -66,6 +91,32 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     except Exception as e:
         logger.error(f"Search error: {str(e)}")
         return error_response(500, 'INTERNAL_ERROR', 'Search processing failed')
+
+def handle_repository_metadata(metadata_type: str) -> Dict[str, Any]:
+    """Handle repository metadata requests"""
+    logger = logging.getLogger("search_handler")
+    
+    try:
+        # Initialize search coordinator
+        coordinator = SearchCoordinator()
+        
+        # Get repository metadata
+        metadata = asyncio.run(coordinator.get_repository_metadata(metadata_type))
+        
+        logger.info(f"Repository metadata ({metadata_type}): {metadata}")
+        
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps(metadata)
+        }
+        
+    except Exception as e:
+        logger.error(f"Repository metadata error: {str(e)}")
+        return error_response(500, 'INTERNAL_ERROR', 'Repository metadata request failed')
 
 def error_response(status_code: int, error_code: str, message: str) -> Dict[str, Any]:
     """Generate error response"""

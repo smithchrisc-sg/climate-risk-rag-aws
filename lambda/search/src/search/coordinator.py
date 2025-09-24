@@ -40,6 +40,9 @@ class SearchCoordinator:
         
         self.logger.info(f"[{search_id}] Starting multi-modal search for query: '{query[:50]}...'")
         
+        # Log new solution-focused filter parameters
+        self._log_solution_filters(search_id, filters)
+        
         try:
             # Execute parallel searches with error isolation
             search_tasks = [
@@ -68,8 +71,11 @@ class SearchCoordinator:
             enriched_results = await self._enrich_metadata(combined_response.results)
             enrich_duration = time.time() - enrich_start
             
+            # Transform to solution-focused format
+            solution_results = self._transform_to_solution_format(enriched_results)
+            
             # Update the response with enriched results
-            combined_response.results = enriched_results
+            combined_response.results = solution_results
             
             # Apply final filtering and pagination
             final_results = self._apply_pagination(combined_response.results, parameters)
@@ -77,6 +83,10 @@ class SearchCoordinator:
             # Add comprehensive timing and statistics
             total_duration = time.time() - start_time
             final_results.update({
+                'status': 'success',
+                'query_id': search_id,
+                'execution_time_ms': int(total_duration * 1000),
+                'returned_results': len(final_results.get('results', [])),
                 'combination_stats': self.result_combiner.get_combination_stats(),
                 'search_metadata': combined_response.metadata,
                 'performance_metrics': {
@@ -97,10 +107,12 @@ class SearchCoordinator:
             self.logger.error(f"[{search_id}] Search failed: {str(e)}")
             self.logger.error(f"[{search_id}] Full stack trace: {traceback.format_exc()}")
             return {
+                'status': 'error',
+                'query_id': search_id,
                 'results': [],
                 'total_results': 0,
+                'returned_results': 0,
                 'error': str(e),
-                'search_id': search_id,
                 'performance_metrics': {
                     'total_duration': round(time.time() - start_time, 3),
                     'status': 'failed'
@@ -187,6 +199,79 @@ class SearchCoordinator:
                     self.logger.info(f"Enriched title for {doc_id}: '{new_title[:50]}...'")
         
         return results
+    
+    def _log_solution_filters(self, search_id: str, filters: Dict[str, Any]):
+        """Log new solution-focused filter parameters"""
+        solution_filters = {
+            'solution_category': filters.get('solution_category', []),
+            'solution_type': filters.get('solution_type', []),
+            'risk_type': filters.get('risk_type', []),
+            'geographic_scope': filters.get('geographic_scope', []),
+            'ppp_involvement': filters.get('ppp_involvement')
+        }
+        
+        active_filters = {k: v for k, v in solution_filters.items() if v is not None and v != []}
+        if active_filters:
+            self.logger.info(f"[{search_id}] Solution filters applied: {active_filters}")
+    
+    def _transform_to_solution_format(self, results: List[SearchResult]) -> List[SearchResult]:
+        """Transform search results to include solution-focused fields (stubbed for now)"""
+        for result in results:
+            # Add solution-focused fields with stubbed values
+            if not hasattr(result, 'solution_name') or result.solution_name is None:
+                result.solution_name = f"Solution: {result.title[:50]}..." if result.title else "TBD"
+            
+            # Add stubbed solution fields to metadata for JSON serialization
+            solution_metadata = {
+                'publication_date': "TBD",
+                'country_regions_covered': ["TBD"],
+                'risk_types_addressed': ["TBD"],
+                'solution_categories': ["TBD"],
+                'solution_types': ["TBD"],
+                'solution_implementation_timeline': "TBD",
+                'last_kr_harvest_date': "TBD",
+                'implemented': "unknown",
+                'ppp_involvement': "unknown",
+                'summary_description': "TBD - Solution description to be extracted from document content",
+                'key_highlights': ["TBD - Key highlight 1", "TBD - Key highlight 2"],
+                'results_outcomes': "TBD",
+                'solution_contact_info': None,
+                'source_links': [],
+                'source': "TBD"
+            }
+            
+            # Merge with existing metadata
+            result.metadata.update(solution_metadata)
+        
+        return results
+    
+    async def get_repository_metadata(self, metadata_type: str) -> Dict[str, Any]:
+        """Get repository metadata (last update or solution count)"""
+        try:
+            if metadata_type == "last-update":
+                return {
+                    'status': 'success',
+                    'last_update': "2024-09-24T08:00:00Z",  # TBD - get from database
+                    'update_type': "document_ingestion",
+                    'documents_updated': 0  # TBD - get from database
+                }
+            elif metadata_type == "solution-count":
+                return {
+                    'status': 'success',
+                    'total_solutions': 0,  # TBD - calculate from processed documents
+                    'total_documents': 265,  # Current document count
+                    'last_counted': "2024-09-24T08:00:00Z",
+                    'breakdown': {
+                        'risk_reduction': 0,  # TBD
+                        'insurance_penetration': 0,  # TBD
+                        'risk_financing': 0  # TBD
+                    }
+                }
+            else:
+                return {'status': 'error', 'error': 'Invalid metadata type'}
+        except Exception as e:
+            self.logger.error(f"Repository metadata request failed: {str(e)}")
+            return {'status': 'error', 'error': str(e)}
     
     def _apply_pagination(self, results: List[SearchResult], 
                          parameters: Dict[str, Any]) -> Dict[str, Any]:

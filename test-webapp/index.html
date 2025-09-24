@@ -30,11 +30,35 @@
     
     <div class="form-group">
         <label>Search Query:</label>
-        <input type="text" id="searchQuery" placeholder="climate risk North Macedonia" value="climate risk North Macedonia">
+        <input type="text" id="searchQuery" placeholder="parametric insurance flood risk" value="parametric insurance flood risk">
     </div>
     
     <div class="form-group">
-        <label>Categories (comma-separated):</label>
+        <label>Solution Categories (comma-separated):</label>
+        <input type="text" id="solutionCategories" placeholder="risk reduction, insurance penetration, risk financing">
+    </div>
+    
+    <div class="form-group">
+        <label>Risk Types (comma-separated):</label>
+        <input type="text" id="riskTypes" placeholder="flood, drought, agricultural, cyber">
+    </div>
+    
+    <div class="form-group">
+        <label>Geographic Scope (comma-separated):</label>
+        <input type="text" id="geographicScope" placeholder="Asia, ASEAN, country">
+    </div>
+    
+    <div class="form-group">
+        <label>PPP Involvement:</label>
+        <select id="pppInvolvement">
+            <option value="">Any</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>Legacy Categories (comma-separated):</label>
         <input type="text" id="categories" placeholder="climate, risk-assessment">
     </div>
     
@@ -80,6 +104,27 @@
             };
             
             // Add filters if provided
+            const solutionCategories = document.getElementById('solutionCategories').value.trim();
+            if (solutionCategories) {
+                requestBody.filters.solution_category = solutionCategories.split(',').map(c => c.trim());
+            }
+            
+            const riskTypes = document.getElementById('riskTypes').value.trim();
+            if (riskTypes) {
+                requestBody.filters.risk_type = riskTypes.split(',').map(r => r.trim());
+            }
+            
+            const geographicScope = document.getElementById('geographicScope').value.trim();
+            if (geographicScope) {
+                requestBody.filters.geographic_scope = geographicScope.split(',').map(g => g.trim());
+            }
+            
+            const pppInvolvement = document.getElementById('pppInvolvement').value;
+            if (pppInvolvement) {
+                requestBody.filters.ppp_involvement = pppInvolvement === 'true';
+            }
+            
+            // Legacy filters
             const categories = document.getElementById('categories').value.trim();
             if (categories) {
                 requestBody.filters.categories = categories.split(',').map(c => c.trim());
@@ -119,25 +164,46 @@
             let html = `
                 <div class="results">
                     <h3>Search Results</h3>
-                    <p><strong>Query:</strong> ${data.query}</p>
-                    <p><strong>Results:</strong> ${data.pagination.returned_results} of ${data.pagination.total_results}</p>
-                    <p><strong>Execution Time:</strong> ${data.execution_time.toFixed(3)}s</p>
+                    <p><strong>Status:</strong> ${data.status || 'success'}</p>
+                    <p><strong>Results:</strong> ${data.returned_results || data.results?.length || 0} of ${data.total_results || 0}</p>
+                    <p><strong>Execution Time:</strong> ${data.execution_time_ms ? (data.execution_time_ms/1000).toFixed(3) + 's' : 'N/A'}</p>
             `;
             
             if (data.results && data.results.length > 0) {
                 data.results.forEach((result, index) => {
                     html += `
                         <div class="result-item">
-                            <h4>${result.title || 'Untitled'}</h4>
-                            <p><strong>Score:</strong> ${result.score.toFixed(3)}</p>
-                            ${result.document_type && result.document_type !== 'unknown' ? `<p><strong>Type:</strong> ${result.document_type}</p>` : ''}
-                            ${result.categories && result.categories.length > 0 ? `<p><strong>Categories:</strong> ${result.categories.join(', ')}</p>` : ''}
-                            ${result.regions && result.regions.length > 0 ? `<p><strong>Regions:</strong> ${result.regions.join(', ')}</p>` : ''}
-                            ${result.summary && result.summary.trim() ? `<p><strong>Summary:</strong> ${result.summary}</p>` : ''}
-                            ${result.content_highlights && result.content_highlights.length > 0 ? `<p><strong>Highlights:</strong> ${result.content_highlights.join(' ... ')}</p>` : ''}
-                            ${result.title_highlights && result.title_highlights.length > 0 ? `<p><strong>Title Highlights:</strong> ${result.title_highlights.join(' ... ')}</p>` : ''}
-                            ${result.source_url ? `<p><strong>Source:</strong> <a href="${result.source_url}" target="_blank" rel="noopener noreferrer">Open Document &#8599;</a></p>` : ''}
-                            <p><strong>Search Types:</strong> ${result.metadata.search_types?.join(', ') || 'N/A'}</p>
+                            <h4>${result.solution_name || result.title || 'Untitled'}</h4>
+                            <p><strong>Relevance Score:</strong> ${result.relevance_score?.toFixed(3) || result.final_score?.toFixed(3) || result.score?.toFixed(3) || 'N/A'}</p>
+                            
+                            ${result.solution_categories && result.solution_categories.length > 0 && result.solution_categories[0] !== 'TBD' ? 
+                                `<p><strong>Solution Categories:</strong> ${result.solution_categories.join(', ')}</p>` : ''}
+                            
+                            ${result.risk_types_addressed && result.risk_types_addressed.length > 0 && result.risk_types_addressed[0] !== 'TBD' ? 
+                                `<p><strong>Risk Types:</strong> ${result.risk_types_addressed.join(', ')}</p>` : ''}
+                            
+                            ${result.country_regions_covered && result.country_regions_covered.length > 0 && result.country_regions_covered[0] !== 'TBD' ? 
+                                `<p><strong>Regions Covered:</strong> ${result.country_regions_covered.join(', ')}</p>` : ''}
+                            
+                            ${result.implemented && result.implemented !== 'unknown' ? 
+                                `<p><strong>Implemented:</strong> ${result.implemented}</p>` : ''}
+                            
+                            ${result.ppp_involvement && result.ppp_involvement !== 'unknown' ? 
+                                `<p><strong>PPP Involvement:</strong> ${result.ppp_involvement}</p>` : ''}
+                            
+                            ${result.summary_description && !result.summary_description.startsWith('TBD') ? 
+                                `<p><strong>Summary:</strong> ${result.summary_description}</p>` : ''}
+                            
+                            ${result.key_highlights && result.key_highlights.length > 0 && !result.key_highlights[0].startsWith('TBD') ? 
+                                `<p><strong>Key Highlights:</strong></p><ul>${result.key_highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : ''}
+                            
+                            ${result.source && result.source !== 'TBD' ? 
+                                `<p><strong>Source:</strong> ${result.source}</p>` : ''}
+                            
+                            ${result.snippets && result.snippets.length > 0 ? 
+                                `<p><strong>Content Snippets:</strong></p>${result.snippets.map(s => `<p style="margin-left: 20px; font-style: italic;">${s.text || s}</p>`).join('')}` : ''}
+                            
+                            <p><strong>Search Types:</strong> ${result.search_types?.join(', ') || result.metadata?.search_types?.join(', ') || 'N/A'}</p>
                             <p><strong>Document ID:</strong> ${result.document_id}</p>
                         </div>
                     `;

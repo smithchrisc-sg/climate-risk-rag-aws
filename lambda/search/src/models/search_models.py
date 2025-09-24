@@ -91,22 +91,41 @@ def search_result_to_dict(result: SearchResult) -> Dict[str, Any]:
     else:
         search_types_list = [search_type_value]
     
-    return {
+    # Build base response with solution-focused fields
+    response = {
         'document_id': result.document_id,
+        'document_url': result.metadata.get('document_url'),
+        'solution_name': getattr(result, 'solution_name', None) or result.metadata.get('solution_name'),
         'title': result.title,
-        'score': result.score,
-        'content': result.content,
-        'content_highlights': result.content_highlights,
-        'title_highlights': result.title_highlights,
+        'relevance_score': result.final_score or result.score,
+        'publication_date': result.metadata.get('publication_date'),
+        'country_regions_covered': result.metadata.get('country_regions_covered', []),
+        'risk_types_addressed': result.metadata.get('risk_types_addressed', []),
+        'solution_categories': result.metadata.get('solution_categories', []),
+        'solution_types': result.metadata.get('solution_types', []),
+        'solution_implementation_timeline': result.metadata.get('solution_implementation_timeline'),
+        'last_kr_harvest_date': result.metadata.get('last_kr_harvest_date'),
+        'implemented': result.metadata.get('implemented', 'unknown'),
+        'ppp_involvement': result.metadata.get('ppp_involvement', 'unknown'),
+        'summary_description': result.metadata.get('summary_description'),
+        'key_highlights': result.metadata.get('key_highlights', []),
+        'results_outcomes': result.metadata.get('results_outcomes'),
+        'solution_contact_info': result.metadata.get('solution_contact_info'),
+        'source_links': result.metadata.get('source_links', []),
+        'source': result.metadata.get('source'),
+        'snippets': result.content_highlights or [],
         'metadata': {
             **result.metadata,
-            'search_types': search_types_list  # Override the empty search_types
+            'search_types': search_types_list
         },
         'search_type': search_type_value,
         'search_types': search_types_list,
         'final_score': result.final_score,
         'normalized_score': result.normalized_score
     }
+    
+    # Remove None values to keep response clean
+    return {k: v for k, v in response.items() if v is not None}
 
 def dict_to_search_response(data: Dict[str, Any]) -> SearchResponse:
     """Convert dictionary to SearchResponse object"""
