@@ -1,30 +1,28 @@
 # GAIP Knowledge Repository Search API
-## Partner Integration Documentation v1.0
+## Partner Integration Documentation v2.0 - Solution-Focused
 
 ---
 
 ## 📋 **Overview**
 
-The GAIP Knowledge Repository Search API provides a unified interface for searching across the Global Asia Insurance Partnership's comprehensive collection of vetted insurance and risk-related documents. The API uses advanced search technologies to deliver highly relevant results focused on protection gap models, government policy frameworks, and geo-specific risk assessments.
+The GAIP Knowledge Repository Search API provides a unified interface for searching across the Global Asia Insurance Partnership's comprehensive collection of vetted insurance and risk-related solutions and documents. The API uses advanced search technologies to deliver highly relevant solution-focused results for protection gap models, government policy frameworks, and geo-specific risk assessments.
 
 **Supporting GAIP's Mission: Addressing Asia's Protection Gaps**
 
-The Global Asia Insurance Partnership (GAIP) is a tripartite partnership between the global insurance industry, regulators and policymakers, and academia. This API supports GAIP's core objective to **Understand and Quantify Risk** through:
+The Global Asia Insurance Partnership (GAIP) is a tripartite partnership between the global insurance industry, regulators and policymakers, and academia. This API supports GAIP's core objective to **Understand and Quantify Risk** through solution discovery and analysis:
 
-- **Risk Identification**: Understanding existing, new, and emerging risks across Asia
-- **Data Availability**: Providing access to risk models and data to quantify risk exposures and protection needs  
-- **Insurability Assessment**: Supporting evaluation of insurability of risks and capacity needs
-- **Model Refinement**: Enabling refinements of risk models given the changing nature of risks
-- **Stakeholder Tools**: Providing adequate tools and resources for stakeholders to understand and quantify risks
+- **Solution Discovery**: Finding relevant risk reduction, insurance penetration, and risk financing solutions
+- **Risk Assessment**: Understanding solutions that address specific risk types (food, cyber, drought, health, etc.)
+- **Geographic Analysis**: Solutions scoped to Asia, ASEAN+3, ASEAN, or specific countries/regions
+- **Implementation Insights**: Access to solution outcomes, timelines, and contact information
+- **PPP Analysis**: Understanding Public-Private Partnership involvement in solutions
 
 ### **Key Features**
-- **Single endpoint** for all search operations across vetted knowledge repository
-- **Natural language queries** - search using plain English for insurance and risk topics
-- **Intelligent result ranking** using proprietary algorithms optimized for protection gap analysis
-- **Rich contextual snippets** with highlighted search terms from policy documents and research
-- **Comprehensive metadata** for faceted search experiences across geographic and risk categories
-- **Efficient pagination** for large result sets from extensive document collections
-- **Rate limiting** and authentication for secure partner access
+- **Solution-focused search** across vetted knowledge repository with structured solution metadata
+- **Natural language queries** for insurance and risk solution discovery
+- **Multi-dimensional filtering** by solution category, risk type, geographic scope, and PPP involvement
+- **Rich solution metadata** including implementation status, outcomes, and contact information
+- **Repository metadata** endpoints for last update times and solution counts
 
 ---
 
@@ -51,21 +49,21 @@ Production: https://api.solve.global/gaip/v1
 Staging: https://staging-api.solve.global/gaip/v1
 ```
 
-### **Endpoint**
+### **Endpoints**
 ```http
-POST /search
-Content-Type: application/json
-Authorization: Bearer {token}
+POST /search                    # Search solutions and documents
+GET /repository/last-update     # Get last repository update timestamp
+GET /repository/solution-count  # Get total solution count
 ```
 
 ---
 
 ## 📤 **Request Format**
 
-### **Basic Search Request**
+### **Basic Solution Search Request**
 ```json
 {
-  "query": "protection gap analysis Southeast Asia",
+  "query": "parametric insurance flood risk Southeast Asia",
   "parameters": {
     "max_results": 20,
     "include_snippets": true
@@ -73,23 +71,25 @@ Authorization: Bearer {token}
 }
 ```
 
-### **Advanced Search Request**
+### **Advanced Solution Search Request**
 ```json
 {
-  "query": "flood insurance capacity government policy",
+  "query": "agricultural insurance climate risk",
   "parameters": {
     "max_results": 50,
     "snippet_length": 300,
     "relevance_threshold": 0.7
   },
   "filters": {
-    "categories": ["protection_gap", "government_policy"],
+    "solution_category": ["risk reduction", "insurance penetration"],
+    "risk_type": ["drought", "flood", "agricultural"],
+    "geographic_scope": ["ASEAN", "country"],
+    "ppp_involvement": true,
     "regions": ["southeast_asia", "south_asia"],
     "date_range": {
       "start": "2023-01-01",
       "end": "2024-12-31"
-    },
-    "document_types": ["pdf", "report"]
+    }
   },
   "options": {
     "include_facets": true,
@@ -114,16 +114,22 @@ Authorization: Bearer {token}
 | `relevance_threshold` | number | 0.0 | Minimum relevance score (0.0-1.0) |
 | `cursor` | string | - | Pagination cursor for next page |
 
-#### **Filter Options**
+#### **Solution-Focused Filter Options**
+| Filter | Type | Description | Example |
+|--------|------|-------------|---------|
+| `solution_category` | array | Solution categories (multiple allowed) | `["risk reduction", "insurance penetration", "risk financing"]` |
+| `solution_type` | array | Solution subcategories (multiple allowed) | `["parametric insurance", "microinsurance"]` |
+| `risk_type` | array | Risk types addressed (multiple allowed) | `["food", "cyber", "drought", "health", "flood"]` |
+| `geographic_scope` | array | Geographic scope (multiple allowed) | `["Asia", "ASEAN+3", "ASEAN", "country"]` |
+| `ppp_involvement` | boolean | Public-Private Partnership involvement | `true` |
+
+#### **Additional Filter Options**
 | Filter | Type | Description | Example |
 |--------|------|-------------|---------|
 | `document_ids` | array | Search specific documents | `["doc_001", "doc_002"]` |
 | `document_types` | array | Filter by file type | `["pdf", "report"]` |
-| `categories` | array | Filter by content categories | `["protection_gap", "government_policy"]` |
 | `regions` | array | Filter by geographic regions | `["southeast_asia", "south_asia"]` |
-| `date_range` | object | Filter by upload date | `{"start": "2023-01-01", "end": "2024-12-31"}` |
-| `file_size_range` | object | Filter by file size | `{"min_mb": 1, "max_mb": 50}` |
-| `custom_tags` | array | Filter by custom tags | `["high_priority", "validated"]` |
+| `date_range` | object | Filter by publication date | `{"start": "2023-01-01", "end": "2024-12-31"}` |
 
 #### **Sort Options**
 | Field | Description |
@@ -137,7 +143,7 @@ Authorization: Bearer {token}
 
 ## 📥 **Response Format**
 
-### **Successful Response**
+### **Successful Search Response**
 ```json
 {
   "status": "success",
@@ -149,11 +155,41 @@ Authorization: Bearer {token}
     {
       "document_id": "doc_001",
       "document_url": "https://documents.solve.global/gaip/doc_001",
+      "solution_name": "Parametric Flood Insurance for Rice Farmers",
       "title": "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024",
       "relevance_score": 0.95,
+      "publication_date": "2024-03-15",
+      "country_regions_covered": ["Thailand", "Vietnam", "Philippines"],
+      "risk_types_addressed": ["flood", "agricultural", "climate"],
+      "solution_categories": ["risk reduction", "insurance penetration"],
+      "solution_types": ["parametric insurance", "index-based insurance"],
+      "solution_implementation_timeline": "18-24 months",
+      "last_kr_harvest_date": "2024-09-15T10:30:00Z",
+      "solution_contact_info": {
+        "organization": "Asian Development Bank",
+        "email": "contact@adb.org",
+        "website": "https://www.adb.org"
+      },
+      "implemented": "yes",
+      "ppp_involvement": "yes",
+      "summary_description": "This parametric insurance solution provides rapid payouts to rice farmers affected by flooding, using satellite data and weather indices to trigger automatic compensation.",
+      "key_highlights": [
+        "Automated payout system reduces claim processing time to 48 hours",
+        "Covers 50,000+ smallholder farmers across three countries",
+        "Uses satellite imagery and IoT sensors for accurate trigger mechanisms"
+      ],
+      "results_outcomes": "Reduced average claim settlement time from 6 months to 48 hours, increased farmer participation by 300%",
+      "source_links": [
+        {
+          "url": "https://www.adb.org/projects/parametric-insurance",
+          "title": "ADB Parametric Insurance Initiative",
+          "type": "website"
+        }
+      ],
+      "source": "World Bank",
       "snippets": [
         {
-          "text": "Protection <mark>gap</mark> analysis reveals significant underinsurance in <mark>flood</mark>-prone regions across Southeast Asia...",
+          "text": "Protection <mark>gap</mark> analysis reveals significant underinsurance in <mark>flood</mark>-prone regions...",
           "page_number": 12,
           "section": "Regional Assessment"
         }
@@ -164,21 +200,20 @@ Authorization: Bearer {token}
         "page_count": 45,
         "upload_date": "2024-03-15T10:30:00Z",
         "categories": ["protection_gap", "flood_insurance"],
-        "regions": ["southeast_asia", "thailand", "vietnam"],
-        "language": "en",
-        "author": "Asian Development Bank",
-        "publication_year": 2024
+        "regions": ["southeast_asia", "thailand", "vietnam"]
       }
     }
   ],
   "facets": {
-    "categories": {
-      "protection_gap": 89,
-      "government_policy": 67
+    "solution_categories": {
+      "risk_reduction": 89,
+      "insurance_penetration": 67,
+      "risk_financing": 45
     },
-    "document_types": {
-      "pdf": 120,
-      "report": 36
+    "risk_types": {
+      "flood": 120,
+      "drought": 89,
+      "agricultural": 156
     }
   },
   "pagination": {
@@ -190,31 +225,68 @@ Authorization: Bearer {token}
 }
 ```
 
-### **Response Fields**
+### **Solution-Focused Response Fields**
 
-#### **Result Object**
+#### **Core Solution Fields**
 | Field | Type | Description |
 |-------|------|-------------|
-| `document_id` | string | Unique document identifier |
-| `document_url` | string | Direct URL to access the document |
-| `title` | string | Document title |
-| `relevance_score` | number | Relevance score (0.0-1.0) |
-| `snippets` | array | Text excerpts with context |
-| `metadata` | object | Document metadata and properties |
+| `solution_name` | string | Name of the solution |
+| `publication_date` | string | Publication date (YYYY-MM-DD) |
+| `country_regions_covered` | array | Countries/regions covered |
+| `risk_types_addressed` | array | Risk types addressed (ontology-matched) |
+| `solution_categories` | array | Solution categories (risk reduction, insurance penetration, risk financing) |
+| `solution_types` | array | Specific solution subcategories |
+| `solution_implementation_timeline` | string | Implementation timeline if available |
+| `last_kr_harvest_date` | string | Last knowledge repository harvest date |
+| `implemented` | enum | Implementation status: "yes", "no", "unknown" |
+| `ppp_involvement` | enum | PPP involvement: "yes", "no", "unknown" |
 
-#### **Metadata Fields**
+#### **Detailed Solution Information**
 | Field | Type | Description |
 |-------|------|-------------|
-| `document_type` | string | File type (pdf, report, etc.) |
-| `file_size_mb` | number | File size in megabytes |
-| `page_count` | integer | Number of pages |
-| `upload_date` | string | ISO 8601 upload timestamp |
-| `categories` | array | Content categories |
-| `regions` | array | Geographic regions covered |
-| `language` | string | Document language code |
-| `author` | string | Document author |
-| `publication_year` | integer | Year of publication |
-| `custom_tags` | array | Custom classification tags |
+| `summary_description` | string | Paragraph summarizing the solution |
+| `key_highlights` | array | Key highlights in bullet point format |
+| `results_outcomes` | string | Results and outcomes if available |
+| `solution_contact_info` | object | Contact information (organization, email, phone, website) |
+| `source_links` | array | Links to source websites and documents |
+| `source` | string | Source of information (Internet, World Bank, etc.) |
+
+### **Repository Metadata Endpoints**
+
+#### **Last Update Endpoint**
+```http
+GET /repository/last-update
+```
+
+**Response:**
+```json
+{
+  "status": "success",
+  "last_update": "2024-09-24T08:00:00Z",
+  "update_type": "document_ingestion",
+  "documents_updated": 15
+}
+```
+
+#### **Solution Count Endpoint**
+```http
+GET /repository/solution-count
+```
+
+**Response:**
+```json
+{
+  "status": "success",
+  "total_solutions": 1247,
+  "total_documents": 265,
+  "last_counted": "2024-09-24T08:00:00Z",
+  "breakdown": {
+    "risk_reduction": 456,
+    "insurance_penetration": 523,
+    "risk_financing": 268
+  }
+}
+```
 
 ---
 
@@ -353,10 +425,10 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 
 ## 🧪 **Example Use Cases**
 
-### **1. Basic Protection Gap Search**
+### **1. Basic Solution Discovery**
 ```json
 {
-  "query": "agricultural insurance protection gap",
+  "query": "parametric insurance agricultural risk",
   "parameters": {
     "max_results": 10,
     "include_snippets": true
@@ -364,17 +436,15 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 }
 ```
 
-### **2. Regional Policy Research**
+### **2. Risk-Specific Solution Search**
 ```json
 {
-  "query": "government flood insurance policy frameworks",
+  "query": "drought insurance solutions smallholder farmers",
   "filters": {
-    "categories": ["government_policy", "flood_insurance"],
-    "regions": ["southeast_asia"],
-    "publication_year_range": {
-      "start": 2022,
-      "end": 2024
-    }
+    "solution_category": ["risk reduction", "insurance penetration"],
+    "risk_type": ["drought", "agricultural"],
+    "geographic_scope": ["ASEAN", "country"],
+    "ppp_involvement": true
   },
   "options": {
     "include_facets": true
@@ -382,20 +452,30 @@ The API uses **cursor-based pagination** for efficient handling of large result 
 }
 ```
 
-### **3. Capacity Assessment Analysis**
+### **3. Regional PPP Solution Analysis**
 ```json
 {
-  "query": "insurance market capacity natural disasters",
+  "query": "public private partnership flood insurance",
   "filters": {
-    "regions": ["south_asia"],
-    "categories": ["market_capacity", "natural_disasters"],
-    "document_types": ["report"]
+    "geographic_scope": ["ASEAN+3"],
+    "solution_category": ["risk financing"],
+    "ppp_involvement": true,
+    "implemented": "yes"
   },
   "parameters": {
     "relevance_threshold": 0.8,
     "snippet_length": 400
   }
 }
+```
+
+### **4. Repository Metadata Queries**
+```bash
+# Get last update information
+GET /repository/last-update
+
+# Get solution count breakdown
+GET /repository/solution-count
 ```
 
 ---

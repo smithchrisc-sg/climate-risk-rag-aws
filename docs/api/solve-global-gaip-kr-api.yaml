@@ -21,15 +21,106 @@ info:
     url: https://solve.global/license
 
 servers:
+  - url: https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1
+    description: Deployed API Gateway endpoint (AWS us-east-1)
   - url: https://api.solve.global/gaip/v1
-    description: Production server
+    description: Production server (future)
   - url: https://staging-api.solve.global/gaip/v1
-    description: Staging server
+    description: Staging server (future)
 
 security:
   - BearerAuth: []
 
 paths:
+  /repository/last-update:
+    get:
+      summary: Get last repository update date/time
+      description: Returns the timestamp of the last update to the knowledge repository
+      operationId: getLastUpdate
+      tags:
+        - Repository
+      responses:
+        '200':
+          description: Last update timestamp retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: ["success"]
+                  last_update:
+                    type: string
+                    format: date-time
+                    description: ISO 8601 timestamp of last repository update
+                    example: "2024-09-24T08:00:00Z"
+                  update_type:
+                    type: string
+                    description: Type of last update
+                    example: "document_ingestion"
+                  documents_updated:
+                    type: integer
+                    description: Number of documents updated in last update
+                    example: 15
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /repository/solution-count:
+    get:
+      summary: Get total solution count
+      description: Returns the total number of solutions available in the repository
+      operationId: getSolutionCount
+      tags:
+        - Repository
+      responses:
+        '200':
+          description: Solution count retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: ["success"]
+                  total_solutions:
+                    type: integer
+                    description: Total number of solutions in repository
+                    example: 1247
+                  total_documents:
+                    type: integer
+                    description: Total number of source documents
+                    example: 265
+                  last_counted:
+                    type: string
+                    format: date-time
+                    description: When the count was last updated
+                    example: "2024-09-24T08:00:00Z"
+                  breakdown:
+                    type: object
+                    properties:
+                      risk_reduction:
+                        type: integer
+                        example: 456
+                      insurance_penetration:
+                        type: integer
+                        example: 523
+                      risk_financing:
+                        type: integer
+                        example: 268
+                    description: Breakdown by solution category
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /search:
     post:
       summary: Search GAIP knowledge repository
@@ -63,14 +154,17 @@ paths:
                     max_results: 20
                     include_snippets: true
               advanced_search:
-                summary: Advanced search with filters
+                summary: Advanced search with solution filters
                 value:
                   query: "flood insurance capacity government policy"
                   parameters:
                     max_results: 50
                     snippet_length: 300
                   filters:
-                    categories: ["protection_gap", "government_policy"]
+                    solution_category: ["risk reduction", "insurance penetration"]
+                    risk_type: ["flood", "agricultural"]
+                    geographic_scope: ["ASEAN", "country"]
+                    ppp_involvement: true
                     regions: ["southeast_asia", "south_asia"]
                     date_range:
                       start: "2023-01-01"
@@ -86,7 +180,7 @@ paths:
                 $ref: '#/components/schemas/SearchResponse'
               examples:
                 successful_search:
-                  summary: Successful search with results
+                  summary: Successful search with solution results
                   value:
                     status: "success"
                     query_id: "search_12345_67890"
@@ -96,8 +190,22 @@ paths:
                     results:
                       - document_id: "doc_001"
                         document_url: "https://documents.solve.global/gaip/doc_001"
+                        solution_name: "Parametric Flood Insurance for Rice Farmers"
                         title: "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024"
                         relevance_score: 0.95
+                        publication_date: "2024-03-15"
+                        country_regions_covered: ["Thailand", "Vietnam", "Philippines"]
+                        risk_types_addressed: ["flood", "agricultural", "climate"]
+                        solution_categories: ["risk reduction", "insurance penetration"]
+                        solution_types: ["parametric insurance", "index-based insurance"]
+                        implemented: "yes"
+                        ppp_involvement: "yes"
+                        summary_description: "This parametric insurance solution provides rapid payouts to rice farmers affected by flooding, using satellite data and weather indices."
+                        key_highlights: [
+                          "Automated payout system reduces claim processing time to 48 hours",
+                          "Covers 50,000+ smallholder farmers across three countries"
+                        ]
+                        source: "World Bank"
                         snippets:
                           - text: "Protection gap analysis reveals significant underinsurance in flood-prone regions..."
                             page_number: 12
@@ -219,6 +327,36 @@ components:
         filters:
           type: object
           properties:
+            solution_category:
+              type: array
+              items:
+                type: string
+                enum: ["risk reduction", "insurance penetration", "risk financing"]
+              description: Filter by solution categories (multiple allowed)
+              example: ["risk reduction", "insurance penetration"]
+            solution_type:
+              type: array
+              items:
+                type: string
+              description: Filter by solution subcategories (multiple allowed)
+              example: ["parametric insurance", "microinsurance", "catastrophe bonds"]
+            risk_type:
+              type: array
+              items:
+                type: string
+              description: Filter by risk types (multiple allowed)
+              example: ["food", "cyber", "drought", "health", "flood", "earthquake"]
+            geographic_scope:
+              type: array
+              items:
+                type: string
+                enum: ["Asia", "ASEAN+3", "ASEAN", "country", "province/state", "city/muni"]
+              description: Filter by geographic scope (multiple allowed)
+              example: ["Asia", "ASEAN"]
+            ppp_involvement:
+              type: boolean
+              description: Filter by Public-Private Partnership involvement
+              example: true
             document_ids:
               type: array
               items:
@@ -231,12 +369,6 @@ components:
                 type: string
                 enum: ["pdf", "report", "presentation", "spreadsheet"]
               description: Filter by document types
-            categories:
-              type: array
-              items:
-                type: string
-              description: Filter by document categories
-              example: ["protection_gap", "government_policy", "insurance_capacity"]
             regions:
               type: array
               items:
@@ -362,9 +494,13 @@ components:
           format: uri
           description: URL to access the full document
           example: "https://documents.yourapi.com/doc_001"
+        solution_name:
+          type: string
+          description: Name of the solution
+          example: "Parametric Flood Insurance for Rice Farmers"
         title:
           type: string
-          description: Document title
+          description: Document title (fallback if solution_name not available)
           example: "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024"
         relevance_score:
           type: number
@@ -372,6 +508,116 @@ components:
           maximum: 1.0
           description: Relevance score for this result
           example: 0.95
+        publication_date:
+          type: string
+          format: date
+          description: Publication date of the solution/document
+          example: "2024-03-15"
+        country_regions_covered:
+          type: array
+          items:
+            type: string
+          description: Countries/regions covered by the solution
+          example: ["Thailand", "Vietnam", "Philippines"]
+        risk_types_addressed:
+          type: array
+          items:
+            type: string
+          description: Risk types addressed (ontology-matched keywords)
+          example: ["flood", "agricultural", "climate"]
+        solution_categories:
+          type: array
+          items:
+            type: string
+            enum: ["risk reduction", "insurance penetration", "risk financing"]
+          description: Solution categories addressed
+          example: ["risk reduction", "insurance penetration"]
+        solution_types:
+          type: array
+          items:
+            type: string
+          description: Specific solution types/subcategories
+          example: ["parametric insurance", "index-based insurance"]
+        solution_implementation_timeline:
+          type: string
+          description: Implementation timeline if available
+          example: "18-24 months"
+        last_kr_harvest_date:
+          type: string
+          format: date-time
+          description: Last knowledge repository harvest date
+          example: "2024-09-15T10:30:00Z"
+        solution_contact_info:
+          type: object
+          properties:
+            organization:
+              type: string
+              example: "Asian Development Bank"
+            email:
+              type: string
+              format: email
+              example: "contact@adb.org"
+            phone:
+              type: string
+              example: "+63-2-8632-4444"
+            website:
+              type: string
+              format: uri
+              example: "https://www.adb.org"
+          description: Contact information for the solution
+        implemented:
+          type: string
+          enum: ["yes", "no", "unknown"]
+          description: Implementation status
+          example: "yes"
+        ppp_involvement:
+          type: string
+          enum: ["yes", "no", "unknown"]
+          description: Public-Private Partnership involvement
+          example: "yes"
+        summary_description:
+          type: string
+          description: Paragraph summarizing the solution
+          example: "This parametric insurance solution provides rapid payouts to rice farmers affected by flooding, using satellite data and weather indices to trigger automatic compensation without traditional loss assessment."
+        key_highlights:
+          type: array
+          items:
+            type: string
+          description: Key highlights in bullet point format
+          example: [
+            "Automated payout system reduces claim processing time to 48 hours",
+            "Covers 50,000+ smallholder farmers across three countries",
+            "Uses satellite imagery and IoT sensors for accurate trigger mechanisms"
+          ]
+        results_outcomes:
+          type: string
+          description: Results and outcomes if available
+          example: "Reduced average claim settlement time from 6 months to 48 hours, increased farmer participation by 300%"
+        source_links:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+              title:
+                type: string
+              type:
+                type: string
+                enum: ["website", "document", "report", "presentation"]
+          description: Links to source websites and documents
+          example: [
+            {
+              "url": "https://www.adb.org/projects/parametric-insurance",
+              "title": "ADB Parametric Insurance Initiative",
+              "type": "website"
+            }
+          ]
+        source:
+          type: string
+          description: Source of the information
+          example: "World Bank"
         snippets:
           type: array
           items:
@@ -526,3 +772,5 @@ components:
 tags:
   - name: Search
     description: Document search operations
+  - name: Repository
+    description: Repository metadata operations
