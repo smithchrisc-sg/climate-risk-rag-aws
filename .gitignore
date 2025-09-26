@@ -139,3 +139,5 @@ local_settings.py
 *password*
 *token*
 *api_key*
+# Data directory - contains large files and processed data
+data/
