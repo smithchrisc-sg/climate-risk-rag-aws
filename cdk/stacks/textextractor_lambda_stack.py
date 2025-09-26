@@ -25,8 +25,8 @@ class TextExtractorLambdaStack(Stack):
         self.vpc = vpc
         self.messaging_stack = messaging_stack
 
-        # Import database URL from environment or use default
-        database_url = os.environ.get('DATABASE_URL', 'postgresql://postgres:password@localhost:5432/climate_risk_rag')
+        # Import database URL from environment or use placeholder
+        database_url = os.environ.get('DATABASE_URL', 'postgresql://user:PLACEHOLDER@localhost:5432/climate_risk_rag')
 
         # Create Lambda layer for shared dependencies
         self.textextractor_layer = lambda_.LayerVersion(
