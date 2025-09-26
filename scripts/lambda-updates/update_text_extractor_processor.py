@@ -7,6 +7,7 @@ Apply the same proven pattern that worked for the initiator
 import boto3
 import json
 import logging
+import os
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -49,9 +50,16 @@ def update_environment_variables():
     response = lambda_client.get_function(FunctionName='solve-global-kr-textextractor-processor')
     current_env = response['Configuration']['Environment']['Variables']
     
+    # Get DATABASE_SECRET_NAME from environment or current config
+    database_secret_name = os.environ.get('DATABASE_SECRET_NAME', current_env.get('DATABASE_SECRET_NAME', ''))
+    if not database_secret_name:
+        print("ERROR: DATABASE_SECRET_NAME not found in environment or current Lambda config")
+        print("Please set DATABASE_SECRET_NAME environment variable before running this script")
+        return False
+    
     # Standard environment variables (same as working functions)
     standard_env_vars = {
-        'DATABASE_SECRET_NAME': 'rds!db-0f16c155-35f6-463b-96d8-4a2d8da7e863',
+        'DATABASE_SECRET_NAME': database_secret_name,
         'DB_HOST': 'solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com',
         'DB_NAME': 'climate_risk_rag',
         'DB_PORT': '5432',
