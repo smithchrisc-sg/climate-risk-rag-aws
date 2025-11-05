@@ -1,0 +1,11 @@
+This solution, 'Health Maintenance Organisations (HMOs)', addresses health risks in Philippines. It represents a increase penetration approach focused on collaboration
+
+accessibility implemented in 2004. The solution involves private sector entities. This represents a public-private partnership initiative.
+
+Health Maintenance Organizations (HMOs) in the Philippines are private healthcare insurance providers offering policyholders access to a network of doctors and medical services. These plans, known for being both comprehensive and customizable, have an annual coverage limit. HMOs are frequently subsidized by employers and commonly form a part of employees’ benefit packages. As of September 30, 2023, there are 28 HMOs operating in the country, providing essential healthcare services to millions of Filipinos.
+
+HMO membership can complement the Philippine Health Insurance Corporation's (PhilHealth) plan, offering an additional layer of financial security. When a PhilHealth member requires hospitalization, PhilHealth may cover between 15% to 30% of their bills, depending on the membership status. The remaining balance is typically covered by the individual's chosen HMO plan. However, it is important to note that HMO benefits are generally linked to employment and are available to individuals under 65 years old.
+
+In the first quarter of 2022, HMOs in the Philippines paid out 22.43% more in healthcare benefits and claims compared to the same period in the previous year. This increase in pay-outs significantly impacted their total earnings. The Insurance Commission (IC) reported that the total benefits and claims paid by the HMO industry amounted to PHP 9.48 billion in the first quarter, up from PHP 7.74 billion in the first quarter of 2021, based on unaudited interim financial statements submitted by 30 companies.
+
+As of the latest data, at least 7 million Filipinos are enrolled in HMO plans. The increase in benefits and claims paid by HMOs indicates a growing reliance on these organizations for healthcare needs. This trend not only underscores the vital role of HMOs in the Philippine healthcare system but also highlights the dynamic interplay between public and private healthcare insurance in ensuring broader access to medical services for the population.

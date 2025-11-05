@@ -1,0 +1,23 @@
+{
+  "chunk_id": "sol_ca8dc89b014e21f93_results",
+  "doc_id": "sol_ca8dc89b014e21f93",
+  "text": "In the first quarter of 2022, HMOs in the Philippines paid out 22.43% more in healthcare benefits and claims compared to the same period in the previous year. This increase in pay-outs significantly impacted their total earnings. The Insurance Commission (IC) reported that the total benefits and claims paid by the HMO industry amounted to PHP 9.48 billion in the first quarter, up from PHP 7.74 billion in the first quarter of 2021, based on unaudited interim financial statements submitted by 30 companies.\n\nAs of the latest data, at least 7 million Filipinos are enrolled in HMO plans. The increase in benefits and claims paid by HMOs indicates a growing reliance on these organizations for healthcare needs. This trend not only underscores the vital role of HMOs in the Philippine healthcare system but also highlights the dynamic interplay between public and private healthcare insurance in ensuring broader access to medical services for the population.",
+  "character_count": 960,
+  "metadata": {
+    "solution_id": "health_original_3",
+    "source_file": "health_original",
+    "row_number": 3,
+    "solution_name": "Health Maintenance Organisations (HMOs)",
+    "country": "Philippines",
+    "type_of_risk": "Health",
+    "type_of_solution": "Increase Penetration",
+    "theme": "Collaboration\n\nAccessibility",
+    "year_of_implementation": "2004",
+    "ppp": "Yes",
+    "source_url": "https://www.bworldonline.com/banking-finance/2022/10/12/479937/hmos-pay-out-more-healthcare-benefits-and-claims-dragging-sectors-earnings/#:~:text=The%20Insurance%20Commission%20(IC)%20said",
+    "section_name": "Results",
+    "chunk_type": "results",
+    "content_type": "solution_chunk",
+    "processing_timestamp": "2025-11-04T20:02:10.037955"
+  }
+}

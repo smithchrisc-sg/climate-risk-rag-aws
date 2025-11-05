@@ -1,0 +1,64 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sg:Chunk_sol_ca8dc89b014e21f93_highlights a sgd:Section ;
+    dcterms:description "HMO membership can complement the Philippine Health Insurance Corporation's (PhilHealth) plan, offering an additional layer of financial security. When a PhilHealth member requires hospitalization, PhilHealth may cover between 15% to 30% of their bills, depending on the membership status. The remaining balance is typically covered by the individual's chosen HMO plan. However, it is important to note that HMO benefits are generally linked to employment and are available to individuals under 65 years old." ;
+    dcterms:isPartOf sg:Document_sol_95f39b465ec7a098b ;
+    dcterms:title "Key Highlights" ;
+    sgd:hasParent sg:Document_sol_95f39b465ec7a098b ;
+    sgd:nextSibling sg:Chunk_sol_ca8dc89b014e21f93_desc ;
+    sgm:characterCount "508"^^xsd:nonNegativeInteger ;
+    sgm:chunkId "sol_ca8dc89b014e21f93_highlights" ;
+    sgm:processingTimestamp "2025-11-04T11:55:14.437721+00:00"^^xsd:dateTime ;
+    sgm:s3Bucket "kr-dl-chunks" ;
+    sgm:s3Key "data-lake/sol_95f39b465ec7a098b/sol_ca8dc89b014e21f93_highlights.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_95f39b465ec7a098b/sol_ca8dc89b014e21f93_highlights.json"^^xsd:anyURI ;
+    sgm:sequenceNumber "2"^^xsd:positiveInteger .
+
+sg:Chunk_sol_ca8dc89b014e21f93_results a sgd:Section ;
+    dcterms:description """In the first quarter of 2022, HMOs in the Philippines paid out 22.43% more in healthcare benefits and claims compared to the same period in the previous year. This increase in pay-outs significantly impacted their total earnings. The Insurance Commission (IC) reported that the total benefits and claims paid by the HMO industry amounted to PHP 9.48 billion in the first quarter, up from PHP 7.74 billion in the first quarter of 2021, based on unaudited interim financial statements submitted by 30 companies.
+
+As of the latest data, at least 7 million Filipinos are enrolled in HMO plans. The increase in benefits and claims paid by HMOs indicates a growing reliance on these organizations for healthcare needs. This trend not only underscores the vital role of HMOs in the Philippine healthcare system but also highlights the dynamic interplay between public and private healthcare insurance in ensuring broader access to medical services for the population.""" ;
+    dcterms:isPartOf sg:Document_sol_95f39b465ec7a098b ;
+    dcterms:title "Results" ;
+    sgd:hasParent sg:Document_sol_95f39b465ec7a098b ;
+    sgd:nextSibling sg:Chunk_sol_ca8dc89b014e21f93_highlights ;
+    sgm:characterCount "960"^^xsd:nonNegativeInteger ;
+    sgm:chunkId "sol_ca8dc89b014e21f93_results" ;
+    sgm:processingTimestamp "2025-11-04T11:55:14.437627+00:00"^^xsd:dateTime ;
+    sgm:s3Bucket "kr-dl-chunks" ;
+    sgm:s3Key "data-lake/sol_95f39b465ec7a098b/sol_ca8dc89b014e21f93_results.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_95f39b465ec7a098b/sol_ca8dc89b014e21f93_results.json"^^xsd:anyURI ;
+    sgm:sequenceNumber "3"^^xsd:positiveInteger .
+
+sg:Chunk_sol_ca8dc89b014e21f93_desc a sgd:Section ;
+    dcterms:description "Health Maintenance Organizations (HMOs) in the Philippines are private healthcare insurance providers offering policyholders access to a network of doctors and medical services. These plans, known for being both comprehensive and customizable, have an annual coverage limit. HMOs are frequently subsidized by employers and commonly form a part of employees’ benefit packages. As of September 30, 2023, there are 28 HMOs operating in the country, providing essential healthcare services to millions of Filipinos." ;
+    dcterms:isPartOf sg:Document_sol_95f39b465ec7a098b ;
+    dcterms:title "Description" ;
+    sgd:hasParent sg:Document_sol_95f39b465ec7a098b ;
+    sgm:characterCount "511"^^xsd:nonNegativeInteger ;
+    sgm:chunkId "sol_ca8dc89b014e21f93_desc" ;
+    sgm:processingTimestamp "2025-11-04T11:55:14.437789+00:00"^^xsd:dateTime ;
+    sgm:s3Bucket "kr-dl-chunks" ;
+    sgm:s3Key "data-lake/sol_95f39b465ec7a098b/sol_ca8dc89b014e21f93_desc.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_95f39b465ec7a098b/sol_ca8dc89b014e21f93_desc.json"^^xsd:anyURI ;
+    sgm:sequenceNumber "1"^^xsd:positiveInteger .
+
+sg:Document_sol_95f39b465ec7a098b a sgd:Document ;
+    dcterms:created "28 July 2024" ;
+    dcterms:description "" ;
+    dcterms:identifier "sol_95f39b465ec7a098b" ;
+    dcterms:publisher "Unknown" ;
+    dcterms:source "https://example.com/solution" ;
+    dcterms:spatial "Philippines" ;
+    dcterms:title "Climate Solution" ;
+    sgd:firstChild sg:Chunk_sol_ca8dc89b014e21f93_results ;
+    sgd:hasChild sg:Chunk_sol_ca8dc89b014e21f93_desc,
+        sg:Chunk_sol_ca8dc89b014e21f93_highlights,
+        sg:Chunk_sol_ca8dc89b014e21f93_results ;
+    sgd:lastChild sg:Chunk_sol_ca8dc89b014e21f93_desc ;
+    sgm:processingTimestamp "2025-11-04T11:55:14.437533+00:00"^^xsd:dateTime .
+
