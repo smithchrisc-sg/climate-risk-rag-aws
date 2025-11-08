@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_acea397eea59fb917_chunk_0008",
+  "doc_id": "sol_acea397eea59fb917",
+  "chunk_number": 8,
+  "text": "The program funded numerous projects across Australia, with delivery continuing through to completion dates as late as June 2024. Specific projects include levee and channel works, drainage upgrades, and flood protection for high-consequence community assets, such as the South Hobart Primary School.",
+  "section_title": "Results",
+  "character_count": 300,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_1",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 1,
+    "solution_name": "National Flood Mitigation Infrastructure Program (NFMIP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.ses.tas.gov.au/emergency-management-2/grant-funding/national-flood-mitigation-infrastructure-fund/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.355466+00:00"
+  },
+  "s3_key": "data-lake/sol_acea397eea59fb917/sol_acea397eea59fb917_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_acea397eea59fb917/sol_acea397eea59fb917_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f7b4ec155a9446fc5_chunk_0006",
+  "doc_id": "sol_f7b4ec155a9446fc5",
+  "chunk_number": 6,
+  "text": "The program focuses on cyclone and cyclone-related flood risks, providing transparent and periodic public reporting. It emphasizes the assessment of pass-through savings to consumers and involves multi-year tracking of market outcomes. The ACCC's independence enhances the credibility of the program, which is aligned with a specific policy intervention to improve insurance affordability and availability in high-risk areas.",
+  "section_title": "Key Highlights",
+  "character_count": 425,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_28",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 28,
+    "solution_name": "ACCC Insurance Monitoring Program",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nRaising Awareness",
+    "year_of_implementation": "Early 2020s",
+    "ppp": "Yes",
+    "source_url": "https://www.accc.gov.au/system/files/accc-insurance-monitoring-report-july-2025.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.396770+00:00"
+  },
+  "s3_key": "data-lake/sol_f7b4ec155a9446fc5/sol_f7b4ec155a9446fc5_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f7b4ec155a9446fc5/sol_f7b4ec155a9446fc5_chunk_0006.json"
+}

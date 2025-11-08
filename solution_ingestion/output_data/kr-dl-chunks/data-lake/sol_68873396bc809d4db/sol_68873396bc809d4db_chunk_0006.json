@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_68873396bc809d4db_chunk_0006",
+  "doc_id": "sol_68873396bc809d4db",
+  "chunk_number": 6,
+  "text": "KLDAS features a high-resolution (5 km) East Asia domain, observation-driven forcings, and an uncoupled architecture for flexibility. It performs long-term spin-up of the Noah Land Surface Model for physically consistent soil states and has real-time production capability. The system has demonstrated significant impacts on rainfall and meteorological fields in WRF case studies.",
+  "section_title": "Key Highlights",
+  "character_count": 380,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_326",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 326,
+    "solution_name": "Korea Land Data Assimilation System (KLDAS)",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Leveraging Tech",
+    "year_of_implementation": "2007-2008",
+    "ppp": "No",
+    "source_url": "https://ams.confex.com/ams/88Annual/techprogram/paper_132406.htm",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.782890+00:00"
+  },
+  "s3_key": "data-lake/sol_68873396bc809d4db/sol_68873396bc809d4db_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_68873396bc809d4db/sol_68873396bc809d4db_chunk_0006.json"
+}

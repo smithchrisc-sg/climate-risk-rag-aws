@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_eafcab83d85dbc1dd_chunk_0004",
+  "doc_id": "sol_eafcab83d85dbc1dd",
+  "chunk_number": 4,
+  "text": "The Fourth Disaster Risk Management Development Policy Loan with a Catastrophe‑Deferred Drawdown Option (CAT‑DDO 4) is a $500 million contingent credit facility provided by the World Bank to the Philippines. It aims to enhance the country's institutional and financial capacity to manage risks from climate change, natural disasters, and disease outbreaks. The facility offers rapid-access liquidity following qualifying shocks, complementing other risk transfer solutions and fiscal buffers to ensure timely response and recovery.",
+  "section_title": "Description",
+  "character_count": 531,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_284",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 284,
+    "solution_name": "Fourth Disaster Risk Management Development Policy Loan with a Catastrophe‑Deferred Drawdown Option (CAT‑DDO 4)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/147391641931244931/pdf/Philippines-Fourth-Disaster-Risk-Management-Development-Policy-Loan.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.732685+00:00"
+  },
+  "s3_key": "data-lake/sol_eafcab83d85dbc1dd/sol_eafcab83d85dbc1dd_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_eafcab83d85dbc1dd/sol_eafcab83d85dbc1dd_chunk_0004.json"
+}

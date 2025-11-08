@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_97d3ee24ebe544bb5_chunk_0004",
+  "doc_id": "sol_97d3ee24ebe544bb5",
+  "chunk_number": 4,
+  "text": "The Cyclone Recovery Capability Fund (CRCF) is a targeted initiative under New Zealand's Budget 2024, designed to enhance the capability of local councils to manage recovery functions following major weather disasters, such as Cyclone Gabrielle. The fund focuses on providing technical expertise and capacity to accelerate recovery processes, including voluntary buyouts for high-risk properties, flood risk assessments, and infrastructure restoration. It aims to address bottlenecks in decision-making and project delivery, ensuring faster and more effective recovery efforts.",
+  "section_title": "Description",
+  "character_count": 577,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_164",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 164,
+    "solution_name": "Cyclone Recovery Capability Fund (CRCF) — councils’ capability support for recovery functions, including voluntary buyouts, under Budget 2024",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.dpmc.govt.nz/sites/default/files/2024-09/eco-24-sub-0135-changes-north-island-weather-events-crown-funding-agreements.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.546502+00:00"
+  },
+  "s3_key": "data-lake/sol_97d3ee24ebe544bb5/sol_97d3ee24ebe544bb5_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_97d3ee24ebe544bb5/sol_97d3ee24ebe544bb5_chunk_0004.json"
+}

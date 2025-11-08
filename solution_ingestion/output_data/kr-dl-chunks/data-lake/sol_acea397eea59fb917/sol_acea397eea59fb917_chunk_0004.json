@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_acea397eea59fb917_chunk_0004",
+  "doc_id": "sol_acea397eea59fb917",
+  "chunk_number": 4,
+  "text": "The National Flood Mitigation Infrastructure Program (NFMIP) is an Australian Government initiative aimed at reducing flood risks through capital grants for essential public infrastructure. Funded by the Commonwealth's Emergency Response Fund, the program co-invested with state, territory, and local governments to construct or upgrade levees, stormwater networks, and other flood mitigation structures. The program's objectives include reducing community flood risk, lowering future disaster recovery costs, and improving the insurability of infrastructure and communities.",
+  "section_title": "Description",
+  "character_count": 575,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_1",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 1,
+    "solution_name": "National Flood Mitigation Infrastructure Program (NFMIP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.ses.tas.gov.au/emergency-management-2/grant-funding/national-flood-mitigation-infrastructure-fund/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.354869+00:00"
+  },
+  "s3_key": "data-lake/sol_acea397eea59fb917/sol_acea397eea59fb917_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_acea397eea59fb917/sol_acea397eea59fb917_chunk_0004.json"
+}

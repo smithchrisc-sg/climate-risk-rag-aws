@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b9ea7ef562bd0b5fb_chunk_0008",
+  "doc_id": "sol_b9ea7ef562bd0b5fb",
+  "chunk_number": 8,
+  "text": "As of the latest information, the initiative remains a proposal and design framework with no formal rollout or results reported. Expected outcomes include faster liquidity, reduced budget volatility, and stronger fiscal resilience.",
+  "section_title": "Results",
+  "character_count": 231,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_82",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 82,
+    "solution_name": "From Pandemic to Greater Resilience: Enhancing Disaster Risk Financing in the People’s Republic of China",
+    "country": "People’s Republic of China (PRC)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/publications/disaster-risk-financing-peoples-republic-china",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.464784+00:00"
+  },
+  "s3_key": "data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0008.json"
+}

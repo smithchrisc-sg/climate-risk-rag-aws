@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_aa6a1b2b7e32a9eac_chunk_0006",
+  "doc_id": "sol_aa6a1b2b7e32a9eac",
+  "chunk_number": 6,
+  "text": "The initiative was characterized by its rapid response, with aid delivered within days of the storms. It utilized the Philippines' 4Ps social assistance program for precise targeting of vulnerable households, particularly those with children under five. The program also integrated logistics support and emergency telecommunications to ensure effective delivery and coordination of aid. The initiative built on South Korea's history of humanitarian support to the Philippines, demonstrating continuity and institutional learning.",
+  "section_title": "Key Highlights",
+  "character_count": 529,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_317",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 317,
+    "solution_name": "The Republic of Korea Provides PHP 30 Million in Aid for Typhoon-Affected Families in the Philippines",
+    "country": "Republic of Korea, \nPhilippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.wfp.org/news/republic-korea-provides-php-30-million-aid-typhoon-affected-families-philippines",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.768368+00:00"
+  },
+  "s3_key": "data-lake/sol_aa6a1b2b7e32a9eac/sol_aa6a1b2b7e32a9eac_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_aa6a1b2b7e32a9eac/sol_aa6a1b2b7e32a9eac_chunk_0006.json"
+}

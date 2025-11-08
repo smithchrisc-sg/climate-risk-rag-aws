@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_df7543d07ea89c45d_chunk_0004",
+  "doc_id": "sol_df7543d07ea89c45d",
+  "chunk_number": 4,
+  "text": "Design.Resilience.NZ is a national online hub in New Zealand aimed at facilitating the design and upgrade of buildings to exceed minimum building code requirements, focusing on functional performance during and after natural hazard events. It consolidates technically reviewed, above-code guidance from multiple agencies into a single, trusted platform, addressing the need for practical, resilient design resources.",
+  "section_title": "Description",
+  "character_count": 416,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_148",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 148,
+    "solution_name": "Design.Resilience.NZ",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nIncrease Penetration",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.naturalhazards.govt.nz/news/hub-launched-to-empower-architects-and-engineers-to-build-above-code/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.527528+00:00"
+  },
+  "s3_key": "data-lake/sol_df7543d07ea89c45d/sol_df7543d07ea89c45d_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_df7543d07ea89c45d/sol_df7543d07ea89c45d_chunk_0004.json"
+}

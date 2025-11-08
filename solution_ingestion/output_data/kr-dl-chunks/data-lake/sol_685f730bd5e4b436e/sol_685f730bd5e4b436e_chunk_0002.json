@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_685f730bd5e4b436e_chunk_0002",
+  "doc_id": "sol_685f730bd5e4b436e",
+  "chunk_number": 2,
+  "text": "This solution, National Plan for Disaster Management (NPDM) 2021–2025 addresses natural catastrophe through public private partnerships in Bangladesh between Ministry of Disaster Management and Relief (MoDMR), Department of Disaster Management, Government of Bangladesh (GoB) line ministries, United Nations Development Programme (UNDP), Japan International Cooperation Agency (JICA), and National Resilience Program (NRP). The program was implemented in 2021 and focuses on collaboration, regulation, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 524,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_36",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 36,
+    "solution_name": "National Plan for Disaster Management (NPDM) 2021–2025",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://modmr.portal.gov.bd/sites/default/files/files/modmr.portal.gov.bd/page/a7c2b9e1_6c9d_4ecf_bb53_ec74653e6d05/NPDM2021-25%20DraftVer5_23032020.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.407349+00:00"
+  },
+  "s3_key": "data-lake/sol_685f730bd5e4b436e/sol_685f730bd5e4b436e_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_685f730bd5e4b436e/sol_685f730bd5e4b436e_chunk_0002.json"
+}

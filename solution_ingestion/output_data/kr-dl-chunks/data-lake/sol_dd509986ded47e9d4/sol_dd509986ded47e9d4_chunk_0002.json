@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_dd509986ded47e9d4_chunk_0002",
+  "doc_id": "sol_dd509986ded47e9d4",
+  "chunk_number": 2,
+  "text": "This solution, Insurance Affordability and Natural Hazards Risk Reduction Taskforce addresses natural catastrophe through public private partnerships in Australia between Department of the Prime Minister and Cabinet (PM&C), National Emergency Management Agency (NEMA), and Treasury. The program was implemented in 2024 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 363,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_12",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 12,
+    "solution_name": "Insurance Affordability and Natural Hazards Risk Reduction Taskforce",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://ministers.treasury.gov.au/ministers/stephen-jones-2022/media-releases/insurance-affordability-and-natural-hazards-risk",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.375724+00:00"
+  },
+  "s3_key": "data-lake/sol_dd509986ded47e9d4/sol_dd509986ded47e9d4_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_dd509986ded47e9d4/sol_dd509986ded47e9d4_chunk_0002.json"
+}

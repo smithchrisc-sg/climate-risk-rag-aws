@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_87525d74ea23c23ce_chunk_0002",
+  "doc_id": "sol_87525d74ea23c23ce",
+  "chunk_number": 2,
+  "text": "This solution, Urutau, ka taurikura: Kia tū pakari a Aotearoa i ngā huringa āhuarangi | Adapt and thrive: Building a climate-resilient New Zealand — Aotearoa New Zealand’s First National Adaptation Plan (NAP) addresses natural catastrophe in Aotearoa New Zealand between Ministry for the Environment (MfE), Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development (HUD), Ministry of Business, Innovation and Employment (MBIE), Kāinga Ora – Homes and Communities, Ministry for Culture and Heritage, and Climate Change Commission (CCC). The program was implemented in 2022 and focuses on collaboration, raising awareness, and regulation.",
+  "section_title": "Introduction",
+  "character_count": 645,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_175",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 175,
+    "solution_name": "Urutau, ka taurikura: Kia tū pakari a Aotearoa i ngā huringa āhuarangi | Adapt and thrive: Building a climate-resilient New Zealand — Aotearoa New Zealand’s First National Adaptation Plan (NAP)",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://www.hud.govt.nz/our-work/national-adaptation-plan",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.560094+00:00"
+  },
+  "s3_key": "data-lake/sol_87525d74ea23c23ce/sol_87525d74ea23c23ce_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_87525d74ea23c23ce/sol_87525d74ea23c23ce_chunk_0002.json"
+}

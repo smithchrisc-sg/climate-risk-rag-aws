@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7662e2ea344b03692_chunk_0006",
+  "doc_id": "sol_7662e2ea344b03692",
+  "chunk_number": 6,
+  "text": "The program features cross-cutting collaboration across World Bank Group units and partnerships with organizations like GFDRR and InsuResilience Global Partnership. It emphasizes public-private partnerships to strengthen catastrophe insurance markets and integrates disaster risk financing with macro-fiscal policy and preparedness. The Financial Protection Forum serves as a knowledge platform to disseminate best practices.",
+  "section_title": "Key Highlights",
+  "character_count": 425,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_85",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 85,
+    "solution_name": "World Bank Group’s Disaster Risk Financing and Insurance Program (DRFI/DRFIP)",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2010, \n2018",
+    "ppp": "Yes",
+    "source_url": "https://www.worldbank.org/en/programs/disaster-risk-financing-and-insurance-program",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.469415+00:00"
+  },
+  "s3_key": "data-lake/sol_7662e2ea344b03692/sol_7662e2ea344b03692_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7662e2ea344b03692/sol_7662e2ea344b03692_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3e14b094c9bc2e2d2_chunk_0002",
+  "doc_id": "sol_3e14b094c9bc2e2d2",
+  "chunk_number": 2,
+  "text": "This solution, Government Risk Financing for Drought in Brunei (2020–2025) addresses natural catastrophe in Brunei Darussalam . The program was implemented in Cannot be determined.",
+  "section_title": "Introduction",
+  "character_count": 180,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_55",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 55,
+    "solution_name": "Government Risk Financing for Drought in Brunei (2020–2025)",
+    "country": "Brunei Darussalam",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "",
+    "theme": "",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://en.wikipedia.org/wiki/Economy_of_Brunei",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.430718+00:00"
+  },
+  "s3_key": "data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0002.json"
+}

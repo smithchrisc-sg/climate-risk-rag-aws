@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e461ad344c09fce4a_chunk_0002",
+  "doc_id": "sol_e461ad344c09fce4a",
+  "chunk_number": 2,
+  "text": "This solution, Fire and Emergency New Zealand (FENZ) Funding Model Reform addresses natural catastrophe through public private partnerships in New Zealand between Department of Internal Affairs (DIA), New Zealand Government/Cabinet, Fire and Emergency New Zealand (FENZ), Insurance Council of New Zealand (ICNZ), and Property sector stakeholders. The program was implemented in 2026 and focuses on regulation and collaboration.",
+  "section_title": "Introduction",
+  "character_count": 427,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_174",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 174,
+    "solution_name": "Fire and Emergency New Zealand (FENZ) Funding Model Reform",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2026",
+    "ppp": "Yes",
+    "source_url": "https://www.dia.govt.nz/firefundingreview",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.558575+00:00"
+  },
+  "s3_key": "data-lake/sol_e461ad344c09fce4a/sol_e461ad344c09fce4a_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e461ad344c09fce4a/sol_e461ad344c09fce4a_chunk_0002.json"
+}

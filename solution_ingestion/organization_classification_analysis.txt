@@ -1,0 +1,330 @@
+Organization Classification Analysis
+==================================================
+
+CLASSIFICATION SUMMARY:
+------------------------------
+PublicOrganization: 1054 organizations
+PrivateOrganization: 348 organizations
+InternationalOrganization: 271 organizations
+InsuranceCompany: 110 organizations
+EmergencyManagementAgency: 76 organizations
+University: 76 organizations
+UNAgency: 63 organizations
+DevelopmentBank: 40 organizations
+HealthMinistry: 35 organizations
+EnvironmentMinistry: 23 organizations
+ConsultingFirm: 13 organizations
+TransportationMinistry: 9 organizations
+StatisticalOffice: 4 organizations
+
+Total Classified: 2122
+
+HIERARCHY STRUCTURE:
+------------------------------
+HealthMinistry -> Ministry
+EnvironmentMinistry -> Ministry
+TransportationMinistry -> Ministry
+Ministry -> PublicOrganization
+StatisticalOffice -> PublicOrganization
+EmergencyManagementAgency -> PublicOrganization
+DevelopmentBank -> InternationalOrganization
+UNAgency -> InternationalOrganization
+InsuranceCompany -> PrivateOrganization
+University -> PrivateOrganization
+ConsultingFirm -> PrivateOrganization
+PublicOrganization -> org:Organization
+InternationalOrganization -> org:Organization
+PrivateOrganization -> org:Organization
+
+DETAILED CLASSIFICATIONS:
+------------------------------
+
+PublicOrganization (1054 organizations):
+  - 12 Government Ministries (South Korea)
+  - 253 community health centers (South Korea)
+  - ACP–EU Natural Disaster Risk Reduction Program (Papua New Guinea)
+  - APACPH-KOREA (South Korea)
+  - ASEAN Commission on the Promotion and Protection of the Rights of Women and Children (ACWC) (Myanmar)
+  - ASEAN Intergovernmental Commission on Human Rights (AICHR) (Myanmar)
+  - ASEAN Secretariat (Cambodia, 
+Philippines, 
+Viet Nam)
+  - ASEAN Secretariat (Singapore, 
+ASEAN+3 region)
+  - ASEAN Secretariat (South Korea)
+  - ASEAN Secretariat (Thailand, 
+Indonesia, 
+Vietnam)
+  - ASEAN Sectoral Working Group on Crops (ASWGC) (Thailand, 
+Indonesia, 
+Vietnam)
+  - ASEAN Socio-Cultural Community (ASCC) Knowledge Hub (Cambodia, 
+Philippines, 
+Viet Nam)
+  - ASEAN+3 governments (Singapore, 
+ASEAN+3 region)
+  - ASEAN+3 member authorities (South Korea)
+  - Accident Compensation Corporation (ACC) (New Zealand)
+  - Addu City Council (Maldives)
+  - Advanced Industrial Science and Technology (AIST) (Japan)
+  - Affected local councils (New Zealand)
+  - Agency for Integrated Care (AIC) (Singapore)
+  - Agency for Integrated Care (Singapore)
+  ... and 1034 more
+
+
+EnvironmentMinistry (23 organizations):
+  - Department of Environment (DoE) (Bangladesh)
+  - Department of Environment and Conservation (Papua New Guinea)
+  - Department of Environment and Natural Resources–Mines and Geosciences Bureau (DENR–MGB) (Philippines)
+  - Department of Natural Resources and Environment Tasmania (NRE Tasmania) (Australia)
+  - Environment and Climate Change Ministry (Malaysia)
+  - Environmental Protection Agency (EPA) (Maldives)
+  - Government of Laos PDR Ministry of Public Works & Transport (MPWT) Ministry of Natural Resources and Environment (MONRE) Ministry of Finance (MOF) Ministry of Planning and Investment (MPI) (Laos PDR)
+  - Ministry for the Environment (MfE) (Aotearoa New Zealand)
+  - Ministry for the Environment (MfE) (New Zealand)
+  - Ministry for the Environment (New Zealand)
+  - Ministry of Climate Change & Environmental Coordination (Pakistan)
+  - Ministry of Climate Change and Environmental Coordination (MoCC&EC) (Pakistan)
+  - Ministry of Ecology and Environment (MEE) (People’s Republic of China)
+  - Ministry of Environment (Japan)
+  - Ministry of Environment (MOE) (Republic of Korea (South Korea))
+  - Ministry of Environment (MoE) (Kingdom of Cambodia)
+  - Ministry of Environment (Republic of Korea (South Korea))
+  - Ministry of Natural Resources and Environment (MONRE) (Cambodia, 
+Lao People's Democratic Republic)
+  - Ministry of Natural Resources and Environment (MoNRE) (Thailand)
+  - Ministry of Natural Resources and Environmental Sustainability (NRES) (Malaysia)
+  ... and 3 more
+
+
+HealthMinistry (35 organizations):
+  - Central Provident Fund (CPF) Board Ministry of Health (Singapore)
+  - Department of Social Insurance of the Ministry of Health and Welfare (Taiwan (China))
+  - Korean Ministry of Health and Welfare (MOHW) (Republic of Korea)
+  - Local Health Departments (Taiwan)
+  - Ministry of Health (Brunei)
+  - Ministry of Health (Japan)
+  - Ministry of Health (Laos PDR)
+  - Ministry of Health (MOH) (Singapore)
+  - Ministry of Health (MOH) of Singapore (Singapore)
+  - Ministry of Health (Singapore)
+  - Ministry of Health (Vietnam)
+  - Ministry of Health Malaysia (MOH) (Malaysia)
+  - Ministry of Health Malaysia (Malaysia)
+  - Ministry of Health and Population (Nepal)
+  - Ministry of Health and Social Welfare (Taiwan)
+  - Ministry of Health and Sports (MoHS) (Myanmar)
+  - Ministry of Health and Welfare (Chinese Taipei)
+  - Ministry of Health and Welfare (MOHW) (Republic of Korea (South Korea))
+  - Ministry of Health and Welfare (MOHW) (Republic of Korea)
+  - Ministry of Health and Welfare (MOHW) (South Korea)
+  ... and 15 more
+
+
+EmergencyManagementAgency (76 organizations):
+  - APEC Senior Disaster Management Officials’ Forum
+  - Australian Government National Emergency Management Agency (Australia)
+  - Center for Excellence in Disaster Management and Humanitarian Assistance (CFE-DMHA)
+  - Civil Defence and Emergency Management (CDEM) professionals (Aotearoa New Zealand)
+  - Department of Disaster Management (Bangladesh)
+  - Department of Disaster Management (DDM) (Bangladesh)
+  - Department of Disaster Prevention and Mitigation (DDPM) (Thailand)
+  - Department of Fire and Emergency Services (DFES) (Australia)
+  - Disaster Management Committees (DMCs) (Bangladesh)
+  - Disaster Management Fund (Myanmar)
+  - Disaster Prevention Research Institute (Japan)
+  - Disaster management authorities (Cambodia)
+  - Disaster management institutions (Myanmar)
+  - District Disaster Management Committees (DDMCs) (Brunei Darussalam)
+  - Emergency Management Australia (EMA) (Australia)
+  - Emergency Management Marlborough (New Zealand)
+  - Emergency Management Southland (New Zealand)
+  - Emergency management and health services (South Korea)
+  - Japan Association for Slope Disaster Management (JASDiM) (Japan)
+  - Japan Fire and Disaster Prevention Association (Japan)
+  ... and 56 more
+
+
+InsuranceCompany (110 organizations):
+  - 56 Reinsurers
+  - ASEAN Disaster Risk Financing and Insurance Programme (ADRFI)
+  - Agriculture insurance entities
+  - AmMetLife Insurance Berhad
+  - Aon Reinsurance Solutions
+  - Australian Reinsurance Pool Corporation (ARPC) (Australia)
+  - Bangladesh Insurance Academy (BIA) (Bangladesh)
+  - Bureau of Labor Insurance (BLI) (Taiwan)
+  - Bureau of Labor Insurance of the Ministry of Labor (Taiwan (China))
+  - CARD Pioneer Microinsurance (Initiator)
+  - Central Social Insurance Medical Council (Chuikyo) (Japan)
+  - Domestic insurers
+  - FijiCare Insurance
+  - FijiCare Insurance Limited
+  - General Insurance Association of Japan (GIAJ) (Japan)
+  - General Insurance Association of Japan (Japan)
+  - General Insurance Rating Organization of Japan (Japan)
+  - General Insurers
+  - Global Asia Insurance Partnership
+  - Global Asia Insurance Partnership (GAIP)
+  ... and 90 more
+
+
+University (76 organizations):
+  - Academic and Research Institutions (Japan)
+  - Civil Service College (Singapore)
+  - Durham University (UK)
+  - Earth Observatory of Singapore (EOS) at Nanyang Technological University (NTU) (Singapore)
+  - Florida Atlantic University (FAU) (United States, 
+Japan)
+  - Florida Atlantic University (FAU) (United States, Japan)
+  - Florida Atlantic University (United States, 
+Japan)
+  - Hallym University Sacred Heart Hospital (South Korea)
+  - Hokkaido University (Japan)
+  - Hokkaido University (Japan)
+  - Indian Institute of Technology Roorkee (IIT Roorkee) (India)
+  - Indian Institutes of Technology (IIT Roorkee (India)
+  - James Cook University (JCU) (Australia)
+  - Korea Advanced Institute of Science and Technology (KAIST) (South Korea)
+  - Korea Institute of Civil Engineering and Building Technology (KICT) (Cambodia)
+  - Kumamoto University (United States, 
+Japan)
+  - Kumamoto University (United States, Japan)
+  - Kyoto University (Japan)
+  - Kyoto University (Japan)
+  - Kyoto University (United States, 
+Japan)
+  ... and 56 more
+
+
+StatisticalOffice (4 organizations):
+  - Australian Bureau of Statistics (ABS) (Australia)
+  - National Bureau of Statistics (NBS) (People’s Republic of China)
+  - National Bureau of Statistics (People’s Republic of China)
+  - National Development and Statistics (Republic of Fiji)
+
+
+UNAgency (63 organizations):
+  - Food and Agriculture Organisations of the United Nations
+  - Food and Agriculture Organization of the United Nations (FAO)
+  - IOC-UNESCO
+  - IOC-UNESCO Tsunami Programme
+  - India-UN Development Partnership Fund
+  - India-UN Development Partnership Fund (UNOSSC)
+  - India‑UN Partnership Fund
+  - India–UN Development Partnership Fund
+  - India–UN Development Partnership Fund (Republic of Fiji)
+  - India–UN Partnership Fund
+  - Private companies who offer MPF products
+  - UN Capital Development Fund (UNCDF)
+  - UN Capital Development Fund (UNCDF) (Republic of Fiji)
+  - UN Central Emergency Response Fund (CERF)
+  - UN Country Team
+  - UN Development Programme (UNDP)
+  - UN Development Programme (UNDP) (Republic of Fiji)
+  - UN Office for Disaster Risk Reduction
+  - UN Office for South-South Cooperation (UNOSSC)
+  - UN Office for South–South Cooperation (UNOSSC)
+  ... and 43 more
+
+
+DevelopmentBank (40 organizations):
+  - Asian Development Bank
+  - Asian Development Bank (ADB)
+  - Asian Development Bank (ADB) (Papua New Guinea)
+  - Asian Development Bank (Technical Assistance)
+  - Asian Development Bank Frankfurt School of Finance
+  - Asian Development Bank Institute (ADBI)
+  - Construction Housing and Infrastructure Development Bank
+  - Development Bank of Japan (DBJ) (Japan)
+  - IFC of the World Bank
+  - International Development Association (IDA) of the World Bank Group
+  - International Development Association (World Bank
+  - Japan-World Bank Program for Mainstreaming DRM
+  - Japan–World Bank Program for Mainstreaming DRM
+  - Multilateral Development Banks (MDBs)
+  - The World Bank
+  - The World Bank (International Development Association)
+  - World Bank
+  - World Bank (IBRD)
+  - World Bank (IDA financing)
+  - World Bank (IDA)
+  ... and 20 more
+
+
+TransportationMinistry (9 organizations):
+  - Departments of Transport and Infrastructure (Papua New Guinea)
+  - Government of Laos PDR Ministry of Public Works & Transport (MPWT) (Laos PDR)
+  - Land Transport Authority (LTA) (Singapore)
+  - Ministry of Transport (MOT) (Singapore)
+  - NZ Transport Agency Waka Kotahi (New Zealand)
+  - National Maritime Safety Authority (NMSA)
+  - New Zealand Transport Agency Waka Kotahi (New Zealand)
+  - PNG Department of Transport (Papua New Guinea)
+  - Waka Kotahi NZ Transport Agency (New Zealand)
+
+
+ConsultingFirm (13 organizations):
+  - AQX Solutions
+  - Associated Consulting Engineers (ACE) (Pvt) Ltd (Pakistan)
+  - Deloitte Tohmatsu Consulting (Japan)
+  - Earthwork Solutions Ltd
+  - Environmental Change Advisory (ECA)
+  - Global Program on Nature-Based Solutions for Climate Resilience
+  - Global Shield Solutions Platform (GSSP)
+  - ICEM Asia Consulting (Nepal)
+  - Industry members and consulting firms (Aotearoa New Zealand)
+  - InsuResilience Solutions Fund
+  - National and international consulting firms (Maldives)
+  - SUEZ Digital Solutions
+  - Strategic Aboriginal Advisory Group (SAAG) (Australia)
+
+
+InternationalOrganization (271 organizations):
+  - ACP–EU Natural Disaster Risk Reduction Programme
+  - ADB Institute
+  - ADB’s Japan Special Fund for TA
+  - ADPC
+  - AHA Centre
+  - AIAG (International Association of Agricultural Insurers)
+  - AMRO
+  - APEC Disaster Risk Reduction Plan
+  - ASEAN Coordinating Centre for Humanitarian Assistance (AHA Centre)
+  - ASEAN DRFI/SEADRIF
+  - ASEAN Disability Forum (ADF)
+  - ASEAN Secretariat
+  - ASEAN Specialised Meteorological Centre (ASMC)
+  - ASEAN community
+  - ASEAN+3
+  - ASEAN+3 Disaster Risk Finance Initiative
+  - AXA Research Fund
+  - Adaptation Fund Board (AFB)
+  - Adrienne Arsht-Rockefeller Foundation Resilience Center (Arsht-Rock)
+  - African Union
+  ... and 251 more
+
+
+PrivateOrganization (348 organizations):
+  - 28 HMOs
+  - 35 community universities
+  - 3D Civil Pty Ltd
+  - AIA
+  - AIA Bhd
+  - AIR Worldwide
+  - AIR Worldwide (now Verisk Extreme Event Solutions)
+  - ASML Holding NV
+  - Abbott
+  - Academia
+  - Academia Sinica
+  - Academia and Research Institutions (Taiwan)
+  - Advanced Micro Devices Inc. (AMD)
+  - Afcons Infrastructure Ltd
+  - Agriculture stakeholders
+  - Agrobank
+  - Allianz Global Investors
+  - Allianz Malaysia
+  - Anthola Group (Malaysia)
+  - Aon New Zealand Ltd
+  ... and 328 more
+

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_97d0e3489c04b0db9_chunk_0004",
+  "doc_id": "sol_97d0e3489c04b0db9",
+  "chunk_number": 4,
+  "text": "HydroSOS‑BaNe is a regional initiative aimed at operationalizing a hydrological status-and-outlook system to provide actionable early warnings and water management intelligence for Bangladesh and Nepal. The project focuses on improving hydrometeorological services and decision support for floods, droughts, and broader water-related hazards, aligning technical hydrology with real-world risk management and planning needs.",
+  "section_title": "Description",
+  "character_count": 423,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_47",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 47,
+    "solution_name": "Hydrological Status and Outlook System for Integrated Water Resources Management and Climate Resilience in Bangladesh and Nepal (HydroSOS‑BaNe)",
+    "country": "Bangladesh, \nNepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://www.adaptation-fund.org/wp-content/uploads/2023/01/WMO_Bangladesh_Nepal_FP-1.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.420203+00:00"
+  },
+  "s3_key": "data-lake/sol_97d0e3489c04b0db9/sol_97d0e3489c04b0db9_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_97d0e3489c04b0db9/sol_97d0e3489c04b0db9_chunk_0004.json"
+}

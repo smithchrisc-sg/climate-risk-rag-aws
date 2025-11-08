@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_671ebad9599173cbe_chunk_0008",
+  "doc_id": "sol_671ebad9599173cbe",
+  "chunk_number": 8,
+  "text": "The initiatives aim to move 627 properties from higher-risk categories to safer ones, with NZD $70 million in Crown funding allocated for the Wairoa project. The project is expected to significantly reduce flood extents and depths, lowering exposure for households and community assets.",
+  "section_title": "Results",
+  "character_count": 286,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_154",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 154,
+    "solution_name": "2020–2025 NZ Flood Risk Reduction and Mitigation Initiatives",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://environment.govt.nz/assets/Publications/Files/meeting-challenges-of-future-flooding-in-nz.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.535533+00:00"
+  },
+  "s3_key": "data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0008.json"
+}

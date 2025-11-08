@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_452b646fe5e6920c5_chunk_0004",
+  "doc_id": "sol_452b646fe5e6920c5",
+  "chunk_number": 4,
+  "text": "The Four-Party Accountability System for Underground Flooding Zones is a strategic initiative by the South Korean government to enhance operational control and accountability for flood-prone underpasses. This system assigns clear responsibilities to multi-agency teams, including road authorities, local government officials, village heads, and police officers, to manage real-time monitoring, alerts, and rapid response actions. It is part of a broader national disaster mitigation package aimed at reducing risks associated with rapid-onset urban flash flooding during monsoon periods.",
+  "section_title": "Description",
+  "character_count": 587,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_310",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 310,
+    "solution_name": "Four-Party Accountability System for Underground Flooding Zones",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://koreajoongangdaily.joins.com/news/2025-05-14/national/socialAffairs/Korean-govt-announces-upgraded-plan-to-mitigate-summer-natural-disasters/2307238",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.762966+00:00"
+  },
+  "s3_key": "data-lake/sol_452b646fe5e6920c5/sol_452b646fe5e6920c5_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_452b646fe5e6920c5/sol_452b646fe5e6920c5_chunk_0004.json"
+}

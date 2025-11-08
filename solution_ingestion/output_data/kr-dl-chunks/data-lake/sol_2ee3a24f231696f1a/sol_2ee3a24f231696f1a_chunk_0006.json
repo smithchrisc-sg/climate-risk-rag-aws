@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2ee3a24f231696f1a_chunk_0006",
+  "doc_id": "sol_2ee3a24f231696f1a",
+  "chunk_number": 6,
+  "text": "The initiative marks Nepal's first national AA framework and roadmap, shifting from reactive to proactive disaster risk management. It employs a two-step forecast trigger model and pre-arranged financing, proven in the 2021 pilot via CERF. The framework emphasizes a 'whole-of-society' approach, integrating markets, local governments, and communities, and recognizes the need for cross-border early warning systems.",
+  "section_title": "Key Highlights",
+  "character_count": 416,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_142",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 142,
+    "solution_name": "Integration of Anticipatory Action into Nepal’s National Disaster Risk Management (DRM) System",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.spotlightnepal.com/2025/04/15/national-anticipatory-action-framework-and-roadmap-in-nepal-a-long-awaited-leap-in-nepals-disaster-risk-management/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.522748+00:00"
+  },
+  "s3_key": "data-lake/sol_2ee3a24f231696f1a/sol_2ee3a24f231696f1a_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2ee3a24f231696f1a/sol_2ee3a24f231696f1a_chunk_0006.json"
+}

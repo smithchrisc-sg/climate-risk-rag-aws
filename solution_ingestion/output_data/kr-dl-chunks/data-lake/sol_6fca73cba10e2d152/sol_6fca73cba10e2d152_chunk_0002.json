@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6fca73cba10e2d152_chunk_0002",
+  "doc_id": "sol_6fca73cba10e2d152",
+  "chunk_number": 2,
+  "text": "This solution, Government Agricultural Insurance Premium Subsidy addresses natural catastrophe through public private partnerships in Philippines between Department of Finance (DOF), Insurance Commission, Philippine Crop Insurance Corporation (PCIC), Department of Agriculture (DA), World Bank, and Palawan Group of Companies/PalawanPay. The program was implemented in 2024, \n2025 and focuses on accessibility, collaboration, and regulation.",
+  "section_title": "Introduction",
+  "character_count": 441,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_273",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 273,
+    "solution_name": "Government Agricultural Insurance Premium Subsidy",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nIncrease Penetration",
+    "theme": "Accessibility, \nCollaboration, \nRegulation",
+    "year_of_implementation": "2024, \n2025",
+    "ppp": "Yes",
+    "source_url": "https://blogs.worldbank.org/en/eastasiapacific/transforming-agricultural-insurance-in-the-philippines-to-help-f",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.720902+00:00"
+  },
+  "s3_key": "data-lake/sol_6fca73cba10e2d152/sol_6fca73cba10e2d152_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6fca73cba10e2d152/sol_6fca73cba10e2d152_chunk_0002.json"
+}

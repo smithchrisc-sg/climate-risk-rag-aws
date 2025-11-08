@@ -1,137 +1,132 @@
 #!/usr/bin/env python3
 """
-Simple RDF Generation Test
+Simple RDF generation test with better debug output
 """
 
+import logging
 import sys
+import os
 from pathlib import Path
-from datetime import datetime
 
-# Add project root to path
-sys.path.append(str(Path(__file__).parent))
+# Set up path for imports
+current_dir = Path(__file__).parent
+sys.path.append(str(current_dir))
+sys.path.append(str(current_dir / "database_core_layer" / "python"))
+sys.path.append(str(current_dir / "knowledge_graph_layer" / "python"))
 
-from models.solution import Solution
-from generators.rdf_generator import RDFGenerator
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-def create_test_solution():
-    """Create a test solution for RDF generation"""
-    solution = Solution(
-        id="test123",
-        source_file="test.csv",
-        row_number=1,
-        number="001",
-        name="Test Climate Solution",
-        country="Test Country",
-        public_organisations="Test Public Org",
-        international_organisations="Test Intl Org",
-        private_organisations="Test Private Org",
-        type_of_risk="Physical Risk",
-        type_of_solution="Adaptation",
-        ppp="Public",
-        theme="Infrastructure",
-        year_of_implementation="2024",
-        description="This is a test climate solution for RDF generation",
-        key_highlights="Key highlights of the solution",
-        results="Positive results achieved",
-        organization_sources="https://example.com/test-solution",
-        other_sources="",
-        contact_information="test@example.com",
-        date_added="2024-01-01",
-        last_updated="2024-01-01",
-        most_recent_changes=""
-    )
-    
-    # Add derived fields
-    solution.doc_id = "sol_test123"
-    solution.source_url = "https://example.com/test-solution"
-    
-    # Add pseudo-document text
-    solution.pseudo_document_text = (
-        "Climate Solution: Test Climate Solution\n\n"
-        "This comprehensive climate solution addresses key environmental challenges "
-        "through innovative approaches and sustainable practices. The solution "
-        "demonstrates significant impact in reducing carbon emissions and "
-        "promoting environmental sustainability."
-    )
-    
-    return solution
-
-def create_test_chunks(solution):
-    """Create test chunks for the solution"""
-    chunks = [
-        {
-            "chunk_id": f"{solution.doc_id}_desc",
-            "text": "This is the description chunk containing the main overview of the climate solution.",
-            "character_count": 95,
-            "metadata": {"type": "description"}
-        },
-        {
-            "chunk_id": f"{solution.doc_id}_highlights", 
-            "text": "Key highlights include innovative technology, measurable impact, and scalable implementation.",
-            "character_count": 98,
-            "metadata": {"type": "highlights"}
-        },
-        {
-            "chunk_id": f"{solution.doc_id}_results",
-            "text": "Results show 30% reduction in emissions and positive environmental outcomes.",
-            "character_count": 78,
-            "metadata": {"type": "results"}
-        }
-    ]
-    return chunks
-
-def test_rdf_generation():
-    """Test RDF generation with mock data"""
-    
-    print("Simple RDF Generation Test")
-    print("=" * 50)
-    
-    # Create test data
-    solution = create_test_solution()
-    chunks = create_test_chunks(solution)
-    
-    print(f"Test solution: {solution.name}")
-    print(f"Generated {len(chunks)} test chunks")
-    
-    # Generate RDF
-    rdf_gen = RDFGenerator()
-    rdf_output = rdf_gen.generate_document_rdf(solution, chunks)
-    
-    print(f"\nGenerated RDF:")
-    print("-" * 40)
-    print(rdf_output)
-    
-    # Save to file
-    output_dir = Path("output_data/rdf")
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    rdf_file = output_dir / "test_simple.ttl"
-    with open(rdf_file, 'w', encoding='utf-8') as f:
-        f.write(rdf_output)
-    
-    print(f"\nRDF saved to: {rdf_file}")
-    print(f"RDF length: {len(rdf_output)} characters")
-    
-    # Test batch generation
-    print(f"\nTesting batch generation...")
-    rdf_gen.clear_graph()
-    
-    # Create second test solution
-    solution2 = create_test_solution()
-    solution2.doc_id = "sol_test456"
-    solution2.name = "Second Test Solution"
-    chunks2 = create_test_chunks(solution2)
-    
-    batch_rdf = rdf_gen.generate_batch_rdf([(solution, chunks), (solution2, chunks2)])
-    
-    batch_file = output_dir / "test_batch.ttl"
-    with open(batch_file, 'w', encoding='utf-8') as f:
-        f.write(batch_rdf)
-    
-    print(f"Batch RDF saved to: {batch_file}")
-    print(f"Batch RDF length: {len(batch_rdf)} characters")
-    
-    return rdf_output
+def test_simple_rdf():
+    """Simple RDF generation test."""
+    try:
+        from parsers.csv_parser import CSVParser
+        from generators.structured_pseudo_document_generator import StructuredPseudoDocumentGenerator
+        from generators.chunk_generator import ChunkGenerator
+        from generators.rdf_generator import RDFGenerator
+        
+        print("Simple RDF Generation Test")
+        print("=" * 50)
+        
+        # Get first solution with contact info
+        parser = CSVParser()
+        csv_file = Path("input_data/natural_catastrophe_26-Sep-2025.csv")
+        
+        solution = None
+        for i, sol in enumerate(parser.parse_csv_file(csv_file)):
+            if sol.contact_information and sol.contact_information.strip():
+                solution = sol
+                print(f"Using solution: {solution.name[:50]}...")
+                break
+            if i >= 10:  # Just check first 10
+                break
+        
+        if not solution:
+            print("No solution with contact info found!")
+            return False
+        
+        # Generate pseudo document
+        print("\n1. Generating pseudo document...")
+        pseudo_gen = StructuredPseudoDocumentGenerator()
+        processed = pseudo_gen.process_solutions([solution])
+        solution = processed[0]
+        print(f"   Generated {len(solution.pseudo_document_text)} chars")
+        
+        # Generate chunks
+        print("\n2. Generating chunks...")
+        chunk_gen = ChunkGenerator()
+        chunks = chunk_gen.generate_chunks(solution)
+        print(f"   Generated {len(chunks)} chunks")
+        
+        for i, chunk in enumerate(chunks):
+            chunk_id = getattr(chunk, 'chunk_id', f'chunk_{i}')
+            text = getattr(chunk, 'text', '')[:50]
+            print(f"   - {chunk_id}: {text}...")
+        
+        # Convert to dict format
+        print("\n3. Converting chunks to dict format...")
+        chunk_dicts = []
+        for chunk in chunks:
+            chunk_dict = {
+                'chunk_id': getattr(chunk, 'chunk_id', ''),
+                'text': getattr(chunk, 'text', ''),
+                'chunk_index': getattr(chunk, 'chunk_index', 0),
+                'character_count': len(getattr(chunk, 'text', '')),
+                'section_type': getattr(chunk, 'section_type', 'section'),
+            }
+            chunk_dicts.append(chunk_dict)
+        print(f"   Converted {len(chunk_dicts)} chunks")
+        
+        # Generate RDF
+        print("\n4. Generating Production-Aligned RDF...")
+        from generators.production_rdf_generator import ProductionRDFGenerator
+        rdf_gen = ProductionRDFGenerator()
+        try:
+            rdf_content = rdf_gen.generate_document_rdf(solution, chunks)
+            print(f"   Generated RDF: {len(rdf_content)} chars")
+            
+            # Show first part of RDF
+            print("\n5. RDF Preview (first 2000 chars):")
+            print("-" * 50)
+            print(rdf_content[:2000])
+            if len(rdf_content) > 2000:
+                print("...")
+            print("-" * 50)
+            
+        except Exception as e:
+            print(f"   RDF generation failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+        
+        # Write to data lake
+        print("\n6. Writing to data lake...")
+        try:
+            output_dir = Path("output_data/kr-dl-neptune-ttl/data-lake") / solution.doc_id
+            output_dir.mkdir(parents=True, exist_ok=True)
+            
+            ttl_file = output_dir / f"{solution.doc_id}.ttl"
+            with open(ttl_file, 'w', encoding='utf-8') as f:
+                f.write(rdf_content)
+            
+            print(f"   Written to: {ttl_file}")
+            print(f"   File size: {ttl_file.stat().st_size} bytes")
+            
+        except Exception as e:
+            print(f"   Data lake writing failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+        
+        print("\n✅ Simple RDF test completed successfully!")
+        return True
+        
+    except Exception as e:
+        print(f"\n❌ Test failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 if __name__ == "__main__":
-    test_rdf_generation()
+    test_simple_rdf()

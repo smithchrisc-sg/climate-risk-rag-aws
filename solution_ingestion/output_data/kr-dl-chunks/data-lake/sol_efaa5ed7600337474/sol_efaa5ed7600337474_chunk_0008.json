@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_efaa5ed7600337474_chunk_0008",
+  "doc_id": "sol_efaa5ed7600337474",
+  "chunk_number": 8,
+  "text": "The Balochistan project, with a budget of US$5 million, was completed with a 'Satisfactory' rating in June 2016. The program has conducted risk assessments for capitals, restored flood infrastructure, and strengthened institutional capacities in Punjab and northern districts, with ongoing efforts in Sindh.",
+  "section_title": "Results",
+  "character_count": 307,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_201",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 201,
+    "solution_name": "Pakistan Disaster Risk Management Program",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2005",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/programs/pakistan-disaster-risk-management-program",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.592078+00:00"
+  },
+  "s3_key": "data-lake/sol_efaa5ed7600337474/sol_efaa5ed7600337474_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_efaa5ed7600337474/sol_efaa5ed7600337474_chunk_0008.json"
+}

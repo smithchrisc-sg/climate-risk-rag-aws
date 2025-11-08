@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_979880796b16321e7_chunk_0004",
+  "doc_id": "sol_979880796b16321e7",
+  "chunk_number": 4,
+  "text": "Black Kite Re Limited (Series 2025‑1) is a catastrophe bond issuance by Peak Reinsurance Company, utilizing a Hong Kong-domiciled special purpose insurer, Black Kite Re Limited. The bond provides multi-peril, multi-territory retrocessional reinsurance to Peak Re over a three-year term, with a focus on parametric earthquake protection for Mainland China. This initiative aims to mobilize capital markets to address Asia's protection gap, particularly in seismic risk areas.",
+  "section_title": "Description",
+  "character_count": 474,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_76",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 76,
+    "solution_name": "Black Kite Re Limited – Series 2025‑1 Class A Principal At‑Risk Variable Rate Notes",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.artemis.bm/news/peak-re-adds-china-india-parametric-quake-to-second-black-kite-re-catastrophe-bond/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.456772+00:00"
+  },
+  "s3_key": "data-lake/sol_979880796b16321e7/sol_979880796b16321e7_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_979880796b16321e7/sol_979880796b16321e7_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b1d11bd1d2315c42a_chunk_0006",
+  "doc_id": "sol_b1d11bd1d2315c42a",
+  "chunk_number": 6,
+  "text": "The initiative features an exclusive panel model ensuring capacity and expertise, a cluster-based procurement strategy using agency insurance data, and a closed, sequential RFP process for tailored solutions. It aligns with AoG procurement frameworks to centralize and professionalize market engagement, aiming for economies of scale and improved data analytics.",
+  "section_title": "Key Highlights",
+  "character_count": 362,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_173",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 173,
+    "solution_name": "All-of-Government (AoG) Risk Financing and Insurance",
+    "country": "New Zealand",
+    "type_of_risk": "Cannot be determined",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2015",
+    "ppp": "Yes",
+    "source_url": "https://www.gets.govt.nz/MBIE/ExternalTenderDetails.htm?id=5298196",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.557814+00:00"
+  },
+  "s3_key": "data-lake/sol_b1d11bd1d2315c42a/sol_b1d11bd1d2315c42a_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b1d11bd1d2315c42a/sol_b1d11bd1d2315c42a_chunk_0006.json"
+}

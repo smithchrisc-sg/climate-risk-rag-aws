@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_54815118164fc9c01_chunk_0010",
+  "doc_id": "sol_54815118164fc9c01",
+  "chunk_number": 10,
+  "text": "Hybrid integrated models for evidence-based microzonation with high predictive performance.",
+  "section_title": "Key Highlights",
+  "character_count": 91,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_322",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 322,
+    "solution_name": "Republic of Korea Landslide Information System (LIS)",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2015, \n2023",
+    "ppp": "No",
+    "source_url": "https://link.springer.com/article/10.1007/s10346-025-02513-y",
+    "section_title": "Key Highlights",
+    "chunk_number": 10,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.775483+00:00"
+  },
+  "s3_key": "data-lake/sol_54815118164fc9c01/sol_54815118164fc9c01_chunk_0010.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_54815118164fc9c01/sol_54815118164fc9c01_chunk_0010.json"
+}

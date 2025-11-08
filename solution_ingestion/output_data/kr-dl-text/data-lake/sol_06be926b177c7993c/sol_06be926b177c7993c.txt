@@ -1,0 +1,54 @@
+Sindh Resilience Project (SRP)
+
+Sindh Irrigation Department (SID), 
+Provincial Disaster Management Authority (PDMA) Sindh
+
+and 
+
+World Bank
+
+Introduction
+
+This solution, Sindh Resilience Project (SRP) addresses natural catastrophe in Pakistan between Sindh Irrigation Department (SID), Provincial Disaster Management Authority (PDMA) Sindh, and World Bank. The program was implemented in 2016 and focuses on collaboration and leveraging tech.
+
+Description
+
+The Sindh Resilience Project (SRP) is an initiative by the Government of Sindh, implemented by the Sindh Irrigation Department and the Provincial Disaster Management Authority, with financing from the World Bank. It aims to enhance the institutional capacity to manage riverine flood risks in Sindh, particularly along the Indus River. The project employs a Decision Support System (DSS) that integrates satellite imagery, numerical modeling, and real-time hydrometric data to aid in water resources planning and operational river monitoring before and during flood seasons.
+
+Key Highlights
+
+End-to-end Decision Support System (DSS) that supports both pre-season water planning and real-time flood operations., 
+Integration of satellite imagery and numerical models with live gauge data for evidence-based decision-making., 
+Joint implementation by SID and PDMA, promoting a whole-of-government approach to flood risk management., 
+Early adoption of Environmental and Social Management Framework (ESMF) and Resettlement Policy Framework (RPF) for standardized environmental and social screening., 
+Scalable financing with a 2020 Additional Financing proposal indicating strategic relevance and scalability.
+
+Results
+
+The establishment and operationalization of a specialized DSS for strategic water resources planning and real-time Indus river monitoring, built on satellite imagery, numerical modeling, and live hydrometric data ingestion.
+
+Contact Information
+
+Name: Ahsan Tehsin, 
+Position:Senior Disaster Risk Management Specialist, 
+Company:World Bank 
+Email: NIL, 
+Contact Number: NIL
+, 
+Name: Aliya Kashif, 
+Position:Senior Health Specialist, 
+Company:World Bank 
+Email: NIL, 
+Contact Number: NIL
+, 
+Organization: Sindh Irrigation Department, 
+Email: srp.sindhirrig@gmail.com, 
+Contact Number: NIL
+, 
+Organization: PDMA Sindh, 
+Email: dg@pdma.gos.pk, 
+Contact Number: NIL
+, 
+Organization: World Bank, 
+Email: ipanel@worldbank.org, 
+Contact Number: NIL

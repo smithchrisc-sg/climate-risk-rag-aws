@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7662e2ea344b03692_chunk_0002",
+  "doc_id": "sol_7662e2ea344b03692",
+  "chunk_number": 2,
+  "text": "This solution, World Bank Group’s Disaster Risk Financing and Insurance Program (DRFI/DRFIP) addresses natural catastrophe through public private partnerships in China between World Bank Group, Global Facility for Disaster Reduction and Recovery (GFDRR), SECO (Switzerland), DFID/FCDO (UK), USAID, Government of Japan, UNISDR/UNDRR, WFP, OECD, and ASEAN+3. The program was implemented in 2010, \n2018 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 451,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_85",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 85,
+    "solution_name": "World Bank Group’s Disaster Risk Financing and Insurance Program (DRFI/DRFIP)",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2010, \n2018",
+    "ppp": "Yes",
+    "source_url": "https://www.worldbank.org/en/programs/disaster-risk-financing-and-insurance-program",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.468976+00:00"
+  },
+  "s3_key": "data-lake/sol_7662e2ea344b03692/sol_7662e2ea344b03692_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7662e2ea344b03692/sol_7662e2ea344b03692_chunk_0002.json"
+}

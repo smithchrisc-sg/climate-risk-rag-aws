@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_11a62054c2f9236f1_chunk_0008",
+  "doc_id": "sol_11a62054c2f9236f1",
+  "chunk_number": 8,
+  "text": "The NZDI and Drought Monitor have been operationally used to support drought awareness and decision-making in Hawke’s Bay, aiding in water management and adverse event classifications by MPI. However, specific quantifiable results are not documented.",
+  "section_title": "Results",
+  "character_count": 250,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_190",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 190,
+    "solution_name": "New Zealand Drought Index (NZDI)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2017",
+    "ppp": "No",
+    "source_url": "https://niwa.co.nz/climate/information-and-resources/nz-drought-index",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.578988+00:00"
+  },
+  "s3_key": "data-lake/sol_11a62054c2f9236f1/sol_11a62054c2f9236f1_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_11a62054c2f9236f1/sol_11a62054c2f9236f1_chunk_0008.json"
+}

@@ -1,0 +1,36 @@
+GeoRisk Philippines (GeoRiskPH) Integrated Platform
+
+Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST‑PHIVOLCS), 
+Office of Civil Defense (OCD)/National Disaster Risk Reduction and Management Council (NDRRMC), 
+Local Government Units (LGUs)
+
+and 
+
+World Bank, 
+Global Facility for Disaster Reduction and Recovery (GFDRR)
+
+Introduction
+
+This solution, GeoRisk Philippines (GeoRiskPH) Integrated Platform addresses natural catastrophe in Republic of the Philippines between Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST‑PHIVOLCS), Office of Civil Defense (OCD)/National Disaster Risk Reduction and Management Council (NDRRMC), Local Government Units (LGUs), World Bank, and Global Facility for Disaster Reduction and Recovery (GFDRR). The program was implemented in 2019 and focuses on collaboration, leveraging tech, and raising awareness.
+
+Description
+
+GeoRisk Philippines (GeoRiskPH) is a government-led, web-based platform providing authoritative, science-based hazard and risk information. It is designed to support multi-hazard data management, risk assessment, and risk-informed planning across various government levels. The platform consolidates hazard information and offers tools for exposure mapping and analytics, enabling accurate and standardized risk assessments.
+
+Key Highlights
+
+GeoRiskPH is a government-run, science-based multi-hazard central database recognized in national policy. It features an integrated toolchain comprising HazardHunterPH, GeoMapperPH, GeoAnalyticsPH, and PlanSmart, which connects data collection with policy outputs. The platform standardizes exposure data collection and is institutionalized in national policy, with extensive capacity-building efforts reaching hundreds of LGUs and technical staff.
+
+Results
+
+450 technical staff from 150 provinces and cities trained to use GeoRiskPH for DRM plans; 325 LGUs (1,805 mayors/officers/technical staff) trained under Ready to Rebuild on risk-informed planning and financing; integration into NDRRMP 2020–2030; adoption of PlanSmart for rehabilitation and recovery planning using GeoRiskPH data.
+
+Contact Information
+
+Organization: Global Facility for Disaster Reduction and Recovery (GFDRR), 
+Email: Not published on cited sources (use the GFDRR Contact Us page as the official channel), 
+Contact Number: +81 (3) 3 597 6662
+, 
+Organization: World Bank, 
+Email: Not published on cited sources (use the GFDRR Contact Us page as the official channel), 
+Contact Number: +1-202-473-6253

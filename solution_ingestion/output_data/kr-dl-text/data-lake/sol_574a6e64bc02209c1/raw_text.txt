@@ -1,0 +1,36 @@
+Philippine City Disaster Insurance Pool (PCDIP)
+
+Department of Finance (DOF), Government of the Philippines
+
+and 
+
+Asian Development Bank (ADB)
+
+and 
+
+RMS Inc., 
+EMI, 
+Vivid Economics, 
+Willis Towers Watson
+
+Introduction
+
+This solution, Philippine City Disaster Insurance Pool (PCDIP) addresses natural catastrophe through public private partnerships in Philippines between Department of Finance (DOF), Government of the Philippines, Asian Development Bank (ADB), RMS Inc., EMI, Vivid Economics, and Willis Towers Watson. The program was implemented in 2018 and focuses on collaboration and leveraging tech.
+
+Description
+
+The Philippine City Disaster Insurance Pool (PCDIP) is a proposed parametric catastrophe insurance program aimed at providing rapid and cost-effective payouts to Philippine cities after severe disasters. Supported by the Asian Development Bank and the Philippine Department of Finance, it targets medium-to-high severity earthquakes and typhoons, addressing the immediate post-disaster liquidity gap at the local government unit level.
+
+Key Highlights
+
+PCDIP is a pioneering subnational catastrophe insurance pooling initiative in the Philippines, using RMS models for transparent parametric triggers. It aims for rapid disbursement post-disaster and includes a ten-city asset exposure database to enhance risk understanding and insurance design quality.
+
+Results
+
+Quantifiable operational results are not publicly available as the project remains in 'Proposed' status as of 2024. However, the design of the pool structure, pricing, and coverage has been completed, along with the development of a ten-city asset exposure database.
+
+Contact Information
+
+Organization: Asian Development Bank (ADB), 
+Email: fsofrontoffice@adb.org, 
+Contact Number: Not publicly disclosed on ADB pages provided in the source set

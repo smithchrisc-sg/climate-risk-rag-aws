@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f56ff24210f86d133_chunk_0004",
+  "doc_id": "sol_f56ff24210f86d133",
+  "chunk_number": 4,
+  "text": "The nationwide rollout of full-cost and planting income insurance for rice, wheat, and corn in China aims to stabilize farmers' incomes, encourage staple grain cultivation, and strengthen national food security. The program, backed by substantial government premium subsidies, covers production risks from natural disasters and market volatility, while also addressing structural risks related to declining staple acreage.",
+  "section_title": "Description",
+  "character_count": 422,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_87",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 87,
+    "solution_name": "Full-cost insurance and planting income insurance for rice, wheat, and corn",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.insurancejournal.com/news/international/2024/05/22/775263.htm",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.470469+00:00"
+  },
+  "s3_key": "data-lake/sol_f56ff24210f86d133/sol_f56ff24210f86d133_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f56ff24210f86d133/sol_f56ff24210f86d133_chunk_0004.json"
+}

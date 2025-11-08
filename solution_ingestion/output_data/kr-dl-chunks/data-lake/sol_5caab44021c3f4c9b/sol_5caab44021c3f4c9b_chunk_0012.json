@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_5caab44021c3f4c9b_chunk_0012",
+  "doc_id": "sol_5caab44021c3f4c9b",
+  "chunk_number": 12,
+  "text": "The proposal has established a coherent, cross-regional case for co-investment, but specific central funding commitments directly traceable to the initiative are not documented.",
+  "section_title": "Results",
+  "character_count": 177,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_171",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 171,
+    "solution_name": "Before the Deluge: Building Flood Resilience in Aotearoa",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://www.gw.govt.nz/assets/Documents/2022/12/Upload_20221207-210351.pdf",
+    "section_title": "Results",
+    "chunk_number": 12,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.555505+00:00"
+  },
+  "s3_key": "data-lake/sol_5caab44021c3f4c9b/sol_5caab44021c3f4c9b_chunk_0012.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_5caab44021c3f4c9b/sol_5caab44021c3f4c9b_chunk_0012.json"
+}

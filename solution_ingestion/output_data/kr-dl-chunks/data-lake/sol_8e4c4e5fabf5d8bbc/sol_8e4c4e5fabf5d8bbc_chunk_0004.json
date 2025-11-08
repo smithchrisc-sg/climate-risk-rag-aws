@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8e4c4e5fabf5d8bbc_chunk_0004",
+  "doc_id": "sol_8e4c4e5fabf5d8bbc",
+  "chunk_number": 4,
+  "text": "The Connect PNG Infrastructure Development Plan is a 20-year initiative aimed at constructing, rehabilitating, and maintaining 16,000 km of road infrastructure in Papua New Guinea. It seeks to reduce economic isolation, improve market access, and promote long-term growth by creating economic corridors. The plan emphasizes resilient design, innovation in planning and monitoring through GIS and digital tools, and sustained financing to ensure durable and equitable connectivity, particularly for rural and resource-rich areas.",
+  "section_title": "Description",
+  "character_count": 528,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_227",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 227,
+    "solution_name": "Connect PNG Infrastructure Development Plan (2020–2040)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://works.gov.pg/pages/134",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.663073+00:00"
+  },
+  "s3_key": "data-lake/sol_8e4c4e5fabf5d8bbc/sol_8e4c4e5fabf5d8bbc_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8e4c4e5fabf5d8bbc/sol_8e4c4e5fabf5d8bbc_chunk_0004.json"
+}

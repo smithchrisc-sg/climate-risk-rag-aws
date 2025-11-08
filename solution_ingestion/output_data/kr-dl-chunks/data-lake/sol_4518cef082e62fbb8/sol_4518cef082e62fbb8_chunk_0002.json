@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_4518cef082e62fbb8_chunk_0002",
+  "doc_id": "sol_4518cef082e62fbb8",
+  "chunk_number": 2,
+  "text": "This solution, PNG Tsunami Guide and Tsunami Hazard Capability Building addresses natural catastrophe through public private partnerships in Papua New Guinea between Port Moresby Geophysical Observatory, National Disaster Centre (NDC), Department of Works and Highways (DoWH), Climate Change and Development Authority (CCDA), UNESCO Intergovernmental Oceanographic Commission (IOC), Pacific Tsunami Warning Center (PTWC), IOC-UNESCO Tsunami Programme, Global Facility for Disaster Reduction and Recovery (GFDRR), ThinkHazard, Global Green Growth Institute (GGGI), and GHD. The program was implemented in Ongoing; institutional foundations predate 2011 and focuses on collaboration, raising awareness, and regulation.",
+  "section_title": "Introduction",
+  "character_count": 716,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_222",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 222,
+    "solution_name": "PNG Tsunami Guide and Tsunami Hazard Capability Building",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "Ongoing; institutional foundations predate 2011",
+    "ppp": "Yes",
+    "source_url": "https://tsunami.ioc.unesco.org/en/member-states/png",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.655353+00:00"
+  },
+  "s3_key": "data-lake/sol_4518cef082e62fbb8/sol_4518cef082e62fbb8_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_4518cef082e62fbb8/sol_4518cef082e62fbb8_chunk_0002.json"
+}

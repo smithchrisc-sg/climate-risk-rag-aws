@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0d8eac754bfdd4444_chunk_0004",
+  "doc_id": "sol_0d8eac754bfdd4444",
+  "chunk_number": 4,
+  "text": "The Second Disaster Resilience Improvement Program (Second DRIP) is a policy-based loan initiative by the Asian Development Bank, providing the Philippines with contingent disaster financing. It aims to enhance disaster risk reduction and management through policy reforms and rapid financing access post-disasters. The program includes a gender equity theme and focuses on anticipatory disaster response, integrating national state-owned enterprises into disaster risk management frameworks, and rolling out a voluntary city parametric insurance scheme.",
+  "section_title": "Description",
+  "character_count": 554,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_280",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 280,
+    "solution_name": "Second Disaster Resilience Improvement Program (Second DRIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/projects/57309-001/main",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.728984+00:00"
+  },
+  "s3_key": "data-lake/sol_0d8eac754bfdd4444/sol_0d8eac754bfdd4444_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0d8eac754bfdd4444/sol_0d8eac754bfdd4444_chunk_0004.json"
+}

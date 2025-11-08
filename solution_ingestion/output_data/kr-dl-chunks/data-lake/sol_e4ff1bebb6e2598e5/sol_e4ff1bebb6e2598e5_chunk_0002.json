@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e4ff1bebb6e2598e5_chunk_0002",
+  "doc_id": "sol_e4ff1bebb6e2598e5",
+  "chunk_number": 2,
+  "text": "This solution, Pacific Catastrophe Risk Assessment and Financing Initiative (PCRAFI) addresses natural catastrophe through public private partnerships in Papua New Guinea between World Bank, Secretariat of the Pacific Community (SPC) through SOPAC, Asian Development Bank (ADB), Global Facility for Disaster Reduction and Recovery (GFDRR), European Union (ACP-EU), GNS Science, Geoscience Australia, and AIR Worldwide. The program was implemented in 2006 and focuses on collaboration, leveraging tech, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 524,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_236",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 236,
+    "solution_name": "Pacific Catastrophe Risk Assessment and Financing Initiative (PCRAFI)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2006",
+    "ppp": "Yes",
+    "source_url": "https://www.gfdrr.org/en/pacific-catastrophe-risk-assessment-and-financing-initiative-phase-3",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.678649+00:00"
+  },
+  "s3_key": "data-lake/sol_e4ff1bebb6e2598e5/sol_e4ff1bebb6e2598e5_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e4ff1bebb6e2598e5/sol_e4ff1bebb6e2598e5_chunk_0002.json"
+}

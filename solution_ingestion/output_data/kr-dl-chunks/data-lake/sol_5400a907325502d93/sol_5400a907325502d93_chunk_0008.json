@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_5400a907325502d93_chunk_0008",
+  "doc_id": "sol_5400a907325502d93",
+  "chunk_number": 8,
+  "text": "The AF8 Hazard Scenario and SAFER Framework have been widely adopted by organizations for emergency management and business continuity planning. The project has contributed to the richest Alpine Fault paleoearthquake record, enhancing forecasting reliability and maintaining active engagement to drive preparedness.",
+  "section_title": "Results",
+  "character_count": 315,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_149",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 149,
+    "solution_name": "Project AF8: Alpine Fault Magnitude 8, \nSouth Island Alpine Fault Earthquake Response (SAFER) Framework",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2016",
+    "ppp": "Yes",
+    "source_url": "https://www.gns.cri.nz/research-projects/alpine-fault-magnitude-8/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.529382+00:00"
+  },
+  "s3_key": "data-lake/sol_5400a907325502d93/sol_5400a907325502d93_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_5400a907325502d93/sol_5400a907325502d93_chunk_0008.json"
+}

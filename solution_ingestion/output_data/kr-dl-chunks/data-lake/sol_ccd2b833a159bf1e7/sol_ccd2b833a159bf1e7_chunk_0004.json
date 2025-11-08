@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ccd2b833a159bf1e7_chunk_0004",
+  "doc_id": "sol_ccd2b833a159bf1e7",
+  "chunk_number": 4,
+  "text": "The Disaster Ready Fund – Round 3 is a national competitive grant program in Australia aimed at funding infrastructure and systemic disaster risk reduction projects. It is part of the broader Disaster Ready Fund initiative, which commits $1 billion over five years to reduce disaster risk through state and territory-led applications. The program focuses on multi-hazard risks, including extreme weather and geological hazards, and emphasizes alignment with existing disaster risk reduction plans.",
+  "section_title": "Description",
+  "character_count": 497,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_25",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 25,
+    "solution_name": "Disaster Ready Fund – Round 3 (DRF Round 3)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nsw.gov.au/grants-and-funding/disaster-ready-fund",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.392801+00:00"
+  },
+  "s3_key": "data-lake/sol_ccd2b833a159bf1e7/sol_ccd2b833a159bf1e7_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ccd2b833a159bf1e7/sol_ccd2b833a159bf1e7_chunk_0004.json"
+}

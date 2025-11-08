@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9d84d4d863e2d5077_chunk_0006",
+  "doc_id": "sol_9d84d4d863e2d5077",
+  "chunk_number": 6,
+  "text": "The CFPF is a ring-fenced fund that ensures sustainable financing for multi-decade investments in coastal protection. It supports site-specific studies and planning for large-scale infrastructure projects, such as Long Island on the east coast and barriers to protect critical industrial and port assets. The fund's design allows for phased implementation, prioritizing vulnerable and economically critical areas. Early disbursements have already financed drainage projects and detailed studies across eight coastline segments.",
+  "section_title": "Key Highlights",
+  "character_count": 527,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_301",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 301,
+    "solution_name": "Coastal and Flood Protection Fund (CFPF)",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.straitstimes.com/singapore/budget-2025-additional-5-billion-injected-into-coastal-and-flood-protection-fund",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.752618+00:00"
+  },
+  "s3_key": "data-lake/sol_9d84d4d863e2d5077/sol_9d84d4d863e2d5077_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9d84d4d863e2d5077/sol_9d84d4d863e2d5077_chunk_0006.json"
+}

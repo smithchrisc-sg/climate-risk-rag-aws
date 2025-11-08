@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_685f730bd5e4b436e_chunk_0008",
+  "doc_id": "sol_685f730bd5e4b436e",
+  "chunk_number": 8,
+  "text": "The plan has led to system-level consolidation of disaster risk reduction governance and alignment with national and international frameworks. However, there is limited publicly available, plan-specific quantifiable performance data, indicating a need for improved results reporting and monitoring and evaluation transparency.",
+  "section_title": "Results",
+  "character_count": 326,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_36",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 36,
+    "solution_name": "National Plan for Disaster Management (NPDM) 2021–2025",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://modmr.portal.gov.bd/sites/default/files/files/modmr.portal.gov.bd/page/a7c2b9e1_6c9d_4ecf_bb53_ec74653e6d05/NPDM2021-25%20DraftVer5_23032020.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.408016+00:00"
+  },
+  "s3_key": "data-lake/sol_685f730bd5e4b436e/sol_685f730bd5e4b436e_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_685f730bd5e4b436e/sol_685f730bd5e4b436e_chunk_0008.json"
+}

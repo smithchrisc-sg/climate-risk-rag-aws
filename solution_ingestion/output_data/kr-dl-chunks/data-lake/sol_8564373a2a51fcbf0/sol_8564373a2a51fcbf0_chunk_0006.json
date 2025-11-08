@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8564373a2a51fcbf0_chunk_0006",
+  "doc_id": "sol_8564373a2a51fcbf0",
+  "chunk_number": 6,
+  "text": "The initiative is characterized by its strata-specific focus, targeting multi-dwelling buildings where risk reduction requires coordinated decisions. It features algorithm-based incentives, developed in collaboration with James Cook University, ensuring scientific credibility and alignment with government mitigation programs. The initiative also emphasizes targeted algorithmic integration, refining the pricing model to recognize verified mitigation efforts without compromising actuarial consistency.",
+  "section_title": "Key Highlights",
+  "character_count": 504,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_29",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 29,
+    "solution_name": "Cyclone Reinsurance Pool Strata Mitigation Discounts (CRP Strata Mitigation Discounts)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.insurancenews.com.au/regulatory-government/cyclone-pool-to-introduce-strata-mitigation-discounts",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.397964+00:00"
+  },
+  "s3_key": "data-lake/sol_8564373a2a51fcbf0/sol_8564373a2a51fcbf0_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8564373a2a51fcbf0/sol_8564373a2a51fcbf0_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9163196834e590b85_chunk_0002",
+  "doc_id": "sol_9163196834e590b85",
+  "chunk_number": 2,
+  "text": "This solution, SAP039: Integrated Climate Risk Management for Strengthened Resilience to Climate Change in Buner and Shangla Districts of Khyber Pakhtunkhwa Province, Pakistan addresses natural catastrophe through public private partnerships in Pakistan between Government of Pakistan, Government of Khyber Pakhtunkhwa, United Nations World Food Programme (WFP), Green Climate Fund (GCF), and Local entrepreneurs and private sector. The program was implemented in 2025 and focuses on collaboration, raising awareness, and accessibility.",
+  "section_title": "Introduction",
+  "character_count": 536,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_211",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 211,
+    "solution_name": "SAP039: Integrated Climate Risk Management for Strengthened Resilience to Climate Change in Buner and Shangla Districts of Khyber Pakhtunkhwa Province, Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.greenclimate.fund/ae/wfp",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.604173+00:00"
+  },
+  "s3_key": "data-lake/sol_9163196834e590b85/sol_9163196834e590b85_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9163196834e590b85/sol_9163196834e590b85_chunk_0002.json"
+}

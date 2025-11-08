@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d4443cccbd9a39df8_chunk_0004",
+  "doc_id": "sol_d4443cccbd9a39df8",
+  "chunk_number": 4,
+  "text": "The State Disaster Mitigation Plan (SDMP) is New South Wales' comprehensive strategy to proactively reduce disaster risks before they occur. Released in February 2024 by the NSW Reconstruction Authority, it is Australia's first state-level multi-hazard mitigation plan. The SDMP aims to shift disaster spending from response and recovery to risk reduction, addressing risks such as floods, storms, coastal erosion, bushfires, and heatwaves. It integrates mitigation into investment decisions, develops local Disaster Adaptation Plans (DAPs), and collaborates with industry and insurers to enhance resilience and affordability.",
+  "section_title": "Description",
+  "character_count": 626,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_23",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 23,
+    "solution_name": "State Disaster Mitigation Plan (SDMP), NSW Reconstruction Authority (NSW RA)",
+    "country": "Australia (State of New South Wales)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/our-work/disaster-adaptation-planning/state-disaster-mitigation-plan",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.390206+00:00"
+  },
+  "s3_key": "data-lake/sol_d4443cccbd9a39df8/sol_d4443cccbd9a39df8_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d4443cccbd9a39df8/sol_d4443cccbd9a39df8_chunk_0004.json"
+}

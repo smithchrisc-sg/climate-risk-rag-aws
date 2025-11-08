@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_fc5473f3e52760204_chunk_0006",
+  "doc_id": "sol_fc5473f3e52760204",
+  "chunk_number": 6,
+  "text": "The center was launched during the International Asian Drought Forum, emphasizing its integration into a broader international dialogue on drought management. A formal partnership with NDMC was established through a memorandum of understanding (MOU), facilitating knowledge transfer and capacity building. The center focuses on improving early warning systems and risk management practices, aligning with global best practices.",
+  "section_title": "Key Highlights",
+  "character_count": 427,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_327",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 327,
+    "solution_name": "Korean National Drought Information and Analysis Center (NDIAC)",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://drought.unl.edu/OurWork/International.aspx",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.784132+00:00"
+  },
+  "s3_key": "data-lake/sol_fc5473f3e52760204/sol_fc5473f3e52760204_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_fc5473f3e52760204/sol_fc5473f3e52760204_chunk_0006.json"
+}

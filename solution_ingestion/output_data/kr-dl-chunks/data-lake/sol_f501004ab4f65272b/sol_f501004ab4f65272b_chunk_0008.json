@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f501004ab4f65272b_chunk_0008",
+  "doc_id": "sol_f501004ab4f65272b",
+  "chunk_number": 8,
+  "text": "Cannot be determined",
+  "section_title": "Results",
+  "character_count": 20,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_94",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 94,
+    "solution_name": "Adaptation Fund Proposal for Fiji",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "http://www.adaptation-fund.org/wp-content/uploads/2015/01/AFB.PPRC_.3.8%20Proposal%20for%20Fiji.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.479571+00:00"
+  },
+  "s3_key": "data-lake/sol_f501004ab4f65272b/sol_f501004ab4f65272b_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f501004ab4f65272b/sol_f501004ab4f65272b_chunk_0008.json"
+}

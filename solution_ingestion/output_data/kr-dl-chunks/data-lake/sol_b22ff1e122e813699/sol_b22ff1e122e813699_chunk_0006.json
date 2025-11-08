@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b22ff1e122e813699_chunk_0006",
+  "doc_id": "sol_b22ff1e122e813699",
+  "chunk_number": 6,
+  "text": "The R2R Program features a pre-disaster recovery planning 'playbook' that includes standardized templates and operational guidance. It integrates with the GeoRiskPH multi-hazard database for science-based planning and aligns with the CAT-DDO financing facility to ensure readiness for funding recovery efforts. The program has a nationwide training reach, equipping local governments with the necessary skills and knowledge for effective disaster recovery.",
+  "section_title": "Key Highlights",
+  "character_count": 456,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_256",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 256,
+    "solution_name": "Ready to Rebuild: Disaster Rehabilitation and Recovery Program (R2R Program)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://blogs.worldbank.org/en/eastasiapacific/philippines-ready-rebuild-aftermath-typhoon-rai",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.701882+00:00"
+  },
+  "s3_key": "data-lake/sol_b22ff1e122e813699/sol_b22ff1e122e813699_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b22ff1e122e813699/sol_b22ff1e122e813699_chunk_0006.json"
+}

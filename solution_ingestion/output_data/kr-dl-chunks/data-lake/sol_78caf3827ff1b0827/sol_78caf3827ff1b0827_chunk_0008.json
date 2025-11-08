@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_78caf3827ff1b0827_chunk_0008",
+  "doc_id": "sol_78caf3827ff1b0827",
+  "chunk_number": 8,
+  "text": "The Philippines has utilized Cat DDOs since before 2018, drawing almost US$500 million after Typhoon Mangkhut in 2018. The CAT-DDO 4 was signed in November 2021, providing a financial safety net for immediate liquidity needs during disasters.",
+  "section_title": "Results",
+  "character_count": 242,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_263",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 263,
+    "solution_name": "Fourth Disaster Risk Management Development Policy Loan with a Catastrophe-Deferred Drawdown Option (CAT-DDO 4)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://thedocs.worldbank.org/en/doc/1820b53ad5cba038ff885cc3758ba59f-0340012021/original/Cat-DDO-IBRD-Product-Note.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.710180+00:00"
+  },
+  "s3_key": "data-lake/sol_78caf3827ff1b0827/sol_78caf3827ff1b0827_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_78caf3827ff1b0827/sol_78caf3827ff1b0827_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f2b9fb8dfad7300c3_chunk_0006",
+  "doc_id": "sol_f2b9fb8dfad7300c3",
+  "chunk_number": 6,
+  "text": "The RHP and RLP feature an integrated demand- and supply-side approach, combining voluntary buybacks and home upgrades with the creation of flood-free housing supply. The programs are region-specific, targeting the highest-risk areas with voluntary participation to build community trust. They offer flexibility in co-contributions and provide grants for design and approvals to expedite projects. Partnerships with Landcom, universities, and local councils facilitate the rapid aggregation of flood-free land, with significant milestones including the acquisition of 72 hectares for 400+ lots and a release for up to 1,000 homes in Grafton. The programs are embedded in broader regional resilience packages, addressing interconnected infrastructure and community needs.",
+  "section_title": "Key Highlights",
+  "character_count": 770,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_11",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 11,
+    "solution_name": "Resilient Homes Program (RHP), \nResilient Lands Program (RLP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/our-work/resilient-homes-program/about-program",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.374888+00:00"
+  },
+  "s3_key": "data-lake/sol_f2b9fb8dfad7300c3/sol_f2b9fb8dfad7300c3_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f2b9fb8dfad7300c3/sol_f2b9fb8dfad7300c3_chunk_0006.json"
+}

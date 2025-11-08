@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cd55d0ac9bf9a4a1f_chunk_0008",
+  "doc_id": "sol_cd55d0ac9bf9a4a1f",
+  "chunk_number": 8,
+  "text": "The pilot targeted 1,661 households across 14 villages, offering BDT 8,000 per household for qualifying flood events. The scheme's design aims to mitigate fiscal shocks and strengthen local economic resilience, although specific performance metrics post-launch are not provided.",
+  "section_title": "Results",
+  "character_count": 278,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_40",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 40,
+    "solution_name": "JRSM‑1 Flood Protection Parametric Insurance Scheme",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility",
+    "year_of_implementation": "2013",
+    "ppp": "Yes",
+    "source_url": "https://www.artemis.bm/news/new-parametric-flood-index-insurance-pilot-launched-in-bangladesh/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.411894+00:00"
+  },
+  "s3_key": "data-lake/sol_cd55d0ac9bf9a4a1f/sol_cd55d0ac9bf9a4a1f_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cd55d0ac9bf9a4a1f/sol_cd55d0ac9bf9a4a1f_chunk_0008.json"
+}

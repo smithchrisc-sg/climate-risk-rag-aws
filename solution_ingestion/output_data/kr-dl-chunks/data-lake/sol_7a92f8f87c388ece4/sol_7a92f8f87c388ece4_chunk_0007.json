@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7a92f8f87c388ece4_chunk_0007",
+  "doc_id": "sol_7a92f8f87c388ece4",
+  "chunk_number": 7,
+  "text": "Large subterranean detention: The Stamford Detention Tank, located beneath the Singapore Botanic Gardens, showcases how major hydraulic storage can be integrated into urban environments.,",
+  "section_title": "Key Highlights",
+  "character_count": 187,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_302",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 302,
+    "solution_name": "PUB’s Island-wide Drainage Improvement Programme",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2011",
+    "ppp": "Yes",
+    "source_url": "https://www.pub.gov.sg/Public/KeyInitiatives/Flood-Resilience/Stormwater-Management",
+    "section_title": "Key Highlights",
+    "chunk_number": 7,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.754137+00:00"
+  },
+  "s3_key": "data-lake/sol_7a92f8f87c388ece4/sol_7a92f8f87c388ece4_chunk_0007.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7a92f8f87c388ece4/sol_7a92f8f87c388ece4_chunk_0007.json"
+}

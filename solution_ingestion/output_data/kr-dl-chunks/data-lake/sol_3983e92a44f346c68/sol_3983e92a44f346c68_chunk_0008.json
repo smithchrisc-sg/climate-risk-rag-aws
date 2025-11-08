@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3983e92a44f346c68_chunk_0008",
+  "doc_id": "sol_3983e92a44f346c68",
+  "chunk_number": 8,
+  "text": "Cannot be determined",
+  "section_title": "Results",
+  "character_count": 20,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_321",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 321,
+    "solution_name": "Korean Landslide Early Warning System (KLES)",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://www.tridge.com/news/the-korea-forest-service-will-issue-landslid-nzhlne",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.773707+00:00"
+  },
+  "s3_key": "data-lake/sol_3983e92a44f346c68/sol_3983e92a44f346c68_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3983e92a44f346c68/sol_3983e92a44f346c68_chunk_0008.json"
+}

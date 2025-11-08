@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0782324b776f16371_chunk_0002",
+  "doc_id": "sol_0782324b776f16371",
+  "chunk_number": 2,
+  "text": "This solution, Cambodia Southeast Asia Disaster Risk Management Project 2 (CSADRMP2) addresses natural catastrophe in Cambodia between Government of the Kingdom of Cambodia, Ministry of Rural Development (MRD), World Bank, International Development Association (IDA), Global Facility for Disaster Reduction and Recovery (GFDRR), Japan–World Bank Program for Mainstreaming Disaster Risk Management (DRM), World Meteorological Organization (WMO), UNDRR, and CREWS Initiative. The program was implemented in 2022 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 561,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_67",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 67,
+    "solution_name": "Cambodia Southeast Asia Disaster Risk Management Project 2 (CSADRMP2)",
+    "country": "Cambodia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/879561653594041489/pdf/Cambodia-Second-Southeast-Asia-Disaster-Risk-Management-Project.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.447984+00:00"
+  },
+  "s3_key": "data-lake/sol_0782324b776f16371/sol_0782324b776f16371_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0782324b776f16371/sol_0782324b776f16371_chunk_0002.json"
+}

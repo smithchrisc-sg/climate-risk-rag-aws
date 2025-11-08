@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_47ec9140aa7d29e7a_chunk_0012",
+  "doc_id": "sol_47ec9140aa7d29e7a",
+  "chunk_number": 12,
+  "text": "2018 drawdown after Typhoon Mangkhut: Nearly US$500 million drawn to support recovery.,",
+  "section_title": "Results",
+  "character_count": 87,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_268",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 268,
+    "solution_name": "Fourth Disaster Risk Management Development Policy Loan with a Catastrophe-Deferred Drawdown Option (CAT-DDO 4)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://documents1.worldbank.org/curated/en/363561623419063930/pdf/Philippines-Second-DRM-DPL-with-a-CAT-DDO.pdf",
+    "section_title": "Results",
+    "chunk_number": 12,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.717386+00:00"
+  },
+  "s3_key": "data-lake/sol_47ec9140aa7d29e7a/sol_47ec9140aa7d29e7a_chunk_0012.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_47ec9140aa7d29e7a/sol_47ec9140aa7d29e7a_chunk_0012.json"
+}

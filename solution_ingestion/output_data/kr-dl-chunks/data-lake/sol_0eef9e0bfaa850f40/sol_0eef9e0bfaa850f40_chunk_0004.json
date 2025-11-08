@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0eef9e0bfaa850f40_chunk_0004",
+  "doc_id": "sol_0eef9e0bfaa850f40",
+  "chunk_number": 4,
+  "text": "Singapore's 2025 drainage upgrade projects, led by the Public Utilities Board (PUB), aim to mitigate urban flood risks exacerbated by high-intensity rainfall and tidal interactions. With a S$150 million investment, the initiative includes the Syed Alwi Pumping Station, Bukit Timah Canal upgrade, and Sungei Serangoon subsidiary drains. These projects are part of Singapore's national Drainage Improvement Programme, following the Source–Pathway–Receptor flood risk management framework. The projects focus on increasing conveyance, managing storage, and protecting downstream areas to reduce flash flood risks in urban catchments.",
+  "section_title": "Description",
+  "character_count": 631,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_304",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 304,
+    "solution_name": "PUB’s 2025 Drainage Upgrading Works",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.pub.gov.sg/-/media/Images/Feature/Content-Pages/Public/Singapore-Water-Loop/fullReport.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.757368+00:00"
+  },
+  "s3_key": "data-lake/sol_0eef9e0bfaa850f40/sol_0eef9e0bfaa850f40_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0eef9e0bfaa850f40/sol_0eef9e0bfaa850f40_chunk_0004.json"
+}

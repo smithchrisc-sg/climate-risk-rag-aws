@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c0086b3a9e6833a4b_chunk_0004",
+  "doc_id": "sol_c0086b3a9e6833a4b",
+  "chunk_number": 4,
+  "text": "The IBRD Catastrophe Bonds for Earthquakes and Tropical Cyclones were issued by the World Bank to provide the Philippines with financial protection against natural disasters. These bonds, part of the IBRD Capital-at-Risk Notes program, offer up to USD 225 million in coverage for earthquake and tropical cyclone risks. The bonds are structured to provide rapid payouts based on modeled loss triggers, ensuring quick financial relief to the Philippines in the event of a disaster.",
+  "section_title": "Description",
+  "character_count": 479,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_254",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 254,
+    "solution_name": "IBRD Catastrophe Bonds for Earthquakes and Tropical Cyclones",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2019/11/25/world-bank-catastrophe-bond-transaction-insures-the-republic-of-philippines-against-natural-disaster-related-losses-up-to-usd225-million",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.700439+00:00"
+  },
+  "s3_key": "data-lake/sol_c0086b3a9e6833a4b/sol_c0086b3a9e6833a4b_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c0086b3a9e6833a4b/sol_c0086b3a9e6833a4b_chunk_0004.json"
+}

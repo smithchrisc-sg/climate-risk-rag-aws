@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_a42d881f32e5ce2ff_chunk_0006",
+  "doc_id": "sol_a42d881f32e5ce2ff",
+  "chunk_number": 6,
+  "text": "The CROC initiative is unique in its integration of policy and finance, providing a structured approach to planned relocations. It is anchored by Fiji’s Planned Relocation Guidelines and Standard Operating Procedures, ensuring community engagement and social inclusion. The Trust Fund is financed by domestic climate-levy revenues and seeks international support, making it a pioneering model for climate adaptation financing.",
+  "section_title": "Key Highlights",
+  "character_count": 426,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_96",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 96,
+    "solution_name": "Climate Relocation of Communities Program (CROC), \nClimate Relocation of Communities Trust Fund (CROC Trust Fund; CROCTF)",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2019",
+    "ppp": "No",
+    "source_url": "https://www.un.int/fiji/news/world%E2%80%99s-first-%E2%80%93ever-relocation-trust-fund-people-displaced-climate-change-launched-fijian-prime",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.481841+00:00"
+  },
+  "s3_key": "data-lake/sol_a42d881f32e5ce2ff/sol_a42d881f32e5ce2ff_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_a42d881f32e5ce2ff/sol_a42d881f32e5ce2ff_chunk_0006.json"
+}

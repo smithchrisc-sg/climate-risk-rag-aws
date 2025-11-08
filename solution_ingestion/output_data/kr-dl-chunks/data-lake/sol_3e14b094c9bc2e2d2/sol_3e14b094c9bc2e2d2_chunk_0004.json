@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3e14b094c9bc2e2d2_chunk_0004",
+  "doc_id": "sol_3e14b094c9bc2e2d2",
+  "chunk_number": 4,
+  "text": "The report investigates the existence of a program titled 'Government Risk Financing for Drought in Brunei (2020–2025)'. However, there is no verifiable evidence that such an initiative was designed, launched, or implemented by Brunei Darussalam during this period. The report suggests that Brunei's government could potentially address climate and hydrometeorological shocks through general fiscal measures rather than a standalone drought-focused risk financing program.",
+  "section_title": "Description",
+  "character_count": 472,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_55",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 55,
+    "solution_name": "Government Risk Financing for Drought in Brunei (2020–2025)",
+    "country": "Brunei Darussalam",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "",
+    "theme": "",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://en.wikipedia.org/wiki/Economy_of_Brunei",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.430949+00:00"
+  },
+  "s3_key": "data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0004.json"
+}

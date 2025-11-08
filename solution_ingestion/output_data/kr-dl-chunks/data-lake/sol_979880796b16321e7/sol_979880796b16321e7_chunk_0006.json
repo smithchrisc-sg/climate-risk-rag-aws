@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_979880796b16321e7_chunk_0006",
+  "doc_id": "sol_979880796b16321e7",
+  "chunk_number": 6,
+  "text": "The bond marks the first reuse of a Hong Kong SPI for a 144A issuance, expanding coverage beyond Japan to include China and India earthquakes. It combines industry loss and parametric triggers, enhancing transparency and payout speed. The transaction is strategically significant for strengthening Hong Kong's ILS hub and increasing investor familiarity with Asian seismic risk.",
+  "section_title": "Key Highlights",
+  "character_count": 378,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_76",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 76,
+    "solution_name": "Black Kite Re Limited – Series 2025‑1 Class A Principal At‑Risk Variable Rate Notes",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.artemis.bm/news/peak-re-adds-china-india-parametric-quake-to-second-black-kite-re-catastrophe-bond/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.456986+00:00"
+  },
+  "s3_key": "data-lake/sol_979880796b16321e7/sol_979880796b16321e7_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_979880796b16321e7/sol_979880796b16321e7_chunk_0006.json"
+}

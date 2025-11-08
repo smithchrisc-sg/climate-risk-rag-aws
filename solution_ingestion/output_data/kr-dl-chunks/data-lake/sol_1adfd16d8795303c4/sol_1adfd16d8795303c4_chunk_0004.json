@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1adfd16d8795303c4_chunk_0004",
+  "doc_id": "sol_1adfd16d8795303c4",
+  "chunk_number": 4,
+  "text": "The Nepal Disaster Risk Management Development Policy Credit with a Catastrophe Deferred Drawdown Option (Cat DDO) is a financial instrument provided by the World Bank to support Nepal in managing disaster risks. It offers a contingent line of credit that can be drawn upon in the event of a natural catastrophe, providing immediate liquidity to the government. The initiative is part of a broader framework for disaster risk management in Nepal, aligned with the Disaster Risk Reduction and Management Act of 2017, and involves multiple public and international organizations to strengthen risk analytics, institutional capacity, and policy reforms.",
+  "section_title": "Description",
+  "character_count": 650,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_128",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 128,
+    "solution_name": "Nepal Disaster Risk Management Development Policy Credit with a Catastrophe Deferred Drawdown Option (Cat DDO)",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/topic/disasterriskmanagement/brief/catastrophe-deferred-drawdown-option-cat-ddo",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.509349+00:00"
+  },
+  "s3_key": "data-lake/sol_1adfd16d8795303c4/sol_1adfd16d8795303c4_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1adfd16d8795303c4/sol_1adfd16d8795303c4_chunk_0004.json"
+}

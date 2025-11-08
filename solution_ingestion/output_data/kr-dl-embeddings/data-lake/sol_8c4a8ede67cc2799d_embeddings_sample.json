@@ -1,0 +1,17 @@
+{
+  "solution_name": "JKN National Health Insurance Program",
+  "doc_id": "sol_8c4a8ede67cc2799d",
+  "chunks_count": 3,
+  "embedding_model": "amazon.titan-embed-text-v1",
+  "embedding_dimension": 1536,
+  "sample_chunk": {
+    "text": "The National Health Insurance program in Indonesia, known as Jaminan Kesehatan Nasional (JKN), is an universal health coverage (UHC) initiative aimed at providing all Indonesian residents with access ...",
+    "embedding_preview": [
+      -0.49609375,
+      0.244140625,
+      0.279296875,
+      0.228515625,
+      0.326171875
+    ]
+  }
+}

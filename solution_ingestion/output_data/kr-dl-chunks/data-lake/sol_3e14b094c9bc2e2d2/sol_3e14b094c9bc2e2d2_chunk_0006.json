@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3e14b094c9bc2e2d2_chunk_0006",
+  "doc_id": "sol_3e14b094c9bc2e2d2",
+  "chunk_number": 6,
+  "text": "The report highlights the absence of any official documentation or evidence supporting the existence of a dedicated drought risk financing program in Brunei for the period 2020–2025. It notes Brunei's strong fiscal capacity and centralized governance, which could theoretically allow for self-financing of emergency responses without a specific program.",
+  "section_title": "Key Highlights",
+  "character_count": 353,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_55",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 55,
+    "solution_name": "Government Risk Financing for Drought in Brunei (2020–2025)",
+    "country": "Brunei Darussalam",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "",
+    "theme": "",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://en.wikipedia.org/wiki/Economy_of_Brunei",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.431206+00:00"
+  },
+  "s3_key": "data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0006.json"
+}

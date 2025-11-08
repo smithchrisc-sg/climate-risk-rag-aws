@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_00042c2038490f37c_chunk_0008",
+  "doc_id": "sol_00042c2038490f37c",
+  "chunk_number": 8,
+  "text": "The N-EWC Coordinator contract was awarded for EUR 30,396 in 2024, and the server procurement process is ongoing with an extended deadline to enhance competition. These steps mark progress towards establishing operational capability for multi-hazard early warning in PNG.",
+  "section_title": "Results",
+  "character_count": 271,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_220",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 220,
+    "solution_name": "Equipment procurement for the Papua New Guinea National Multi-Hazard Early Warning Centre (N-EWC)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2024, \n2025",
+    "ppp": "No",
+    "source_url": "https://www.spc.int/procurement",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.616785+00:00"
+  },
+  "s3_key": "data-lake/sol_00042c2038490f37c/sol_00042c2038490f37c_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_00042c2038490f37c/sol_00042c2038490f37c_chunk_0008.json"
+}

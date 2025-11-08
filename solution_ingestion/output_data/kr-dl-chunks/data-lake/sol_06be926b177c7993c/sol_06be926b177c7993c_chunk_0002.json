@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_06be926b177c7993c_chunk_0002",
+  "doc_id": "sol_06be926b177c7993c",
+  "chunk_number": 2,
+  "text": "This solution, Sindh Resilience Project (SRP) addresses natural catastrophe in Pakistan between Sindh Irrigation Department (SID), Provincial Disaster Management Authority (PDMA) Sindh, and World Bank. The program was implemented in 2016 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 287,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_203",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 203,
+    "solution_name": "Sindh Resilience Project (SRP)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2016",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/140291468001185116/pdf/105091-BR-P155350-SecM2016-0146-Box394888B-OUO-9.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.592620+00:00"
+  },
+  "s3_key": "data-lake/sol_06be926b177c7993c/sol_06be926b177c7993c_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_06be926b177c7993c/sol_06be926b177c7993c_chunk_0002.json"
+}

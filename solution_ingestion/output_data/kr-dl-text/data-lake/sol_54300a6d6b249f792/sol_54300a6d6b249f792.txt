@@ -1,0 +1,34 @@
+NIWA–MPI Drought Forecasting Tool
+
+Earth Sciences New Zealand/NIWA, 
+Ministry for Primary Industries (MPI)
+
+and 
+
+National Oceanic and Atmospheric Administration (NOAA)
+
+and 
+
+New Zealand eScience Infrastructure (NeSI)
+
+Introduction
+
+This solution, NIWA–MPI Drought Forecasting Tool addresses natural catastrophe through public private partnerships in New Zealand between Earth Sciences New Zealand/NIWA, Ministry for Primary Industries (MPI), National Oceanic and Atmospheric Administration (NOAA), and New Zealand eScience Infrastructure (NeSI). The program was implemented in 2023 and focuses on leveraging tech and collaboration.
+
+Description
+
+The NIWA–MPI Drought Forecasting Tool is a national sub-seasonal drought outlook system in New Zealand, developed by NIWA and the Ministry for Primary Industries. Launched in October 2023, it provides daily-updated, district-level forecasts of rainfall, dryness, and drought risk up to 35 days ahead. The tool uses the NIWA35 deep learning platform to downscale NOAA's global forecast to New Zealand's terrain, integrating with the New Zealand Drought Index for decision support in drought risk management.
+
+Key Highlights
+
+The tool offers unprecedented granularity with daily-updated sub-seasonal drought outlooks at district and 5 km grid resolution. It leverages NIWA35 deep learning to enhance local predictive skill and integrates with the NZDI for consistent drought monitoring. The ensemble percentile framing supports risk-based planning, and the tool is co-designed with MPI for operational relevance. It is supported by NeSI's HPC resources for scalable model development.
+
+Results
+
+The tool is skillful up to 3 weeks, sometimes extending to 5 weeks during very dry periods. It provides district-scale insights for primary sector planning and is subject to iterative validation and publication plans for 2023/2024.
+
+Contact Information
+
+Organization: Earth Sciences New Zealand (NIWA), 
+Email: enquiries@niwa.co.nz, 
+Contact Number: 0800 746 464

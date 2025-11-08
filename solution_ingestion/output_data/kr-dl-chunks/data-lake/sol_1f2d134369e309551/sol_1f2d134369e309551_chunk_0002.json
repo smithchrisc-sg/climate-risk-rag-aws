@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1f2d134369e309551_chunk_0002",
+  "doc_id": "sol_1f2d134369e309551",
+  "chunk_number": 2,
+  "text": "This solution, National Indemnity Insurance Program (NIIP) addresses natural catastrophe through public private partnerships in Philippines between Bureau of the Treasury (BTr), Department of Finance (DOF), Government Service Insurance System (GSIS), Department of Education (DepEd), Bangko Sentral ng Pilipinas (BSP) Monetary Board, World Bank Group, Japan International Cooperation Agency (JICA), and Sompo Risk Management Inc.. The program was implemented in 2024 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 511,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_286",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 286,
+    "solution_name": "National Indemnity Insurance Program (NIIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://documents1.worldbank.org/curated/en/158231634277264045/txt/Appraisal-Program-Information-Document-PID-Philippines-Promoting-Competitiveness-and-Enhancing-Resilience-to-Natural-Disasters-Sub-Program-3-P176891.txt",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.736519+00:00"
+  },
+  "s3_key": "data-lake/sol_1f2d134369e309551/sol_1f2d134369e309551_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1f2d134369e309551/sol_1f2d134369e309551_chunk_0002.json"
+}

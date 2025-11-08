@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d4443cccbd9a39df8_chunk_0006",
+  "doc_id": "sol_d4443cccbd9a39df8",
+  "chunk_number": 6,
+  "text": "The SDMP is the first state-wide, multi-hazard mitigation plan in Australia, integrating prevention and preparedness into government investment. It features place-based Disaster Adaptation Plans (DAPs), whole-of-government coordination, and explicit inclusion of Aboriginal advisory structures. The plan embeds natural hazard risk into NSW Treasury Business Case Guidelines and emphasizes evidence-based risk identification, funding alignment, and culturally informed governance.",
+  "section_title": "Key Highlights",
+  "character_count": 479,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_23",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 23,
+    "solution_name": "State Disaster Mitigation Plan (SDMP), NSW Reconstruction Authority (NSW RA)",
+    "country": "Australia (State of New South Wales)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/our-work/disaster-adaptation-planning/state-disaster-mitigation-plan",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.390407+00:00"
+  },
+  "s3_key": "data-lake/sol_d4443cccbd9a39df8/sol_d4443cccbd9a39df8_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d4443cccbd9a39df8/sol_d4443cccbd9a39df8_chunk_0006.json"
+}

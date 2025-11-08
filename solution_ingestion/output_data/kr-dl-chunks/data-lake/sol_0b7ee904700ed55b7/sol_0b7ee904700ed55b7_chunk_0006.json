@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0b7ee904700ed55b7_chunk_0006",
+  "doc_id": "sol_0b7ee904700ed55b7",
+  "chunk_number": 6,
+  "text": "The initiative emphasized the feasibility of parametric solutions using independent seismic data and the necessity of capital market capacity, such as catastrophe bonds, as China's insured values grow. It also focused on enhancing data transparency and modeling capabilities, with PICC releasing a China Earthquake Casualty Catastrophe Model in 2025 to aid in insurance pricing and disaster prevention.",
+  "section_title": "Key Highlights",
+  "character_count": 402,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_77",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 77,
+    "solution_name": "Government‑Led Efforts to Increase Earthquake Insurance Penetration in China (2020–2025)",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nIncrease Penetration",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.artemis.bm/news/on-catastrophe-bonds-for-chinese-earthquakes/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.458281+00:00"
+  },
+  "s3_key": "data-lake/sol_0b7ee904700ed55b7/sol_0b7ee904700ed55b7_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0b7ee904700ed55b7/sol_0b7ee904700ed55b7_chunk_0006.json"
+}

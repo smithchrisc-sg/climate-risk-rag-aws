@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6fca73cba10e2d152_chunk_0006",
+  "doc_id": "sol_6fca73cba10e2d152",
+  "chunk_number": 6,
+  "text": "The program is one of the most heavily subsidized agricultural insurance schemes globally. It includes governance reforms such as Insurance Commission oversight and forthcoming PCIC Charter revisions to improve subsidy targeting and enable PPPs. The PCIC–Palawan partnership leverages a wide payout network and digital wallet to enhance last-mile disbursements, especially in remote areas.",
+  "section_title": "Key Highlights",
+  "character_count": 389,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_273",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 273,
+    "solution_name": "Government Agricultural Insurance Premium Subsidy",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nIncrease Penetration",
+    "theme": "Accessibility, \nCollaboration, \nRegulation",
+    "year_of_implementation": "2024, \n2025",
+    "ppp": "Yes",
+    "source_url": "https://blogs.worldbank.org/en/eastasiapacific/transforming-agricultural-insurance-in-the-philippines-to-help-f",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.721328+00:00"
+  },
+  "s3_key": "data-lake/sol_6fca73cba10e2d152/sol_6fca73cba10e2d152_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6fca73cba10e2d152/sol_6fca73cba10e2d152_chunk_0006.json"
+}

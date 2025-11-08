@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_75f21d49a4bbb0b69_chunk_0004",
+  "doc_id": "sol_75f21d49a4bbb0b69",
+  "chunk_number": 4,
+  "text": "The Greater Mekong Subregion Flood and Drought Risk Management and Mitigation Project (Cambodia component) is a comprehensive initiative aimed at addressing the dual challenges of seasonal floods and droughts in Cambodia's Pursat province. The project focuses on rehabilitating the Damnak Chheukrom Mega Irrigation System, enhancing national flood forecasting capabilities, and promoting community-based disaster risk management. It integrates structural upgrades with nonstructural measures, such as community training and gender-targeted initiatives, to improve water management and resilience against climate variability.",
+  "section_title": "Description",
+  "character_count": 624,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_65",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 65,
+    "solution_name": "Greater Mekong Subregion Flood and Drought Risk Management and Mitigation Project (Cambodia component)",
+    "country": "Cambodia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2012",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/projects/40190-013/main",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.445550+00:00"
+  },
+  "s3_key": "data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0004.json"
+}

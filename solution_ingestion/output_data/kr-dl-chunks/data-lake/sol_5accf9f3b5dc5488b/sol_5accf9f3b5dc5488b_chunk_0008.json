@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_5accf9f3b5dc5488b_chunk_0008",
+  "doc_id": "sol_5accf9f3b5dc5488b",
+  "chunk_number": 8,
+  "text": "The project has strengthened the institutional capacity of PNG NWS, expanded service delivery, and integrated operational drought monitoring and early warning systems. It has extended forecasting horizons to up to 7 days, addressing stakeholder demand for more actionable windows, and established improved drought monitoring and early warning systems supporting strategic decision-making in various sectors.",
+  "section_title": "Results",
+  "character_count": 407,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_230",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 230,
+    "solution_name": "CREWS–Papua New Guinea: Weather and Climate Early Warning System (CREWS–PNG)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2017",
+    "ppp": "Yes",
+    "source_url": "https://community.wmo.int/en/projects-related-agricultural-meteorology",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.669395+00:00"
+  },
+  "s3_key": "data-lake/sol_5accf9f3b5dc5488b/sol_5accf9f3b5dc5488b_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_5accf9f3b5dc5488b/sol_5accf9f3b5dc5488b_chunk_0008.json"
+}

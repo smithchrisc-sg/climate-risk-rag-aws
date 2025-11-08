@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_29af0b412c5e36e4a_chunk_0006",
+  "doc_id": "sol_29af0b412c5e36e4a",
+  "chunk_number": 6,
+  "text": "The initiative employs a 'grey-green' approach, integrating hard engineering solutions with natural infrastructure. Key measures include the construction of stopbanks, gravel groynes, and rock stub groynes to reinforce flood protection. The program also emphasizes ecological restoration and weed management, with a focus on enhancing resilience beyond pre-flood levels. The project has been a significant regional economic stimulus, engaging over 24 local businesses during the COVID-19 pandemic.",
+  "section_title": "Key Highlights",
+  "character_count": 497,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_156",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 156,
+    "solution_name": "Rangitata River 2019 Flood Recovery",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.ecan.govt.nz/get-involved/news-and-events/2024/south-canterbury-river-works-strengthen-community-resilience/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.537974+00:00"
+  },
+  "s3_key": "data-lake/sol_29af0b412c5e36e4a/sol_29af0b412c5e36e4a_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_29af0b412c5e36e4a/sol_29af0b412c5e36e4a_chunk_0006.json"
+}

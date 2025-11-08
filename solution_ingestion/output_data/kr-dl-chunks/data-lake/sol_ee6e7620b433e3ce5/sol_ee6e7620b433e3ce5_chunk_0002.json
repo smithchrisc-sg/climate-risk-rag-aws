@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ee6e7620b433e3ce5_chunk_0002",
+  "doc_id": "sol_ee6e7620b433e3ce5",
+  "chunk_number": 2,
+  "text": "This solution, Disaster Recovery Funding Arrangements (DRFA) addresses natural catastrophe in Australia between Commonwealth of Australia, Emergency Management Australia (EMA), National Emergency Management Agency (NEMA), Services Australia, Department of Social Services, State and Territory Governments, and Local Governments. The program was implemented in 2018 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 409,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_17",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 17,
+    "solution_name": "Disaster Recovery Funding Arrangements (DRFA)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2018",
+    "ppp": "No",
+    "source_url": "https://www.aph.gov.au/About_Parliament/Parliamentary_departments/Parliamentary_Library/Research/Quick_Guides/2019-20/EmergencyManagementDisasterResilience",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.380150+00:00"
+  },
+  "s3_key": "data-lake/sol_ee6e7620b433e3ce5/sol_ee6e7620b433e3ce5_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ee6e7620b433e3ce5/sol_ee6e7620b433e3ce5_chunk_0002.json"
+}

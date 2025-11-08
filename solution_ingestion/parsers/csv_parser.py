@@ -21,8 +21,9 @@ logger = logging.getLogger(__name__)
 class CSVParser:
     """Parses standardized CSV files containing solution data."""
     
-    def __init__(self, input_dir: str = None):
+    def __init__(self, input_dir: str = None, shared_doc_id_manager=None):
         self.input_dir = Path(input_dir) if input_dir else Path(__file__).parent.parent / 'input_data'
+        self.shared_doc_id_manager = shared_doc_id_manager
     
     def load_csv_files(self) -> List[Path]:
         """Load all CSV files from input directory."""
@@ -44,6 +45,13 @@ class CSVParser:
                 solution_dict = self._row_to_dict(row, csv_path.stem, idx + 1)
                 if solution_dict:
                     try:
+                        # Generate doc_id using shared manager if available
+                        if hasattr(self, 'shared_doc_id_manager') and self.shared_doc_id_manager:
+                            # Create a source URL from name and country for ID generation
+                            source_url = f"solution://{solution_dict['name']}/{solution_dict['country']}"
+                            doc_id = self.shared_doc_id_manager.generate_solution_id(source_url)
+                            solution_dict['doc_id'] = doc_id
+                        
                         solution = Solution.from_dict(solution_dict)
                         yield solution
                     except Exception as e:
@@ -94,8 +102,8 @@ class CSVParser:
         # Convert to string and clean
         cleaned = str(value).strip()
         
-        # Remove common artifacts
-        if cleaned.lower() in ['nan', 'none', 'null', '']:
+        # Remove common artifacts and null-like values
+        if cleaned.lower() in ['nan', 'none', 'null', '', 'nil', 'n/a', 'na', '-', '--']:
             return ''
         
         return cleaned

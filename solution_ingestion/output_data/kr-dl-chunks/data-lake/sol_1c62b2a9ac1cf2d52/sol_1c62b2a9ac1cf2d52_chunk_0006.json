@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1c62b2a9ac1cf2d52_chunk_0006",
+  "doc_id": "sol_1c62b2a9ac1cf2d52",
+  "chunk_number": 6,
+  "text": "The NPDM is characterized by its strong alignment with international and national frameworks, ensuring coherence across government planning. It is designed to be flexible and adaptive to evolving risks, particularly in urban areas. The plan's four-pillar model—preparedness, early warning, emergency response, and recovery—aligns with Sendai priorities. It emphasizes governance, compliance, and monitoring, and incorporates disability-inclusive DRM and private-sector resilience perspectives.",
+  "section_title": "Key Highlights",
+  "character_count": 493,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_51",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 51,
+    "solution_name": "National Plan for Disaster Management (2021–2025)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.adrc.asia/documents/dm_information/BGD_NPDM2021-2025Draft.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.426930+00:00"
+  },
+  "s3_key": "data-lake/sol_1c62b2a9ac1cf2d52/sol_1c62b2a9ac1cf2d52_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1c62b2a9ac1cf2d52/sol_1c62b2a9ac1cf2d52_chunk_0006.json"
+}

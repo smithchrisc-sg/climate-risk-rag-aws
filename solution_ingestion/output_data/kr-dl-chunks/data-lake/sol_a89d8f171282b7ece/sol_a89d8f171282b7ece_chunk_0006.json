@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_a89d8f171282b7ece_chunk_0006",
+  "doc_id": "sol_a89d8f171282b7ece",
+  "chunk_number": 6,
+  "text": "The initiative features a systems-level design under land constraints, legal reinforcement through amendments to the Sewerage and Drainage Act, and integration with coastal protection and transport advisories. It emphasizes rapid operational response, with most flood incidents subsiding within an hour, and aims for system-wide resilience gains rather than expanding drainage capacity.",
+  "section_title": "Key Highlights",
+  "character_count": 386,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_303",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 303,
+    "solution_name": "FY2025 Drainage Development Works",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.mse.gov.sg/latest-news/oral-reply-on-drainage-improvement-feb2025",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.756295+00:00"
+  },
+  "s3_key": "data-lake/sol_a89d8f171282b7ece/sol_a89d8f171282b7ece_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_a89d8f171282b7ece/sol_a89d8f171282b7ece_chunk_0006.json"
+}

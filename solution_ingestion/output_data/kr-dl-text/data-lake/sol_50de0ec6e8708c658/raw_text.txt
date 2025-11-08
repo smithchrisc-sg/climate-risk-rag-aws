@@ -1,0 +1,40 @@
+National Volcanic Hazard and Risk Model (NVHRM)
+
+Earthquake Commission (EQC), 
+GNS Science, 
+GeoNet, 
+New Zealand emergency management authorities, 
+Accident Compensation Corporation (ACC)
+
+and 
+
+Massey University, 
+University of Otago, 
+Victoria University of Wellington, 
+University of Auckland, 
+University of Canterbury, 
+Private insurers and re/insurers
+
+Introduction
+
+This solution, National Volcanic Hazard and Risk Model (NVHRM) addresses natural catastrophe through public private partnerships in New Zealand between Earthquake Commission (EQC), GNS Science, GeoNet, New Zealand emergency management authorities, Accident Compensation Corporation (ACC), Massey University, University of Otago, Victoria University of Wellington, University of Auckland, University of Canterbury, and Private insurers and re/insurers. The program was implemented in 2016 and focuses on collaboration and regulation.
+
+Description
+
+The National Volcanic Hazard and Risk Model (NVHRM) is an integrated framework in New Zealand designed to quantify volcanic hazards and translate them into risk and loss metrics for decision-makers in government and insurance sectors. It builds on the National Volcanic Hazard Model (NVHM) and incorporates probabilistic, multi-hazard volcanic hazard modeling, coupled with advanced loss modeling capabilities led by the Earthquake Commission (EQC). The model supports applications in reinsurance, disaster risk reduction, and resilience planning, aligning with national and international disaster risk reduction agendas.
+
+Key Highlights
+
+The NVHRM offers national coverage with a probabilistic multi-hazard scope, modular editions, and expert elicitation. It aligns with the Sendai Framework and integrates directly with national insurance frameworks, providing high market coverage. The model is consistent with other national hazard models and includes a foundational national ashfall model. It employs a four-step probabilistic hazard methodology and is coupled with EQC's deterministic/probabilistic loss modeling for comprehensive risk management.
+
+Results
+
+The NVHRM has published a conceptual framework and developed a national ashfall probabilistic map for the North Island. It has institutionalized loss modeling practices by EQC and achieved broad insurance penetration, enabling effective risk transfer for volcanic losses. The model continues to develop national multi-hazard components.
+
+Contact Information
+
+Name: Josh Hayes, 
+Position:Volcanic Risk Scientist, 
+Company:GNS Science 
+Email: josh.hayes911@gmail.com, 
+Contact Number: Not listed in provided sources

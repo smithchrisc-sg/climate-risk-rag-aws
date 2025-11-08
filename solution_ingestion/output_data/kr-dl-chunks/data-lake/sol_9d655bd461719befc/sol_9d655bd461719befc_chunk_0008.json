@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9d655bd461719befc_chunk_0008",
+  "doc_id": "sol_9d655bd461719befc",
+  "chunk_number": 8,
+  "text": "The first and second Financial Sector Reform DPFs together amounted to US$1.0 billion, with US$400 million for the first operation and US$600 million for the second. As of June 26, 2022, the first operation’s progress toward the Project Development Objective and overall implementation progress were rated Satisfactory, with the second DPF under preparation for FY23.",
+  "section_title": "Results",
+  "character_count": 367,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_259",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 259,
+    "solution_name": "Philippines First Financial Sector Reform Development Policy Financing (DPF)",
+    "country": "Philippines",
+    "type_of_risk": "Cannot be determined",
+    "type_of_solution": "Risk Financing, \nRisk Reduction, \nIncrease Penetration",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/099150006262218078/pdf/P1750080551a8404f085ca03ef97bd3c32b.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.705974+00:00"
+  },
+  "s3_key": "data-lake/sol_9d655bd461719befc/sol_9d655bd461719befc_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9d655bd461719befc/sol_9d655bd461719befc_chunk_0008.json"
+}

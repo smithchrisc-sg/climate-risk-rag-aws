@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_43149d77d7743ace5_chunk_0008",
+  "doc_id": "sol_43149d77d7743ace5",
+  "chunk_number": 8,
+  "text": "Delivered regional technical assistance outputs including a consolidated risk modelling interface (DRMI), a proposed roadmap for the facility, and a concept for an ADB-sponsored Disaster Relief Bond. Convened two in-person engagement events, including one in Islamabad in 2023, to build consensus and capacity. Quantitative payout results are not yet applicable pending full operationalization.",
+  "section_title": "Results",
+  "character_count": 394,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_193",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 193,
+    "solution_name": "CAREC Disaster Risk Transfer Facility (CAREC DRTF)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.carecprogram.org/uploads/CAREC-Engagement-Event-Islamabad-2023-Summary-Report.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.582994+00:00"
+  },
+  "s3_key": "data-lake/sol_43149d77d7743ace5/sol_43149d77d7743ace5_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_43149d77d7743ace5/sol_43149d77d7743ace5_chunk_0008.json"
+}

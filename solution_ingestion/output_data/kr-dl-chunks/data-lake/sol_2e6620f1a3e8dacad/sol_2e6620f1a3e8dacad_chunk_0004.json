@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2e6620f1a3e8dacad_chunk_0004",
+  "doc_id": "sol_2e6620f1a3e8dacad",
+  "chunk_number": 4,
+  "text": "The initiative involves a recalibration of New Zealand's public natural hazard insurance scheme, EQCover, which doubled the residential building cap from NZD $150,000 to NZD $300,000 and reduced the levy rate from 20 cents to 16 cents per $100 of EQCover. This change aims to address rising house prices and construction costs, enhancing household financial resilience against natural hazards. The scheme is administered by the Natural Hazards Commission, Toka Tū Ake, and involves private insurers who cover losses above the EQCover cap.",
+  "section_title": "Description",
+  "character_count": 538,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_151",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 151,
+    "solution_name": "Doubling of the Residential Building Cap and Levy Adjustment under EQCover (Toka Tū Ake EQC)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Accessibility, \nCollaboration",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.naturalhazards.govt.nz/news/eqcover-building-cap-begins-doubling-for-homeowners-from-1-october-2022/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.532589+00:00"
+  },
+  "s3_key": "data-lake/sol_2e6620f1a3e8dacad/sol_2e6620f1a3e8dacad_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2e6620f1a3e8dacad/sol_2e6620f1a3e8dacad_chunk_0004.json"
+}

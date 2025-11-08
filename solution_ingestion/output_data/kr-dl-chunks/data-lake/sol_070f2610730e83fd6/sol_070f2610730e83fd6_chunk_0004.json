@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_070f2610730e83fd6_chunk_0004",
+  "doc_id": "sol_070f2610730e83fd6",
+  "chunk_number": 4,
+  "text": "The Start Network Disaster Risk Financing (DRF) System in Pakistan is a multi-hazard initiative designed to address climate-related risks such as droughts, floods, and heatwaves. It combines risk modeling, anticipatory planning, and pre-arranged finance to enable proactive humanitarian action. Developed in collaboration with national authorities and technical partners, the system uses pre-agreed triggers to release funds before impacts escalate, aiming to protect vulnerable communities more effectively than traditional response models.",
+  "section_title": "Description",
+  "character_count": 541,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_210",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 210,
+    "solution_name": "Start Network Disaster Risk Financing (DRF) System in Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2017",
+    "ppp": "Yes",
+    "source_url": "https://startnetwork.org/disaster-risk-financing-pakistan",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.603158+00:00"
+  },
+  "s3_key": "data-lake/sol_070f2610730e83fd6/sol_070f2610730e83fd6_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_070f2610730e83fd6/sol_070f2610730e83fd6_chunk_0004.json"
+}

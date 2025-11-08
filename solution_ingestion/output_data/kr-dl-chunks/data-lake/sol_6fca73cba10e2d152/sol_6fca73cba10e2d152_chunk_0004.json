@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6fca73cba10e2d152_chunk_0004",
+  "doc_id": "sol_6fca73cba10e2d152",
+  "chunk_number": 4,
+  "text": "The Agricultural Insurance Premium Subsidy Expansion in the Philippines aims to enhance access to subsidized crop and agricultural insurance through the Philippine Crop Insurance Corporation (PCIC). This initiative is part of broader governance and operational reforms led by the Department of Finance, focusing on better subsidy targeting, enabling public-private partnerships, and modernizing product offerings and operations. The expansion seeks to protect farm livelihoods from climate-related and operational risks and increase insurance uptake among vulnerable producers.",
+  "section_title": "Description",
+  "character_count": 577,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_273",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 273,
+    "solution_name": "Government Agricultural Insurance Premium Subsidy",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nIncrease Penetration",
+    "theme": "Accessibility, \nCollaboration, \nRegulation",
+    "year_of_implementation": "2024, \n2025",
+    "ppp": "Yes",
+    "source_url": "https://blogs.worldbank.org/en/eastasiapacific/transforming-agricultural-insurance-in-the-philippines-to-help-f",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.721125+00:00"
+  },
+  "s3_key": "data-lake/sol_6fca73cba10e2d152/sol_6fca73cba10e2d152_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6fca73cba10e2d152/sol_6fca73cba10e2d152_chunk_0004.json"
+}

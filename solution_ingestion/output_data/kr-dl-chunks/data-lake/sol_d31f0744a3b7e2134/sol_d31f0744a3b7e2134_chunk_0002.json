@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d31f0744a3b7e2134_chunk_0002",
+  "doc_id": "sol_d31f0744a3b7e2134",
+  "chunk_number": 2,
+  "text": "This solution, PNG DataCo Parametric Earthquake Insurance for Submarine Fibre-Optic Cable Network addresses natural catastrophe through public private partnerships in Papua New Guinea between PNG DataCo Limited, Pacific Catastrophe Risk Insurance Company (PCRIC), Global Earthquake Model (GEM), United States Geological Survey (USGS), Insurance Development Forum (IDF), and WTW. The program was implemented in 2024 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 464,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_224",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 224,
+    "solution_name": "PNG DataCo Parametric Earthquake Insurance for Submarine Fibre-Optic Cable Network",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://pcric.org/2024/05/16/pcric-forges-new-policy-deal-with-state-owned-enterprise-in-papua-new-guinea-2/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.658069+00:00"
+  },
+  "s3_key": "data-lake/sol_d31f0744a3b7e2134/sol_d31f0744a3b7e2134_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d31f0744a3b7e2134/sol_d31f0744a3b7e2134_chunk_0002.json"
+}

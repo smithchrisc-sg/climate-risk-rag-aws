@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c31ca88036981aacc_chunk_0002",
+  "doc_id": "sol_c31ca88036981aacc",
+  "chunk_number": 2,
+  "text": "This solution, China–Singapore Joint Call for Proposals on “Climate Resilience & Adaptation” (2025) addresses natural catastrophe in China, \nSingapore between Chinese Academy of Sciences (CAS), Agency for Science, and Technology and Research (A*STAR). The program was implemented in 2025 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 339,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_308",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 308,
+    "solution_name": "China–Singapore Joint Call for Proposals on “Climate Resilience & Adaptation” (2025)",
+    "country": "China, \nSingapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.a-star.edu.sg/Research/funding-opportunities/china-singapore-joint-call-for-proposals-on--climate-resilience---adaptation--2025",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.761470+00:00"
+  },
+  "s3_key": "data-lake/sol_c31ca88036981aacc/sol_c31ca88036981aacc_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c31ca88036981aacc/sol_c31ca88036981aacc_chunk_0002.json"
+}

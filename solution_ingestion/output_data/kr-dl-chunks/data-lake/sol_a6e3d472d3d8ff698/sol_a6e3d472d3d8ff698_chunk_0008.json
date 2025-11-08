@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_a6e3d472d3d8ff698_chunk_0008",
+  "doc_id": "sol_a6e3d472d3d8ff698",
+  "chunk_number": 8,
+  "text": "The CPP aims to provide warnings to approximately 11 million coastal residents, significantly reducing cyclone-related deaths over five decades.",
+  "section_title": "Results",
+  "character_count": 144,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_43",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 43,
+    "solution_name": "Cyclone Preparedness Programme (CPP) Modernization",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "1972",
+    "ppp": "Yes",
+    "source_url": "https://bdrcs.org/cyclone-preparedness-programm-cpp/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.415722+00:00"
+  },
+  "s3_key": "data-lake/sol_a6e3d472d3d8ff698/sol_a6e3d472d3d8ff698_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_a6e3d472d3d8ff698/sol_a6e3d472d3d8ff698_chunk_0008.json"
+}

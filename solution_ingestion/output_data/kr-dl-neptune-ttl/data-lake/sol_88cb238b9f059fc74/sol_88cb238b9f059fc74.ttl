@@ -1,0 +1,88 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+
+sg:Document_sol_88cb238b9f059fc74 a sgd:Solution ;
+    dcterms:identifier "sol_88cb238b9f059fc74" ;
+    dcterms:title "Seoul Metropolitan Government 2025 Summer Disaster Management Plan" ;
+    dcterms:created "2025-09-26" ;
+    dcterms:spatial "South Korea" ;
+    dcterms:source <https://www.apec.org/press/news-releases/2025/apec-disaster-officials-rally-for-joint-action-as-regional-risks-escalate> ;
+    dcterms:publisher sg:Org_seoul_metropolitan_government, sg:Org_ministry_of_the_interior_and_safety_mois, sg:Org_apec_senior_disaster_management_officials_forum ;
+    sgd:firstChild sg:Chunk_sol_88cb238b9f059fc74_0001 ;
+    sgd:hasChild sg:Chunk_sol_88cb238b9f059fc74_0001, sg:Chunk_sol_88cb238b9f059fc74_0003, sg:Chunk_sol_88cb238b9f059fc74_0005, sg:Chunk_sol_88cb238b9f059fc74_0007 ;
+    sgd:lastChild sg:Chunk_sol_88cb238b9f059fc74_0007 ;
+    sgm:processingTimestamp "2025-11-06T21:15:06.766600+00:00"^^xsd:dateTime .
+
+sg:Chunk_sol_88cb238b9f059fc74_0001 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_88cb238b9f059fc74 ;
+    dcterms:title "Introduction" ;
+    sgd:firstChild sg:Chunk_sol_88cb238b9f059fc74_0002 ;
+    sgd:hasChild sg:Chunk_sol_88cb238b9f059fc74_0002 ;
+    sgd:lastChild sg:Chunk_sol_88cb238b9f059fc74_0002 ;
+    sgd:nextSibling sg:Chunk_sol_88cb238b9f059fc74_0003 .
+
+sg:Chunk_sol_88cb238b9f059fc74_0002 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_88cb238b9f059fc74_0001 ;
+    sgm:chunkId "sol_88cb238b9f059fc74_chunk_0002" ;
+    sgm:s3Key "data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0002.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0002.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_88cb238b9f059fc74_0003 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_88cb238b9f059fc74 ;
+    dcterms:title "Description" ;
+    sgd:firstChild sg:Chunk_sol_88cb238b9f059fc74_0004 ;
+    sgd:hasChild sg:Chunk_sol_88cb238b9f059fc74_0004 ;
+    sgd:lastChild sg:Chunk_sol_88cb238b9f059fc74_0004 ;
+    sgd:nextSibling sg:Chunk_sol_88cb238b9f059fc74_0005 .
+
+sg:Chunk_sol_88cb238b9f059fc74_0004 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_88cb238b9f059fc74_0003 ;
+    sgm:chunkId "sol_88cb238b9f059fc74_chunk_0004" ;
+    sgm:s3Key "data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0004.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0004.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_88cb238b9f059fc74_0005 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_88cb238b9f059fc74 ;
+    dcterms:title "Key Highlights" ;
+    sgd:firstChild sg:Chunk_sol_88cb238b9f059fc74_0006 ;
+    sgd:hasChild sg:Chunk_sol_88cb238b9f059fc74_0006 ;
+    sgd:lastChild sg:Chunk_sol_88cb238b9f059fc74_0006 ;
+    sgd:nextSibling sg:Chunk_sol_88cb238b9f059fc74_0007 .
+
+sg:Chunk_sol_88cb238b9f059fc74_0006 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_88cb238b9f059fc74_0005 ;
+    sgm:chunkId "sol_88cb238b9f059fc74_chunk_0006" ;
+    sgm:s3Key "data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0006.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0006.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_88cb238b9f059fc74_0007 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_88cb238b9f059fc74 ;
+    dcterms:title "Results" ;
+    sgd:firstChild sg:Chunk_sol_88cb238b9f059fc74_0008 ;
+    sgd:hasChild sg:Chunk_sol_88cb238b9f059fc74_0008 ;
+    sgd:lastChild sg:Chunk_sol_88cb238b9f059fc74_0008 .
+
+sg:Chunk_sol_88cb238b9f059fc74_0008 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_88cb238b9f059fc74_0007 ;
+    sgm:chunkId "sol_88cb238b9f059fc74_chunk_0008" ;
+    sgm:s3Key "data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0008.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0008.json"^^xsd:anyURI
+ .
+
+
+
+sg:Org_apec_senior_disaster_management_officials_forum_sdmof a org:Organization ;
+    skos:prefLabel "APEC Senior Disaster Management Officials’ Forum (SDMOF)" ;
+    schema:contactPoint sg:Contact_apec_senior_disaster_management_officials_forum_sdmof .
+
+sg:Contact_apec_senior_disaster_management_officials_forum_sdmof a schema:ContactPoint ;
+    schema:email "media@apec.org" .

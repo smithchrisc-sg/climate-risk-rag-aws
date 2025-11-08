@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_574a6e64bc02209c1_chunk_0002",
+  "doc_id": "sol_574a6e64bc02209c1",
+  "chunk_number": 2,
+  "text": "This solution, Philippine City Disaster Insurance Pool (PCDIP) addresses natural catastrophe through public private partnerships in Philippines between Department of Finance (DOF), Government of the Philippines, Asian Development Bank (ADB), RMS Inc., EMI, Vivid Economics, and Willis Towers Watson. The program was implemented in 2018 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 385,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_258",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 258,
+    "solution_name": "Philippine City Disaster Insurance Pool (PCDIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2018",
+    "ppp": "Yes",
+    "source_url": "https://ewsdata.rightsindevelopment.org/projects/51312-001-city-disaster-insurance-pool-project/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.703896+00:00"
+  },
+  "s3_key": "data-lake/sol_574a6e64bc02209c1/sol_574a6e64bc02209c1_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_574a6e64bc02209c1/sol_574a6e64bc02209c1_chunk_0002.json"
+}

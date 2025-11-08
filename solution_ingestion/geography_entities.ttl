@@ -1,0 +1,167 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+# Regional Organization Class
+
+sg:RegionalOrganization rdfs:subClassOf gn:Feature ;
+    rdfs:label "Regional Organization" ;
+    skos:prefLabel "Regional Organization" .
+
+# Regional Organizations
+
+sg:RegionalOrg_asean a sg:RegionalOrganization ;
+    rdfs:label "Association of Southeast Asian Nations" ;
+    skos:prefLabel "ASEAN" ;
+    gn:name "Association of Southeast Asian Nations" ;
+    sg:hasMember gn:1643084, gn:1733045, gn:1694008, gn:1880251, gn:1605651, gn:1562822, gn:1327865, gn:1655842, gn:1831722, gn:1820814 .
+
+sg:RegionalOrg_apec a sg:RegionalOrganization ;
+    rdfs:label "Asia-Pacific Economic Cooperation" ;
+    skos:prefLabel "APEC" ;
+    gn:name "Asia-Pacific Economic Cooperation" ;
+    sg:hasMember gn:2077456, gn:1861060, gn:1835841, gn:1814991, gn:6252001, gn:6251999, gn:2186224, gn:1643084, gn:1733045, gn:1694008, gn:1880251, gn:1605651, gn:1562822, gn:1327865, gn:1655842, gn:1831722, gn:1820814 .
+
+sg:RegionalOrg_eu a sg:RegionalOrganization ;
+    rdfs:label "European Union" ;
+    skos:prefLabel "EU" ;
+    gn:name "European Union" ;
+    sg:hasMember gn:2921044, gn:3017382, gn:3175395, gn:2510769, gn:2750405, gn:2658434 .
+
+sg:RegionalOrg_pacific_islands a sg:RegionalOrganization ;
+    rdfs:label "Pacific Island Nations" ;
+    skos:prefLabel "Pacific Islands" ;
+    gn:name "Pacific Island Nations" ;
+    sg:hasMember gn:2205218, gn:4030656, gn:2134431, gn:1559582, gn:4034749, gn:1966436, gn:2186224 .
+
+sg:RegionalOrg_asean_plus3 a sg:RegionalOrganization ;
+    rdfs:label "ASEAN+3" ;
+    skos:prefLabel "ASEAN+3" ;
+    gn:name "ASEAN Plus Three" ;
+    sg:hasMember gn:1643084, gn:1733045, gn:1694008, gn:1880251, gn:1605651, gn:1562822, gn:1327865, gn:1655842, gn:1831722, gn:1820814, gn:1814991, gn:1861060, gn:1835841 .
+
+sg:RegionalOrg_v20 a sg:RegionalOrganization ;
+    rdfs:label "Vulnerable Twenty Group" ;
+    skos:prefLabel "V20" ;
+    gn:name "Climate Vulnerable Forum" .
+
+sg:RegionalOrg_g7 a sg:RegionalOrganization ;
+    rdfs:label "Group of Seven" ;
+    skos:prefLabel "G7" ;
+    gn:name "Group of Seven" ;
+    sg:hasMember gn:6251999, gn:3017382, gn:2921044, gn:3175395, gn:1861060, gn:2635167, gn:6252001 .
+
+sg:RegionalOrg_caribbean a sg:RegionalOrganization ;
+    rdfs:label "Caribbean and Central American States" ;
+    skos:prefLabel "Caribbean Region" ;
+    gn:name "Caribbean and Central American Region" ;
+    sg:hasMember gn:3573511, gn:3374084, gn:3572887, gn:3374084, gn:3582678, gn:3577718, gn:3575830, gn:3575174, gn:3580239, gn:3595469, gn:3608932, gn:3489940, gn:3617476, gn:3617988, gn:3616540, gn:3625428 .
+    gn:name "Pacific Island Nations" .
+    # Members: gn:2205218, gn:2088628, gn:2103350, gn:2134431, gn:4034894, gn:4032283
+
+# Country Usage Statistics (from CSV data)
+# Countries found in data with GeoNames mappings:
+
+#  66x Japan -> gn:1861060
+#  62x Singapore -> gn:1880251
+#  50x Philippines -> gn:1694008
+#  44x South Korea -> gn:1835841
+#  39x New Zealand -> gn:2186224
+#  34x Australia -> gn:2077456
+#  34x Papua New Guinea -> gn:2088628
+#  26x Taiwan -> gn:1668284
+#  25x Malaysia -> gn:1733045
+#  21x Pakistan -> gn:1168579
+#  20x Nepal -> gn:1282988
+#  18x Thailand -> gn:1605651
+#  18x Myanmar -> gn:1327865
+#  17x Bangladesh -> gn:1210997
+#  13x Cambodia -> gn:1831722
+#  13x India -> gn:1269750
+#  12x China -> gn:1814991
+#  11x Indonesia -> gn:1643084
+#  10x Fiji -> gn:2205218
+#   6x Republic of Korea -> gn:1835841
+#   3x Sri Lanka -> gn:1227603
+#   2x Vietnam -> gn:1562822
+#   2x Brunei -> gn:1820814
+#   2x Mongolia -> gn:2029969
+#   1x Kenya -> gn:192950
+#   1x Taiwan (China) -> gn:1668284
+
+# Unmapped countries (need GeoNames URIs):
+
+#  10x Laos PDR -> gn:1655842
+#  10x People’s Republic of China -> NEEDS MAPPING
+#  10x Republic of Fiji -> gn:2205218
+#   8x Republic of Korea (South Korea) -> gn:1835841
+#   8x Republic of the Philippines -> gn:1694008
+#   6x Chinese Taipei -> gn:1668284
+#   6x Aotearoa New Zealand -> gn:2186224
+#   5x Cannot be determined -> NEEDS MAPPING
+#   4x Chinese Hong Kong -> gn:1819730
+#   3x Brunei Darussalam -> gn:1820814
+#   2x United States, 
+Japan -> gn:1861060
+#   2x Kingdom of Cambodia -> gn:1831722
+#   2x Maldives -> gn:1282028
+#   2x Republic of Maldives -> gn:1282028
+#   1x Australia (Victoria) -> gn:2145234
+#   1x Belize -> gn:3582678
+#   1x Cambodia
+Indonesia
+Laos PDR
+Philippines
+Singapore
+Japan
+Vietnam -> gn:1562822
+#   1x 35 African States -> NEEDS MAPPING
+#   1x Island Nations of the Pacific -> NEEDS MAPPING
+#   1x Anguilla, Antigua & Barbuda, Bahamas, Barbados, Belize, British Virgin Islands, Cayman Islands, Dominica, Grenada, Guatemala, Haiti, Jamaica, Monserrat, Nicaragua, Panama, Saint Kitts and Nevis, Saint Lucia, Sint Maarten, St. Vincent and the Grenadines, Trinidad and Tobago, Turks and Caicos Islands -> NEEDS MAPPING
+#   1x Germany, United Kingdom -> NEEDS MAPPING
+#   1x The Vulnerable Twenty Group (V20) together with the Group of Seven (G7) -> NEEDS MAPPING
+#   1x Bangladesh, Cambodia, China, India, Nepal, Pakistan, Philippines, Sri Lanka and Thailand -> NEEDS MAPPING
+#   1x Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka -> NEEDS MAPPING
+#   1x Bangladesh, Nepal, Pakistan -> NEEDS MAPPING
+#   1x Cambodia, Thailand, Laos, Vietnam, Myanmar -> NEEDS MAPPING
+#   1x Myanmar, Vietnam -> gn:1562822
+#   1x Philippines, 
+Japan -> gn:1861060
+#   1x United States, Japan -> gn:1861060
+#   1x Thailand, 
+Indonesia, 
+Vietnam -> gn:1562822
+#   1x Thailand, 
+Philippines, 
+Indonesia -> gn:1643084
+#   1x Australia (State of Queensland) -> gn:2152274
+#   1x Australia (State of New South Wales) -> gn:2155400
+#   1x Bangladesh, 
+Nepal -> gn:1282988
+#   1x Cambodia, 
+Lao PDR -> gn:1655842
+#   1x Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam -> gn:1562822
+#   1x Cambodia, 
+Lao People's Democratic Republic -> gn:1655842
+#   1x China (Hong Kong Special Administrative Region) -> gn:1819730
+#   1x People’s Republic of China (PRC) -> NEEDS MAPPING
+#   1x Cambodia, 
+Philippines, 
+Viet Nam -> gn:1562822
+#   1x Pakistan (Punjab Province) -> gn:1168579
+#   1x Taiwan, 
+Philippines -> gn:1694008
+#   1x Singapore, 
+ASEAN+3 region -> NEEDS MAPPING
+#   1x China, 
+Singapore -> gn:1880251
+#   1x Republic of Korea, 
+Philippines -> gn:1694008
+#   1x Taiwan (Republic of China, R.O.C.) -> gn:1668284
+
+# Summary: 26 countries mapped, 46 need mapping

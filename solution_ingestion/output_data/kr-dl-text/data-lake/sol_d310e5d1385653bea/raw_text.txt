@@ -1,0 +1,29 @@
+Probabilistic Volcanic Hazard Analysis for the Auckland Volcanic Field (AVF PVHA)
+
+University of Canterbury, 
+GNS Science, 
+Massey University, 
+University of Auckland
+
+and 
+
+University of Geneva, 
+Nanyang Technological University
+
+Introduction
+
+This solution, Probabilistic Volcanic Hazard Analysis for the Auckland Volcanic Field (AVF PVHA) addresses natural catastrophe in Aotearoa New Zealand between University of Canterbury, GNS Science, Massey University, University of Auckland, University of Geneva, and Nanyang Technological University. The program was implemented in 2025 and focuses on collaboration and leveraging tech.
+
+Description
+
+The Probabilistic Volcanic Hazard Analysis for the Auckland Volcanic Field (AVF PVHA) is a research initiative aimed at transforming dynamic eruption scenarios into probabilistic volcanic hazard assessments. This approach provides site-specific, multi-hazard impact estimates by weighting scenario outcomes based on spatially varying likelihoods derived from environmental factors and eruptive styles. The initiative is designed to integrate into New Zealand's national volcanic risk assessment frameworks, aiding in planning and risk management for Auckland and other significant sectors.
+
+Key Highlights
+
+The initiative features a pseudo-probabilistic approach that mitigates scenario-selection bias and aligns volcanic risk assessment with probabilistic methods used for seismic risk. It incorporates spatially varying likelihood weights informed by environmental and eruptive style factors, enabling the integration of multi-hazard and compound-impact assessments. The framework is intended for integration into national volcanic risk frameworks, providing site-specific probabilities for hazard impacts.
+
+Results
+
+The initiative provides site-specific probability estimates for various hazard impacts, including combinations, to inform planning in Auckland and nationally significant sectors. Quantitative values are not publicly disclosed.
+
+Contact Information

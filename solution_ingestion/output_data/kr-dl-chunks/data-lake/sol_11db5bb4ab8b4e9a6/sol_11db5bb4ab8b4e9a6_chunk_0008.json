@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_11db5bb4ab8b4e9a6_chunk_0008",
+  "doc_id": "sol_11db5bb4ab8b4e9a6",
+  "chunk_number": 8,
+  "text": "Quantifiable, program-specific drought-finance outcomes are not documented. However, the publication of FMA’s 2025 supervisory insights indicates that climate risk disclosure practices relevant to drought are being reviewed and improved across reporting entities.",
+  "section_title": "Results",
+  "character_count": 263,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_188",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 188,
+    "solution_name": "Drought‑focused Government Risk Financing in New Zealand (2020–2025)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.who.int/health-topics/drought/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.576448+00:00"
+  },
+  "s3_key": "data-lake/sol_11db5bb4ab8b4e9a6/sol_11db5bb4ab8b4e9a6_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_11db5bb4ab8b4e9a6/sol_11db5bb4ab8b4e9a6_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_36f4759fc3f4ec286_chunk_0008",
+  "doc_id": "sol_36f4759fc3f4ec286",
+  "chunk_number": 8,
+  "text": "DRIP1 completed institutional reforms by 2023, establishing a pathway for city parametric insurance with 145 eligible cities and 17 initial pilots. DRIP2 provides US$500 million for rapid response and reform deepening, addressing macroeconomic risks with average annual losses of ~US$857 million from earthquakes and ~US$2.6 billion from tropical cyclones.",
+  "section_title": "Results",
+  "character_count": 356,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_288",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 288,
+    "solution_name": "Disaster Resilience Improvement Program (DRIP), \nSecond Disaster Resilience Improvement Program (DRIP2)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2020, \n2025",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/news/500-million-adb-loan-bolster-philippines-disaster-resilience",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.738546+00:00"
+  },
+  "s3_key": "data-lake/sol_36f4759fc3f4ec286/sol_36f4759fc3f4ec286_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_36f4759fc3f4ec286/sol_36f4759fc3f4ec286_chunk_0008.json"
+}

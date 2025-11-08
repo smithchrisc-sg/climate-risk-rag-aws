@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_049885defcc027ab7_chunk_0008",
+  "doc_id": "sol_049885defcc027ab7",
+  "chunk_number": 8,
+  "text": "The DRF has operationalized provincial drought triggers with documented forecasting accuracy assessments. It has expanded multi-hazard coverage, with the heatwave model covering 12 districts, the flood model covering five major rivers, and the drought model spanning Punjab, Sindh, and Balochistan. The DRF has been used for anticipatory allocations in 2023–2025 and during 2025 floods. Model outputs have been adopted by non-member agencies, indicating broader institutional uptake.",
+  "section_title": "Results",
+  "character_count": 483,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_204",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 204,
+    "solution_name": "Start Network's Disaster Risk Financing (DRF) pilots in Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2017",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/sites/default/files/publication/483686/pakistan-disaster-risk-financing-assessment.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.595425+00:00"
+  },
+  "s3_key": "data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0e8a946a7c26b16a2_chunk_0008",
+  "doc_id": "sol_0e8a946a7c26b16a2",
+  "chunk_number": 8,
+  "text": "Progress has been mixed, with improvements in technical capacity and policy intent but limited measurable reductions in drought losses due to constraints in financing and coordination.",
+  "section_title": "Results",
+  "character_count": 184,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_125",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 125,
+    "solution_name": "Assessment of Government Drought Risk Reduction and Mitigation Initiatives in Myanmar (2020–2025)",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.undrr.org/publication/disaster-risk-reduction-myanmar-status-report-2019",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.505908+00:00"
+  },
+  "s3_key": "data-lake/sol_0e8a946a7c26b16a2/sol_0e8a946a7c26b16a2_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0e8a946a7c26b16a2/sol_0e8a946a7c26b16a2_chunk_0008.json"
+}

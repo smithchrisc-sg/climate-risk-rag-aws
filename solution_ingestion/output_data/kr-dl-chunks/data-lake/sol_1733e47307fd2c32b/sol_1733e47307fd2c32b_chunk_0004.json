@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1733e47307fd2c32b_chunk_0004",
+  "doc_id": "sol_1733e47307fd2c32b",
+  "chunk_number": 4,
+  "text": "The World Bank's Disaster Risk Financing and Insurance Program (DRFI/DRFIP) aims to help governments manage the fiscal impacts of natural disasters. In the Pacific, this is executed through the Pacific Disaster Risk Financing and Insurance Program (Pacific DRFIP), which pilots sovereign parametric catastrophe insurance and strengthens public financial management for disasters across Pacific Island Countries, including Papua New Guinea. The program provides technical assistance and financial protection instruments to enhance fiscal resilience and reduce reliance on ad hoc post-disaster financing.",
+  "section_title": "Description",
+  "character_count": 602,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_244",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 244,
+    "solution_name": "World Bank Disaster Risk Financing and Insurance Program (DRFI/DRFIP); Pacific Disaster Risk Financing and Insurance Program (Pacific DRFIP)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2013",
+    "ppp": "Yes",
+    "source_url": "https://documents1.worldbank.org/curated/en/818411468289177132/pdf/949920WP0Box3800Pager0FINAL0VERSION.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.690023+00:00"
+  },
+  "s3_key": "data-lake/sol_1733e47307fd2c32b/sol_1733e47307fd2c32b_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1733e47307fd2c32b/sol_1733e47307fd2c32b_chunk_0004.json"
+}

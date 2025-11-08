@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b1074ab076469142b_chunk_0009",
+  "doc_id": "sol_b1074ab076469142b",
+  "chunk_number": 9,
+  "text": "The initiative reflects fiscal transparency, with the government disclosing financing methods and potential fiscal risks.",
+  "section_title": "Key Highlights",
+  "character_count": 121,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_325",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 325,
+    "solution_name": "2025 Supplementary Budget – Disaster Prevention and Recovery Tranche",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.aa.com.tr/en/asia-pacific/south-korea-proposes-86b-extra-budget-to-counter-trade-risks-wildfire-aftermath/3541874",
+    "section_title": "Key Highlights",
+    "chunk_number": 9,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.781281+00:00"
+  },
+  "s3_key": "data-lake/sol_b1074ab076469142b/sol_b1074ab076469142b_chunk_0009.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b1074ab076469142b/sol_b1074ab076469142b_chunk_0009.json"
+}

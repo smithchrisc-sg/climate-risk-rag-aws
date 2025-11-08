@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_bfff36322850cc41e_chunk_0002",
+  "doc_id": "sol_bfff36322850cc41e",
+  "chunk_number": 2,
+  "text": "This solution, Scaling Climate and Disaster Risk Financing Framework and Parametric Insurance in Fiji, \nFiji’s Parametric Climate and Disaster Risk Insurance Product addresses natural catastrophe through public private partnerships in Republic of Fiji between Government of Fiji, UN Capital Development Fund (UNCDF), UN Development Programme (UNDP), United Nations University – Institute for Environment and Human Security (UNU-EHS), India–UN Development Partnership Fund, UN Office for South–South Cooperation (UNOSSC), Governments of Australia, India, New Zealand, Commonwealth Secretariat, FijiCare Insurance Limited, and Sun Insurance. The program was implemented in 2021, \n2023 and focuses on collaboration, accessibility, leveraging tech, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 767,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_89",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 89,
+    "solution_name": "Scaling Climate and Disaster Risk Financing Framework and Parametric Insurance in Fiji, \nFiji’s Parametric Climate and Disaster Risk Insurance Product",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2021, \n2023",
+    "ppp": "Yes",
+    "source_url": "https://fijiclimatechangeportal.gov.fj/fijis-parametric-climate-and-disaster-risk-insurance-product/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.472692+00:00"
+  },
+  "s3_key": "data-lake/sol_bfff36322850cc41e/sol_bfff36322850cc41e_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_bfff36322850cc41e/sol_bfff36322850cc41e_chunk_0002.json"
+}

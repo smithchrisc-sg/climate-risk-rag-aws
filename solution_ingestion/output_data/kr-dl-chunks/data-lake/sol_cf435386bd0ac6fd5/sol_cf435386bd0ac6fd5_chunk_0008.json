@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cf435386bd0ac6fd5_chunk_0008",
+  "doc_id": "sol_cf435386bd0ac6fd5",
+  "chunk_number": 8,
+  "text": "The initiative trained over 19,900 local officials, advanced local legal frameworks and disaster management committees, increased municipal DRR budgets, mapped over 130,000 buildings, and involved 6,000 volunteers in mapping 80% of affected areas post-2015 quake. It also facilitated operational coordination during COVID-19 and the 2023 Jajarkot earthquake, and approved reconstruction for the 2079 Doti earthquake.",
+  "section_title": "Results",
+  "character_count": 416,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_129",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 129,
+    "solution_name": "Nepal’s Government-led Earthquake Risk Reduction and Mitigation Initiatives (2020–2025)",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2024/10/29/world-bank-approves-150-million-to-strengthen-nepal-s-disaster-response-and-resilience",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.511073+00:00"
+  },
+  "s3_key": "data-lake/sol_cf435386bd0ac6fd5/sol_cf435386bd0ac6fd5_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cf435386bd0ac6fd5/sol_cf435386bd0ac6fd5_chunk_0008.json"
+}

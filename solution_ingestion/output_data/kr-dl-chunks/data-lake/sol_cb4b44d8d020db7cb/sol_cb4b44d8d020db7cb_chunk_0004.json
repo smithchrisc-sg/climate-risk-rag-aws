@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cb4b44d8d020db7cb_chunk_0004",
+  "doc_id": "sol_cb4b44d8d020db7cb",
+  "chunk_number": 4,
+  "text": "GeoRisk Philippines (GeoRiskPH) is a government-led, web-based platform providing authoritative, science-based hazard and risk information. It is designed to support multi-hazard data management, risk assessment, and risk-informed planning across various government levels. The platform consolidates hazard information and offers tools for exposure mapping and analytics, enabling accurate and standardized risk assessments.",
+  "section_title": "Description",
+  "character_count": 424,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_266",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 266,
+    "solution_name": "GeoRisk Philippines (GeoRiskPH) Integrated Platform",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2019",
+    "ppp": "No",
+    "source_url": "https://www.gfdrr.org/en/videos/science-based-risk-assessment-bolsters-disaster-resilience-philippines-georiskph",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.713634+00:00"
+  },
+  "s3_key": "data-lake/sol_cb4b44d8d020db7cb/sol_cb4b44d8d020db7cb_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cb4b44d8d020db7cb/sol_cb4b44d8d020db7cb_chunk_0004.json"
+}

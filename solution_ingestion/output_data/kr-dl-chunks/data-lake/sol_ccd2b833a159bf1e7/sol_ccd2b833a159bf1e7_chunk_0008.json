@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ccd2b833a159bf1e7_chunk_0008",
+  "doc_id": "sol_ccd2b833a159bf1e7",
+  "chunk_number": 8,
+  "text": "Round 3 outcomes are pending announcement in the second half of 2025. Previous rounds have shown significant impact, with Queensland receiving over $84 million across 50 projects in Round 1 and over $29.3 million across 28 projects in Round 2.",
+  "section_title": "Results",
+  "character_count": 243,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_25",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 25,
+    "solution_name": "Disaster Ready Fund – Round 3 (DRF Round 3)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nsw.gov.au/grants-and-funding/disaster-ready-fund",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.393228+00:00"
+  },
+  "s3_key": "data-lake/sol_ccd2b833a159bf1e7/sol_ccd2b833a159bf1e7_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ccd2b833a159bf1e7/sol_ccd2b833a159bf1e7_chunk_0008.json"
+}

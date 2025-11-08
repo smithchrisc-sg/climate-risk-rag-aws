@@ -1,0 +1,35 @@
+New Zealand Drought Index (NZDI)
+
+National Institute of Water and Atmospheric Research (NIWA), 
+Hawke’s Bay Regional Council (HBRC), 
+Ministry for Primary Industries (MPI)
+
+Introduction
+
+This solution, New Zealand Drought Index (NZDI) addresses natural catastrophe in New Zealand between National Institute of Water and Atmospheric Research (NIWA), Hawke’s Bay Regional Council (HBRC), and Ministry for Primary Industries (MPI). The program was implemented in 2017 and focuses on collaboration and raising awareness.
+
+Description
+
+The New Zealand Drought Index (NZDI) is a composite drought index developed by NIWA to provide a consistent, nationwide characterization of drought intensity and extent. It integrates multiple drought-relevant variables to produce a single, interpretable index with categorical thresholds for spatial grid cells covering all of New Zealand. The NZDI is used to monitor drought conditions, inform water allocation decisions, and support communications to growers and farmers in regions like Hawke’s Bay.
+
+Key Highlights
+
+The NZDI captures both meteorological and agricultural drought by integrating precipitation anomalies with soil moisture data, providing a comprehensive view of on-farm water stress. It offers a consistent national baseline with regional relevance, allowing for comparisons across years and regions. The Drought Monitor provides publicly accessible, frequently updated maps and time series, supporting decision-making and communication among councils and primary producers.
+
+Results
+
+The NZDI and Drought Monitor have been operationally used to support drought awareness and decision-making in Hawke’s Bay, aiding in water management and adverse event classifications by MPI. However, specific quantifiable results are not documented.
+
+Contact Information
+
+Organization: National Institute of Water & Atmospheric Research (NIWA), 
+Email: info@niwa.co.nz, 
+Contact Number: +64 4 386 0300
+, 
+Organization: Hawke’s Bay Regional Council (HBRC), 
+Email: info@hbrc.govt.nz, 
+Contact Number: 06 835 9200 or 0800 108 838
+, 
+Organization: Ministry for Primary Industries (MPI), 
+Email: info@mpi.govt.nz, 
+Contact Number: 0800 00 83 33 (NZ); +64 4 830 1574 (Intl)

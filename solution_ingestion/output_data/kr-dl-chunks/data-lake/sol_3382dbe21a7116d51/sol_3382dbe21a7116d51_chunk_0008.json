@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3382dbe21a7116d51_chunk_0008",
+  "doc_id": "sol_3382dbe21a7116d51",
+  "chunk_number": 8,
+  "text": "The program has mobilized over 40 private-sector members and secured EUR 30 million in financing from BMZ, with up to USD 5 billion in risk capacity offered by IDF. A tailored parametric cyclone solution is under development, and a 2024 diagnostic has been published. Current insurance penetration in Bangladesh is 0.15%, with inclusive insurance coverage at 10%, indicating a significant protection gap.",
+  "section_title": "Results",
+  "character_count": 404,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_45",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 45,
+    "solution_name": "Tripartite Agreement (UNDP–IDF–BMZ) – Bangladesh Programme (TPA–Bangladesh)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.insdevforum.org/projects/the-idf-undp-bmz-tripartite-programme-increasing-insurance-protection-in-climate-exposed-countries/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.418191+00:00"
+  },
+  "s3_key": "data-lake/sol_3382dbe21a7116d51/sol_3382dbe21a7116d51_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3382dbe21a7116d51/sol_3382dbe21a7116d51_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2f587474878da8b28_chunk_0008",
+  "doc_id": "sol_2f587474878da8b28",
+  "chunk_number": 8,
+  "text": "Structural consolidation achieved with 24/7 operational coordination capability. Funding mechanisms aligned to risk reduction and recovery, such as the Disaster Ready Fund. Quantified performance metrics for outcomes post-establishment are not publicly available.",
+  "section_title": "Results",
+  "character_count": 263,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_9",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 9,
+    "solution_name": "National Emergency Management Agency (NEMA)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.aidr.org.au/news/the-national-emergency-management-agency-established/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.372524+00:00"
+  },
+  "s3_key": "data-lake/sol_2f587474878da8b28/sol_2f587474878da8b28_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2f587474878da8b28/sol_2f587474878da8b28_chunk_0008.json"
+}

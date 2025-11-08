@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_21949db34954b44fe_chunk_0004",
+  "doc_id": "sol_21949db34954b44fe",
+  "chunk_number": 4,
+  "text": "The Upgrade of Seismic Monitoring at Lae Seismic Station involves transitioning from short-period to broadband instrumentation as part of the broader Technical Disaster Risk Reduction (TDRR) program led by Geoscience Australia. This initiative aims to enhance earthquake monitoring and decision-support systems in Papua New Guinea, particularly in Lae, a critical urban and industrial hub. The upgrade supports near-real-time situational awareness, engineering design inputs, and retrofit decisions, contributing to improved earthquake risk management in the region.",
+  "section_title": "Description",
+  "character_count": 566,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_242",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 242,
+    "solution_name": "Upgrade of Seismic Monitoring: Lae Seismic Station (short-period to broadband)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022-2023",
+    "ppp": "No",
+    "source_url": "https://www.ga.gov.au/scientific-topics/community-safety/projects/reducing-disaster-risk-in-papua-new-guinea",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.687396+00:00"
+  },
+  "s3_key": "data-lake/sol_21949db34954b44fe/sol_21949db34954b44fe_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_21949db34954b44fe/sol_21949db34954b44fe_chunk_0004.json"
+}

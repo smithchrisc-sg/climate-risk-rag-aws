@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3382dbe21a7116d51_chunk_0004",
+  "doc_id": "sol_3382dbe21a7116d51",
+  "chunk_number": 4,
+  "text": "The Tripartite Agreement (TPA) in Bangladesh is a public-private partnership initiative aimed at developing a parametric cyclone insurance solution to address climate and disaster risks. It is part of a global effort under the InsuResilience Vision 2025 to expand risk finance and insurance for climate-vulnerable countries. The program focuses on capacity-building for inclusive insurance and risk finance across sectors like agriculture and public financial management, with a flagship product targeting cyclone risk.",
+  "section_title": "Description",
+  "character_count": 519,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_45",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 45,
+    "solution_name": "Tripartite Agreement (UNDP–IDF–BMZ) – Bangladesh Programme (TPA–Bangladesh)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.insdevforum.org/projects/the-idf-undp-bmz-tripartite-programme-increasing-insurance-protection-in-climate-exposed-countries/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.417755+00:00"
+  },
+  "s3_key": "data-lake/sol_3382dbe21a7116d51/sol_3382dbe21a7116d51_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3382dbe21a7116d51/sol_3382dbe21a7116d51_chunk_0004.json"
+}

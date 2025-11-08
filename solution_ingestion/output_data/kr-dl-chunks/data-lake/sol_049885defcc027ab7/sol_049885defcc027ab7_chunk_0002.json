@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_049885defcc027ab7_chunk_0002",
+  "doc_id": "sol_049885defcc027ab7",
+  "chunk_number": 2,
+  "text": "This solution, Start Network's Disaster Risk Financing (DRF) pilots in Pakistan addresses natural catastrophe through public private partnerships in Pakistan between Pakistan's National Disaster Management Authority (NDMA), Pakistan Meteorological Department, University of Reading, GlobalAgRisk, Humanitarian Innovation Fund, Asian Development Bank, United Kingdom's Foreign, Commonwealth & Development Office (FCDO), and Government of the Netherlands. The program was implemented in 2017 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 541,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_204",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 204,
+    "solution_name": "Start Network's Disaster Risk Financing (DRF) pilots in Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2017",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/sites/default/files/publication/483686/pakistan-disaster-risk-financing-assessment.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.594724+00:00"
+  },
+  "s3_key": "data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0002.json"
+}

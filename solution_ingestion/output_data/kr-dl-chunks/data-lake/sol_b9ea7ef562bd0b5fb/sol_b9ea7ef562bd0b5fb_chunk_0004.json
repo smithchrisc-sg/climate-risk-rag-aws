@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b9ea7ef562bd0b5fb_chunk_0004",
+  "doc_id": "sol_b9ea7ef562bd0b5fb",
+  "chunk_number": 4,
+  "text": "The initiative, proposed by the Asian Development Bank, aims to enhance disaster risk financing in the People’s Republic of China through five market-based parametric insurance pilot schemes. These pilots are designed to provide rapid post-disaster liquidity to public authorities using pre-agreed, objective hazard triggers, transferring a portion of the risk to domestic and international insurance and reinsurance markets. The proposal is part of ADB’s broader agenda to strengthen climate and disaster resilience and public financial management across Asia and the Pacific.",
+  "section_title": "Description",
+  "character_count": 577,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_82",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 82,
+    "solution_name": "From Pandemic to Greater Resilience: Enhancing Disaster Risk Financing in the People’s Republic of China",
+    "country": "People’s Republic of China (PRC)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/publications/disaster-risk-financing-peoples-republic-china",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.464342+00:00"
+  },
+  "s3_key": "data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0004.json"
+}

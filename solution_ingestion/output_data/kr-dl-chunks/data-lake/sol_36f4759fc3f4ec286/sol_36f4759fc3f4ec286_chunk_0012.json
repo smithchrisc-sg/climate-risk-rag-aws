@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_36f4759fc3f4ec286_chunk_0012",
+  "doc_id": "sol_36f4759fc3f4ec286",
+  "chunk_number": 12,
+  "text": "Tranche 1 established a $500 million contingent financing line and initiated the design of a city-level parametric insurance scheme.,",
+  "section_title": "Results",
+  "character_count": 133,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_285",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 285,
+    "solution_name": "Disaster Resilience Improvement Program (DRIP) – Tranche 1, \nSecond Disaster Resilience Improvement Program (Second DRIP) – Tranche 2",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2020, \n2025",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/news/500-million-adb-loan-bolster-philippines-disaster-resilience",
+    "section_title": "Results",
+    "chunk_number": 12,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.735460+00:00"
+  },
+  "s3_key": "data-lake/sol_36f4759fc3f4ec286/sol_36f4759fc3f4ec286_chunk_0012.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_36f4759fc3f4ec286/sol_36f4759fc3f4ec286_chunk_0012.json"
+}

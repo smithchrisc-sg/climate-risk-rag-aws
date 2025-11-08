@@ -1,0 +1,50 @@
+May/June 2021 Flood Repairs
+
+National Institute of Water and Atmospheric Research (NIWA), 
+University of Auckland, 
+New Zealand Ministry of Business, Innovation, and Employment (MBIE) Endeavour Fund, 
+Resilience to Nature’s Challenges National Science Challenge (RNC) Multihazard Risk Programme, 
+Buller District Council, 
+West Coast Regional Council, 
+West Coast Civil Defence Emergency Management Group, 
+Fire and Emergency New Zealand (FENZ), 
+New Zealand Transport Agency Waka Kotahi
+
+Introduction
+
+This solution, May/June 2021 Flood Repairs addresses natural catastrophe in New Zealand between National Institute of Water and Atmospheric Research (NIWA), University of Auckland, New Zealand Ministry of Business, Innovation, and Employment (MBIE) Endeavour Fund, Resilience to Nature’s Challenges National Science Challenge (RNC) Multihazard Risk Programme, Buller District Council, West Coast Regional Council, West Coast Civil Defence Emergency Management Group, Fire and Emergency New Zealand (FENZ), and New Zealand Transport Agency Waka Kotahi. The program was implemented in 2021 and focuses on collaboration and leveraging tech.
+
+Description
+
+The 'May/June 2021 Flood Repairs' initiative was a coordinated, multi-agency effort in New Zealand to address the severe flooding that occurred in late autumn and early winter of 2021, particularly in the South Island. The initiative involved systematic post-event residential building damage assessments and evidence-led methodologies to prioritize and accelerate repairs. It utilized supervised learning models to predict damage and support decision-making, and involved various public organizations in a collaborative framework to manage emergency responses and repairs.
+
+Key Highlights
+
+The initiative was characterized by its evidence-led triage approach, using empirical hazard and damage data to prioritize repair actions. It employed machine learning models, particularly Random Forests, to predict building damage, although care was needed to avoid overfitting. The multi-agency operating model involved local councils, regional councils, research institutions, and emergency/transport agencies working together. The initiative also highlighted governance insights related to flood-risk mitigation and proactive waterbody management.
+
+Results
+
+~3.8 km² inundated urban area, 
+Over 2,000 evacuees, 
+>800 properties inundated, 
+455 residential buildings damaged, 
+>1,300 residential building and contents insurance claims, 
+Insured residential losses up to NZD $87.9 million, representing ~50% of New Zealand’s total insured residential natural-disaster losses in 2021
+
+Contact Information
+
+Organization: West Coast Civil Defence Emergency Management Group (CDEM), 
+Email: cdemduty@wcrc.govt.nz, 
+Contact Number: +64 3 769 9323
+, 
+Organization: Buller District Council (BDC), 
+Email: cdemduty@wcrc.govt.nz, 
+Contact Number: +64 3 769 9323
+, 
+Organization: West Coast Regional Council (WCRC), 
+Email: cdemduty@wcrc.govt.nz, 
+Contact Number: +64 3 769 9323
+, 
+Organization: National Emergency Management Agency (NEMA), 
+Email: emergency.management@nema.govt.nz, 
+Contact Number: Not provided in sources

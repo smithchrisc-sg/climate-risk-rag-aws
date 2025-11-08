@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2b44478380443bd7e_chunk_0006",
+  "doc_id": "sol_2b44478380443bd7e",
+  "chunk_number": 6,
+  "text": "SEADRIF operates an insurance company in Singapore to provide rapid liquidity to governments post-disasters. Myanmar's participation in SEADRIF's governance and technical dialogue positions it to access pre-arranged financial instruments like parametric sovereign insurance. The initiative is part of a broader regional effort to enhance financial resilience against natural hazards in ASEAN.",
+  "section_title": "Key Highlights",
+  "character_count": 392,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_120",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 120,
+    "solution_name": "Engagement with the Southeast Asia Disaster Risk Insurance Facility (SEADRIF) on Disaster Risk Financing in Myanmar (SEADRIF–Myanmar DRF Engagement)",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Yes",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2020/05/08/new-insurance-company-to-strengthen-financial-resilience-in-southeast-asia",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.500349+00:00"
+  },
+  "s3_key": "data-lake/sol_2b44478380443bd7e/sol_2b44478380443bd7e_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2b44478380443bd7e/sol_2b44478380443bd7e_chunk_0006.json"
+}

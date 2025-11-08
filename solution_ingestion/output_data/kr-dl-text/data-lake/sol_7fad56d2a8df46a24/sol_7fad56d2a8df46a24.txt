@@ -1,0 +1,38 @@
+National Landslide Susceptibility Mapping (LSM)
+
+Korea Forest Service (KFS), 
+National Institute of Forest Science (NIFoS)
+
+and 
+
+OJeong Resilience Institute (OJERI@KU)
+
+Introduction
+
+This solution, National Landslide Susceptibility Mapping (LSM) addresses natural catastrophe through public private partnerships in South Korea between Korea Forest Service (KFS), National Institute of Forest Science (NIFoS), and OJeong Resilience Institute (OJERI@KU). The program was implemented in 2023 and focuses on leveraging tech and collaboration.
+
+Description
+
+The National Landslide Susceptibility Mapping (LSM) initiative in South Korea is a comprehensive program aimed at identifying and mitigating the risks of rainfall-induced landslides. It integrates machine learning-based susceptibility modeling with the Korea Forest Service's operational forecasting to provide daily national susceptibility maps and short-term early warnings. The initiative is part of a larger effort to enhance landslide forecasting and information services in South Korea, leveraging academic, industry, and government partnerships to improve spatial and temporal resolution in landslide risk assessment.
+
+Key Highlights
+
+Nation-scale, high-resolution coverage with 100 m grid enabling detailed monitoring at local administrative levels., 
+Use of AutoML to select Random Forest as the optimal model, enhancing robustness and reproducibility., 
+Daily and twice-daily updates during peak monsoon conditions for near-real-time early warning., 
+Integration with KFS's Landslide Information System for public dissemination., 
+SHAP analyses for model interpretability, aiding decision-makers in understanding risk factors.
+
+Results
+
+Approximately 800 landslide events occurred in 2023, highlighting the importance of the initiative., 
+54 national susceptibility maps and 22 public announcements issued during severe weather conditions., 
+Robust data strength with a historical training inventory of over 4,000 events and a 2023 validation set of 609 events.
+
+Contact Information
+
+Name: Prof. Sang-Guk Yum, 
+Position:Professor, Department of Civil and Environmental Engineering, 
+Company:Gangneung-Wonju National University 
+Email: skyeom0401@gwnu.ac.kr, 
+Contact Number: None

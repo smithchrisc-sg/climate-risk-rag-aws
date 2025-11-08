@@ -1,0 +1,27 @@
+Korea Land Data Assimilation System (KLDAS)
+
+Yonsei University
+
+Introduction
+
+This solution, Korea Land Data Assimilation System (KLDAS) addresses natural catastrophe in South Korea between Yonsei University. The program was implemented in 2007-2008 and focuses on leveraging tech.
+
+Description
+
+The Korea Land Data Assimilation System (KLDAS) is a regional land data assimilation and modeling framework developed in South Korea to generate realistic, dynamically consistent land surface conditions at high spatial resolution and in real time. It serves as a land surface initialization source for numerical weather prediction and climate models, notably the Weather Research and Forecasting (WRF) model, to improve forecasts of near-surface meteorology and precipitation.
+
+Key Highlights
+
+KLDAS features a high-resolution (5 km) East Asia domain, observation-driven forcings, and an uncoupled architecture for flexibility. It performs long-term spin-up of the Noah Land Surface Model for physically consistent soil states and has real-time production capability. The system has demonstrated significant impacts on rainfall and meteorological fields in WRF case studies.
+
+Results
+
+Preliminary case studies showed significant impacts on rainfall and other meteorological fields when KLDAS land states were used to initialize WRF. Quantitative metrics were not reported.
+
+Contact Information
+
+Name: Yoon-Jin Lim, 
+Position:KLDAS contact; Global Environment Laboratory / Dept. of Atmospheric Sciences (aff.), 
+Company:Yonsei University 
+Email: yj.lim@yonsei.ac.kr, 
+Contact Number: None

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ed36abd812be6f529_chunk_0008",
+  "doc_id": "sol_ed36abd812be6f529",
+  "chunk_number": 8,
+  "text": "The program was officially launched in May 2025, with initial training activities reported. Planned actions for 2025 include equipment procurement for the early warning center, enhancement of the Lae Seismic Station, and re-establishment of a database for vulnerable populations. The national allocation is EUR 770,000, with an additional EUR 93,242 for regional activities in PNG.",
+  "section_title": "Results",
+  "character_count": 381,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_229",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 229,
+    "solution_name": "Building Safety and Resilience in the Pacific Phase II – Papua New Guinea Country Program (BSRP II – PNG)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.spc.int/sites/default/files/tenderfiles/2024-07/BSRP%20II%20Papua%20New%20Guinea%20Country%20Implementation%20Plan.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.668121+00:00"
+  },
+  "s3_key": "data-lake/sol_ed36abd812be6f529/sol_ed36abd812be6f529_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ed36abd812be6f529/sol_ed36abd812be6f529_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7d3d80c3c25606124_chunk_0006",
+  "doc_id": "sol_7d3d80c3c25606124",
+  "chunk_number": 6,
+  "text": "Centralized Governance: PUB's appointment reduces fragmentation and aligns coastal, drainage, and water-supply considerations for whole-of-basin risk management. Legislation and Code of Practice: New legislation and a national Code of Practice standardize design and operations, ensuring effective implementation and lifecycle guidance. Hybrid Solutions: Incorporates nature-based solutions with traditional infrastructure, enhancing multi-functionality and community acceptance. Advanced Modeling: Coastal-Inland Flood Model optimizes interventions across the drainage-coast interface. R&D and Innovation: The Coastal Protection and Flood Management Research Programme (CFRP) accelerates solution development with a dedicated Centre of Excellence.",
+  "section_title": "Key Highlights",
+  "character_count": 748,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_291",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 291,
+    "solution_name": "Appointment of PUB as National Coastal Protection Agency",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration, \nLeveraging Tech",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.pub.gov.sg/Resources/News-Room/PressReleases/2024/03/Coastal-Protection-Legislation-and-Code-of-Practice",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.742164+00:00"
+  },
+  "s3_key": "data-lake/sol_7d3d80c3c25606124/sol_7d3d80c3c25606124_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7d3d80c3c25606124/sol_7d3d80c3c25606124_chunk_0006.json"
+}

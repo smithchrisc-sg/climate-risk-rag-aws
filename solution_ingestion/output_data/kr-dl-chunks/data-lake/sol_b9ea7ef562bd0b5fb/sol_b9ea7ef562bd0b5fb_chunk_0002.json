@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b9ea7ef562bd0b5fb_chunk_0002",
+  "doc_id": "sol_b9ea7ef562bd0b5fb",
+  "chunk_number": 2,
+  "text": "This solution, From Pandemic to Greater Resilience: Enhancing Disaster Risk Financing in the People’s Republic of China addresses natural catastrophe through public private partnerships in People’s Republic of China (PRC) between Ministry of Finance (MOF), Relevant line ministries, Provincial governments, Asian Development Bank (ADB), Domestic insurers, and International reinsurers. The program was implemented in 2022 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 471,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_82",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 82,
+    "solution_name": "From Pandemic to Greater Resilience: Enhancing Disaster Risk Financing in the People’s Republic of China",
+    "country": "People’s Republic of China (PRC)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/publications/disaster-risk-financing-peoples-republic-china",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.464102+00:00"
+  },
+  "s3_key": "data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0002.json"
+}

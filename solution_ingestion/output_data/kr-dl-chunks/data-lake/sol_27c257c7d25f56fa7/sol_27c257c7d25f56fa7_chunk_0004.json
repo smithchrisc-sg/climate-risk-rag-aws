@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_27c257c7d25f56fa7_chunk_0004",
+  "doc_id": "sol_27c257c7d25f56fa7",
+  "chunk_number": 4,
+  "text": "The Catastrophe Deferred Drawdown Option (Cat DDO) for Nepal is a contingent credit line provided by the World Bank to offer immediate budget support in the aftermath of natural disasters. It is part of the World Bank's broader Disaster Risk Financing and Insurance Program (DRFIP), in collaboration with GFDRR, aimed at enhancing financial protection against natural hazards. The Cat DDO is embedded within a development policy financing operation that supports disaster risk management reforms and readiness in Nepal.",
+  "section_title": "Description",
+  "character_count": 519,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_137",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 137,
+    "solution_name": "Development Policy Financing with a Catastrophe Deferred Drawdown Option (Cat DDO) – Nepal, 2020–2025",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/about/people/o/olivier-mahul",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.518556+00:00"
+  },
+  "s3_key": "data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0004.json"
+}

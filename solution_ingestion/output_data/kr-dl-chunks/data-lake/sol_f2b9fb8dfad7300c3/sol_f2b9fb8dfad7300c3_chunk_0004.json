@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f2b9fb8dfad7300c3_chunk_0004",
+  "doc_id": "sol_f2b9fb8dfad7300c3",
+  "chunk_number": 4,
+  "text": "The Resilient Homes Program (RHP) and Resilient Lands Program (RLP) in New South Wales, Australia, are comprehensive initiatives aimed at addressing flood risk and enhancing housing resilience. Established in response to severe flooding in 2022, these programs offer voluntary buybacks, retrofits, and relocations for affected homeowners, while also unlocking flood-free land for safer resettlement. Led by the NSW Reconstruction Authority, with co-funding from the NSW and Australian Governments, the programs prioritize high-risk areas and integrate with broader regional recovery efforts.",
+  "section_title": "Description",
+  "character_count": 591,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_11",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 11,
+    "solution_name": "Resilient Homes Program (RHP), \nResilient Lands Program (RLP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/our-work/resilient-homes-program/about-program",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.374694+00:00"
+  },
+  "s3_key": "data-lake/sol_f2b9fb8dfad7300c3/sol_f2b9fb8dfad7300c3_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f2b9fb8dfad7300c3/sol_f2b9fb8dfad7300c3_chunk_0004.json"
+}

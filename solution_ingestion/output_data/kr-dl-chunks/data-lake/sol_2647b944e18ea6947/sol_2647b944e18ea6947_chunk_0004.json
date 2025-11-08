@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2647b944e18ea6947_chunk_0004",
+  "doc_id": "sol_2647b944e18ea6947",
+  "chunk_number": 4,
+  "text": "The Philippine City Disaster Insurance Pool (PCDIP) is a pioneering city-level parametric disaster insurance scheme in Southeast Asia, designed to provide rapid financial liquidity to cities in the Philippines following natural catastrophes such as typhoons and earthquakes. By pooling the risks of participating cities, the initiative aims to improve market access and affordability of insurance, ensuring that funds are quickly available for early response and recovery efforts.",
+  "section_title": "Description",
+  "character_count": 480,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_264",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 264,
+    "solution_name": "Philippine City Disaster Insurance Pool (PCDIP)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/publications/philippine-city-disaster-insurance-pool",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.710974+00:00"
+  },
+  "s3_key": "data-lake/sol_2647b944e18ea6947/sol_2647b944e18ea6947_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2647b944e18ea6947/sol_2647b944e18ea6947_chunk_0004.json"
+}

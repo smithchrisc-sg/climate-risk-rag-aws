@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_500b908f3fd9f62f9_chunk_0006",
+  "doc_id": "sol_500b908f3fd9f62f9",
+  "chunk_number": 6,
+  "text": "The NDC‑IMS upgrade integrates sectoral monitoring with national reporting, supports iterative updates of the NDC Implementation Plan, and aligns with new quantitative adaptation targets. It features deep integration with AFOLU/REDD+ MRV and land-use governance, and coordination via the Regional Pacific NDC Hub for targeted technical assistance. The system tracks indicators such as renewable energy generation, land-use emissions, and adaptation metrics across agriculture, health, and transport sectors.",
+  "section_title": "Key Highlights",
+  "character_count": 507,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_243",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 243,
+    "solution_name": "Nationally Determined Contribution Information Management System Upgrade (NDC‑IMS upgrade)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://pacificndc.org/pacific-ndcs/papua-new-guinea",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.688813+00:00"
+  },
+  "s3_key": "data-lake/sol_500b908f3fd9f62f9/sol_500b908f3fd9f62f9_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_500b908f3fd9f62f9/sol_500b908f3fd9f62f9_chunk_0006.json"
+}

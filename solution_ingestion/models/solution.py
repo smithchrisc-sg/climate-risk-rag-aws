@@ -25,6 +25,9 @@ logger = logging.getLogger(__name__)
 class Solution:
     """Represents a climate risk solution from CSV data."""
     
+    # Class-level shared manager
+    _shared_doc_id_manager = None
+    
     # Core identifiers
     id: str
     source_file: str
@@ -70,6 +73,8 @@ class Solution:
     
     def __post_init__(self):
         """Validate and normalize solution data after initialization."""
+        logger.info(f"__post_init__ called, doc_id is: {self.doc_id}")
+        
         # Ensure required fields are not empty
         if not self.name.strip():
             raise ValueError(f"Solution name cannot be empty for {self.id}")
@@ -77,8 +82,12 @@ class Solution:
         # Extract source URL from CSV fields
         self.source_url = self._extract_source_url()
         
-        # Generate document ID using production DocumentIDManager
-        self.doc_id = self._generate_production_doc_id()
+        # Generate document ID only if not already provided
+        if not self.doc_id:
+            logger.info("No doc_id provided, generating new one")
+            self.doc_id = self._generate_production_doc_id()
+        else:
+            logger.info(f"Using pre-generated doc_id: {self.doc_id}")
     
     def _extract_source_url(self) -> str:
         """Extract source URL from Organization Sources or Other Sources fields."""
@@ -106,13 +115,22 @@ class Solution:
     
     def _get_doc_id_manager(self):
         """Get DocumentIDManager instance."""
+        logger.info(f"_get_doc_id_manager called, _doc_id_manager is None: {self._doc_id_manager is None}")
+        logger.info(f"Solution._shared_doc_id_manager is: {Solution._shared_doc_id_manager}")
+        
         if self._doc_id_manager is None:
-            try:
-                self._doc_id_manager = DocumentIDManager()
-                logger.info("DocumentIDManager initialized successfully")
-            except Exception as e:
-                logger.error(f"Could not initialize DocumentIDManager: {e}")
-                raise RuntimeError(f"DocumentIDManager initialization failed - this is a critical system error: {e}")
+            # Use shared manager if available
+            if Solution._shared_doc_id_manager is not None:
+                self._doc_id_manager = Solution._shared_doc_id_manager
+                logger.info("Using shared DocumentIDManager")
+            else:
+                logger.info("No shared DocumentIDManager available, creating new one")
+                try:
+                    self._doc_id_manager = DocumentIDManager()
+                    logger.info("DocumentIDManager initialized successfully")
+                except Exception as e:
+                    logger.error(f"Could not initialize DocumentIDManager: {e}")
+                    raise RuntimeError(f"DocumentIDManager initialization failed - this is a critical system error: {e}")
         return self._doc_id_manager
     
     def _generate_production_doc_id(self) -> str:
@@ -212,7 +230,8 @@ class Solution:
             contact_information=data['contact_information'],
             date_added=data['date_added'],
             last_updated=data['last_updated'],
-            most_recent_changes=data['most_recent_changes']
+            most_recent_changes=data['most_recent_changes'],
+            doc_id=data.get('doc_id')  # Include doc_id if provided
         )
     
     def __str__(self) -> str:

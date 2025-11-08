@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cd83ffa516c6125c7_chunk_0008",
+  "doc_id": "sol_cd83ffa516c6125c7",
+  "chunk_number": 8,
+  "text": "The guidelines have led to consistent and defensible decision-making across DOC visitor sites, with increased focus on landslide and rockfall hazards. While specific quantifiable outcomes are not detailed, the methodology has been applied in site casework, such as the Rob Roy Suspension Bridge assessment.",
+  "section_title": "Results",
+  "character_count": 306,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_186",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 186,
+    "solution_name": "Guidelines for Natural Hazard Risk Analysis on Public Conservation Lands and Waters",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.doc.govt.nz/about-us/our-role/managing-conservation/recreation-management/visitor-risk-management/assessing-risk-from-natural-hazards-at-visitor-sites/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.573716+00:00"
+  },
+  "s3_key": "data-lake/sol_cd83ffa516c6125c7/sol_cd83ffa516c6125c7_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cd83ffa516c6125c7/sol_cd83ffa516c6125c7_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c09238d5fc71e25f8_chunk_0002",
+  "doc_id": "sol_c09238d5fc71e25f8",
+  "chunk_number": 2,
+  "text": "This solution, Start Ready (Start Network’s disaster risk financing mechanism) addresses natural catastrophe through public private partnerships in Bangladesh between Start Fund Bangladesh, Local humanitarian organizations in Bangladesh, Start Network, Swiss Re Foundation, Nirapad, FOREWARN Bangladesh, and Open Mapping Hub – Asia Pacific. The program was implemented in 2023 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 426,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_44",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 44,
+    "solution_name": "Start Ready (Start Network’s disaster risk financing mechanism)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.swissrefoundation.org/what-we-do/projects/Climate-solutions/Start-Network--Prepared-to-protect-with-fast-financing.html",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.416294+00:00"
+  },
+  "s3_key": "data-lake/sol_c09238d5fc71e25f8/sol_c09238d5fc71e25f8_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c09238d5fc71e25f8/sol_c09238d5fc71e25f8_chunk_0002.json"
+}

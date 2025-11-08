@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f0737463140c78c1f_chunk_0008",
+  "doc_id": "sol_f0737463140c78c1f",
+  "chunk_number": 8,
+  "text": "The pilot program was launched in January 2024, establishing a formal collaboration framework with SEADRIF and defining priority enhancements such as coverage expansion and reinsurance optimization. The data integration pathway between NARS and GeoRiskPH has been set, and capacity and transaction advisory support have been mobilized.",
+  "section_title": "Results",
+  "character_count": 335,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_269",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 269,
+    "solution_name": "National Indemnity Insurance Program (NIIP)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://seadrif.org/news/seadrif-collaborates-with-the-government-of-the-philippines-to-strengthen-the-nations-disaster-risk-finance-and-insurance-strategy/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.718865+00:00"
+  },
+  "s3_key": "data-lake/sol_f0737463140c78c1f/sol_f0737463140c78c1f_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f0737463140c78c1f/sol_f0737463140c78c1f_chunk_0008.json"
+}

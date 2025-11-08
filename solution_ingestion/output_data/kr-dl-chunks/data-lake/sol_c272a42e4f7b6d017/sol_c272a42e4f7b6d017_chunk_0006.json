@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c272a42e4f7b6d017_chunk_0006",
+  "doc_id": "sol_c272a42e4f7b6d017",
+  "chunk_number": 6,
+  "text": "The SRP features a dual-hazard design focusing on both flood and drought risks, a unique approach for provincial projects. It includes a Contingent Emergency Response Component that allowed rapid fund reallocation to address the COVID-19 emergency. The project also emphasizes strong environmental and social safeguards and utilizes digital tools for data-driven irrigation operations. Additional Financing proposed by the World Bank in 2020 expanded the project's scope to include public health emergencies.",
+  "section_title": "Key Highlights",
+  "character_count": 508,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_207",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 207,
+    "solution_name": "Sindh Resilience Project (SRP)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2016",
+    "ppp": "Yes",
+    "source_url": "https://documents1.worldbank.org/curated/en/180721468187768824/pdf/PAD1684-PAD-P155350-OUO-9-IDA-R2016-0134-1-Box396260B.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.599093+00:00"
+  },
+  "s3_key": "data-lake/sol_c272a42e4f7b6d017/sol_c272a42e4f7b6d017_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c272a42e4f7b6d017/sol_c272a42e4f7b6d017_chunk_0006.json"
+}

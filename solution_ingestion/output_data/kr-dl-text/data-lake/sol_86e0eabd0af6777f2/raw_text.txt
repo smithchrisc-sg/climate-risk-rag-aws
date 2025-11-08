@@ -1,0 +1,35 @@
+PlanSmart
+
+Government of the Philippines, 
+Local Government Units (LGUs)
+
+and 
+
+World Bank, 
+Global Facility for Disaster Reduction and Recovery (GFDRR)
+
+Introduction
+
+This solution, PlanSmart addresses natural catastrophe in Philippines between Government of the Philippines, Local Government Units (LGUs), World Bank, and Global Facility for Disaster Reduction and Recovery (GFDRR). The program was implemented in 2022 and focuses on collaboration and leveraging tech.
+
+Description
+
+PlanSmart is a digital application developed by the Government of the Philippines in collaboration with the World Bank's GFDRR. It automates and standardizes recovery and reconstruction plans post-disaster, utilizing national multi-hazard risk data. The platform, launched in 2022, includes the 'PlanSmart Ready to Rebuild' module and has been scaled to over a hundred local governments. It integrates with pre-arranged disaster financing instruments and sector-specific versions, such as housing and education, to enhance recovery planning efficiency.
+
+Key Highlights
+
+PlanSmart automates the generation of recovery and reconstruction plans using hazard and risk data from GeoRiskPH, a unified national database. It offers preformulated, customizable plan templates and sector-specific modules. The platform is embedded in a broader risk financing architecture, including Cat-DDO, to ensure rapid access to funds. Over 2,300 officials have been trained in risk-informed recovery planning, with 500+ trained specifically on using PlanSmart.
+
+Results
+
+153 LGUs have prepared recovery and reconstruction plans using PlanSmart across five disaster-vulnerable regions. More than 2,300 officials have been trained in risk-informed recovery planning, with 500+ trained to use the app. The platform demonstrated rapid plan preparation in BARMM after Severe Tropical Storm Nalgae in October 2022.
+
+Contact Information
+
+Organization: Global Facility for Disaster Reduction and Recovery (GFDRR), 
+Email: Not publicly listed, 
+Contact Number: +1-202-473-6253
+, 
+Organization: World Bank, 
+Email: Not publicly listed, 
+Contact Number: +32 (0) 2 552 0052

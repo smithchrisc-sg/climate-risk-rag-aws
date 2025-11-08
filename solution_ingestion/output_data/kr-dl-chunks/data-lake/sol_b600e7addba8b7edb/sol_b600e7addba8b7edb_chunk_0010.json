@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b600e7addba8b7edb_chunk_0010",
+  "doc_id": "sol_b600e7addba8b7edb",
+  "chunk_number": 10,
+  "text": "A strong emphasis is placed on preparedness over post-disaster cleanup, advocating for anticipatory action and resilience-building.",
+  "section_title": "Key Highlights",
+  "character_count": 131,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_232",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 232,
+    "solution_name": "PNG Disaster Management Reference Handbook (August 2025)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.developmentaid.org/news-stream/post/199271/papua-new-guinea-disaster-management-handbook-natural-hazards-vulnerability",
+    "section_title": "Key Highlights",
+    "chunk_number": 10,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.672571+00:00"
+  },
+  "s3_key": "data-lake/sol_b600e7addba8b7edb/sol_b600e7addba8b7edb_chunk_0010.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b600e7addba8b7edb/sol_b600e7addba8b7edb_chunk_0010.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b751600e80358bd2c_chunk_0002",
+  "doc_id": "sol_b751600e80358bd2c",
+  "chunk_number": 2,
+  "text": "This solution, Addu City Land Reclamation and Shore Protection Project (ASRP) addresses natural catastrophe through public private partnerships in Maldives between Ministry of National Planning, Housing and Infrastructure (MNPHI), Environmental Protection Agency (EPA), Maldives, Addu City Council, High Commission of India in Maldives, Export-Import Bank of India (Exim Bank of India), Afcons Infrastructure Ltd., and Various local and international environmental and engineering consultancies. The program was implemented in Cannot be determined and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 597,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_112",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 112,
+    "solution_name": "Addu City Land Reclamation and Shore Protection Project (ASRP)",
+    "country": "Maldives",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Yes",
+    "source_url": "https://hcimaldives.gov.in",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.496989+00:00"
+  },
+  "s3_key": "data-lake/sol_b751600e80358bd2c/sol_b751600e80358bd2c_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b751600e80358bd2c/sol_b751600e80358bd2c_chunk_0002.json"
+}

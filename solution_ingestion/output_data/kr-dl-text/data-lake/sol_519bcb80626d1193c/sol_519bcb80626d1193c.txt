@@ -1,0 +1,35 @@
+Controlled reoperation of multipurpose dams for flood control
+
+Korea Water Resources Corporation (K-water), 
+Ministry of Environment, 
+Local governments
+
+Introduction
+
+This solution, Controlled reoperation of multipurpose dams for flood control addresses natural catastrophe in Republic of Korea (South Korea) between Korea Water Resources Corporation (K-water), Ministry of Environment, and Local governments. The program was implemented in 2025 and focuses on leveraging tech and collaboration.
+
+Description
+
+The controlled reoperation of multipurpose dams for flood control in South Korea is an initiative led by K-water to proactively manage flood risks through dynamic dam operations. This approach utilizes digital twins for real-time simulation and visualization of downstream risks, enabling precise discharge decisions across a coordinated network of dams. The initiative is part of South Korea's broader water resources management strategy, aiming to mitigate flooding and enhance drought resilience under climate change-driven extreme weather conditions.
+
+Key Highlights
+
+The initiative features the deployment of digital twins to guide real-time discharge decisions, allowing operations to remain below design discharge limits even under extreme inflow conditions. K-water's centralized coordination across 20 multipurpose dams minimizes spillway use and maximizes flood absorption. During the July 2025 rainfall event, the dams collectively secured 5.1 billion cubic meters of flood control capacity, demonstrating the effectiveness of preemptive drawdowns and controlled retention.
+
+Results
+
+In July 2025, K-water managed to mitigate downstream flooding despite rainfall exceeding dam design capacities. The initiative secured 5.1 billion cubic meters of flood control capacity across 20 dams, with minimal spillway activation. At Namgang Dam, operators released only 22 percent of peak inflows, maintaining discharge below design limits.
+
+Contact Information
+
+Organization: Korea Water Resources Corporation (K-water), 
+Email: Not available in the provided sources, 
+Contact Number: Not available in the provided sources
+, 
+Organization: Ministry of Environment (Republic of Korea), 
+Email: Not available in the provided sources, 
+Contact Number: Not available in the provided sources
+, 
+Organization: Local Governments (dam-host municipalities/provinces), 
+Email: Not available in the provided sources, 
+Contact Number: Not available in the provided sources

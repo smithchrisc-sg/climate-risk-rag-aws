@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3983e92a44f346c68_chunk_0004",
+  "doc_id": "sol_3983e92a44f346c68",
+  "chunk_number": 4,
+  "text": "The Korean Landslide Early Warning System (KLES) is a national initiative operated by the Korea Forest Service (KFS) to provide 24-hour landslide warnings at local administrative levels. It integrates threshold-based criteria, high-resolution spatial targeting, and short-range meteorological inputs to assess and disseminate landslide risk, particularly focusing on rainfall-induced landslides and post-wildfire slope failures. The system is supported by scientific analyses from the National Institute of Forest Science (NIFoS) and real-time data from the Korea Institute of Geoscience and Mineral Resources (KIGAM).",
+  "section_title": "Description",
+  "character_count": 618,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_321",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 321,
+    "solution_name": "Korean Landslide Early Warning System (KLES)",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://www.tridge.com/news/the-korea-forest-service-will-issue-landslid-nzhlne",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.773067+00:00"
+  },
+  "s3_key": "data-lake/sol_3983e92a44f346c68/sol_3983e92a44f346c68_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3983e92a44f346c68/sol_3983e92a44f346c68_chunk_0004.json"
+}

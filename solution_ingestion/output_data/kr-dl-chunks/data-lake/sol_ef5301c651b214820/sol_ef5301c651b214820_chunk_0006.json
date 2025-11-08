@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ef5301c651b214820_chunk_0006",
+  "doc_id": "sol_ef5301c651b214820",
+  "chunk_number": 6,
+  "text": "The initiative features rapid cabinet mobilisation and inter-ministerial coordination, focusing on maintaining local government service continuity, especially drinking water. It aligns with a science-based risk outlook provided by NIWA and is part of a growing policy emphasis on transitioning from reactive assistance to resilience-building measures.",
+  "section_title": "Key Highlights",
+  "character_count": 351,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_191",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 191,
+    "solution_name": "North Island Drought Financial Assistance (DEV-20-MIN-0038), \nFinancial assistance relating to the North Island drought (DEV-20-SUB-0038)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2021/06/building-the-resilience-of-new-zealand",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.580109+00:00"
+  },
+  "s3_key": "data-lake/sol_ef5301c651b214820/sol_ef5301c651b214820_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ef5301c651b214820/sol_ef5301c651b214820_chunk_0006.json"
+}

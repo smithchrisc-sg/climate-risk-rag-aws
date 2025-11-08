@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_144cab8193945bb5b_chunk_0002",
+  "doc_id": "sol_144cab8193945bb5b",
+  "chunk_number": 2,
+  "text": "This solution, Awanui River Flood Management Scheme addresses natural catastrophe in New Zealand between Northland Regional Council, Far North District Council, and New Zealand Government. The program was implemented in Early 1900s and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 276,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_158",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 158,
+    "solution_name": "Awanui River Flood Management Scheme",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "Early 1900s",
+    "ppp": "No",
+    "source_url": "https://www.nrc.govt.nz/environment/natural-hazards-portal/flood-risk-management/flood-protection/awanui-river-flood-management-scheme/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.541011+00:00"
+  },
+  "s3_key": "data-lake/sol_144cab8193945bb5b/sol_144cab8193945bb5b_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_144cab8193945bb5b/sol_144cab8193945bb5b_chunk_0002.json"
+}

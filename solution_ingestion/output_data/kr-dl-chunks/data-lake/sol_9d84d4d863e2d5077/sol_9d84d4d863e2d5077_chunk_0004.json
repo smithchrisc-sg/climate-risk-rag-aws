@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9d84d4d863e2d5077_chunk_0004",
+  "doc_id": "sol_9d84d4d863e2d5077",
+  "chunk_number": 4,
+  "text": "The Coastal and Flood Protection Fund (CFPF) is a dedicated financing mechanism established by Singapore in 2020 to address the challenges posed by sea-level rise and compound coastal-pluvial flood risks. The fund, managed by PUB, Singapore’s National Water Agency, supports capital and operational expenditures for coastal protection and drainage upgrades. In 2025, the fund received an additional S$5 billion, bringing its total to S$10 billion, to accelerate adaptation efforts. The fund is part of a broader government initiative to enhance coastal resilience, supported by long-term borrowing and the use of past reserves for land reclamation.",
+  "section_title": "Description",
+  "character_count": 648,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_301",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 301,
+    "solution_name": "Coastal and Flood Protection Fund (CFPF)",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.straitstimes.com/singapore/budget-2025-additional-5-billion-injected-into-coastal-and-flood-protection-fund",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.752389+00:00"
+  },
+  "s3_key": "data-lake/sol_9d84d4d863e2d5077/sol_9d84d4d863e2d5077_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9d84d4d863e2d5077/sol_9d84d4d863e2d5077_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7a24d71b359715a6f_chunk_0004",
+  "doc_id": "sol_7a24d71b359715a6f",
+  "chunk_number": 4,
+  "text": "The Cyclone Reinsurance Pool, administered by the Australian Reinsurance Pool Corporation (ARPC), is a government-backed reinsurance mechanism designed to address the financial risks associated with tropical cyclones and related flood damage in Australia. It allows primary insurers to transfer cyclone-related risks to ARPC, supported by a A$10 billion Commonwealth guarantee. The pool aims to reduce reinsurance costs for high-risk properties, thereby lowering premiums for policyholders in cyclone-prone areas.",
+  "section_title": "Description",
+  "character_count": 513,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_26",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 26,
+    "solution_name": "Cyclone Reinsurance Pool",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://arpc.gov.au/reinsurance-pools/cyclone/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.394075+00:00"
+  },
+  "s3_key": "data-lake/sol_7a24d71b359715a6f/sol_7a24d71b359715a6f_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7a24d71b359715a6f/sol_7a24d71b359715a6f_chunk_0004.json"
+}

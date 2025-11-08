@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d4817118c9c6ffe6a_chunk_0008",
+  "doc_id": "sol_d4817118c9c6ffe6a",
+  "chunk_number": 8,
+  "text": "As of now, 86 pilot counties/cities have completed earthquake disaster risk investigations, a nationwide risk census has been initiated, and advanced data pipelines have been activated. National expert forums have been convened to address bottlenecks in short-term prediction and data methods.",
+  "section_title": "Results",
+  "character_count": 293,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_71",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 71,
+    "solution_name": "Modernization and Densification of National Seismic Monitoring Infrastructure",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://data.earthquake.cn/tzgg/info/2024/334671669.html",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.452410+00:00"
+  },
+  "s3_key": "data-lake/sol_d4817118c9c6ffe6a/sol_d4817118c9c6ffe6a_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d4817118c9c6ffe6a/sol_d4817118c9c6ffe6a_chunk_0008.json"
+}

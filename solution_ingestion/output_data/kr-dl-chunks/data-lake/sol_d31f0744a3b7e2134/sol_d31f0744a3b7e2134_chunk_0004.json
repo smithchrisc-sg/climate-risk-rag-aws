@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d31f0744a3b7e2134_chunk_0004",
+  "doc_id": "sol_d31f0744a3b7e2134",
+  "chunk_number": 4,
+  "text": "The PNG DataCo Parametric Earthquake Insurance is a bespoke parametric insurance policy designed to provide rapid post-earthquake financing for repairs to Papua New Guinea’s submarine fibre-optic cable network. Developed by the Pacific Catastrophe Risk Insurance Company (PCRIC) in collaboration with WTW, the solution triggers on measured ground shaking reported by authoritative seismic agencies to release funds quickly after earthquakes that are likely to damage undersea telecommunications infrastructure.",
+  "section_title": "Description",
+  "character_count": 510,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_224",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 224,
+    "solution_name": "PNG DataCo Parametric Earthquake Insurance for Submarine Fibre-Optic Cable Network",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://pcric.org/2024/05/16/pcric-forges-new-policy-deal-with-state-owned-enterprise-in-papua-new-guinea-2/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.658314+00:00"
+  },
+  "s3_key": "data-lake/sol_d31f0744a3b7e2134/sol_d31f0744a3b7e2134_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d31f0744a3b7e2134/sol_d31f0744a3b7e2134_chunk_0004.json"
+}

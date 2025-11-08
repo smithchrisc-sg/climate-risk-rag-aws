@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3ae5f1ae6baf92fa4_chunk_0008",
+  "doc_id": "sol_3ae5f1ae6baf92fa4",
+  "chunk_number": 8,
+  "text": "Flood-prone areas in Singapore have been reduced from approximately 3,200 hectares in the 1970s to less than 25 hectares today. The projects have contributed to localized flood management, with flooding generally subsiding within an hour. In January 2025, only one flood incident was reported during two monsoon surges, illustrating ongoing challenges but limited extent and duration.",
+  "section_title": "Results",
+  "character_count": 384,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_293",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 293,
+    "solution_name": "Drainage Upgrading Projects, FY2021–FY2023 tranche",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.mse.gov.sg/policies/water/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.744994+00:00"
+  },
+  "s3_key": "data-lake/sol_3ae5f1ae6baf92fa4/sol_3ae5f1ae6baf92fa4_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3ae5f1ae6baf92fa4/sol_3ae5f1ae6baf92fa4_chunk_0008.json"
+}

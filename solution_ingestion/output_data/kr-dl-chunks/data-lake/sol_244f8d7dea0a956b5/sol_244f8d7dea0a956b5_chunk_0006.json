@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_244f8d7dea0a956b5_chunk_0006",
+  "doc_id": "sol_244f8d7dea0a956b5",
+  "chunk_number": 6,
+  "text": "The initiative includes a probabilistic seismic hazard model (PSHA19/NSHA-PNG) that provides updated ground shaking estimates. The Interim Amendment integrates this hazard into PNG’s design practice with modern load assessment methods. The initiative also features capacity-building through in-country seminars and professional development videos to support adoption. The alignment with Australian and New Zealand methods ensures regional consistency and leverages familiar methodologies among practitioners.",
+  "section_title": "Key Highlights",
+  "character_count": 508,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_214",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 214,
+    "solution_name": "National Seismic Hazard Assessment of Papua New Guinea (NSHA-PNG), \nNational Probabilistic Seismic Hazard Assessment for Papua New Guinea (2019 Revision, PSHA19), \nInterim Amendment to PNGS 1001-1982: Part 4: Earthquake Design Actions",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2018-2019, \n2020, \n2023",
+    "ppp": "Yes",
+    "source_url": "https://www.ga.gov.au/scientific-topics/community-safety/projects/nsha",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.609989+00:00"
+  },
+  "s3_key": "data-lake/sol_244f8d7dea0a956b5/sol_244f8d7dea0a956b5_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_244f8d7dea0a956b5/sol_244f8d7dea0a956b5_chunk_0006.json"
+}

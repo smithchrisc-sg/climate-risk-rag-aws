@@ -1,0 +1,24 @@
+Four-Party Accountability System for Underground Flooding Zones
+
+Ministry of the Interior and Safety (MOIS), 
+Ministry of Environment (MOE), 
+Ministry of Land, Infrastructure and Transport (MOLIT), 
+Seoul Metropolitan Government (SMG)
+
+Introduction
+
+This solution, Four-Party Accountability System for Underground Flooding Zones addresses natural catastrophe in Republic of Korea (South Korea) between Ministry of the Interior and Safety (MOIS), Ministry of Environment (MOE), Ministry of Land, Infrastructure and Transport (MOLIT), and Seoul Metropolitan Government (SMG). The program was implemented in 2025 and focuses on collaboration and regulation.
+
+Description
+
+The Four-Party Accountability System for Underground Flooding Zones is a strategic initiative by the South Korean government to enhance operational control and accountability for flood-prone underpasses. This system assigns clear responsibilities to multi-agency teams, including road authorities, local government officials, village heads, and police officers, to manage real-time monitoring, alerts, and rapid response actions. It is part of a broader national disaster mitigation package aimed at reducing risks associated with rapid-onset urban flash flooding during monsoon periods.
+
+Key Highlights
+
+The system introduces explicit multi-agency accountability at the site level, ensuring clear roles and responsibilities for managing flood-prone underpasses. It complements national-scale measures such as AI-enabled monitoring pilots and expanded risk mapping. The initiative is integrated with South Korea's mature flood risk governance framework, involving various ministries and local government bodies, and emphasizes community integration by involving village heads in the process.
+
+Results
+
+Early-stage implementation with no quantifiable system-wide metrics published yet. However, related national measures include the designation of 8,964 high-risk zones and the planning of 23,325 additional utility hole safety guards in Seoul.
+
+Contact Information

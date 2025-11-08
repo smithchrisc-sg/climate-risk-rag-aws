@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9dd8124c13d336037_chunk_0006",
+  "doc_id": "sol_9dd8124c13d336037",
+  "chunk_number": 6,
+  "text": "The initiative is part of New Zealand's Budget 2024 and includes a $9.1 million allocation for addressing damage to conservation sites and assets, and $13.2 million for protecting cultural heritage. It involves collaboration with iwi/hapū, local councils, community groups, and other partners. The initiative focuses on site assessments, debris clearance, asset repair, and heritage conservation, supported by DOC's statutory roles.",
+  "section_title": "Key Highlights",
+  "character_count": 432,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_166",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 166,
+    "solution_name": "Debris and Sediment Clearance and Cultural Asset Restoration (Budget 2024)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.doc.govt.nz/news/issues/budget-2024-overview/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.547938+00:00"
+  },
+  "s3_key": "data-lake/sol_9dd8124c13d336037/sol_9dd8124c13d336037_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9dd8124c13d336037/sol_9dd8124c13d336037_chunk_0006.json"
+}

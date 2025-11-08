@@ -1,0 +1,37 @@
+National Indemnity Insurance Program (NIIP)
+
+Department of Finance (DOF), 
+Bureau of the Treasury (BTr), 
+Government Service Insurance System (GSIS), 
+Department of Science and Technology (DOST)
+
+and 
+
+SEADRIF Insurance Company, 
+Japan International Cooperation Agency (JICA)
+
+and 
+
+Sompo Risk Management Inc.
+
+Introduction
+
+This solution, National Indemnity Insurance Program (NIIP) addresses natural catastrophe through public private partnerships in Republic of the Philippines between Department of Finance (DOF), Bureau of the Treasury (BTr), Government Service Insurance System (GSIS), Department of Science and Technology (DOST), SEADRIF Insurance Company, Japan International Cooperation Agency (JICA), and Sompo Risk Management Inc.. The program was implemented in 2024 and focuses on collaboration, leveraging tech, and regulation.
+
+Description
+
+The National Indemnity Insurance Program (NIIP) is a government-led initiative in the Philippines designed to provide comprehensive insurance coverage for strategically important public assets against disasters and climate-related shocks. The program aims to enhance the country's financial resilience by leveraging a centralized National Asset Registry System (NARS) and integrating it with GeoRiskPH for risk analytics. It involves collaboration with international partners for technical expertise and reinsurance optimization, with plans to expand coverage to critical infrastructure like hospitals.
+
+Key Highlights
+
+The NIIP is a national-scale indemnity program that integrates a central asset registry with government hazard data, aiming for a hybrid indemnity-parametric structure. It targets expansion to hospital buildings and equipment and addresses barriers in specialist capacity and international market access. The program is supported by a formal collaboration framework with SEADRIF and involves data integration between NARS and GeoRiskPH for improved risk analytics.
+
+Results
+
+The pilot program was launched in January 2024, establishing a formal collaboration framework with SEADRIF and defining priority enhancements such as coverage expansion and reinsurance optimization. The data integration pathway between NARS and GeoRiskPH has been set, and capacity and transaction advisory support have been mobilized.
+
+Contact Information
+
+Organization: Japan International Cooperation Agency (JICA), 
+Email: pp_oso_rep@jica.go.jp, 
+Contact Number: +63-2-8889-7119

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_609f28e6e9f2fb7b7_chunk_0004",
+  "doc_id": "sol_609f28e6e9f2fb7b7",
+  "chunk_number": 4,
+  "text": "The National Flood Warning Infrastructure Network (FWIN) Program is an initiative led by the Australian Bureau of Meteorology to modernize and centralize Australia's flood warning infrastructure. It aims to reduce the loss of life, property damage, and service disruption caused by riverine and flash flooding by upgrading and acquiring high-priority flood warning assets across the country. The program involves collaboration with state and local governments, as well as private sector partners, to improve the reliability, coverage, and timeliness of flood warnings.",
+  "section_title": "Description",
+  "character_count": 568,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_5",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 5,
+    "solution_name": "National Flood Warning Infrastructure Network (FWIN) Program",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.qld.gov.au/emergency/dealing-disasters/disaster-types/flood/for-councils-and-flood-practitioners/flood-warning-infrastructure-resources/bureau-of-meteorologys-flood-warning-infrastructure-network-fwin-program",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.363092+00:00"
+  },
+  "s3_key": "data-lake/sol_609f28e6e9f2fb7b7/sol_609f28e6e9f2fb7b7_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_609f28e6e9f2fb7b7/sol_609f28e6e9f2fb7b7_chunk_0004.json"
+}

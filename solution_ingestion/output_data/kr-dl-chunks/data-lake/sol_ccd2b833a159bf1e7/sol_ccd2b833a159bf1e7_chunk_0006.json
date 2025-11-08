@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ccd2b833a159bf1e7_chunk_0006",
+  "doc_id": "sol_ccd2b833a159bf1e7",
+  "chunk_number": 6,
+  "text": "The DRF Round 3 offers up to $200 million annually, with a total of $1 billion over five years. It supports both construction and preparatory activities, such as business cases and feasibility studies. The program requires strong project logic, SMART milestones, and evidence of delivery capability within a three-year window. It also provides structured webinars and information packs to support applicants.",
+  "section_title": "Key Highlights",
+  "character_count": 408,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_25",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 25,
+    "solution_name": "Disaster Ready Fund – Round 3 (DRF Round 3)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nsw.gov.au/grants-and-funding/disaster-ready-fund",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.393016+00:00"
+  },
+  "s3_key": "data-lake/sol_ccd2b833a159bf1e7/sol_ccd2b833a159bf1e7_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ccd2b833a159bf1e7/sol_ccd2b833a159bf1e7_chunk_0006.json"
+}

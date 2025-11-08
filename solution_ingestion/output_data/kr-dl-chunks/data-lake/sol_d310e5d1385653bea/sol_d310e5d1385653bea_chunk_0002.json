@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d310e5d1385653bea_chunk_0002",
+  "doc_id": "sol_d310e5d1385653bea",
+  "chunk_number": 2,
+  "text": "This solution, Probabilistic Volcanic Hazard Analysis for the Auckland Volcanic Field (AVF PVHA) addresses natural catastrophe in Aotearoa New Zealand between University of Canterbury, GNS Science, Massey University, University of Auckland, University of Geneva, and Nanyang Technological University. The program was implemented in 2025 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 386,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_177",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 177,
+    "solution_name": "Probabilistic Volcanic Hazard Analysis for the Auckland Volcanic Field (AVF PVHA)",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://e5k.github.io/IAVCEI-SA2025/abstracts/6-7-2/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.563952+00:00"
+  },
+  "s3_key": "data-lake/sol_d310e5d1385653bea/sol_d310e5d1385653bea_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d310e5d1385653bea/sol_d310e5d1385653bea_chunk_0002.json"
+}

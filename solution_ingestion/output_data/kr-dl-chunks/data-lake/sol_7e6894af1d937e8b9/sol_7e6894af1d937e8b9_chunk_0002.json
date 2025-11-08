@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7e6894af1d937e8b9_chunk_0002",
+  "doc_id": "sol_7e6894af1d937e8b9",
+  "chunk_number": 2,
+  "text": "This solution, Supporting Flood Forecast-Based Action and Learning in Bangladesh (SUFAL), Phase I and Phase II addresses natural catastrophe through public private partnerships in Bangladesh between Department of Disaster Management (DDM), Disaster Management Committees (DMCs), Flood Forecasting and Warning Centre (FFWC), Bangladesh Meteorological Department (BMD), National Taskforce on Forecast-based Financing/Action (FbF/FbA), European Union Civil Protection and Humanitarian Aid Operations (ECHO), Aktion Deutschland Hilft (ADH), USAID, CARE, Concern Worldwide, Islamic Relief Bangladesh, Oxford Policy Management, Regional Integrated Multi-Hazard Early Warning System for Africa and Asia (RIMES), ESDO, FIVDB, POPI, and SKS Foundation. The program was implemented in 2019 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 831,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_37",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 37,
+    "solution_name": "Supporting Flood Forecast-Based Action and Learning in Bangladesh (SUFAL), Phase I and Phase II",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.anticipation-hub.org/experience/anticipatory-action-in-the-world/bangladesh/supporting-flood-forecast-based-action-and-learning-in-bangladesh-sufal-phase-i-and-phase-ii",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.408749+00:00"
+  },
+  "s3_key": "data-lake/sol_7e6894af1d937e8b9/sol_7e6894af1d937e8b9_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7e6894af1d937e8b9/sol_7e6894af1d937e8b9_chunk_0002.json"
+}

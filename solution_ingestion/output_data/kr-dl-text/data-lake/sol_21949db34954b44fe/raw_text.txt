@@ -1,0 +1,31 @@
+Upgrade of Seismic Monitoring: Lae Seismic Station (short-period to broadband)
+
+PNG Department of Mineral Policy and Geohazards Management (DMPGM), 
+Port Moresby Geophysical Observatory (PMGO), 
+Rabaul Volcano Observatory (RVO)
+
+and 
+
+Geoscience Australia
+
+Introduction
+
+This solution, Upgrade of Seismic Monitoring: Lae Seismic Station (short-period to broadband) addresses natural catastrophe in Papua New Guinea between PNG Department of Mineral Policy and Geohazards Management (DMPGM), Port Moresby Geophysical Observatory (PMGO), Rabaul Volcano Observatory (RVO), and Geoscience Australia. The program was implemented in 2022-2023 and focuses on collaboration and leveraging tech.
+
+Description
+
+The Upgrade of Seismic Monitoring at Lae Seismic Station involves transitioning from short-period to broadband instrumentation as part of the broader Technical Disaster Risk Reduction (TDRR) program led by Geoscience Australia. This initiative aims to enhance earthquake monitoring and decision-support systems in Papua New Guinea, particularly in Lae, a critical urban and industrial hub. The upgrade supports near-real-time situational awareness, engineering design inputs, and retrofit decisions, contributing to improved earthquake risk management in the region.
+
+Key Highlights
+
+Integration with ShakeMap for automated shaking maps and alerts; co-existence with a community-based Raspberry Shake network to densify coverage; linkage to a new PNG Geohazards website as the single authoritative hazard portal; alignment with a Lae-specific earthquake risk initiative to inform retrofits.
+
+Results
+
+Automated alerts and near-real-time intensity maps are now available to emergency managers; strengthened local capacity; improved evidence base for retrofitting in Lae via the risk project. Quantitative station-level performance metrics are not publicly reported, but the upgrade is expected to lower detection thresholds and improve magnitude/location accuracy.
+
+Contact Information
+
+Organization: Geoscience Australia, 
+Email: clientservices@ga.gov.au, 
+Contact Number: 1800 800 173

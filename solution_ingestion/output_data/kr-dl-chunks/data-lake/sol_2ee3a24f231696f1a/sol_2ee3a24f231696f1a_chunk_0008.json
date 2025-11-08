@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2ee3a24f231696f1a_chunk_0008",
+  "doc_id": "sol_2ee3a24f231696f1a",
+  "chunk_number": 8,
+  "text": "The 2021 flood AA pilot targeted over 80,000 people across 23 municipalities, with up to $6.7 million in pre-arranged CERF financing. The 2025 initiative officially initiated the national framework and roadmap development by NDRRMA.",
+  "section_title": "Results",
+  "character_count": 232,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_142",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 142,
+    "solution_name": "Integration of Anticipatory Action into Nepal’s National Disaster Risk Management (DRM) System",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.spotlightnepal.com/2025/04/15/national-anticipatory-action-framework-and-roadmap-in-nepal-a-long-awaited-leap-in-nepals-disaster-risk-management/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.522963+00:00"
+  },
+  "s3_key": "data-lake/sol_2ee3a24f231696f1a/sol_2ee3a24f231696f1a_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2ee3a24f231696f1a/sol_2ee3a24f231696f1a_chunk_0008.json"
+}

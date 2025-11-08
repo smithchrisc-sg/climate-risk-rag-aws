@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cae5a73b2ef7144e3_chunk_0002",
+  "doc_id": "sol_cae5a73b2ef7144e3",
+  "chunk_number": 2,
+  "text": "This solution, Hong Kong Special Administrative Region’s Insurance‑Linked Securities (ILS) Regulatory Regime and Pilot ILS Grant Scheme addresses natural catastrophe through public private partnerships in China (Hong Kong Special Administrative Region) between Government of the Hong Kong SAR, Issuing institutions (ILS sponsors/insurers), and Mainland enterprises establishing captive insurers in Hong Kong. The program was implemented in Cannot be determined and focuses on regulation and collaboration.",
+  "section_title": "Introduction",
+  "character_count": 505,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_75",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 75,
+    "solution_name": "Hong Kong Special Administrative Region’s Insurance‑Linked Securities (ILS) Regulatory Regime and Pilot ILS Grant Scheme",
+    "country": "China (Hong Kong Special Administrative Region)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Yes",
+    "source_url": "https://www.caproasia.com/2024/07/05/hong-kong-approves-88-applications-for-new-capital-investment-entrant-scheme-cies-3-visas-with-initial-investment-of-3-8-million-each-completed-in-2024-june-total-of-399-applications-3700-enq/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.455294+00:00"
+  },
+  "s3_key": "data-lake/sol_cae5a73b2ef7144e3/sol_cae5a73b2ef7144e3_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cae5a73b2ef7144e3/sol_cae5a73b2ef7144e3_chunk_0002.json"
+}

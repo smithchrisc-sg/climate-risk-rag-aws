@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_611828757b710951a_chunk_0008",
+  "doc_id": "sol_611828757b710951a",
+  "chunk_number": 8,
+  "text": "The initiative faced constraints due to the domestic political crisis from 2021, limiting new sovereign risk transfer operations and visible earthquake-specific financial results. The risk financing posture remained dominated by budgetary reserves and ad hoc reallocations rather than pre-arranged, rules-based instruments.",
+  "section_title": "Results",
+  "character_count": 323,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_126",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 126,
+    "solution_name": "Earthquake-Related Government Risk Financing Initiatives in Myanmar (2020–2025)",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://projects.worldbank.org/en/projects-operations/project-detail/P160931",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.507147+00:00"
+  },
+  "s3_key": "data-lake/sol_611828757b710951a/sol_611828757b710951a_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_611828757b710951a/sol_611828757b710951a_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_49ecbba4261a3d75b_chunk_0002",
+  "doc_id": "sol_49ecbba4261a3d75b",
+  "chunk_number": 2,
+  "text": "This solution, Northern Rivers Disaster Adaptation Plan (NR DAP) addresses natural catastrophe through public private partnerships in Australia between NSW Reconstruction Authority, NSW State Emergency Service (NSW SES), Local councils across seven LGAs, National Emergency Management Agency, CSIRO, Living Lab Northern Rivers, and Northern Rivers Flood Risk Management Practitioners group. The program was implemented in 2025 and focuses on collaboration, raising awareness, and regulation.",
+  "section_title": "Introduction",
+  "character_count": 491,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_20",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 20,
+    "solution_name": "Northern Rivers Disaster Adaptation Plan (NR DAP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/our-work/disaster-adaptation-plans/northern-rivers-dap",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.386189+00:00"
+  },
+  "s3_key": "data-lake/sol_49ecbba4261a3d75b/sol_49ecbba4261a3d75b_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_49ecbba4261a3d75b/sol_49ecbba4261a3d75b_chunk_0002.json"
+}

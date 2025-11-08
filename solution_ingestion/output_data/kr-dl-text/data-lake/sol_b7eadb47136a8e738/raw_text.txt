@@ -1,0 +1,48 @@
+PNG Geohazards Website
+
+Department of Mineral Policy and Geohazards Management (DMPGM), 
+Papua New Guinea National Weather Service (NWS), 
+Water resource authorities, 
+National Disaster Centre (NDC), 
+Mineral Resources Authority (MRA)
+
+and 
+
+World Bank, 
+Global Facility for Disaster Reduction and Recovery (GFDRR), 
+AusAID (now DFAT), 
+USAID/OFDA, 
+Geoscience Australia
+
+Introduction
+
+This solution, PNG Geohazards Website addresses natural catastrophe in Papua New Guinea between Department of Mineral Policy and Geohazards Management (DMPGM), Papua New Guinea National Weather Service (NWS), Water resource authorities, National Disaster Centre (NDC), Mineral Resources Authority (MRA), World Bank, Global Facility for Disaster Reduction and Recovery (GFDRR), AusAID (now DFAT), USAID/OFDA, and Geoscience Australia. The program was implemented in 2009 and focuses on collaboration, leveraging tech, and raising awareness.
+
+Description
+
+The PNG Geohazards Website is an authoritative national platform designed to consolidate, map, and disseminate multi-hazard information for risk reduction, planning, and emergency management in Papua New Guinea. It integrates geophysical, meteorological, hydrological, and geotechnical data into a single catalog and map service, serving as the public interface of the Integrated Spatial Hazard Risk Information and Mapping System.
+
+Key Highlights
+
+Authoritative multi-hazard portal operated by the government, providing validated data streams for decision-making., 
+Integration of national-scale hazard layers and community-level products into provincial planning and regulatory tools., 
+Training-linked rollout with DRR trainings, GIS/remote sensing capacity building, and public awareness campaigns., 
+Targeted vulnerability mapping portfolio including drought and bushfire vulnerability maps., 
+Designed for crisis-relevant hazards like earthquakes, volcanoes, landslides, cyclones, and floods., 
+Positioned for interagency and international interoperability with alignment to regional modeling efforts.
+
+Results
+
+US$550,000 funding for the national Integrated Spatial Hazard Risk Information and Mapping System., 
+AusAID provided US$7.4 million for broader DRM support in PNG., 
+Deliverables include hazard and vulnerability map series, GIS/remote sensing training, and public awareness materials.
+
+Contact Information
+
+Organization: Department of Mineral Policy & Geohazards Management (DMPGM), 
+Email: Not available in provided sources, 
+Contact Number: +675 321 5888
+, 
+Organization: Geoscience Australia, 
+Email: earthquakes@ga.gov.au, 
+Contact Number: +61 2 6249 9111

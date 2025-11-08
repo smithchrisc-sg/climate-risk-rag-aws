@@ -1,0 +1,23 @@
+Development of Philippine Nationwide Operational Landslide Monitoring and Warning System — DOST–PHIVOLCS Dynaslope Project
+
+Department of Science and Technology (DOST), 
+Philippine Institute of Volcanology and Seismology (PHIVOLCS), 
+Local Government Units (LGUs)
+
+Introduction
+
+This solution, Development of Philippine Nationwide Operational Landslide Monitoring and Warning System — DOST–PHIVOLCS Dynaslope Project addresses natural catastrophe in Philippines between Department of Science and Technology (DOST), Philippine Institute of Volcanology and Seismology (PHIVOLCS), and Local Government Units (LGUs). The program was implemented in 2018 and focuses on collaboration and raising awareness.
+
+Description
+
+The DOST–PHIVOLCS Dynaslope Project is a community-centered initiative in the Philippines focused on landslide monitoring and early warning. It employs a comprehensive approach involving site selection, hazard mapping, ground monitoring, and community capacity building to mitigate the impact of rainfall-induced landslides. The project is led by the Department of Science and Technology through PHIVOLCS and collaborates with local government units to provide authoritative hazard information and early warnings to at-risk communities.
+
+Key Highlights
+
+The Dynaslope Project integrates scientific instrumentation and analytics with community engagement to operationalize landslide early warning. It uses rainfall and ground movement sensors to monitor landslide precursors, with data relayed in near-real-time to PHIVOLCS centers. The project employs calibrated rainfall thresholds and ground-deformation triggers to issue tiered alerts, ensuring timely and actionable warnings for communities. Its hazard maps are recognized as authoritative references for scientific assessments and local decision-making.
+
+Results
+
+The project has been operational since 2018, providing critical hazard information and early warnings that have been used in scientific assessments and local hazard referencing, such as during the 2018 landslide in Pidigan, Abra.
+
+Contact Information

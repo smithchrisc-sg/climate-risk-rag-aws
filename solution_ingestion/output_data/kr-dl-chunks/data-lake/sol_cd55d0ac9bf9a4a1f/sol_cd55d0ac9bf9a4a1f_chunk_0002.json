@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cd55d0ac9bf9a4a1f_chunk_0002",
+  "doc_id": "sol_cd55d0ac9bf9a4a1f",
+  "chunk_number": 2,
+  "text": "This solution, JRSM‑1 Flood Protection Parametric Insurance Scheme addresses natural catastrophe through public private partnerships in Bangladesh between Oxfam and Swiss Re. The program was implemented in 2013 and focuses on collaboration and accessibility.",
+  "section_title": "Introduction",
+  "character_count": 258,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_40",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 40,
+    "solution_name": "JRSM‑1 Flood Protection Parametric Insurance Scheme",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility",
+    "year_of_implementation": "2013",
+    "ppp": "Yes",
+    "source_url": "https://www.artemis.bm/news/new-parametric-flood-index-insurance-pilot-launched-in-bangladesh/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.411224+00:00"
+  },
+  "s3_key": "data-lake/sol_cd55d0ac9bf9a4a1f/sol_cd55d0ac9bf9a4a1f_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cd55d0ac9bf9a4a1f/sol_cd55d0ac9bf9a4a1f_chunk_0002.json"
+}

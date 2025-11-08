@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d310e5d1385653bea_chunk_0006",
+  "doc_id": "sol_d310e5d1385653bea",
+  "chunk_number": 6,
+  "text": "The initiative features a pseudo-probabilistic approach that mitigates scenario-selection bias and aligns volcanic risk assessment with probabilistic methods used for seismic risk. It incorporates spatially varying likelihood weights informed by environmental and eruptive style factors, enabling the integration of multi-hazard and compound-impact assessments. The framework is intended for integration into national volcanic risk frameworks, providing site-specific probabilities for hazard impacts.",
+  "section_title": "Key Highlights",
+  "character_count": 501,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_177",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 177,
+    "solution_name": "Probabilistic Volcanic Hazard Analysis for the Auckland Volcanic Field (AVF PVHA)",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://e5k.github.io/IAVCEI-SA2025/abstracts/6-7-2/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.564410+00:00"
+  },
+  "s3_key": "data-lake/sol_d310e5d1385653bea/sol_d310e5d1385653bea_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d310e5d1385653bea/sol_d310e5d1385653bea_chunk_0006.json"
+}

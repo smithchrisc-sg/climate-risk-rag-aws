@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_60ae0abf595b41836_chunk_0002",
+  "doc_id": "sol_60ae0abf595b41836",
+  "chunk_number": 2,
+  "text": "This solution, Coastal Barriers Feasibility Study (CBFS) addresses natural catastrophe through public private partnerships in Singapore between PUB, Singapore’s National Water Agency, Sentosa Development Corporation (SDC), Coastal Protection and Flood Resilience Institute (CFI) Singapore, and Surbana Jurong. The program was implemented in 2023 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 395,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_296",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 296,
+    "solution_name": "Coastal Barriers Feasibility Study (CBFS)",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.straitstimes.com/singapore/environment/coastal-barriers-to-debut-in-spore-how-do-they-shield-shores-from-extreme-sea-levels",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.746917+00:00"
+  },
+  "s3_key": "data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0002.json"
+}

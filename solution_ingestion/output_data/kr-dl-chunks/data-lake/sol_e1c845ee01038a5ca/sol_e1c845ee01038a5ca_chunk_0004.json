@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e1c845ee01038a5ca_chunk_0004",
+  "doc_id": "sol_e1c845ee01038a5ca",
+  "chunk_number": 4,
+  "text": "The Natural Hazards Commission Toka Tū Ake, formerly known as the Earthquake Commission, is a public insurance scheme in New Zealand with a statutory mandate to reduce the impact of natural hazards. The initiative focuses on a risk reduction framework that includes a Risk Reduction Strategy, a Natural Hazards Portal, action plans for land use and resilient buildings, and a risk tolerance methodology. It aims to enable evidence-based decisions by homeowners, councils, and the wider sector, leveraging international leadership and legislative mandates to influence long-term resilience choices.",
+  "section_title": "Description",
+  "character_count": 597,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_185",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 185,
+    "solution_name": "Natural Hazards Commission Toka Tū Ake: Risk Reduction Framework and Tools (2024–2025)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.naturalhazards.govt.nz/our-publications/natural-hazards-commission-toka-tu-ake-annual-report-2023-24/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.571973+00:00"
+  },
+  "s3_key": "data-lake/sol_e1c845ee01038a5ca/sol_e1c845ee01038a5ca_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e1c845ee01038a5ca/sol_e1c845ee01038a5ca_chunk_0004.json"
+}

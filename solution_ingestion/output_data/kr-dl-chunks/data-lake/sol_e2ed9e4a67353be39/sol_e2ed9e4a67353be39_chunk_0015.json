@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e2ed9e4a67353be39_chunk_0015",
+  "doc_id": "sol_e2ed9e4a67353be39",
+  "chunk_number": 15,
+  "text": "Over 380,000 people benefit from economic inclusion and skill development programs.",
+  "section_title": "Results",
+  "character_count": 83,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_48",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 48,
+    "solution_name": "Bangladesh Sustainable Recovery, Emergency Preparedness and Response Project (B-STRONG)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/099032625014539295/pdf/P508058-fa97fc79-2351-4365-8315-7394dfe56511.pdf",
+    "section_title": "Results",
+    "chunk_number": 15,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.423458+00:00"
+  },
+  "s3_key": "data-lake/sol_e2ed9e4a67353be39/sol_e2ed9e4a67353be39_chunk_0015.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e2ed9e4a67353be39/sol_e2ed9e4a67353be39_chunk_0015.json"
+}

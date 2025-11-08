@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_4f0d3e5f4edc0a7e0_chunk_0004",
+  "doc_id": "sol_4f0d3e5f4edc0a7e0",
+  "chunk_number": 4,
+  "text": "The ORC NbS Investigations (2023–2025) is an initiative by the Otago Regional Council in New Zealand to explore and implement nature-based solutions (NbS) for flood resilience, water quality improvement, and biodiversity enhancement. The program aims to mainstream NbS into regional work programs by conducting feasibility assessments, developing technical specifications, and engaging stakeholders. It is part of a broader effort to align with national and global biodiversity frameworks and is supported by partnerships with mana whenua and technical experts.",
+  "section_title": "Description",
+  "character_count": 561,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_169",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 169,
+    "solution_name": "ORC NbS Investigations (2023–2025)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.orc.govt.nz/environment/biodiversity/nature-based-solutions-study",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.551822+00:00"
+  },
+  "s3_key": "data-lake/sol_4f0d3e5f4edc0a7e0/sol_4f0d3e5f4edc0a7e0_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_4f0d3e5f4edc0a7e0/sol_4f0d3e5f4edc0a7e0_chunk_0004.json"
+}

@@ -1,0 +1,29 @@
+Korean Landslide Early Warning System (KLES)
+
+Korea Forest Service (KFS), 
+National Institute of Forest Science (NIFoS), 
+Korea Institute of Geoscience and Mineral Resources (KIGAM)
+
+Introduction
+
+This solution, Korean Landslide Early Warning System (KLES) addresses natural catastrophe in Republic of Korea (South Korea) between Korea Forest Service (KFS), National Institute of Forest Science (NIFoS), and Korea Institute of Geoscience and Mineral Resources (KIGAM). The program was implemented in Cannot be determined and focuses on collaboration and leveraging tech.
+
+Description
+
+The Korean Landslide Early Warning System (KLES) is a national initiative operated by the Korea Forest Service (KFS) to provide 24-hour landslide warnings at local administrative levels. It integrates threshold-based criteria, high-resolution spatial targeting, and short-range meteorological inputs to assess and disseminate landslide risk, particularly focusing on rainfall-induced landslides and post-wildfire slope failures. The system is supported by scientific analyses from the National Institute of Forest Science (NIFoS) and real-time data from the Korea Institute of Geoscience and Mineral Resources (KIGAM).
+
+Key Highlights
+
+KLES utilizes a threshold-based decision logic for issuing warnings, with customized protocols for post-wildfire areas. It relies on short-range weather forecasts, with research indicating higher accuracy for forecasts issued at 5:00 PM. Recent advancements include the integration of machine-learning-based susceptibility mapping to enhance hazard identification.
+
+Results
+
+Cannot be determined
+
+Contact Information
+
+Name: Young‑Suk Song, 
+Position:Contact for 'Development of ICT-Based Landslide Early Warning System and Disaster Prevention Technology'; associated with Landslides Research Center, 
+Company:Korea Institute of Geoscience and Mineral Resources (KIGAM) 
+Email: yssong@kigam.re.kr, 
+Contact Number: None

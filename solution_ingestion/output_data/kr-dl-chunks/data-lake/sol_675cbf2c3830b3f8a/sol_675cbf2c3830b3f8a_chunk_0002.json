@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_675cbf2c3830b3f8a_chunk_0002",
+  "doc_id": "sol_675cbf2c3830b3f8a",
+  "chunk_number": 2,
+  "text": "This solution, National Resilience Plan 2025–2026 addresses natural catastrophe in Pakistan between Ministry of Climate Change and Environmental Coordination (MoCC&EC) and National Disaster Management Authority (NDMA). The program was implemented in 2025 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 306,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_205",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 205,
+    "solution_name": "National Resilience Plan 2025–2026",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nation.com.pk/26-Sep-2025/minister-ndma-chief-discuss-national-resilience-plan",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.595984+00:00"
+  },
+  "s3_key": "data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0002.json"
+}

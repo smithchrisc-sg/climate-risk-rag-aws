@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_aa6a1b2b7e32a9eac_chunk_0008",
+  "doc_id": "sol_aa6a1b2b7e32a9eac",
+  "chunk_number": 8,
+  "text": "The initiative provided cash assistance to 14,500 households in Albay and Camarines Sur, with each household receiving PHP 3,300 per month for two months. Additionally, the DSWD distributed 152,900 family food packs to over 764,500 people in the Bicol region.",
+  "section_title": "Results",
+  "character_count": 259,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_317",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 317,
+    "solution_name": "The Republic of Korea Provides PHP 30 Million in Aid for Typhoon-Affected Families in the Philippines",
+    "country": "Republic of Korea, \nPhilippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.wfp.org/news/republic-korea-provides-php-30-million-aid-typhoon-affected-families-philippines",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.768582+00:00"
+  },
+  "s3_key": "data-lake/sol_aa6a1b2b7e32a9eac/sol_aa6a1b2b7e32a9eac_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_aa6a1b2b7e32a9eac/sol_aa6a1b2b7e32a9eac_chunk_0008.json"
+}

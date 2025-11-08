@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_60ec772783c20c9c0_chunk_0008",
+  "doc_id": "sol_60ec772783c20c9c0",
+  "chunk_number": 8,
+  "text": "Implementation is pending enactment, with phased development planned. The platform aims to improve data accessibility and coordination for flood risk management, but specific results are yet to be determined.",
+  "section_title": "Results",
+  "character_count": 208,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_261",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 261,
+    "solution_name": "National Flood Risk Data Integration Platform (NFRDIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/publication/774721/revitalizing-philippine-rivers-climate-resilience.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.707282+00:00"
+  },
+  "s3_key": "data-lake/sol_60ec772783c20c9c0/sol_60ec772783c20c9c0_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_60ec772783c20c9c0/sol_60ec772783c20c9c0_chunk_0008.json"
+}

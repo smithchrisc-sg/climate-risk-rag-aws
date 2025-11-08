@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_4e91e12b2938fb4d8_chunk_0008",
+  "doc_id": "sol_4e91e12b2938fb4d8",
+  "chunk_number": 8,
+  "text": "Minderoo Foundation has committed over A$125 million through its Strategic Impact Fund, invested €5 million in the ReOcean Fund, and contributed more than US$13 million to the World Food Programme since 2022. Its humanitarian support in Gaza has reached approximately US$28 million by October 2024.",
+  "section_title": "Results",
+  "character_count": 298,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_19",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 19,
+    "solution_name": "Minderoo Foundation, \nStrategic Impact Fund (SIF), \nReOcean Fund, \nOceanOmics, \nRoadmap to 30x30",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction, \nIncrease Penetration",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.minderoo.org/media/minderoo-foundation-invests-5-million-to-accelerate-ocean-innovation-and-impact/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.385596+00:00"
+  },
+  "s3_key": "data-lake/sol_4e91e12b2938fb4d8/sol_4e91e12b2938fb4d8_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_4e91e12b2938fb4d8/sol_4e91e12b2938fb4d8_chunk_0008.json"
+}

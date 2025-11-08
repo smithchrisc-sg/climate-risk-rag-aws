@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_eafcab83d85dbc1dd_chunk_0008",
+  "doc_id": "sol_eafcab83d85dbc1dd",
+  "chunk_number": 8,
+  "text": "The facility was fully disbursed by its closing date in 2023, with an initial drawdown of $80 million following Super Typhoon Rai in December 2021. The program's objective to strengthen institutional and financial capacity was achieved, as evidenced by the rapid operationalization and full utilization of the facility.",
+  "section_title": "Results",
+  "character_count": 319,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_284",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 284,
+    "solution_name": "Fourth Disaster Risk Management Development Policy Loan with a Catastrophe‑Deferred Drawdown Option (CAT‑DDO 4)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/147391641931244931/pdf/Philippines-Fourth-Disaster-Risk-Management-Development-Policy-Loan.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.733108+00:00"
+  },
+  "s3_key": "data-lake/sol_eafcab83d85dbc1dd/sol_eafcab83d85dbc1dd_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_eafcab83d85dbc1dd/sol_eafcab83d85dbc1dd_chunk_0008.json"
+}

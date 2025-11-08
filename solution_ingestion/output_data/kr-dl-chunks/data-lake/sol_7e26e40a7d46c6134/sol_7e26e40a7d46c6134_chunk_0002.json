@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7e26e40a7d46c6134_chunk_0002",
+  "doc_id": "sol_7e26e40a7d46c6134",
+  "chunk_number": 2,
+  "text": "This solution, Global Shield engagement (GSSP pipeline) in the Philippines addresses natural catastrophe through public private partnerships in Philippines between Philippines Department of Finance (DOF), Global Shield Secretariat, Global Shield Solutions Platform (GSSP), World Bank, Institute for Climate and Sustainable Cities (ICSC), and Frankfurt School of Finance & Management. The program was implemented in 2023 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 469,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_271",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 271,
+    "solution_name": "Global Shield engagement (GSSP pipeline) in the Philippines",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.globalshield.org/about/financing-structure-global-shield/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.719618+00:00"
+  },
+  "s3_key": "data-lake/sol_7e26e40a7d46c6134/sol_7e26e40a7d46c6134_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7e26e40a7d46c6134/sol_7e26e40a7d46c6134_chunk_0002.json"
+}

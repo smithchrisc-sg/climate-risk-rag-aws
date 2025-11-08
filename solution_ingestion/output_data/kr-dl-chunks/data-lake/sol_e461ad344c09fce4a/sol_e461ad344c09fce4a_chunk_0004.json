@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e461ad344c09fce4a_chunk_0004",
+  "doc_id": "sol_e461ad344c09fce4a",
+  "chunk_number": 4,
+  "text": "The Fire and Emergency New Zealand (FENZ) Funding Model Reform is a legislative initiative aimed at refining the funding mechanism for New Zealand's national fire and emergency services. The reform, implemented via the Fire and Emergency New Zealand (Levy) Amendment Act 2023, transitions the funding model from a broad insurance-based levy to one more closely aligned with fire-risk insurance. This change is designed to ensure a stable, equitable, and predictable funding base for FENZ, which is responsible for responding to fires, hazardous substances incidents, and transport accidents.",
+  "section_title": "Description",
+  "character_count": 591,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_174",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 174,
+    "solution_name": "Fire and Emergency New Zealand (FENZ) Funding Model Reform",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2026",
+    "ppp": "Yes",
+    "source_url": "https://www.dia.govt.nz/firefundingreview",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.558825+00:00"
+  },
+  "s3_key": "data-lake/sol_e461ad344c09fce4a/sol_e461ad344c09fce4a_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e461ad344c09fce4a/sol_e461ad344c09fce4a_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_952ca5898ef6737cb_chunk_0002",
+  "doc_id": "sol_952ca5898ef6737cb",
+  "chunk_number": 2,
+  "text": "This solution, GeoRisk Philippines Initiative (GeoRiskPH) addresses natural catastrophe in Philippines between Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST–PHIVOLCS), DOST–PAGASA, Department of Environment and Natural Resources–Mines and Geosciences Bureau (DENR–MGB), Office of Civil Defense (OCD)/National Disaster Risk Reduction and Management Council (NDRRMC), Department of the Interior and Local Government (DILG), World Bank, and Expertise France. The program was implemented in 2023 and focuses on collaboration, leveraging tech, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 609,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_290",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 290,
+    "solution_name": "GeoRisk Philippines Initiative (GeoRiskPH)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/country/philippines/brief/towards-a-comprehensive-disaster-risk-management-system-for-the-philippines",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.740504+00:00"
+  },
+  "s3_key": "data-lake/sol_952ca5898ef6737cb/sol_952ca5898ef6737cb_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_952ca5898ef6737cb/sol_952ca5898ef6737cb_chunk_0002.json"
+}

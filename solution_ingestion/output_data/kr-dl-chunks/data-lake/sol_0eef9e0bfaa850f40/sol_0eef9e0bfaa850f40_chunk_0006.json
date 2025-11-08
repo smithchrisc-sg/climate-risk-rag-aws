@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0eef9e0bfaa850f40_chunk_0006",
+  "doc_id": "sol_0eef9e0bfaa850f40",
+  "chunk_number": 6,
+  "text": "Syed Alwi Pumping Station: Utilizes high-capacity pumps and automated controls to manage stormwater in tide-influenced basins, ensuring rapid drawdown during intense rainfall.,",
+  "section_title": "Key Highlights",
+  "character_count": 176,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_304",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 304,
+    "solution_name": "PUB’s 2025 Drainage Upgrading Works",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.pub.gov.sg/-/media/Images/Feature/Content-Pages/Public/Singapore-Water-Loop/fullReport.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.757612+00:00"
+  },
+  "s3_key": "data-lake/sol_0eef9e0bfaa850f40/sol_0eef9e0bfaa850f40_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0eef9e0bfaa850f40/sol_0eef9e0bfaa850f40_chunk_0006.json"
+}

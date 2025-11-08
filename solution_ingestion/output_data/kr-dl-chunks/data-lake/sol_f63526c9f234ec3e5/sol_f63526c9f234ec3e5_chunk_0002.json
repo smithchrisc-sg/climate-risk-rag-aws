@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f63526c9f234ec3e5_chunk_0002",
+  "doc_id": "sol_f63526c9f234ec3e5",
+  "chunk_number": 2,
+  "text": "This solution, National Disaster Risk Reduction and Management Plan (NDRRMP) 2020–2030 addresses natural catastrophe in Philippines between National Disaster Risk Reduction and Management Council (NDRRMC), Office of Civil Defense (OCD), Government line agencies, Local government units (LGUs), United Nations Development Programme (UNDP), and Asian Preparedness Partnership (APP). The program was implemented in 2020 and focuses on collaboration, regulation, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 481,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_276",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 276,
+    "solution_name": "National Disaster Risk Reduction and Management Plan (NDRRMP) 2020–2030",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=37799",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.723496+00:00"
+  },
+  "s3_key": "data-lake/sol_f63526c9f234ec3e5/sol_f63526c9f234ec3e5_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f63526c9f234ec3e5/sol_f63526c9f234ec3e5_chunk_0002.json"
+}

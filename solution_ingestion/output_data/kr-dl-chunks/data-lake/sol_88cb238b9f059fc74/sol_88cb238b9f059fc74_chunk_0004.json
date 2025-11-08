@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_88cb238b9f059fc74_chunk_0004",
+  "doc_id": "sol_88cb238b9f059fc74",
+  "chunk_number": 4,
+  "text": "The Seoul Metropolitan Government 2025 Summer Disaster Management Plan is an integrated, multi-hazard program designed to address heat waves, flooding, strong winds, and related public health risks in Seoul, South Korea. The plan operates from early May through mid-October 2025 and includes city-level early warning systems, engineered controls on flood-prone corridors, and widespread heat-health interventions for vulnerable groups. It also features pilot deployments of new flood alert technologies in select neighborhoods. The plan is part of a broader national effort to enhance seasonal readiness and resilience against climate-amplified extremes.",
+  "section_title": "Description",
+  "character_count": 654,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_314",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 314,
+    "solution_name": "Seoul Metropolitan Government 2025 Summer Disaster Management Plan",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.apec.org/press/news-releases/2025/apec-disaster-officials-rally-for-joint-action-as-regional-risks-escalate",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.766855+00:00"
+  },
+  "s3_key": "data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_88cb238b9f059fc74/sol_88cb238b9f059fc74_chunk_0004.json"
+}

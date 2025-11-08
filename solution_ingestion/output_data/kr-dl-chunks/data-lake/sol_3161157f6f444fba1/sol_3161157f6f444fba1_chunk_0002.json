@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3161157f6f444fba1_chunk_0002",
+  "doc_id": "sol_3161157f6f444fba1",
+  "chunk_number": 2,
+  "text": "This solution, Flood Protection Sector Project‑III (FPSP‑III) addresses natural catastrophe through public private partnerships in Pakistan between Federal Flood Commission (FFC), Provincial Irrigation Departments (PIDs), National Disaster Management Authority (NDMA), Provincial/District Disaster Management Authorities, Pakistan Meteorological Department (PMD), Water and Power Development Authority (WAPDA), Pakistan Army, Pakistan Commissioner for Indus Waters (PCIW), Japan International Cooperation Agency (JICA), NESPAK, and Deltares. The program was implemented in 2023 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 622,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_194",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 194,
+    "solution_name": "Flood Protection Sector Project‑III (FPSP‑III)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://openjicareport.jica.go.jp/pdf/12347860.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.583669+00:00"
+  },
+  "s3_key": "data-lake/sol_3161157f6f444fba1/sol_3161157f6f444fba1_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3161157f6f444fba1/sol_3161157f6f444fba1_chunk_0002.json"
+}

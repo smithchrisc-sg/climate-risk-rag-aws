@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_66ada8d7f81fa2707_chunk_0006",
+  "doc_id": "sol_66ada8d7f81fa2707",
+  "chunk_number": 6,
+  "text": "The initiative emphasizes impact-based warnings, probabilistic guidance, anticipatory action financing, and inclusive last-mile communication. It integrates multi-channel alerts and community interfaces to ensure accessibility and effectiveness. Continuous monitoring, evaluation, and learning (MEL) frameworks are proposed to adapt and improve the system over time.",
+  "section_title": "Key Highlights",
+  "character_count": 366,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_135",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 135,
+    "solution_name": "National Flood Forecasting and Early Warning Expansion",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Cannot be determined",
+    "source_url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-7/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.516293+00:00"
+  },
+  "s3_key": "data-lake/sol_66ada8d7f81fa2707/sol_66ada8d7f81fa2707_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_66ada8d7f81fa2707/sol_66ada8d7f81fa2707_chunk_0006.json"
+}

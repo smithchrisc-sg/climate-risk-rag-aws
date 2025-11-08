@@ -1,0 +1,47 @@
+Technical Disaster Risk Reduction (TDRR) Program
+
+Geoscience Australia, 
+Australia’s Department of Foreign Affairs and Trade (DFAT) Humanitarian Program, 
+PNG Department of Mineral Policy and Geohazards Management (DMPGM), 
+Port Moresby Geophysical Observatory (PMGO), 
+Rabaul Volcano Observatory (RVO), 
+PNG provincial governments
+
+and 
+
+PNG universities, 
+Community partners such as schools
+
+Introduction
+
+This solution, Technical Disaster Risk Reduction (TDRR) Program addresses natural catastrophe through public private partnerships in Papua New Guinea between Geoscience Australia, Australia’s Department of Foreign Affairs and Trade (DFAT) Humanitarian Program, PNG Department of Mineral Policy and Geohazards Management (DMPGM), Port Moresby Geophysical Observatory (PMGO), Rabaul Volcano Observatory (RVO), PNG provincial governments, PNG universities, and Community partners such as schools. The program was implemented in 2016 and focuses on collaboration, raising awareness, and leveraging tech.
+
+Description
+
+The Technical Disaster Risk Reduction (TDRR) Program, led by Geoscience Australia, is a comprehensive initiative aimed at enhancing disaster resilience in Papua New Guinea. It focuses on geohazards such as earthquakes, tsunamis, and volcanic activity. The program integrates community-based seismic monitoring with national hazard assessments and decision-support tools. It includes the deployment of low-cost sensors, the development of a centralized geohazards website, and capacity building through training and technical guidance. The program aligns with global disaster risk reduction frameworks and aims to improve local detection, situational awareness, and community engagement.
+
+Key Highlights
+
+Community-based, low-cost seismic network using Raspberry Shake sensors, 
+Authoritative PNG Geohazards website for centralized early warnings and educational content, 
+Integration of ShakeMap for real-time impact assessments, 
+Expansion of volcano monitoring with 29 new stations, 
+Interim seismic design guidance based on National Seismic Hazard Assessment, 
+Collaboration with local universities and community partners for capacity building
+
+Results
+
+Over 10 new low-cost seismic stations planned, 
+29 volcano monitoring stations equipped, 
+Completion of PNG National Seismic Hazard Assessment, 
+Probabilistic Tsunami Hazard Assessment for Vanimo
+
+Contact Information
+
+Organization: Geoscience Australia (GA), 
+Email: hazards@ga.gov.au, 
+Contact Number: Not published in provided sources
+, 
+Organization: Australian Department of Foreign Affairs and Trade (DFAT), 
+Email: dap.portmoresby@dfat.gov.au, 
+Contact Number: +61 2 6261 3305

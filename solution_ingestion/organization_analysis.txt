@@ -1,0 +1,2313 @@
+Organization Analysis Report
+==================================================
+
+STATISTICS:
+Public Organizations: 1273
+International Organizations: 379
+Private Organizations: 470
+Total Unique Organizations: 2097
+Total Mentions: 3164
+
+CATEGORY OVERLAPS:
+public_private: 15 organizations
+  - Coastal Protection and Flood Resilience Institute (CFI) Singapore (Singapore)
+  - Hokkaido University (Japan)
+  - Kyoto University (Japan)
+  - Massey University (Aotearoa New Zealand)
+  - Massey University (New Zealand)
+  - Nanyang Technological University (NTU) (Singapore)
+  - National University of Singapore (NUS) (Singapore)
+  - Singapore Institute of Technology (SIT) (Singapore)
+  - The University of Tokyo (Japan)
+  - Tohoku University (Japan)
+  - University of Auckland (Aotearoa New Zealand)
+  - University of Auckland (New Zealand)
+  - University of Canterbury (Aotearoa New Zealand)
+  - University of Canterbury (New Zealand)
+  - Yokohama National University (Japan)
+
+international_private: 10 organizations
+  - Cannot be determined
+  - Concern Worldwide
+  - Geoscience Australia
+  - Insurance Development Forum (IDF)
+  - NIWA
+  - Pacific Disaster Center (PDC)
+  - People in Need (PIN)
+  - Swiss Re
+  - Taiwan
+  - WTW
+
+MOST FREQUENT ORGANIZATIONS:
+
+Public Organizations:
+   14x Ministry of Health (MOH) (Singapore)
+   13x Ministry of Health (Japan)
+   12x Japanese Government (Japan)
+   12x Australian Government (Australia)
+   11x Labour and Welfare (MHLW) (Japan)
+   11x Public Utilities Board (PUB) (Singapore)
+   11x PUB (Singapore)
+   11x Singapore’s National Water Agency (Singapore)
+   10x Central Provident Fund (CPF) Board (Singapore)
+    9x Government of Fiji (Republic of Fiji)
+    8x Philippines Government (Philippines)
+    8x National Health Insurance Service (NHIS) (South Korea)
+    8x Singapore (Singapore)
+    8x Government of Nepal (Nepal)
+    8x Government of Papua New Guinea (Papua New Guinea)
+    8x Department of Finance (DOF) (Philippines)
+    7x Government of Myanmar (Myanmar)
+    7x Ministry of Health and Welfare (MOHW) (South Korea)
+    7x Thai Government (Thailand)
+    7x Government of Bangladesh (Bangladesh)
+
+International Organizations:
+   56x World Bank
+   38x Asian Development Bank (ADB)
+   26x United Nations Development Programme (UNDP)
+   20x Global Facility for Disaster Reduction and Recovery (GFDRR)
+   13x Japan International Cooperation Agency (JICA)
+   10x United Nations Office for Disaster Risk Reduction (UNDRR)
+   10x World Meteorological Organization (WMO)
+    9x World Bank Group
+    8x World Health Organization (WHO)
+    8x International Development Association (IDA)
+    7x World Food Programme (WFP)
+    7x Cannot be determined
+    6x International Labour Organization (ILO)
+    6x Green Climate Fund (GCF)
+    6x United Nations Capital Development Fund (UNCDF)
+    5x Geoscience Australia
+    5x The Pacific Community (SPC)
+    5x SEADRIF Insurance Company
+    4x United Nations World Food Programme (WFP)
+    4x Government of the Netherlands
+
+Private Organizations:
+    7x Cannot be determined
+    4x GC Securities
+    4x Blue Marble
+    4x AIR Worldwide
+    4x Sun Insurance
+    4x Tower Insurance
+    4x GNS Science
+    3x AIA
+    3x Singlife
+    3x HSBC Life
+    3x Great Eastern
+    3x Income
+    3x Prudential
+    3x Raffles Health Insurance
+    3x ICICI Lombard
+    3x Swiss Re
+    3x Insurers
+    3x FijiCare
+    2x Private General Practitioners (GPs)
+    2x Great Eastern Takaful Berhad
+
+COMPLETE ORGANIZATION LISTS:
+
+All Public Organizations:
+  - 12 Government Ministries (South Korea)
+  - 253 community health centers (South Korea)
+  - ACP–EU Natural Disaster Risk Reduction Program (Papua New Guinea)
+  - APACPH-KOREA (South Korea)
+  - ASEAN Commission on the Promotion and Protection of the Rights of Women and Children (ACWC) (Myanmar)
+  - ASEAN Intergovernmental Commission on Human Rights (AICHR) (Myanmar)
+  - ASEAN Secretariat (Cambodia, 
+Philippines, 
+Viet Nam)
+  - ASEAN Secretariat (Singapore, 
+ASEAN+3 region)
+  - ASEAN Secretariat (South Korea)
+  - ASEAN Secretariat (Thailand, 
+Indonesia, 
+Vietnam)
+  - ASEAN Sectoral Working Group on Crops (ASWGC) (Thailand, 
+Indonesia, 
+Vietnam)
+  - ASEAN Socio-Cultural Community (ASCC) Knowledge Hub (Cambodia, 
+Philippines, 
+Viet Nam)
+  - ASEAN+3 governments (Singapore, 
+ASEAN+3 region)
+  - ASEAN+3 member authorities (South Korea)
+  - Accident Compensation Corporation (ACC) (New Zealand)
+  - Addu City Council (Maldives)
+  - Advanced Industrial Science and Technology (AIST) (Japan)
+  - Affected local councils (New Zealand)
+  - Agency for Integrated Care (AIC) (Singapore)
+  - Agency for Integrated Care (Singapore)
+  - Agency for Science (China, 
+Singapore)
+  - Agency for Science (Singapore)
+  - Agency of Rural Development and Soil and Water Conservation (ARDSWC) (Taiwan, 
+Philippines)
+  - Agensi Pengurusan Bencana Negara (NADMA) (Malaysia)
+  - Agriculture Department (Pakistan)
+  - Agriculture and Cooperatives Department (Pakistan)
+  - Anamizu Town Government (Japan)
+  - Area Water Boards (AWBs) (Pakistan)
+  - Asia-Pacific Academic Consortium for Public Health (APACPH) (Taiwan)
+  - Asian Development Bank (ADB) (Papua New Guinea)
+  - Association of Medical Care Services for Older Senior Citizens (Japan)
+  - Atoll and Island Councils (Republic of Maldives)
+  - Auckland Council (New Zealand)
+  - Australian Bureau of Meteorology (Australia)
+  - Australian Bureau of Statistics (ABS) (Australia)
+  - Australian Climate Service (ACS) (Australia)
+  - Australian Climate Service (Australia)
+  - Australian Competition and Consumer Commission (ACCC) (Australia)
+  - Australian Government (Australia (State of Queensland))
+  - Australian Government (Australia)
+  - Australian Government (Commonwealth of Australia) (Australia)
+  - Australian Government (Department of Foreign Affairs and Trade) (Fiji)
+  - Australian Government (NEMA) (Australia)
+  - Australian Government (National Emergency Management Agency (Australia)
+  - Australian Government National Emergency Management Agency (Australia)
+  - Australian Government Treasury (Australia)
+  - Australian Government's Department of Agriculture (Australia)
+  - Australian Government’s Future Drought Fund (Australia)
+  - Australian High Commission (Fiji)
+  - Australian Prudential Regulation Authority (APRA) (Australia)
+  - Australian Reinsurance Pool Corporation (ARPC) (Australia)
+  - Australia’s Department of Foreign Affairs and Trade (DFAT) Humanitarian Program (Papua New Guinea)
+  - BPJS Ketenagakerjaan (Indonesia)
+  - BSP (Central Bank) (Philippines)
+  - Badan Penyelenggara Jaminan Sosial (BPJS) Ketenagakerjaan (Indonesia)
+  - Bahagian Keselamatan & Kualiti Makanan (Food Safety and Quality Division) (Malaysia)
+  - Bangko Sentral ng Pilipinas (BSP) Monetary Board (Philippines)
+  - Bangkok Metropolitan Administration (BMA) (Thailand)
+  - Bangladesh Agricultural Development Corporation (BADC) (Bangladesh)
+  - Bangladesh Insurance Academy (BIA) (Bangladesh)
+  - Bangladesh Meteorological Department (BMD) (Bangladesh)
+  - Bangladesh Meteorological Department (BMD) (Bangladesh, 
+Nepal)
+  - Bangladesh Meteorological Department (Bangladesh)
+  - Bangladesh Water Development Board (BWDB) (Bangladesh)
+  - Bangladesh Water Development Board (BWDB) (Bangladesh, 
+Nepal)
+  - Bangsamoro Autonomous Region in Muslim Mindanao (BARMM) agencies (BPDA (Philippines)
+  - Bank Negara Malaysia (BNM) (Malaysia)
+  - Bank Negara Malaysia (Malaysia)
+  - Bank for Agriculture and Agricultural Cooperatives (BAAC) (Thailand, 
+Indonesia, 
+Vietnam)
+  - Bank of Japan (BOJ) (Japan)
+  - Bank of Taiwan (Taiwan)
+  - Belize (Belize)
+  - Board of Engineers (Malaysia)
+  - Break O’Day Council) (Australia)
+  - Brunei Darussalam Meteorological Department (BDMD) (Brunei Darussalam)
+  - Building & Construction Authority (BCA) (Singapore)
+  - Buller District Council (New Zealand)
+  - Bureau of Fisheries and Aquatic Resources (BFAR) (Philippines)
+  - Bureau of Indian Standards (BIS) (India)
+  - Bureau of Labor Funds (BLF) (Taiwan)
+  - Bureau of Labor Insurance (BLI) (Taiwan)
+  - Bureau of Labor Insurance of the Ministry of Labor (Taiwan (China))
+  - Bureau of Meteorology (BoM) (Australia)
+  - Bureau of Port and Harbor (Japan)
+  - Bureau of Public Service Pension Fund (BPSPF) (Taiwan)
+  - Bureau of the Treasury (BTr) (Philippines)
+  - Bureau of the Treasury (BTr) (Republic of the Philippines)
+  - Bureau of the Treasury (Republic of the Philippines)
+  - Cabinet (South Korea)
+  - Cabinet Economic Development Committee (DEV) (New Zealand)
+  - Cabinet Office (Japan)
+  - Cabinet Secretariat (Japan)
+  - Cairns Regional Council (Australia)
+  - Cambodia National Mekong Committee (CNMC) (Cambodia)
+  - Cambodian Government (Cambodia)
+  - Cannot be determined (Cannot be determined)
+  - Cannot be determined (Singapore)
+  - Center for Drug Evaluation (CDE) (Taiwan)
+  - Central Bank of Fiji (Fiji)
+  - Central Bank of Sri Lanka (Sri Lanka)
+  - Central Disaster and Safety Countermeasures Headquarters (CDSCHQ) (Republic of Korea (South Korea))
+  - Central Government (People’s Republic of China)
+  - Central Government of New Zealand (New Zealand)
+  - Central Hawke’s Bay District Council (New Zealand)
+  - Central Labour Relations Commission (CLRC) (Japan)
+  - Central Project Management Unit (CPMU) (Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam)
+  - Central Provident Fund (CPF) Board (Singapore)
+  - Central Provident Fund (CPF) Board Ministry of Health (Singapore)
+  - Central Provident Fund Board (CPF) (Singapore)
+  - Central Social Insurance Medical Council (Chuikyo) (Japan)
+  - Central Statistical Organization (CSO) (Myanmar)
+  - Central and Local Government (New Zealand)
+  - Central and local government agencies across New Zealand (Aotearoa New Zealand)
+  - Central government (New Zealand)
+  - Centre for Climate Research Singapore (Singapore)
+  - China Earthquake Administration (CEA) (People’s Republic of China)
+  - China Earthquake Network Center (People’s Republic of China)
+  - China Meteorological Administration (CMA) (China)
+  - China Meteorological Bureau (People’s Republic of China)
+  - China Seismological Bureau (People’s Republic of China)
+  - Chinese Academy of Sciences (CAS) (China, 
+Singapore)
+  - Chinese Government (China)
+  - Chinese Taipei Government (Chinese Taipei)
+  - Chinese central government (China)
+  - Christchurch City Council (New Zealand)
+  - City and Regional Councils (Aotearoa New Zealand)
+  - Civil Defence and Emergency Management (CDEM) professionals (Aotearoa New Zealand)
+  - Civil Groups (South Korea)
+  - Civil Service College (Singapore)
+  - Civil organizations (Japan)
+  - Climate Change Commission (CCC) (Aotearoa New Zealand)
+  - Climate Change Division (Republic of Fiji)
+  - Climate Change and Development Authority (CCDA) (Papua New Guinea)
+  - Coastal Protection and Flood Resilience Institute (CFI) Singapore (Singapore)
+  - Collaborating Centres for Health Promotion (CCHP) (Taiwan)
+  - Commission on Audit (COA) (Philippines)
+  - Commission on Volcanology (COMVOL) (Philippines)
+  - Commonwealth Government (Australia)
+  - Commonwealth Scientific and Industrial Research Organisation (CSIRO) (Australia)
+  - Commonwealth of Australia (Australia)
+  - Communication and Technology (DICT) (Papua New Guinea)
+  - Community Reference Group (Australia)
+  - Community support workers and social services (South Korea)
+  - Compensation (Taiwan)
+  - Council of Agriculture (Taiwan)
+  - Cultural Heritage Administration (Republic of Korea)
+  - Culture (Japan)
+  - Cybersecurity and Infrastructure Security Agency (CISA) (Thailand, 
+Philippines, 
+Indonesia)
+  - DFID/FCDO (UK) (China)
+  - DID Flood Management Division (Malaysia)
+  - DOC (New Zealand)
+  - DOST–PAGASA (Philippines)
+  - DPMC (New Zealand)
+  - DPWH Bureau of Equipment (Republic of the Philippines)
+  - DPWH Unified Project Management Office – Buildings & Special Projects Management Cluster (Republic of the Philippines)
+  - Daegu Metropolitan City Government (Republic of Korea (South Korea))
+  - Department of Agricultural Extension (DAE) (Bangladesh)
+  - Department of Agriculture (Australia)
+  - Department of Agriculture (DA) (Philippines)
+  - Department of Agriculture and Livestock (Papua New Guinea)
+  - Department of Budget and Management (DBM) (Philippines)
+  - Department of Commerce and Industry (Papua New Guinea)
+  - Department of Community Development and Religion (Papua New Guinea)
+  - Department of Conservation (DOC) (New Zealand)
+  - Department of Conservation (New Zealand)
+  - Department of Defence / National Disaster Committee (Papua New Guinea)
+  - Department of Disaster Management (Bangladesh)
+  - Department of Disaster Management (DDM) (Bangladesh)
+  - Department of Disaster Prevention and Mitigation (DDPM) (Thailand)
+  - Department of Education (DepEd) (Philippines)
+  - Department of Education (Papua New Guinea)
+  - Department of Energy and Public Works/Department of Housing (Australia (State of Queensland))
+  - Department of Environment (DoE) (Bangladesh)
+  - Department of Environment and Conservation (Papua New Guinea)
+  - Department of Environment and Natural Resources–Mines and Geosciences Bureau (DENR–MGB) (Philippines)
+  - Department of Finance (DOF) (Philippines)
+  - Department of Finance (DOF) (Republic of the Philippines)
+  - Department of Finance (Government of the Philippines) (Philippines)
+  - Department of Finance (Republic of the Philippines)
+  - Department of Fire and Emergency Services (DFES) (Australia)
+  - Department of Forestry (Papua New Guinea)
+  - Department of Forests and Soil Conservation (DFSC) (Nepal)
+  - Department of Home Affairs (Australia)
+  - Department of Hydrology and Meteorology (DHM) (Bangladesh, 
+Nepal)
+  - Department of Hydrology and Meteorology (DHM) (Nepal)
+  - Department of Hydrology and Meteorology (Nepal)
+  - Department of Hydrology and River Works (DHRW) (Cambodia)
+  - Department of Hydrology and River Works (DHRW) (Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam)
+  - Department of Industrial Technology (DoIT) (Taiwan)
+  - Department of Information (Papua New Guinea)
+  - Department of Information Services (Taiwan)
+  - Department of Information and Communications Technology (DICT) (Philippines)
+  - Department of Information and Communications Technology (DICT) (Republic of Korea, 
+Philippines)
+  - Department of Information and Communications Technology (DICT) in the Philippines (Japan)
+  - Department of Internal Affairs (DIA) (New Zealand)
+  - Department of Irrigation (Nepal)
+  - Department of Irrigation and Drainage (DID) (Malaysia)
+  - Department of Irrigation and Drainage (DID) Malaysia (Malaysia)
+  - Department of Irrigation and Drainage (JPS) (Malaysia)
+  - Department of Irrigation and Drainage (Jabatan Pengairan dan Saliran (Malaysia)
+  - Department of Irrigation and Drainage (Malaysia)
+  - Department of Meteorology (DOM) (Cambodia)
+  - Department of Meteorology and Hydrology (DMH) (Myanmar)
+  - Department of Mineral Policy & Geohazards Management (DMPGM) (Papua New Guinea)
+  - Department of Mineral Policy and Geohazards Management (DMPGM) (Papua New Guinea)
+  - Department of National Education (Papua New Guinea)
+  - Department of National Planning and Monitoring (Papua New Guinea)
+  - Department of Natural History Sciences (Japan)
+  - Department of Natural Resources and Environment Tasmania (NRE Tasmania) (Australia)
+  - Department of Premier and Cabinet (DPAC) (Australia)
+  - Department of Prime Minister & NEC (Papua New Guinea)
+  - Department of Public Works and Highways (DPWH) (Philippines)
+  - Department of Public Works and Highways (DPWH) (Philippines, 
+Japan)
+  - Department of Public Works and Highways (DPWH) (Republic of the Philippines)
+  - Department of Science and Technology (DOST) (Philippines)
+  - Department of Science and Technology (DOST) (Republic of the Philippines)
+  - Department of Science and Technology–Philippine Atmospheric (Philippines)
+  - Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST‑PHIVOLCS) (Philippines)
+  - Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST‑PHIVOLCS) (Republic of the Philippines)
+  - Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST–PHIVOLCS) (Philippines)
+  - Department of Social Insurance of the Ministry of Health and Welfare (Taiwan (China))
+  - Department of Social Services (Australia)
+  - Department of Social Welfare (DSW) (Myanmar)
+  - Department of Social Welfare and Development (DSWD) (Philippines)
+  - Department of Social Welfare and Development (DSWD) (Republic of Korea, 
+Philippines)
+  - Department of Water Resources (DWR) (Thailand)
+  - Department of Water Resources and Irrigation (DWRI) (Nepal)
+  - Department of Works & Highways (DoWH) (Papua New Guinea)
+  - Department of Works and Highways (DoWH) (Papua New Guinea)
+  - Department of the Interior and Local Government (DILG) (Philippines)
+  - Department of the Interior and Local Government Region 8 (DILG-8) (Philippines)
+  - Department of the Prime Minister and Cabinet (DPMC) (New Zealand)
+  - Department of the Prime Minister and Cabinet (PM&C) (Australia)
+  - Departments of Transport and Infrastructure (Papua New Guinea)
+  - Development & Special Initiatives (Pakistan)
+  - Development Bank of Japan (DBJ) (Japan)
+  - Directorate General of Capture Fisheries (Indonesia)
+  - Directorate General of Water Resources (Indonesia)
+  - Disaster Management Committees (DMCs) (Bangladesh)
+  - Disaster Management Fund (Myanmar)
+  - Disaster Prevention Research Institute (Japan)
+  - Disaster management authorities (Cambodia)
+  - Disaster management institutions (Myanmar)
+  - District Disaster Management Committees (DDMCs) (Brunei Darussalam)
+  - Earth Observatory of Singapore (EOS) (Singapore)
+  - Earth Observatory of Singapore (EOS) at Nanyang Technological University (NTU) (Singapore)
+  - Earth Sciences New Zealand (New Zealand)
+  - Earth Sciences New Zealand/NIWA (New Zealand)
+  - Earthquake Commission (EQC) (New Zealand)
+  - Earthquake Commission (EQC) / Natural Hazards Commission Toka Tū Ake (New Zealand)
+  - Earthquake Research Committee (Japan)
+  - Earthquake Research Institute (Japan)
+  - East New Britain (Papua New Guinea)
+  - Economic Affairs Division (Pakistan)
+  - Economic Research Institute for ASEAN and East Asia (ERIA) (Japan)
+  - Educational institutions (Japan)
+  - Embassies of the Republic of Korea (Republic of Korea)
+  - Emergency Management Australia (EMA) (Australia)
+  - Emergency Management Marlborough (New Zealand)
+  - Emergency Management Southland (New Zealand)
+  - Emergency management and health services (South Korea)
+  - Emergency service agencies (Australia)
+  - Employment and Social Security (MOLES) (Myanmar)
+  - Energy (Australia)
+  - Environment Canterbury (Aotearoa New Zealand)
+  - Environment Canterbury (ECan) (New Zealand)
+  - Environment and Climate Change Ministry (Malaysia)
+  - Environment and Energy (Republic of Maldives)
+  - Environmental Protection Agency (EPA) (Maldives)
+  - Examination Yuan (Taiwan)
+  - Executive Yuan (Taiwan)
+  - Expressway Companies (Japan)
+  - Far North District Council (FNDC) (New Zealand)
+  - Far North District Council (New Zealand)
+  - Farmer Water User Communities (FWUCs) (Cambodia)
+  - Farmers’ Organizations (FOs) (Pakistan)
+  - Federal Financial Relations (Australia)
+  - Federal Flood Commission (FFC) (Pakistan)
+  - Federal Government of Malaysia (Malaysia)
+  - Fiji (Fiji)
+  - Fiji Government (Fiji)
+  - Fiji Meteorological Service (FMS) (Republic of Fiji)
+  - Fiji Roads Authority (FRA) (Republic of Fiji)
+  - Fiji's Ministry of Finance (Fiji)
+  - Finance and Industry (MOPFI) (Myanmar)
+  - Financial Markets Authority (FMA) (New Zealand)
+  - Financial Services Commission (FSC) (Republic of Korea (South Korea))
+  - Financial Services Commission (FSC) (South Korea)
+  - Financial Supervisory Commission (FSC) (Taiwan)
+  - Financial Supervisory Commission (Taiwan)
+  - Financial Supervisory Service (FSS) (Republic of Korea (South Korea))
+  - Financial regulators (Cambodia)
+  - Fire Departments (South Korea)
+  - Fire and Emergency New Zealand (FENZ) (New Zealand)
+  - Fire and Emergency New Zealand (New Zealand)
+  - Fiscal Policy Office (FPO) (Thailand)
+  - Fisheries and Forestry (DAFF) (Australia)
+  - Flood Forecasting and Warning Centre (FFWC) (Bangladesh)
+  - Food and Rural Affairs (MAFRA) (Republic of Korea)
+  - Food and Rural Affairs (MAFRA) (South Korea)
+  - Forestry (Cambodia)
+  - Fourteen remote local councils (Australia)
+  - Fukushima Prefecture government (Japan)
+  - GNS Science (Aotearoa New Zealand)
+  - GNS Science (New Zealand)
+  - GNS Science (Te Pū Ao) (New Zealand)
+  - GNS Science (now part of Earth Sciences New Zealand) (Aotearoa New Zealand)
+  - GSIS (Philippines)
+  - Gangnam-gu (South Korea)
+  - Gangneung City Government (Republic of Korea (South Korea))
+  - Gangwon Fire Headquarters (Republic of Korea (South Korea))
+  - Gangwon Provincial Government (Republic of Korea (South Korea))
+  - General Directorate of Technical Affairs (GDTA) (Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam)
+  - General Insurance Association of Japan (Japan)
+  - General Insurance Rating Organization of Japan (Japan)
+  - General Office of the State Council (People’s Republic of China)
+  - GeoNet (New Zealand)
+  - Geohazards Management Division (GMD) (Papua New Guinea)
+  - Geophysical and Astronomical Services Administration (DOST–PAGASA) (Philippines)
+  - Geophysical and Astronomical Services Administration (PAGASA) (Philippines)
+  - Geoscience Australia (Papua New Guinea)
+  - Geospatial Information Authority of Japan (GSI) (Japan)
+  - German Federal Ministry for Economic Cooperation and Development (BMZ) (Thailand, 
+Indonesia, 
+Vietnam)
+  - Germany’s Federal Ministry for Economic Cooperation and Development (BMZ) (Bangladesh)
+  - Ghana (Japan)
+  - Gisborne District Council (New Zealand)
+  - Global Facility for Disaster Reduction and Recovery (GFDRR) (China)
+  - Global Facility for Disaster Reduction and Recovery (GFDRR) (Papua New Guinea)
+  - Global Shield Secretariat (Philippines)
+  - Government Employees Pension Service (GEPS) (Republic of Korea)
+  - Government Ministries and National Agencies (Aotearoa New Zealand)
+  - Government Service Insurance System (GSIS) (Philippines)
+  - Government Service Insurance System (GSIS) (Republic of the Philippines)
+  - Government line agencies (Philippines)
+  - Government of Australia (Australia)
+  - Government of Australia (Papua New Guinea)
+  - Government of Balochistan (Pakistan)
+  - Government of Bangladesh (Bangladesh)
+  - Government of Bangladesh (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Bangladesh (GoB) line ministries (Bangladesh)
+  - Government of Brunei (Brunei)
+  - Government of Cambodia (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Cambodia (Ministry of Rural Development) (Kingdom of Cambodia)
+  - Government of China (China)
+  - Government of China (People’s Republic of China)
+  - Government of Fiji (Fiji)
+  - Government of Fiji (Ministry of Education) (Fiji)
+  - Government of Fiji (Republic of Fiji)
+  - Government of Fiji entities (Fiji)
+  - Government of Germany (Germany, United Kingdom)
+  - Government of Gilgit-Baltistan (Pakistan)
+  - Government of India (GoI) (India)
+  - Government of India (India)
+  - Government of Indonesia (Indonesia)
+  - Government of Japan (Anguilla, Antigua & Barbuda, Bahamas, Barbados, Belize, British Virgin Islands, Cayman Islands, Dominica, Grenada, Guatemala, Haiti, Jamaica, Monserrat, Nicaragua, Panama, Saint Kitts and Nevis, Saint Lucia, Sint Maarten, St. Vincent and the Grenadines, Trinidad and Tobago, Turks and Caicos Islands)
+  - Government of Japan (Asia Health and Wellbeing Initiative Promotion Working Group (Japan)
+  - Government of Japan (China)
+  - Government of Japan (Japan)
+  - Government of Japan (Papua New Guinea)
+  - Government of Karnali Province (Nepal)
+  - Government of Khyber Pakhtunkhwa (Pakistan)
+  - Government of Lao PDR (Laos PDR)
+  - Government of Laos (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Laos PDR (Laos PDR)
+  - Government of Laos PDR (Managed by Social Welfare Department) (Laos PDR)
+  - Government of Laos PDR Ministry of Public Works & Transport (MPWT) (Laos PDR)
+  - Government of Laos PDR Ministry of Public Works & Transport (MPWT) Ministry of Natural Resources and Environment (MONRE) Ministry of Finance (MOF) Ministry of Planning and Investment (MPI) (Laos PDR)
+  - Government of Malaysia (Malaysia)
+  - Government of Maldives (Maldives)
+  - Government of Maldives (Republic of Maldives)
+  - Government of Myanmar (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Myanmar (GoM) (Myanmar)
+  - Government of Myanmar (Myanmar)
+  - Government of Myanmar (Myanmar, Vietnam)
+  - Government of Nepal (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Nepal (GoN) (Nepal)
+  - Government of Nepal (Ministry of Finance and competent DRM agencies) (Nepal)
+  - Government of Nepal (Nepal)
+  - Government of New Zealand (New Zealand)
+  - Government of Pakistan (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Pakistan (Pakistan (Punjab Province))
+  - Government of Pakistan (Pakistan)
+  - Government of Papua New Guinea (Papua New Guinea)
+  - Government of Papua New Guinea departments and agencies (Papua New Guinea)
+  - Government of Philippines (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Sindh (Pakistan)
+  - Government of Singapore (Singapore)
+  - Government of South Australia (Australia)
+  - Government of Sri Lanka (Bangladesh, Laos, Cambodia, Myanmar, Pakistan, Philippines, Nepal, and Sri Lanka)
+  - Government of Sri Lanka (Sri Lanka)
+  - Government of Tasmania (Australia)
+  - Government of Vietnam (Myanmar, Vietnam)
+  - Government of the Hong Kong SAR (China (Hong Kong Special Administrative Region))
+  - Government of the Kingdom of Cambodia (Cambodia)
+  - Government of the People’s Republic of Bangladesh (Bangladesh)
+  - Government of the Philippines (Philippines)
+  - Government of the Philippines (Republic of Korea, 
+Philippines)
+  - Government of the Philippines (Republic of the Philippines)
+  - Government of the Punjab (Pakistan (Punjab Province))
+  - Government of the Republic of Korea (Republic of Korea, 
+Philippines)
+  - Government of the Republic of Singapore (Singapore)
+  - Government of the Republic of the Philippines (Philippines)
+  - Government of the Republic of the Philippines (Republic of the Philippines)
+  - Government of the United Kingdom (Germany, United Kingdom)
+  - Government procurement bodies (Philippines)
+  - Government-owned or -controlled corporations (GOCCs) (Philippines)
+  - Governments of Australia (Republic of Fiji)
+  - Graduate School of Science (Japan)
+  - Greater Wellington Regional Council (Aotearoa New Zealand)
+  - Greater Wellington Regional Council (New Zealand)
+  - Guangxi (People’s Republic of China)
+  - Hastings District Council (New Zealand)
+  - Hawke’s Bay Regional Council (HBRC) (New Zealand)
+  - Hawke’s Bay Regional Council (New Zealand)
+  - Headquarters for Earthquake Research Promotion (Japan)
+  - Headquarters for Healthcare Policy of the Cabinet Secretariat) (Japan)
+  - Health Insurance Review & Assessment (HIRA) Service (South Korea)
+  - Health Insurance Review & Assessment Service (HIRA) (South Korea)
+  - Health Insurance Review and Assessment Service (HIRA) (South Korea)
+  - Health Promotion Administration (HPA) (Taiwan)
+  - Health Promotion Board (HPB) (Singapore)
+  - Health Promotion Board (HPB) of Singapore (Singapore)
+  - Health Promotion Board (Singapore)
+  - Health Protection Agency (HPA) (Republic of Maldives)
+  - Hokkaido University (Japan)
+  - Hong Kong Insurance Authority (China)
+  - Horizons Regional Council (Aotearoa New Zealand)
+  - Housing Development Corporation for Hulhumalé (Maldives)
+  - Housing and Development Board (HDB) (Singapore)
+  - Housing and Infrastructure (MNPHI) (Maldives)
+  - India (Republic of Fiji)
+  - India Meteorological Department (IMD) (India)
+  - India–UN Development Partnership Fund (Republic of Fiji)
+  - Indonesia (Indonesia)
+  - Indonesian Government (Indonesia)
+  - Indonesia’s National Cyber and Crypto Agency (Thailand, 
+Philippines, 
+Indonesia)
+  - Industrial Technology Research Institute (ITRI) (Taiwan)
+  - Industry and Energy (MOTIE) (Republic of Korea)
+  - Industry and Energy (South Korea)
+  - Infrastructure (Japan)
+  - Infrastructure and Transport (MOLIT) (Republic of Korea (South Korea))
+  - Infrastructure and Transport (MOLIT) (Republic of Korea)
+  - Innovation & Employment (MBIE) (New Zealand)
+  - Innovation (New Zealand)
+  - Innovation and Employment (MBIE) (Aotearoa New Zealand)
+  - Innovation and Employment (MBIE) (New Zealand)
+  - Institute of Population Health Sciences (Taiwan)
+  - Insurance Commission (IC) (Philippines)
+  - Insurance Commission (Philippines)
+  - Insurance Development and Regulatory Authority (IDRA) (Bangladesh)
+  - Inter-ministerial Resettlement Committee (IRC) (Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam)
+  - Irrigation Department (Pakistan)
+  - Islamic Republic of Pakistan (Pakistan)
+  - JAMSTEC (Japan)
+  - JPS) (Malaysia)
+  - Jabatan Pengairan dan Saliran (JPS) (Malaysia)
+  - Japan Agency for Medical Research and Development (AMED) (Japan)
+  - Japan Association for Slope Disaster Management (JASDiM) (Japan)
+  - Japan Association for the 2025 World Exposition (Japan)
+  - Japan Cabinet Office (Japan)
+  - Japan Center for International Exchange (JCIE) (Japan)
+  - Japan Coast Guard (Japan)
+  - Japan Customs (Japan)
+  - Japan External Trade Organization (JETRO) (Japan)
+  - Japan Health Insurance Association (JHIA) (Japan)
+  - Japan Health Insurance Association (Japan)
+  - Japan International Cooperation Agency (JICA) (Japan)
+  - Japan Landslide Society (JLS) (Japan)
+  - Japan Meteorological Agency (JMA) (Japan)
+  - Japan Meteorological Agency (Japan)
+  - Japan Pension Service (JPS) (Japan)
+  - Japan Science and Technology Agency (JST) (Japan)
+  - Japan Science and Technology Agency (JST) (United States, 
+Japan)
+  - Japan Science and Technology Agency (JST) (United States, Japan)
+  - Japan Science and Technology Agency (Japan)
+  - Japan Self-Defense Forces (JSDF) (Japan)
+  - Japan Society for Natural Disaster Science (JSNDS) (Japan)
+  - Japanese Geotechnical Society (JGS) (Japan)
+  - Japanese Government (Japan)
+  - Japanese Governmental Bodies (Japan)
+  - Japanese governmental agencies (Japan)
+  - Joo Chiat ward (Singapore)
+  - K-water (Korea Water Resources Corporation) (South Korea)
+  - Kaipara District Council (New Zealand)
+  - Kanagawa Prefecture (Japan)
+  - Kementerian Kewangan (MOF) (Malaysia)
+  - Kementerian Peralihan Tenaga dan Transformasi Air (PETRA) (Malaysia)
+  - Kenya) (Japan)
+  - Kenyan Government (Kenya)
+  - KiwiRail (New Zealand)
+  - Korea Asset Management Corporation (KAMCO) (South Korea)
+  - Korea Centers for Disease Control and Prevention (KCDC) (South Korea)
+  - Korea Credit Guarantee Fund (KODIT) (South Korea)
+  - Korea Development Institute (KDI) (Republic of Korea)
+  - Korea Disease Control and Prevention Agency (KDCA) (South Korea)
+  - Korea Disease Control and Prevention Agency (South Korea)
+  - Korea Forest Service (KFS) (Republic of Korea (South Korea))
+  - Korea Forest Service (KFS) (Republic of Korea)
+  - Korea Forest Service (KFS) (South Korea)
+  - Korea Health Information Service (KHIS) (South Korea)
+  - Korea Health Promotion Foundation (Republic of Korea)
+  - Korea Health Promotion Foundation (South Korea)
+  - Korea Institute for Health and Social Affairs (KIHASA) (South Korea)
+  - Korea Institute of Geoscience and Mineral Resources (KIGAM) (Republic of Korea (South Korea))
+  - Korea Institute of Geoscience and Mineral Resources (KIGAM) (South Korea)
+  - Korea National Institute of Health (KNIH) (Republic of Korea (South Korea))
+  - Korea Rural Community Corporation (Republic of Korea (South Korea))
+  - Korea Safety Health Environment (SHE) Foundation (South Korea)
+  - Korea Technology Finance Corporation (KOTEC) (South Korea)
+  - Korea Water Resources Corporation (K-water) (Republic of Korea (South Korea))
+  - Korea Water Resources Corporation (K-water) (South Korea)
+  - Korean Association of Schools of Public Health (KASP) (South Korea)
+  - Korean Government (South Korea)
+  - Korean Hospital Association (South Korea)
+  - Korean Ministry of Health and Welfare (MOHW) (Republic of Korea)
+  - Korean Ministry of Science and ICT (South Korea)
+  - Korean National Assembly (South Korea)
+  - Korean Nutrition Society (South Korea)
+  - Korean Society for Preventive Medicine (KSPM) (South Korea)
+  - Korean Society of Community Nutrition (South Korea)
+  - Kyoto University (Japan)
+  - Kāinga Ora – Homes and Communities (Aotearoa New Zealand)
+  - Kānoa – Regional Economic Development & Investment Unit (MBIE) (New Zealand)
+  - Kānoa – Regional Economic Development & Investment Unit (New Zealand)
+  - LINZ (New Zealand)
+  - Labor Insurance Bureau (Taiwan)
+  - Labour (Japan)
+  - Labour and Welfare (Japan)
+  - Labour and Welfare (MHLW) (Japan)
+  - Land Information New Zealand (LINZ) (New Zealand)
+  - Land Transport Authority (LTA) (Singapore)
+  - Law enforcement (police) (South Korea)
+  - Legal Aid NSW (Australia)
+  - Legislative Council (Brunei Darussalam)
+  - Livestock and Irrigation (MOALI) (Myanmar)
+  - Local Authorities (Thailand)
+  - Local Civil Society Organizations (CSOs) (Myanmar)
+  - Local Government (Australia (State of Queensland))
+  - Local Government (Chinese Hong Kong)
+  - Local Government Agencies (Malaysia)
+  - Local Government Association of Queensland (Australia)
+  - Local Government Authorities (LGAs) across Northern Rivers (Australia)
+  - Local Government Authority (Republic of Maldives)
+  - Local Government Division (Bangladesh)
+  - Local Government Engineering Department (LGED) (Bangladesh)
+  - Local Government New Zealand (LGNZ) (New Zealand)
+  - Local Government Units (LGUs) (Philippines)
+  - Local Government Units (LGUs) (Republic of the Philippines)
+  - Local Government Units and Communities (Thailand)
+  - Local Governments (Australia)
+  - Local Governments (Japan)
+  - Local Governments (Republic of Korea)
+  - Local Governments (Seoul (South Korea)
+  - Local Governments (South Korea)
+  - Local Governments and NGOs (Japan)
+  - Local Health Centers (South Korea)
+  - Local Health Departments (Taiwan)
+  - Local Medical Associations (Japan)
+  - Local Municipal Governments (Japan)
+  - Local Municipalities (Japan)
+  - Local Municipalities (South Korea)
+  - Local Research Institutes (Japan)
+  - Local authorities in Kota Kinabalu (Malaysia)
+  - Local authorities such as Malé City Council (Maldives)
+  - Local comprehensive support centers (Japan)
+  - Local councils (Australia (State of New South Wales))
+  - Local councils across seven LGAs (Australia)
+  - Local councils and drainage authorities in the Northern Rivers (Australia)
+  - Local government councils (Australia)
+  - Local government units (LGUs) (Philippines)
+  - Local governments (Australia)
+  - Local governments (Japan)
+  - Local governments (Republic of Korea (South Korea))
+  - Local governments (South Korea)
+  - Local governments (e.g (Australia)
+  - Local governments (prefectural and municipal) (Japan)
+  - Local governments (prefectures and municipalities) (Japan)
+  - Local governments across 39 LGAs (Australia (State of Queensland))
+  - Local governments and municipal agencies (South Korea)
+  - Local governments and public asset owners (Australia)
+  - Local governments in China (China)
+  - Local governments in Karnali Province (Nepal)
+  - Local governments in WA (Australia)
+  - Local governments in target regions (Australia)
+  - Local health centers and regional health promotion organizations (Japan)
+  - Local humanitarian organizations in Bangladesh (Bangladesh)
+  - Local-level governments (Papua New Guinea)
+  - MBIE (New Zealand)
+  - MFAT (New Zealand)
+  - MILG) (Philippines)
+  - Majlis Perbandaran Ampang Jaya (MPAJ) (Malaysia)
+  - Malaysia (BEM) (Malaysia)
+  - Malaysia (DID) (Malaysia)
+  - Malaysia Civil Defence Force (APM) (Malaysia)
+  - Malaysian Federal Government (Malaysia)
+  - Malaysian Fire and Rescue Department (BOMBA) (Malaysia)
+  - Malaysian Government (Malaysia)
+  - Malaysian Meteorological Department (Malaysia)
+  - Malaysian Ministry of Works (Malaysia)
+  - Malaysian Red Crescent (MRC) (Malaysia)
+  - Maldives (Maldives)
+  - Maldives Land and Survey Authority (MLSA) (Maldives)
+  - Maldives Marine Research Institute (Republic of Maldives)
+  - Maldives Meteorological Service (MMS) (Republic of Maldives)
+  - Maldives National Defence Force (MNDF) (Republic of Maldives)
+  - Maldives Police Service (MPS) (Republic of Maldives)
+  - Manila Economic and Cultural Office (MECO) (Taiwan, 
+Philippines)
+  - Manus (Papua New Guinea)
+  - Marine Parade Group Representation Constituency (GRC) (Singapore)
+  - Marine Resources and Agriculture (Republic of Maldives)
+  - Massey University (Aotearoa New Zealand)
+  - Massey University (New Zealand)
+  - Massey University Joint Centre for Disaster Research (JCDR) (New Zealand)
+  - MediShield Life Council (Singapore)
+  - Medical institutions (Japan)
+  - Medical insurers (Japan)
+  - MetService (New Zealand)
+  - Metropolitan Manila Development Authority (MMDA) (Philippines, 
+Japan)
+  - Migrant Workers' Centre (MWC) (Singapore)
+  - Milne Bay (Papua New Guinea)
+  - Mineral Resources Authority (MRA) (Papua New Guinea)
+  - Mineral Resources Department (MRD) (Republic of Fiji)
+  - Minister for Emergency Management (Australia)
+  - Minister for Emergency Management and National Recovery and Resilience (Australia)
+  - Minister of Civil Defence (New Zealand)
+  - Minister of Local Government (New Zealand)
+  - Ministry for Culture and Heritage (Aotearoa New Zealand)
+  - Ministry for Culture and Heritage (New Zealand)
+  - Ministry for Primary Industries (MPI) (New Zealand)
+  - Ministry for the Environment (MfE) (Aotearoa New Zealand)
+  - Ministry for the Environment (MfE) (New Zealand)
+  - Ministry for the Environment (New Zealand)
+  - Ministry of Agriculture (Cambodia)
+  - Ministry of Agriculture (MoA) (Bangladesh)
+  - Ministry of Agriculture (Myanmar)
+  - Ministry of Agriculture (Republic of Korea)
+  - Ministry of Agriculture (South Korea)
+  - Ministry of Agriculture and Food Security (KPKM) (Malaysia)
+  - Ministry of Agriculture and Forestry Government of Laos PDR (Laos PDR)
+  - Ministry of Agriculture and Livestock Development (MoALD) (Nepal)
+  - Ministry of Agriculture and Rural Affairs (MARA) (People’s Republic of China)
+  - Ministry of Agriculture and Waterways (Fiji)
+  - Ministry of Business (Aotearoa New Zealand)
+  - Ministry of Business (New Zealand)
+  - Ministry of Civil Affairs (People’s Republic of China)
+  - Ministry of Climate Change & Environmental Coordination (Pakistan)
+  - Ministry of Climate Change (Pakistan)
+  - Ministry of Climate Change (Republic of Maldives)
+  - Ministry of Climate Change and Environmental Coordination (MoCC&EC) (Pakistan)
+  - Ministry of Construction (Myanmar)
+  - Ministry of Development (Brunei Darussalam)
+  - Ministry of Digital Development (Taiwan)
+  - Ministry of Disaster Management and Relief (MoDMR) (Bangladesh)
+  - Ministry of Ecology and Environment (MEE) (People’s Republic of China)
+  - Ministry of Economic Affairs (MOEA) (Taiwan)
+  - Ministry of Economic Affairs (Taiwan)
+  - Ministry of Economy (Japan)
+  - Ministry of Economy and Finance (Cambodia)
+  - Ministry of Economy and Finance (Kingdom of Cambodia)
+  - Ministry of Economy and Finance (MEF) (Cambodia)
+  - Ministry of Economy and Finance (MOEF) (Republic of Korea)
+  - Ministry of Economy and Finance (MOEF) (South Korea)
+  - Ministry of Education (Japan)
+  - Ministry of Education (MOE) (Singapore)
+  - Ministry of Education (MOE) (Taiwan)
+  - Ministry of Education (South Korea)
+  - Ministry of Education (Taiwan)
+  - Ministry of Emergency Management (People’s Republic of China)
+  - Ministry of Employment and Labor (MOEL) (South Korea)
+  - Ministry of Energy (Nepal)
+  - Ministry of Energy Transition and Water Transformation (PETRA) (Malaysia)
+  - Ministry of Energy and Natural Resources (Malaysia)
+  - Ministry of Environment (Japan)
+  - Ministry of Environment (MOE) (Republic of Korea (South Korea))
+  - Ministry of Environment (MoE) (Kingdom of Cambodia)
+  - Ministry of Environment (Republic of Korea (South Korea))
+  - Ministry of Federal Affairs and General Administration (MoFAGA) (Nepal)
+  - Ministry of Finance (Japan)
+  - Ministry of Finance (MOF) (People’s Republic of China (PRC))
+  - Ministry of Finance (MOF) (People’s Republic of China)
+  - Ministry of Finance (MOF) of Malaysia (Malaysia)
+  - Ministry of Finance (Malaysia)
+  - Ministry of Finance (MoF (People’s Republic of China)
+  - Ministry of Finance (MoF) (Malaysia)
+  - Ministry of Finance (MoF) (Mongolia)
+  - Ministry of Finance (MoF) (Nepal)
+  - Ministry of Finance (MoF) (People’s Republic of China)
+  - Ministry of Finance (Nepal)
+  - Ministry of Finance (Pakistan)
+  - Ministry of Finance (Republic of Fiji)
+  - Ministry of Finance (Singapore)
+  - Ministry of Finance Japan (Japan)
+  - Ministry of Finance Malaysia (Malaysia)
+  - Ministry of Fisheries (Republic of Maldives)
+  - Ministry of Food and Drug Safety (MFDS) (South Korea)
+  - Ministry of Foreign Affairs (Japan)
+  - Ministry of Foreign Affairs (MOFA) (Japan)
+  - Ministry of Foreign Affairs (MOFA) (Taiwan)
+  - Ministry of Foreign Affairs and Trade (MFAT) (New Zealand)
+  - Ministry of Foreign Affairs of Japan (Japan)
+  - Ministry of Government Administration and Home Affairs (Republic of Korea)
+  - Ministry of Health (Brunei)
+  - Ministry of Health (Japan)
+  - Ministry of Health (Laos PDR)
+  - Ministry of Health (MOH) (Singapore)
+  - Ministry of Health (MOH) of Singapore (Singapore)
+  - Ministry of Health (Singapore)
+  - Ministry of Health (Vietnam)
+  - Ministry of Health Malaysia (MOH) (Malaysia)
+  - Ministry of Health Malaysia (Malaysia)
+  - Ministry of Health and Population (Nepal)
+  - Ministry of Health and Social Welfare (Taiwan)
+  - Ministry of Health and Sports (MoHS) (Myanmar)
+  - Ministry of Health and Welfare (Chinese Taipei)
+  - Ministry of Health and Welfare (MOHW) (Republic of Korea (South Korea))
+  - Ministry of Health and Welfare (MOHW) (Republic of Korea)
+  - Ministry of Health and Welfare (MOHW) (South Korea)
+  - Ministry of Health and Welfare (MOHW) (Taiwan)
+  - Ministry of Health and Welfare (MoHW) (Republic of Korea)
+  - Ministry of Health and Welfare (South Korea)
+  - Ministry of Health and Welfare (Taiwan)
+  - Ministry of Health and Wellness (Belize)
+  - Ministry of Home Affairs (MHA) (India)
+  - Ministry of Home Affairs (MoHA) (Nepal)
+  - Ministry of Home Affairs and Law (provincial) (Nepal)
+  - Ministry of Housing and Urban–Rural Development (MOHURD) (People’s Republic of China)
+  - Ministry of Labor (MOL) (Taiwan)
+  - Ministry of Labor (Taiwan (Republic of China, R.O.C.))
+  - Ministry of Labor (Taiwan)
+  - Ministry of Labour & Employment (India)
+  - Ministry of Labour (Myanmar)
+  - Ministry of Labour and Social Welfare (MLSW) (Cambodia, 
+Lao People's Democratic Republic)
+  - Ministry of Land (Japan)
+  - Ministry of Land (Republic of Korea (South Korea))
+  - Ministry of Land (Republic of Korea)
+  - Ministry of Local Government (Bangladesh)
+  - Ministry of Local Government (Republic of Fiji)
+  - Ministry of Manpower (MOM) (Singapore)
+  - Ministry of Manpower (Singapore)
+  - Ministry of Marine Affairs and Fisheries (Indonesia)
+  - Ministry of National Development (MND) (Singapore)
+  - Ministry of National Planning (Maldives)
+  - Ministry of Natural Resources and Environment (MONRE) (Cambodia, 
+Lao People's Democratic Republic)
+  - Ministry of Natural Resources and Environment (MoNRE) (Thailand)
+  - Ministry of Natural Resources and Environmental Sustainability (NRES) (Malaysia)
+  - Ministry of Personnel Management (MPM) (South Korea)
+  - Ministry of Planning (Myanmar)
+  - Ministry of Planning (Pakistan)
+  - Ministry of Planning and Finance (MoPF) (Myanmar)
+  - Ministry of Planning and Finance (Myanmar)
+  - Ministry of Public Administration and Security (MOPAS) (Republic of Korea)
+  - Ministry of Public Health (Thailand)
+  - Ministry of Public Works (Indonesia)
+  - Ministry of Rural Development (MRD) (Cambodia)
+  - Ministry of Rural Development (MRD) (Kingdom of Cambodia)
+  - Ministry of SMEs and Startups (MSS) (South Korea)
+  - Ministry of Science and ICT (South Korea)
+  - Ministry of Social Affairs of the Republic of Indonesia (Indonesia)
+  - Ministry of Social Welfare (Myanmar)
+  - Ministry of Social and Family Development (MSF) (Singapore)
+  - Ministry of Sustainability and the Environment (MSE) (Singapore)
+  - Ministry of Sustainability and the Environment (Singapore)
+  - Ministry of Trade (Republic of Korea)
+  - Ministry of Trade (South Korea)
+  - Ministry of Transport (MOT) (Singapore)
+  - Ministry of Urban Development/Department of Urban Development and Building Construction (DUDBC) (Nepal)
+  - Ministry of Water Resources (MoWR) (Bangladesh)
+  - Ministry of Water Resources and Meteorology (Cambodia)
+  - Ministry of Water Resources and Meteorology (MOWRAM) (Cambodia)
+  - Ministry of Water Resources and Meteorology (MOWRAM) (Cambodia, 
+Lao People's Democratic Republic)
+  - Ministry of Water Resources and Meteorology (MoWRAM) (Cambodia)
+  - Ministry of the Interior and Safety (MOIS) (Republic of Korea (South Korea))
+  - Ministry of the Interior and Safety (MOIS) (South Korea)
+  - Ministry of the Interior and Safety (MoIS) (South Korea)
+  - Ministry of the Interior and Safety (Republic of Korea (South Korea))
+  - Ministry of the Interior and Safety (Republic of Korea)
+  - Ministry responsible for Climate Change (Republic of Fiji)
+  - Monetary Authority of Singapore (MAS) (Singapore)
+  - Multi-Agency Workplace Safety and Health Taskforce (MAST) (Singapore)
+  - Municipal Agriculture Offices (MAGROs) (Philippines)
+  - Municipal Councils (Republic of Fiji)
+  - Municipal Disaster Risk Reduction and Management Offices (MDRRMOs) (Philippines)
+  - Municipal Governments (Japan)
+  - Municipal Governments (Nepal)
+  - Municipal Governments within these prefectures (Japan)
+  - Municipal Information Offices (MIOs) (Philippines)
+  - Municipal Social Welfare and Development Offices (MSWDOs) (Philippines)
+  - Municipal authorities of Ulaanbaatar (Mongolia)
+  - Municipal governments in eight urban municipalities (Nepal)
+  - Municipal/District Governments (People’s Republic of China)
+  - NEMA (New Zealand)
+  - NEMA) (Australia)
+  - NHI Organization (Japan)
+  - NIWA (New Zealand)
+  - NSW Department of Climate Change (Australia)
+  - NSW Department of Planning and Environment (DPE) (Australia)
+  - NSW Department of Primary Industries and Regional Development (Australia)
+  - NSW Government (Australia)
+  - NSW Government agencies (Australia (State of New South Wales))
+  - NSW Government agencies (Australia)
+  - NSW Local Councils (Australia)
+  - NSW Reconstruction Authority (Australia (State of New South Wales))
+  - NSW Reconstruction Authority (Australia)
+  - NSW Reconstruction Authority (RA) (Australia)
+  - NSW State Emergency Service (NSW SES) (Australia)
+  - NSW Treasury (Australia (State of New South Wales))
+  - NSW Treasury (Australia)
+  - NZ Lifelines Council (New Zealand)
+  - NZ Transport Agency Waka Kotahi (New Zealand)
+  - Nanyang Technological University (NTU) (Singapore)
+  - National Assembly (South Korea)
+  - National Bureau of Statistics (NBS) (People’s Republic of China)
+  - National Bureau of Statistics (People’s Republic of China)
+  - National Bushfire Recovery Agency (NBRA) (Australia)
+  - National Center of Incident Readiness and Strategy for Cybersecurity (NISC) (Japan)
+  - National Climate Change Secretariat (NCCS) (Singapore)
+  - National Commission for Disaster Reduction (People’s Republic of China)
+  - National Committee for Disaster Management (NCDM) (Cambodia)
+  - National Committee for Disaster Management (NCDM) (Cambodia, 
+Lao People's Democratic Republic)
+  - National Committee on Disaster Management (NCDM) (Cambodia)
+  - National Council for Disaster Risk Reduction and Management (NCDRRM) (Nepal)
+  - National Development Council (NDC) (Taiwan)
+  - National Development and Reform Commission (NDRC (People’s Republic of China)
+  - National Development and Reform Commission (NDRC) (People’s Republic of China)
+  - National Development and Statistics (Republic of Fiji)
+  - National Disaster Centre (NDC) (Papua New Guinea)
+  - National Disaster Centre (NDC) of Papua New Guinea (Papua New Guinea)
+  - National Disaster Centre (Papua New Guinea)
+  - National Disaster Management Agency (NADMA) (Malaysia)
+  - National Disaster Management Agency (NDMA) (Nepal)
+  - National Disaster Management Authority (NDMA) (India)
+  - National Disaster Management Authority (NDMA) (Maldives)
+  - National Disaster Management Authority (NDMA) (Pakistan)
+  - National Disaster Management Authority (NDMA) (Republic of Maldives)
+  - National Disaster Management Authority (Pakistan)
+  - National Disaster Management Centre (NDMC) (Brunei Darussalam)
+  - National Disaster Management Committee (NDMC) (Myanmar)
+  - National Disaster Management Office (NDMO) (Republic of Fiji)
+  - National Disaster Management Organization (NDMO) (Cambodia, 
+Lao PDR)
+  - National Disaster Reduction Center of China (People’s Republic of China)
+  - National Disaster Risk Management Fund (Pakistan)
+  - National Disaster Risk Reduction and Management Authority (NDRRMA) (Nepal)
+  - National Disaster Risk Reduction and Management Authority/Agency (NDRRMA) (Nepal)
+  - National Disaster Risk Reduction and Management Council (NDRRMC) (Philippines)
+  - National Disaster and Risk Reduction Management Agency (NDRRMA) (Nepal)
+  - National Earthquake Science Data Center (People’s Republic of China)
+  - National Economic and Development Authority (NEDA) (Philippines)
+  - National Economic and Development Authority (NEDA) Board (Philippines)
+  - National Emergency Management Agency (Australia)
+  - National Emergency Management Agency (NEMA) (Australia)
+  - National Emergency Management Agency (NEMA) (Mongolia)
+  - National Emergency Management Agency (NEMA) (New Zealand)
+  - National Emergency Management Agency (New Zealand)
+  - National Emergency Management Agency/MCDEM (New Zealand)
+  - National Energy Administration (NEA) (People’s Republic of China)
+  - National Environment Agency (NEA) (Singapore)
+  - National Fire Agency (Republic of Korea (South Korea))
+  - National Flood Forecasting Center (NFFC) (Cambodia)
+  - National Forensic Service (South Korea)
+  - National Government of Japan (Japan)
+  - National Graduate Institute for Policy Studies (GRIPS) (Japan)
+  - National Health Insurance (NHI) (Japan)
+  - National Health Insurance Administration (NHIA) (Taiwan)
+  - National Health Insurance Service (NHIS) (South Korea)
+  - National Health Promotion Fund (HPF) (Republic of Korea)
+  - National Health Research Institutes (Taiwan)
+  - National Health Security Office (NHSO) (Thailand)
+  - National Health Security Office (Thailand)
+  - National Healthcare Group (Singapore)
+  - National Healthcare Security Administration (2018) (China)
+  - National Highway Authority (Pakistan)
+  - National Human Resources Development Institute (NHI) (South Korea)
+  - National Human Rights Commission (Taiwan)
+  - National Indigenous Australians Agency (Australia)
+  - National Institute for Land and Infrastructure Management (NILIM) (Japan)
+  - National Institute of Disaster Management (NIDM) (India)
+  - National Institute of Forest Science (NIFoS) (Republic of Korea (South Korea))
+  - National Institute of Forest Science (NIFoS) (South Korea)
+  - National Institute of Public Health (NIPH) (Japan)
+  - National Institute of Water and Atmospheric Research (NIWA) (New Zealand)
+  - National Mapping and Resource Information Authority (NAMRIA) (Philippines)
+  - National Meteorological and Hydrological Service (NMHS) (Cambodia, 
+Lao PDR)
+  - National Mutual Insurance Federation of Agricultural Cooperatives (Zenkyoren) (Japan)
+  - National Parks Board (NParks) (Singapore)
+  - National Parliament of Papua New Guinea (Papua New Guinea)
+  - National People’s Congress Standing Committee (NPCSC) (People’s Republic of China)
+  - National Recovery and Resilience Agency (NRRA) (Australia)
+  - National Research Institute for Earth Science and Disaster Resilience (NIED) (Japan)
+  - National Resilience Promotion Headquarters (Japan)
+  - National Resilience Promotion Office (Japan)
+  - National Science Foundation (NSF) (United States, 
+Japan)
+  - National Science Foundation (NSF) (United States, Japan)
+  - National Science and Technology Council (Taiwan)
+  - National Security Secretariat of Japan (Japan)
+  - National Taskforce on Forecast-based Financing/Action (FbF/FbA) (Bangladesh)
+  - National Tax Agency (NTA) (Japan)
+  - National Technology and Innovation Sandbox (NTIS) (Malaysia)
+  - National Treasury (Japan)
+  - National University Health System (Singapore)
+  - National University of Singapore (NUS) (Singapore)
+  - National Water Resources Committee (NWRC) (Myanmar)
+  - National Water Resources Committee (Thailand)
+  - National Water Resources Council (Malaysia)
+  - National Weather Service (NWS) (Papua New Guinea)
+  - National Weather Service (Papua New Guinea)
+  - National and Local Governments (Japan)
+  - Natural Hazards Commission Toka Tū Ake (EQC) (New Zealand)
+  - Natural Hazards Commission Toka Tū Ake (NHC) (New Zealand)
+  - Natural Hazards Commission Toka Tū Ake (New Zealand)
+  - Natural Resources (Malaysia)
+  - Nepal Insurance Authority (Nepal)
+  - Nepal Rastra Bank (Nepal)
+  - New Zealand (Republic of Fiji)
+  - New Zealand Defence Force (NZDF) (New Zealand)
+  - New Zealand Government (New Zealand)
+  - New Zealand Government Procurement (NZGP) (New Zealand)
+  - New Zealand Government/Cabinet (New Zealand)
+  - New Zealand Ministry of Business (New Zealand)
+  - New Zealand Planning Institute (NZPI) (New Zealand)
+  - New Zealand Transport Agency Waka Kotahi (New Zealand)
+  - New Zealand Treasury (New Zealand)
+  - New Zealand emergency management authorities (New Zealand)
+  - Northland Regional Council (NRC) (New Zealand)
+  - Northland Regional Council (New Zealand)
+  - Occupational Safety and Health Administration (OSHA) (Taiwan)
+  - Occupational Safety and Health Administration (OSHA) of Taiwan's Ministry of Labour (Taiwan)
+  - Occupational health personnel (Japan)
+  - Office for Government Policy Coordination (South Korea)
+  - Office of Civil Defense (OCD) (Philippines)
+  - Office of Civil Defense (OCD)/National Disaster Risk Reduction and Management Council (NDRRMC) (Philippines)
+  - Office of Civil Defense (OCD)/National Disaster Risk Reduction and Management Council (NDRRMC) (Republic of the Philippines)
+  - Office of Civil Defense Region 8 (OCD-8) (Philippines)
+  - Office of Climate Change and Development (OCCD) (Papua New Guinea)
+  - Office of Legislative Counsel (OLC) (Papua New Guinea)
+  - Office of the Basic Education Commission (OBEC) (Thailand)
+  - Office of the Insurance Commission (OIC) (Thailand)
+  - Office of the President (Republic of Korea (South Korea))
+  - Office of the Prime Minister (Republic of Fiji)
+  - Osaka City (Japan)
+  - Osaka City Fire Department (Japan)
+  - Osaka City Government (Japan)
+  - Osaka Municipal Fire Department (Japan)
+  - Osaka Prefectural Government (Japan)
+  - Osaka Prefectural Police (Japan)
+  - Osaka Prefecture (Japan)
+  - Otago Regional Council (New Zealand)
+  - Otago Regional Council (ORC) (New Zealand)
+  - PICC Property & Casualty (People’s Republic of China)
+  - PNG DataCo Limited (Papua New Guinea)
+  - PNG Department of Mineral Policy and Geohazards Management (DMPGM) (Papua New Guinea)
+  - PNG Department of Transport (Papua New Guinea)
+  - PNG National Weather Service (PNG NWS) (Papua New Guinea)
+  - PNG Ports Corporation Limited (PNGPCL) (Papua New Guinea)
+  - PNG maritime/port authorities (Papua New Guinea)
+  - PNG provincial governments (Papua New Guinea)
+  - PRC) (People’s Republic of China)
+  - PUB (Public Utilities Board) (Singapore)
+  - PUB (Singapore)
+  - Pakistan Army (Pakistan)
+  - Pakistan Commissioner for Indus Waters (PCIW) (Pakistan)
+  - Pakistan Council of Research in Water Resources (PCRWR) (Pakistan)
+  - Pakistan Meteorological Department (PMD) (Pakistan)
+  - Pakistan Meteorological Department (Pakistan)
+  - Pakistan's National Disaster Management Authority (NDMA) (Pakistan)
+  - Papua New Guinea Defence Force (Papua New Guinea)
+  - Papua New Guinea National Disaster Management Office (NDMO) (Papua New Guinea)
+  - Papua New Guinea National Weather Service (NWS) (Papua New Guinea)
+  - Papua New Guinea National Weather Service (PNG NWS) (Papua New Guinea)
+  - Pasig City Government (Philippines)
+  - Penang State Health Department (Malaysia)
+  - People Power Party (PPP) (South Korea)
+  - People’s Association (PA) (Singapore)
+  - People’s Association (Singapore)
+  - People’s Property and Casualty Insurance Company of China (PICC P&C) (China)
+  - People’s Republic of Bangladesh (Bangladesh)
+  - Perak Department of Irrigation and Drainage (DID) (Malaysia)
+  - Pharmaceuticals and Medical Devices Agency (PMDA) (Japan)
+  - Pharmacies (Japan)
+  - Pheu Thai Party (Thailand)
+  - Philippine Atmospheric (Philippines)
+  - Philippine Crop Insurance Corporation (PCIC) (Philippines)
+  - Philippine Department of Health (Philippines)
+  - Philippine Department of Information and Communications Technology (Thailand, 
+Philippines, 
+Indonesia)
+  - Philippine Institute of Volcanology and Seismology (PHIVOLCS) (Philippines)
+  - Philippine Institute of Volcanology and Seismology (PHIVOLCS) (Taiwan, 
+Philippines)
+  - Philippine line agencies and GOCCs (Philippines)
+  - Philippines Department of Finance (DOF) (Philippines)
+  - Philippines Government (Department of Finance) - Initiator (Philippines)
+  - Philippines Government (Philippines)
+  - Planning & Development Department (provincial) (Pakistan)
+  - Planning & Development Department/PCMU (Pakistan)
+  - Planning Authorities (Republic of Fiji)
+  - Planning and Public Works (Australia (State of Queensland))
+  - Police (South Korea)
+  - Port Moresby Geophysical Observatory (PMGO) (Papua New Guinea)
+  - Port Moresby Geophysical Observatory (Papua New Guinea)
+  - Prefectural Governments (Japan)
+  - Prefectural Police and Port Authorities in Japan (Japan)
+  - Prefectural and Municipal Governments (Japan)
+  - Prime Minister of South Korea (South Korea)
+  - Provincial Department of Water Resources and Meteorology (Pursat) (Cambodia)
+  - Provincial Department of Water Resources and Meteorology (Pursat) (Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam)
+  - Provincial Departments of Civil Affairs (People’s Republic of China)
+  - Provincial Departments of Water Resources and Meteorology (PDWRAMs) (Cambodia)
+  - Provincial Disaster Management Authorities (PDMAs) (Pakistan)
+  - Provincial Disaster Management Authority (PDMA) (Pakistan)
+  - Provincial Disaster Management Authority (PDMA) Punjab (Pakistan (Punjab Province))
+  - Provincial Disaster Management Authority (PDMA) Sindh (Pakistan)
+  - Provincial Disaster Management Authority (Pakistan)
+  - Provincial Governments of Sichuan (People’s Republic of China)
+  - Provincial Irrigation Departments (PIDs) (Pakistan)
+  - Provincial and local governments (Nepal)
+  - Provincial and local governments (People’s Republic of China)
+  - Provincial and local governments across ARoB (Papua New Guinea)
+  - Provincial earthquake bureaus (People’s Republic of China)
+  - Provincial governments (Papua New Guinea)
+  - Provincial governments (People’s Republic of China (PRC))
+  - Provincial/District Disaster Management Authorities (Pakistan)
+  - Public Research Organisations (PROs) (Aotearoa New Zealand)
+  - Public Service Division (PSD) (Singapore)
+  - Public Utilities Board (PUB) (Singapore)
+  - Public Works Department (Brunei Darussalam)
+  - Public Works Department (JKR) (Malaysia)
+  - Public Works Department (PWD) (Malaysia)
+  - Public authorities responsible for disaster risk management (Nepal)
+  - Public-Private Partnership Unit (UKAS) under the Prime Minister’s Department (Malaysia)
+  - Punjab Irrigation Department (Pakistan (Punjab Province))
+  - Queensland DESI) (Australia)
+  - Queensland Government (Australia (State of Queensland))
+  - Queensland Government (Australia)
+  - Queensland Reconstruction Authority (Australia)
+  - Queensland Reconstruction Authority (QRA) (Australia (State of Queensland))
+  - Queensland Reconstruction Authority (QRA) (Australia)
+  - Quezon City Disaster Risk Reduction and Management Office (QCDRRMO) (Philippines)
+  - Quezon City Government (Philippines)
+  - R.O.C. (Taiwan) (Taiwan)
+  - Rabaul Volcano Observatory (RVO) (Papua New Guinea)
+  - Reconstruction Agency (Japan)
+  - Regional Councils (New Zealand)
+  - Regional Investment Corporation (Australia)
+  - Regional Transport Organizations (New Zealand)
+  - Regional/district councils (New Zealand)
+  - Relevant line ministries (People’s Republic of China (PRC))
+  - Relief and Resettlement (MSWRR) (Myanmar)
+  - Relief and Resettlement (MoSWRR) (Myanmar)
+  - Relief and Resettlement (Myanmar)
+  - Relief and Resettlement Department (RRD) (Myanmar)
+  - Republic of Korea (Republic of Korea)
+  - Republic of Korea Armed Forces (Republic of Korea (South Korea))
+  - Republic of the Philippines (Department of Finance; National Treasury) (Philippines)
+  - Reserve Bank of Fiji (Fiji)
+  - Reserve Bank of Fiji (RBF) (Republic of Fiji)
+  - Reserve Bank of Fiji (Republic of Fiji)
+  - Resettlement Department of the Ministry of Economy and Finance (RD-MEF) (Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam)
+  - Resignation and Severance Matters for Private School Teachers and Staff (SCMRC) (Taiwan)
+  - Resilience and Recovery Tasmania (Australia)
+  - Resilience to Nature’s Challenges National Science Challenge (RNC) Multihazard Risk Programme (New Zealand)
+  - Road Management Authorities (Japan)
+  - Road authorities (South Korea)
+  - Royal Government of Cambodia (Cambodia)
+  - Royal Government of Cambodia (RGC) via Ministry of Water Resources and Meteorology (MOWRAM) (Cambodia, 
+Lao PDR, 
+Thailand, 
+Viet Nam)
+  - Royal Government of Cambodia (financed by government of Japan as well) (Cambodia)
+  - Royal Irrigation Department (RID) (Thailand)
+  - Royal Malaysia Police (PDRM) (Malaysia)
+  - Royal Papua New Guinea Constabulary (Papua New Guinea)
+  - Rural Development and Co-operatives (MoLGRD&C) (Bangladesh)
+  - SEADRIF Insurance Company (South Korea)
+  - SECO (Switzerland) (China)
+  - SUPARCO (Pakistan)
+  - Sandiganbayan (Philippines)
+  - School health personnel (Japan)
+  - Schools and Enterprises (South Korea)
+  - Science and Technology (MEXT) (Japan)
+  - Secretariat of the Pacific Community (SPC) through SOPAC (Papua New Guinea)
+  - Secretariat of the Pacific Community (SPC) via SOPAC (Papua New Guinea)
+  - Secretariat of the Pacific Community (SPC/SOPAC) (Papua New Guinea)
+  - Sector regulators and ministries (People’s Republic of China)
+  - Sectoral ministries (Republic of Maldives)
+  - Selangor State Government (Malaysia)
+  - Selangor Water Management Authority (LUAS) (Malaysia)
+  - Selangor Waters Management Authority (LUAS) (Malaysia)
+  - Self Employed Women’s Association (SEWA) (India)
+  - Self-Employed Women's Association (SEWA) (India)
+  - Self-Employed Women’s Association (SEWA) (India)
+  - Senegal (Japan)
+  - Senior Officials Meeting on Welfare and Development (SOMSWD) (Myanmar)
+  - Sentosa Development Corporation (SDC) (Singapore)
+  - Seoul Metro (South Korea)
+  - Seoul Metropolitan Government (SMG) (Republic of Korea (South Korea))
+  - Seoul Metropolitan Government (SMG) (South Korea)
+  - Seoul Metropolitan Government (South Korea)
+  - Services Australia (Australia)
+  - Shanghai Municipal Government (China)
+  - Shizuoka Prefecture (Japan)
+  - Sindh (PDMA Sindh) (Pakistan)
+  - Sindh Irrigation & Drainage Authority (SIDA) (Pakistan)
+  - Sindh Irrigation Department (Pakistan)
+  - Sindh Irrigation Department (SID) (Pakistan)
+  - Sindh People’s Housing for Flood Affectees (SPHF) (Pakistan)
+  - SingHealth (Singapore)
+  - Singapore (Singapore)
+  - Singapore Government (Singapore)
+  - Singapore Government Ministry of Health (Singapore)
+  - Singapore Government Ministry of Health Ministry of Sustainability and the Envrionment National Envrionment Agency (Singapore)
+  - Singapore Institute of Technology (SIT) (Singapore)
+  - Singapore Land Authority (SLA) (Singapore)
+  - Singapore Ministry of Foreign Affairs (Singapore)
+  - Singapore University of Technology and Design (SUTD) (Singapore)
+  - Singapore's Ministry of National Development (Singapore)
+  - Singapore’s National Water Agency (Singapore)
+  - Six South Island CDEM Groups (New Zealand)
+  - Social Development Foundation (SDF) (Bangladesh)
+  - Soil Conservation Service (Australia)
+  - Sorell Council (Australia)
+  - South Korea's National Assembly (South Korea)
+  - South Korean Ministry of Health and Welfare (MOHW) (South Korea)
+  - South Korean Ministry of Welfare and Health (Republic of Korea (South Korea))
+  - Special Committee on International Health Strategy of the Liberal Democratic Party of Japan (Japan)
+  - Sport Singapore (Singapore)
+  - Sport Singapore (SportSG) (Singapore)
+  - SportSG (Singapore)
+  - Sports (Japan)
+  - Start Fund Bangladesh (Bangladesh)
+  - State Administration of Financial Supervision (SAFS) (People’s Republic of China)
+  - State Governments (Australia)
+  - State agencies (e.g (Australia)
+  - State and Territory Governments (Australia)
+  - State and Territory governments (Australia)
+  - State and territory governments (Australia)
+  - State-Owned and Controlled Corporations (SOCCs) (Republic of the Philippines)
+  - State-owned and controlled corporations (SOCCs/SOEs) (Philippines)
+  - State-owned insurance corporations (Bangladesh)
+  - State/Region and Township Disaster Management Committees (Myanmar)
+  - State/Territory governments (Australia)
+  - Statistical bodies (Cambodia)
+  - Storm Surge Management Center of the Tokyo Port Construction Office (Japan)
+  - Strategic Aboriginal Advisory Group (SAAG) (Australia)
+  - Strategic Planning (Republic of Fiji)
+  - Supervisory Committee Managing Retirement (Taiwan)
+  - Supreme Court of the Philippines (Philippines)
+  - Synapxe (Singapore)
+  - TFDI (Technology and Financial Development Institute) (People’s Republic of China)
+  - Taipei City Foreign and Disabled Labor Office (Taiwan)
+  - Taipei City Government (Taiwan)
+  - Taiwan (Taiwan)
+  - Taiwan Association of Global Health Initiative (TAGHI) (Taiwan)
+  - Taiwan's Ministry of Health and Welfare (MOHW) (Taiwan)
+  - Taiwanese Government (Taiwan)
+  - Taiwanese Hospitals and Clinics (Taiwan)
+  - Taiwanese Manpower Utilization Survey (MUS) (Taiwan)
+  - Taoyuan Office of Employment Services and Vocational Training (Taiwan)
+  - Tararua District Council (New Zealand)
+  - Tasmania State Emergency Service (SES) (Australia)
+  - Tasmanian Department of Premier and Cabinet (DPAC) (Australia)
+  - Tasmanian Government (Australia)
+  - Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development (HUD) (Aotearoa New Zealand)
+  - Te Uru Kahika (New Zealand)
+  - Te Uru Kahika (Regional and Unitary Councils Aotearoa) (New Zealand)
+  - Te Uru Kahika—Regional and Unitary Councils Aotearoa (New Zealand)
+  - Technology and Research (A*STAR) (China, 
+Singapore)
+  - Technology and Research (A*STAR) (Singapore)
+  - Terengganu State Government (Malaysia)
+  - Thai Government (Thailand)
+  - Thai Office of Insurance Commission General Insurance Association (Thailand)
+  - Thailand (Thailand)
+  - Thailand's National Disaster Warning Center (NDWC) (Thailand)
+  - Thailand’s National Cyber Security Agency (NCSA) (Thailand, 
+Philippines, 
+Indonesia)
+  - Thames-Coromandel District Council (New Zealand)
+  - The Insurance Commission (IC) of the Philippines (Philippines)
+  - The Ministry of Health The Social Health Insurance Agency (BPJS-K) The National Social Security Council (DJSN) The Ministry of Finance (Indonesia)
+  - The National Committee on the Rights of Persons with Disabilities (Myanmar)
+  - The Pacific Community (SPC) (Papua New Guinea)
+  - The Philippine Insurers and Reinsurers Association (PIRA) (Philippines)
+  - The Pyidaungsu Hluttaw (Myanmar)
+  - The Treasury (New Zealand)
+  - The Treasury (New Zealand) (New Zealand)
+  - The University of Tokyo (Japan)
+  - Tohoku University (Japan)
+  - Toka Tū Ake EQC (Earthquake Commission) (New Zealand)
+  - Toka Tū Ake EQC (Natural Hazards Commission) (Aotearoa New Zealand)
+  - Toka Tū Ake EQC (New Zealand)
+  - Toka Tū Ake Natural Hazards Commission (New Zealand)
+  - Tokyo Metropolitan Government (Japan)
+  - Tokyo Metropolitan Government (TMG) (Japan)
+  - Tokyo University (Japan)
+  - Tonle Sap Authority (Cambodia)
+  - Trade and Industry (Japan)
+  - Transport and Tourism (Japan)
+  - Transport and Tourism (MLIT) (Japan)
+  - Transport and Tourism (MLIT) of Japan (Japan)
+  - Transport for NSW (Australia)
+  - Transpower (New Zealand)
+  - Treasury (Australia)
+  - Treasury (New Zealand)
+  - U.S. State Department (Thailand, 
+Philippines, 
+Indonesia)
+  - UN Capital Development Fund (UNCDF) (Republic of Fiji)
+  - UN Development Programme (UNDP) (Republic of Fiji)
+  - UN Office for South–South Cooperation (UNOSSC) (Republic of Fiji)
+  - UNDP (Republic of Fiji)
+  - UNDP Country Offices (Pakistan)
+  - UNESCO (Australia)
+  - UNU-EHS (Republic of Fiji)
+  - USAID (China)
+  - United Nations (Australia)
+  - United Nations (Japan)
+  - United Nations Development Programme (UNDP) (Bangladesh)
+  - United Nations Development Programme (UNDP) (Japan)
+  - United Nations Environment Programme (UNEP) (Bangladesh)
+  - United Nations Office for Disaster Risk Reduction (UNDRR) (Japan)
+  - United Nations University – Institute for Environment and Human Security (UNU-EHS) (Republic of Fiji)
+  - United Nations in the Pacific/UN Resident Coordinator’s Office (Fiji)
+  - United States National Science Foundation (NSF) (United States, 
+Japan)
+  - University of Auckland (Aotearoa New Zealand)
+  - University of Auckland (New Zealand)
+  - University of Canterbury (Aotearoa New Zealand)
+  - University of Canterbury (New Zealand)
+  - University of Papua New Guinea (Papua New Guinea)
+  - University of Technology in Lae (Papua New Guinea)
+  - University of Waikato (New Zealand)
+  - Urban Redevelopment Authority (URA) (Singapore)
+  - Uttarakhand State Disaster Management Authority (USDMA) (India)
+  - Various African countries (e.g (Japan)
+  - Various Local Government Bodies (Taiwan)
+  - Various Ministries and Agencies (Japan)
+  - Various civil society organizations (Japan)
+  - Various governmental organizations in partner countries (Japan)
+  - Various public health organizations (Japan)
+  - Victorian Parliament (Australia (Victoria))
+  - Vietnamese Government (Vietnam)
+  - Volcano Disaster Prevention Councils (Japan)
+  - Volunteer groups (Japan)
+  - WA Department of Fire and Emergency Services (DFES) (Australia)
+  - WA Department of Primary Industries and Regional Development (DPIRD) (Australia)
+  - WA Government (Australia)
+  - Wairoa District Council (New Zealand)
+  - Waka Kotahi NZ Transport Agency (New Zealand)
+  - Water Resources and Irrigation (MoEWRI) (Nepal)
+  - Water Resources and Irrigation (Nepal)
+  - Water and Power Development Authority (WAPDA) (Pakistan)
+  - Water resource authorities (Papua New Guinea)
+  - West Coast Civil Defence Emergency Management Group (New Zealand)
+  - West Coast Regional Council (New Zealand)
+  - Western Bay of Plenty District Council (New Zealand)
+  - Wonju) (South Korea)
+  - Works & Services Department (Pakistan)
+  - World Bank (Papua New Guinea)
+  - World Bank Group (China)
+  - World Bank Group (Papua New Guinea)
+  - World Food Programme (WFP) (Japan)
+  - World Meteorological Organization (WMO) (Bangladesh)
+  - Yamanashi Prefecture (Japan)
+  - Yokohama National University (Japan)
+  - Yunnan (People’s Republic of China)
+  - and Employment (MBIE) Endeavour Fund (New Zealand)
+  - and Fisheries (MAFF) (Cambodia)
+  - and Morobe (Papua New Guinea)
+  - and Welfare (MHLW) (Japan)
+  - and health (Nepal)
+  - and insurance policy (Nepal)
+  - and the Thai General Insurance Association (TGIA) (Thailand)
+  - cities/local government units (LGUs) (Republic of the Philippines)
+  - education (Nepal)
+  - financial sector regulation (Nepal)
+  - home affairs (Nepal)
+  - iwi and Iwi Leaders Forum (New Zealand)
+  - line ministries involved in urban development (Nepal)
+  - local government and CDEM groups (New Zealand)
+  - regulatory agencies (Philippines)
+  - the Bank for Agriculture and Agricultural Cooperatives (BAAC) (Thailand)
+  - the Department of Agricultural Extension (DOAE) (Thailand)
+  - the Department of Disaster Prevention and Mitigation (DDPM) (Thailand)
+  - the Environment and Water (DCCEEW) (Australia)
+  - water resources (Nepal)
+
+All International Organizations:
+  - ACP–EU Natural Disaster Risk Reduction Programme
+  - ADB Institute
+  - ADB’s Japan Special Fund for TA
+  - ADPC
+  - AHA Centre
+  - AIAG (International Association of Agricultural Insurers)
+  - AMRO
+  - APEC Disaster Risk Reduction Plan
+  - APEC Senior Disaster Management Officials’ Forum
+  - ASEAN Coordinating Centre for Humanitarian Assistance (AHA Centre)
+  - ASEAN DRFI/SEADRIF
+  - ASEAN Disability Forum (ADF)
+  - ASEAN Disaster Risk Financing and Insurance Programme (ADRFI)
+  - ASEAN Secretariat
+  - ASEAN Specialised Meteorological Centre (ASMC)
+  - ASEAN community
+  - ASEAN+3
+  - ASEAN+3 Disaster Risk Finance Initiative
+  - AXA Research Fund
+  - Adaptation Fund Board (AFB)
+  - Adrienne Arsht-Rockefeller Foundation Resilience Center (Arsht-Rock)
+  - African Union
+  - Aktion Deutschland Hilft (ADH)
+  - Alliance for Healthy Cities
+  - Alliance for Healthy Cities (AFHC)
+  - American Red Cross
+  - Aon Reinsurance Solutions
+  - Asia Disaster Preparedness Center (ADPC)
+  - Asia-Pacific Climate Finance Fund (ACliFF)
+  - Asia-Pacific Development Centre on Disability (APCD)
+  - Asian Development Bank
+  - Asian Development Bank (ADB)
+  - Asian Development Bank (Technical Assistance)
+  - Asian Development Bank Frankfurt School of Finance
+  - Asian Development Bank Institute (ADBI)
+  - Asian Disaster Preparedness Center (ADPC)
+  - Asian Disaster Reduction Center (ADRC)
+  - Asian Preparedness Partnership (APP)
+  - AusAID (now DFAT)
+  - Australia
+  - Australian Aid Program/Department of Foreign Affairs and Trade (DFAT)
+  - Australian Bureau of Meteorology (BoM)
+  - Australia’s Department of Foreign Affairs and Trade (DFAT/Australian Aid)
+  - Australia’s National Disaster Risk Reduction Framework
+  - BIOFIN (Biodiversity Finance Initiative)
+  - BIS Innovation Hub (BISIH)
+  - BMKG
+  - Bangladesh Red Crescent Society (BDRCS)
+  - Bill & Melinda Gates Foundation
+  - Biodiversity Finance Initiative (BIOFIN)
+  - Blue Nature Alliance
+  - Blue Prosperity Coalition
+  - British High Commission in Pakistan
+  - CAREC Secretariat
+  - CIMA Research Foundation
+  - CREWS Initiative
+  - CREWS Secretariat
+  - CREWS partners (WMO
+  - Campaign for Tobacco-Free Kids
+  - Cannot be determined
+  - Caribbean and Pacific States (OACPS)
+  - Center for Excellence in Disaster Management and Humanitarian Assistance (CFE-DMHA)
+  - Climate Investment Funds (CIF)
+  - Climate Risk and Early Warning Systems (CREWS) Initiative
+  - Collaborating Centres for Health Promotion (CCHP)
+  - Commonwealth & Development Office (FCDO)
+  - Commonwealth Blue Charter
+  - Commonwealth National Climate Finance Advisors network
+  - Commonwealth Secretariat
+  - Concern Worldwide
+  - Convention on the Rights for Persons with Disabilities (CRPD)
+  - Cybersecurity and Infrastructure Security Agency (CISA)
+  - Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)
+  - Durham University (UK)
+  - ESCAP
+  - ESCAP/WMO Typhoon Committee
+  - ETH Zürich (Switzerland)
+  - Earthquake Housing Reconstruction Multi-Donor Trust Fund
+  - Earthquake Housing Reconstruction Multi-Donor Trust Fund (MDTF)
+  - Earthquakes and Megacities Initiative (EMI)
+  - Economic Research Institute for ASEAN and East Asia (ERIA)
+  - Energy and Maritime (GEM) Division
+  - Eswatini
+  - European Union
+  - European Union (ACP-EU)
+  - European Union (EU)
+  - European Union Civil Protection and Humanitarian Aid Operations (ECHO)
+  - Expertise France
+  - Export-Import Bank of India (Exim Bank of India)
+  - FAO
+  - Far Eastern Memorial Hospital
+  - Financial Stability Board (FSB)
+  - Fondation Prince Albert II de Monaco
+  - Food and Agriculture Organisations of the United Nations
+  - Food and Agriculture Organization (FAO)
+  - Food and Agriculture Organization of the United Nations (FAO)
+  - Foreign
+  - Framework for Resilient Development in the Pacific (FRDP) 2017–2030
+  - GFDRR
+  - GIZ
+  - Geoscience
+  - Geoscience Australia
+  - German Federal Ministry for Economic Cooperation and Development (BMZ)
+  - Global Affairs Canada
+  - Global Asia Insurance Partnership
+  - Global Asia Insurance Partnership (GAIP)
+  - Global Earthquake Model (GEM)
+  - Global Earthquake Model (GEM) Foundation
+  - Global Environment Facility (GEF)
+  - Global Facility for Disaster Reduction and Recovery (GFDRR)
+  - Global Facility for Disaster Risk Reduction and Recovery (GFDRR)
+  - Global Green Growth Institute (GGGI)
+  - Global Health Innovation Policy Program (GHIPP)
+  - Global Program on Nature-Based Solutions for Climate Resilience
+  - Global Shield Secretariat
+  - Global Shield Solutions Platform (GSSP)
+  - Global Shield initiative
+  - Global Water Partnership (GWP)
+  - Global Water Partnership Southeast Asia (GWP-SEA)
+  - GlobalAgRisk
+  - Government of Australia
+  - Government of Japan
+  - Government of Norway
+  - Government of the Netherlands
+  - Governments of Australia
+  - Governments of New Zealand
+  - Greater Mekong Subregion Secretariat
+  - Green Climate Fund (GCF)
+  - Health Technology Assessment International (HTAi)
+  - HelpAge International (HAI)
+  - High Commission of India in Maldives
+  - Hong Kong Monetary Authority
+  - Humanitarian Innovation Fund
+  - IBRD)
+  - IDA)
+  - IFC of the World Bank
+  - INTOSAI-Donor Cooperation
+  - IOC-UNESCO
+  - IOC-UNESCO Tsunami Programme
+  - India
+  - India-UN Development Partnership Fund
+  - India-UN Development Partnership Fund (UNOSSC)
+  - India‑UN Partnership Fund
+  - India–UN Development Partnership Fund
+  - India–UN Partnership Fund
+  - Institute for Climate and Sustainable Cities (ICSC)
+  - InsuResilience Global Partnership
+  - InsuResilience Solutions Fund
+  - Insurance Development Forum (IDF)
+  - Insurance-linked securities (ILS) investors via Totara Re Pte. Ltd
+  - Integrated Drought Management Programme (IDMP)
+  - Integrated Research on Disaster Risk (IRDR)
+  - International Association of Classification Societies (IACS)
+  - International Association of Insurance Supervisors
+  - International Association of Insurance Supervisors (IAIS)
+  - International Bank for Reconstruction and Development (IBRD)
+  - International Centre for Integrated Mountain Development (ICIMOD)
+  - International Centre for Water Hazard and Risk Management (ICHARM)
+  - International Committee of the Red Cross (ICRC)
+  - International Consortium on Landslides
+  - International Consortium on Landslides (ICL)
+  - International Cooperation Division
+  - International Cooperation and Development Fund (TaiwanICDF)
+  - International Development Association (IDA)
+  - International Development Association (IDA) of the World Bank Group
+  - International Development Association (World Bank
+  - International Disability Rights Experts
+  - International Federation of Red Cross and Red Crescent Societies (IFRC)
+  - International Federation of the Red Cross and Red Crescent (IFRC)
+  - International Finance Corporation (IFC)
+  - International Fund for Agricultural Development (IFAD)
+  - International Health Policy Program (IHPP)
+  - International Labour Organization (ILO)
+  - International Maritime Organization (IMO)
+  - International Monetary Fund (IMF)
+  - International Organization for Migration (IOM)
+  - International Programme on Landslides (IPL)
+  - International Rescue Committee (IRC)
+  - International Research Institutions
+  - International Science Council (ISC)
+  - International Social Security Association (ISSA)
+  - International Union of Geodesy and Geophysics (IUGG)
+  - International Union of Geological Sciences (IUGS)
+  - International Water Management Institute (IWMI)
+  - International reinsurance markets
+  - Japan
+  - Japan Center for International Exchange (JCIE)
+  - Japan International Cooperation Agency (JICA)
+  - Japan's Ministry of Internal Affairs and Communications
+  - Japan-World Bank Program for Mainstreaming DRM
+  - Japan–World Bank Program for Mainstreaming DRM
+  - Japan–World Bank Program for Mainstreaming Disaster Risk Management (DRM)
+  - Japan–World Bank Program for Mainstreaming Disaster Risk Management in Developing Countries
+  - Livelihoods and Food Security Fund (LIFT)
+  - Luxembourg
+  - Luxembourg’s Climate and Energy Fund
+  - Malaysia
+  - Mekong River Commission (MRC)
+  - Multilateral Development Banks (MDBs)
+  - NASA
+  - NCD Alliance Japan
+  - NIWA
+  - NOAA Center for Tsunami Research
+  - Nanyang Technological University
+  - National Disaster Management Research Institute (NDMI)
+  - National Drought Mitigation Center (NDMC)
+  - National Institute for Health and Care Excellence (NICE)
+  - National Institute of Water and Atmospheric Research (NIWA)
+  - National Oceanic and Atmospheric Administration (NOAA)
+  - National Resilience Program (NRP)
+  - Nauru
+  - Nekton
+  - Nepal Red Cross Society (NRCS)
+  - Netherlands Enterprise Agency (RVO)
+  - New Zealand
+  - Norwegian Agency for Development Cooperation (Norad)
+  - OECD
+  - Officials from 14 countries including Belize
+  - Organisation of African
+  - Organization for Economic Co-operation and Development (OECD)
+  - Organization for Economic Cooperation and Development (OECD)
+  - Oxfam
+  - Oxfam Aotearoa
+  - Pacific Catastrophe Risk Insurance Company (PCRIC)
+  - Pacific Community (SPC)
+  - Pacific Disaster Center (PDC)
+  - Pacific Insurance and Climate Adaptation Programme (PICAP)
+  - Pacific Islands Forum Secretariat (PIFS)
+  - Pacific Islands Legal Information Institute (PacLII)
+  - Pacific Tsunami Warning Center (PTWC)
+  - Palau
+  - Paraguay
+  - Partnerships in Environmental Management for the Seas of Asia (PEMSEA)
+  - People in Need (PIN)
+  - Practical Action
+  - Private banks
+  - Private companies who offer MPF products
+  - Project and Programme Review Committee (PPRC) of the AFB
+  - Reask
+  - Regional Integrated Multi-Hazard Early Warning System (RIMES)
+  - Regional Pacific NDC Hub
+  - SDG 6 IWRM Support Programme (GWP and UNEP-DHI)
+  - SEADRIF Council
+  - SEADRIF Insurance Company
+  - SPREP
+  - SWIFT
+  - Save the Children International
+  - Scientific and Cultural Organization (UNESCO)
+  - Second National Action Plan
+  - Sendai Framework for Disaster Risk Reduction 2015–2030
+  - Slovakia
+  - South Korea
+  - Southeast Asia Disaster Risk Insurance Facility (SEADRIF)
+  - Speakers from various countries including Australia
+  - St. Kitts and Nevis
+  - St. Vincent and the Grenadines
+  - Start Network
+  - Strategic Climate Fund (SCF)
+  - Strategic Climate Fund (SCF) under the Climate Investment Funds (CIF)
+  - Strategic Climate Fund – Pilot Program for Climate Resilience (SCF–PPCR)
+  - Swiss Re
+  - Swiss Re Foundation
+  - Systematic Observations Financing Facility (SOFF)
+  - Taiwan
+  - Taiwan Association of Global Health Initiative (TAGHI)
+  - Taiwan's National Science and Technology Center for Disaster Reduction (NCDR)
+  - Thailand
+  - The Global Shield against Climate Risks
+  - The Pacific Community (SPC)
+  - The World Bank
+  - The World Bank (International Development Association)
+  - ThinkHazard
+  - U.K. Department for International Development (DFID)
+  - U.S. Coast Guard
+  - U.S. Department of Homeland Security (DHS)
+  - U.S. Geological Survey (USGS)
+  - UK
+  - UK’s Foreign
+  - UN Capital Development Fund (UNCDF)
+  - UN Central Emergency Response Fund (CERF)
+  - UN Country Team
+  - UN Development Programme (UNDP)
+  - UN Office for Disaster Risk Reduction
+  - UN Office for South-South Cooperation (UNOSSC)
+  - UN Office for South–South Cooperation (UNOSSC)
+  - UN University – Institute for Environment and Human Security (UNU-EHS)
+  - UN Women
+  - UN agencies designated as Provincial Focal Point Agencies (PFPAs)
+  - UN organizations
+  - UN-Habitat
+  - UNCDF/PICAP
+  - UNDP
+  - UNDP Climate Promise
+  - UNDP Pakistan
+  - UNDRR
+  - UNDRR Global Education and Training Institute (GETI)
+  - UNESCO
+  - UNESCO Intergovernmental Oceanographic Commission (IOC)
+  - UNFPA
+  - UNICEF
+  - UNISDR/UNDRR
+  - UNOPS/Platform on Disaster Displacement
+  - UNOSSC
+  - UNU‑EHS
+  - US Geological Survey (USGS)
+  - USAID
+  - USAID/Nepal
+  - USAID/OFDA
+  - United Kingdom's Foreign
+  - United Nations
+  - United Nations Capital Development Fund (UNCDF)
+  - United Nations Children's Fund (UNICEF)
+  - United Nations Development Program (UNDP)
+  - United Nations Development Programme (UNDP)
+  - United Nations Development Programme (UNDP) India
+  - United Nations Development Programme’s Insurance and Risk Finance Facility (UNDP IRFF)
+  - United Nations Educational
+  - United Nations Interagency Task Force on NCDs
+  - United Nations Office for Disaster Risk Reduction (UNDRR)
+  - United Nations Office for South-South Cooperation (UNOSSC)
+  - United Nations Office for the Coordination of Humanitarian Affairs (UN OCHA)
+  - United Nations Sendai Framework for Disaster Risk Reduction
+  - United Nations University (UNU)
+  - United Nations University Institute for Environment and Human Security (UNU-EHS)
+  - United Nations World Food Programme (WFP)
+  - United Nations and its various agencies
+  - United Nations' Sendai Framework for Disaster Risk Reduction
+  - United States
+  - United States Agency for International Development (USAID)
+  - United States Agency for International Development (USAID/Nepal)
+  - United States Centers for Disease Control and Prevention (CDC)
+  - United States Geological Survey (USGS)
+  - University of Geneva
+  - University of Nebraska–Lincoln
+  - University of Reading
+  - Various Ministries of Health from other countries during international summits
+  - Various United Nations agencies
+  - Vatuvara Foundation (VVF)
+  - WFP
+  - WHO
+  - WTW
+  - Waitt Institute
+  - World Bank
+  - World Bank (IBRD)
+  - World Bank (IDA financing)
+  - World Bank (IDA)
+  - World Bank (International Bank for Reconstruction and Development
+  - World Bank (International Bank for Reconstruction and Development)
+  - World Bank (International Bank for Reconstruction and Development—IBRD)
+  - World Bank (International Development Association
+  - World Bank (International Development Association - IDA)
+  - World Bank (WB)
+  - World Bank GFDRR
+  - World Bank Global Facility for Disaster Reduction and Recovery
+  - World Bank Global Facility for Disaster Reduction and Recovery (GFDRR)
+  - World Bank Global Risk Financing Facility
+  - World Bank Group
+  - World Bank Group (International Development Association—IDA)
+  - World Bank PROBLUE
+  - World Bank SEADRIF
+  - World Bank United Nations
+  - World Bank/GFDRR
+  - World Bank/International Development Association (IDA)
+  - World Blind Union
+  - World Federation of Engineering Organizations (WFEO)
+  - World Food Programme (WFP)
+  - World Forum of Catastrophe Programmes
+  - World Health Organization (WHO)
+  - World Meteorological Organization (WMO)
+  - World Vision Foundation of Thailand (WVFT)
+  - World Vision International Nepal
+  - World Vision International Nepal (WVI)
+  - Zurich Flood Resilience Alliance
+  - and Luxembourg’s Climate and Energy Fund
+  - and NMHSs)
+  - and Tuvalu
+  - and the U.S
+  - the Marshall Islands
+  - the U.K
+
+All Private Organizations:
+  - 28 HMOs
+  - 35 community universities
+  - 3D Civil Pty Ltd
+  - 56 Reinsurers
+  - AIA
+  - AIA Bhd
+  - AIR Worldwide
+  - AIR Worldwide (now Verisk Extreme Event Solutions)
+  - AQX Solutions
+  - ASML Holding NV
+  - Abbott
+  - Academia
+  - Academia Sinica
+  - Academia and Research Institutions (Taiwan)
+  - Academic and Research Institutions (Japan)
+  - Advanced Micro Devices Inc. (AMD)
+  - Afcons Infrastructure Ltd
+  - Agriculture insurance entities
+  - Agriculture stakeholders
+  - Agrobank
+  - Allianz Global Investors
+  - Allianz Malaysia
+  - AmMetLife Insurance Berhad
+  - Anthola Group (Malaysia)
+  - Aon New Zealand Ltd
+  - Applied Materials Inc
+  - Asan Medical Center
+  - Associated Consulting Engineers (ACE) (Pvt) Ltd (Pakistan)
+  - Association of Singapore Marine Industries (ASMI) (Singapore)
+  - Associations (Taiwan)
+  - Australian Rural Leadership Foundation (ARLF) (Australia)
+  - BHP
+  - BRANZ
+  - Beca
+  - BigWave Robotics
+  - Black Kite Re Limited
+  - BlackRock
+  - Blue Marble
+  - BlueBay
+  - Boffa Miskell Ltd
+  - Broad Sustainable Building (BSB)
+  - Build Myanmar
+  - CARD Pioneer Microinsurance (Initiator)
+  - CARE
+  - CPG Consultants
+  - CSIRO
+  - CSIRO Data61
+  - Cadwalader
+  - Cane Farmers’ Cooperative Savings and Loans Association (CCSLA) (Fiji)
+  - Cannot be determined
+  - Capital Investment Trust Corp
+  - Centre of Excellence hosted at NUS with NTU
+  - China Railway Construction Corporation (CRRC) (People’s Republic of China)
+  - Chinatrust
+  - Citizens of the Sea
+  - Climatology
+  - Coastal Protection and Flood Resilience Institute (CFI) Singapore (Singapore)
+  - Commercial Banks
+  - Community partners such as schools
+  - Companies involved in health promotion
+  - Concern Worldwide
+  - Consortium of Bangsamoro Civil Society (CBCS)
+  - Construction Housing and Infrastructure Development Bank
+  - Construction contractors
+  - Conyers
+  - Corporate Members
+  - Crombie Lockwood (NZ)
+  - DAI
+  - DAI Global LLC
+  - DG TAKANO Co
+  - DJI
+  - Deloitte Singapore
+  - Deloitte Tohmatsu Consulting (Japan)
+  - Deltares
+  - Dentons Lee
+  - Digicel
+  - Disabled People’s Organisations (DPOs)
+  - Disabled People’s Organizations (DPOs)
+  - Domestic and international private investors
+  - Domestic insurers
+  - EMERGE
+  - EMI
+  - EQECAT
+  - ESDO
+  - ETS Geotechnical Pty Ltd
+  - Earthquakes and Megacities Initiative
+  - Earthwork Solutions Ltd
+  - Educational institutions
+  - Employees
+  - Employers
+  - Enshine Scientific Corporation (Taiwan)
+  - Environmental Change Advisory (ECA)
+  - Evergreat Safety Worldwide Corp
+  - Experts from the academe and bio-health industry
+  - FENAKA
+  - FIVDB
+  - FOREWARN Bangladesh
+  - FijiCare
+  - FijiCare Insurance
+  - FijiCare Insurance Limited
+  - FinCity.Tokyo
+  - Florida Atlantic University (FAU) (United States, 
+Japan)
+  - Florida Atlantic University (FAU) (United States, Japan)
+  - Florida Atlantic University (United States, 
+Japan)
+  - Foundation for Rural & Regional Renewal (FRRR) (Australia)
+  - Frankfurt School of Finance & Management
+  - Fujitsu Limited
+  - GC Securities
+  - GEO Construct Pty Ltd
+  - GEO Design Pty Ltd
+  - GEOCE Consultants
+  - GHD
+  - GNS Science
+  - Gallagher Re
+  - General Insurance Association of Japan (GIAJ) (Japan)
+  - General Insurers
+  - General donors
+  - Geoscience Australia
+  - Global Parametrics Ltd
+  - Google Esri Maxar
+  - Great Eastern
+  - Great Eastern Holdings
+  - Great Eastern Life
+  - Great Eastern Takaful Berhad
+  - HSBC Life
+  - Haigh Workman
+  - Hall Contracting Pty Limited
+  - Hall Pacific
+  - Hallym University Sacred Heart Hospital (South Korea)
+  - Health Insurance Societies
+  - Health care insurers
+  - Health-related Professionals
+  - Health2Sync
+  - Healthcare facilities
+  - Hokkaido University (Japan)
+  - Hollard
+  - Huawei
+  - Hydro-Research Center (HRC) (Cambodia)
+  - ICEM Asia Consulting (Nepal)
+  - ICICI Lombard
+  - IIN
+  - IIT Bombay)
+  - IIT Kanpur
+  - Inc
+  - Inc. (EMI)
+  - Income
+  - Indian Institute of Technology Roorkee (IIT Roorkee) (India)
+  - Indian Institutes of Technology (IIT Roorkee (India)
+  - Indonesia’s Meteorology
+  - Industries and Schools
+  - Industry
+  - Industry (building code bodies)
+  - Industry associations (Nepal)
+  - Industry members and consulting firms (Aotearoa New Zealand)
+  - Institute of Economics (Taiwan)
+  - Insurance Companies
+  - Insurance Council of Australia (ICA)
+  - Insurance Council of New Zealand (ICNZ)
+  - Insurance Development Forum (IDF)
+  - Insurance Holdings (Pacific) Pte Ltd
+  - Insurance companies
+  - Insurance companies and financial institutions
+  - Insurance companies in Singapore offering Integrated Shield Plans
+  - Insurance companies participating in the VHIS
+  - Insurance market actors
+  - Insurance sector
+  - Insurance sector and distribution partners engaged via PICAP
+  - Insurers
+  - Intermediaries (brokers
+  - International reinsurance and investors
+  - International reinsurance market
+  - International reinsurers
+  - Intertrust (Singapore) Ltd
+  - Investment banks
+  - Islamic Relief Bangladesh
+  - Issuing institutions (ILS sponsors/insurers)
+  - JP Morgan Asset Management
+  - Jacobs
+  - James Cook University (JCU) (Australia)
+  - Japan Fire and Disaster Prevention Association (Japan)
+  - Japan Medical Association (JMA) (Japan)
+  - Japanese and international companies
+  - Japanese companies
+  - Jardine Lloyd Thompson (JLT) Ltd
+  - KPMG
+  - KakaoHealthcare
+  - Kim & Chang
+  - King Consultants
+  - KiwiRail
+  - Korea Advanced Institute of Science and Technology (KAIST) (South Korea)
+  - Korea Federation of Micro Enterprises (KFME)
+  - Korea Hydro & Nuclear Power Co. (KHNP)
+  - Korea Institute of Civil Engineering and Building Technology (KICT) (Cambodia)
+  - Korea Insurance Research Institute (KIRI) (Republic of Korea (South Korea))
+  - Korean Association on Smoking or Health (KASH) (Republic of Korea)
+  - Kumamoto University (United States, 
+Japan)
+  - Kumamoto University (United States, Japan)
+  - Kyoto University (Japan)
+  - Kyoto University (United States, 
+Japan)
+  - Kyoto University (United States, Japan)
+  - Lam Research Corp (Taiwan)
+  - Landcom
+  - Leap201
+  - Lehigh University (United States, 
+Japan)
+  - Lehigh University (United States, Japan)
+  - Licensed insurance companies
+  - Life Insurance Corporation (India)
+  - Living Lab Northern Rivers
+  - Lloyd’s underwriters
+  - Local Businesses and Industry Associations (Taiwan)
+  - Local Financial Institutions
+  - Local contractors
+  - Local contractors and specialist firms
+  - Local entrepreneurs and private actors
+  - Local entrepreneurs and private sector
+  - Local governments
+  - Local insurers
+  - London School of Economics (LSE)
+  - Ltd
+  - MAL Engineers Pty Ltd
+  - MBIE
+  - MERCY Malaysia
+  - MIE Agro Farm Sdn Bhd
+  - Mainland enterprises establishing captive insurers in Hong Kong
+  - Malaysian Water Partnership (MyWP)
+  - Manaaki Whenua Landcare Research (Aotearoa New Zealand)
+  - Mandated Australian general insurers
+  - Market Economics
+  - Marsh Limited
+  - Massey University (Aotearoa New Zealand)
+  - Massey University (New Zealand)
+  - Mayer Brown International LLP
+  - Mayer Brown LLP
+  - Mercer Investments (HK) Limited
+  - Messe eSang
+  - Microinsurance channels
+  - Microinsurance markets
+  - Milliman
+  - Mitsubishi UFJ Financial Group (Japan)
+  - Mobile Network Operators
+  - Monaco Asset Management
+  - Munich Re
+  - Munich Re Capital Markets
+  - Mutual Aid Associations (MAAs) (Japan)
+  - Myanmar Development Institute (MDI) (Myanmar)
+  - Myanmar Federation of Persons with Disabilities
+  - NEC Corporation (Japan)
+  - NEC Corporation (Thailand)
+  - NESPAK
+  - NGOs
+  - NIWA
+  - NTUC Income
+  - NZ Geotechnical Society
+  - NZGS/BRANZ
+  - NZSEE
+  - Nagoya University (Japan)
+  - Nakama Re Pte. Ltd
+  - Nanyang Technological University (NTU) (Singapore)
+  - National Chengchi University (NCCU) - Department of Economics (Taiwan)
+  - National Engineering Center
+  - National Federation of Market Merchants
+  - National Health Research Institutes (NHRI) (Taiwan)
+  - National Information & Communications Technology Authority (NICTA)
+  - National Maritime Safety Authority (NMSA)
+  - National Resilience Council (NRC)
+  - National Teachers’ Association (NTA) (Taiwan)
+  - National University of Singapore (NUS) (Singapore)
+  - National and international consulting firms (Maldives)
+  - Natural Hazards Research Australia (NHRA) (Australia (State of Queensland))
+  - Navigation app operators (specific companies not named publicly)
+  - Nepal’s insurance market stakeholders
+  - New Zealand Geotechnical Society (NZGS)
+  - New Zealand Society for Earthquake Engineering (NZSEE)
+  - New Zealand eScience Infrastructure (NeSI)
+  - Nippon Life
+  - Nirapad
+  - Nomura Research Institute (NRI) (Japan)
+  - Non-Governmental Organizations (NGOs)
+  - Northern Rivers Flood Risk Management Practitioners group (Australia)
+  - OJeong Resilience Institute (OJERI@KU) (South Korea)
+  - OSE Group Pty Ltd (Australia)
+  - Open Mapping Hub – Asia Pacific
+  - OpenGeo
+  - Oxford Policy Management
+  - PNG Ports Corporation Limited (Papua New Guinea)
+  - PNG schools and universities
+  - PNG universities
+  - POPI
+  - Pacific Disaster Center (PDC)
+  - Pakistan Red Crescent Society (PRCS)
+  - Palawan Group of Companies/PalawanPay (Philippines)
+  - Pan-Impact Korea
+  - Particip GmbH
+  - Participating general insurers
+  - Peak Reinsurance Company (China)
+  - People and Technology (PnT)
+  - People in Need (PIN)
+  - Philippine Business for Social Progress (PBSP)
+  - Philippine Insurers and Reinsurers Association (PIRA) (Philippines)
+  - Private General Practitioners (GPs)
+  - Private Healthcare Providers
+  - Private Hospitals and Clinics
+  - Private Sector and Academia
+  - Private companies and public-private partnerships
+  - Private home insurers
+  - Private insurers
+  - Private insurers and re/insurers
+  - Private insurers in New Zealand
+  - Private insurers offering Integrated Shield Plans
+  - Private insurers operating in New Zealand
+  - Private sector companies
+  - Private sector contractors and suppliers
+  - Private sector entities
+  - Private sector investors
+  - Private-sector consortium of institutions and individuals from the business sector
+  - Property sector stakeholders
+  - Prudential
+  - Pyunghwa Engineering Consultants Ltd
+  - QuakeCoRE
+  - RMS
+  - RMS Inc
+  - RMSI
+  - Raffles Health Insurance
+  - Rangitata South Irrigation Ltd
+  - Re-insurance companies
+  - Real-estate developers
+  - Regional Integrated Multi-Hazard Early Warning System for Africa and Asia (RIMES)
+  - Regional reinsurers and potential SEADRIF Insurance Company counterparties (Myanmar)
+  - Reinsurers
+  - Resilience to Nature’s Challenges (RNC-Rural)
+  - Resilient Organisations
+  - Risk modelers
+  - S&P Global Ratings
+  - SEADRIF Insurance Company (Singapore) (Myanmar)
+  - SEADRIF Insurance Company (Singapore, 
+ASEAN+3 region)
+  - SESOC
+  - SIT
+  - SKS Foundation (Bangladesh)
+  - SSGA
+  - SUEZ
+  - SUEZ Digital Solutions
+  - SUN Insurance
+  - SUTD
+  - SW Nepal (Scott Wilson Nepal)
+  - Sakura Re Ltd
+  - Samsung Electronics
+  - Samsung Medical Center
+  - Saudi investment firm
+  - Saxon Drilling Pty Ltd
+  - School of Public Health
+  - Schroder Investment Management
+  - Semtech Corporation (Malaysia)
+  - Shikhar Insurance Co. Ltd
+  - Singapore Institute of Technology (SIT) (Singapore)
+  - Singapore Life Ltd
+  - Singlife
+  - Sompo Holdings
+  - Sompo Japan Insurance Inc
+  - Sompo Risk Management Inc
+  - Southern Cross University (Australia)
+  - Spectee Inc
+  - State Street Global Advisors Asia
+  - Stone Harbor
+  - Stonestep TFD Pvt. Ltd
+  - Structural Engineering Society New Zealand (SESOC)
+  - Sun Insurance
+  - Sungkyunkwan University School of Medicine (South Korea)
+  - Supporting Members
+  - Surbana Jurong
+  - Sustainable Development Policy Institute (SDPI) (Pakistan)
+  - Sustainable Hrvest
+  - Sustainable Japan Network
+  - Swiss Re
+  - Swiss Re Capital Markets
+  - Sysmex Corporation (Japan)
+  - TTAC Ltd
+  - Taiwan
+  - Taiwan Access for All Association (Taiwan)
+  - Taiwan Fire Industry Association (Taiwan)
+  - Taiwan Glove Manufacturers Association (Taiwan)
+  - Taiwan Higher Education Union (THE Union)
+  - Te Kete Tipuranga o Huirapa
+  - Technological Association Malaysia (Malaysia)
+  - Technology providers
+  - Technology providers (specific firms not cited)
+  - Templeton
+  - The Ajinomoto Foundation (Japan)
+  - The Lancet
+  - The University of Tokyo (Japan)
+  - The mass media
+  - Thulo.Com
+  - Thulo.com
+  - Toa Reinsurance Company (Japan)
+  - Tohoku University (Japan)
+  - Tohoku University Graduate School of Medicine (Japan)
+  - Tokio Marine Holdings Inc MS&AD Insurance Group Holdings Sompo Japan Nipponkoa Holdings & more (Japan)
+  - Top five commercial banks
+  - Tower Insurance
+  - Training Institutions
+  - UBS Asset Management
+  - US Geological Survey
+  - Unauthorised foreign insurers
+  - Universiti Teknologi Malaysia (UTM)
+  - Universities
+  - Universities and partners delivering Drought Resilience Adoption and Innovation Hubs
+  - Universities/Research Institutes (People’s Republic of China)
+  - University of Auckland (Aotearoa New Zealand)
+  - University of Auckland (New Zealand)
+  - University of Canterbury (Aotearoa New Zealand)
+  - University of Canterbury (New Zealand)
+  - University of Otago (New Zealand)
+  - University of Queensland (Australia (State of Queensland))
+  - University of Reading (Pakistan)
+  - University of Southern Queensland (UniSQ) (Cambodia)
+  - University of Tokyo (United States, 
+Japan)
+  - University of Tokyo (United States, Japan)
+  - University of Ulsan College of Medicine (South Korea)
+  - University of the Philippines Building Research Service (UP BRS) (Philippines)
+  - University of the Philippines College of Engineering (Philippines)
+  - Utilities such as MWSC
+  - Vanguard
+  - Vanua Ko Ba Holdings
+  - Various Financial Institutions
+  - Various Private Investors
+  - Various academic institutions globally
+  - Various civil society organizations
+  - Various commercial banks
+  - Various financial institutions
+  - Various industry partners and healthcare insurers
+  - Various international financial corporations (Japan)
+  - Various local and international environmental and engineering consultancies
+  - Various local government research institutes and private enterprises (Japan)
+  - Various medical societies
+  - Various private companies and startups
+  - Various private health insurance companies
+  - Various private sector companies participating in health and nutrition initiatives
+  - Various private sector entities and philanthropic organizations
+  - Victoria University of Wellington (New Zealand)
+  - Vivid Economics
+  - Vodafone
+  - Volunteers
+  - WTW
+  - WTW (Willis Towers Watson)
+  - WWF-Pakistan
+  - Wan Jiun Technology Co
+  - Weather Risk Agencies
+  - Wickersham & Taft LLP
+  - Willis New Zealand Ltd
+  - Willis Towers Watson
+  - Willis Towers Watson (WTW)
+  - Xiamen University Tan Kah Kee College (People’s Republic of China)
+  - Yayasan Telekom Malaysia (YTM)
+  - Yokohama National University (Japan)
+  - Yonsei University (South Korea)
+  - ZTE
+  - Zurich Insurance Group (Kenya)
+  - a division of MMC Securities LLC; Swiss Re; Munich Re
+  - agents
+  - and A*STAR
+  - and Geophysics Agency (BMKG)
+  - and other experts in Japan and partner nations
+  - and technology providers
+  - including corporations and non-profit organizations (Japan)
+  - particularly organizations of persons with disabilities (DPOs)
+  - particularly those involved in technology and industrial sectors
+  - private sector companies
+  - private sector entities
+  - service providers
+  - such as the Division of Epidemiology
+  - surveyors)

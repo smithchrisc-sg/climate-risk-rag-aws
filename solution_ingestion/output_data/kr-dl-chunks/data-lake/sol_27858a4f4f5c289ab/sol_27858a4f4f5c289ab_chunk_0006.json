@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_27858a4f4f5c289ab_chunk_0006",
+  "doc_id": "sol_27858a4f4f5c289ab",
+  "chunk_number": 6,
+  "text": "CERMP is a national program that integrates both nature-based and engineered solutions to address coastal risks. It emphasizes a mixed portfolio approach, including grey infrastructure like seawalls and green-blue solutions such as dune restoration. The program also invests significantly in monitoring infrastructure, exemplified by Queensland's $4.3 million State-wide Nearshore Bathymetry Survey. This survey uses airborne sensors to collect high-resolution data for improved hazard assessment and modeling. CERMP's governance involves intergovernmental collaboration, with states administering funds and local councils implementing projects.",
+  "section_title": "Key Highlights",
+  "character_count": 645,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_2",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 2,
+    "solution_name": "Coastal and Estuarine Risk Mitigation Program (CERMP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://federalfinancialrelations.gov.au/agreements/emergency-response-fund-coastal-and-estuaries-risk-mitigation-program",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.356492+00:00"
+  },
+  "s3_key": "data-lake/sol_27858a4f4f5c289ab/sol_27858a4f4f5c289ab_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_27858a4f4f5c289ab/sol_27858a4f4f5c289ab_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_070f2610730e83fd6_chunk_0002",
+  "doc_id": "sol_070f2610730e83fd6",
+  "chunk_number": 2,
+  "text": "This solution, Start Network Disaster Risk Financing (DRF) System in Pakistan addresses natural catastrophe through public private partnerships in Pakistan between National Disaster Management Authority (NDMA), Start Network, UK’s Foreign, Commonwealth & Development Office (FCDO), Government of the Netherlands, University of Reading, and London School of Economics (LSE). The program was implemented in 2017 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 459,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_210",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 210,
+    "solution_name": "Start Network Disaster Risk Financing (DRF) System in Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2017",
+    "ppp": "Yes",
+    "source_url": "https://startnetwork.org/disaster-risk-financing-pakistan",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.602924+00:00"
+  },
+  "s3_key": "data-lake/sol_070f2610730e83fd6/sol_070f2610730e83fd6_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_070f2610730e83fd6/sol_070f2610730e83fd6_chunk_0002.json"
+}

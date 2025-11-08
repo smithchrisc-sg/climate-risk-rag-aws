@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7586eb5adf7a678b4_chunk_0008",
+  "doc_id": "sol_7586eb5adf7a678b4",
+  "chunk_number": 8,
+  "text": "Independent assurance by KPMG confirmed progress in EQC's response program as of November 2021. The initiative has improved clarity in insurer-EQC roles and incorporated conduct requirements into policy settings. It continues to develop risk tolerance guidance to inform operational decision-making.",
+  "section_title": "Results",
+  "character_count": 299,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_180",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 180,
+    "solution_name": "EQC Operational Policy Review (OPR)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.treasury.govt.nz/sites/default/files/2021-12/eqc-t2020-2370-4311121.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.568607+00:00"
+  },
+  "s3_key": "data-lake/sol_7586eb5adf7a678b4/sol_7586eb5adf7a678b4_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7586eb5adf7a678b4/sol_7586eb5adf7a678b4_chunk_0008.json"
+}

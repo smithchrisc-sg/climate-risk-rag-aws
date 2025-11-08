@@ -1,0 +1,35 @@
+National Flood Risk Data Integration Platform (NFRDIP)
+
+Department of Information and Communications Technology (DICT), 
+Philippine Atmospheric, Geophysical and Astronomical Services Administration (PAGASA), 
+National Mapping and Resource Information Authority (NAMRIA), 
+Department of Public Works and Highways (DPWH), 
+Local Government Units (LGUs)
+
+and 
+
+Asian Development Bank (ADB)
+
+Introduction
+
+This solution, National Flood Risk Data Integration Platform (NFRDIP) addresses natural catastrophe in Philippines between Department of Information and Communications Technology (DICT), Philippine Atmospheric, Geophysical and Astronomical Services Administration (PAGASA), National Mapping and Resource Information Authority (NAMRIA), Department of Public Works and Highways (DPWH), Local Government Units (LGUs), and Asian Development Bank (ADB). The program was implemented in Cannot be determined and focuses on collaboration and leveraging tech.
+
+Description
+
+The National Flood Risk Data Integration Platform (NFRDIP) is a proposed government-led initiative in the Philippines aimed at centralizing various data types, including hydrologic, meteorologic, topographic, land use, and socio-economic information. This platform is designed to enhance real-time forecasting, planning, and infrastructure design to manage flood risks across the country. It is introduced via House Bill No. 2201 and led by the Department of Information and Communications Technology (DICT) in collaboration with key technical agencies. The initiative seeks to improve coordination and build on existing national capacities without creating new bureaucratic structures.
+
+Key Highlights
+
+The NFRDIP aims to integrate multiple data streams into a single, interoperable platform for real-time use, enhancing flood forecasting and early warning systems. It emphasizes leveraging existing tools like Project NOAH and GeoRiskPH, and aligns with ongoing flood risk management planning supported by the Asian Development Bank. The platform is designed to transition from reactive to preventive risk management, with phased development starting in high-risk areas.
+
+Results
+
+Implementation is pending enactment, with phased development planned. The platform aims to improve data accessibility and coordination for flood risk management, but specific results are yet to be determined.
+
+Contact Information
+
+Name: Rosemarie F. Marquez, 
+Position:Lead Communications Officer, Philippines Country Office, 
+Company:Asian Development Bank (ADB) 
+Email: Email via ADB’s official email contact channel for the Philippines Country Office, 
+Contact Number: +63 2 8683 1016; +63 998 591 4659

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_996da86a05aa2ccd6_chunk_0006",
+  "doc_id": "sol_996da86a05aa2ccd6",
+  "chunk_number": 6,
+  "text": "The initiative is characterized by its high-level collaboration between ADB, MoF, and NDRC, aligning with national and international strategies for disaster resilience. It emphasizes a basin-wide approach for the Yangtze River, aiming for quick payouts to support emergency response and recovery. The parametric insurance model is designed to be replicable across China and potentially other regions, enhancing fiscal readiness and resilience against flood risks.",
+  "section_title": "Key Highlights",
+  "character_count": 463,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_79",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 79,
+    "solution_name": "ADB–MoF–NDRC Initiative for Parametric Flood Insurance (2021)",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/news/workshop-explores-new-insurance-instruments-strengthen-prc-flood-resilience",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.460827+00:00"
+  },
+  "s3_key": "data-lake/sol_996da86a05aa2ccd6/sol_996da86a05aa2ccd6_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_996da86a05aa2ccd6/sol_996da86a05aa2ccd6_chunk_0006.json"
+}

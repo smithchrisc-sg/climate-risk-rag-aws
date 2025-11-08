@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_36f4759fc3f4ec286_chunk_0002",
+  "doc_id": "sol_36f4759fc3f4ec286",
+  "chunk_number": 2,
+  "text": "This solution, Disaster Resilience Improvement Program (DRIP), \nSecond Disaster Resilience Improvement Program (DRIP2) addresses natural catastrophe through public private partnerships in Republic of the Philippines between Government of the Philippines, Department of Finance, State-Owned and Controlled Corporations (SOCCs), Local Government Units (LGUs), Asian Development Bank (ADB), Asia-Pacific Climate Finance Fund (ACliFF), and Insurance market actors. The program was implemented in 2020, \n2025 and focuses on collaboration, regulation, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 568,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_288",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 288,
+    "solution_name": "Disaster Resilience Improvement Program (DRIP), \nSecond Disaster Resilience Improvement Program (DRIP2)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2020, \n2025",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/news/500-million-adb-loan-bolster-philippines-disaster-resilience",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.737866+00:00"
+  },
+  "s3_key": "data-lake/sol_36f4759fc3f4ec286/sol_36f4759fc3f4ec286_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_36f4759fc3f4ec286/sol_36f4759fc3f4ec286_chunk_0002.json"
+}

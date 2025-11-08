@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e1c845ee01038a5ca_chunk_0008",
+  "doc_id": "sol_e1c845ee01038a5ca",
+  "chunk_number": 8,
+  "text": "Documented outputs include enhancements to the Natural Hazards Portal, active strategic frameworks, ongoing policy submissions, and sector capability-building. While public quantification of outcomes is limited, the initiative has shown clear deliverables and uptake by decision-makers using related hazard models and datasets.",
+  "section_title": "Results",
+  "character_count": 327,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_185",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 185,
+    "solution_name": "Natural Hazards Commission Toka Tū Ake: Risk Reduction Framework and Tools (2024–2025)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.naturalhazards.govt.nz/our-publications/natural-hazards-commission-toka-tu-ake-annual-report-2023-24/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.572401+00:00"
+  },
+  "s3_key": "data-lake/sol_e1c845ee01038a5ca/sol_e1c845ee01038a5ca_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e1c845ee01038a5ca/sol_e1c845ee01038a5ca_chunk_0008.json"
+}

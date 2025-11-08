@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f2de8c1e05007c86e_chunk_0004",
+  "doc_id": "sol_f2de8c1e05007c86e",
+  "chunk_number": 4,
+  "text": "The 'May/June 2021 Flood Repairs' initiative was a coordinated, multi-agency effort in New Zealand to address the severe flooding that occurred in late autumn and early winter of 2021, particularly in the South Island. The initiative involved systematic post-event residential building damage assessments and evidence-led methodologies to prioritize and accelerate repairs. It utilized supervised learning models to predict damage and support decision-making, and involved various public organizations in a collaborative framework to manage emergency responses and repairs.",
+  "section_title": "Description",
+  "character_count": 573,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_157",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 157,
+    "solution_name": "May/June 2021 Flood Repairs",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://geoscienceletters.springeropen.com/articles/10.1186/s40562-024-00323-z",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.538977+00:00"
+  },
+  "s3_key": "data-lake/sol_f2de8c1e05007c86e/sol_f2de8c1e05007c86e_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f2de8c1e05007c86e/sol_f2de8c1e05007c86e_chunk_0004.json"
+}

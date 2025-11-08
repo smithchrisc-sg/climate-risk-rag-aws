@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_a71fa11888a880d46_chunk_0004",
+  "doc_id": "sol_a71fa11888a880d46",
+  "chunk_number": 4,
+  "text": "The Climate Risk and Early Warning Systems – Papua New Guinea Drought Early Warning System (CREWS‑PNG) is an initiative aimed at addressing the impacts of drought in Papua New Guinea. It is part of the global CREWS initiative led by the World Meteorological Organization (WMO) and partners. The system is designed to provide operational, impact-based risk information to inform early action across all 22 provinces of Papua New Guinea. It integrates space-based monitoring, dynamic seasonal forecasts, and a novel risk assessment framework to deliver targeted advisories for agriculture, water, health, and disaster management sectors.",
+  "section_title": "Description",
+  "character_count": 635,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_247",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 247,
+    "solution_name": "Climate Risk and Early Warning Systems – Papua New Guinea Drought Early Warning System (CREWS‑PNG)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://wmo.int/media/news/early-warning-system-drought-implemented-png-crews",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.693728+00:00"
+  },
+  "s3_key": "data-lake/sol_a71fa11888a880d46/sol_a71fa11888a880d46_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_a71fa11888a880d46/sol_a71fa11888a880d46_chunk_0004.json"
+}

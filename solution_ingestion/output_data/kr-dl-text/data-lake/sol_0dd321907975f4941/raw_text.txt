@@ -1,0 +1,31 @@
+Technology Enablement for Agricultural Insurance Operations (2023–2024)
+
+Sector regulators and ministries, 
+TFDI (Technology and Financial Development Institute)
+
+and 
+
+AIAG (International Association of Agricultural Insurers), 
+World Bank
+
+and 
+
+Xiamen University Tan Kah Kee College
+
+Introduction
+
+This solution, Technology Enablement for Agricultural Insurance Operations (2023–2024) addresses natural catastrophe through public private partnerships in People’s Republic of China between Sector regulators and ministries, TFDI (Technology and Financial Development Institute), AIAG (International Association of Agricultural Insurers), World Bank, and Xiamen University Tan Kah Kee College. The program was implemented in 2023 and focuses on leveraging tech and collaboration.
+
+Description
+
+The Technology Enablement for Agricultural Insurance Operations (2023–2024) initiative in China represents a coordinated effort to digitally transform the agricultural insurance sector. This transformation is driven by the integration of remote sensing, IoT, big data, and AI technologies to enhance the entire insurance process from underwriting to claims. The initiative aims to modernize agricultural risk management, support rural revitalization, and improve smallholder inclusion by providing more efficient and accurate insurance services.
+
+Key Highlights
+
+The initiative features an integrated tech stack for underwriting-to-claims processes, utilizing remote sensing and IoT for plot and loss area determination, and proactive disaster warning systems. It emphasizes smallholder suitability and promotes industry alliances and government-industry-tech co-governance for scalable deployment. The initiative also aims for full coverage across policy and commercial lines, including planting, breeding, and forestry.
+
+Results
+
+Early outcomes include enhanced operational capabilities such as remote assessment and faster claims processing. The sector is expected to grow significantly, with premiums projected to exceed RMB 160 billion by 2025 and reach RMB 600–1,000 billion by 2035. The initiative has shown improved grain production resilience, indicating amplified system-level benefits.
+
+Contact Information

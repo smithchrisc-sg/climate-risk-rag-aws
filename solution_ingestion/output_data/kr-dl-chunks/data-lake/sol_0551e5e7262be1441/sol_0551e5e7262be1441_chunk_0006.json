@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0551e5e7262be1441_chunk_0006",
+  "doc_id": "sol_0551e5e7262be1441",
+  "chunk_number": 6,
+  "text": "The initiative explicitly includes urban drainage works in DRFA Category B, providing regulatory flexibility to shift funds between council accounts. It establishes time-bound repair pathways, such as Emergent Works, Immediate Reconstruction Works, and Essential Public Asset Reconstruction Works, to expedite repairs. The initiative is complemented by clean-up funding through the Community Relief Program and aligns with broader mitigation planning through the Disaster Ready Fund.",
+  "section_title": "Key Highlights",
+  "character_count": 483,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_24",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 24,
+    "solution_name": "DRFA Category B TC Alfred funding for urban drainage works",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/publications-and-reports/northern-rivers-community-leaders-forum-17-march-2025/meeting-summary",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.391668+00:00"
+  },
+  "s3_key": "data-lake/sol_0551e5e7262be1441/sol_0551e5e7262be1441_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0551e5e7262be1441/sol_0551e5e7262be1441_chunk_0006.json"
+}

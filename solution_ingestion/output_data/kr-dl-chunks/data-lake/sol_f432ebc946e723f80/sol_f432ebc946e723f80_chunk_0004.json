@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f432ebc946e723f80_chunk_0004",
+  "doc_id": "sol_f432ebc946e723f80",
+  "chunk_number": 4,
+  "text": "The Cyclone Reinsurance Pool (CRP) is a government-backed initiative in Australia, administered by the Australian Reinsurance Pool Corporation (ARPC). It aims to provide affordable and available reinsurance solutions for cyclone and cyclone-related flood risks, particularly in cyclone-prone regions like Northern Australia. The CRP operates under a AUD 10 billion Commonwealth guarantee, allowing for risk-based reinsurance pricing without private-market profit margins. It covers household, strata, and SME property insurance, with insurers ceding cyclone risk to the pool in exchange for a premium.",
+  "section_title": "Description",
+  "character_count": 601,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_27",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 27,
+    "solution_name": "Cyclone Reinsurance Pool (CRP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://arpc.gov.au/news-resources-arpc/annual-reports/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.395268+00:00"
+  },
+  "s3_key": "data-lake/sol_f432ebc946e723f80/sol_f432ebc946e723f80_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f432ebc946e723f80/sol_f432ebc946e723f80_chunk_0004.json"
+}

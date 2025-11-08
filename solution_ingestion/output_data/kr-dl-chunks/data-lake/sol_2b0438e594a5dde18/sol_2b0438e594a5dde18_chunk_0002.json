@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2b0438e594a5dde18_chunk_0002",
+  "doc_id": "sol_2b0438e594a5dde18",
+  "chunk_number": 2,
+  "text": "This solution, Disaster Recovery Funding Arrangements (DRFA), \nTasmanian Relief and Recovery Arrangements (TRRA) addresses natural catastrophe through public private partnerships in Australia between Commonwealth Government, State Governments, WA Department of Fire and Emergency Services (DFES), WA Department of Primary Industries and Regional Development (DPIRD), Government of Tasmania, Resilience and Recovery Tasmania, Cairns Regional Council, GEO Design Pty Ltd, GEO Construct Pty Ltd, Saxon Drilling Pty Ltd, ETS Geotechnical Pty Ltd, OSE Group Pty Ltd, MAL Engineers Pty Ltd, and 3D Civil Pty Ltd. The program was implemented in 2023, \n2022 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 694,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_6",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 6,
+    "solution_name": "Disaster Recovery Funding Arrangements (DRFA), \nTasmanian Relief and Recovery Arrangements (TRRA)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023, \n2022",
+    "ppp": "Yes",
+    "source_url": "https://www.cairns.qld.gov.au/__data/assets/pdf_file/0006/675645/Clause-No.-21.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.365113+00:00"
+  },
+  "s3_key": "data-lake/sol_2b0438e594a5dde18/sol_2b0438e594a5dde18_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2b0438e594a5dde18/sol_2b0438e594a5dde18_chunk_0002.json"
+}

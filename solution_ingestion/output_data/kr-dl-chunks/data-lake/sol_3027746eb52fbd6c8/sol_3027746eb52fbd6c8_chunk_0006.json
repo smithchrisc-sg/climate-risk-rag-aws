@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3027746eb52fbd6c8_chunk_0006",
+  "doc_id": "sol_3027746eb52fbd6c8",
+  "chunk_number": 6,
+  "text": "The initiative features multifunctional, adaptive designs and integrates nature-based solutions with engineering options. It employs a national Coastal–Inland Flood Model and is developing a new national code of practice. The program includes a Centre of Excellence with a S$125 million budget, aiming to create 40–50 research jobs and train 20–30 PhD students. The studies involve segmenting the coastline into hydraulically distinct zones, allowing for tailored protection measures.",
+  "section_title": "Key Highlights",
+  "character_count": 484,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_305",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 305,
+    "solution_name": "Site-specific Coastal Protection Studies",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.pub.gov.sg/Public/KeyInitiatives/Flood-Resilience/Coastal-Protection",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.759479+00:00"
+  },
+  "s3_key": "data-lake/sol_3027746eb52fbd6c8/sol_3027746eb52fbd6c8_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3027746eb52fbd6c8/sol_3027746eb52fbd6c8_chunk_0006.json"
+}

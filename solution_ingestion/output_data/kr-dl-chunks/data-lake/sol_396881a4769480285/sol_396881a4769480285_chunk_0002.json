@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_396881a4769480285_chunk_0002",
+  "doc_id": "sol_396881a4769480285",
+  "chunk_number": 2,
+  "text": "This solution, Philippines Seismic Risk Reduction and Resilience Project (PSRRRP) addresses natural catastrophe in Republic of the Philippines between Department of Public Works and Highways (DPWH), DPWH Unified Project Management Office – Buildings & Special Projects Management Cluster, DPWH Bureau of Equipment, and World Bank (International Bank for Reconstruction and Development). The program was implemented in 2021 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 467,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_248",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 248,
+    "solution_name": "Philippines Seismic Risk Reduction and Resilience Project (PSRRRP)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/363911622944910016/pdf/Philippines-Seismic-Risk-Reduction-and-Resilience-Project.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.694719+00:00"
+  },
+  "s3_key": "data-lake/sol_396881a4769480285/sol_396881a4769480285_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_396881a4769480285/sol_396881a4769480285_chunk_0002.json"
+}

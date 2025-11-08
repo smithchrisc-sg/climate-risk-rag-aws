@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b9ea7ef562bd0b5fb_chunk_0006",
+  "doc_id": "sol_b9ea7ef562bd0b5fb",
+  "chunk_number": 6,
+  "text": "The initiative proposes five pilot schemes tailored to PRC's public finance needs, emphasizing market-based parametric insurance with objective triggers for rapid liquidity. It critiques the limitations of current fiscal reserves and indemnity insurance, advocating for a blend of instruments. The proposal aligns with agricultural insurance modernization and potential public-private partnership structures, focusing on rapid, rules-based liquidity. It also integrates sectoral risk systems, particularly in agriculture, using technology and public-private pool structures to reduce basis risk and improve yield estimation.",
+  "section_title": "Key Highlights",
+  "character_count": 624,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_82",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 82,
+    "solution_name": "From Pandemic to Greater Resilience: Enhancing Disaster Risk Financing in the People’s Republic of China",
+    "country": "People’s Republic of China (PRC)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/publications/disaster-risk-financing-peoples-republic-china",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.464567+00:00"
+  },
+  "s3_key": "data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b9ea7ef562bd0b5fb/sol_b9ea7ef562bd0b5fb_chunk_0006.json"
+}

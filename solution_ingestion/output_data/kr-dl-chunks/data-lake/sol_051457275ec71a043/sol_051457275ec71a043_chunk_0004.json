@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_051457275ec71a043_chunk_0004",
+  "doc_id": "sol_051457275ec71a043",
+  "chunk_number": 4,
+  "text": "USAID’s Tayar Nepal is a flagship disaster preparedness and risk reduction initiative in Nepal, implemented by DAI Global LLC. The project aims to strengthen national disaster governance, modernize emergency management capabilities, and institutionalize risk-informed municipal planning and community resilience measures across multiple hazards including earthquakes, floods, landslides, fires, and disease outbreaks. It operates in partnership with the Government of Nepal and local governments, with a focus on enhancing disaster-resilient development.",
+  "section_title": "Description",
+  "character_count": 554,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_146",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 146,
+    "solution_name": "USAID’s Tayar Nepal – Improved Disaster Risk Management Project (Tayar Nepal)",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.dai.com/our-work/projects/tayar-nepal-improved-disaster-risk-management-project-tayar",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.524945+00:00"
+  },
+  "s3_key": "data-lake/sol_051457275ec71a043/sol_051457275ec71a043_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_051457275ec71a043/sol_051457275ec71a043_chunk_0004.json"
+}

@@ -1,0 +1,22 @@
+JRSM‑1 Flood Protection Parametric Insurance Scheme
+
+Oxfam, 
+Swiss Re
+
+Introduction
+
+This solution, JRSM‑1 Flood Protection Parametric Insurance Scheme addresses natural catastrophe through public private partnerships in Bangladesh between Oxfam and Swiss Re. The program was implemented in 2013 and focuses on collaboration and accessibility.
+
+Description
+
+The JRSM‑1 Flood Protection Parametric Insurance Scheme is a pilot initiative in Bangladesh designed to provide rapid cash payouts to low-income households in the Char areas of Sirajganj district when a predefined flood-depth index is triggered. Developed by Oxfam and Swiss Re, the scheme uses a parametric index based on flood-water depths to determine payouts, aiming to protect vulnerable communities from the fiscal impacts of riverine floods.
+
+Key Highlights
+
+The scheme employs a parametric 'flood day' trigger, initiating payouts after 11 continuous flood days. It uses a model-first design to price premiums and determine payouts in a data-scarce environment. The initiative emphasizes rapid disbursement through planned mobile payments and is backed by Swiss Re's reinsurance, ensuring risk transfer capacity beyond local markets.
+
+Results
+
+The pilot targeted 1,661 households across 14 villages, offering BDT 8,000 per household for qualifying flood events. The scheme's design aims to mitigate fiscal shocks and strengthen local economic resilience, although specific performance metrics post-launch are not provided.
+
+Contact Information

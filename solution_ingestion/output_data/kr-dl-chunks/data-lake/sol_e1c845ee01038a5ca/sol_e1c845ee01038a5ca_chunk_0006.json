@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e1c845ee01038a5ca_chunk_0006",
+  "doc_id": "sol_e1c845ee01038a5ca",
+  "chunk_number": 6,
+  "text": "The initiative features a legislative mandate for risk reduction, a transparent Natural Hazards Portal providing property-level claims history, and a codified risk tolerance methodology. It integrates with national hazard modelling initiatives and promotes proactive resilience through policy influence and sector engagement. The initiative also emphasizes public education and future workforce development through partnerships with museums and schools.",
+  "section_title": "Key Highlights",
+  "character_count": 453,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_185",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 185,
+    "solution_name": "Natural Hazards Commission Toka Tū Ake: Risk Reduction Framework and Tools (2024–2025)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.naturalhazards.govt.nz/our-publications/natural-hazards-commission-toka-tu-ake-annual-report-2023-24/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.572187+00:00"
+  },
+  "s3_key": "data-lake/sol_e1c845ee01038a5ca/sol_e1c845ee01038a5ca_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e1c845ee01038a5ca/sol_e1c845ee01038a5ca_chunk_0006.json"
+}

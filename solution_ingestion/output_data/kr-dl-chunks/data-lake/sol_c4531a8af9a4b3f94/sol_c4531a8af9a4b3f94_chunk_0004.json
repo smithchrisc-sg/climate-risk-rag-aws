@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c4531a8af9a4b3f94_chunk_0004",
+  "doc_id": "sol_c4531a8af9a4b3f94",
+  "chunk_number": 4,
+  "text": "The Emergency Flood Assistance Project (EFAP) is a multi-agency initiative financed by the Asian Development Bank to aid Pakistan's recovery from the 2022 flood catastrophe. With a budget of $531 million, EFAP focuses on restoring connectivity through roads and bridges, improving water availability and flood protection for agriculture, and implementing multi-hazard-resilient design standards. The project involves federal and provincial components, with significant roles played by the National Highway Authority and provincial governments.",
+  "section_title": "Description",
+  "character_count": 543,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_200",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 200,
+    "solution_name": "Emergency Flood Assistance Project (EFAP)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/56312/56312-001-iee-en_2.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.590285+00:00"
+  },
+  "s3_key": "data-lake/sol_c4531a8af9a4b3f94/sol_c4531a8af9a4b3f94_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c4531a8af9a4b3f94/sol_c4531a8af9a4b3f94_chunk_0004.json"
+}

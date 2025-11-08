@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0551e5e7262be1441_chunk_0004",
+  "doc_id": "sol_0551e5e7262be1441",
+  "chunk_number": 4,
+  "text": "Following the impacts of Tropical Cyclone Alfred in March 2025, the NSW Reconstruction Authority activated Disaster Recovery Funding Arrangements (DRFA) Category B to fund urban drainage repairs and related flood-recovery works in New South Wales. This initiative includes a regulatory change allowing councils to request a special variation to reallocate funds from council waste funds to general funds, enabling co-funding of urgent urban drainage needs. Additionally, a Community Relief Program provides up to $1 million per impacted council for clean-up and make-safe funding for council-managed assets not covered by other packages.",
+  "section_title": "Description",
+  "character_count": 637,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_24",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 24,
+    "solution_name": "DRFA Category B TC Alfred funding for urban drainage works",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/publications-and-reports/northern-rivers-community-leaders-forum-17-march-2025/meeting-summary",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.391452+00:00"
+  },
+  "s3_key": "data-lake/sol_0551e5e7262be1441/sol_0551e5e7262be1441_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0551e5e7262be1441/sol_0551e5e7262be1441_chunk_0004.json"
+}

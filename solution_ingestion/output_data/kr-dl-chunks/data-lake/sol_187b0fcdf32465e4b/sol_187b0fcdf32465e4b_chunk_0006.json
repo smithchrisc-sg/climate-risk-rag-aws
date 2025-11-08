@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_187b0fcdf32465e4b_chunk_0006",
+  "doc_id": "sol_187b0fcdf32465e4b",
+  "chunk_number": 6,
+  "text": "First coral reef insurance in Fiji, with a focus on rapid payout and community support. The policyholder is an NGO, Vatuvara Foundation, which allows for quick allocation of funds to ecological and social priorities. The initiative includes early-warning support and aligns with national and regional strategies, offering potential for geographic expansion. The policy's parametric nature ensures payouts are based on cyclone parameters, bypassing traditional loss adjustment processes.",
+  "section_title": "Key Highlights",
+  "character_count": 486,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_103",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 103,
+    "solution_name": "PCRIC Coral Reef Parametric Insurance Policy for Northern Lau, Fiji",
+    "country": "Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://pcric.org/2025/03/10/pcric-provides-payout-on-ground-breaking-coral-reef-tc-rae/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.491144+00:00"
+  },
+  "s3_key": "data-lake/sol_187b0fcdf32465e4b/sol_187b0fcdf32465e4b_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_187b0fcdf32465e4b/sol_187b0fcdf32465e4b_chunk_0006.json"
+}

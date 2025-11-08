@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f608ff18889439e72_chunk_0002",
+  "doc_id": "sol_f608ff18889439e72",
+  "chunk_number": 2,
+  "text": "This solution, Project LAWA at BINHI (Local Adaptation to Water Access and Breaking Insufficiency through Nutritious Harvest for the Impoverished) addresses natural catastrophe in Philippines between Department of Social Welfare and Development (DSWD), Department of Agriculture (DA), Bureau of Fisheries and Aquatic Resources (BFAR), Municipal Social Welfare and Development Offices (MSWDOs), Municipal Agriculture Offices (MAGROs), Municipal Disaster Risk Reduction and Management Offices (MDRRMOs), and Municipal Information Offices (MIOs). The program was implemented in 2025 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 631,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_289",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 289,
+    "solution_name": "Project LAWA at BINHI (Local Adaptation to Water Access and Breaking Insufficiency through Nutritious Harvest for the Impoverished)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://drm.dswd.gov.ph/risk-resiliency-program-through-cash-for-work-or-training-activities/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.739137+00:00"
+  },
+  "s3_key": "data-lake/sol_f608ff18889439e72/sol_f608ff18889439e72_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f608ff18889439e72/sol_f608ff18889439e72_chunk_0002.json"
+}

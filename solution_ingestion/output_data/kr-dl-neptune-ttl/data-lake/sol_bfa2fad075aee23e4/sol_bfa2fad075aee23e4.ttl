@@ -1,0 +1,80 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+
+sg:Document_sol_bfa2fad075aee23e4 a sgd:Solution ;
+    dcterms:identifier "sol_bfa2fad075aee23e4" ;
+    dcterms:title "National Disaster Risk Management Fund (NDRMF)" ;
+    dcterms:created "2025-09-25" ;
+    dcterms:spatial "Pakistan" ;
+    dcterms:source <https://www.adb.org/sites/default/files/project-documents/48259/48259-001-dpta-en.pdf> ;
+    dcterms:publisher sg:Org_ministry_of_climate_change, sg:Org_ministry_of_planning, sg:Org_development_special_initiatives, sg:Org_economic_affairs_division, sg:Org_ministry_of_finance, sg:Org_pakistan_meteorological_department, sg:Org_pakistan_council_of_research_in_water_resources_pcrwr, sg:Org_suparco, sg:Org_asian_development_bank_adb, sg:Org_the_world_bank, sg:Org_undp_pakistan, sg:Org_giz, sg:Org_british_high_commission_in_pakistan, sg:Org_international_water_management_institute_iwmi, sg:Org_sustainable_development_policy_institute_sdpi, sg:Org_wwf-pakistan, sg:Org_pakistan_red_crescent_society_prcs ;
+    sgd:firstChild sg:Chunk_sol_bfa2fad075aee23e4_0001 ;
+    sgd:hasChild sg:Chunk_sol_bfa2fad075aee23e4_0001, sg:Chunk_sol_bfa2fad075aee23e4_0003, sg:Chunk_sol_bfa2fad075aee23e4_0005, sg:Chunk_sol_bfa2fad075aee23e4_0007 ;
+    sgd:lastChild sg:Chunk_sol_bfa2fad075aee23e4_0007 ;
+    sgm:processingTimestamp "2025-11-06T21:15:06.580939+00:00"^^xsd:dateTime .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0001 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_bfa2fad075aee23e4 ;
+    dcterms:title "Introduction" ;
+    sgd:firstChild sg:Chunk_sol_bfa2fad075aee23e4_0002 ;
+    sgd:hasChild sg:Chunk_sol_bfa2fad075aee23e4_0002 ;
+    sgd:lastChild sg:Chunk_sol_bfa2fad075aee23e4_0002 ;
+    sgd:nextSibling sg:Chunk_sol_bfa2fad075aee23e4_0003 .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0002 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_bfa2fad075aee23e4_0001 ;
+    sgm:chunkId "sol_bfa2fad075aee23e4_chunk_0002" ;
+    sgm:s3Key "data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0002.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0002.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0003 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_bfa2fad075aee23e4 ;
+    dcterms:title "Description" ;
+    sgd:firstChild sg:Chunk_sol_bfa2fad075aee23e4_0004 ;
+    sgd:hasChild sg:Chunk_sol_bfa2fad075aee23e4_0004 ;
+    sgd:lastChild sg:Chunk_sol_bfa2fad075aee23e4_0004 ;
+    sgd:nextSibling sg:Chunk_sol_bfa2fad075aee23e4_0005 .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0004 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_bfa2fad075aee23e4_0003 ;
+    sgm:chunkId "sol_bfa2fad075aee23e4_chunk_0004" ;
+    sgm:s3Key "data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0004.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0004.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0005 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_bfa2fad075aee23e4 ;
+    dcterms:title "Key Highlights" ;
+    sgd:firstChild sg:Chunk_sol_bfa2fad075aee23e4_0006 ;
+    sgd:hasChild sg:Chunk_sol_bfa2fad075aee23e4_0006 ;
+    sgd:lastChild sg:Chunk_sol_bfa2fad075aee23e4_0006 ;
+    sgd:nextSibling sg:Chunk_sol_bfa2fad075aee23e4_0007 .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0006 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_bfa2fad075aee23e4_0005 ;
+    sgm:chunkId "sol_bfa2fad075aee23e4_chunk_0006" ;
+    sgm:s3Key "data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0006.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0006.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0007 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_bfa2fad075aee23e4 ;
+    dcterms:title "Results" ;
+    sgd:firstChild sg:Chunk_sol_bfa2fad075aee23e4_0008 ;
+    sgd:hasChild sg:Chunk_sol_bfa2fad075aee23e4_0008 ;
+    sgd:lastChild sg:Chunk_sol_bfa2fad075aee23e4_0008 .
+
+sg:Chunk_sol_bfa2fad075aee23e4_0008 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_bfa2fad075aee23e4_0007 ;
+    sgm:chunkId "sol_bfa2fad075aee23e4_chunk_0008" ;
+    sgm:s3Key "data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0008.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0008.json"^^xsd:anyURI
+ .
+

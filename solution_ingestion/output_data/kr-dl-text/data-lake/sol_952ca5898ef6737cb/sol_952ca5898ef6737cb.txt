@@ -1,0 +1,30 @@
+GeoRisk Philippines Initiative (GeoRiskPH)
+
+Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST–PHIVOLCS), 
+DOST–PAGASA, 
+Department of Environment and Natural Resources–Mines and Geosciences Bureau (DENR–MGB), 
+Office of Civil Defense (OCD)/National Disaster Risk Reduction and Management Council (NDRRMC), 
+Department of the Interior and Local Government (DILG)
+
+and 
+
+World Bank, 
+Expertise France
+
+Introduction
+
+This solution, GeoRisk Philippines Initiative (GeoRiskPH) addresses natural catastrophe in Philippines between Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST–PHIVOLCS), DOST–PAGASA, Department of Environment and Natural Resources–Mines and Geosciences Bureau (DENR–MGB), Office of Civil Defense (OCD)/National Disaster Risk Reduction and Management Council (NDRRMC), Department of the Interior and Local Government (DILG), World Bank, and Expertise France. The program was implemented in 2023 and focuses on collaboration, leveraging tech, and raising awareness.
+
+Description
+
+GeoRiskPH is a central, science-based, multi-hazard geospatial data and analytics platform developed by the Government of the Philippines. It is designed to integrate disaster risk information into planning, investment, and recovery decisions across national and local government levels. Led by DOST–PHIVOLCS, the platform combines hazard data from key technical agencies with exposure and asset data to support risk assessments. It includes tools like HazardHunterPH, GeoAnalyticsPH, and GeoMapperPH, and is integrated with the government's PlanSmart tool for rehabilitation planning.
+
+Key Highlights
+
+GeoRiskPH serves as the government's central source of hazard and risk data, offering open access to multi-hazard screening and advanced analytics through its integrated tools. It supports local government units in contributing data via GeoMapperPH and is embedded in official planning workflows. The initiative has moved from piloting to institutional adoption, with structured training programs and regional adoption agreements.
+
+Results
+
+450 technical staff from 150 provinces and cities trained on GeoRiskPH-informed LDRRMPs; PlanSmart trainings for provinces and cities; broader 'Ready to Rebuild' program trained 1,805 officials/staff from 325 LGUs.
+
+Contact Information

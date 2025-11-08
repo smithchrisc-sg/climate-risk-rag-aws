@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_4c06f074c896704d4_chunk_0008",
+  "doc_id": "sol_4c06f074c896704d4",
+  "chunk_number": 8,
+  "text": "In 2025, SEADRIF achieved a US$2 million payout to Lao PDR within 6 days based on official impact data. Over 30 ASEAN+3 senior policymakers participated in leadership training, and ongoing policy development for the 2026–2028 DRFI Roadmap was initiated.",
+  "section_title": "Results",
+  "character_count": 253,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_318",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 318,
+    "solution_name": "ASEAN+3 Climate Disaster Risk Financing Collaboration (SEADRIF)",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://seadrif.org/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.769806+00:00"
+  },
+  "s3_key": "data-lake/sol_4c06f074c896704d4/sol_4c06f074c896704d4_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_4c06f074c896704d4/sol_4c06f074c896704d4_chunk_0008.json"
+}

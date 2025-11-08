@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6bac59842967ee79e_chunk_0008",
+  "doc_id": "sol_6bac59842967ee79e",
+  "chunk_number": 8,
+  "text": "Funding was fully allocated to approximately 15,000 public projects, with RMB 500 billion deployed in Q4 2023 and another RMB 500 billion in early 2024. The initiative increased the 2023 national fiscal deficit ratio to about 3.8%. In the Beijing–Tianjin–Hebei region alone, 142 counties and 5.53 million people were affected by 2023 flooding, with direct economic losses of about RMB 166 billion.",
+  "section_title": "Results",
+  "character_count": 397,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_78",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 78,
+    "solution_name": "Additional 1 Trillion Yuan Central Government Bonds for Disaster Relief and Flood Prevention (2023–2024)",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://english.www.gov.cn/news/202310/25/content_WS6538ff21c6d0868f4e8e0a57.html",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.459865+00:00"
+  },
+  "s3_key": "data-lake/sol_6bac59842967ee79e/sol_6bac59842967ee79e_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6bac59842967ee79e/sol_6bac59842967ee79e_chunk_0008.json"
+}

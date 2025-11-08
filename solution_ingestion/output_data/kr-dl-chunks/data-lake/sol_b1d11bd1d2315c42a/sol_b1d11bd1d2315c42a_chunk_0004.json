@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b1d11bd1d2315c42a_chunk_0004",
+  "doc_id": "sol_b1d11bd1d2315c42a",
+  "chunk_number": 4,
+  "text": "The All-of-Government (AoG) Risk Financing and Insurance initiative, led by the Ministry of Business, Innovation and Employment (MBIE), is designed to manage insurable risks for New Zealand's central government agencies. It establishes a panel of insurance intermediaries to advise and place risks, using a data-driven approach to cluster agencies by risk profile for collaborative risk financing. The program aims to enhance risk management maturity and explore alternative risk financing options over time.",
+  "section_title": "Description",
+  "character_count": 508,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_173",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 173,
+    "solution_name": "All-of-Government (AoG) Risk Financing and Insurance",
+    "country": "New Zealand",
+    "type_of_risk": "Cannot be determined",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2015",
+    "ppp": "Yes",
+    "source_url": "https://www.gets.govt.nz/MBIE/ExternalTenderDetails.htm?id=5298196",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.557604+00:00"
+  },
+  "s3_key": "data-lake/sol_b1d11bd1d2315c42a/sol_b1d11bd1d2315c42a_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b1d11bd1d2315c42a/sol_b1d11bd1d2315c42a_chunk_0004.json"
+}

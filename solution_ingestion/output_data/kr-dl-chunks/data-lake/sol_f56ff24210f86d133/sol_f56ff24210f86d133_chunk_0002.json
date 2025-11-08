@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f56ff24210f86d133_chunk_0002",
+  "doc_id": "sol_f56ff24210f86d133",
+  "chunk_number": 2,
+  "text": "This solution, Full-cost insurance and planting income insurance for rice, wheat, and corn addresses natural catastrophe through public private partnerships in People’s Republic of China between Ministry of Finance (MoF), Ministry of Agriculture and Rural Affairs (MARA), State Administration of Financial Supervision (SAFS), Provincial and local governments, and Licensed insurance companies. The program was implemented in 2024 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 474,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_87",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 87,
+    "solution_name": "Full-cost insurance and planting income insurance for rice, wheat, and corn",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.insurancejournal.com/news/international/2024/05/22/775263.htm",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.470233+00:00"
+  },
+  "s3_key": "data-lake/sol_f56ff24210f86d133/sol_f56ff24210f86d133_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f56ff24210f86d133/sol_f56ff24210f86d133_chunk_0002.json"
+}

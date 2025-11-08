@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6fd73a4db50b0bede_chunk_0004",
+  "doc_id": "sol_6fd73a4db50b0bede",
+  "chunk_number": 4,
+  "text": "Fiji's VAT exemption on premiums for climate and disaster risk parametric insurance is a fiscal policy aimed at making climate risk transfer more affordable for low-income and vulnerable households. This initiative is part of a broader effort to develop Climate and Disaster Risk Financing Instruments (CDRFI) and scale parametric microinsurance under the Pacific Insurance and Climate Adaptation Programme (PICAP). The policy includes subsidized coverage for social welfare recipients and is co-financed by the India-UN Development Partnership Fund. It aims to reduce price barriers and encourage insurers to innovate and expand inclusive parametric products in Fiji's high-risk market.",
+  "section_title": "Description",
+  "character_count": 687,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_102",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 102,
+    "solution_name": "Fiji Government VAT Exemption for Premiums on Climate and Disaster Risk Parametric Insurance Products",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nIncrease Penetration",
+    "theme": "Accessibility, \nCollaboration, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.uncdf.org/article/6994/fijian-government-announces-landmark-vat-exemption-on-climate-and-disaster-risk-parametric-insurance-products",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.488055+00:00"
+  },
+  "s3_key": "data-lake/sol_6fd73a4db50b0bede/sol_6fd73a4db50b0bede_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6fd73a4db50b0bede/sol_6fd73a4db50b0bede_chunk_0004.json"
+}

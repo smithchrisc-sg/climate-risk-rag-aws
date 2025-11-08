@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_29af0b412c5e36e4a_chunk_0008",
+  "doc_id": "sol_29af0b412c5e36e4a",
+  "chunk_number": 8,
+  "text": "The initiative has completed major recovery works by December 2023, with ongoing resilience planning ('work #2') underway. The project has seen an investment of approximately $8.5 million, with over 60% co-funding from the central government.",
+  "section_title": "Results",
+  "character_count": 242,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_156",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 156,
+    "solution_name": "Rangitata River 2019 Flood Recovery",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.ecan.govt.nz/get-involved/news-and-events/2024/south-canterbury-river-works-strengthen-community-resilience/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.538184+00:00"
+  },
+  "s3_key": "data-lake/sol_29af0b412c5e36e4a/sol_29af0b412c5e36e4a_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_29af0b412c5e36e4a/sol_29af0b412c5e36e4a_chunk_0008.json"
+}

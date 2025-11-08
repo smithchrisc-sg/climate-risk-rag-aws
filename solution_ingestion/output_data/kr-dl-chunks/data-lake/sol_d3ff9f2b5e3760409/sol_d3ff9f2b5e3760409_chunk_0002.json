@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d3ff9f2b5e3760409_chunk_0002",
+  "doc_id": "sol_d3ff9f2b5e3760409",
+  "chunk_number": 2,
+  "text": "This solution, Prepare for Wildfire Online Planning Tool addresses natural catastrophe in New Zealand between Fire and Emergency New Zealand, Department of Conservation, and National Emergency Management Agency. The program was implemented in Cannot be determined and focuses on accessibility and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 315,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_172",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 172,
+    "solution_name": "Prepare for Wildfire Online Planning Tool",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nIncrease Penetration",
+    "theme": "Accessibility, \nRaising Awareness",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://www.esri.com/en-us/industries/wildland-fire/overview",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.556047+00:00"
+  },
+  "s3_key": "data-lake/sol_d3ff9f2b5e3760409/sol_d3ff9f2b5e3760409_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d3ff9f2b5e3760409/sol_d3ff9f2b5e3760409_chunk_0002.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b1b68f933dc167f92_chunk_0008",
+  "doc_id": "sol_b1b68f933dc167f92",
+  "chunk_number": 8,
+  "text": "Specific results for Vanimo are not publicly available. However, regional data indicates a high probability of significant tsunami events, with an annual probability of a coastal tsunami height >0.5 m being greater than 10% for north Papua, highlighting the critical need for this assessment.",
+  "section_title": "Results",
+  "character_count": 292,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_223",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 223,
+    "solution_name": "Probabilistic Tsunami Hazard Assessment for Vanimo Port Design (PTHA–Vanimo)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2024-2026",
+    "ppp": "Cannot be determined",
+    "source_url": "https://www.ga.gov.au/scientific-topics/community-safety/projects/ptha",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.657443+00:00"
+  },
+  "s3_key": "data-lake/sol_b1b68f933dc167f92/sol_b1b68f933dc167f92_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b1b68f933dc167f92/sol_b1b68f933dc167f92_chunk_0008.json"
+}

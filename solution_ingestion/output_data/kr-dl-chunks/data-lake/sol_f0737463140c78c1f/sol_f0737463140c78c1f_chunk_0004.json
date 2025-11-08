@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f0737463140c78c1f_chunk_0004",
+  "doc_id": "sol_f0737463140c78c1f",
+  "chunk_number": 4,
+  "text": "The National Indemnity Insurance Program (NIIP) is a government-led initiative in the Philippines designed to provide comprehensive insurance coverage for strategically important public assets against disasters and climate-related shocks. The program aims to enhance the country's financial resilience by leveraging a centralized National Asset Registry System (NARS) and integrating it with GeoRiskPH for risk analytics. It involves collaboration with international partners for technical expertise and reinsurance optimization, with plans to expand coverage to critical infrastructure like hospitals.",
+  "section_title": "Description",
+  "character_count": 602,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_269",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 269,
+    "solution_name": "National Indemnity Insurance Program (NIIP)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://seadrif.org/news/seadrif-collaborates-with-the-government-of-the-philippines-to-strengthen-the-nations-disaster-risk-finance-and-insurance-strategy/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.718409+00:00"
+  },
+  "s3_key": "data-lake/sol_f0737463140c78c1f/sol_f0737463140c78c1f_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f0737463140c78c1f/sol_f0737463140c78c1f_chunk_0004.json"
+}

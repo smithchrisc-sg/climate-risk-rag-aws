@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_611828757b710951a_chunk_0002",
+  "doc_id": "sol_611828757b710951a",
+  "chunk_number": 2,
+  "text": "This solution, Earthquake-Related Government Risk Financing Initiatives in Myanmar (2020–2025) addresses natural catastrophe through public private partnerships in Myanmar between National Disaster Management Committee (NDMC), Ministry of Planning, Finance and Industry (MOPFI), Ministry of Planning and Finance (MoPF), Relief and Resettlement Department (RRD), Department of Meteorology and Hydrology (DMH), World Bank, Global Facility for Disaster Reduction and Recovery (GFDRR), Southeast Asia Disaster Risk Insurance Facility (SEADRIF), ASEAN Disaster Risk Financing and Insurance Programme (ADRFI), AHA Centre, United Nations Office for Disaster Risk Reduction (UNDRR), and Regional reinsurers and potential SEADRIF Insurance Company counterparties. The program was implemented in 2020 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 835,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_126",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 126,
+    "solution_name": "Earthquake-Related Government Risk Financing Initiatives in Myanmar (2020–2025)",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://projects.worldbank.org/en/projects-operations/project-detail/P160931",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.506482+00:00"
+  },
+  "s3_key": "data-lake/sol_611828757b710951a/sol_611828757b710951a_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_611828757b710951a/sol_611828757b710951a_chunk_0002.json"
+}

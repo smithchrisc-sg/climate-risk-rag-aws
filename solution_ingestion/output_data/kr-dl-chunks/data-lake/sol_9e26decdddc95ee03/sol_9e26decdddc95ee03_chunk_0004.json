@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9e26decdddc95ee03_chunk_0004",
+  "doc_id": "sol_9e26decdddc95ee03",
+  "chunk_number": 4,
+  "text": "The Sandiganbayan Building II project is a judiciary infrastructure modernization initiative in the Philippines, aimed at enhancing court capacity, efficiency, and public access to justice. Located in Quezon City, this 13-storey, green, ICT-enabled facility will consolidate all seven divisions of the Sandiganbayan anti-graft court, providing sufficient workspace for approximately 600 personnel. It is designed to serve as a model for future court buildings, promoting sustainability and digital readiness.",
+  "section_title": "Description",
+  "character_count": 508,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_252",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 252,
+    "solution_name": "Sandiganbayan Building II",
+    "country": "Philippines",
+    "type_of_risk": "Cannot be determined",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.abs-cbn.com/news/2024/10/21/chief-justice-sandiganbayan-building-ii-to-serve-as-model-for-court-buildings-1741",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.697944+00:00"
+  },
+  "s3_key": "data-lake/sol_9e26decdddc95ee03/sol_9e26decdddc95ee03_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9e26decdddc95ee03/sol_9e26decdddc95ee03_chunk_0004.json"
+}

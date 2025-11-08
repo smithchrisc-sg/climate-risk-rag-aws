@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_81e46c9d223df7838_chunk_0008",
+  "doc_id": "sol_81e46c9d223df7838",
+  "chunk_number": 8,
+  "text": "Emphasis on multi-hazard early warning systems and risk information access,",
+  "section_title": "Key Highlights",
+  "character_count": 75,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_240",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 240,
+    "solution_name": "National Disaster Risk Reduction Framework (NDRRF) 2017–2030",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2017",
+    "ppp": "No",
+    "source_url": "https://climate-laws.org/document/national-disaster-risk-reduction-framework-2017-2030_1c09",
+    "section_title": "Key Highlights",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.685939+00:00"
+  },
+  "s3_key": "data-lake/sol_81e46c9d223df7838/sol_81e46c9d223df7838_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_81e46c9d223df7838/sol_81e46c9d223df7838_chunk_0008.json"
+}

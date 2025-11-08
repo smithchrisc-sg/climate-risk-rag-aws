@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b7eadb47136a8e738_chunk_0010",
+  "doc_id": "sol_b7eadb47136a8e738",
+  "chunk_number": 10,
+  "text": "Designed for crisis-relevant hazards like earthquakes, volcanoes, landslides, cyclones, and floods.,",
+  "section_title": "Key Highlights",
+  "character_count": 100,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_216",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 216,
+    "solution_name": "PNG Geohazards Website",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2009",
+    "ppp": "No",
+    "source_url": "https://openknowledge.worldbank.org/bitstreams/d6dbecc2-90be-5d5c-99fe-60f7c754478c/download",
+    "section_title": "Key Highlights",
+    "chunk_number": 10,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.613516+00:00"
+  },
+  "s3_key": "data-lake/sol_b7eadb47136a8e738/sol_b7eadb47136a8e738_chunk_0010.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b7eadb47136a8e738/sol_b7eadb47136a8e738_chunk_0010.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_03667600d39d30540_chunk_0004",
+  "doc_id": "sol_03667600d39d30540",
+  "chunk_number": 4,
+  "text": "The Sponge City Program (SCP) is a national initiative in China aimed at managing urban stormwater through low-impact, nature-based solutions. It involves the use of blue-green infrastructure, such as permeable pavements and rain gardens, to infiltrate, store, detain, convey, and treat runoff. The program addresses urban flooding, water pollution, water scarcity, and coastal storm surge exposure, with measures tailored to local conditions.",
+  "section_title": "Description",
+  "character_count": 443,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_81",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 81,
+    "solution_name": "Sponge City Program (SCP)",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Yes",
+    "source_url": "https://www.frontiersin.org/journals/water/articles/10.3389/frwa.2021.676965/full",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.463132+00:00"
+  },
+  "s3_key": "data-lake/sol_03667600d39d30540/sol_03667600d39d30540_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_03667600d39d30540/sol_03667600d39d30540_chunk_0004.json"
+}

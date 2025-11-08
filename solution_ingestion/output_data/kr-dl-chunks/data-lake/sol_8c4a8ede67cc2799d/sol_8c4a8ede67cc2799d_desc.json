@@ -1,0 +1,23 @@
+{
+  "chunk_id": "sol_8c4a8ede67cc2799d_desc",
+  "doc_id": "sol_8c4a8ede67cc2799d",
+  "text": "The National Health Insurance program in Indonesia, known as Jaminan Kesehatan Nasional (JKN), is an universal health coverage (UHC) initiative aimed at providing all Indonesian residents with access to medical services. This program, a vital component of the country's healthcare system, offers a range of services including basic healthcare, advanced medical treatments, and hospitalization. Funded through a combination of wage and employer contributions, JKN is designed to be both inclusive and extensive, covering not only the employee but also their spouse and up to three children, including step-children.",
+  "chunk_type": "desc",
+  "character_count": 614,
+  "metadata": {
+    "solution_id": "health_original_1",
+    "source_file": "health_original",
+    "row_number": 1,
+    "solution_name": "JKN National Health Insurance Program",
+    "country": "Indonesia",
+    "type_of_risk": "Health",
+    "type_of_solution": "Increase Penetration",
+    "theme": "Accessibility\n\nCollaboration",
+    "year_of_implementation": "2014",
+    "ppp": "No",
+    "source_url": "https://www.bpjsketenagakerjaan.go.id/en/berita.html",
+    "section_name": "Description",
+    "chunk_type": "desc",
+    "content_type": "solution_chunk"
+  }
+}

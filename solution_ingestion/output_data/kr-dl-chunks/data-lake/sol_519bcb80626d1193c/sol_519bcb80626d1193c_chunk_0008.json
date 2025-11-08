@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_519bcb80626d1193c_chunk_0008",
+  "doc_id": "sol_519bcb80626d1193c",
+  "chunk_number": 8,
+  "text": "In July 2025, K-water managed to mitigate downstream flooding despite rainfall exceeding dam design capacities. The initiative secured 5.1 billion cubic meters of flood control capacity across 20 dams, with minimal spillway activation. At Namgang Dam, operators released only 22 percent of peak inflows, maintaining discharge below design limits.",
+  "section_title": "Results",
+  "character_count": 346,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_312",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 312,
+    "solution_name": "Controlled reoperation of multipurpose dams for flood control",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Leveraging Tech, \nCollaboration",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.koreaherald.com/article/10538114",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.766017+00:00"
+  },
+  "s3_key": "data-lake/sol_519bcb80626d1193c/sol_519bcb80626d1193c_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_519bcb80626d1193c/sol_519bcb80626d1193c_chunk_0008.json"
+}

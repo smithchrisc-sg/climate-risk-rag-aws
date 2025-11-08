@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_60ae0abf595b41836_chunk_0004",
+  "doc_id": "sol_60ae0abf595b41836",
+  "chunk_number": 4,
+  "text": "The Coastal Barriers Feasibility Study (CBFS) in Singapore is a strategic initiative aimed at addressing long-term sea-level rise and episodic storm surges through the deployment of moveable storm-surge barriers. These barriers are designed to remain open under normal conditions to allow navigation and tidal exchange, and close during extreme events to prevent flooding. The study focuses on the City–East Coast and Greater Southern Waterfront regions, with plans to construct three Dutch-style moveable barriers on the southern coast beginning in the 2030s. The initiative is part of a broader islandwide coastal protection program that divides the national shoreline into eight segments for site-specific planning and delivery.",
+  "section_title": "Description",
+  "character_count": 731,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_296",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 296,
+    "solution_name": "Coastal Barriers Feasibility Study (CBFS)",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.straitstimes.com/singapore/environment/coastal-barriers-to-debut-in-spore-how-do-they-shield-shores-from-extreme-sea-levels",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.747157+00:00"
+  },
+  "s3_key": "data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0004.json"
+}

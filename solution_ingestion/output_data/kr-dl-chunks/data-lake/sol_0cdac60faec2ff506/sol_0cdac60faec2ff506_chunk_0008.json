@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0cdac60faec2ff506_chunk_0008",
+  "doc_id": "sol_0cdac60faec2ff506",
+  "chunk_number": 8,
+  "text": "The operation was approved in mid-2024, and measurable outcomes are at an early stage. Quantifiable inputs include US$125 million total financing, with expected outcomes such as increased government revenue, streamlined business operations, and improved disaster preparedness. The Cat-DDO provides immediate fiscal liquidity post-disaster.",
+  "section_title": "Results",
+  "character_count": 339,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_105",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 105,
+    "solution_name": "Fiji Growth and Resilience First Development Policy Financing with a Catastrophe Deferred Drawdown Option (Cat-DDO)",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/990331616983223764/pdf/Fiji-Recovery-and-Resilience-First-Development-Policy-Operation-with-a-Catastrophe-Deferred-Drawdown-Option.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.493907+00:00"
+  },
+  "s3_key": "data-lake/sol_0cdac60faec2ff506/sol_0cdac60faec2ff506_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0cdac60faec2ff506/sol_0cdac60faec2ff506_chunk_0008.json"
+}

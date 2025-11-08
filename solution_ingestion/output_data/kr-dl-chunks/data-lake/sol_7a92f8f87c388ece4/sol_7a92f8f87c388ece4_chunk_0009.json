@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7a92f8f87c388ece4_chunk_0009",
+  "doc_id": "sol_7a92f8f87c388ece4",
+  "chunk_number": 9,
+  "text": "Lifecycle emphasis: Amendments to the Sewerage and Drainage Act ensure privately installed measures remain functional over time.",
+  "section_title": "Key Highlights",
+  "character_count": 128,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_302",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 302,
+    "solution_name": "PUB’s Island-wide Drainage Improvement Programme",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2011",
+    "ppp": "Yes",
+    "source_url": "https://www.pub.gov.sg/Public/KeyInitiatives/Flood-Resilience/Stormwater-Management",
+    "section_title": "Key Highlights",
+    "chunk_number": 9,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.754522+00:00"
+  },
+  "s3_key": "data-lake/sol_7a92f8f87c388ece4/sol_7a92f8f87c388ece4_chunk_0009.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7a92f8f87c388ece4/sol_7a92f8f87c388ece4_chunk_0009.json"
+}

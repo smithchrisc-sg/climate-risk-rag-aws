@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8ec480fd1e50bdddf_chunk_0006",
+  "doc_id": "sol_8ec480fd1e50bdddf",
+  "chunk_number": 6,
+  "text": "The EDRI initiative is notable for its collaborative approach, involving multiple stakeholders from government, international organizations, and technical agencies. It leverages expertise from Indian Institutes of Technology for methods guidance and training, and incorporates seismic design codes from the Bureau of Indian Standards. The initiative also utilizes seismic hazard inputs from the India Meteorological Department and allied geoscience agencies, ensuring a comprehensive and scientifically grounded approach to earthquake risk reduction.",
+  "section_title": "Key Highlights",
+  "character_count": 550,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_108",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 108,
+    "solution_name": "Earthquake Disaster Risk Indexing (EDRI)",
+    "country": "India",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Yes",
+    "source_url": "https://www.undp.org/india/publications/reducing-urban-earthquake-risk-india",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.496230+00:00"
+  },
+  "s3_key": "data-lake/sol_8ec480fd1e50bdddf/sol_8ec480fd1e50bdddf_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8ec480fd1e50bdddf/sol_8ec480fd1e50bdddf_chunk_0006.json"
+}

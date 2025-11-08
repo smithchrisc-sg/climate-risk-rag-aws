@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f2de8c1e05007c86e_chunk_0006",
+  "doc_id": "sol_f2de8c1e05007c86e",
+  "chunk_number": 6,
+  "text": "The initiative was characterized by its evidence-led triage approach, using empirical hazard and damage data to prioritize repair actions. It employed machine learning models, particularly Random Forests, to predict building damage, although care was needed to avoid overfitting. The multi-agency operating model involved local councils, regional councils, research institutions, and emergency/transport agencies working together. The initiative also highlighted governance insights related to flood-risk mitigation and proactive waterbody management.",
+  "section_title": "Key Highlights",
+  "character_count": 551,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_157",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 157,
+    "solution_name": "May/June 2021 Flood Repairs",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://geoscienceletters.springeropen.com/articles/10.1186/s40562-024-00323-z",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.539211+00:00"
+  },
+  "s3_key": "data-lake/sol_f2de8c1e05007c86e/sol_f2de8c1e05007c86e_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f2de8c1e05007c86e/sol_f2de8c1e05007c86e_chunk_0006.json"
+}

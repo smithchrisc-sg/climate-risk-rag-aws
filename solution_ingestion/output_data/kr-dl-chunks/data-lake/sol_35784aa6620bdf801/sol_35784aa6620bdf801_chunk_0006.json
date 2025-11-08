@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_35784aa6620bdf801_chunk_0006",
+  "doc_id": "sol_35784aa6620bdf801",
+  "chunk_number": 6,
+  "text": "The RIF features a ring-fenced $200 million allocation specifically for flood resilience, emphasizing targeted risk reduction. It combines capital expenditure for long-term infrastructure investments with operational expenditure for grants and fund operations. The initiative promotes a 60/40 cost-sharing model between central government and local councils, ensuring local accountability and alignment with regional plans. Monthly public reporting ensures transparency and accountability, while the program's economic rationale is supported by evidence that each $1 invested in flood resilience saves approximately $8 in post-event costs.",
+  "section_title": "Key Highlights",
+  "character_count": 639,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_163",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 163,
+    "solution_name": "Regional Infrastructure Fund (RIF) – Flood Resilience Co‑Funding (Budget 2024)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.treasury.govt.nz/sites/default/files/2025-07/b24-maj-spend-rep-30-jun-2025-regional-infra-fund.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.545362+00:00"
+  },
+  "s3_key": "data-lake/sol_35784aa6620bdf801/sol_35784aa6620bdf801_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_35784aa6620bdf801/sol_35784aa6620bdf801_chunk_0006.json"
+}

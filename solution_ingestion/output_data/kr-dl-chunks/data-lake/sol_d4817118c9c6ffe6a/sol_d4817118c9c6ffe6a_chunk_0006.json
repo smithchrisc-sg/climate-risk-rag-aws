@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d4817118c9c6ffe6a_chunk_0006",
+  "doc_id": "sol_d4817118c9c6ffe6a",
+  "chunk_number": 6,
+  "text": "The initiative integrates the China Earthquake Early Warning Network with high-speed rail systems, conducts nationwide remote sensing evaluations, and emphasizes digitalization and procurement standards. It also involves international cooperation through Belt and Road EEW/tsunami systems and technical training, alongside the development of standardized public service 'white papers'.",
+  "section_title": "Key Highlights",
+  "character_count": 385,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_71",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 71,
+    "solution_name": "Modernization and Densification of National Seismic Monitoring Infrastructure",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://data.earthquake.cn/tzgg/info/2024/334671669.html",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.452200+00:00"
+  },
+  "s3_key": "data-lake/sol_d4817118c9c6ffe6a/sol_d4817118c9c6ffe6a_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d4817118c9c6ffe6a/sol_d4817118c9c6ffe6a_chunk_0006.json"
+}

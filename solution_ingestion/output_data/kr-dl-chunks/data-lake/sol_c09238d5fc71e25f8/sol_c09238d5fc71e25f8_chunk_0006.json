@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c09238d5fc71e25f8_chunk_0006",
+  "doc_id": "sol_c09238d5fc71e25f8",
+  "chunk_number": 6,
+  "text": "Start Ready employs an insurance-inspired disaster risk financing architecture that pre-arranges funds for rapid release based on risk analysis and pre-agreed parameters. It integrates with Start Fund Anticipation and Rapid Response windows and the national Start Fund Bangladesh platform. The initiative is characterized by its use of risk pooling, probabilistic risk modeling, and forecast-based triggers to support anticipatory action and immediate response. It also emphasizes locally led action and alignment with SDGs related to Zero Hunger, Climate Action, and Industry, Innovation and Infrastructure.",
+  "section_title": "Key Highlights",
+  "character_count": 608,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_44",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 44,
+    "solution_name": "Start Ready (Start Network’s disaster risk financing mechanism)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.swissrefoundation.org/what-we-do/projects/Climate-solutions/Start-Network--Prepared-to-protect-with-fast-financing.html",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.416732+00:00"
+  },
+  "s3_key": "data-lake/sol_c09238d5fc71e25f8/sol_c09238d5fc71e25f8_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c09238d5fc71e25f8/sol_c09238d5fc71e25f8_chunk_0006.json"
+}

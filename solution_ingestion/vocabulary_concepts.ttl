@@ -1,0 +1,218 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+
+# Concept Schemes
+
+sg:RiskTypeScheme a skos:ConceptScheme ;
+    rdfs:label "Risk Type Concept Scheme" ;
+    skos:prefLabel "Risk Types" .
+
+sg:SolutionTypeScheme a skos:ConceptScheme ;
+    rdfs:label "Solution Type Concept Scheme" ;
+    skos:prefLabel "Solution Types" .
+
+sg:ThemeScheme a skos:ConceptScheme ;
+    rdfs:label "Theme Concept Scheme" ;
+    skos:prefLabel "Themes" .
+
+# Risk Type Concepts
+
+sg:RiskType_natural_catastrophe a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Natural Catastrophe" ;
+    rdfs:label "Natural Catastrophe" .
+
+sg:RiskType_health a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Health" ;
+    rdfs:label "Health" .
+
+sg:RiskType_retirement a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Retirement" ;
+    rdfs:label "Retirement" .
+
+sg:RiskType_mortality a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Mortality" ;
+    rdfs:label "Mortality" .
+
+sg:RiskType_unemployment a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Unemployment" ;
+    rdfs:label "Unemployment" .
+
+sg:RiskType_cyber a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Cyber" ;
+    rdfs:label "Cyber" .
+
+sg:RiskType_labor a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Labor" ;
+    rdfs:label "Labor" .
+
+sg:RiskType_social_welfare a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Social Welfare" ;
+    rdfs:label "Social Welfare" .
+
+sg:RiskType_nutrition a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Nutrition" ;
+    rdfs:label "Nutrition" .
+
+sg:RiskType_aging_population a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Aging Population" ;
+    rdfs:label "Aging Population" .
+
+sg:RiskType_health_and_wellbeing a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Health and Wellbeing" ;
+    rdfs:label "Health and Wellbeing" .
+
+sg:RiskType_operational_risk a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Operational Risk" ;
+    rdfs:label "Operational Risk" .
+
+sg:RiskType_typhoons a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Typhoons" ;
+    rdfs:label "Typhoons" .
+
+sg:RiskType_unemployment_risk a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Unemployment Risk" ;
+    rdfs:label "Unemployment Risk" .
+
+sg:RiskType_occupational_accident_risk a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Occupational Accident Risk" ;
+    rdfs:label "Occupational Accident Risk" .
+
+sg:RiskType_economic_insecurity a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Economic Insecurity" ;
+    rdfs:label "Economic Insecurity" .
+
+sg:RiskType_economic_competitiveness a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Economic Competitiveness" ;
+    rdfs:label "Economic Competitiveness" .
+
+sg:RiskType_work-related_injuries_and_illnesses a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Work-related injuries and illnesses" ;
+    rdfs:label "Work-related injuries and illnesses" .
+
+sg:RiskType_extended_sick_leave a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Extended sick leave" ;
+    rdfs:label "Extended sick leave" .
+
+sg:RiskType_hospital_stays_and_accidents a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Hospital stays and accidents" ;
+    rdfs:label "Hospital stays and accidents" .
+
+sg:RiskType_old_age a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Old Age" ;
+    rdfs:label "Old Age" .
+
+sg:RiskType_disability a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Disability" ;
+    rdfs:label "Disability" .
+
+sg:RiskType_survivors a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Survivors" ;
+    rdfs:label "Survivors" .
+
+sg:RiskType_sickness_and_maternity a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Sickness and Maternity" ;
+    rdfs:label "Sickness and Maternity" .
+
+sg:RiskType_work_injury a skos:Concept ;
+    skos:inScheme sg:RiskTypeScheme ;
+    skos:prefLabel "Work Injury" ;
+    rdfs:label "Work Injury" .
+
+# Solution Type Concepts
+
+sg:SolutionType_risk_reduction a skos:Concept ;
+    skos:inScheme sg:SolutionTypeScheme ;
+    skos:prefLabel "Risk Reduction" ;
+    rdfs:label "Risk Reduction" .
+
+sg:SolutionType_risk_financing a skos:Concept ;
+    skos:inScheme sg:SolutionTypeScheme ;
+    skos:prefLabel "Risk Financing" ;
+    rdfs:label "Risk Financing" .
+
+sg:SolutionType_increase_penetration a skos:Concept ;
+    skos:inScheme sg:SolutionTypeScheme ;
+    skos:prefLabel "Increase Penetration" ;
+    rdfs:label "Increase Penetration" .
+
+sg:SolutionType_raising_awareness a skos:Concept ;
+    skos:inScheme sg:SolutionTypeScheme ;
+    skos:prefLabel "Raising Awareness" ;
+    rdfs:label "Raising Awareness" .
+
+sg:SolutionType_leveraging_technology a skos:Concept ;
+    skos:inScheme sg:SolutionTypeScheme ;
+    skos:prefLabel "Leveraging Technology" ;
+    rdfs:label "Leveraging Technology" .
+
+sg:SolutionType_regulation a skos:Concept ;
+    skos:inScheme sg:SolutionTypeScheme ;
+    skos:prefLabel "Regulation" ;
+    rdfs:label "Regulation" .
+
+# Theme Concepts
+
+sg:Theme_collaboration a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Collaboration" ;
+    rdfs:label "Collaboration" .
+
+sg:Theme_raising_awareness a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Raising Awareness" ;
+    rdfs:label "Raising Awareness" .
+
+sg:Theme_regulation a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Regulation" ;
+    rdfs:label "Regulation" .
+
+sg:Theme_accessibility a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Accessibility" ;
+    rdfs:label "Accessibility" .
+
+sg:Theme_leveraging_technology a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Leveraging Technology" ;
+    rdfs:label "Leveraging Technology" .
+
+sg:Theme_increase_response_efficiency a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Increase Response Efficiency" ;
+    rdfs:label "Increase Response Efficiency" .
+
+sg:Theme_innovation a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Innovation" ;
+    rdfs:label "Innovation" .
+
+sg:Theme_sustainability a skos:Concept ;
+    skos:inScheme sg:ThemeScheme ;
+    skos:prefLabel "Sustainability" ;
+    rdfs:label "Sustainability" .

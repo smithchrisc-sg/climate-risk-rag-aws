@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b751600e80358bd2c_chunk_0006",
+  "doc_id": "sol_b751600e80358bd2c",
+  "chunk_number": 6,
+  "text": "The project strategically targets multiple locations across Addu City to add substantial new land, relieving housing pressure and unlocking tourism and services. It employs marine dredging techniques with environmental safeguards to minimize ecological harm. The initiative is financed through a line of credit from the Government of India, with Afcons Infrastructure Ltd. serving as the EPC contractor.",
+  "section_title": "Key Highlights",
+  "character_count": 403,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_112",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 112,
+    "solution_name": "Addu City Land Reclamation and Shore Protection Project (ASRP)",
+    "country": "Maldives",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Yes",
+    "source_url": "https://hcimaldives.gov.in",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.497610+00:00"
+  },
+  "s3_key": "data-lake/sol_b751600e80358bd2c/sol_b751600e80358bd2c_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b751600e80358bd2c/sol_b751600e80358bd2c_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_21949db34954b44fe_chunk_0002",
+  "doc_id": "sol_21949db34954b44fe",
+  "chunk_number": 2,
+  "text": "This solution, Upgrade of Seismic Monitoring: Lae Seismic Station (short-period to broadband) addresses natural catastrophe in Papua New Guinea between PNG Department of Mineral Policy and Geohazards Management (DMPGM), Port Moresby Geophysical Observatory (PMGO), Rabaul Volcano Observatory (RVO), and Geoscience Australia. The program was implemented in 2022-2023 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 415,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_242",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 242,
+    "solution_name": "Upgrade of Seismic Monitoring: Lae Seismic Station (short-period to broadband)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022-2023",
+    "ppp": "No",
+    "source_url": "https://www.ga.gov.au/scientific-topics/community-safety/projects/reducing-disaster-risk-in-papua-new-guinea",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.687135+00:00"
+  },
+  "s3_key": "data-lake/sol_21949db34954b44fe/sol_21949db34954b44fe_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_21949db34954b44fe/sol_21949db34954b44fe_chunk_0002.json"
+}

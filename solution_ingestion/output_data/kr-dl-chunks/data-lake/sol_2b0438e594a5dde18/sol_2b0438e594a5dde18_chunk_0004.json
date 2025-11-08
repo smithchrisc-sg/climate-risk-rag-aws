@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2b0438e594a5dde18_chunk_0004",
+  "doc_id": "sol_2b0438e594a5dde18",
+  "chunk_number": 4,
+  "text": "The Disaster Recovery Funding Arrangements (DRFA) is Australia's primary national funding mechanism for disaster relief and recovery, jointly financed by the Commonwealth and state/territory governments. It operates as a framework under which state and territory governments activate and administer measures tailored to their jurisdictions, often delivered in partnership with local governments and sectoral agencies.,",
+  "section_title": "Description",
+  "character_count": 418,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_6",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 6,
+    "solution_name": "Disaster Recovery Funding Arrangements (DRFA), \nTasmanian Relief and Recovery Arrangements (TRRA)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023, \n2022",
+    "ppp": "Yes",
+    "source_url": "https://www.cairns.qld.gov.au/__data/assets/pdf_file/0006/675645/Clause-No.-21.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.365355+00:00"
+  },
+  "s3_key": "data-lake/sol_2b0438e594a5dde18/sol_2b0438e594a5dde18_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2b0438e594a5dde18/sol_2b0438e594a5dde18_chunk_0004.json"
+}

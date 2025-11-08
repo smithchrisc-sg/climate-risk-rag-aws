@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_79520946e2c8ba406_chunk_0008",
+  "doc_id": "sol_79520946e2c8ba406",
+  "chunk_number": 8,
+  "text": "More than 716,000 people reached through preparedness and response activities. The project facilitated training for 129 participants on disaster risk reduction and business management, connected 48 women producers to e-commerce platforms, and recorded over 500 downloads of the 'Ma Ta Chhu Tayar' app.",
+  "section_title": "Results",
+  "character_count": 301,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_136",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 136,
+    "solution_name": "USAID’s Tayar—Improved Disaster Risk Management Project (Tayar Nepal)",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness, \nLeveraging Tech",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.wvi.org/tayar-nepal-improved-disaster-risk-management-project",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.517771+00:00"
+  },
+  "s3_key": "data-lake/sol_79520946e2c8ba406/sol_79520946e2c8ba406_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_79520946e2c8ba406/sol_79520946e2c8ba406_chunk_0008.json"
+}

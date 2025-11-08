@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9d84d4d863e2d5077_chunk_0008",
+  "doc_id": "sol_9d84d4d863e2d5077",
+  "chunk_number": 8,
+  "text": "Early disbursements of about S$200 million from FY2021 to FY2023 have financed drainage projects and progressed coastal program studies. The fund's top-up in 2025 ensures continued support for these initiatives, with construction phases expected to commence in the 2030s.",
+  "section_title": "Results",
+  "character_count": 271,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_301",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 301,
+    "solution_name": "Coastal and Flood Protection Fund (CFPF)",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.straitstimes.com/singapore/budget-2025-additional-5-billion-injected-into-coastal-and-flood-protection-fund",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.752832+00:00"
+  },
+  "s3_key": "data-lake/sol_9d84d4d863e2d5077/sol_9d84d4d863e2d5077_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9d84d4d863e2d5077/sol_9d84d4d863e2d5077_chunk_0008.json"
+}

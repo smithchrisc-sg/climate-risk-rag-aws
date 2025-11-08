@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6139b4e9a1ec8a54a_chunk_0004",
+  "doc_id": "sol_6139b4e9a1ec8a54a",
+  "chunk_number": 4,
+  "text": "The Climate and Disaster Resilient Small-Scale Water Resources Management Project (CDRSSWRMP) in Bangladesh aims to modernize small-scale water resources to enhance climate and disaster resilience in rural agriculture and fisheries. The project, led by the Local Government Engineering Department (LGED), is co-financed by the Asian Development Bank (ADB), the International Fund for Agricultural Development (IFAD), and the Government of the Netherlands. It focuses on infrastructure rehabilitation, community-based water governance, and agribusiness interventions to improve productivity and incomes in climate-vulnerable areas.",
+  "section_title": "Description",
+  "character_count": 630,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_50",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 50,
+    "solution_name": "Climate and Disaster Resilient Small-Scale Water Resources Management Project (CDRSSWRMP/SSWRM)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/projects/53237-001/main",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.425518+00:00"
+  },
+  "s3_key": "data-lake/sol_6139b4e9a1ec8a54a/sol_6139b4e9a1ec8a54a_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6139b4e9a1ec8a54a/sol_6139b4e9a1ec8a54a_chunk_0004.json"
+}

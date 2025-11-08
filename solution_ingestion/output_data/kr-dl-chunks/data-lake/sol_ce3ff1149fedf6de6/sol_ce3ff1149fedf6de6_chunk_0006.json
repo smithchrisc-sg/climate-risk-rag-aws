@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ce3ff1149fedf6de6_chunk_0006",
+  "doc_id": "sol_ce3ff1149fedf6de6",
+  "chunk_number": 6,
+  "text": "The initiative is characterized by its integration into China's Five-Year Plans, emphasizing a strategic shift from relief to prevention, and from single-hazard to multi-hazard management. It includes standardized disaster loss statistics, significantly improving post-disaster loss estimation speed and quality. International cooperation, such as the IRDR-UNESCO sub-forum, promotes multi-stakeholder collaboration on climate-related vulnerabilities, culture, and public health.",
+  "section_title": "Key Highlights",
+  "character_count": 479,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_72",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 72,
+    "solution_name": "Consolidation and Mainstreaming of Disaster Risk Reduction (DRR) in China",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "1998",
+    "ppp": "No",
+    "source_url": "https://www.gfdrr.org/en/feature-story/evolution-national-disaster-risk-reduction-plans-china",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.453367+00:00"
+  },
+  "s3_key": "data-lake/sol_ce3ff1149fedf6de6/sol_ce3ff1149fedf6de6_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ce3ff1149fedf6de6/sol_ce3ff1149fedf6de6_chunk_0006.json"
+}

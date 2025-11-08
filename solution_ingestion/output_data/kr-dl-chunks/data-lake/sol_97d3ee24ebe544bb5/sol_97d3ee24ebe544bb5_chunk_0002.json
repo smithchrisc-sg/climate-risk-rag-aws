@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_97d3ee24ebe544bb5_chunk_0002",
+  "doc_id": "sol_97d3ee24ebe544bb5",
+  "chunk_number": 2,
+  "text": "This solution, Cyclone Recovery Capability Fund (CRCF) — councils’ capability support for recovery functions, including voluntary buyouts, under Budget 2024 addresses natural catastrophe in New Zealand between New Zealand Government, Department of the Prime Minister and Cabinet (DPMC), Auckland Council, Gisborne District Council, Hawke’s Bay Regional Council, Hastings District Council, Central Hawke’s Bay District Council, Wairoa District Council, Western Bay of Plenty District Council, Kaipara District Council, Far North District Council, Thames-Coromandel District Council, and Tararua District Council. The program was implemented in 2024 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 699,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_164",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 164,
+    "solution_name": "Cyclone Recovery Capability Fund (CRCF) — councils’ capability support for recovery functions, including voluntary buyouts, under Budget 2024",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.dpmc.govt.nz/sites/default/files/2024-09/eco-24-sub-0135-changes-north-island-weather-events-crown-funding-agreements.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.546260+00:00"
+  },
+  "s3_key": "data-lake/sol_97d3ee24ebe544bb5/sol_97d3ee24ebe544bb5_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_97d3ee24ebe544bb5/sol_97d3ee24ebe544bb5_chunk_0002.json"
+}

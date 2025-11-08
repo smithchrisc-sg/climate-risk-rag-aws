@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8564373a2a51fcbf0_chunk_0008",
+  "doc_id": "sol_8564373a2a51fcbf0",
+  "chunk_number": 8,
+  "text": "Quantifiable outcomes are pending post-implementation monitoring, expected to commence after the effective date of 1 April 2025. Anticipated results include increased uptake of resilience measures, more granular risk-differentiated pricing, and potential reductions in cyclone-related claims severity and frequency for participating strata portfolios.",
+  "section_title": "Results",
+  "character_count": 351,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_29",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 29,
+    "solution_name": "Cyclone Reinsurance Pool Strata Mitigation Discounts (CRP Strata Mitigation Discounts)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.insurancenews.com.au/regulatory-government/cyclone-pool-to-introduce-strata-mitigation-discounts",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.398174+00:00"
+  },
+  "s3_key": "data-lake/sol_8564373a2a51fcbf0/sol_8564373a2a51fcbf0_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8564373a2a51fcbf0/sol_8564373a2a51fcbf0_chunk_0008.json"
+}

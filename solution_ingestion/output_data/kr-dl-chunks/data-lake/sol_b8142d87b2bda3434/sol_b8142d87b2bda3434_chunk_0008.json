@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b8142d87b2bda3434_chunk_0008",
+  "doc_id": "sol_b8142d87b2bda3434",
+  "chunk_number": 8,
+  "text": "The project completed the structural integrity assessment and retrofit design for the Centennial Building, providing a technical basis for risk-informed maintenance and structural interventions. It aligns with the broader modernization timeline, supporting a managed transition to the new facility by 2028 without compromising current service delivery.",
+  "section_title": "Results",
+  "character_count": 352,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_251",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 251,
+    "solution_name": "Structural Integrity Assessment and Retrofit Design of the Sandiganbayan Centennial Building",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://brs.upd.edu.ph/structural-integrity-assessment-and-retrofit-design-of-the-sandiganbayan-centennial-building/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.697181+00:00"
+  },
+  "s3_key": "data-lake/sol_b8142d87b2bda3434/sol_b8142d87b2bda3434_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b8142d87b2bda3434/sol_b8142d87b2bda3434_chunk_0008.json"
+}

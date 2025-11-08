@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d0eda596b4ed39606_chunk_0010",
+  "doc_id": "sol_d0eda596b4ed39606",
+  "chunk_number": 10,
+  "text": "Safeguards compliance and transparency through regular ESMRs.,",
+  "section_title": "Results",
+  "character_count": 62,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_226",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 226,
+    "solution_name": "Building Resilience to Climate Change in Papua New Guinea (ADB Project 46495-002)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2015",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/projects/documents/building-resilience-climate-change-papua-new-guinea-earf",
+    "section_title": "Results",
+    "chunk_number": 10,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.661903+00:00"
+  },
+  "s3_key": "data-lake/sol_d0eda596b4ed39606/sol_d0eda596b4ed39606_chunk_0010.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d0eda596b4ed39606/sol_d0eda596b4ed39606_chunk_0010.json"
+}

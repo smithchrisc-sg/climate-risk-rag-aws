@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0dd321907975f4941_chunk_0002",
+  "doc_id": "sol_0dd321907975f4941",
+  "chunk_number": 2,
+  "text": "This solution, Technology Enablement for Agricultural Insurance Operations (2023–2024) addresses natural catastrophe through public private partnerships in People’s Republic of China between Sector regulators and ministries, TFDI (Technology and Financial Development Institute), AIAG (International Association of Agricultural Insurers), World Bank, and Xiamen University Tan Kah Kee College. The program was implemented in 2023 and focuses on leveraging tech and collaboration.",
+  "section_title": "Introduction",
+  "character_count": 479,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_88",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 88,
+    "solution_name": "Technology Enablement for Agricultural Insurance Operations (2023–2024)",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction, \nIncrease Penetration",
+    "theme": "Leveraging Tech, \nCollaboration",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.aiag-iahi.org/en/news/aiag-at-taian-forum-in-china/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.471480+00:00"
+  },
+  "s3_key": "data-lake/sol_0dd321907975f4941/sol_0dd321907975f4941_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0dd321907975f4941/sol_0dd321907975f4941_chunk_0002.json"
+}

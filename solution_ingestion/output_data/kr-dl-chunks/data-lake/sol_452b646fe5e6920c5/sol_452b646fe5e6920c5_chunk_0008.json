@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_452b646fe5e6920c5_chunk_0008",
+  "doc_id": "sol_452b646fe5e6920c5",
+  "chunk_number": 8,
+  "text": "Early-stage implementation with no quantifiable system-wide metrics published yet. However, related national measures include the designation of 8,964 high-risk zones and the planning of 23,325 additional utility hole safety guards in Seoul.",
+  "section_title": "Results",
+  "character_count": 241,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_310",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 310,
+    "solution_name": "Four-Party Accountability System for Underground Flooding Zones",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://koreajoongangdaily.joins.com/news/2025-05-14/national/socialAffairs/Korean-govt-announces-upgraded-plan-to-mitigate-summer-natural-disasters/2307238",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.763433+00:00"
+  },
+  "s3_key": "data-lake/sol_452b646fe5e6920c5/sol_452b646fe5e6920c5_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_452b646fe5e6920c5/sol_452b646fe5e6920c5_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f9e85c583dd254e67_chunk_0008",
+  "doc_id": "sol_f9e85c583dd254e67",
+  "chunk_number": 8,
+  "text": "As of the latest reporting, approximately 32 km of stopbanks have been upgraded. The project has secured $20.46 million in external funding and $10.1 million from the Gisborne District Council's 2024–2027 Three-Year Plan.",
+  "section_title": "Results",
+  "character_count": 221,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_162",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 162,
+    "solution_name": "Waipaoa Flood Control Climate Change Resilience Project (WFCS Upgrade)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.gdc.govt.nz/council/major-projects/waipaoa-river-flood-control-scheme",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.544377+00:00"
+  },
+  "s3_key": "data-lake/sol_f9e85c583dd254e67/sol_f9e85c583dd254e67_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f9e85c583dd254e67/sol_f9e85c583dd254e67_chunk_0008.json"
+}

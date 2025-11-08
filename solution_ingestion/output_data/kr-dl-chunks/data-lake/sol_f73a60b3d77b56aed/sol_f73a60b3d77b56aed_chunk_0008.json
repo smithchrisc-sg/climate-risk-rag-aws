@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f73a60b3d77b56aed_chunk_0008",
+  "doc_id": "sol_f73a60b3d77b56aed",
+  "chunk_number": 8,
+  "text": "The project has been documented as successful by the WMO, leading to the authorization of a second phase. However, specific quantified outputs are not publicly detailed as of September 2025.",
+  "section_title": "Results",
+  "character_count": 190,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_70",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 70,
+    "solution_name": "Reinforcing the capacities of meteorological and hydrological services and enhancing the early warning systems in Cambodia and Lao PDR (CREWS Cambodia and Lao PDR)",
+    "country": "Cambodia, \nLao People's Democratic Republic",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://wmo.int/media/project-update/new-project-will-enhance-multi-hazard-early-warning-systems-cambodia-and-lao-peoples-democratic",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.451085+00:00"
+  },
+  "s3_key": "data-lake/sol_f73a60b3d77b56aed/sol_f73a60b3d77b56aed_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f73a60b3d77b56aed/sol_f73a60b3d77b56aed_chunk_0008.json"
+}

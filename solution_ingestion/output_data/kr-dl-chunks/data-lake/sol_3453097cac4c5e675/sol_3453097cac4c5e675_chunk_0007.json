@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3453097cac4c5e675_chunk_0007",
+  "doc_id": "sol_3453097cac4c5e675",
+  "chunk_number": 7,
+  "text": "The model is aligned with New Zealand's risk transfer ecosystem, ensuring outputs are actionable for financial resilience and recovery planning.,",
+  "section_title": "Key Highlights",
+  "character_count": 145,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_176",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 176,
+    "solution_name": "National Volcanic Hazard and Risk Model (NVHRM)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://auckland.figshare.com/articles/presentation/Catalysing_a_national_volcanic_hazard_and_risk_model_for_New_Zealand/22057139",
+    "section_title": "Key Highlights",
+    "chunk_number": 7,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.562101+00:00"
+  },
+  "s3_key": "data-lake/sol_3453097cac4c5e675/sol_3453097cac4c5e675_chunk_0007.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3453097cac4c5e675/sol_3453097cac4c5e675_chunk_0007.json"
+}

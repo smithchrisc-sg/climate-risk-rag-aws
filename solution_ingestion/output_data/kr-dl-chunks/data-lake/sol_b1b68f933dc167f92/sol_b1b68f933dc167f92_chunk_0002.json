@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b1b68f933dc167f92_chunk_0002",
+  "doc_id": "sol_b1b68f933dc167f92",
+  "chunk_number": 2,
+  "text": "This solution, Probabilistic Tsunami Hazard Assessment for Vanimo Port Design (PTHA–Vanimo) addresses natural catastrophe in Papua New Guinea between PNG Department of Transport, PNG maritime/port authorities, Geoscience Australia, and NOAA Center for Tsunami Research. The program was implemented in 2024-2026 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 360,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_223",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 223,
+    "solution_name": "Probabilistic Tsunami Hazard Assessment for Vanimo Port Design (PTHA–Vanimo)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2024-2026",
+    "ppp": "Cannot be determined",
+    "source_url": "https://www.ga.gov.au/scientific-topics/community-safety/projects/ptha",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.656797+00:00"
+  },
+  "s3_key": "data-lake/sol_b1b68f933dc167f92/sol_b1b68f933dc167f92_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b1b68f933dc167f92/sol_b1b68f933dc167f92_chunk_0002.json"
+}

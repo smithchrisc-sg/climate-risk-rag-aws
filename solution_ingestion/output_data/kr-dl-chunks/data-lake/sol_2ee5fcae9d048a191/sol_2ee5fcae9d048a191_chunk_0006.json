@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2ee5fcae9d048a191_chunk_0006",
+  "doc_id": "sol_2ee5fcae9d048a191",
+  "chunk_number": 6,
+  "text": "SOFF is a foundational element of the UN Secretary-General’s Early Warnings for All (EW4All) initiative, aligning with GBON standards. It offers innovative long-term financing with a compliance focus and peer-to-peer advisory from advanced meteorological services. The initiative has a global approach, emphasizing international data exchange as a success metric and unlocking additional climate finance, with each SOFF dollar leveraging approximately five times more from partner funds.",
+  "section_title": "Key Highlights",
+  "character_count": 487,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_49",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 49,
+    "solution_name": "Systematic Observations Financing Facility (SOFF)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://un-soff.org/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.424504+00:00"
+  },
+  "s3_key": "data-lake/sol_2ee5fcae9d048a191/sol_2ee5fcae9d048a191_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2ee5fcae9d048a191/sol_2ee5fcae9d048a191_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9d655bd461719befc_chunk_0002",
+  "doc_id": "sol_9d655bd461719befc",
+  "chunk_number": 2,
+  "text": "This solution, Philippines First Financial Sector Reform Development Policy Financing (DPF) addresses cannot be determined in Philippines between Department of Finance (DOF), World Bank (International Bank for Reconstruction and Development—IBRD), and International Monetary Fund (IMF). The program was implemented in 2021 and focuses on collaboration, regulation, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 387,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_259",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 259,
+    "solution_name": "Philippines First Financial Sector Reform Development Policy Financing (DPF)",
+    "country": "Philippines",
+    "type_of_risk": "Cannot be determined",
+    "type_of_solution": "Risk Financing, \nRisk Reduction, \nIncrease Penetration",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/099150006262218078/pdf/P1750080551a8404f085ca03ef97bd3c32b.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.705262+00:00"
+  },
+  "s3_key": "data-lake/sol_9d655bd461719befc/sol_9d655bd461719befc_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9d655bd461719befc/sol_9d655bd461719befc_chunk_0002.json"
+}

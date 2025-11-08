@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f7b4ec155a9446fc5_chunk_0004",
+  "doc_id": "sol_f7b4ec155a9446fc5",
+  "chunk_number": 4,
+  "text": "The ACCC Insurance Monitoring Program is an initiative by the Australian Competition and Consumer Commission to oversee and report on the insurance market outcomes following the establishment of a government-backed cyclone and cyclone-related flood damage reinsurance pool. The program aims to ensure that the savings from the reinsurance pool are passed on to policyholders, particularly in cyclone-exposed regions, by monitoring costs, pricing, and the pass-through of reinsurance savings.",
+  "section_title": "Description",
+  "character_count": 491,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_28",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 28,
+    "solution_name": "ACCC Insurance Monitoring Program",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nRaising Awareness",
+    "year_of_implementation": "Early 2020s",
+    "ppp": "Yes",
+    "source_url": "https://www.accc.gov.au/system/files/accc-insurance-monitoring-report-july-2025.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.396553+00:00"
+  },
+  "s3_key": "data-lake/sol_f7b4ec155a9446fc5/sol_f7b4ec155a9446fc5_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f7b4ec155a9446fc5/sol_f7b4ec155a9446fc5_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ba873d1b384e5d54c_chunk_0004",
+  "doc_id": "sol_ba873d1b384e5d54c",
+  "chunk_number": 4,
+  "text": "The DOST–PHIVOLCS Dynaslope Project is a community-centered initiative in the Philippines focused on landslide monitoring and early warning. It employs a comprehensive approach involving site selection, hazard mapping, ground monitoring, and community capacity building to mitigate the impact of rainfall-induced landslides. The project is led by the Department of Science and Technology through PHIVOLCS and collaborates with local government units to provide authoritative hazard information and early warnings to at-risk communities.",
+  "section_title": "Description",
+  "character_count": 536,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_281",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 281,
+    "solution_name": "Development of Philippine Nationwide Operational Landslide Monitoring and Warning System — DOST–PHIVOLCS Dynaslope Project",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2018",
+    "ppp": "No",
+    "source_url": "https://mirror.pia.gov.ph/disaster-information-service/2023/09/29/advancing-life-saving-skills-through-dosts-innovative-efforts",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.730182+00:00"
+  },
+  "s3_key": "data-lake/sol_ba873d1b384e5d54c/sol_ba873d1b384e5d54c_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ba873d1b384e5d54c/sol_ba873d1b384e5d54c_chunk_0004.json"
+}

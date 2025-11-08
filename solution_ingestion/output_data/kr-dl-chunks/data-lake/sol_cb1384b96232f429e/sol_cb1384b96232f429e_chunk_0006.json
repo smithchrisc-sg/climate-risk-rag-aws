@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cb1384b96232f429e_chunk_0006",
+  "doc_id": "sol_cb1384b96232f429e",
+  "chunk_number": 6,
+  "text": "The initiative is a core component of Fiji's National Flood Management Strategy, aligning with the Sendai Framework and Sustainable Development Goals. It involves the use of cutter suction dredging (CSD) technology to excavate and remove sediment, restoring the river's conveyance capacity. The 2024–2025 dredging campaign was executed by Hall Contracting using the CSD Kikilu, focusing on a 3.6 km stretch from the river mouth to the open sea. This operation is part of a broader programmatic approach that includes complementary reach-scale actions and an adaptive maintenance model to manage sediment in the Ba River system.",
+  "section_title": "Key Highlights",
+  "character_count": 627,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_90",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 90,
+    "solution_name": "Ba River Flood Mitigation Dredging",
+    "country": "Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2015",
+    "ppp": "Yes",
+    "source_url": "https://www.dredgingtoday.com/2024/08/19/hall-contracting-to-dredge-ba-river-in-fiji/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.474345+00:00"
+  },
+  "s3_key": "data-lake/sol_cb1384b96232f429e/sol_cb1384b96232f429e_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cb1384b96232f429e/sol_cb1384b96232f429e_chunk_0006.json"
+}

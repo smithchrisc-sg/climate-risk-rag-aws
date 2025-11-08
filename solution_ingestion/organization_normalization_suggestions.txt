@@ -1,0 +1,831 @@
+Organization Normalization Suggestions
+==================================================
+
+PUBLIC ORGANIZATIONS:
+------------------------------
+Canonical: Otago Regional Council (New Zealand)
+Variants:
+  - Otago Regional Council (ORC) (New Zealand)
+
+Canonical: Sindh Irrigation Department (Pakistan)
+Variants:
+  - Irrigation Department (Pakistan)
+  - Sindh Irrigation Department (SID) (Pakistan)
+
+Canonical: Korea Disease Control and Prevention Agency (South Korea)
+Variants:
+  - Korea Disease Control and Prevention Agency (KDCA) (South Korea)
+
+Canonical: State and territory governments (Australia)
+Variants:
+  - State/Territory governments (Australia)
+  - State and Territory Governments (Australia)
+  - State and Territory governments (Australia)
+
+Canonical: Innovation and Employment (MBIE) (New Zealand)
+Variants:
+  - Innovation & Employment (MBIE) (New Zealand)
+
+Canonical: Ministry of Environment (Republic of Korea (South Korea))
+Variants:
+  - Ministry of Environment (MOE) (Republic of Korea (South Korea))
+
+Canonical: People’s Association (Singapore)
+Variants:
+  - People’s Association (PA) (Singapore)
+
+Canonical: New Zealand Transport Agency Waka Kotahi (New Zealand)
+Variants:
+  - NZ Transport Agency Waka Kotahi (New Zealand)
+
+Canonical: Royal Government of Cambodia (financed by government of Japan as well) (Cambodia)
+Variants:
+  - Royal Government of Cambodia (Cambodia)
+
+Canonical: National Bureau of Statistics (People’s Republic of China)
+Variants:
+  - National Bureau of Statistics (NBS) (People’s Republic of China)
+
+Canonical: Ministry of Economic Affairs (Taiwan)
+Variants:
+  - Ministry of Economic Affairs (MOEA) (Taiwan)
+
+Canonical: Government of Nepal (GoN) (Nepal)
+Variants:
+  - Government of Nepal (Ministry of Finance and competent DRM agencies) (Nepal)
+  - Government of Nepal (Nepal)
+
+Canonical: Ministry of Health and Welfare (Taiwan)
+Variants:
+  - Taiwan's Ministry of Health and Welfare (MOHW) (Taiwan)
+  - Ministry of Health and Welfare (MOHW) (Taiwan)
+
+Canonical: Local governments (prefectures and municipalities) (Japan)
+Variants:
+  - Local Governments (Japan)
+  - Local governments (prefectural and municipal) (Japan)
+  - Local governments (Japan)
+
+Canonical: Department of the Prime Minister and Cabinet (PM&C) (Australia)
+Variants:
+  - Department of Premier and Cabinet (DPAC) (Australia)
+
+Canonical: Korean Ministry of Science and ICT (South Korea)
+Variants:
+  - Ministry of Science and ICT (South Korea)
+
+Canonical: Malaysia (BEM) (Malaysia)
+Variants:
+  - Malaysia (DID) (Malaysia)
+
+Canonical: Bank Negara Malaysia (Malaysia)
+Variants:
+  - Bank Negara Malaysia (BNM) (Malaysia)
+
+Canonical: Government of Laos PDR (Managed by Social Welfare Department) (Laos PDR)
+Variants:
+  - Government of Laos PDR (Laos PDR)
+  - Government of Lao PDR (Laos PDR)
+
+Canonical: Gangwon Provincial Government (Republic of Korea (South Korea))
+Variants:
+  - Gangneung City Government (Republic of Korea (South Korea))
+  - Local governments (Republic of Korea (South Korea))
+
+Canonical: Self Employed Women’s Association (SEWA) (India)
+Variants:
+  - Self-Employed Women’s Association (SEWA) (India)
+  - Self-Employed Women's Association (SEWA) (India)
+
+Canonical: Fire and Emergency New Zealand (New Zealand)
+Variants:
+  - Fire and Emergency New Zealand (FENZ) (New Zealand)
+
+Canonical: National Emergency Management Agency (New Zealand)
+Variants:
+  - National Emergency Management Agency/MCDEM (New Zealand)
+  - National Emergency Management Agency (NEMA) (New Zealand)
+
+Canonical: Planning & Development Department (provincial) (Pakistan)
+Variants:
+  - Planning & Development Department/PCMU (Pakistan)
+
+Canonical: Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST‑PHIVOLCS) (Philippines)
+Variants:
+  - Department of Science and Technology–Philippine Institute of Volcanology and Seismology (DOST–PHIVOLCS) (Philippines)
+
+Canonical: Natural Hazards Commission Toka Tū Ake (New Zealand)
+Variants:
+  - Natural Hazards Commission Toka Tū Ake (NHC) (New Zealand)
+  - Natural Hazards Commission Toka Tū Ake (EQC) (New Zealand)
+
+Canonical: Department of Fire and Emergency Services (DFES) (Australia)
+Variants:
+  - WA Department of Fire and Emergency Services (DFES) (Australia)
+
+Canonical: Secretariat of the Pacific Community (SPC) through SOPAC (Papua New Guinea)
+Variants:
+  - Secretariat of the Pacific Community (SPC) via SOPAC (Papua New Guinea)
+
+Canonical: Geophysical and Astronomical Services Administration (PAGASA) (Philippines)
+Variants:
+  - Geophysical and Astronomical Services Administration (DOST–PAGASA) (Philippines)
+
+Canonical: Ministry of Foreign Affairs of Japan (Japan)
+Variants:
+  - Ministry of Foreign Affairs (Japan)
+  - Ministry of Foreign Affairs (MOFA) (Japan)
+
+Canonical: Ministry of Planning and Finance (MoPF) (Myanmar)
+Variants:
+  - Ministry of Planning and Finance (Myanmar)
+
+Canonical: Local governments across 39 LGAs (Australia (State of Queensland))
+Variants:
+  - Local Government (Australia (State of Queensland))
+  - Queensland Government (Australia (State of Queensland))
+  - Australian Government (Australia (State of Queensland))
+
+Canonical: National Emergency Management Agency (Australia)
+Variants:
+  - National Emergency Management Agency (NEMA) (Australia)
+
+Canonical: Provincial/District Disaster Management Authorities (Pakistan)
+Variants:
+  - Provincial Disaster Management Authority (PDMA) (Pakistan)
+  - Provincial Disaster Management Authority (Pakistan)
+  - Provincial Disaster Management Authorities (PDMAs) (Pakistan)
+
+Canonical: cities/local government units (LGUs) (Republic of the Philippines)
+Variants:
+  - Local Government Units (LGUs) (Republic of the Philippines)
+
+Canonical: Ministry of Finance Japan (Japan)
+Variants:
+  - Ministry of Finance (Japan)
+
+Canonical: Bangladesh Meteorological Department (Bangladesh)
+Variants:
+  - Bangladesh Meteorological Department (BMD) (Bangladesh)
+
+Canonical: National Economic and Development Authority (NEDA) Board (Philippines)
+Variants:
+  - National Economic and Development Authority (NEDA) (Philippines)
+
+Canonical: Health Insurance Review and Assessment Service (HIRA) (South Korea)
+Variants:
+  - Health Insurance Review & Assessment Service (HIRA) (South Korea)
+  - Health Insurance Review & Assessment (HIRA) Service (South Korea)
+
+Canonical: Japanese governmental agencies (Japan)
+Variants:
+  - Japanese Governmental Bodies (Japan)
+
+Canonical: Hawke’s Bay Regional Council (New Zealand)
+Variants:
+  - Hawke’s Bay Regional Council (HBRC) (New Zealand)
+
+Canonical: Ministry of Home Affairs and Law (provincial) (Nepal)
+Variants:
+  - Ministry of Home Affairs (MoHA) (Nepal)
+
+Canonical: Department of the Interior and Local Government Region 8 (DILG-8) (Philippines)
+Variants:
+  - Department of the Interior and Local Government (DILG) (Philippines)
+
+Canonical: Government of Myanmar (GoM) (Myanmar)
+Variants:
+  - Government of Myanmar (Myanmar)
+
+Canonical: Government of South Australia (Australia)
+Variants:
+  - Government of Australia (Australia)
+
+Canonical: Queensland Reconstruction Authority (Australia)
+Variants:
+  - NSW Reconstruction Authority (Australia)
+  - NSW Reconstruction Authority (RA) (Australia)
+  - Queensland Reconstruction Authority (QRA) (Australia)
+
+Canonical: Ministry of Health Malaysia (Malaysia)
+Variants:
+  - Ministry of Health Malaysia (MOH) (Malaysia)
+
+Canonical: Reserve Bank of Fiji (Republic of Fiji)
+Variants:
+  - Reserve Bank of Fiji (RBF) (Republic of Fiji)
+
+Canonical: Water Resources and Irrigation (MoEWRI) (Nepal)
+Variants:
+  - Water Resources and Irrigation (Nepal)
+
+Canonical: Ministry of Finance Malaysia (Malaysia)
+Variants:
+  - Ministry of Finance (MOF) of Malaysia (Malaysia)
+
+Canonical: Osaka Prefectural Government (Japan)
+Variants:
+  - Prefectural Governments (Japan)
+
+Canonical: Department of Irrigation and Drainage (Malaysia)
+Variants:
+  - Department of Irrigation and Drainage (DID) (Malaysia)
+  - Department of Irrigation and Drainage (JPS) (Malaysia)
+  - Perak Department of Irrigation and Drainage (DID) (Malaysia)
+
+Canonical: Port Moresby Geophysical Observatory (Papua New Guinea)
+Variants:
+  - Port Moresby Geophysical Observatory (PMGO) (Papua New Guinea)
+
+Canonical: Ministry of Education (Taiwan)
+Variants:
+  - Ministry of Education (MOE) (Taiwan)
+
+Canonical: Department of Finance (Republic of the Philippines)
+Variants:
+  - Department of Finance (DOF) (Republic of the Philippines)
+
+Canonical: Ministry of Health and Welfare (South Korea)
+Variants:
+  - Ministry of Health and Welfare (MOHW) (South Korea)
+
+Canonical: Agency for Integrated Care (Singapore)
+Variants:
+  - Agency for Integrated Care (AIC) (Singapore)
+
+Canonical: Ministry of Water Resources and Meteorology (MoWRAM) (Cambodia)
+Variants:
+  - Ministry of Water Resources and Meteorology (Cambodia)
+  - Ministry of Water Resources and Meteorology (MOWRAM) (Cambodia)
+
+Canonical: Ministry of Health and Welfare (MoHW) (Republic of Korea)
+Variants:
+  - Ministry of Health and Welfare (MOHW) (Republic of Korea)
+  - Korean Ministry of Health and Welfare (MOHW) (Republic of Korea)
+
+Canonical: Labour and Welfare (Japan)
+Variants:
+  - Labour and Welfare (MHLW) (Japan)
+
+Canonical: Insurance Commission (Philippines)
+Variants:
+  - Insurance Commission (IC) (Philippines)
+
+Canonical: Government of India (GoI) (India)
+Variants:
+  - Government of India (India)
+
+Canonical: Kaipara District Council (New Zealand)
+Variants:
+  - Wairoa District Council (New Zealand)
+
+Canonical: Ministry of Labor (Taiwan)
+Variants:
+  - Ministry of Labor (MOL) (Taiwan)
+
+Canonical: Ministry of Finance (MoF) (Nepal)
+Variants:
+  - Ministry of Finance (Nepal)
+
+Canonical: Australian Government (Commonwealth of Australia) (Australia)
+Variants:
+  - Australian Government (Australia)
+  - Australian Government (NEMA) (Australia)
+
+Canonical: the Department of Disaster Prevention and Mitigation (DDPM) (Thailand)
+Variants:
+  - Department of Disaster Prevention and Mitigation (DDPM) (Thailand)
+
+Canonical: Toka Tū Ake EQC (Earthquake Commission) (New Zealand)
+Variants:
+  - Toka Tū Ake EQC (New Zealand)
+
+Canonical: Te Uru Kahika (Regional and Unitary Councils Aotearoa) (New Zealand)
+Variants:
+  - Te Uru Kahika (New Zealand)
+
+Canonical: Central Provident Fund Board (CPF) (Singapore)
+Variants:
+  - Central Provident Fund (CPF) Board (Singapore)
+
+Canonical: Government of Balochistan (Pakistan)
+Variants:
+  - Government of Pakistan (Pakistan)
+
+Canonical: Central Government of New Zealand (New Zealand)
+Variants:
+  - Local Government New Zealand (LGNZ) (New Zealand)
+  - Government of New Zealand (New Zealand)
+
+Canonical: National Health Security Office (Thailand)
+Variants:
+  - National Health Security Office (NHSO) (Thailand)
+
+Canonical: Japan Meteorological Agency (Japan)
+Variants:
+  - Japan Meteorological Agency (JMA) (Japan)
+
+Canonical: Bureau of the Treasury (BTr) (Republic of the Philippines)
+Variants:
+  - Bureau of the Treasury (Republic of the Philippines)
+
+Canonical: National Weather Service (Papua New Guinea)
+Variants:
+  - PNG National Weather Service (PNG NWS) (Papua New Guinea)
+  - National Weather Service (NWS) (Papua New Guinea)
+
+Canonical: Tokyo Metropolitan Government (Japan)
+Variants:
+  - Tokyo Metropolitan Government (TMG) (Japan)
+
+Canonical: Pakistan Meteorological Department (Pakistan)
+Variants:
+  - Pakistan Meteorological Department (PMD) (Pakistan)
+
+Canonical: Transport and Tourism (Japan)
+Variants:
+  - Transport and Tourism (MLIT) (Japan)
+
+Canonical: Department of Hydrology and Meteorology (Nepal)
+Variants:
+  - Department of Hydrology and Meteorology (DHM) (Nepal)
+
+Canonical: Ministry of the Interior and Safety (Republic of Korea (South Korea))
+Variants:
+  - Ministry of the Interior and Safety (MOIS) (Republic of Korea (South Korea))
+
+Canonical: Ministry for the Environment (MfE) (New Zealand)
+Variants:
+  - Ministry for the Environment (New Zealand)
+
+Canonical: Department of Mineral Policy and Geohazards Management (DMPGM) (Papua New Guinea)
+Variants:
+  - PNG Department of Mineral Policy and Geohazards Management (DMPGM) (Papua New Guinea)
+  - Department of Mineral Policy & Geohazards Management (DMPGM) (Papua New Guinea)
+
+Canonical: Financial Supervisory Commission (Taiwan)
+Variants:
+  - Financial Supervisory Commission (FSC) (Taiwan)
+
+Canonical: Northland Regional Council (New Zealand)
+Variants:
+  - Northland Regional Council (NRC) (New Zealand)
+
+Canonical: National Disaster Risk Reduction and Management Authority/Agency (NDRRMA) (Nepal)
+Variants:
+  - National Disaster Risk Reduction and Management Authority (NDRRMA) (Nepal)
+
+Canonical: National Committee for Disaster Management (NCDM) (Cambodia)
+Variants:
+  - National Committee on Disaster Management (NCDM) (Cambodia)
+
+Canonical: National Disaster Management Authority (Pakistan)
+Variants:
+  - Pakistan's National Disaster Management Authority (NDMA) (Pakistan)
+  - National Disaster Management Authority (NDMA) (Pakistan)
+
+Canonical: Earth Sciences New Zealand (New Zealand)
+Variants:
+  - Earth Sciences New Zealand/NIWA (New Zealand)
+
+Canonical: Provincial governments (Papua New Guinea)
+Variants:
+  - PNG provincial governments (Papua New Guinea)
+
+Canonical: Government of Fiji (Ministry of Education) (Fiji)
+Variants:
+  - Government of Fiji (Fiji)
+
+Canonical: GNS Science (Te Pū Ao) (New Zealand)
+Variants:
+  - GNS Science (New Zealand)
+
+Canonical: Ministry of Health (Singapore)
+Variants:
+  - Ministry of Health (MOH) (Singapore)
+
+Canonical: Ministry of the Interior and Safety (MoIS) (South Korea)
+Variants:
+  - Ministry of the Interior and Safety (MOIS) (South Korea)
+
+Canonical: Ministry of Climate Change & Environmental Coordination (Pakistan)
+Variants:
+  - Ministry of Climate Change and Environmental Coordination (MoCC&EC) (Pakistan)
+
+Canonical: Local governments (Australia)
+Variants:
+  - Local governments in WA (Australia)
+  - Local Governments (Australia)
+
+Canonical: Seoul Metropolitan Government (South Korea)
+Variants:
+  - Seoul Metropolitan Government (SMG) (South Korea)
+
+Canonical: Sport Singapore (SportSG) (Singapore)
+Variants:
+  - Sport Singapore (Singapore)
+
+Canonical: Papua New Guinea National Weather Service (NWS) (Papua New Guinea)
+Variants:
+  - Papua New Guinea National Weather Service (PNG NWS) (Papua New Guinea)
+
+Canonical: Department of Works and Highways (DoWH) (Papua New Guinea)
+Variants:
+  - Department of Works & Highways (DoWH) (Papua New Guinea)
+
+Canonical: Public Works Department (JKR) (Malaysia)
+Variants:
+  - Public Works Department (PWD) (Malaysia)
+
+Canonical: Relief and Resettlement (MoSWRR) (Myanmar)
+Variants:
+  - Relief and Resettlement (Myanmar)
+  - Relief and Resettlement (MSWRR) (Myanmar)
+
+Canonical: Selangor Waters Management Authority (LUAS) (Malaysia)
+Variants:
+  - Selangor Water Management Authority (LUAS) (Malaysia)
+
+Canonical: Health Promotion Board (Singapore)
+Variants:
+  - Health Promotion Board (HPB) (Singapore)
+
+Canonical: Local Governments (South Korea)
+Variants:
+  - Local governments (South Korea)
+
+Canonical: NSW Government (Australia)
+Variants:
+  - WA Government (Australia)
+
+Canonical: Ministry of Finance (MoF) (Malaysia)
+Variants:
+  - Ministry of Finance (Malaysia)
+
+Canonical: NSW Department of Primary Industries and Regional Development (Australia)
+Variants:
+  - WA Department of Primary Industries and Regional Development (DPIRD) (Australia)
+
+Canonical: United Nations Development Programme (UNDP) (Bangladesh)
+Variants:
+  - United Nations Environment Programme (UNEP) (Bangladesh)
+
+Canonical: Municipal Disaster Risk Reduction and Management Offices (MDRRMOs) (Philippines)
+Variants:
+  - Quezon City Disaster Risk Reduction and Management Office (QCDRRMO) (Philippines)
+
+Canonical: GNS Science (now part of Earth Sciences New Zealand) (Aotearoa New Zealand)
+Variants:
+  - GNS Science (Aotearoa New Zealand)
+
+Canonical: National Disaster Centre (Papua New Guinea)
+Variants:
+  - National Disaster Centre (NDC) (Papua New Guinea)
+
+Canonical: Ministry of Manpower (Singapore)
+Variants:
+  - Ministry of Manpower (MOM) (Singapore)
+
+Canonical: Local Municipal Governments (Japan)
+Variants:
+  - Municipal Governments (Japan)
+
+Canonical: Ministry of Finance (MoF) (People’s Republic of China)
+Variants:
+  - Ministry of Finance (MOF) (People’s Republic of China)
+
+Canonical: Provincial Departments of Water Resources and Meteorology (PDWRAMs) (Cambodia)
+Variants:
+  - Provincial Department of Water Resources and Meteorology (Pursat) (Cambodia)
+
+Canonical: Ministry of Economy and Finance (Cambodia)
+Variants:
+  - Ministry of Economy and Finance (MEF) (Cambodia)
+
+Canonical: Government of the Punjab (Pakistan (Punjab Province))
+Variants:
+  - Government of Pakistan (Pakistan (Punjab Province))
+
+Canonical: PUB (Public Utilities Board) (Singapore)
+Variants:
+  - PUB (Singapore)
+
+Canonical: The Treasury (New Zealand) (New Zealand)
+Variants:
+  - The Treasury (New Zealand)
+
+Canonical: Department of Finance (Government of the Philippines) (Philippines)
+Variants:
+  - Department of Finance (DOF) (Philippines)
+
+Canonical: Department of Conservation (New Zealand)
+Variants:
+  - Department of Conservation (DOC) (New Zealand)
+
+Canonical: Australian Climate Service (Australia)
+Variants:
+  - Australian Climate Service (ACS) (Australia)
+
+Canonical: Japan Science and Technology Agency (Japan)
+Variants:
+  - Japan Science and Technology Agency (JST) (Japan)
+
+Canonical: Daegu Metropolitan City Government (Republic of Korea (South Korea))
+Variants:
+  - Seoul Metropolitan Government (SMG) (Republic of Korea (South Korea))
+
+Canonical: Far North District Council (New Zealand)
+Variants:
+  - Far North District Council (FNDC) (New Zealand)
+
+Canonical: Kānoa – Regional Economic Development & Investment Unit (New Zealand)
+Variants:
+  - Kānoa – Regional Economic Development & Investment Unit (MBIE) (New Zealand)
+
+Canonical: Local government units (LGUs) (Philippines)
+Variants:
+  - Local Government Units (LGUs) (Philippines)
+
+Canonical: Kyoto University (Japan)
+Variants:
+  - Tokyo University (Japan)
+
+Canonical: Ministry of Sustainability and the Environment (Singapore)
+Variants:
+  - Ministry of Sustainability and the Environment (MSE) (Singapore)
+
+Canonical: Japan Health Insurance Association (Japan)
+Variants:
+  - Japan Health Insurance Association (JHIA) (Japan)
+
+Canonical: Department of Disaster Management (Bangladesh)
+Variants:
+  - Department of Disaster Management (DDM) (Bangladesh)
+
+
+INTERNATIONAL ORGANIZATIONS:
+------------------------------
+Canonical: Asian Disaster Preparedness Center (ADPC)
+Variants:
+  - Asia Disaster Preparedness Center (ADPC)
+
+Canonical: Japan–World Bank Program for Mainstreaming DRM
+Variants:
+  - Japan-World Bank Program for Mainstreaming DRM
+
+Canonical: Australia’s Department of Foreign Affairs and Trade (DFAT/Australian Aid)
+Variants:
+  - Australian Aid Program/Department of Foreign Affairs and Trade (DFAT)
+
+Canonical: World Bank (International Bank for Reconstruction and Development)
+Variants:
+  - World Bank (International Development Association - IDA)
+  - World Bank (WB)
+  - World Bank (IDA)
+  - World Bank (IDA financing)
+  - World Bank (IBRD)
+  - World Bank (International Bank for Reconstruction and Development—IBRD)
+  - World Bank
+
+Canonical: Organization for Economic Co-operation and Development (OECD)
+Variants:
+  - Organization for Economic Cooperation and Development (OECD)
+
+Canonical: India‑UN Partnership Fund
+Variants:
+  - India–UN Partnership Fund
+
+Canonical: CAREC Secretariat
+Variants:
+  - CREWS Secretariat
+
+Canonical: United Nations Development Programme (UNDP)
+Variants:
+  - United Nations Development Program (UNDP)
+
+Canonical: World Bank (International Bank for Reconstruction and Development
+Variants:
+  - International Bank for Reconstruction and Development (IBRD)
+
+Canonical: International Association of Insurance Supervisors
+Variants:
+  - International Association of Insurance Supervisors (IAIS)
+
+Canonical: and Luxembourg’s Climate and Energy Fund
+Variants:
+  - Luxembourg’s Climate and Energy Fund
+
+Canonical: World Bank/GFDRR
+Variants:
+  - World Bank GFDRR
+
+Canonical: World Bank Global Facility for Disaster Reduction and Recovery
+Variants:
+  - World Bank Global Facility for Disaster Reduction and Recovery (GFDRR)
+  - Global Facility for Disaster Risk Reduction and Recovery (GFDRR)
+  - Global Facility for Disaster Reduction and Recovery (GFDRR)
+
+Canonical: International Development Association (World Bank
+Variants:
+  - International Development Association (IDA)
+  - World Bank/International Development Association (IDA)
+  - World Bank (International Development Association
+
+Canonical: World Vision International Nepal
+Variants:
+  - World Vision International Nepal (WVI)
+
+Canonical: India–UN Development Partnership Fund
+Variants:
+  - India-UN Development Partnership Fund
+  - India-UN Development Partnership Fund (UNOSSC)
+
+Canonical: International Consortium on Landslides
+Variants:
+  - International Consortium on Landslides (ICL)
+
+Canonical: International Federation of Red Cross and Red Crescent Societies (IFRC)
+Variants:
+  - International Federation of the Red Cross and Red Crescent (IFRC)
+
+Canonical: The Pacific Community (SPC)
+Variants:
+  - Pacific Community (SPC)
+
+Canonical: Food and Agriculture Organisations of the United Nations
+Variants:
+  - Food and Agriculture Organization of the United Nations (FAO)
+
+Canonical: The World Bank (International Development Association)
+Variants:
+  - The World Bank
+
+Canonical: United Nations Office for South-South Cooperation (UNOSSC)
+Variants:
+  - UN Office for South-South Cooperation (UNOSSC)
+  - UN Office for South–South Cooperation (UNOSSC)
+
+Canonical: Governments of Australia
+Variants:
+  - Government of Australia
+
+Canonical: International Maritime Organization (IMO)
+Variants:
+  - International Labour Organization (ILO)
+
+Canonical: United Nations University Institute for Environment and Human Security (UNU-EHS)
+Variants:
+  - UN University – Institute for Environment and Human Security (UNU-EHS)
+
+Canonical: Alliance for Healthy Cities
+Variants:
+  - Alliance for Healthy Cities (AFHC)
+
+Canonical: World Bank Group
+Variants:
+  - World Bank Group (International Development Association—IDA)
+
+Canonical: U.S. Geological Survey (USGS)
+Variants:
+  - US Geological Survey (USGS)
+
+Canonical: AusAID (now DFAT)
+Variants:
+  - USAID
+
+Canonical: Asian Development Bank (Technical Assistance)
+Variants:
+  - Asian Development Bank (ADB)
+  - Asian Development Bank
+
+Canonical: European Union
+Variants:
+  - European Union (EU)
+  - European Union (ACP-EU)
+
+Canonical: Global Asia Insurance Partnership
+Variants:
+  - Global Asia Insurance Partnership (GAIP)
+
+Canonical: United States Agency for International Development (USAID/Nepal)
+Variants:
+  - United States Agency for International Development (USAID)
+
+Canonical: United Nations Office for Disaster Risk Reduction (UNDRR)
+Variants:
+  - UN Office for Disaster Risk Reduction
+
+Canonical: Earthquake Housing Reconstruction Multi-Donor Trust Fund
+Variants:
+  - Earthquake Housing Reconstruction Multi-Donor Trust Fund (MDTF)
+
+Canonical: United Nations' Sendai Framework for Disaster Risk Reduction
+Variants:
+  - United Nations Sendai Framework for Disaster Risk Reduction
+
+
+PRIVATE ORGANIZATIONS:
+------------------------------
+Canonical: Re-insurance companies
+Variants:
+  - Insurance Companies
+  - Insurance companies
+
+Canonical: Technology providers (specific firms not cited)
+Variants:
+  - and technology providers
+  - Technology providers
+
+Canonical: AIR Worldwide (now Verisk Extreme Event Solutions)
+Variants:
+  - AIR Worldwide
+
+Canonical: Local entrepreneurs and private actors
+Variants:
+  - Local entrepreneurs and private sector
+
+Canonical: private sector companies
+Variants:
+  - Private sector companies
+
+Canonical: Kumamoto University (United States, 
+Japan)
+Variants:
+  - Kyoto University (United States, 
+Japan)
+
+Canonical: Inc
+Variants:
+  - RMS Inc
+
+Canonical: Disabled People’s Organisations (DPOs)
+Variants:
+  - Disabled People’s Organizations (DPOs)
+
+Canonical: Private home insurers
+Variants:
+  - Private insurers
+
+Canonical: Florida Atlantic University (United States, 
+Japan)
+Variants:
+  - Florida Atlantic University (FAU) (United States, 
+Japan)
+
+Canonical: WTW (Willis Towers Watson)
+Variants:
+  - WTW
+
+Canonical: RMSI
+Variants:
+  - RMS
+
+Canonical: Samsung Medical Center
+Variants:
+  - Asan Medical Center
+
+Canonical: Employees
+Variants:
+  - Employers
+
+Canonical: Sun Insurance
+Variants:
+  - SUN Insurance
+
+Canonical: 56 Reinsurers
+Variants:
+  - Reinsurers
+
+Canonical: Various Financial Institutions
+Variants:
+  - Various financial institutions
+
+Canonical: Private sector entities
+Variants:
+  - private sector entities
+
+Canonical: Kumamoto University (United States, Japan)
+Variants:
+  - Kyoto University (United States, Japan)
+
+Canonical: Universities
+Variants:
+  - PNG universities
+
+Canonical: Private insurers operating in New Zealand
+Variants:
+  - Private insurers in New Zealand
+
+Canonical: Thulo.com
+Variants:
+  - Thulo.Com
+
+Canonical: Industry (building code bodies)
+Variants:
+  - Industry
+
+Canonical: Willis Towers Watson
+Variants:
+  - Willis Towers Watson (WTW)
+
+

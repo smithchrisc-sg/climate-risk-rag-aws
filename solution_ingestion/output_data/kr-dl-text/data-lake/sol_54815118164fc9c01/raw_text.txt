@@ -1,0 +1,41 @@
+Republic of Korea Landslide Information System (LIS)
+
+Korea Forest Service (KFS), 
+Korea Institute of Geoscience and Mineral Resources (KIGAM), 
+National Institute of Forest Science (NIFoS)
+
+and 
+
+International Consortium on Landslides (ICL), 
+International Programme on Landslides (IPL)
+
+Introduction
+
+This solution, Republic of Korea Landslide Information System (LIS) addresses natural catastrophe in South Korea between Korea Forest Service (KFS), Korea Institute of Geoscience and Mineral Resources (KIGAM), National Institute of Forest Science (NIFoS), International Consortium on Landslides (ICL), and International Programme on Landslides (IPL). The program was implemented in 2015, 
+2023 and focuses on collaboration and leveraging tech.
+
+Description
+
+The Republic of Korea Landslide Information System (LIS) is a comprehensive, multi-component system designed to monitor, model, and provide early warnings for landslides across South Korea. It integrates efforts from various public and academic institutions to address the increasing risk of rainfall-induced landslides, exacerbated by climate change. The system includes national forecasting by the Korea Forest Service, machine learning-based susceptibility mapping by the OJeong Resilience Institute, and in-situ monitoring by KIGAM, providing a robust framework for landslide risk management.
+
+Key Highlights
+
+Multi-resolution architecture combining national-scale warnings, high-resolution susceptibility mapping, and ground-truth process instrumentation., 
+Data-rich machine learning pipeline trained on over 4,000 historical events., 
+Semi-automated daily to twice-daily operational cadence synchronized with hazardous weather windows., 
+Real-time monitoring of matric suction and rainfall for direct estimation of slope stability., 
+Hybrid integrated models for evidence-based microzonation with high predictive performance.
+
+Results
+
+Approximately 2,345 hectares affected by landslides over the last five years, highlighting the need for higher-resolution monitoring and early warning systems.
+
+Contact Information
+
+Organization: International Consortium on Landslides (ICL), 
+Email: secretariat@landslides.org, 
+Contact Number: +81 (75) 723 0640
+, 
+Organization: International Programme on Landslides (IPL), 
+Email: secretariat@landslides.org, 
+Contact Number: +81 (75) 723 0640

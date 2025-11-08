@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7bdf9bef5c02c1318_chunk_0004",
+  "doc_id": "sol_7bdf9bef5c02c1318",
+  "chunk_number": 4,
+  "text": "The State highway and local roads recovery funding initiative, as part of New Zealand's Budget 2024, aims to address the damage caused by severe weather events in 2023, such as Cyclone Gabrielle and the Auckland Anniversary floods. The initiative focuses on both reactive recovery funding to repair damaged roads and proactive resilience investments to mitigate future risks. It involves multiple public organizations, including the New Zealand Government, NZ Transport Agency Waka Kotahi, and local councils, to ensure a coordinated response to weather-related disruptions.",
+  "section_title": "Description",
+  "character_count": 574,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_167",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 167,
+    "solution_name": "State highway and local roads recovery funding (Budget 2024)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.nzta.govt.nz/planning-and-investment/transport-resilience-fund/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.548981+00:00"
+  },
+  "s3_key": "data-lake/sol_7bdf9bef5c02c1318/sol_7bdf9bef5c02c1318_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7bdf9bef5c02c1318/sol_7bdf9bef5c02c1318_chunk_0004.json"
+}

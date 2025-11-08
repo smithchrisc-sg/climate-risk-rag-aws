@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ee6e7620b433e3ce5_chunk_0004",
+  "doc_id": "sol_ee6e7620b433e3ce5",
+  "chunk_number": 4,
+  "text": "The Disaster Recovery Funding Arrangements (DRFA) is Australia's primary national framework for sharing the costs of disaster relief and recovery between the Commonwealth and state/territory governments. Established in 2018, it replaced previous arrangements and provides structured assistance categories (A-D), advance payments for severe events, and encourages reinvestment of reconstruction efficiencies into natural hazard mitigation. The DRFA operates under the Intergovernmental Agreement on Federal Financial Relations and is supported by other policy instruments like the Social Security Act 1991, tax concessions, and the Emergency Response Fund. It involves multiple public bodies, including Emergency Management Australia and the National Emergency Management Agency, with Services Australia delivering financial relief to affected individuals.",
+  "section_title": "Description",
+  "character_count": 855,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_17",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 17,
+    "solution_name": "Disaster Recovery Funding Arrangements (DRFA)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2018",
+    "ppp": "No",
+    "source_url": "https://www.aph.gov.au/About_Parliament/Parliamentary_departments/Parliamentary_Library/Research/Quick_Guides/2019-20/EmergencyManagementDisasterResilience",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.380381+00:00"
+  },
+  "s3_key": "data-lake/sol_ee6e7620b433e3ce5/sol_ee6e7620b433e3ce5_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ee6e7620b433e3ce5/sol_ee6e7620b433e3ce5_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7c83b0ad62a3cec16_chunk_0004",
+  "doc_id": "sol_7c83b0ad62a3cec16",
+  "chunk_number": 4,
+  "text": "The Future Drought Fund (FDF) is a national initiative by the Australian Government designed to provide secure, continuous funding for drought resilience initiatives across Australia. With an endowment of $5 billion, the FDF distributes $100 million annually to help farms and communities prepare for and adapt to future droughts, addressing economic, social, and environmental dimensions of risk. The fund is administered by the Department of Agriculture, Fisheries and Forestry (DAFF) and aligns with the National Drought Agreement.",
+  "section_title": "Description",
+  "character_count": 534,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_31",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 31,
+    "solution_name": "Future Drought Fund (FDF)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.droughtinfo.com.au/partners/future-drought-fund",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.400322+00:00"
+  },
+  "s3_key": "data-lake/sol_7c83b0ad62a3cec16/sol_7c83b0ad62a3cec16_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7c83b0ad62a3cec16/sol_7c83b0ad62a3cec16_chunk_0004.json"
+}

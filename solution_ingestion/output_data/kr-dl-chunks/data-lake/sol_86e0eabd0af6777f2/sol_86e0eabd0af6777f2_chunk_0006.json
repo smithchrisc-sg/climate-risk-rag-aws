@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_86e0eabd0af6777f2_chunk_0006",
+  "doc_id": "sol_86e0eabd0af6777f2",
+  "chunk_number": 6,
+  "text": "PlanSmart automates the generation of recovery and reconstruction plans using hazard and risk data from GeoRiskPH, a unified national database. It offers preformulated, customizable plan templates and sector-specific modules. The platform is embedded in a broader risk financing architecture, including Cat-DDO, to ensure rapid access to funds. Over 2,300 officials have been trained in risk-informed recovery planning, with 500+ trained specifically on using PlanSmart.",
+  "section_title": "Key Highlights",
+  "character_count": 470,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_267",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 267,
+    "solution_name": "PlanSmart",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://www.gfdrr.org/en/feature-story/enabling-rapid-post-disaster-planning-and-financing-philippines",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.715130+00:00"
+  },
+  "s3_key": "data-lake/sol_86e0eabd0af6777f2/sol_86e0eabd0af6777f2_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_86e0eabd0af6777f2/sol_86e0eabd0af6777f2_chunk_0006.json"
+}

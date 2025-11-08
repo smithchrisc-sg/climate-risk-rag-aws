@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d1c1b9b9b89abac30_chunk_0002",
+  "doc_id": "sol_d1c1b9b9b89abac30",
+  "chunk_number": 2,
+  "text": "This solution, Developing Climate Disaster Risk Financing Framework and Parametric Insurance in Fiji addresses natural catastrophe through public private partnerships in Fiji between Reserve Bank of Fiji, Ministry of Agriculture and Waterways, United Nations Capital Development Fund (UNCDF), United Nations Development Programme (UNDP), United Nations University Institute for Environment and Human Security (UNU-EHS), India–UN Development Partnership Fund, UN Office for South–South Cooperation (UNOSSC), Governments of Australia, New Zealand, UK, Luxembourg, SUN Insurance, FijiCare, and Tower Insurance. The program was implemented in 2020 and focuses on collaboration, accessibility, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 711,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_101",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 101,
+    "solution_name": "Developing Climate Disaster Risk Financing Framework and Parametric Insurance in Fiji",
+    "country": "Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility, \nRaising Awareness",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.uncdf.org/pacific-insurance-and-climate-adaptation-programme",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.486536+00:00"
+  },
+  "s3_key": "data-lake/sol_d1c1b9b9b89abac30/sol_d1c1b9b9b89abac30_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d1c1b9b9b89abac30/sol_d1c1b9b9b89abac30_chunk_0002.json"
+}

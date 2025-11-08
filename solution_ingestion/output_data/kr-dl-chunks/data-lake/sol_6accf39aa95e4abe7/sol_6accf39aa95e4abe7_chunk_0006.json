@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6accf39aa95e4abe7_chunk_0006",
+  "doc_id": "sol_6accf39aa95e4abe7",
+  "chunk_number": 6,
+  "text": "The ISRS Project employs a two-tiered civil works strategy, addressing both simple and complex infrastructure recovery needs. It includes quick-turnaround repairs and functional restoration, as well as structural rehabilitation and retrofitting of severely damaged buildings. The project also emphasizes institutional strengthening for operations and maintenance, updating DepEd’s O&M manual and tools to ensure resilience gains are preserved. Additionally, a dedicated Project Management Office and consultancy support are established for effective oversight and delivery.",
+  "section_title": "Key Highlights",
+  "character_count": 573,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_253",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 253,
+    "solution_name": "Infrastructure for Safer and Resilient Schools (ISRS) Project",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2024/06/28/wb-approves-support-to-help-ensure-safer-resilient-schools-and-strengthen-recovery-in-the-philippines",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.699470+00:00"
+  },
+  "s3_key": "data-lake/sol_6accf39aa95e4abe7/sol_6accf39aa95e4abe7_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6accf39aa95e4abe7/sol_6accf39aa95e4abe7_chunk_0006.json"
+}

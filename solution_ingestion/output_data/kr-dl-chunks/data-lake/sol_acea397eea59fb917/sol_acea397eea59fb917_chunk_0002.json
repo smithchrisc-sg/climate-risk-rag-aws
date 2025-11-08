@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_acea397eea59fb917_chunk_0002",
+  "doc_id": "sol_acea397eea59fb917",
+  "chunk_number": 2,
+  "text": "This solution, National Flood Mitigation Infrastructure Program (NFMIP) addresses natural catastrophe in Australia between Commonwealth of Australia, Department of Home Affairs, Federal Financial Relations, Queensland Reconstruction Authority (QRA), Tasmania State Emergency Service (SES), Government of South Australia, and Local governments and public asset owners. The program was implemented in 2020 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 448,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_1",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 1,
+    "solution_name": "National Flood Mitigation Infrastructure Program (NFMIP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.ses.tas.gov.au/emergency-management-2/grant-funding/national-flood-mitigation-infrastructure-fund/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.354433+00:00"
+  },
+  "s3_key": "data-lake/sol_acea397eea59fb917/sol_acea397eea59fb917_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_acea397eea59fb917/sol_acea397eea59fb917_chunk_0002.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f56ff24210f86d133_chunk_0008",
+  "doc_id": "sol_f56ff24210f86d133",
+  "chunk_number": 8,
+  "text": "In pilot counties, there was a 48% average increase in the 'security level' for the three staples over the past three years. More than CNY 300 billion in agricultural insurance premium subsidies have been disbursed since 2007, with over CNY 20 billion budgeted in 2024 specifically for rice, wheat, and corn insurance programs.",
+  "section_title": "Results",
+  "character_count": 327,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_87",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 87,
+    "solution_name": "Full-cost insurance and planting income insurance for rice, wheat, and corn",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.insurancejournal.com/news/international/2024/05/22/775263.htm",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.470911+00:00"
+  },
+  "s3_key": "data-lake/sol_f56ff24210f86d133/sol_f56ff24210f86d133_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f56ff24210f86d133/sol_f56ff24210f86d133_chunk_0008.json"
+}

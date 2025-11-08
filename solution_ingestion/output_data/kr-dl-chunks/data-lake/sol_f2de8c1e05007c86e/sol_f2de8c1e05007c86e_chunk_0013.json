@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f2de8c1e05007c86e_chunk_0013",
+  "doc_id": "sol_f2de8c1e05007c86e",
+  "chunk_number": 13,
+  "text": "Insured residential losses up to NZD $87.9 million, representing ~50% of New Zealand’s total insured residential natural-disaster losses in 2021",
+  "section_title": "Results",
+  "character_count": 144,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_157",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 157,
+    "solution_name": "May/June 2021 Flood Repairs",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://geoscienceletters.springeropen.com/articles/10.1186/s40562-024-00323-z",
+    "section_title": "Results",
+    "chunk_number": 13,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.540383+00:00"
+  },
+  "s3_key": "data-lake/sol_f2de8c1e05007c86e/sol_f2de8c1e05007c86e_chunk_0013.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f2de8c1e05007c86e/sol_f2de8c1e05007c86e_chunk_0013.json"
+}

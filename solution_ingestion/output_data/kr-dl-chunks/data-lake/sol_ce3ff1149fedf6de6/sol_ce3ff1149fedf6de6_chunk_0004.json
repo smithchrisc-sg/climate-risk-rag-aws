@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ce3ff1149fedf6de6_chunk_0004",
+  "doc_id": "sol_ce3ff1149fedf6de6",
+  "chunk_number": 4,
+  "text": "The Consolidation and Mainstreaming of Disaster Risk Reduction (DRR) in China is a national policy initiative embedded in the country's Five-Year Plan system and Comprehensive Disaster Prevention and Mitigation Plans. It aims to integrate DRR into development planning, standardize disaster data systems, and orient governance towards prevention, preparedness, and risk management in alignment with the Sendai Framework for Disaster Risk Reduction (2015–2030). The initiative focuses on reducing disaster mortality and economic losses, enhancing monitoring and information platforms, and utilizing risk financing tools adapted to local contexts.",
+  "section_title": "Description",
+  "character_count": 645,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_72",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 72,
+    "solution_name": "Consolidation and Mainstreaming of Disaster Risk Reduction (DRR) in China",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "1998",
+    "ppp": "No",
+    "source_url": "https://www.gfdrr.org/en/feature-story/evolution-national-disaster-risk-reduction-plans-china",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.453162+00:00"
+  },
+  "s3_key": "data-lake/sol_ce3ff1149fedf6de6/sol_ce3ff1149fedf6de6_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ce3ff1149fedf6de6/sol_ce3ff1149fedf6de6_chunk_0004.json"
+}

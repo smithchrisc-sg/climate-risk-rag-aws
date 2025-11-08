@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0782324b776f16371_chunk_0004",
+  "doc_id": "sol_0782324b776f16371",
+  "chunk_number": 4,
+  "text": "The Cambodia Southeast Asia Disaster Risk Management Project 2 (CSADRMP2) is a World Bank-financed initiative aimed at enhancing the climate and disaster resilience of Cambodia's rural transport network and improving national emergency preparedness. The project focuses on institutional upgrades, resilient rural road rehabilitation, and includes a contingency financing window for rapid response to crises or emergencies. It targets recurrent flood impacts, particularly in the Tonle Sap region, and aims to reduce disaster-related disruptions while enhancing the government's capacity to prepare for and respond to emergencies.",
+  "section_title": "Description",
+  "character_count": 629,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_67",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 67,
+    "solution_name": "Cambodia Southeast Asia Disaster Risk Management Project 2 (CSADRMP2)",
+    "country": "Cambodia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/879561653594041489/pdf/Cambodia-Second-Southeast-Asia-Disaster-Risk-Management-Project.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.448218+00:00"
+  },
+  "s3_key": "data-lake/sol_0782324b776f16371/sol_0782324b776f16371_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0782324b776f16371/sol_0782324b776f16371_chunk_0004.json"
+}

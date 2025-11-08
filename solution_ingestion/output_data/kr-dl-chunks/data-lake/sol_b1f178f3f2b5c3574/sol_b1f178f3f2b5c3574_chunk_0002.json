@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b1f178f3f2b5c3574_chunk_0002",
+  "doc_id": "sol_b1f178f3f2b5c3574",
+  "chunk_number": 2,
+  "text": "This solution, New Zealand Volcano Science Advisory Panel (NZVSAP) addresses natural catastrophe in New Zealand between National Emergency Management Agency (NEMA), GNS Science, University of Auckland, University of Canterbury, Massey University, GeoNet, New Zealand Defence Force (NZDF), Ministry of Foreign Affairs and Trade (MFAT), and Land Information New Zealand (LINZ). The program was implemented in 2008 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 463,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_178",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 178,
+    "solution_name": "New Zealand Volcano Science Advisory Panel (NZVSAP)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2008",
+    "ppp": "No",
+    "source_url": "https://www.gns.cri.nz/research-projects/vanuatu-ambae-eruption/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.565187+00:00"
+  },
+  "s3_key": "data-lake/sol_b1f178f3f2b5c3574/sol_b1f178f3f2b5c3574_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b1f178f3f2b5c3574/sol_b1f178f3f2b5c3574_chunk_0002.json"
+}

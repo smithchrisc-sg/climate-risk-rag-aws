@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2e6620f1a3e8dacad_chunk_0006",
+  "doc_id": "sol_2e6620f1a3e8dacad",
+  "chunk_number": 6,
+  "text": "The initiative features automatic attachment of public catastrophe cover to private home insurance policies, a doubled cap aligned with cost inflation, and a levy rate reduction alongside the higher cap. It also includes coverage for certain residential land damage from storms and floods, ensuring broad participation and risk pooling.",
+  "section_title": "Key Highlights",
+  "character_count": 336,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_151",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 151,
+    "solution_name": "Doubling of the Residential Building Cap and Levy Adjustment under EQCover (Toka Tū Ake EQC)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Accessibility, \nCollaboration",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.naturalhazards.govt.nz/news/eqcover-building-cap-begins-doubling-for-homeowners-from-1-october-2022/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.532809+00:00"
+  },
+  "s3_key": "data-lake/sol_2e6620f1a3e8dacad/sol_2e6620f1a3e8dacad_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2e6620f1a3e8dacad/sol_2e6620f1a3e8dacad_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2b44478380443bd7e_chunk_0004",
+  "doc_id": "sol_2b44478380443bd7e",
+  "chunk_number": 4,
+  "text": "The SEADRIF–Myanmar DRF Engagement is a country-level policy and technical initiative under the SEADRIF regional platform, aimed at strengthening Myanmar's financial resilience against natural hazards. It provides ASEAN members, including Myanmar, with financial protection solutions such as sovereign catastrophe insurance and risk analytics. Despite constraints since 2021, the engagement remains crucial for Myanmar's high exposure to cyclones, floods, and earthquakes, offering pre-arranged disaster response financing.",
+  "section_title": "Description",
+  "character_count": 523,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_120",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 120,
+    "solution_name": "Engagement with the Southeast Asia Disaster Risk Insurance Facility (SEADRIF) on Disaster Risk Financing in Myanmar (SEADRIF–Myanmar DRF Engagement)",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "Yes",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2020/05/08/new-insurance-company-to-strengthen-financial-resilience-in-southeast-asia",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.500113+00:00"
+  },
+  "s3_key": "data-lake/sol_2b44478380443bd7e/sol_2b44478380443bd7e_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2b44478380443bd7e/sol_2b44478380443bd7e_chunk_0004.json"
+}

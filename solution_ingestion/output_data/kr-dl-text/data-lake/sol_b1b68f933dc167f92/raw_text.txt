@@ -1,0 +1,35 @@
+Probabilistic Tsunami Hazard Assessment for Vanimo Port Design (PTHA–Vanimo)
+
+PNG Department of Transport, 
+PNG maritime/port authorities
+
+and 
+
+Geoscience Australia, 
+NOAA Center for Tsunami Research
+
+Introduction
+
+This solution, Probabilistic Tsunami Hazard Assessment for Vanimo Port Design (PTHA–Vanimo) addresses natural catastrophe in Papua New Guinea between PNG Department of Transport, PNG maritime/port authorities, Geoscience Australia, and NOAA Center for Tsunami Research. The program was implemented in 2024-2026 and focuses on collaboration and leveraging tech.
+
+Description
+
+The Probabilistic Tsunami Hazard Assessment for Vanimo Port Design (PTHA–Vanimo) is an initiative aimed at assessing and mitigating tsunami risks for the Vanimo port in Papua New Guinea. It leverages the PTHA18 framework developed by Geoscience Australia, which provides a comprehensive set of earthquake-tsunami scenarios and guidelines tailored for Pacific Island countries. The initiative focuses on site-specific inundation modeling and design processes to enhance the resilience of port infrastructure against tsunami hazards.
+
+Key Highlights
+
+The initiative utilizes over 1 million plausible earthquake scenarios to create national-scale exceedance maps, which are then used for local-scale modeling. It employs open-source BSD-licensed codes and Pacific Islands-tailored guidance. The approach includes hazard deaggregation to identify dominant sources and a practical 'local model' approach to manage computational costs while achieving site resolution.
+
+Results
+
+Specific results for Vanimo are not publicly available. However, regional data indicates a high probability of significant tsunami events, with an annual probability of a coastal tsunami height >0.5 m being greater than 10% for north Papua, highlighting the critical need for this assessment.
+
+Contact Information
+
+Organization: Geoscience Australia (GA), 
+Email: hazards@ga.gov.au, 
+Contact Number: +61 2 6249 9111
+, 
+Organization: NOAA Center for Tsunami Research (NCTR), NOAA/PMEL, 
+Email: oar.pmel@noaa.gov, 
+Contact Number: +1 206-526-6810

@@ -1,0 +1,38 @@
+EQC-led Enhancement of Volcanic Risk, Loss Modeling, and Policy (EQC Volcanic Risk & Policy)
+
+Natural Hazards Commission Toka Tū Ake (EQC), 
+GNS Science, 
+NIWA, 
+MetService
+
+and 
+
+Private insurers in New Zealand, 
+Massey University, 
+CSIRO Data61
+
+Introduction
+
+This solution, EQC-led Enhancement of Volcanic Risk, Loss Modeling, and Policy (EQC Volcanic Risk & Policy) addresses natural catastrophe through public private partnerships in New Zealand between Natural Hazards Commission Toka Tū Ake (EQC), GNS Science, NIWA, MetService, Private insurers in New Zealand, Massey University, and CSIRO Data61. The program was implemented in 2014 and focuses on collaboration, leveraging tech, and regulation.
+
+Description
+
+The EQC-led Enhancement of Volcanic Risk, Loss Modeling, and Policy is a comprehensive initiative aimed at modernizing volcanic risk forecasting, loss modeling, and operational policy in New Zealand. It integrates next-generation loss modeling, targeted volcano-science investments, and operational policy reforms to improve readiness for volcanic eruptions. The initiative involves collaboration with public and private organizations to enhance the Natural Disaster Response Model and streamline insurance operations.
+
+Key Highlights
+
+The initiative is distinguished by its end-to-end design, integrating monitoring, hazard science, risk and loss modeling, and insurance operations. It employs the RiskScape platform for advanced loss modeling, incorporates real-time ashfall probability forecasting, and develops new models for pyroclastic surges. The Natural Disaster Response Model (NDRM) allows private insurers to manage EQC claims, enhancing surge response capability. The initiative also includes policy clarifications for volcanic eruptions, embedding science into claims policy.
+
+Results
+
+Cannot be determined.
+
+Contact Information
+
+Organization: Natural Hazards Commission Toka Tū Ake (formerly EQC), 
+Email: info@naturalhazards.govt.nz, 
+Contact Number: +64 4 978 6400; Freephone 0800 326 243
+, 
+Organization: GNS Science, 
+Email: Not provided in supplied sources, 
+Contact Number: 021 574 541

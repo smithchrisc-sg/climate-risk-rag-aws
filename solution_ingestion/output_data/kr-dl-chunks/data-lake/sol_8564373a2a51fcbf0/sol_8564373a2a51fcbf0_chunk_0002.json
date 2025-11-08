@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8564373a2a51fcbf0_chunk_0002",
+  "doc_id": "sol_8564373a2a51fcbf0",
+  "chunk_number": 2,
+  "text": "This solution, Cyclone Reinsurance Pool Strata Mitigation Discounts (CRP Strata Mitigation Discounts) addresses natural catastrophe through public private partnerships in Australia between Australian Reinsurance Pool Corporation (ARPC) and James Cook University (JCU). The program was implemented in 2025 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 349,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_29",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 29,
+    "solution_name": "Cyclone Reinsurance Pool Strata Mitigation Discounts (CRP Strata Mitigation Discounts)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.insurancenews.com.au/regulatory-government/cyclone-pool-to-introduce-strata-mitigation-discounts",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.397529+00:00"
+  },
+  "s3_key": "data-lake/sol_8564373a2a51fcbf0/sol_8564373a2a51fcbf0_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8564373a2a51fcbf0/sol_8564373a2a51fcbf0_chunk_0002.json"
+}

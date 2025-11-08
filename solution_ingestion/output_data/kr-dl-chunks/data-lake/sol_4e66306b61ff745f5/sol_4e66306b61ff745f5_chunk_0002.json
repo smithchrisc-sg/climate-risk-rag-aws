@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_4e66306b61ff745f5_chunk_0002",
+  "doc_id": "sol_4e66306b61ff745f5",
+  "chunk_number": 2,
+  "text": "This solution, Cambodia National Action Plan on Drought Management and Adaptation (2025–2030) addresses natural catastrophe through public private partnerships in Cambodia between Ministry of Water Resources and Meteorology (MoWRAM), Cambodia National Mekong Committee (CNMC), Tonle Sap Authority, National Committee for Disaster Management (NCDM), World Meteorological Organization (WMO), Global Water Partnership Southeast Asia (GWP-SEA), Climate Risk and Early Warning Systems (CREWS) Initiative, SDG 6 IWRM Support Programme (GWP and UNEP-DHI), and Integrated Drought Management Programme (IDMP). The program was implemented in 2025 and focuses on collaboration, raising awareness, and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 706,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_63",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 63,
+    "solution_name": "Cambodia National Action Plan on Drought Management and Adaptation (2025–2030)",
+    "country": "Cambodia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nLeveraging Tech",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.gwp.org/en/GWP-South-East-Asia/WE-ACT/Events/2025/flowing-toward-resilience-cambodia-sets-course-with-water-and-drought-action-plans/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.444078+00:00"
+  },
+  "s3_key": "data-lake/sol_4e66306b61ff745f5/sol_4e66306b61ff745f5_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_4e66306b61ff745f5/sol_4e66306b61ff745f5_chunk_0002.json"
+}

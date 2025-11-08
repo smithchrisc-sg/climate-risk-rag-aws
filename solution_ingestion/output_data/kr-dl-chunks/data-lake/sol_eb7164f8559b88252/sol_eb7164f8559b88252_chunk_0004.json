@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_eb7164f8559b88252_chunk_0004",
+  "doc_id": "sol_eb7164f8559b88252",
+  "chunk_number": 4,
+  "text": "The Taiwan–Philippines Landslide and Debris Flow Disaster Research Cooperation MOU is a bilateral agreement aimed at enhancing scientific collaboration, capacity building, and technology application for landslide and debris flow risk reduction. It involves Taiwan's ARDSWC and the Philippines' MECO and PHIVOLCS, focusing on soil and water conservation, geological disaster research, climate change impact assessment, and the use of big data and AI in disaster management.",
+  "section_title": "Description",
+  "character_count": 472,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_283",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 283,
+    "solution_name": "2024 Taiwan–Philippines Landslide and Debris Flow Disaster Research Cooperation MOU",
+    "country": "Taiwan, \nPhilippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.ardswc.gov.tw/Home/eng/News/news_more?id=74080a1a406147529ba85a12a46cacde",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.731441+00:00"
+  },
+  "s3_key": "data-lake/sol_eb7164f8559b88252/sol_eb7164f8559b88252_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_eb7164f8559b88252/sol_eb7164f8559b88252_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d536cac409e124632_chunk_0004",
+  "doc_id": "sol_d536cac409e124632",
+  "chunk_number": 4,
+  "text": "The Sovereign Risk Transfer Scheme Development in Fiji is a national initiative aimed at structuring pre-arranged financial protection for climate and disaster events. Led by Willis Towers Watson, with technical partnerships from the Government of Fiji, the World Bank, and the IFC, the scheme is designed to provide rapid liquidity in the aftermath of disasters. It integrates with Fiji's layered Climate and Disaster Risk Financing strategy and leverages modernized national payment systems to ensure swift disbursement of funds.",
+  "section_title": "Description",
+  "character_count": 531,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_100",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 100,
+    "solution_name": "Sovereign Risk Transfer Scheme Development in Fiji",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.ifc.org/en/pressroom/2022/27293",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.485423+00:00"
+  },
+  "s3_key": "data-lake/sol_d536cac409e124632/sol_d536cac409e124632_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d536cac409e124632/sol_d536cac409e124632_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7a24d71b359715a6f_chunk_0009",
+  "doc_id": "sol_7a24d71b359715a6f",
+  "chunk_number": 9,
+  "text": "Event period extends 48 hours after cyclone ends,",
+  "section_title": "Key Highlights",
+  "character_count": 49,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_7",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 7,
+    "solution_name": "Cyclone Reinsurance Pool (CRP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://arpc.gov.au/reinsurance-pools/cyclone/",
+    "section_title": "Key Highlights",
+    "chunk_number": 9,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.368086+00:00"
+  },
+  "s3_key": "data-lake/sol_7a24d71b359715a6f/sol_7a24d71b359715a6f_chunk_0009.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7a24d71b359715a6f/sol_7a24d71b359715a6f_chunk_0009.json"
+}

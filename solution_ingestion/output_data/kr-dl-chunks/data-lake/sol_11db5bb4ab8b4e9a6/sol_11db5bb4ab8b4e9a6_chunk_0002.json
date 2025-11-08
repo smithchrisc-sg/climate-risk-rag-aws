@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_11db5bb4ab8b4e9a6_chunk_0002",
+  "doc_id": "sol_11db5bb4ab8b4e9a6",
+  "chunk_number": 2,
+  "text": "This solution, Drought‑focused Government Risk Financing in New Zealand (2020–2025) addresses natural catastrophe in New Zealand between Financial Markets Authority (FMA), New Zealand Government, Oxfam Aotearoa, and World Health Organization (WHO). The program was implemented in 2020 and focuses on regulation and collaboration.",
+  "section_title": "Introduction",
+  "character_count": 329,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_188",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 188,
+    "solution_name": "Drought‑focused Government Risk Financing in New Zealand (2020–2025)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.who.int/health-topics/drought/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.575773+00:00"
+  },
+  "s3_key": "data-lake/sol_11db5bb4ab8b4e9a6/sol_11db5bb4ab8b4e9a6_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_11db5bb4ab8b4e9a6/sol_11db5bb4ab8b4e9a6_chunk_0002.json"
+}

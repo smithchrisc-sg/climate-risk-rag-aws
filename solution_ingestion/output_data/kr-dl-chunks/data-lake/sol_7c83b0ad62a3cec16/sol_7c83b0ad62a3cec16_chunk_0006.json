@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7c83b0ad62a3cec16_chunk_0006",
+  "doc_id": "sol_7c83b0ad62a3cec16",
+  "chunk_number": 6,
+  "text": "The FDF features a perpetual $100 million annual funding flow, supported by a sovereign wealth investment approach. It emphasizes integrated delivery through Innovation Hubs, strong alignment with the National Drought Agreement, and a focus on building social capital. The fund also includes interoperable climate services and self-assessment tools, with oversight provided by an independent Productivity Commission review cycle.",
+  "section_title": "Key Highlights",
+  "character_count": 429,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_31",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 31,
+    "solution_name": "Future Drought Fund (FDF)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.droughtinfo.com.au/partners/future-drought-fund",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.400525+00:00"
+  },
+  "s3_key": "data-lake/sol_7c83b0ad62a3cec16/sol_7c83b0ad62a3cec16_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7c83b0ad62a3cec16/sol_7c83b0ad62a3cec16_chunk_0006.json"
+}

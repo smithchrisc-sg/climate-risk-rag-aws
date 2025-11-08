@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1f2d134369e309551_chunk_0008",
+  "doc_id": "sol_1f2d134369e309551",
+  "chunk_number": 8,
+  "text": "In 2024, the NIIP insured 132,862 DepEd school buildings nationwide, with an approximate insured asset value over PHP 800 billion. The program's operational readiness at a national scale for a large asset class was demonstrated. The GSIS reported a capacity of roughly PHP 843.11 billion for disaster insurance support, indicating significant underwriting capacity for such portfolios.",
+  "section_title": "Results",
+  "character_count": 385,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_286",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 286,
+    "solution_name": "National Indemnity Insurance Program (NIIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://documents1.worldbank.org/curated/en/158231634277264045/txt/Appraisal-Program-Information-Document-PID-Philippines-Promoting-Competitiveness-and-Enhancing-Resilience-to-Natural-Disasters-Sub-Program-3-P176891.txt",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.737168+00:00"
+  },
+  "s3_key": "data-lake/sol_1f2d134369e309551/sol_1f2d134369e309551_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1f2d134369e309551/sol_1f2d134369e309551_chunk_0008.json"
+}

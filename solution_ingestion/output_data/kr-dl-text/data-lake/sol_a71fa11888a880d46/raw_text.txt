@@ -1,0 +1,33 @@
+Climate Risk and Early Warning Systems – Papua New Guinea Drought Early Warning System (CREWS‑PNG)
+
+PNG National Weather Service (PNG NWS)
+
+and 
+
+World Meteorological Organization (WMO), 
+Australian Bureau of Meteorology (BoM), 
+CREWS Secretariat
+
+Introduction
+
+This solution, Climate Risk and Early Warning Systems – Papua New Guinea Drought Early Warning System (CREWS‑PNG) addresses natural catastrophe in Papua New Guinea between PNG National Weather Service (PNG NWS), World Meteorological Organization (WMO), Australian Bureau of Meteorology (BoM), and CREWS Secretariat. The program was implemented in 2022 and focuses on collaboration, leveraging tech, and raising awareness.
+
+Description
+
+The Climate Risk and Early Warning Systems – Papua New Guinea Drought Early Warning System (CREWS‑PNG) is an initiative aimed at addressing the impacts of drought in Papua New Guinea. It is part of the global CREWS initiative led by the World Meteorological Organization (WMO) and partners. The system is designed to provide operational, impact-based risk information to inform early action across all 22 provinces of Papua New Guinea. It integrates space-based monitoring, dynamic seasonal forecasts, and a novel risk assessment framework to deliver targeted advisories for agriculture, water, health, and disaster management sectors.
+
+Key Highlights
+
+The initiative features an end-to-end, user-centered design that integrates space-based extremes monitoring with ground services. It has shifted to dynamic seasonal forecast models and offers multi-timescale products, including weekly to seasonal drought detection. The system employs a novel risk assessment framework that combines hazard, exposure, and vulnerability metrics. It also emphasizes user-centered service design, engaging stakeholders from various sectors to ensure the relevance and actionability of its products.
+
+Results
+
+The initiative has improved five climate products for PNG, created weekly, monthly, and seasonal drought monitoring products, and issued the first dynamic-model seasonal forecast to decision-makers. It engaged 115 users across agriculture, health, water, and disaster management sectors. The project funds totaled approximately US$1.65 million, with a leverage factor of 0.36x.
+
+Contact Information
+
+Name: Clare Nullis, 
+Position:Media Officer, 
+Company:World Meteorological Organization (WMO) 
+Email: cnullis@wmo.int, 
+Contact Number: +41 79 709 1397

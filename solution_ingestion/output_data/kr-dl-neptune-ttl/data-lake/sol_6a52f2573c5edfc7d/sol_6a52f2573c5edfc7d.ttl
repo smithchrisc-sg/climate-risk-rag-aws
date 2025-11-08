@@ -1,0 +1,128 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+
+sg:Document_sol_6a52f2573c5edfc7d a sgd:Solution ;
+    dcterms:identifier "sol_6a52f2573c5edfc7d" ;
+    dcterms:title "National Emergency Operations Center (NEOC)" ;
+    dcterms:created "2025-09-25" ;
+    dcterms:spatial "Republic of Maldives" ;
+    dcterms:source <https://ioc.unesco.org> ;
+    dcterms:publisher sg:Org_national_disaster_management_authority_ndma, sg:Org_maldives_national_defence_force_mndf, sg:Org_maldives_police_service_mps, sg:Org_health_protection_agency_hpa, sg:Org_maldives_meteorological_service_mms, sg:Org_local_government_authority, sg:Org_atoll_and_island_councils, sg:Org_sectoral_ministries, sg:Org_united_nations_development_programme_undp, sg:Org_world_health_organization_who, sg:Org_united_nations_childrens_fund_unicef, sg:Org_world_food_programme_wfp, sg:Org_world_bank, sg:Org_ioc-unesco, sg:Org_international_federation_of_red_cross_and_red_crescent_societies_ifrc, sg:Org_international_committee_of_the_red_cross_icrc ;
+    sgd:firstChild sg:Chunk_sol_6a52f2573c5edfc7d_0001 ;
+    sgd:hasChild sg:Chunk_sol_6a52f2573c5edfc7d_0001, sg:Chunk_sol_6a52f2573c5edfc7d_0003, sg:Chunk_sol_6a52f2573c5edfc7d_0005, sg:Chunk_sol_6a52f2573c5edfc7d_0007 ;
+    sgd:lastChild sg:Chunk_sol_6a52f2573c5edfc7d_0007 ;
+    sgm:processingTimestamp "2025-11-06T21:15:06.498436+00:00"^^xsd:dateTime .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0001 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_6a52f2573c5edfc7d ;
+    dcterms:title "Introduction" ;
+    sgd:firstChild sg:Chunk_sol_6a52f2573c5edfc7d_0002 ;
+    sgd:hasChild sg:Chunk_sol_6a52f2573c5edfc7d_0002 ;
+    sgd:lastChild sg:Chunk_sol_6a52f2573c5edfc7d_0002 ;
+    sgd:nextSibling sg:Chunk_sol_6a52f2573c5edfc7d_0003 .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0002 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_6a52f2573c5edfc7d_0001 ;
+    sgm:chunkId "sol_6a52f2573c5edfc7d_chunk_0002" ;
+    sgm:s3Key "data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0002.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0002.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0003 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_6a52f2573c5edfc7d ;
+    dcterms:title "Description" ;
+    sgd:firstChild sg:Chunk_sol_6a52f2573c5edfc7d_0004 ;
+    sgd:hasChild sg:Chunk_sol_6a52f2573c5edfc7d_0004 ;
+    sgd:lastChild sg:Chunk_sol_6a52f2573c5edfc7d_0004 ;
+    sgd:nextSibling sg:Chunk_sol_6a52f2573c5edfc7d_0005 .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0004 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_6a52f2573c5edfc7d_0003 ;
+    sgm:chunkId "sol_6a52f2573c5edfc7d_chunk_0004" ;
+    sgm:s3Key "data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0004.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0004.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0005 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_6a52f2573c5edfc7d ;
+    dcterms:title "Key Highlights" ;
+    sgd:firstChild sg:Chunk_sol_6a52f2573c5edfc7d_0006 ;
+    sgd:hasChild sg:Chunk_sol_6a52f2573c5edfc7d_0006 ;
+    sgd:lastChild sg:Chunk_sol_6a52f2573c5edfc7d_0006 ;
+    sgd:nextSibling sg:Chunk_sol_6a52f2573c5edfc7d_0007 .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0006 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_6a52f2573c5edfc7d_0005 ;
+    sgm:chunkId "sol_6a52f2573c5edfc7d_chunk_0006" ;
+    sgm:s3Key "data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0006.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0006.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0007 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_6a52f2573c5edfc7d ;
+    dcterms:title "Results" ;
+    sgd:firstChild sg:Chunk_sol_6a52f2573c5edfc7d_0008 ;
+    sgd:hasChild sg:Chunk_sol_6a52f2573c5edfc7d_0008 ;
+    sgd:lastChild sg:Chunk_sol_6a52f2573c5edfc7d_0008 .
+
+sg:Chunk_sol_6a52f2573c5edfc7d_0008 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_6a52f2573c5edfc7d_0007 ;
+    sgm:chunkId "sol_6a52f2573c5edfc7d_chunk_0008" ;
+    sgm:s3Key "data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0008.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0008.json"^^xsd:anyURI
+ .
+
+
+
+sg:Org_united_nations_development_programme_undp_maldives_country_office a org:Organization ;
+    skos:prefLabel "United Nations Development Programme (UNDP) – Maldives Country Office" ;
+    schema:contactPoint sg:Contact_united_nations_development_programme_undp_maldives_country_office .
+
+sg:Contact_united_nations_development_programme_undp_maldives_country_office a schema:ContactPoint ;
+    schema:email "Use the “Contact” on UNDP Maldives site or the official country office email listed there" ;
+    schema:telephone "Official switchboard as listed on the UNDP Maldives site" .
+
+sg:Org_world_health_organization_who_maldives_country_office a org:Organization ;
+    skos:prefLabel "World Health Organization (WHO) – Maldives Country Office" ;
+    schema:contactPoint sg:Contact_world_health_organization_who_maldives_country_office .
+
+sg:Contact_world_health_organization_who_maldives_country_office a schema:ContactPoint ;
+    schema:email "Country office email listed on WHO Maldives page" ;
+    schema:telephone "Country office phone listed on WHO Maldives page" .
+
+sg:Org_united_nations_childrens_fund_unicef_maldives_country_office a org:Organization ;
+    skos:prefLabel "United Nations Children’s Fund (UNICEF) – Maldives Country Office" ;
+    schema:contactPoint sg:Contact_united_nations_childrens_fund_unicef_maldives_country_office .
+
+sg:Contact_united_nations_childrens_fund_unicef_maldives_country_office a schema:ContactPoint ;
+    schema:email "Country office email listed on UNICEF Maldives “Contact us”" ;
+    schema:telephone "Country office phone on UNICEF Maldives site" .
+
+sg:Org_world_food_programme_wfp_coverage_for_maldives a org:Organization ;
+    skos:prefLabel "World Food Programme (WFP) – Coverage for Maldives" ;
+    schema:contactPoint sg:Contact_world_food_programme_wfp_coverage_for_maldives .
+
+sg:Contact_world_food_programme_wfp_coverage_for_maldives a schema:ContactPoint ;
+    schema:email "Email as listed on Maldives (or Sri Lanka) page" ;
+    schema:telephone "Phone as listed on the relevant WFP country/coverage page" .
+
+sg:Org_world_bank_maldives_country_office a org:Organization ;
+    skos:prefLabel "World Bank – Maldives Country Office" ;
+    schema:contactPoint sg:Contact_world_bank_maldives_country_office .
+
+sg:Contact_world_bank_maldives_country_office a schema:ContactPoint ;
+    schema:email "Contact channel listed on World Bank Maldives site" ;
+    schema:telephone "Phone as listed on World Bank Maldives site" .
+
+sg:Org_ioc-unesco_indian_ocean_tsunami_warning_and_mitigation_system_iotwms_secretariat a org:Organization ;
+    skos:prefLabel "IOC-UNESCO – Indian Ocean Tsunami Warning and Mitigation System (IOTWMS) Secretariat" ;
+    schema:contactPoint sg:Contact_ioc-unesco_indian_ocean_tsunami_warning_and_mitigation_system_iotwms_secretariat .
+
+sg:Contact_ioc-unesco_indian_ocean_tsunami_warning_and_mitigation_system_iotwms_secretariat a schema:ContactPoint ;
+    schema:email "Secretariat email listed on" .

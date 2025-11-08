@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_87525d74ea23c23ce_chunk_0008",
+  "doc_id": "sol_87525d74ea23c23ce",
+  "chunk_number": 8,
+  "text": "The NAP has established a national six-year adaptation work program with sectoral objectives for homes, buildings, and places. The Climate Change Commission published its first progress report in August 2024, but detailed effectiveness and outcome metrics are still under review.",
+  "section_title": "Results",
+  "character_count": 279,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_175",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 175,
+    "solution_name": "Urutau, ka taurikura: Kia tū pakari a Aotearoa i ngā huringa āhuarangi | Adapt and thrive: Building a climate-resilient New Zealand — Aotearoa New Zealand’s First National Adaptation Plan (NAP)",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://www.hud.govt.nz/our-work/national-adaptation-plan",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.560750+00:00"
+  },
+  "s3_key": "data-lake/sol_87525d74ea23c23ce/sol_87525d74ea23c23ce_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_87525d74ea23c23ce/sol_87525d74ea23c23ce_chunk_0008.json"
+}

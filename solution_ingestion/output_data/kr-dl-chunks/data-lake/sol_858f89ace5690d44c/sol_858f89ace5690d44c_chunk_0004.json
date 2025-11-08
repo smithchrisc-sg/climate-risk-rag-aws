@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_858f89ace5690d44c_chunk_0004",
+  "doc_id": "sol_858f89ace5690d44c",
+  "chunk_number": 4,
+  "text": "The Disaster Resilience Improvement Program (DRIP) is a policy-based operation by the Asian Development Bank aimed at enhancing the Philippines' resilience to natural hazards and public health emergencies, including pandemics. With a loan of US$500 million, DRIP focuses on three reform pillars: improving policy and institutional arrangements for disaster risk management and health emergencies, enhancing the resilience of local government units and national assets, and developing disaster risk financing solutions.",
+  "section_title": "Description",
+  "character_count": 518,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_279",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 279,
+    "solution_name": "Philippines: Disaster Resilience Improvement Program (DRIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/54022/54022-001-pcr-en.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.727741+00:00"
+  },
+  "s3_key": "data-lake/sol_858f89ace5690d44c/sol_858f89ace5690d44c_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_858f89ace5690d44c/sol_858f89ace5690d44c_chunk_0004.json"
+}

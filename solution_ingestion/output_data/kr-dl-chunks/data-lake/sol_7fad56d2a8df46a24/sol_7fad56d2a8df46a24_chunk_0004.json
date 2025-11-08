@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7fad56d2a8df46a24_chunk_0004",
+  "doc_id": "sol_7fad56d2a8df46a24",
+  "chunk_number": 4,
+  "text": "The National Landslide Susceptibility Mapping (LSM) initiative in South Korea is a comprehensive program aimed at identifying and mitigating the risks of rainfall-induced landslides. It integrates machine learning-based susceptibility modeling with the Korea Forest Service's operational forecasting to provide daily national susceptibility maps and short-term early warnings. The initiative is part of a larger effort to enhance landslide forecasting and information services in South Korea, leveraging academic, industry, and government partnerships to improve spatial and temporal resolution in landslide risk assessment.",
+  "section_title": "Description",
+  "character_count": 624,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_323",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 323,
+    "solution_name": "National Landslide Susceptibility Mapping (LSM)",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Leveraging Tech, \nCollaboration",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://sansatai.forest.go.kr/gis/main.do",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.776572+00:00"
+  },
+  "s3_key": "data-lake/sol_7fad56d2a8df46a24/sol_7fad56d2a8df46a24_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7fad56d2a8df46a24/sol_7fad56d2a8df46a24_chunk_0004.json"
+}

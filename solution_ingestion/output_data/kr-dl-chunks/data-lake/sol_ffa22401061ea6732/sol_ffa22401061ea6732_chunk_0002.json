@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_ffa22401061ea6732_chunk_0002",
+  "doc_id": "sol_ffa22401061ea6732",
+  "chunk_number": 2,
+  "text": "This solution, UNDP Insurance and Risk Finance Facility (IRFF) – Nepal Country Programme addresses natural catastrophe through public private partnerships in Nepal between Government of Nepal, United Nations Development Programme (UNDP), German Federal Ministry for Economic Cooperation and Development (BMZ), Biodiversity Finance Initiative (BIOFIN), Insurance Development Forum (IDF), and Milliman. The program was implemented in 2024 and focuses on collaboration, leveraging tech, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 506,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_131",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 131,
+    "solution_name": "UNDP Insurance and Risk Finance Facility (IRFF) – Nepal Country Programme",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction, \nIncrease Penetration",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://irff.undp.org/asia-and-pacific/nepal",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.511662+00:00"
+  },
+  "s3_key": "data-lake/sol_ffa22401061ea6732/sol_ffa22401061ea6732_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_ffa22401061ea6732/sol_ffa22401061ea6732_chunk_0002.json"
+}

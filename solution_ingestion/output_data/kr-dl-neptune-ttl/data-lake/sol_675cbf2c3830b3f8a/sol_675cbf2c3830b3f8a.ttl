@@ -1,0 +1,80 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+
+sg:Document_sol_675cbf2c3830b3f8a a sgd:Solution ;
+    dcterms:identifier "sol_675cbf2c3830b3f8a" ;
+    dcterms:title "National Resilience Plan 2025–2026" ;
+    dcterms:created "2025-09-26" ;
+    dcterms:spatial "Pakistan" ;
+    dcterms:source <https://www.nation.com.pk/26-Sep-2025/minister-ndma-chief-discuss-national-resilience-plan> ;
+    dcterms:publisher sg:Org_ministry_of_climate_change_and_environmental_coordination_moccec, sg:Org_national_disaster_management_authority_ndma ;
+    sgd:firstChild sg:Chunk_sol_675cbf2c3830b3f8a_0001 ;
+    sgd:hasChild sg:Chunk_sol_675cbf2c3830b3f8a_0001, sg:Chunk_sol_675cbf2c3830b3f8a_0003, sg:Chunk_sol_675cbf2c3830b3f8a_0005, sg:Chunk_sol_675cbf2c3830b3f8a_0007 ;
+    sgd:lastChild sg:Chunk_sol_675cbf2c3830b3f8a_0007 ;
+    sgm:processingTimestamp "2025-11-06T21:15:06.595960+00:00"^^xsd:dateTime .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0001 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_675cbf2c3830b3f8a ;
+    dcterms:title "Introduction" ;
+    sgd:firstChild sg:Chunk_sol_675cbf2c3830b3f8a_0002 ;
+    sgd:hasChild sg:Chunk_sol_675cbf2c3830b3f8a_0002 ;
+    sgd:lastChild sg:Chunk_sol_675cbf2c3830b3f8a_0002 ;
+    sgd:nextSibling sg:Chunk_sol_675cbf2c3830b3f8a_0003 .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0002 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_675cbf2c3830b3f8a_0001 ;
+    sgm:chunkId "sol_675cbf2c3830b3f8a_chunk_0002" ;
+    sgm:s3Key "data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0002.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0002.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0003 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_675cbf2c3830b3f8a ;
+    dcterms:title "Description" ;
+    sgd:firstChild sg:Chunk_sol_675cbf2c3830b3f8a_0004 ;
+    sgd:hasChild sg:Chunk_sol_675cbf2c3830b3f8a_0004 ;
+    sgd:lastChild sg:Chunk_sol_675cbf2c3830b3f8a_0004 ;
+    sgd:nextSibling sg:Chunk_sol_675cbf2c3830b3f8a_0005 .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0004 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_675cbf2c3830b3f8a_0003 ;
+    sgm:chunkId "sol_675cbf2c3830b3f8a_chunk_0004" ;
+    sgm:s3Key "data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0004.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0004.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0005 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_675cbf2c3830b3f8a ;
+    dcterms:title "Key Highlights" ;
+    sgd:firstChild sg:Chunk_sol_675cbf2c3830b3f8a_0006 ;
+    sgd:hasChild sg:Chunk_sol_675cbf2c3830b3f8a_0006 ;
+    sgd:lastChild sg:Chunk_sol_675cbf2c3830b3f8a_0006 ;
+    sgd:nextSibling sg:Chunk_sol_675cbf2c3830b3f8a_0007 .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0006 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_675cbf2c3830b3f8a_0005 ;
+    sgm:chunkId "sol_675cbf2c3830b3f8a_chunk_0006" ;
+    sgm:s3Key "data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0006.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0006.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0007 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_675cbf2c3830b3f8a ;
+    dcterms:title "Results" ;
+    sgd:firstChild sg:Chunk_sol_675cbf2c3830b3f8a_0008 ;
+    sgd:hasChild sg:Chunk_sol_675cbf2c3830b3f8a_0008 ;
+    sgd:lastChild sg:Chunk_sol_675cbf2c3830b3f8a_0008 .
+
+sg:Chunk_sol_675cbf2c3830b3f8a_0008 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_675cbf2c3830b3f8a_0007 ;
+    sgm:chunkId "sol_675cbf2c3830b3f8a_chunk_0008" ;
+    sgm:s3Key "data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0008.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0008.json"^^xsd:anyURI
+ .
+

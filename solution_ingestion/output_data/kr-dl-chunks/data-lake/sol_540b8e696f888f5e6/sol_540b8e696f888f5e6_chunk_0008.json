@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_540b8e696f888f5e6_chunk_0008",
+  "doc_id": "sol_540b8e696f888f5e6",
+  "chunk_number": 8,
+  "text": "The City–East Coast Site-Specific Study (SSS) was completed in 2025 with detailed recommendations, costing S$18 million. The initiative is set to begin construction in the 2030s, aligning with urban regeneration timelines. Quantifiable hazard-reduction outcomes are not yet available due to the recent concept release.",
+  "section_title": "Results",
+  "character_count": 318,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_295",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 295,
+    "solution_name": "Coastal Protection Concepts for Greater Southern Waterfront (GSW) and Changi — City–East Coast Site‑Specific Study (SSS)",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://www.pub.gov.sg/Resources/News-Room/PressReleases/2025/08/Coastal-Barriers",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.746366+00:00"
+  },
+  "s3_key": "data-lake/sol_540b8e696f888f5e6/sol_540b8e696f888f5e6_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_540b8e696f888f5e6/sol_540b8e696f888f5e6_chunk_0008.json"
+}

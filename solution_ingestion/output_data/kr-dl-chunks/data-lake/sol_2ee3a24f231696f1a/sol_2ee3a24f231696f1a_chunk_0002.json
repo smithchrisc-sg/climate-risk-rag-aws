@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2ee3a24f231696f1a_chunk_0002",
+  "doc_id": "sol_2ee3a24f231696f1a",
+  "chunk_number": 2,
+  "text": "This solution, Integration of Anticipatory Action into Nepal’s National Disaster Risk Management (DRM) System addresses natural catastrophe through public private partnerships in Nepal between National Disaster Risk Reduction and Management Authority (NDRRMA), Department of Hydrology and Meteorology (DHM), Provincial and local governments, UNFPA, UNICEF, UN Women, WFP, WHO, Nepal Red Cross Society (NRCS), and UN Central Emergency Response Fund (CERF). The program was implemented in 2025 and focuses on collaboration, regulation, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 556,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_142",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 142,
+    "solution_name": "Integration of Anticipatory Action into Nepal’s National Disaster Risk Management (DRM) System",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.spotlightnepal.com/2025/04/15/national-anticipatory-action-framework-and-roadmap-in-nepal-a-long-awaited-leap-in-nepals-disaster-risk-management/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.522281+00:00"
+  },
+  "s3_key": "data-lake/sol_2ee3a24f231696f1a/sol_2ee3a24f231696f1a_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2ee3a24f231696f1a/sol_2ee3a24f231696f1a_chunk_0002.json"
+}

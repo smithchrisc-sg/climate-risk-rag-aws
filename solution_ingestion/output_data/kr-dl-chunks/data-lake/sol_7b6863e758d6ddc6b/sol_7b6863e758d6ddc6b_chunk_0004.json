@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7b6863e758d6ddc6b_chunk_0004",
+  "doc_id": "sol_7b6863e758d6ddc6b",
+  "chunk_number": 4,
+  "text": "The Second Cambodia Growth and Resilience Development Policy Financing (DPF) is a $275 million policy-based credit initiative by the World Bank, aimed at supporting Cambodia's private sector competitiveness, fiscal resilience, and social protection for vulnerable households. It is part of a series designed to aid Cambodia's post-pandemic recovery, improve the investment environment, and enhance institutional capacities to manage economic and disaster-related shocks. The initiative emphasizes environmental regulation and disaster risk management, aligning with Cambodia's structural reform needs.",
+  "section_title": "Description",
+  "character_count": 601,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_59",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 59,
+    "solution_name": "Second Cambodia Growth and Resilience Development Policy Financing",
+    "country": "Cambodia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2024/06/20/new-financing-to-support-cambodia-s-economic-growth-and-resilience",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.436618+00:00"
+  },
+  "s3_key": "data-lake/sol_7b6863e758d6ddc6b/sol_7b6863e758d6ddc6b_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7b6863e758d6ddc6b/sol_7b6863e758d6ddc6b_chunk_0004.json"
+}

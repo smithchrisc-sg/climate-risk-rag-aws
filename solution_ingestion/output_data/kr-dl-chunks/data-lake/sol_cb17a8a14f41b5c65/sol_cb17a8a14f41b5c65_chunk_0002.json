@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cb17a8a14f41b5c65_chunk_0002",
+  "doc_id": "sol_cb17a8a14f41b5c65",
+  "chunk_number": 2,
+  "text": "This solution, State of National Disaster for Drought in Gangneung (2025) addresses natural catastrophe through public private partnerships in Republic of Korea (South Korea) between Office of the President, Central Disaster and Safety Countermeasures Headquarters (CDSCHQ), Ministry of the Interior and Safety, Ministry of Environment, Gangwon Provincial Government, Gangneung City Government, National Fire Agency, Gangwon Fire Headquarters, Republic of Korea Armed Forces, Korea Rural Community Corporation, and Korea Hydro & Nuclear Power Co. (KHNP). The program was implemented in 2025 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 642,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_328",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 328,
+    "solution_name": "State of National Disaster for Drought in Gangneung (2025)",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://en.yna.co.kr/view/AEN20250830002500320",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.784907+00:00"
+  },
+  "s3_key": "data-lake/sol_cb17a8a14f41b5c65/sol_cb17a8a14f41b5c65_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cb17a8a14f41b5c65/sol_cb17a8a14f41b5c65_chunk_0002.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_899d82e5c3ea12cba_chunk_0004",
+  "doc_id": "sol_899d82e5c3ea12cba",
+  "chunk_number": 4,
+  "text": "The statutory disaster-related budget arrangements in Myanmar are designed to provide rapid public financing for disaster preparedness, response, early recovery, and rehabilitation. These arrangements are governed by the Natural Disaster Management Law (2013), its implementing Rules (2015), and provisions in the annual Union Budget Law. They establish a multi-tier Disaster Management Fund (DMF) and authorize budget flexibilities, such as contingency appropriations and in-year supplementary budget procedures, to enable swift mobilization and reallocation of public resources after disasters.",
+  "section_title": "Description",
+  "character_count": 596,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_121",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 121,
+    "solution_name": "Statutory Disaster-Related Budget Arrangements in Myanmar",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2013",
+    "ppp": "No",
+    "source_url": "https://disasterlaw.ifrc.org/country/myanmar",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.501349+00:00"
+  },
+  "s3_key": "data-lake/sol_899d82e5c3ea12cba/sol_899d82e5c3ea12cba_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_899d82e5c3ea12cba/sol_899d82e5c3ea12cba_chunk_0004.json"
+}

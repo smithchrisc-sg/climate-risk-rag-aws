@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_bfa2fad075aee23e4_chunk_0006",
+  "doc_id": "sol_bfa2fad075aee23e4",
+  "chunk_number": 6,
+  "text": "NDRMF is unique as a government-owned, Section 42, not-for-profit fund that operates with a corporate structure for agility while maintaining public accountability. It provides up to 70% co-financing grants to public and non-public entities, emphasizing ex-ante investments in planning, preparedness, mitigation, and early warning. It developed Pakistan's first national, probabilistic, multi-hazard catastrophe model with SUPARCO, and approved the first national Disaster Risk Financing Strategy in 2024, with a 10-year implementation roadmap.",
+  "section_title": "Key Highlights",
+  "character_count": 544,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_192",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 192,
+    "solution_name": "National Disaster Risk Management Fund (NDRMF)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2016",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/48259/48259-001-dpta-en.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.581437+00:00"
+  },
+  "s3_key": "data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0006.json"
+}

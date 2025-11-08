@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_11a62054c2f9236f1_chunk_0004",
+  "doc_id": "sol_11a62054c2f9236f1",
+  "chunk_number": 4,
+  "text": "The New Zealand Drought Index (NZDI) is a composite drought index developed by NIWA to provide a consistent, nationwide characterization of drought intensity and extent. It integrates multiple drought-relevant variables to produce a single, interpretable index with categorical thresholds for spatial grid cells covering all of New Zealand. The NZDI is used to monitor drought conditions, inform water allocation decisions, and support communications to growers and farmers in regions like Hawke’s Bay.",
+  "section_title": "Description",
+  "character_count": 502,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_190",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 190,
+    "solution_name": "New Zealand Drought Index (NZDI)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2017",
+    "ppp": "No",
+    "source_url": "https://niwa.co.nz/climate/information-and-resources/nz-drought-index",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.578554+00:00"
+  },
+  "s3_key": "data-lake/sol_11a62054c2f9236f1/sol_11a62054c2f9236f1_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_11a62054c2f9236f1/sol_11a62054c2f9236f1_chunk_0004.json"
+}

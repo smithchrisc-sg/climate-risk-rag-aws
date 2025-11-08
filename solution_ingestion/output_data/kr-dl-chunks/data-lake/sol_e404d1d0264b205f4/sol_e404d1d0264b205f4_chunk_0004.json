@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e404d1d0264b205f4_chunk_0004",
+  "doc_id": "sol_e404d1d0264b205f4",
+  "chunk_number": 4,
+  "text": "The Cambodia Water Security Improvement Project (P176615) aims to enhance water security and resilience against climate and hydrometeorological risks in Cambodia. It focuses on improving water resources planning, infrastructure, and service delivery through a combination of policy strengthening, integrated basin-level planning, and infrastructure investments. The project is co-implemented by the Ministry of Water Resources and Meteorology and the Ministry of Agriculture, Forestry, and Fisheries, with financial support from the World Bank.",
+  "section_title": "Description",
+  "character_count": 544,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_58",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 58,
+    "solution_name": "Cambodia Water Security Improvement Project (P176615)",
+    "country": "Cambodia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/099062725010513839/pdf/P176615-cd2fdf94-d519-415a-a289-3d0d183ad1c4.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.434794+00:00"
+  },
+  "s3_key": "data-lake/sol_e404d1d0264b205f4/sol_e404d1d0264b205f4_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e404d1d0264b205f4/sol_e404d1d0264b205f4_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9163196834e590b85_chunk_0004",
+  "doc_id": "sol_9163196834e590b85",
+  "chunk_number": 4,
+  "text": "The SAP039 project, officially titled 'Integrated Climate Risk Management for Strengthened Resilience to Climate Change in Buner and Shangla Districts of Khyber Pakhtunkhwa Province, Pakistan', is a collaborative initiative led by the United Nations World Food Programme (WFP) and funded by the Green Climate Fund (GCF). It aims to enhance resilience against climate-induced hazards such as flash floods, heavy monsoon rains, and landslides in the vulnerable districts of Buner and Shangla. The project focuses on strengthening early warning systems, providing climate information services, and fostering local adaptation planning to mitigate the impacts of climate variability on food security and livelihoods.",
+  "section_title": "Description",
+  "character_count": 711,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_211",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 211,
+    "solution_name": "SAP039: Integrated Climate Risk Management for Strengthened Resilience to Climate Change in Buner and Shangla Districts of Khyber Pakhtunkhwa Province, Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.greenclimate.fund/ae/wfp",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.604406+00:00"
+  },
+  "s3_key": "data-lake/sol_9163196834e590b85/sol_9163196834e590b85_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9163196834e590b85/sol_9163196834e590b85_chunk_0004.json"
+}

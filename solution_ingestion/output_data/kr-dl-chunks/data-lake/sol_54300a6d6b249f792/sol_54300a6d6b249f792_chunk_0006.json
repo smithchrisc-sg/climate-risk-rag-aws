@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_54300a6d6b249f792_chunk_0006",
+  "doc_id": "sol_54300a6d6b249f792",
+  "chunk_number": 6,
+  "text": "The tool offers unprecedented granularity with daily-updated sub-seasonal drought outlooks at district and 5 km grid resolution. It leverages NIWA35 deep learning to enhance local predictive skill and integrates with the NZDI for consistent drought monitoring. The ensemble percentile framing supports risk-based planning, and the tool is co-designed with MPI for operational relevance. It is supported by NeSI's HPC resources for scalable model development.",
+  "section_title": "Key Highlights",
+  "character_count": 458,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_189",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 189,
+    "solution_name": "NIWA–MPI Drought Forecasting Tool",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Leveraging Tech, \nCollaboration",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://niwa.co.nz/news/new-tool-revolutionising-drought-forecasts",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.577531+00:00"
+  },
+  "s3_key": "data-lake/sol_54300a6d6b249f792/sol_54300a6d6b249f792_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_54300a6d6b249f792/sol_54300a6d6b249f792_chunk_0006.json"
+}

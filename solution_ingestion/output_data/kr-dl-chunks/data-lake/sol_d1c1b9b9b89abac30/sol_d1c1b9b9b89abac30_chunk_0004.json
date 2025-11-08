@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d1c1b9b9b89abac30_chunk_0004",
+  "doc_id": "sol_d1c1b9b9b89abac30",
+  "chunk_number": 4,
+  "text": "The initiative aims to enhance Fiji's financial resilience to climate shocks through the deployment of market-based micro and meso-level parametric insurance and complementary climate disaster risk financing instruments. It is part of the Pacific Insurance and Climate Adaptation Programme (PICAP) and involves collaboration between various international, public, and private organizations to provide rapid financial support to vulnerable communities affected by cyclonic winds and heavy rainfall.",
+  "section_title": "Description",
+  "character_count": 497,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_101",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 101,
+    "solution_name": "Developing Climate Disaster Risk Financing Framework and Parametric Insurance in Fiji",
+    "country": "Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility, \nRaising Awareness",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.uncdf.org/pacific-insurance-and-climate-adaptation-programme",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.486786+00:00"
+  },
+  "s3_key": "data-lake/sol_d1c1b9b9b89abac30/sol_d1c1b9b9b89abac30_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d1c1b9b9b89abac30/sol_d1c1b9b9b89abac30_chunk_0004.json"
+}

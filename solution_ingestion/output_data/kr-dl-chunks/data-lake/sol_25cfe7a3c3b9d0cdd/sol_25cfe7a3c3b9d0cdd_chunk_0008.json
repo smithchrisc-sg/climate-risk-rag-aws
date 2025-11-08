@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_25cfe7a3c3b9d0cdd_chunk_0008",
+  "doc_id": "sol_25cfe7a3c3b9d0cdd",
+  "chunk_number": 8,
+  "text": "In Round Two (2024–25), 165 projects nationwide shared $200 million, with over 500 proposals received. In Queensland, Round Two funded 29 projects with over $30.8 million, while Round One funded 50 projects with over $84 million, indicating strong demand and substantial uptake.",
+  "section_title": "Results",
+  "character_count": 278,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_4",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 4,
+    "solution_name": "Disaster Ready Fund (DRF)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.qra.qld.gov.au/funding-programs/resilience-funding-programs/disaster-ready-fund",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.362241+00:00"
+  },
+  "s3_key": "data-lake/sol_25cfe7a3c3b9d0cdd/sol_25cfe7a3c3b9d0cdd_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_25cfe7a3c3b9d0cdd/sol_25cfe7a3c3b9d0cdd_chunk_0008.json"
+}

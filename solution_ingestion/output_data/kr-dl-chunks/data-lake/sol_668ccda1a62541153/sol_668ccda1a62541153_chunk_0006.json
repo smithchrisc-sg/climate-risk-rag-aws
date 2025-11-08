@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_668ccda1a62541153_chunk_0006",
+  "doc_id": "sol_668ccda1a62541153",
+  "chunk_number": 6,
+  "text": "The system features a 10-minute analytic cadence, expansion from 75 to 223 monitoring points, integration with private navigation apps for real-time rerouting, automatic multi-agency alerting, and location-specific public messages. It prioritizes high-risk riverine sites and aims to prevent tragedies like the 2023 Osong underpass flooding.",
+  "section_title": "Key Highlights",
+  "character_count": 341,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_311",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 311,
+    "solution_name": "Ministry of Environment AI-based Flood Forecasting and Early Warning System",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Leveraging Tech, \nCollaboration",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=243376",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.764404+00:00"
+  },
+  "s3_key": "data-lake/sol_668ccda1a62541153/sol_668ccda1a62541153_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_668ccda1a62541153/sol_668ccda1a62541153_chunk_0006.json"
+}

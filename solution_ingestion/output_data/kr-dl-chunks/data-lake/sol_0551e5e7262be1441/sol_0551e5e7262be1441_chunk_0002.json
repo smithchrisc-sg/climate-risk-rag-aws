@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0551e5e7262be1441_chunk_0002",
+  "doc_id": "sol_0551e5e7262be1441",
+  "chunk_number": 2,
+  "text": "This solution, DRFA Category B TC Alfred funding for urban drainage works addresses natural catastrophe in Australia between NSW Reconstruction Authority, Transport for NSW, NSW Local Councils, Australian Government, Queensland Reconstruction Authority, and National Emergency Management Agency. The program was implemented in 2025 and focuses on regulation and collaboration.",
+  "section_title": "Introduction",
+  "character_count": 376,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_24",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 24,
+    "solution_name": "DRFA Category B TC Alfred funding for urban drainage works",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/publications-and-reports/northern-rivers-community-leaders-forum-17-march-2025/meeting-summary",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.391226+00:00"
+  },
+  "s3_key": "data-lake/sol_0551e5e7262be1441/sol_0551e5e7262be1441_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0551e5e7262be1441/sol_0551e5e7262be1441_chunk_0002.json"
+}

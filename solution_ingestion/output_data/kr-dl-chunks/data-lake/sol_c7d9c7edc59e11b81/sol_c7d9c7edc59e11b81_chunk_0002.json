@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c7d9c7edc59e11b81_chunk_0002",
+  "doc_id": "sol_c7d9c7edc59e11b81",
+  "chunk_number": 2,
+  "text": "This solution, Greater Mekong Subregion Flood and Drought Risk Management and Mitigation Project (Cambodia) – Technical Assistance (GMS FDRMMP (CAM) – TA) addresses natural catastrophe in Cambodia, \nLao PDR, \nThailand, \nViet Nam between Royal Government of Cambodia (RGC) via Ministry of Water Resources and Meteorology (MOWRAM), General Directorate of Technical Affairs (GDTA), Central Project Management Unit (CPMU), Department of Hydrology and River Works (DHRW), Provincial Department of Water Resources and Meteorology (Pursat), Inter-ministerial Resettlement Committee (IRC), Resettlement Department of the Ministry of Economy and Finance (RD-MEF), Asian Development Bank (ADB), Mekong River Commission (MRC), Strategic Climate Fund (SCF), and ADB’s Japan Special Fund for TA. The program was implemented in 2010 and focuses on collaboration, raising awareness, and regulation.",
+  "section_title": "Introduction",
+  "character_count": 883,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_66",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 66,
+    "solution_name": "Greater Mekong Subregion Flood and Drought Risk Management and Mitigation Project (Cambodia) – Technical Assistance (GMS FDRMMP (CAM) – TA)",
+    "country": "Cambodia, \nLao PDR, \nThailand, \nViet Nam",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2010",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/projects/40190-012/main",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.446674+00:00"
+  },
+  "s3_key": "data-lake/sol_c7d9c7edc59e11b81/sol_c7d9c7edc59e11b81_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c7d9c7edc59e11b81/sol_c7d9c7edc59e11b81_chunk_0002.json"
+}

@@ -4,7 +4,7 @@ Triple Manager - Handles triple insertion and management operations with RDFLib 
 Provides high-level interface for adding triples to Neptune using proper RDF graph building
 """
 import logging
-from typing import Dict, List, Any, Optional, Union
+from typing import Dict, List, Any, Optional, Union, Tuple
 from datetime import datetime
 
 # RDFLib imports for proper graph handling
@@ -541,7 +541,7 @@ class TripleManager:
             self.logger.error(f"SPARQL INSERT failed: {e}")
             return False
     
-    def _separate_ttl_prefixes(self, ttl_content: str) -> tuple[str, str]:
+    def _separate_ttl_prefixes(self, ttl_content: str) -> Tuple[str, str]:
         """
         Separate TTL prefixes from content for SPARQL INSERT DATA
         

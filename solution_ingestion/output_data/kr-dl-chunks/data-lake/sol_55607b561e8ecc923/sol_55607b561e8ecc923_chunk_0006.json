@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_55607b561e8ecc923_chunk_0006",
+  "doc_id": "sol_55607b561e8ecc923",
+  "chunk_number": 6,
+  "text": "SFERP integrates nature-based solutions with traditional engineering to manage flood risks effectively. It includes infrastructure rehabilitation, livelihoods support, and institutional strengthening. The project is notable for its comprehensive environmental and social management plans and stakeholder engagement strategies, ensuring community involvement and adherence to the World Bank's Environmental and Social Framework. Additional financing of approximately US$150 million was approved in 2025 to scale activities.",
+  "section_title": "Key Highlights",
+  "character_count": 522,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_196",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 196,
+    "solution_name": "Sindh Flood Emergency Rehabilitation Project (SFERP)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/099062525104542328/pdf/P179981-157d97e9-7cc6-4cb4-872c-7c6395732c65.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.586727+00:00"
+  },
+  "s3_key": "data-lake/sol_55607b561e8ecc923/sol_55607b561e8ecc923_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_55607b561e8ecc923/sol_55607b561e8ecc923_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cf435386bd0ac6fd5_chunk_0006",
+  "doc_id": "sol_cf435386bd0ac6fd5",
+  "chunk_number": 6,
+  "text": "The initiative features deep decentralization to 753 municipalities, integration of scientific and indigenous knowledge, inclusive training and e-learning, and community-led mapping at a national scale. It also includes risk-informed policy reforms backed by the Catastrophe Deferred Drawdown Option (Cat DDO) and routine high-level governance via the National Council for Disaster Risk Reduction and Management (NCDRRM).",
+  "section_title": "Key Highlights",
+  "character_count": 421,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_129",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 129,
+    "solution_name": "Nepal’s Government-led Earthquake Risk Reduction and Mitigation Initiatives (2020–2025)",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2024/10/29/world-bank-approves-150-million-to-strengthen-nepal-s-disaster-response-and-resilience",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.510850+00:00"
+  },
+  "s3_key": "data-lake/sol_cf435386bd0ac6fd5/sol_cf435386bd0ac6fd5_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cf435386bd0ac6fd5/sol_cf435386bd0ac6fd5_chunk_0006.json"
+}

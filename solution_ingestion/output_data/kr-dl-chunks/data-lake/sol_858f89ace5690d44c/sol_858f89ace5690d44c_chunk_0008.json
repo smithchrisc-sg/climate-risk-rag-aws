@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_858f89ace5690d44c_chunk_0008",
+  "doc_id": "sol_858f89ace5690d44c",
+  "chunk_number": 8,
+  "text": "The program successfully implemented US$500 million in policy-based financing, with reforms executed across policy/institutional, LGU resilience, and risk financing areas. It complemented broader donor efforts to stabilize macro-financing during COVID-19 shocks.",
+  "section_title": "Results",
+  "character_count": 262,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_279",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 279,
+    "solution_name": "Philippines: Disaster Resilience Improvement Program (DRIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/54022/54022-001-pcr-en.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.728179+00:00"
+  },
+  "s3_key": "data-lake/sol_858f89ace5690d44c/sol_858f89ace5690d44c_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_858f89ace5690d44c/sol_858f89ace5690d44c_chunk_0008.json"
+}

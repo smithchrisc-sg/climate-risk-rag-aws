@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_50de0ec6e8708c658_chunk_0008",
+  "doc_id": "sol_50de0ec6e8708c658",
+  "chunk_number": 8,
+  "text": "The NVHRM has published a conceptual framework and developed a national ashfall probabilistic map for the North Island. It has institutionalized loss modeling practices by EQC and achieved broad insurance penetration, enabling effective risk transfer for volcanic losses. The model continues to develop national multi-hazard components.",
+  "section_title": "Results",
+  "character_count": 336,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_181",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 181,
+    "solution_name": "National Volcanic Hazard and Risk Model (NVHRM)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2016",
+    "ppp": "Yes",
+    "source_url": "https://www.frontiersin.org/articles/10.3389/feart.2017.00051/full",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.569838+00:00"
+  },
+  "s3_key": "data-lake/sol_50de0ec6e8708c658/sol_50de0ec6e8708c658_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_50de0ec6e8708c658/sol_50de0ec6e8708c658_chunk_0008.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b1074ab076469142b_chunk_0002",
+  "doc_id": "sol_b1074ab076469142b",
+  "chunk_number": 2,
+  "text": "This solution, 2025 Supplementary Budget – Disaster Prevention and Recovery Tranche addresses natural catastrophe in South Korea between Ministry of Economy and Finance (MOEF), Cabinet, National Assembly, and Korea Asset Management Corporation (KAMCO). The program was implemented in 2025 and focuses on regulation and collaboration.",
+  "section_title": "Introduction",
+  "character_count": 333,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_325",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 325,
+    "solution_name": "2025 Supplementary Budget – Disaster Prevention and Recovery Tranche",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.aa.com.tr/en/asia-pacific/south-korea-proposes-86b-extra-budget-to-counter-trade-risks-wildfire-aftermath/3541874",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.780215+00:00"
+  },
+  "s3_key": "data-lake/sol_b1074ab076469142b/sol_b1074ab076469142b_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b1074ab076469142b/sol_b1074ab076469142b_chunk_0002.json"
+}

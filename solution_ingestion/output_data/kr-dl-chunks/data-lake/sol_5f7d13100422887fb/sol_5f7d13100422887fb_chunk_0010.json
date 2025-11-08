@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_5f7d13100422887fb_chunk_0010",
+  "doc_id": "sol_5f7d13100422887fb",
+  "chunk_number": 10,
+  "text": "Structured engagement with Student Chapters to foster next-generation leadership in earthquake resilience.",
+  "section_title": "Key Highlights",
+  "character_count": 106,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_150",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 150,
+    "solution_name": "QuakeCoRE 2025 Annual Meeting (QCAM25)",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://quakecore.nz/2025-annual-meeting-day-one/",
+    "section_title": "Key Highlights",
+    "chunk_number": 10,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.531200+00:00"
+  },
+  "s3_key": "data-lake/sol_5f7d13100422887fb/sol_5f7d13100422887fb_chunk_0010.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_5f7d13100422887fb/sol_5f7d13100422887fb_chunk_0010.json"
+}

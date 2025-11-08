@@ -1,0 +1,62 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+
+# Organization Type Hierarchy
+
+sg:HealthMinistry rdfs:subClassOf sg:Ministry ;
+    rdfs:label "Health Ministry" ;
+    skos:prefLabel "Health Ministry" .
+
+sg:EnvironmentMinistry rdfs:subClassOf sg:Ministry ;
+    rdfs:label "Environment Ministry" ;
+    skos:prefLabel "Environment Ministry" .
+
+sg:TransportationMinistry rdfs:subClassOf sg:Ministry ;
+    rdfs:label "Transportation Ministry" ;
+    skos:prefLabel "Transportation Ministry" .
+
+sg:Ministry rdfs:subClassOf sg:PublicOrganization ;
+    rdfs:label "Ministry" ;
+    skos:prefLabel "Ministry" .
+
+sg:StatisticalOffice rdfs:subClassOf sg:PublicOrganization ;
+    rdfs:label "Statistical Office" ;
+    skos:prefLabel "Statistical Office" .
+
+sg:EmergencyManagementAgency rdfs:subClassOf sg:PublicOrganization ;
+    rdfs:label "Emergency Management Agency" ;
+    skos:prefLabel "Emergency Management Agency" .
+
+sg:DevelopmentBank rdfs:subClassOf sg:InternationalOrganization ;
+    rdfs:label "Development Bank" ;
+    skos:prefLabel "Development Bank" .
+
+sg:UNAgency rdfs:subClassOf sg:InternationalOrganization ;
+    rdfs:label "U N Agency" ;
+    skos:prefLabel "U N Agency" .
+
+sg:InsuranceCompany rdfs:subClassOf sg:PrivateOrganization ;
+    rdfs:label "Insurance Company" ;
+    skos:prefLabel "Insurance Company" .
+
+sg:University rdfs:subClassOf sg:PrivateOrganization ;
+    rdfs:label "University" ;
+    skos:prefLabel "University" .
+
+sg:ConsultingFirm rdfs:subClassOf sg:PrivateOrganization ;
+    rdfs:label "Consulting Firm" ;
+    skos:prefLabel "Consulting Firm" .
+
+sg:PublicOrganization rdfs:subClassOf org:Organization ;
+    rdfs:label "Public Organization" ;
+    skos:prefLabel "Public Organization" .
+
+sg:InternationalOrganization rdfs:subClassOf org:Organization ;
+    rdfs:label "International Organization" ;
+    skos:prefLabel "International Organization" .
+
+sg:PrivateOrganization rdfs:subClassOf org:Organization ;
+    rdfs:label "Private Organization" ;
+    skos:prefLabel "Private Organization" .

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_25cfe7a3c3b9d0cdd_chunk_0006",
+  "doc_id": "sol_25cfe7a3c3b9d0cdd",
+  "chunk_number": 6,
+  "text": "The DRF provides up to $200 million annually, replacing the Emergency Response Fund (ERF) and shifting focus from recovery to prevention. It emphasizes strong co-funding and implementation discipline, aligning with national, state, and local strategies. The program funds both mitigation infrastructure and systemic risk reduction projects, with a competitive, merit-based selection process.",
+  "section_title": "Key Highlights",
+  "character_count": 391,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_4",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 4,
+    "solution_name": "Disaster Ready Fund (DRF)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.qra.qld.gov.au/funding-programs/resilience-funding-programs/disaster-ready-fund",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.362048+00:00"
+  },
+  "s3_key": "data-lake/sol_25cfe7a3c3b9d0cdd/sol_25cfe7a3c3b9d0cdd_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_25cfe7a3c3b9d0cdd/sol_25cfe7a3c3b9d0cdd_chunk_0006.json"
+}

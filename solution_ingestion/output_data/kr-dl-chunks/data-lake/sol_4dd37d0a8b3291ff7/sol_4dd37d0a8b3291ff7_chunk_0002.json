@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_4dd37d0a8b3291ff7_chunk_0002",
+  "doc_id": "sol_4dd37d0a8b3291ff7",
+  "chunk_number": 2,
+  "text": "This solution, NDRC Climate Resilience Infrastructure Initiative addresses natural catastrophe in People’s Republic of China between National Development and Reform Commission (NDRC), Ministry of Ecology and Environment (MEE), National Energy Administration (NEA), and National Bureau of Statistics (NBS). The program was implemented in 2007 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 386,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_80",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 80,
+    "solution_name": "NDRC Climate Resilience Infrastructure Initiative",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2007",
+    "ppp": "No",
+    "source_url": "https://en.ndrc.gov.cn/policies/202110/t20211024_1300725.html",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.461582+00:00"
+  },
+  "s3_key": "data-lake/sol_4dd37d0a8b3291ff7/sol_4dd37d0a8b3291ff7_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_4dd37d0a8b3291ff7/sol_4dd37d0a8b3291ff7_chunk_0002.json"
+}

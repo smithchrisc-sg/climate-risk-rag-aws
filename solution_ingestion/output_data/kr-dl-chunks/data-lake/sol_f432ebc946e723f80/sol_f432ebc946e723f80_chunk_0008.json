@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f432ebc946e723f80_chunk_0008",
+  "doc_id": "sol_f432ebc946e723f80",
+  "chunk_number": 8,
+  "text": "By mid-2024, the CRP had onboarded 18 insurers, achieving near-universal exposure. The initiative has supported affordability and availability in cyclone-prone regions, with ongoing input from industry and research stakeholders to refine its design and operations.",
+  "section_title": "Results",
+  "character_count": 264,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_27",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 27,
+    "solution_name": "Cyclone Reinsurance Pool (CRP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://arpc.gov.au/news-resources-arpc/annual-reports/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.395703+00:00"
+  },
+  "s3_key": "data-lake/sol_f432ebc946e723f80/sol_f432ebc946e723f80_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f432ebc946e723f80/sol_f432ebc946e723f80_chunk_0008.json"
+}

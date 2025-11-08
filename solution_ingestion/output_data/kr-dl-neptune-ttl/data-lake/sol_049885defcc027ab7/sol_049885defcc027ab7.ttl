@@ -1,0 +1,80 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+
+sg:Document_sol_049885defcc027ab7 a sgd:Solution ;
+    dcterms:identifier "sol_049885defcc027ab7" ;
+    dcterms:title "Start Network's Disaster Risk Financing (DRF) pilots in Pakistan" ;
+    dcterms:created "2025-09-26" ;
+    dcterms:spatial "Pakistan" ;
+    dcterms:source <https://www.adb.org/sites/default/files/publication/483686/pakistan-disaster-risk-financing-assessment.pdf> ;
+    dcterms:publisher sg:Org_pakistans_national_disaster_management_authority_ndma, sg:Org_pakistan_meteorological_department, sg:Org_university_of_reading, sg:Org_globalagrisk, sg:Org_humanitarian_innovation_fund, sg:Org_asian_development_bank, sg:Org_united_kingdoms_foreign, sg:Org_commonwealth_development_office_fcdo, sg:Org_government_of_the_netherlands ;
+    sgd:firstChild sg:Chunk_sol_049885defcc027ab7_0001 ;
+    sgd:hasChild sg:Chunk_sol_049885defcc027ab7_0001, sg:Chunk_sol_049885defcc027ab7_0003, sg:Chunk_sol_049885defcc027ab7_0005, sg:Chunk_sol_049885defcc027ab7_0007 ;
+    sgd:lastChild sg:Chunk_sol_049885defcc027ab7_0007 ;
+    sgm:processingTimestamp "2025-11-06T21:15:06.594697+00:00"^^xsd:dateTime .
+
+sg:Chunk_sol_049885defcc027ab7_0001 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_049885defcc027ab7 ;
+    dcterms:title "Introduction" ;
+    sgd:firstChild sg:Chunk_sol_049885defcc027ab7_0002 ;
+    sgd:hasChild sg:Chunk_sol_049885defcc027ab7_0002 ;
+    sgd:lastChild sg:Chunk_sol_049885defcc027ab7_0002 ;
+    sgd:nextSibling sg:Chunk_sol_049885defcc027ab7_0003 .
+
+sg:Chunk_sol_049885defcc027ab7_0002 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_049885defcc027ab7_0001 ;
+    sgm:chunkId "sol_049885defcc027ab7_chunk_0002" ;
+    sgm:s3Key "data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0002.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0002.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_049885defcc027ab7_0003 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_049885defcc027ab7 ;
+    dcterms:title "Description" ;
+    sgd:firstChild sg:Chunk_sol_049885defcc027ab7_0004 ;
+    sgd:hasChild sg:Chunk_sol_049885defcc027ab7_0004 ;
+    sgd:lastChild sg:Chunk_sol_049885defcc027ab7_0004 ;
+    sgd:nextSibling sg:Chunk_sol_049885defcc027ab7_0005 .
+
+sg:Chunk_sol_049885defcc027ab7_0004 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_049885defcc027ab7_0003 ;
+    sgm:chunkId "sol_049885defcc027ab7_chunk_0004" ;
+    sgm:s3Key "data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0004.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0004.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_049885defcc027ab7_0005 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_049885defcc027ab7 ;
+    dcterms:title "Key Highlights" ;
+    sgd:firstChild sg:Chunk_sol_049885defcc027ab7_0006 ;
+    sgd:hasChild sg:Chunk_sol_049885defcc027ab7_0006 ;
+    sgd:lastChild sg:Chunk_sol_049885defcc027ab7_0006 ;
+    sgd:nextSibling sg:Chunk_sol_049885defcc027ab7_0007 .
+
+sg:Chunk_sol_049885defcc027ab7_0006 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_049885defcc027ab7_0005 ;
+    sgm:chunkId "sol_049885defcc027ab7_chunk_0006" ;
+    sgm:s3Key "data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0006.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0006.json"^^xsd:anyURI
+ .
+
+sg:Chunk_sol_049885defcc027ab7_0007 a sgd:Section ;
+    sgd:hasParent sg:Document_sol_049885defcc027ab7 ;
+    dcterms:title "Results" ;
+    sgd:firstChild sg:Chunk_sol_049885defcc027ab7_0008 ;
+    sgd:hasChild sg:Chunk_sol_049885defcc027ab7_0008 ;
+    sgd:lastChild sg:Chunk_sol_049885defcc027ab7_0008 .
+
+sg:Chunk_sol_049885defcc027ab7_0008 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_049885defcc027ab7_0007 ;
+    sgm:chunkId "sol_049885defcc027ab7_chunk_0008" ;
+    sgm:s3Key "data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0008.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0008.json"^^xsd:anyURI
+ .
+

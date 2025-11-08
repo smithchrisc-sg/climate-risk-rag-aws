@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_35784aa6620bdf801_chunk_0008",
+  "doc_id": "sol_35784aa6620bdf801",
+  "chunk_number": 8,
+  "text": "As of mid-2025, the RIF has committed $771.2 million, with $397.3 million approved and $30.1 million disbursed. The flood resilience stream has earmarked $101 million for 42 projects under the 'Before the Deluge' portfolio, with councils contributing around 40% of project costs. The initiative is in its early execution phase, focusing on consolidating and delivering flood resilience projects.",
+  "section_title": "Results",
+  "character_count": 395,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_163",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 163,
+    "solution_name": "Regional Infrastructure Fund (RIF) – Flood Resilience Co‑Funding (Budget 2024)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.treasury.govt.nz/sites/default/files/2025-07/b24-maj-spend-rep-30-jun-2025-regional-infra-fund.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.545586+00:00"
+  },
+  "s3_key": "data-lake/sol_35784aa6620bdf801/sol_35784aa6620bdf801_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_35784aa6620bdf801/sol_35784aa6620bdf801_chunk_0008.json"
+}

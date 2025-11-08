@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_671ebad9599173cbe_chunk_0006",
+  "doc_id": "sol_671ebad9599173cbe",
+  "chunk_number": 6,
+  "text": "The initiatives are characterized by a 'policy-to-delivery' approach, aligning national guidance with local implementation. The Wairoa Flood Mitigation Project exemplifies this through community engagement, cultural impact assessments, and a streamlined legislative pathway via the Hawke’s Bay Flood Protection Works Order 2024. The project aims to protect homes, cultural sites, and infrastructure while reducing economic losses from flooding.",
+  "section_title": "Key Highlights",
+  "character_count": 444,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_154",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 154,
+    "solution_name": "2020–2025 NZ Flood Risk Reduction and Mitigation Initiatives",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://environment.govt.nz/assets/Publications/Files/meeting-challenges-of-future-flooding-in-nz.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.535302+00:00"
+  },
+  "s3_key": "data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0006.json"
+}

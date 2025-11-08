@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_819962402538b977b_chunk_0004",
+  "doc_id": "sol_819962402538b977b",
+  "chunk_number": 4,
+  "text": "The Hōretireti Whenua – Sliding Lands programme is a five-year initiative funded by the MBIE Endeavour Fund, aimed at developing national-scale models to predict and manage landslide hazards in New Zealand. The programme integrates scientific research, socio-economic analysis, and mātauranga Māori to create decision-relevant tools for forecasting landslides triggered by earthquakes and rainfall. It involves a consortium of research institutions, iwi, government, and industry partners, with case studies in Tairāwhiti and Auckland to test its effectiveness.",
+  "section_title": "Description",
+  "character_count": 561,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_184",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 184,
+    "solution_name": "Hōretireti Whenua – Sliding Lands programme",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.gns.cri.nz/research-projects/sliding-lands/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.570655+00:00"
+  },
+  "s3_key": "data-lake/sol_819962402538b977b/sol_819962402538b977b_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_819962402538b977b/sol_819962402538b977b_chunk_0004.json"
+}

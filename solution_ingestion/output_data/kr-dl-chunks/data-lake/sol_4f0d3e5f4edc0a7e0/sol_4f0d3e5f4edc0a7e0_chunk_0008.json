@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_4f0d3e5f4edc0a7e0_chunk_0008",
+  "doc_id": "sol_4f0d3e5f4edc0a7e0",
+  "chunk_number": 8,
+  "text": "The initiative has produced multiple technical and engagement outputs, including evidence of the effectiveness of NbS, such as wetlands reducing flood peaks by up to 50%. It has also led to a council commitment to embed NbS into regional programs, creating a structured pathway for implementation and finance readiness.",
+  "section_title": "Results",
+  "character_count": 319,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_169",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 169,
+    "solution_name": "ORC NbS Investigations (2023–2025)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.orc.govt.nz/environment/biodiversity/nature-based-solutions-study",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.552285+00:00"
+  },
+  "s3_key": "data-lake/sol_4f0d3e5f4edc0a7e0/sol_4f0d3e5f4edc0a7e0_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_4f0d3e5f4edc0a7e0/sol_4f0d3e5f4edc0a7e0_chunk_0008.json"
+}

@@ -1,0 +1,288 @@
+Vocabulary Analysis Report
+==================================================
+
+TYPE OF RISK:
+--------------------
+Unique values: 16
+Total mentions: 660
+
+All Risk Types (by frequency):
+  442x Natural Catastrophe
+  134x Health
+   37x Retirement
+   18x Cannot be determined
+   11x Mortality
+    5x Unemployment
+    3x Earthquakes & Typhoons
+    2x Cyber
+    1x Health, 
+Labor, 
+Social Welfare, 
+Nutrition
+    1x Aging Population, 
+Health and Wellbeing
+    1x Operational Risk
+    1x Typhoons
+    1x Unemployment Risk, 
+Occupational Accident Risk, 
+Economic Insecurity
+    1x Economic Competitiveness
+    1x Work-related injuries and illnesses, 
+Extended sick leave, 
+Hospital stays and accidents, 
+Retirement
+    1x Old Age, 
+Disability, 
+Survivors, 
+Sickness and Maternity, 
+Work Injury
+
+TYPE OF SOLUTION:
+--------------------
+Unique values: 24
+Total mentions: 658
+
+All Solution Types (by frequency):
+  199x Risk Financing, 
+Risk Reduction
+  169x Risk Reduction, 
+Risk Financing
+   67x Risk Reduction, 
+Increase Penetration
+   48x Risk Financing, 
+Increase Penetration
+   46x Risk Financing
+   38x Increase Penetration
+   32x Risk Reduction
+   28x Risk Financing, 
+Risk Reduction, 
+Increase Penetration
+    6x Increased Penetration
+    6x Cannot be determined
+    5x Increase Penetration
+
+Risk Financing
+    2x Increase Penetration
+
+Risk Reduction
+    1x Increase Penetration
+Risk financing
+    1x Increase Penetration 
+
+Risk Financing
+    1x Risk Financing, 
+Increase Penetration, 
+Risk Reduction
+    1x Risk Reduction, 
+Raising Awareness
+    1x Risk Financing, Increase Penetration
+    1x Risk Financing
+
+Increased Penetration
+    1x Risk Financing
+
+Increase Penetration
+    1x Risk Reduction
+
+Risk Financing
+    1x Increase Penetration, 
+Risk Reduction
+    1x Risk Reduction, 
+Leveraging Tech
+    1x Increase Penetration
+
+Risk Reduction
+
+Risk Financing
+    1x Risk Reduction, 
+Regulation
+
+THEMES:
+--------------------
+Unique values: 71
+Total mentions: 659
+
+All Themes (by frequency):
+  112x Collaboration, 
+Raising Awareness
+   95x Collaboration, 
+Regulation
+   44x Accessibility
+   39x Collaboration, 
+Leveraging Tech
+   35x Collaboration, 
+Leveraging Tech, 
+Raising Awareness
+   27x Collaboration, 
+Regulation, 
+Raising Awareness
+   22x Collaboration, 
+Raising Awareness, 
+Leveraging Tech
+   22x Collaboration, 
+Raising Awareness, 
+Accessibility
+   20x Collaboration, 
+Raising Awareness, 
+Regulation
+   18x Accessibility, 
+Collaboration
+   18x Accessibility, 
+Regulation
+   17x Collaboration
+   15x Leveraging Tech, 
+Collaboration
+   11x Accessibility, 
+Collaboration, 
+Raising Awareness
+   11x Collaboration, 
+Accessibility, 
+Raising Awareness
+   10x Accessibility, 
+Collaboration, 
+Regulation
+   10x Regulation, 
+Collaboration
+    9x Collaboration, 
+Leveraging Tech, 
+Regulation
+    9x Collaboration, 
+Accessibility
+    8x Collaboration
+
+Accessibility
+    7x Accessibility
+
+Collaboration
+    6x Increase Response Efficiency
+    6x Cannot be determined
+    5x Accessibility, 
+Collaboration, 
+Leveraging Tech, 
+Raising Awareness
+    5x Accessibility, 
+Collaboration, 
+Leveraging Tech
+    5x Collaboration, 
+Accessibility, 
+Leveraging Tech
+    4x Collaboration, 
+Leveraging Tech, 
+Accessibility
+    4x Accessibility, 
+Raising Awareness
+    4x Collaboration
+
+Increase Response Efficiency
+    4x Collaboration, 
+Accessibility, 
+Leveraging Tech, 
+Raising Awareness
+    3x Raising Awareness
+    3x Regulation, 
+Raising Awareness
+    3x Leveraging Tech
+    3x Accessibility
+
+Increase Response Efficiency
+    3x Accessibility
+
+Regulation
+
+Collaboration
+    2x Raising Awareness
+
+Leveraging Tech
+    2x Collaboration, 
+Regulation, 
+Accessibility
+    2x Regulation, 
+Raising Awareness, 
+Collaboration
+    2x Increasing Response Efficiency
+    2x Collaboration
+
+Leveraging Tech
+    2x Collaboration
+Leveraging Tech
+    1x Accessibility
+Raising Awareness
+    1x Raise Awareness
+    1x Raising Awareness, 
+Regulation
+    1x Regulation, 
+Accessibility, 
+Collaboration
+    1x Accessibility, Collaboration
+    1x Accessibility, 
+Leveraging Tech
+    1x Accessibilty
+    1x Regulation, 
+Leveraging Tech
+    1x Increase Response Efficiency
+
+Leveraging Tech
+
+Accessibility
+    1x Leveraging Tech
+
+Increasing Response Efficiency
+    1x Collaboration
+Raise Awareness
+    1x Collaboration
+Accessibility
+    1x Collaboration, 
+Regulation, 
+Innovation
+    1x Leveraging Tech, 
+Raising Awareness
+    1x Leveraging Tech, 
+Collaboration, 
+Accessibility
+    1x Collaboration, Raising Awareness
+    1x Raising Awareness, 
+Collaboration, 
+Leveraging Tech
+    1x Collaboration, 
+Sustainability
+    1x Collaboration, 
+Regulation, 
+Raising Awareness, 
+Leveraging Tech
+    1x Collaboration, 
+Raising Awareness, 
+Leveraging Tech, 
+Regulation
+    1x Regulation, 
+Collaboration, 
+Accessibility
+    1x Collaboration, 
+Accessibility, 
+Raising Awareness, 
+Leveraging Tech
+    1x Regulation, 
+Collaboration, 
+Raising Awareness
+    1x Regulation, 
+Collaboration, 
+Leveraging Tech
+    1x Leveraging Tech
+
+Accessibility
+    1x Accessibility, 
+Collaboration, 
+Regulation, 
+Raising Awareness
+    1x Collaboration, 
+Raising Awareness, 
+Accessibility, 
+Regulation
+    1x Accessibility, 
+Regulation, 
+Raising Awareness
+    1x Accessibility, 
+Leveraging Tech, 
+Collaboration
+    1x Accessibility, 
+Regulation, 
+Collaboration

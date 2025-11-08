@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_68873396bc809d4db_chunk_0004",
+  "doc_id": "sol_68873396bc809d4db",
+  "chunk_number": 4,
+  "text": "The Korea Land Data Assimilation System (KLDAS) is a regional land data assimilation and modeling framework developed in South Korea to generate realistic, dynamically consistent land surface conditions at high spatial resolution and in real time. It serves as a land surface initialization source for numerical weather prediction and climate models, notably the Weather Research and Forecasting (WRF) model, to improve forecasts of near-surface meteorology and precipitation.",
+  "section_title": "Description",
+  "character_count": 476,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_326",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 326,
+    "solution_name": "Korea Land Data Assimilation System (KLDAS)",
+    "country": "South Korea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Leveraging Tech",
+    "year_of_implementation": "2007-2008",
+    "ppp": "No",
+    "source_url": "https://ams.confex.com/ams/88Annual/techprogram/paper_132406.htm",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.782670+00:00"
+  },
+  "s3_key": "data-lake/sol_68873396bc809d4db/sol_68873396bc809d4db_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_68873396bc809d4db/sol_68873396bc809d4db_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_bfa2fad075aee23e4_chunk_0002",
+  "doc_id": "sol_bfa2fad075aee23e4",
+  "chunk_number": 2,
+  "text": "This solution, National Disaster Risk Management Fund (NDRMF) addresses natural catastrophe through public private partnerships in Pakistan between Ministry of Climate Change, Ministry of Planning, Development & Special Initiatives, Economic Affairs Division, Ministry of Finance, Pakistan Meteorological Department, Pakistan Council of Research in Water Resources (PCRWR), SUPARCO, Asian Development Bank (ADB), The World Bank, UNDP Pakistan, GIZ, British High Commission in Pakistan, International Water Management Institute (IWMI), Sustainable Development Policy Institute (SDPI), WWF-Pakistan, and Pakistan Red Crescent Society (PRCS). The program was implemented in 2016 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 720,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_192",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 192,
+    "solution_name": "National Disaster Risk Management Fund (NDRMF)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2016",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/48259/48259-001-dpta-en.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.580967+00:00"
+  },
+  "s3_key": "data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_bfa2fad075aee23e4/sol_bfa2fad075aee23e4_chunk_0002.json"
+}

@@ -20,10 +20,22 @@ logger = logging.getLogger(__name__)
 class DatabaseManager:
     """
     Centralized database manager with connection pooling and standardized operations
+    Singleton pattern to ensure only one connection pool exists
     """
     
+    _instance = None
+    _initialized = False
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(DatabaseManager, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self):
-        """Initialize database manager with connection pooling"""
+        """Initialize database manager with connection pooling (singleton)"""
+        if DatabaseManager._initialized:
+            return
+            
         self._connection_pool = None
         self._secrets_client = boto3.client('secretsmanager')
         self._connection_params = None
@@ -31,6 +43,7 @@ class DatabaseManager:
         # Initialize connection pool
         self._initialize_connection_pool()
         
+        DatabaseManager._initialized = True
         logger.info("DatabaseManager initialized with connection pooling")
     
     def _initialize_connection_pool(self):

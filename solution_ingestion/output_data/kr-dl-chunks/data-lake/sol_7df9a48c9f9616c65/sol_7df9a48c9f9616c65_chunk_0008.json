@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7df9a48c9f9616c65_chunk_0008",
+  "doc_id": "sol_7df9a48c9f9616c65",
+  "chunk_number": 8,
+  "text": "The CAT-DDO 4 was disbursed after Typhoon Rai in December 2021, providing immediate liquidity. Previous CAT-DDOs were successfully drawn for Tropical Storm Washi (2011), Typhoon Mangkhut (2018), and the COVID-19 pandemic. A formal Implementation Completion and Results Report was finalized in April 2025.",
+  "section_title": "Results",
+  "character_count": 304,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_278",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 278,
+    "solution_name": "Fourth Disaster Risk Management Development Policy Loan with a Catastrophe-Deferred Drawdown Option (CAT-DDO 4)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/news/feature/2022/04/05/strengthening-the-philippines-post-disaster-financial-resilience-drmhubtokyo",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.726775+00:00"
+  },
+  "s3_key": "data-lake/sol_7df9a48c9f9616c65/sol_7df9a48c9f9616c65_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7df9a48c9f9616c65/sol_7df9a48c9f9616c65_chunk_0008.json"
+}

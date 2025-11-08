@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3e4e7aa92d2940e98_chunk_0008",
+  "doc_id": "sol_3e4e7aa92d2940e98",
+  "chunk_number": 8,
+  "text": "The program secured USD 10.3 billion of reinsurance capacity, accessible after NZD 2.2 billion of scheme costs, and included a USD 225 million catastrophe bond. This represents an increase from the 2024 program, which had a reinsurance limit of NZD 9.2 billion.",
+  "section_title": "Results",
+  "character_count": 261,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_152",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 152,
+    "solution_name": "Natural Hazards Commission Toka Tū Ake (NHC) – National Reinsurance Purchase for NHCover",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.reinsurancene.ws/new-zealands-nhc-secures-10-3bn-of-reinsurance-protection-at-june-1/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.534256+00:00"
+  },
+  "s3_key": "data-lake/sol_3e4e7aa92d2940e98/sol_3e4e7aa92d2940e98_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3e4e7aa92d2940e98/sol_3e4e7aa92d2940e98_chunk_0008.json"
+}

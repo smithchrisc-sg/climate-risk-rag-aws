@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_11d7833036d97bd79_chunk_0002",
+  "doc_id": "sol_11d7833036d97bd79",
+  "chunk_number": 2,
+  "text": "This solution, Cyclone-related Government Risk Financing in Myanmar, \nDisaster Management Fund (DMF), \nSoutheast Asia Disaster Risk Insurance Facility (SEADRIF) addresses natural catastrophe in Myanmar between National Disaster Management Committee (NDMC), Ministry of Social Welfare, Relief and Resettlement (MoSWRR), Ministry of Planning and Finance, United Nations Office for Disaster Risk Reduction (UNDRR), World Bank/GFDRR, United Nations Office for the Coordination of Humanitarian Affairs (UN OCHA), and Southeast Asia Disaster Risk Insurance Facility (SEADRIF). The program was implemented in 2020 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 651,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_122",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 122,
+    "solution_name": "Cyclone-related Government Risk Financing in Myanmar, \nDisaster Management Fund (DMF), \nSoutheast Asia Disaster Risk Insurance Facility (SEADRIF)",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2021/02/19/world-bank-statement-on-myanmar",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.502383+00:00"
+  },
+  "s3_key": "data-lake/sol_11d7833036d97bd79/sol_11d7833036d97bd79_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_11d7833036d97bd79/sol_11d7833036d97bd79_chunk_0002.json"
+}

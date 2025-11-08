@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6a52f2573c5edfc7d_chunk_0002",
+  "doc_id": "sol_6a52f2573c5edfc7d",
+  "chunk_number": 2,
+  "text": "This solution, National Emergency Operations Center (NEOC) addresses natural catastrophe in Republic of Maldives between National Disaster Management Authority (NDMA), Maldives National Defence Force (MNDF), Maldives Police Service (MPS), Health Protection Agency (HPA), Maldives Meteorological Service (MMS), Local Government Authority, Atoll and Island Councils, Sectoral ministries, United Nations Development Programme (UNDP), World Health Organization (WHO), United Nations Children's Fund (UNICEF), World Food Programme (WFP), World Bank, IOC-UNESCO, International Federation of Red Cross and Red Crescent Societies (IFRC), and International Committee of the Red Cross (ICRC). The program was implemented in 2020 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 763,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_113",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 113,
+    "solution_name": "National Emergency Operations Center (NEOC)",
+    "country": "Republic of Maldives",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://ioc.unesco.org",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.498458+00:00"
+  },
+  "s3_key": "data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0002.json"
+}

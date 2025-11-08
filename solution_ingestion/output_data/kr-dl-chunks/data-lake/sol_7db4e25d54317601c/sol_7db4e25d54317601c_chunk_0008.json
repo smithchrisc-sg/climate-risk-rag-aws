@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7db4e25d54317601c_chunk_0008",
+  "doc_id": "sol_7db4e25d54317601c",
+  "chunk_number": 8,
+  "text": "The program covers 77 agricultural drainage sites across Ballina, Rous, Tweed, and Clarence. In the Tweed River area, 35 out of 43 sites accessible by river were completed using a barge, demonstrating efficient delivery capabilities.",
+  "section_title": "Results",
+  "character_count": 233,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_22",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 22,
+    "solution_name": "Northern Rivers Agricultural Drainage Reset Program",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.nsw.gov.au/ministerial-releases/major-milestones-disaster-recovery-for-northern-rivers",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.389379+00:00"
+  },
+  "s3_key": "data-lake/sol_7db4e25d54317601c/sol_7db4e25d54317601c_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7db4e25d54317601c/sol_7db4e25d54317601c_chunk_0008.json"
+}

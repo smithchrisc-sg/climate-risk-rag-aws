@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f8ad6db018e842086_chunk_0006",
+  "doc_id": "sol_f8ad6db018e842086",
+  "chunk_number": 6,
+  "text": "SEADRIF 2.0 builds on the success of its predecessor by expanding its institutional architecture and partnerships. It leverages Singapore's regulatory environment to provide transparent governance and access to international re/insurance markets. The initiative's parametric insurance model ensures rapid liquidity for member countries, with payouts triggered by objective hazard indicators. SEADRIF 2.0 also emphasizes regional risk pooling, shared services, and governance reforms to enhance operational efficiency and sustainability.",
+  "section_title": "Key Highlights",
+  "character_count": 536,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_307",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 307,
+    "solution_name": "Southeast Asia Disaster Risk Insurance Facility (SEADRIF) 2.0: Boosting Financial Resilience in Southeast Asia",
+    "country": "Singapore, \nASEAN+3 region",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://documents1.worldbank.org/curated/en/099062725083127663/pdf/P510773-e24a4ff9-0894-4ca3-bcad-231ebb6a55f8.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.760702+00:00"
+  },
+  "s3_key": "data-lake/sol_f8ad6db018e842086/sol_f8ad6db018e842086_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f8ad6db018e842086/sol_f8ad6db018e842086_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_975321a0fc5210b82_chunk_0004",
+  "doc_id": "sol_975321a0fc5210b82",
+  "chunk_number": 4,
+  "text": "The Government Risk Financing Initiatives for Droughts in Myanmar, 2020–2025, is a set of sovereign and public-finance measures developed to manage drought risk within Myanmar's national disaster risk management framework. These initiatives are part of regional ASEAN financial resilience platforms and are supported by international organizations like the World Bank and GFDRR. The measures aim to enhance Myanmar's capacity to handle drought-related challenges through financial strategies and risk management.",
+  "section_title": "Description",
+  "character_count": 512,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_124",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 124,
+    "solution_name": "Government Risk Financing Initiatives for Droughts in Myanmar, 2020–2025",
+    "country": "Myanmar",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.gfdrr.org/en/publication/advancing-disaster-risk-financing-and-insurance-asean-member-states",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.503987+00:00"
+  },
+  "s3_key": "data-lake/sol_975321a0fc5210b82/sol_975321a0fc5210b82_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_975321a0fc5210b82/sol_975321a0fc5210b82_chunk_0004.json"
+}

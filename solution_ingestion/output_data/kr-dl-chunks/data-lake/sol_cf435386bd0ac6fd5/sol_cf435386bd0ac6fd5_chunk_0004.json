@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cf435386bd0ac6fd5_chunk_0004",
+  "doc_id": "sol_cf435386bd0ac6fd5",
+  "chunk_number": 4,
+  "text": "Nepal’s Government-led Earthquake Risk Reduction and Mitigation Initiatives (2020–2025) is a comprehensive program aimed at reducing earthquake risks through a multi-tiered governance approach. It is anchored in the Disaster Risk Reduction and Management Act, 2074 (2017) and executed by the National Disaster Risk Reduction and Management Authority (NDRRMA). The initiative involves federal policy reforms, decentralized implementation across 753 municipalities, evidence-led risk mapping, large-scale capacity building, digital learning, inclusive planning, and community mapping. It is supported by policy-linked risk financing from the World Bank and technical partners.",
+  "section_title": "Description",
+  "character_count": 674,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_129",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 129,
+    "solution_name": "Nepal’s Government-led Earthquake Risk Reduction and Mitigation Initiatives (2020–2025)",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nAccessibility",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/news/press-release/2024/10/29/world-bank-approves-150-million-to-strengthen-nepal-s-disaster-response-and-resilience",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.510623+00:00"
+  },
+  "s3_key": "data-lake/sol_cf435386bd0ac6fd5/sol_cf435386bd0ac6fd5_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cf435386bd0ac6fd5/sol_cf435386bd0ac6fd5_chunk_0004.json"
+}

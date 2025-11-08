@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7662e2ea344b03692_chunk_0008",
+  "doc_id": "sol_7662e2ea344b03692",
+  "chunk_number": 8,
+  "text": "The World Bank committed US$7.5 billion to disaster risk management projects in FY24, providing a context for scaling disaster risk financing solutions. The ASEAN+3 regional facility, established in December 2018 with China as a participating economy, aims to enhance financial resilience. Specific outcome metrics for China are not publicly detailed.",
+  "section_title": "Results",
+  "character_count": 351,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_85",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 85,
+    "solution_name": "World Bank Group’s Disaster Risk Financing and Insurance Program (DRFI/DRFIP)",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2010, \n2018",
+    "ppp": "Yes",
+    "source_url": "https://www.worldbank.org/en/programs/disaster-risk-financing-and-insurance-program",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.469644+00:00"
+  },
+  "s3_key": "data-lake/sol_7662e2ea344b03692/sol_7662e2ea344b03692_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7662e2ea344b03692/sol_7662e2ea344b03692_chunk_0008.json"
+}

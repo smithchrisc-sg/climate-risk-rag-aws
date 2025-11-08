@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_78caf3827ff1b0827_chunk_0006",
+  "doc_id": "sol_78caf3827ff1b0827",
+  "chunk_number": 6,
+  "text": "The CAT-DDO 4 offers a contingent credit line of US$500 million, which can be rapidly accessed upon the declaration of a State of Calamity or State of Public Health Emergency. It features a 3-year drawdown period, renewable up to 15 years, and a revolving feature allowing re-withdrawal of repaid amounts. The program requires the Philippines to maintain a satisfactory disaster and public health risk management program, monitored by the World Bank.",
+  "section_title": "Key Highlights",
+  "character_count": 450,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_263",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 263,
+    "solution_name": "Fourth Disaster Risk Management Development Policy Loan with a Catastrophe-Deferred Drawdown Option (CAT-DDO 4)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://thedocs.worldbank.org/en/doc/1820b53ad5cba038ff885cc3758ba59f-0340012021/original/Cat-DDO-IBRD-Product-Note.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.709959+00:00"
+  },
+  "s3_key": "data-lake/sol_78caf3827ff1b0827/sol_78caf3827ff1b0827_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_78caf3827ff1b0827/sol_78caf3827ff1b0827_chunk_0006.json"
+}

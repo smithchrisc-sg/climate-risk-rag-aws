@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_049885defcc027ab7_chunk_0004",
+  "doc_id": "sol_049885defcc027ab7",
+  "chunk_number": 4,
+  "text": "Start Network's Disaster Risk Financing (DRF) pilots in Pakistan are a nationally led, NGO-driven system designed to enable anticipatory and early response to predictable perils such as droughts, floods, and heatwaves. The initiative uses scientific hazard models, pre-agreed contingency plans, and pre-positioned finance to operationalize forecast-based, parametric-style releases of funds linked to clear triggers. It is a continuation and scaling of Start Network's earlier Drought Financing Facility work initiated with Pakistan's NDMA in 2017.",
+  "section_title": "Description",
+  "character_count": 548,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_204",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 204,
+    "solution_name": "Start Network's Disaster Risk Financing (DRF) pilots in Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2017",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/sites/default/files/publication/483686/pakistan-disaster-risk-financing-assessment.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.594967+00:00"
+  },
+  "s3_key": "data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_049885defcc027ab7/sol_049885defcc027ab7_chunk_0004.json"
+}

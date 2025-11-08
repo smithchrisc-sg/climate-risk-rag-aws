@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_a822ba36afd63a31f_chunk_0006",
+  "doc_id": "sol_a822ba36afd63a31f",
+  "chunk_number": 6,
+  "text": "The program is notable for being the first to introduce a Contingent Disaster Financing (CDF) option within a policy-based lending framework in Central and West Asia. It aims to strengthen institutional capacity, increase investment in disaster risk reduction, and enhance disaster risk financing through a risk-layered approach. The program supports the issuance of domestic green sukuk and establishes a solidarity fund for risk transfer solutions, such as agriculture insurance.",
+  "section_title": "Key Highlights",
+  "character_count": 481,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_199",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 199,
+    "solution_name": "Climate and Disaster Resilience Enhancement Program (Subprogram 1) (CDREP-S1)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://www.adb.org/projects/58054-001/main",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.589209+00:00"
+  },
+  "s3_key": "data-lake/sol_a822ba36afd63a31f/sol_a822ba36afd63a31f_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_a822ba36afd63a31f/sol_a822ba36afd63a31f_chunk_0006.json"
+}

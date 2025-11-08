@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8ecf036ff36922e1b_chunk_0006",
+  "doc_id": "sol_8ecf036ff36922e1b",
+  "chunk_number": 6,
+  "text": "The fund offers both short-term (2–3 months) and long-term (1 year, extendable) residencies to facilitate intensive collaborations and deeper research.,",
+  "section_title": "Key Highlights",
+  "character_count": 152,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_83",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 83,
+    "solution_name": "Shanghai Typhoon Collaborative Research Fund (STCRF)",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.typhooncommittee.org/index.php?route=product/category&path=75_120",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.465846+00:00"
+  },
+  "s3_key": "data-lake/sol_8ecf036ff36922e1b/sol_8ecf036ff36922e1b_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8ecf036ff36922e1b/sol_8ecf036ff36922e1b_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f9e85c583dd254e67_chunk_0004",
+  "doc_id": "sol_f9e85c583dd254e67",
+  "chunk_number": 4,
+  "text": "The Waipaoa Flood Control Climate Change Resilience Project is an extensive upgrade of the Waipaoa Flood Control Scheme in Tairāwhiti/Gisborne, New Zealand. Managed by the Gisborne District Council, the project aims to enhance flood protection to withstand a 1-in-100-year flood event, considering climate change impacts up to 2090. The project involves strengthening 64 km of stopbanks, widening crests, and raising heights, along with additional flood control measures. It is co-funded by the central government and aims to protect 10,000 hectares of productive floodplain and the city of Gisborne.",
+  "section_title": "Description",
+  "character_count": 600,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_162",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 162,
+    "solution_name": "Waipaoa Flood Control Climate Change Resilience Project (WFCS Upgrade)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.gdc.govt.nz/council/major-projects/waipaoa-river-flood-control-scheme",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.543938+00:00"
+  },
+  "s3_key": "data-lake/sol_f9e85c583dd254e67/sol_f9e85c583dd254e67_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f9e85c583dd254e67/sol_f9e85c583dd254e67_chunk_0004.json"
+}

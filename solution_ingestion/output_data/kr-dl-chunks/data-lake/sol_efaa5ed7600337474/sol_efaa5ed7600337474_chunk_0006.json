@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_efaa5ed7600337474_chunk_0006",
+  "doc_id": "sol_efaa5ed7600337474",
+  "chunk_number": 6,
+  "text": "The program is notable for its proactive risk management approach, integrating fiscal risk financing with disaster risk reduction efforts. It employs a multi-donor, multi-level governance design, coupling hydrometeorological upgrades with infrastructure restoration and community-based disaster risk management. Key projects include the Disaster and Climate Resilience Improvement Project and the Sindh Resilience Project, which focus on infrastructure resilience and institutional strengthening.",
+  "section_title": "Key Highlights",
+  "character_count": 496,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_201",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 201,
+    "solution_name": "Pakistan Disaster Risk Management Program",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2005",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/programs/pakistan-disaster-risk-management-program",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.591876+00:00"
+  },
+  "s3_key": "data-lake/sol_efaa5ed7600337474/sol_efaa5ed7600337474_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_efaa5ed7600337474/sol_efaa5ed7600337474_chunk_0006.json"
+}

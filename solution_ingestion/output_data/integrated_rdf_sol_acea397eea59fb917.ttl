@@ -1,0 +1,18 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+
+sg:Document_sol_acea397eea59fb917 a sgd:Solution ;
+    dcterms:identifier "sol_acea397eea59fb917" ;
+    dcterms:title "National Flood Mitigation Infrastructure Program (NFMIP)" ;
+    dcterms:created "2025-09-24" ;
+    dcterms:spatial "Australia" ;
+    dcterms:source <https://www.ses.tas.gov.au/emergency-management-2/grant-funding/national-flood-mitigation-infrastructure-fund/> ;
+    dcterms:publisher "Commonwealth of Australia, \nDepartment of Home Affairs, \nFederal Financial Relations, \nQueensland Reconstruction Authority (QRA), \nTasmania State Emergency Service (SES), \nGovernment of South Australia, \nLocal governments and public asset owners" ;
+    sgm:processingTimestamp "2025-11-08T17:31:25.115087+00:00"^^xsd:dateTime .
+

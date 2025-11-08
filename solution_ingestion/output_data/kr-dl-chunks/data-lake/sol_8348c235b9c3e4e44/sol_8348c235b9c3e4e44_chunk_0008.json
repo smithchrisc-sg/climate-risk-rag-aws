@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8348c235b9c3e4e44_chunk_0008",
+  "doc_id": "sol_8348c235b9c3e4e44",
+  "chunk_number": 8,
+  "text": "By January 2025, full participation of mandated insurers was achieved, covering approximately 95% of the market in 2024. Premium reductions of up to 38% were reported in selected regional areas, with an average 39% reduction in home premiums in the highest cyclone risk areas.",
+  "section_title": "Results",
+  "character_count": 276,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_30",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 30,
+    "solution_name": "Cyclone Reinsurance Pool mandatory participation and PACE Cyclone insurer onboarding",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration, \nAccessibility",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://arpc.gov.au/resources/arpc-announces-full-participation-of-mandated-insurers-in-cyclone-pool/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.399418+00:00"
+  },
+  "s3_key": "data-lake/sol_8348c235b9c3e4e44/sol_8348c235b9c3e4e44_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8348c235b9c3e4e44/sol_8348c235b9c3e4e44_chunk_0008.json"
+}

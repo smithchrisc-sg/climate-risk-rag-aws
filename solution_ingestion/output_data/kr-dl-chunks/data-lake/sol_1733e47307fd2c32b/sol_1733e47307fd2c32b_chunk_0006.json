@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1733e47307fd2c32b_chunk_0006",
+  "doc_id": "sol_1733e47307fd2c32b",
+  "chunk_number": 6,
+  "text": "The program features parametric triggers for rapid payouts, regional risk analytics via PCRAFI, and strong public-private partnerships with insurers and reinsurers. It integrates with public financial management to improve budget reliability and reduce emergency borrowing. The program is backed by donors like the Government of Japan and involves extensive collaboration with private sector partners for risk modeling and insurance.",
+  "section_title": "Key Highlights",
+  "character_count": 433,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_244",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 244,
+    "solution_name": "World Bank Disaster Risk Financing and Insurance Program (DRFI/DRFIP); Pacific Disaster Risk Financing and Insurance Program (Pacific DRFIP)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2013",
+    "ppp": "Yes",
+    "source_url": "https://documents1.worldbank.org/curated/en/818411468289177132/pdf/949920WP0Box3800Pager0FINAL0VERSION.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.690239+00:00"
+  },
+  "s3_key": "data-lake/sol_1733e47307fd2c32b/sol_1733e47307fd2c32b_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1733e47307fd2c32b/sol_1733e47307fd2c32b_chunk_0006.json"
+}

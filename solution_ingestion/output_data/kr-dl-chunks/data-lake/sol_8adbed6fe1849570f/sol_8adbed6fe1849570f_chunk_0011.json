@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_8adbed6fe1849570f_chunk_0011",
+  "doc_id": "sol_8adbed6fe1849570f",
+  "chunk_number": 11,
+  "text": "Publication of a comprehensive diagnostic mapping Cambodia’s enabling environment for DRF.,",
+  "section_title": "Results",
+  "character_count": 91,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_61",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 61,
+    "solution_name": "The Enabling Environment for Disaster Risk Financing in Cambodia: Country Diagnostics Assessment",
+    "country": "Cambodia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/publication/1024246/enabling-environment-cambodia.pdf",
+    "section_title": "Results",
+    "chunk_number": 11,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.440276+00:00"
+  },
+  "s3_key": "data-lake/sol_8adbed6fe1849570f/sol_8adbed6fe1849570f_chunk_0011.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_8adbed6fe1849570f/sol_8adbed6fe1849570f_chunk_0011.json"
+}

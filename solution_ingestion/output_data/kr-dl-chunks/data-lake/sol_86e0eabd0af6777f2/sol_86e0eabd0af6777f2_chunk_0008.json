@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_86e0eabd0af6777f2_chunk_0008",
+  "doc_id": "sol_86e0eabd0af6777f2",
+  "chunk_number": 8,
+  "text": "153 LGUs have prepared recovery and reconstruction plans using PlanSmart across five disaster-vulnerable regions. More than 2,300 officials have been trained in risk-informed recovery planning, with 500+ trained to use the app. The platform demonstrated rapid plan preparation in BARMM after Severe Tropical Storm Nalgae in October 2022.",
+  "section_title": "Results",
+  "character_count": 337,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_267",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 267,
+    "solution_name": "PlanSmart",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://www.gfdrr.org/en/feature-story/enabling-rapid-post-disaster-planning-and-financing-philippines",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.715374+00:00"
+  },
+  "s3_key": "data-lake/sol_86e0eabd0af6777f2/sol_86e0eabd0af6777f2_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_86e0eabd0af6777f2/sol_86e0eabd0af6777f2_chunk_0008.json"
+}

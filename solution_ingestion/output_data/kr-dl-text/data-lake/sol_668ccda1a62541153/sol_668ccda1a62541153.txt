@@ -1,0 +1,29 @@
+Ministry of Environment AI-based Flood Forecasting and Early Warning System
+
+Ministry of Environment
+
+and 
+
+Navigation app operators (specific companies not named publicly)
+
+Introduction
+
+This solution, Ministry of Environment AI-based Flood Forecasting and Early Warning System addresses natural catastrophe through public private partnerships in Republic of Korea (South Korea) between Ministry of Environment and Navigation app operators (specific companies not named publicly). The program was implemented in 2024 and focuses on leveraging tech and collaboration.
+
+Description
+
+The Ministry of Environment AI-based Flood Forecasting and Early Warning System is a nationwide initiative in South Korea aimed at enhancing public safety through smart forecasting. It utilizes AI models to perform automated, 10-minute interval analyses of flood likelihood, issuing location-specific safety messages to residents and drivers, and alerting local governments, fire, and police for rapid response mobilization. The system expands real-time monitoring from 75 to 223 locations, integrating public-sector data with private navigation services for dynamic rerouting during heavy rain events.
+
+Key Highlights
+
+The system features a 10-minute analytic cadence, expansion from 75 to 223 monitoring points, integration with private navigation apps for real-time rerouting, automatic multi-agency alerting, and location-specific public messages. It prioritizes high-risk riverine sites and aims to prevent tragedies like the 2023 Osong underpass flooding.
+
+Results
+
+Quantified performance outcomes have not been publicly reported as of September 2025. However, the system has achieved spatial expansion to 223 monitoring points and operational 10-minute forecasts and alerts during rainy seasons.
+
+Contact Information
+
+Organization: Ministry of Environment (Republic of Korea), 
+Email: Not published in the cited sources, 
+Contact Number: Not published in the cited sources

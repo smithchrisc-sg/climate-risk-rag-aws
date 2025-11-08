@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3453097cac4c5e675_chunk_0004",
+  "doc_id": "sol_3453097cac4c5e675",
+  "chunk_number": 4,
+  "text": "The National Volcanic Hazard and Risk Model (NVHRM) is a comprehensive framework designed to quantify volcanic hazards, exposure, vulnerability, and risk in New Zealand. It integrates scientific research with stakeholder needs to inform planning, policy, and risk transfer decisions. The model is part of the Hazard and Risk Management programme led by GNS Science, now within Earth Sciences New Zealand, and is funded by New Zealand's Strategic Science Investment Fund. NVHRM aims to provide a consistent national standard for assessing volcanic risks, supporting emergency management, infrastructure planning, and insurance strategies.",
+  "section_title": "Description",
+  "character_count": 637,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_176",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 176,
+    "solution_name": "National Volcanic Hazard and Risk Model (NVHRM)",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://auckland.figshare.com/articles/presentation/Catalysing_a_national_volcanic_hazard_and_risk_model_for_New_Zealand/22057139",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.561662+00:00"
+  },
+  "s3_key": "data-lake/sol_3453097cac4c5e675/sol_3453097cac4c5e675_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3453097cac4c5e675/sol_3453097cac4c5e675_chunk_0004.json"
+}

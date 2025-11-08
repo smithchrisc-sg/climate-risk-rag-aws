@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_bfff36322850cc41e_chunk_0006",
+  "doc_id": "sol_bfff36322850cc41e",
+  "chunk_number": 6,
+  "text": "The initiative is the first parametric microinsurance in the Pacific, offering payouts within two weeks of verified disaster events. It focuses on inclusion, targeting women and persons with disabilities, and utilizes digital disbursement methods. The project is supported by a multi-donor and multi-country framework under PICAP, with local underwriting by FijiCare and Sun Insurance.",
+  "section_title": "Key Highlights",
+  "character_count": 385,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_89",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 89,
+    "solution_name": "Scaling Climate and Disaster Risk Financing Framework and Parametric Insurance in Fiji, \nFiji’s Parametric Climate and Disaster Risk Insurance Product",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2021, \n2023",
+    "ppp": "Yes",
+    "source_url": "https://fijiclimatechangeportal.gov.fj/fijis-parametric-climate-and-disaster-risk-insurance-product/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.473148+00:00"
+  },
+  "s3_key": "data-lake/sol_bfff36322850cc41e/sol_bfff36322850cc41e_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_bfff36322850cc41e/sol_bfff36322850cc41e_chunk_0006.json"
+}

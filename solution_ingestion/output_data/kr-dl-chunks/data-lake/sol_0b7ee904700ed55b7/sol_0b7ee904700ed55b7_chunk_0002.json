@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_0b7ee904700ed55b7_chunk_0002",
+  "doc_id": "sol_0b7ee904700ed55b7",
+  "chunk_number": 2,
+  "text": "This solution, Government‑Led Efforts to Increase Earthquake Insurance Penetration in China (2020–2025) addresses natural catastrophe through public private partnerships in People’s Republic of China between PICC Property & Casualty, Government of China, World Bank, Munich Re, Swiss Re, AIR Worldwide, RMS, and EQECAT. The program was implemented in 2020 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 400,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_77",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 77,
+    "solution_name": "Government‑Led Efforts to Increase Earthquake Insurance Penetration in China (2020–2025)",
+    "country": "People’s Republic of China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nIncrease Penetration",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "Yes",
+    "source_url": "https://www.artemis.bm/news/on-catastrophe-bonds-for-chinese-earthquakes/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.457824+00:00"
+  },
+  "s3_key": "data-lake/sol_0b7ee904700ed55b7/sol_0b7ee904700ed55b7_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_0b7ee904700ed55b7/sol_0b7ee904700ed55b7_chunk_0002.json"
+}

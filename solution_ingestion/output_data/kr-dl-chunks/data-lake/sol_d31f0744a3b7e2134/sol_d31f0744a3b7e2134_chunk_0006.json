@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_d31f0744a3b7e2134_chunk_0006",
+  "doc_id": "sol_d31f0744a3b7e2134",
+  "chunk_number": 6,
+  "text": "This initiative is the first-of-its-kind parametric earthquake cover for submarine cable systems, offering non-sovereign coverage by a regional catastrophe risk pool. It utilizes open-source seismic models from GEM and objective triggers from USGS to ensure rapid payouts. The policy is strategically aligned with PNG DataCo's role in regional connectivity, complementing large-scale investments in digital infrastructure.",
+  "section_title": "Key Highlights",
+  "character_count": 422,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_224",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 224,
+    "solution_name": "PNG DataCo Parametric Earthquake Insurance for Submarine Fibre-Optic Cable Network",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2024",
+    "ppp": "Yes",
+    "source_url": "https://pcric.org/2024/05/16/pcric-forges-new-policy-deal-with-state-owned-enterprise-in-papua-new-guinea-2/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.658530+00:00"
+  },
+  "s3_key": "data-lake/sol_d31f0744a3b7e2134/sol_d31f0744a3b7e2134_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_d31f0744a3b7e2134/sol_d31f0744a3b7e2134_chunk_0006.json"
+}

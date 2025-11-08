@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_675cbf2c3830b3f8a_chunk_0008",
+  "doc_id": "sol_675cbf2c3830b3f8a",
+  "chunk_number": 8,
+  "text": "As of September 26, 2025, the Plan is in its initiation phase with no official quantitative outcomes published. However, it aims to address the baseline conditions of the 2025 monsoon, which resulted in approximately 1,006 deaths and 1,063 injuries, and the 2022 floods, which caused nearly 1,700 deaths and over $30 billion in damage.",
+  "section_title": "Results",
+  "character_count": 335,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_205",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 205,
+    "solution_name": "National Resilience Plan 2025–2026",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.nation.com.pk/26-Sep-2025/minister-ndma-chief-discuss-national-resilience-plan",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.596655+00:00"
+  },
+  "s3_key": "data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_675cbf2c3830b3f8a/sol_675cbf2c3830b3f8a_chunk_0008.json"
+}

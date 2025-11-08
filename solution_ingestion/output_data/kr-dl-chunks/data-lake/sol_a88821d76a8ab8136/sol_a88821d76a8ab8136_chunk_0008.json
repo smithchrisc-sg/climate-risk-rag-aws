@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_a88821d76a8ab8136_chunk_0008",
+  "doc_id": "sol_a88821d76a8ab8136",
+  "chunk_number": 8,
+  "text": "Institutional milestones achieved include the launch of the project, constitution of the Project Steering Committee, delivery of training, and approval of the Sindh Water Policy. Quantified outcome reporting is still limited in publicly available sources.",
+  "section_title": "Results",
+  "character_count": 255,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_213",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 213,
+    "solution_name": "Sindh Water and Agriculture Transformation Project (SWAT)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/099062524123529286/pdf/P167596-63cddbb8-a986-42b5-9ce0-cc067531488e.pdf",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.608921+00:00"
+  },
+  "s3_key": "data-lake/sol_a88821d76a8ab8136/sol_a88821d76a8ab8136_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_a88821d76a8ab8136/sol_a88821d76a8ab8136_chunk_0008.json"
+}

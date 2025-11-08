@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_819962402538b977b_chunk_0002",
+  "doc_id": "sol_819962402538b977b",
+  "chunk_number": 2,
+  "text": "This solution, Hōretireti Whenua – Sliding Lands programme addresses natural catastrophe through public private partnerships in Aotearoa New Zealand between GNS Science (now part of Earth Sciences New Zealand), Central and local government agencies across New Zealand, Durham University (UK), ETH Zürich (Switzerland), Massey University, Manaaki Whenua Landcare Research, Market Economics, University of Auckland, Resilient Organisations, and University of Canterbury. The program was implemented in 2023 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 556,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_184",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 184,
+    "solution_name": "Hōretireti Whenua – Sliding Lands programme",
+    "country": "Aotearoa New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.gns.cri.nz/research-projects/sliding-lands/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.570415+00:00"
+  },
+  "s3_key": "data-lake/sol_819962402538b977b/sol_819962402538b977b_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_819962402538b977b/sol_819962402538b977b_chunk_0002.json"
+}

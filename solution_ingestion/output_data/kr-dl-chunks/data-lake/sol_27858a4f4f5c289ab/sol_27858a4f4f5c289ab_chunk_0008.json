@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_27858a4f4f5c289ab_chunk_0008",
+  "doc_id": "sol_27858a4f4f5c289ab",
+  "chunk_number": 8,
+  "text": "$50 million total funding allocated. In Queensland, $8.4 million was distributed across 10 projects, including a $4.3 million statewide bathymetry survey. In Tasmania, Sorell Council received $1,868,509 for projects like dune remediation and stormwater upgrades, with additional co-investment from the council. Break O’Day Council also received funding for risk mitigation projects.",
+  "section_title": "Results",
+  "character_count": 382,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_2",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 2,
+    "solution_name": "Coastal and Estuarine Risk Mitigation Program (CERMP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://federalfinancialrelations.gov.au/agreements/emergency-response-fund-coastal-and-estuaries-risk-mitigation-program",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.356690+00:00"
+  },
+  "s3_key": "data-lake/sol_27858a4f4f5c289ab/sol_27858a4f4f5c289ab_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_27858a4f4f5c289ab/sol_27858a4f4f5c289ab_chunk_0008.json"
+}

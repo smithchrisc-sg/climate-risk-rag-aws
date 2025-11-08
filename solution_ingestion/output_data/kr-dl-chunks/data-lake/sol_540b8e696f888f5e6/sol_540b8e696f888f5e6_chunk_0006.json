@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_540b8e696f888f5e6_chunk_0006",
+  "doc_id": "sol_540b8e696f888f5e6",
+  "chunk_number": 6,
+  "text": "The initiative features default-open gated coastal barriers to preserve marine exchange and navigational access, closing only during extreme tide events. It integrates with Singapore's major urban regeneration project, ensuring flood resilience is a placemaking asset. The approach includes modular tailoring of solutions for different shoreline segments and is backed by national elevation standards and existing hard-protection coverage.",
+  "section_title": "Key Highlights",
+  "character_count": 439,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_295",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 295,
+    "solution_name": "Coastal Protection Concepts for Greater Southern Waterfront (GSW) and Changi — City–East Coast Site‑Specific Study (SSS)",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://www.pub.gov.sg/Resources/News-Room/PressReleases/2025/08/Coastal-Barriers",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.746145+00:00"
+  },
+  "s3_key": "data-lake/sol_540b8e696f888f5e6/sol_540b8e696f888f5e6_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_540b8e696f888f5e6/sol_540b8e696f888f5e6_chunk_0006.json"
+}

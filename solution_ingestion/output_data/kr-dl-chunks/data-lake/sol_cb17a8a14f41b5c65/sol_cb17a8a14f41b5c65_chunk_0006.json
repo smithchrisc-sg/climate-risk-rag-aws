@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cb17a8a14f41b5c65_chunk_0006",
+  "doc_id": "sol_cb17a8a14f41b5c65",
+  "chunk_number": 6,
+  "text": "The initiative was characterized by a multi-layered approach involving aggressive demand management, emergency supply augmentation through tanker deliveries and inter-municipal transfers, and preparations for an inter-basin emergency release from Doam Dam. A Water Quality Verification Committee was established to manage risks associated with alternative water sources. The initiative also prioritized vulnerable populations by distributing bottled water to schools and senior welfare facilities.",
+  "section_title": "Key Highlights",
+  "character_count": 497,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_328",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 328,
+    "solution_name": "State of National Disaster for Drought in Gangneung (2025)",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://en.yna.co.kr/view/AEN20250830002500320",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.785342+00:00"
+  },
+  "s3_key": "data-lake/sol_cb17a8a14f41b5c65/sol_cb17a8a14f41b5c65_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cb17a8a14f41b5c65/sol_cb17a8a14f41b5c65_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1adfd16d8795303c4_chunk_0002",
+  "doc_id": "sol_1adfd16d8795303c4",
+  "chunk_number": 2,
+  "text": "This solution, Nepal Disaster Risk Management Development Policy Credit with a Catastrophe Deferred Drawdown Option (Cat DDO) addresses natural catastrophe in Nepal between Government of Nepal (GoN), Ministry of Finance (MoF), National Disaster Risk Reduction and Management Authority (NDRRMA), line ministries involved in urban development, home affairs, water resources, education, and health, International Development Association (IDA), World Bank Group, Global Facility for Disaster Reduction and Recovery (GFDRR), United Nations Development Programme (UNDP), Japan International Cooperation Agency (JICA), United States Agency for International Development (USAID), Foreign, and Commonwealth & Development Office (FCDO). The program was implemented in Cannot be determined and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 823,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_128",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 128,
+    "solution_name": "Nepal Disaster Risk Management Development Policy Credit with a Catastrophe Deferred Drawdown Option (Cat DDO)",
+    "country": "Nepal",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "Cannot be determined",
+    "ppp": "No",
+    "source_url": "https://www.worldbank.org/en/topic/disasterriskmanagement/brief/catastrophe-deferred-drawdown-option-cat-ddo",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.509127+00:00"
+  },
+  "s3_key": "data-lake/sol_1adfd16d8795303c4/sol_1adfd16d8795303c4_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1adfd16d8795303c4/sol_1adfd16d8795303c4_chunk_0002.json"
+}

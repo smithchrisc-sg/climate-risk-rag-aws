@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_eafcab83d85dbc1dd_chunk_0006",
+  "doc_id": "sol_eafcab83d85dbc1dd",
+  "chunk_number": 6,
+  "text": "CAT‑DDO 4 provides immediate liquidity upon government declaration of a State of Calamity or Public Health Emergency, minimizing response time. It is embedded in a Development Policy Loan that supports disaster risk management and financing policy reforms. The facility is part of a layered risk finance strategy that includes parametric insurance, microinsurance, reinsurance, and a sovereign catastrophe bond, offering a diversified safety net for fiscal resilience. It is initially available for three years, with the possibility of renewal up to 15 years.",
+  "section_title": "Key Highlights",
+  "character_count": 559,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_284",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 284,
+    "solution_name": "Fourth Disaster Risk Management Development Policy Loan with a Catastrophe‑Deferred Drawdown Option (CAT‑DDO 4)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/147391641931244931/pdf/Philippines-Fourth-Disaster-Risk-Management-Development-Policy-Loan.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.732898+00:00"
+  },
+  "s3_key": "data-lake/sol_eafcab83d85dbc1dd/sol_eafcab83d85dbc1dd_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_eafcab83d85dbc1dd/sol_eafcab83d85dbc1dd_chunk_0006.json"
+}

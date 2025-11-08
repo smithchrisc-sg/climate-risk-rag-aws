@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_7e26e40a7d46c6134_chunk_0008",
+  "doc_id": "sol_7e26e40a7d46c6134",
+  "chunk_number": 8,
+  "text": "As of the reporting date, no payouts or deployed instruments have been reported for the Philippines under GSSP. However, a national dialogue has been convened, and collaboration is ongoing to craft a proactive CDRFI proposal.",
+  "section_title": "Results",
+  "character_count": 225,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_271",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 271,
+    "solution_name": "Global Shield engagement (GSSP pipeline) in the Philippines",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://www.globalshield.org/about/financing-structure-global-shield/",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.720279+00:00"
+  },
+  "s3_key": "data-lake/sol_7e26e40a7d46c6134/sol_7e26e40a7d46c6134_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_7e26e40a7d46c6134/sol_7e26e40a7d46c6134_chunk_0008.json"
+}

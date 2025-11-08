@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_2bf105026eefb0c4a_chunk_0015",
+  "doc_id": "sol_2bf105026eefb0c4a",
+  "chunk_number": 15,
+  "text": "Completion of PNG National Seismic Hazard Assessment,",
+  "section_title": "Results",
+  "character_count": 53,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_233",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 233,
+    "solution_name": "Technical Disaster Risk Reduction (TDRR) Program",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nLeveraging Tech",
+    "year_of_implementation": "2016",
+    "ppp": "Yes",
+    "source_url": "https://www.ga.gov.au/news/news-archive/disaster-resilience-program-extended-in-papua-new-guinea",
+    "section_title": "Results",
+    "chunk_number": 15,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.675518+00:00"
+  },
+  "s3_key": "data-lake/sol_2bf105026eefb0c4a/sol_2bf105026eefb0c4a_chunk_0015.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_2bf105026eefb0c4a/sol_2bf105026eefb0c4a_chunk_0015.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_858f89ace5690d44c_chunk_0002",
+  "doc_id": "sol_858f89ace5690d44c",
+  "chunk_number": 2,
+  "text": "This solution, Philippines: Disaster Resilience Improvement Program (DRIP) addresses natural catastrophe in Philippines between Government of the Philippines, Local Government Units (LGUs), Asian Development Bank (ADB), InsuResilience Global Partnership, and Asia-Pacific Climate Finance Fund (ACliFF). The program was implemented in 2020 and focuses on collaboration and regulation.",
+  "section_title": "Introduction",
+  "character_count": 383,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_279",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 279,
+    "solution_name": "Philippines: Disaster Resilience Improvement Program (DRIP)",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/54022/54022-001-pcr-en.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.727496+00:00"
+  },
+  "s3_key": "data-lake/sol_858f89ace5690d44c/sol_858f89ace5690d44c_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_858f89ace5690d44c/sol_858f89ace5690d44c_chunk_0002.json"
+}

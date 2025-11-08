@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b7eadb47136a8e738_chunk_0013",
+  "doc_id": "sol_b7eadb47136a8e738",
+  "chunk_number": 13,
+  "text": "US$550,000 funding for the national Integrated Spatial Hazard Risk Information and Mapping System.,",
+  "section_title": "Results",
+  "character_count": 99,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_216",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 216,
+    "solution_name": "PNG Geohazards Website",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2009",
+    "ppp": "No",
+    "source_url": "https://openknowledge.worldbank.org/bitstreams/d6dbecc2-90be-5d5c-99fe-60f7c754478c/download",
+    "section_title": "Results",
+    "chunk_number": 13,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.613951+00:00"
+  },
+  "s3_key": "data-lake/sol_b7eadb47136a8e738/sol_b7eadb47136a8e738_chunk_0013.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b7eadb47136a8e738/sol_b7eadb47136a8e738_chunk_0013.json"
+}

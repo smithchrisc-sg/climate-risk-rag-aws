@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_b8142d87b2bda3434_chunk_0004",
+  "doc_id": "sol_b8142d87b2bda3434",
+  "chunk_number": 4,
+  "text": "The Structural Integrity Assessment and Retrofit Design of the Sandiganbayan Centennial Building was initiated to ensure the safety and operational continuity of the aging judicial facility in Quezon City, Philippines. Led by the University of the Philippines Building Research Service, the project involved a comprehensive structural evaluation and retrofit design to address safety deficiencies. This initiative is part of a broader modernization agenda, which includes the construction of a new, green, ICT-ready Sandiganbayan Building II, expected to be operational by 2028.",
+  "section_title": "Description",
+  "character_count": 578,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_251",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 251,
+    "solution_name": "Structural Integrity Assessment and Retrofit Design of the Sandiganbayan Centennial Building",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "Yes",
+    "source_url": "https://brs.upd.edu.ph/structural-integrity-assessment-and-retrofit-design-of-the-sandiganbayan-centennial-building/",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.696602+00:00"
+  },
+  "s3_key": "data-lake/sol_b8142d87b2bda3434/sol_b8142d87b2bda3434_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_b8142d87b2bda3434/sol_b8142d87b2bda3434_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_070f2610730e83fd6_chunk_0006",
+  "doc_id": "sol_070f2610730e83fd6",
+  "chunk_number": 6,
+  "text": "The DRF system is science-led and integrates distinct parametric models tailored to drought, heatwave, and flood dynamics. It focuses on under-monitored seasons, such as winter agricultural droughts, and operates in urban centers to mitigate heatwave impacts. The system is embedded with national systems, built in collaboration with NDMA, and linked to pooled risk financing through Start Ready, enhancing sustainability and predictability.",
+  "section_title": "Key Highlights",
+  "character_count": 441,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_210",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 210,
+    "solution_name": "Start Network Disaster Risk Financing (DRF) System in Pakistan",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2017",
+    "ppp": "Yes",
+    "source_url": "https://startnetwork.org/disaster-risk-financing-pakistan",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.603402+00:00"
+  },
+  "s3_key": "data-lake/sol_070f2610730e83fd6/sol_070f2610730e83fd6_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_070f2610730e83fd6/sol_070f2610730e83fd6_chunk_0006.json"
+}

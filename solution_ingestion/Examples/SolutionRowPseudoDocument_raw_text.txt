@@ -1,0 +1,58 @@
+Disaster Recovery Funding Arrangements (DRFA)     <<Title lines from CSV 'Name' column>>
+Tasmanian Relief and Recovery Arrangements (TRRA)
+
+<<Next lines are from the three 'Organizations' columns>>
+Commonwealth Government, State Governments, WA Department of Fire and Emergency Services (DFES), WA Department of Primary Industries and Regional Development (DPIRD), Government of Tasmania, Resilience and Recovery Tasmania, Cairns Regional Council
+
+and 
+
+GEO Design Pty Ltd, GEO Construct Pty Ltd, Saxon Drilling Pty Ltd, ETS Geotechnical Pty Ltd, OSE Group Pty Ltd, MAL Engineers Pty Ltd, 3D Civil Pty Ltd
+
+Introduction <<Add this explicitly as a section header>>
+<<This paragraph is a mad lib style fill in the blank from 'Name', 'Type of Risk', 'Type of Solution', 'PPP?', 'Country', 'Implementation Date', 'Themes' the fill in blanks are bracketted below in order>>
+This solution, [[Disaster Recovery Funding Arrangements (DRFA) and Tasmanian Relief and Recovery Arrangements (TRRA)]] addresses [[risk financing and
+risk reduction]] [[through public private partnerships]] in [[Australia]] between [[Commonwealth Government, State Governments, WA Department of Fire and
+Emergency Services (DFES), WA Department of Primary Industries and Regional Development (DPIRD), Government of Tasmania, Resilience and Recovery
+Tasmania, Cairns Regional Council and GEO Design Pty Ltd, GEO Construct Pty Ltd, Saxon Drilling Pty Ltd, ETS Geotechnical Pty Ltd, OSE Group Pty
+Ltd, MAL Engineers Pty Ltd, 3D Civil Pty Ltd.]] The programs were implemented in [[2022 and 2023]] and focus on [[collaboration and regulation]].
+
+Description <<Add this explicitly as a section header>>
+<<Direct from 'Description' column>>
+The Disaster Recovery Funding Arrangements (DRFA) is Australia's primary national funding mechanism for disaster relief and recovery, jointly financed by the Commonwealth and state/territory governments. It operates as a framework under which state and territory governments activate and administer measures tailored to their jurisdictions, often delivered in partnership with local governments and sectoral agencies., 
+
+The Tasmanian Relief and Recovery Arrangements (TRRA) is Tasmania’s principal state-level framework for funding relief and recovery for communities and local governments during or after emergencies. It functions alongside the DRFA, allowing the state to combine its own policies with national support for comprehensive recovery packages.
+
+Key Highlights <<Add this explicitly as a section header>>
+<<Direct from 'Key Highlights' column>>
+DRFA is a national, co-funded, multi-stream model with flexible state-based administration and local government delivery. It includes measures like the Restoration of Essential Public Assets (REPA) for public infrastructure and sector-specific support such as primary producer assistance. 
+
+TRRA is state-designed and tailored to Tasmania, covering individuals, councils, small businesses, primary producers, and non-profit organizations. It integrates seamlessly with DRFA for joint assistance.
+
+Results <<Add this explicitely as a section header>>
+<<Direct from 'Results' column>>
+Cairns Regional Council implemented a A$24.417 million REPA remediation program after Tropical Cyclone Jasper, including permanent bridge replacement and landslip and drainage repairs. 
+
+In 2024, DRFA-backed Recovery and Restoration Grants in Tasmania provided up to A$11,450 for essential household replacement and repair/restoration of principal residences, available for three months post-impact.
+
+Contact Information <<Add this explicitely as a section header>>
+<<Direct from 'Contact Information' column>>
+
+Organization: State Governments 
+Email: info@qra.qld.gov.au 
+Contact Number: 1800 110 841
+
+Organization: WA Department of Fire and Emergency Services (DFES) 
+Email: drfawa@dfes.wa.gov.au 
+Contact Number: 1800 920 659
+
+Organization: WA Department of Primary Industries and Regional Development (DPIRD) 
+Email: RuralBusiness.Developmentunit@dpird.wa.gov.au 
+Contact Number: +61 1300 374 731
+
+Organization: Government of Tasmania 
+Contact Number: 1300 135 513
+
+Organization: Resilience and Recovery Tasmania (RRT) 
+Email: RRT@dpac.tas.gov.au 
+Contact Number: 1300 135 513
+

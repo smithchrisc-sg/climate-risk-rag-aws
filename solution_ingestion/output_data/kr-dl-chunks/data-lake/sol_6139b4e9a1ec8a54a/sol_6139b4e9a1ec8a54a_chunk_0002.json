@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6139b4e9a1ec8a54a_chunk_0002",
+  "doc_id": "sol_6139b4e9a1ec8a54a",
+  "chunk_number": 2,
+  "text": "This solution, Climate and Disaster Resilient Small-Scale Water Resources Management Project (CDRSSWRMP/SSWRM) addresses natural catastrophe in Bangladesh between Local Government Engineering Department (LGED), Local Government Division, Government of Bangladesh, Asian Development Bank (ADB), International Fund for Agricultural Development (IFAD), and Government of the Netherlands. The program was implemented in 2023 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 472,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_50",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 50,
+    "solution_name": "Climate and Disaster Resilient Small-Scale Water Resources Management Project (CDRSSWRMP/SSWRM)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/projects/53237-001/main",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.425276+00:00"
+  },
+  "s3_key": "data-lake/sol_6139b4e9a1ec8a54a/sol_6139b4e9a1ec8a54a_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6139b4e9a1ec8a54a/sol_6139b4e9a1ec8a54a_chunk_0002.json"
+}

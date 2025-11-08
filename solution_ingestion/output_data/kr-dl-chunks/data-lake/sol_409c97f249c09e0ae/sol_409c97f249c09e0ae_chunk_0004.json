@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_409c97f249c09e0ae_chunk_0004",
+  "doc_id": "sol_409c97f249c09e0ae",
+  "chunk_number": 4,
+  "text": "The Sindh Floods Emergency Housing Reconstruction Project (SFEHRP) is a provincial initiative in Pakistan's Sindh province aimed at rebuilding and safeguarding homes and communities affected by severe flooding. Implemented by the Sindh People’s Housing for Flood Affectees (SPHF), a public limited company under the Government of Sindh, the project is supported by the World Bank and the Asian Development Bank. It operates under a comprehensive framework of environmental and social safeguards to manage risks, ensure social protection, and engage stakeholders inclusively.",
+  "section_title": "Description",
+  "character_count": 574,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_197",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 197,
+    "solution_name": "Sindh Floods Emergency Housing Reconstruction Project (SFEHRP)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/57323/57323-001-esms-en.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.587745+00:00"
+  },
+  "s3_key": "data-lake/sol_409c97f249c09e0ae/sol_409c97f249c09e0ae_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_409c97f249c09e0ae/sol_409c97f249c09e0ae_chunk_0004.json"
+}

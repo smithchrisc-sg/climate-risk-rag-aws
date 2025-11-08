@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3e4e7aa92d2940e98_chunk_0006",
+  "doc_id": "sol_3e4e7aa92d2940e98",
+  "chunk_number": 6,
+  "text": "The program secured USD 10.3 billion in reinsurance capacity for 2025, an increase of USD 1.15 billion from 2024, demonstrating strong international market confidence. It includes a USD 225 million catastrophe bond, Totara Re 2023-1, to diversify risk. The program's research-led approach in hazard science and modeling provides transparency and informs national decisions on building standards and planning. The Natural Hazards Insurance Act 2023 modernized governance and broadened the scheme's scope.",
+  "section_title": "Key Highlights",
+  "character_count": 503,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_152",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 152,
+    "solution_name": "Natural Hazards Commission Toka Tū Ake (NHC) – National Reinsurance Purchase for NHCover",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.reinsurancene.ws/new-zealands-nhc-secures-10-3bn-of-reinsurance-protection-at-june-1/",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.534051+00:00"
+  },
+  "s3_key": "data-lake/sol_3e4e7aa92d2940e98/sol_3e4e7aa92d2940e98_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3e4e7aa92d2940e98/sol_3e4e7aa92d2940e98_chunk_0006.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_9288947175e241ccc_chunk_0004",
+  "doc_id": "sol_9288947175e241ccc",
+  "chunk_number": 4,
+  "text": "The Hazards Insurance Partnership (HIP) is a public-private collaboration initiated by the Australian Government to address rising insurance premiums and improve consumer outcomes related to natural hazards intensified by climate change. Announced in the October 2022 Federal Budget, HIP aims to establish a structured workplan for industry and government to jointly identify pressing insurance challenges, share risk information, and target mitigation efforts to make natural hazard coverage more understandable and affordable for consumers.",
+  "section_title": "Description",
+  "character_count": 542,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_8",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 8,
+    "solution_name": "Hazards Insurance Partnership (HIP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://minister.homeaffairs.gov.au/MurrayWatt/Pages/landmark-partnership-to-improve-disaster-insurance.aspx",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.370824+00:00"
+  },
+  "s3_key": "data-lake/sol_9288947175e241ccc/sol_9288947175e241ccc_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_9288947175e241ccc/sol_9288947175e241ccc_chunk_0004.json"
+}

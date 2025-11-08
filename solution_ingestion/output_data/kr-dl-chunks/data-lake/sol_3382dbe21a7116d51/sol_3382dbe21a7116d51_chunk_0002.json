@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3382dbe21a7116d51_chunk_0002",
+  "doc_id": "sol_3382dbe21a7116d51",
+  "chunk_number": 2,
+  "text": "This solution, Tripartite Agreement (UNDP–IDF–BMZ) – Bangladesh Programme (TPA–Bangladesh) addresses natural catastrophe through public private partnerships in Bangladesh between Germany’s Federal Ministry for Economic Cooperation and Development (BMZ), United Nations Development Programme (UNDP), and Insurance Development Forum (IDF). The program was implemented in 2019 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 425,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_45",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 45,
+    "solution_name": "Tripartite Agreement (UNDP–IDF–BMZ) – Bangladesh Programme (TPA–Bangladesh)",
+    "country": "Bangladesh",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2019",
+    "ppp": "Yes",
+    "source_url": "https://www.insdevforum.org/projects/the-idf-undp-bmz-tripartite-programme-increasing-insurance-protection-in-climate-exposed-countries/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.417523+00:00"
+  },
+  "s3_key": "data-lake/sol_3382dbe21a7116d51/sol_3382dbe21a7116d51_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3382dbe21a7116d51/sol_3382dbe21a7116d51_chunk_0002.json"
+}

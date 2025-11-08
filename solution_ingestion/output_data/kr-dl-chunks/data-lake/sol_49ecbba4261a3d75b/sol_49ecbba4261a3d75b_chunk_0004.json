@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_49ecbba4261a3d75b_chunk_0004",
+  "doc_id": "sol_49ecbba4261a3d75b",
+  "chunk_number": 4,
+  "text": "The Northern Rivers Disaster Adaptation Plan (NR DAP) is New South Wales' first regional, multi-hazard Disaster Adaptation Plan. It is a coordinated effort led by the NSW Reconstruction Authority to reduce disaster risk and strengthen adaptive capacity across seven local government areas. The plan integrates climate change and population growth into risk profiling and action planning, involving structured collaboration with councils, communities, emergency services, industry, and technical experts. It is part of the broader Disaster Adaptation Planning program and aligned with the NSW State Disaster Mitigation Plan.",
+  "section_title": "Description",
+  "character_count": 623,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_20",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 20,
+    "solution_name": "Northern Rivers Disaster Adaptation Plan (NR DAP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "Yes",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/our-work/disaster-adaptation-plans/northern-rivers-dap",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.386423+00:00"
+  },
+  "s3_key": "data-lake/sol_49ecbba4261a3d75b/sol_49ecbba4261a3d75b_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_49ecbba4261a3d75b/sol_49ecbba4261a3d75b_chunk_0004.json"
+}

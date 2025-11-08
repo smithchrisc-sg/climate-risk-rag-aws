@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_a71fa11888a880d46_chunk_0008",
+  "doc_id": "sol_a71fa11888a880d46",
+  "chunk_number": 8,
+  "text": "The initiative has improved five climate products for PNG, created weekly, monthly, and seasonal drought monitoring products, and issued the first dynamic-model seasonal forecast to decision-makers. It engaged 115 users across agriculture, health, water, and disaster management sectors. The project funds totaled approximately US$1.65 million, with a leverage factor of 0.36x.",
+  "section_title": "Results",
+  "character_count": 377,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_247",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 247,
+    "solution_name": "Climate Risk and Early Warning Systems – Papua New Guinea Drought Early Warning System (CREWS‑PNG)",
+    "country": "Papua New Guinea",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://wmo.int/media/news/early-warning-system-drought-implemented-png-crews",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.694171+00:00"
+  },
+  "s3_key": "data-lake/sol_a71fa11888a880d46/sol_a71fa11888a880d46_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_a71fa11888a880d46/sol_a71fa11888a880d46_chunk_0008.json"
+}

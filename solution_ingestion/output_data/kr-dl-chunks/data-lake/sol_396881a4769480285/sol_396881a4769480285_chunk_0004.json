@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_396881a4769480285_chunk_0004",
+  "doc_id": "sol_396881a4769480285",
+  "chunk_number": 4,
+  "text": "The Philippines Seismic Risk Reduction and Resilience Project (PSRRRP) is a government-led initiative financed by the World Bank, aimed at reducing earthquake risk and enhancing post-disaster response capabilities in the Philippines. The project focuses on restoring mobility after major seismic events, integrating into the Department of Public Works and Highways' emergency preparedness programs, and aligning with national contingency plans for earthquakes.",
+  "section_title": "Description",
+  "character_count": 460,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_248",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 248,
+    "solution_name": "Philippines Seismic Risk Reduction and Resilience Project (PSRRRP)",
+    "country": "Republic of the Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2021",
+    "ppp": "No",
+    "source_url": "https://documents1.worldbank.org/curated/en/363911622944910016/pdf/Philippines-Seismic-Risk-Reduction-and-Resilience-Project.pdf",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.694942+00:00"
+  },
+  "s3_key": "data-lake/sol_396881a4769480285/sol_396881a4769480285_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_396881a4769480285/sol_396881a4769480285_chunk_0004.json"
+}

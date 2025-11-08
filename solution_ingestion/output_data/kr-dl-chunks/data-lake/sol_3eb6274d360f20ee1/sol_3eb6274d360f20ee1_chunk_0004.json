@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3eb6274d360f20ee1_chunk_0004",
+  "doc_id": "sol_3eb6274d360f20ee1",
+  "chunk_number": 4,
+  "text": "The initiative, officially named 'Transboundary Disaster Risk Assessment and Scenario Planning for Tropical Cyclone and Droughts in the ASEAN Region,' focuses on modeling transboundary risk scenarios for Cambodia, the Philippines, and Viet Nam. It addresses the impacts of tropical cyclones and droughts, amplified by climate change, and aims to provide forward-looking planning insights for ASEAN Member States (AMS) policy processes. The study emphasizes the inclusion of sex, age, and disability disaggregated data to ensure equity-aware resilience strategies.",
+  "section_title": "Description",
+  "character_count": 563,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_84",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 84,
+    "solution_name": "Transboundary Disaster Risk Assessment and Scenario Planning for Tropical Cyclone and Droughts in the ASEAN Region",
+    "country": "Cambodia, \nPhilippines, \nViet Nam",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2024",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/projects/59183-001/main",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.467973+00:00"
+  },
+  "s3_key": "data-lake/sol_3eb6274d360f20ee1/sol_3eb6274d360f20ee1_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3eb6274d360f20ee1/sol_3eb6274d360f20ee1_chunk_0004.json"
+}

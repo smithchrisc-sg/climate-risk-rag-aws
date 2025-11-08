@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_452b646fe5e6920c5_chunk_0006",
+  "doc_id": "sol_452b646fe5e6920c5",
+  "chunk_number": 6,
+  "text": "The system introduces explicit multi-agency accountability at the site level, ensuring clear roles and responsibilities for managing flood-prone underpasses. It complements national-scale measures such as AI-enabled monitoring pilots and expanded risk mapping. The initiative is integrated with South Korea's mature flood risk governance framework, involving various ministries and local government bodies, and emphasizes community integration by involving village heads in the process.",
+  "section_title": "Key Highlights",
+  "character_count": 486,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_310",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 310,
+    "solution_name": "Four-Party Accountability System for Underground Flooding Zones",
+    "country": "Republic of Korea (South Korea)",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://koreajoongangdaily.joins.com/news/2025-05-14/national/socialAffairs/Korean-govt-announces-upgraded-plan-to-mitigate-summer-natural-disasters/2307238",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.763208+00:00"
+  },
+  "s3_key": "data-lake/sol_452b646fe5e6920c5/sol_452b646fe5e6920c5_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_452b646fe5e6920c5/sol_452b646fe5e6920c5_chunk_0006.json"
+}

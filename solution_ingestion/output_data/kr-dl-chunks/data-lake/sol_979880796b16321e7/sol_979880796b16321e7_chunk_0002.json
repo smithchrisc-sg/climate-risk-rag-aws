@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_979880796b16321e7_chunk_0002",
+  "doc_id": "sol_979880796b16321e7",
+  "chunk_number": 2,
+  "text": "This solution, Black Kite Re Limited – Series 2025‑1 Class A Principal At‑Risk Variable Rate Notes addresses natural catastrophe in China between Hong Kong Insurance Authority, Peak Reinsurance Company, Black Kite Re Limited, GC Securities, Mercer Investments (HK) Limited, AIR Worldwide, and US Geological Survey. The program was implemented in 2025 and focuses on collaboration and leveraging tech.",
+  "section_title": "Introduction",
+  "character_count": 400,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_76",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 76,
+    "solution_name": "Black Kite Re Limited – Series 2025‑1 Class A Principal At‑Risk Variable Rate Notes",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nLeveraging Tech",
+    "year_of_implementation": "2025",
+    "ppp": "No",
+    "source_url": "https://www.artemis.bm/news/peak-re-adds-china-india-parametric-quake-to-second-black-kite-re-catastrophe-bond/",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.456546+00:00"
+  },
+  "s3_key": "data-lake/sol_979880796b16321e7/sol_979880796b16321e7_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_979880796b16321e7/sol_979880796b16321e7_chunk_0002.json"
+}

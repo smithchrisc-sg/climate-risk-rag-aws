@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c5e98a54ed9f7017d_chunk_0002",
+  "doc_id": "sol_c5e98a54ed9f7017d",
+  "chunk_number": 2,
+  "text": "This solution, Scaling-up of Glacial Lake Outburst Flood (GLOF) Risk Reduction in Northern Pakistan (GLOF-II) addresses natural catastrophe in Pakistan between Government of Pakistan, Government of Gilgit-Baltistan, Pakistan Meteorological Department, United Nations Development Programme (UNDP), and Green Climate Fund (GCF). The program was implemented in 2017 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 414,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_208",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 208,
+    "solution_name": "Scaling-up of Glacial Lake Outburst Flood (GLOF) Risk Reduction in Northern Pakistan (GLOF-II)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "2017",
+    "ppp": "No",
+    "source_url": "https://www.greenclimate.fund/project/fp018",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.599895+00:00"
+  },
+  "s3_key": "data-lake/sol_c5e98a54ed9f7017d/sol_c5e98a54ed9f7017d_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c5e98a54ed9f7017d/sol_c5e98a54ed9f7017d_chunk_0002.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e17ba8a4f9a3a6b8f_chunk_0004",
+  "doc_id": "sol_e17ba8a4f9a3a6b8f",
+  "chunk_number": 4,
+  "text": "The CSIRO Drought Resilience Mission is an initiative aimed at reducing the impacts of drought in Australia by 30% by 2030. It is part of CSIRO's larger Missions program, which addresses national challenges through collaborative R&D efforts. The mission focuses on climate-related drought risks affecting agriculture, water security, and regional communities. It employs a three-level intervention model that includes on-farm innovation, regional resilience, and policy enablers to tackle drought as a systemic risk.",
+  "section_title": "Description",
+  "character_count": 516,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_34",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 34,
+    "solution_name": "CSIRO Drought Resilience Mission",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nLeveraging Tech, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.csiro.au/en/news/all/articles/2021/september/drought-australia-mission",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.404298+00:00"
+  },
+  "s3_key": "data-lake/sol_e17ba8a4f9a3a6b8f/sol_e17ba8a4f9a3a6b8f_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e17ba8a4f9a3a6b8f/sol_e17ba8a4f9a3a6b8f_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_3027746eb52fbd6c8_chunk_0004",
+  "doc_id": "sol_3027746eb52fbd6c8",
+  "chunk_number": 4,
+  "text": "The Site-specific Coastal Protection Studies in Singapore are a series of multi-year, place-based studies led by PUB, Singapore’s National Water Agency, aimed at designing tailored adaptation measures against sea-level rise and compound coastal–inland flood risks. These studies are part of a broader national coastal protection and climate adaptation program, which includes policy, regulation, standards development, research and development, and integrated flood modeling capabilities. The studies are progressively rolled out across different segments of Singapore's coastline, starting with the City–East Coast stretch.",
+  "section_title": "Description",
+  "character_count": 624,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_305",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 305,
+    "solution_name": "Site-specific Coastal Protection Studies",
+    "country": "Singapore",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2021",
+    "ppp": "Yes",
+    "source_url": "https://www.pub.gov.sg/Public/KeyInitiatives/Flood-Resilience/Coastal-Protection",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.759233+00:00"
+  },
+  "s3_key": "data-lake/sol_3027746eb52fbd6c8/sol_3027746eb52fbd6c8_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_3027746eb52fbd6c8/sol_3027746eb52fbd6c8_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_de760ff9c6dd0fb7b_chunk_0002",
+  "doc_id": "sol_de760ff9c6dd0fb7b",
+  "chunk_number": 2,
+  "text": "This solution, Government-led Landslide Risk Reduction and Mitigation Initiatives in Fiji (2020–2025) addresses natural catastrophe in Republic of Fiji between National Disaster Management Office (NDMO), Mineral Resources Department (MRD), Fiji Meteorological Service (FMS), Fiji Roads Authority (FRA), Ministry of Local Government, Municipal Councils, and Planning Authorities. The program was implemented in 2020 and focuses on collaboration, regulation, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 479,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_107",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 107,
+    "solution_name": "Government-led Landslide Risk Reduction and Mitigation Initiatives in Fiji (2020–2025)",
+    "country": "Republic of Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.ndmo.gov.fj/wp-content/uploads/2023/05/Fiji-Sendai-Mid-Term-Review-Report-2023.pdf",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.494440+00:00"
+  },
+  "s3_key": "data-lake/sol_de760ff9c6dd0fb7b/sol_de760ff9c6dd0fb7b_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_de760ff9c6dd0fb7b/sol_de760ff9c6dd0fb7b_chunk_0002.json"
+}

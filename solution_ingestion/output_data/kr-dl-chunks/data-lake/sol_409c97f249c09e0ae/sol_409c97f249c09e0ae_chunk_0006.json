@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_409c97f249c09e0ae_chunk_0006",
+  "doc_id": "sol_409c97f249c09e0ae",
+  "chunk_number": 6,
+  "text": "The project is unique in its dual-MDB support structure, with both the World Bank and ADB financing distinct components under a common provincial program. It is implemented by SPHF, a dedicated Section 42 public limited company, which allows for focused governance and operational flexibility. The initiative is guided by a comprehensive set of publicly disclosed safeguards frameworks, including an Environmental and Social Management Framework (ESMF), a Resettlement Policy Framework (RPF), and a Stakeholder Engagement Plan (SEP).",
+  "section_title": "Key Highlights",
+  "character_count": 533,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_197",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 197,
+    "solution_name": "Sindh Floods Emergency Housing Reconstruction Project (SFEHRP)",
+    "country": "Pakistan",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2023",
+    "ppp": "No",
+    "source_url": "https://www.adb.org/sites/default/files/project-documents/57323/57323-001-esms-en.pdf",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.587958+00:00"
+  },
+  "s3_key": "data-lake/sol_409c97f249c09e0ae/sol_409c97f249c09e0ae_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_409c97f249c09e0ae/sol_409c97f249c09e0ae_chunk_0006.json"
+}

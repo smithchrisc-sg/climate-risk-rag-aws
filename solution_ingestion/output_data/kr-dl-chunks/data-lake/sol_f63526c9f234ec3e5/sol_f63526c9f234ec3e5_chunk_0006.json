@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f63526c9f234ec3e5_chunk_0006",
+  "doc_id": "sol_f63526c9f234ec3e5",
+  "chunk_number": 6,
+  "text": "The NDRRMP is notable for its explicit integration of DRR and CCA, aligning with the National Climate Change Action Plan (NCCAP) and the National Adaptation Plan (NAP). It employs a systems-based approach to improve institutional coherence and cross-sector collaboration. The plan is supported by a Results-Based Monitoring and Evaluation System (RBMES) to track progress and ensure accountability. A Midterm Review (MTR) is underway to assess progress and propose an Accelerated Disaster Action Plan (ADRAP) to enhance implementation.",
+  "section_title": "Key Highlights",
+  "character_count": 535,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_276",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 276,
+    "solution_name": "National Disaster Risk Reduction and Management Plan (NDRRMP) 2020–2030",
+    "country": "Philippines",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nRegulation, \nRaising Awareness",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://procurement-notices.undp.org/view_negotiation.cfm?nego_id=37799",
+    "section_title": "Key Highlights",
+    "chunk_number": 6,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.723958+00:00"
+  },
+  "s3_key": "data-lake/sol_f63526c9f234ec3e5/sol_f63526c9f234ec3e5_chunk_0006.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f63526c9f234ec3e5/sol_f63526c9f234ec3e5_chunk_0006.json"
+}

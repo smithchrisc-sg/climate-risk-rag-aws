@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_6a52f2573c5edfc7d_chunk_0008",
+  "doc_id": "sol_6a52f2573c5edfc7d",
+  "chunk_number": 8,
+  "text": "The NEOC was prominently activated for the COVID-19 pandemic in March 2020, demonstrating its capability to coordinate a national response to health emergencies. It continues to function as the all-hazard operational mechanism for non-health and multi-sectoral crises.",
+  "section_title": "Results",
+  "character_count": 268,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_113",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 113,
+    "solution_name": "National Emergency Operations Center (NEOC)",
+    "country": "Republic of Maldives",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://ioc.unesco.org",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.499117+00:00"
+  },
+  "s3_key": "data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_6a52f2573c5edfc7d/sol_6a52f2573c5edfc7d_chunk_0008.json"
+}

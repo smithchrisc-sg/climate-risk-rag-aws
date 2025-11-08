@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_cbf68172d7bd406d6_chunk_0004",
+  "doc_id": "sol_cbf68172d7bd406d6",
+  "chunk_number": 4,
+  "text": "The NSW Flood Recovery and Resilience Grant Program is a New South Wales Government initiative aimed at reducing flood risk and enhancing community resilience in flood-prone areas. It was launched in response to the catastrophic floods of February–March 2022, with funding from the Australian Government's Emergency Response Fund. The program supports the implementation of the NSW Flood Prone Land Policy and the floodplain risk management process, providing financial assistance to local councils and government bodies within 62 disaster-declared LGAs.",
+  "section_title": "Description",
+  "character_count": 554,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_3",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 3,
+    "solution_name": "NSW Flood Recovery and Resilience Grant Program",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRegulation",
+    "year_of_implementation": "2022",
+    "ppp": "No",
+    "source_url": "https://www.environment.nsw.gov.au/topics/water/floodplains/floodplain-management-grants/flood-recovery-and-resilience-program",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.360283+00:00"
+  },
+  "s3_key": "data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0004.json"
+}

@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_e461ad344c09fce4a_chunk_0008",
+  "doc_id": "sol_e461ad344c09fce4a",
+  "chunk_number": 8,
+  "text": "The legislative changes have been enacted, with the new levy settings scheduled to commence on 1 July 2026. The reform aims to provide a more sustainable funding model for FENZ, ensuring its capacity to respond to emergencies effectively.",
+  "section_title": "Results",
+  "character_count": 238,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_174",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 174,
+    "solution_name": "Fire and Emergency New Zealand (FENZ) Funding Model Reform",
+    "country": "New Zealand",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Regulation, \nCollaboration",
+    "year_of_implementation": "2026",
+    "ppp": "Yes",
+    "source_url": "https://www.dia.govt.nz/firefundingreview",
+    "section_title": "Results",
+    "chunk_number": 8,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.559458+00:00"
+  },
+  "s3_key": "data-lake/sol_e461ad344c09fce4a/sol_e461ad344c09fce4a_chunk_0008.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_e461ad344c09fce4a/sol_e461ad344c09fce4a_chunk_0008.json"
+}

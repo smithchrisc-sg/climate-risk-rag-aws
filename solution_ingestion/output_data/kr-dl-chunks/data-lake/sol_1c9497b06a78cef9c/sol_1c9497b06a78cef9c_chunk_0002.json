@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_1c9497b06a78cef9c_chunk_0002",
+  "doc_id": "sol_1c9497b06a78cef9c",
+  "chunk_number": 2,
+  "text": "This solution, All West Australians Reducing Emergencies (AWARE) program, \nDisaster Ready Fund (DRF) delivery in Western Australia addresses natural catastrophe in Australia between Department of Fire and Emergency Services (DFES), WA Government, Australian Government, and Local governments in WA. The program was implemented in AWARE: Ongoing as of 2024, \nDRF: 2023 and focuses on collaboration and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 419,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_15",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 15,
+    "solution_name": "All West Australians Reducing Emergencies (AWARE) program, \nDisaster Ready Fund (DRF) delivery in Western Australia",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nRaising Awareness",
+    "year_of_implementation": "AWARE: Ongoing as of 2024, \nDRF: 2023",
+    "ppp": "No",
+    "source_url": "https://www.wa.gov.au/organisation/department-of-fire-and-emergency-services/apply-disaster-resilience-and-recovery-funding",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.378327+00:00"
+  },
+  "s3_key": "data-lake/sol_1c9497b06a78cef9c/sol_1c9497b06a78cef9c_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_1c9497b06a78cef9c/sol_1c9497b06a78cef9c_chunk_0002.json"
+}

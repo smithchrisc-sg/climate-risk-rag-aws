@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_f2b9fb8dfad7300c3_chunk_0002",
+  "doc_id": "sol_f2b9fb8dfad7300c3",
+  "chunk_number": 2,
+  "text": "This solution, Resilient Homes Program (RHP), \nResilient Lands Program (RLP) addresses natural catastrophe through public private partnerships in Australia between NSW Reconstruction Authority, NSW Government, Australian Government, Local governments in target regions, Legal Aid NSW, Landcom, and Southern Cross University. The program was implemented in 2022 and focuses on collaboration, accessibility, and raising awareness.",
+  "section_title": "Introduction",
+  "character_count": 428,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_11",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 11,
+    "solution_name": "Resilient Homes Program (RHP), \nResilient Lands Program (RLP)",
+    "country": "Australia",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Financing, \nRisk Reduction",
+    "theme": "Collaboration, \nAccessibility, \nRaising Awareness",
+    "year_of_implementation": "2022",
+    "ppp": "Yes",
+    "source_url": "https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/our-work/resilient-homes-program/about-program",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.374477+00:00"
+  },
+  "s3_key": "data-lake/sol_f2b9fb8dfad7300c3/sol_f2b9fb8dfad7300c3_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_f2b9fb8dfad7300c3/sol_f2b9fb8dfad7300c3_chunk_0002.json"
+}

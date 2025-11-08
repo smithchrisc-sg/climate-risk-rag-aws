@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_275720b016819598c_chunk_0004",
+  "doc_id": "sol_275720b016819598c",
+  "chunk_number": 4,
+  "text": "The Earthquake Safety Project for Rural Dwellings (ESPRD) is a national initiative in China aimed at enhancing the seismic safety of rural, self-built housing. It focuses on reducing the vulnerability of these structures by promoting earthquake-resistant designs and retrofitting existing buildings. The program provides financial subsidies to rural households, disseminates standardized earthquake-resistant designs, and offers training for local construction artisans. It operates through a central-local government coordination model, allowing for adaptation to local conditions across various provinces.",
+  "section_title": "Description",
+  "character_count": 607,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_73",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 73,
+    "solution_name": "Earthquake Safety Project for Rural Dwellings (ESPRD)",
+    "country": "China",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Accessibility, \nCollaboration, \nRaising Awareness",
+    "year_of_implementation": "2004 (Pilot), \n2007 (National roll-out)",
+    "ppp": "No",
+    "source_url": "https://www.nature.com/articles/s41599-025-04913-w",
+    "section_title": "Description",
+    "chunk_number": 4,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.454312+00:00"
+  },
+  "s3_key": "data-lake/sol_275720b016819598c/sol_275720b016819598c_chunk_0004.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_275720b016819598c/sol_275720b016819598c_chunk_0004.json"
+}

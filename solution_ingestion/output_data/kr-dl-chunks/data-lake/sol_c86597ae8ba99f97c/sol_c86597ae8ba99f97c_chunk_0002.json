@@ -1,0 +1,27 @@
+{
+  "chunk_id": "sol_c86597ae8ba99f97c_chunk_0002",
+  "doc_id": "sol_c86597ae8ba99f97c",
+  "chunk_number": 2,
+  "text": "This solution, Australia’s Cyclone Recovery Program (CRP) addresses natural catastrophe in Fiji between Australian Government (Department of Foreign Affairs and Trade), Australian High Commission, Fiji, and Government of Fiji (Ministry of Education). The program was implemented in 2020 and focuses on collaboration and accessibility.",
+  "section_title": "Introduction",
+  "character_count": 334,
+  "metadata": {
+    "solution_id": "natural_catastrophe_26-Sep-2025_97",
+    "source_file": "natural_catastrophe_26-Sep-2025",
+    "row_number": 97,
+    "solution_name": "Australia’s Cyclone Recovery Program (CRP)",
+    "country": "Fiji",
+    "type_of_risk": "Natural Catastrophe",
+    "type_of_solution": "Risk Reduction, \nRisk Financing",
+    "theme": "Collaboration, \nAccessibility",
+    "year_of_implementation": "2020",
+    "ppp": "No",
+    "source_url": "https://www.dfat.gov.au/geo/fiji",
+    "section_title": "Introduction",
+    "chunk_number": 2,
+    "content_type": "solution_paragraph",
+    "processing_timestamp": "2025-11-06T21:15:06.482782+00:00"
+  },
+  "s3_key": "data-lake/sol_c86597ae8ba99f97c/sol_c86597ae8ba99f97c_chunk_0002.json",
+  "s3_location": "s3://kr-dl-chunks/data-lake/sol_c86597ae8ba99f97c/sol_c86597ae8ba99f97c_chunk_0002.json"
+}
