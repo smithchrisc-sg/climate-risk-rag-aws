@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
-Production-Aligned Chunk Generator for Solution Ingestion
+DEPRECATED: Production-Aligned Chunk Generator for Solution Ingestion
+
+⚠️  WARNING: This generator is DEPRECATED and should not be used.
+⚠️  Use IntegratedRDFChunkGenerator instead for all chunk generation.
+⚠️  This file is kept for reference only.
+
 Creates chunks with sequential numbering that matches the RDF structure exactly.
 Only generates paragraph-level chunks (the ones that get embeddings).
 """

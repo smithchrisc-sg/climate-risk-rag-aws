@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
-Chunk Generator for Solution Ingestion
+DEPRECATED: Chunk Generator for Solution Ingestion
+
+⚠️  WARNING: This generator is DEPRECATED and should not be used.
+⚠️  Use IntegratedRDFChunkGenerator instead for all chunk generation.
+⚠️  This file is kept for reference only.
+
 Creates 3 chunks per solution: Description, Key Highlights, Results for vector search optimization.
 """
 

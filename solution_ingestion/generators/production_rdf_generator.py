@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
-Production-Aligned RDF Generator for Solution Document Structure
+DEPRECATED: Production-Aligned RDF Generator for Solution Document Structure
+
+⚠️  WARNING: This generator is DEPRECATED and should not be used.
+⚠️  Use IntegratedRDFChunkGenerator instead for all RDF generation.
+⚠️  This file is kept for reference only.
+
 Creates hierarchical RDF structure matching the hand-built example exactly.
 """
 
@@ -26,6 +31,7 @@ class ProductionRDFGenerator:
             'schema': 'http://schema.org/',
             'skos': 'http://www.w3.org/2004/02/skos/core#',
             'xsd': 'http://www.w3.org/2001/XMLSchema#',
+            'gn': 'http://www.geonames.org/',
             'sg': 'http://solve.global/knowledge-commons/',
             'sgd': 'http://solve.global/knowledge-commons/document-structure#',
             'sgm': 'http://solve.global/knowledge-commons/process-metadata#'
@@ -129,11 +135,16 @@ class ProductionRDFGenerator:
         if source_url:
             triples.append(f'    dcterms:source <{source_url}> ;')
         
-        # Add publishers (organizations) - use URI if available
-        if solution.get('organization_uri'):
-            triples.append(f'    dcterms:publisher {solution["organization_uri"]} ;')
+        # Add publishers (organizations)
+        if solution.get('primary_publisher_uri'):
+            # Primary publisher (first from public -> international -> private)
+            triples.append(f'    dcterms:publisher {solution["primary_publisher_uri"]} ;')
+            # All orgs as associated organizations
+            if solution.get('organization_uris'):
+                org_list = ', '.join(solution["organization_uris"])
+                triples.append(f'    sg:associatedOrganization {org_list} ;')
         else:
-            # Try organization fields
+            # Fallback to string literals
             for org_field in ['public_organisations', 'international_organisations', 'private_organisations']:
                 org_value = solution.get(org_field) if isinstance(solution, dict) else getattr(solution, org_field, '')
                 if org_value and org_value.strip():
@@ -588,8 +599,12 @@ class ProductionRDFGenerator:
     
     def _extract_organization_uris(self, solution) -> List[str]:
         """Extract organization URIs for publishers."""
-        orgs = []
+        # Use enhanced solution data if available
+        if isinstance(solution, dict) and solution.get('organization_uris'):
+            return solution['organization_uris']
         
+        # Fallback to old logic for non-enhanced solutions
+        orgs = []
         for org_field in [solution.public_organisations, solution.international_organisations, solution.private_organisations]:
             if org_field and org_field.strip():
                 field_orgs = [org.strip() for org in org_field.split(',') if org.strip()]

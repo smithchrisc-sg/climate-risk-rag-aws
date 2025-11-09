@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """
 Integrated RDF and Chunk Generator for Solution Ingestion
+
+🏭 PRODUCTION GENERATOR: This is the ONLY generator used in production.
+🏭 All RDF generation and chunk creation goes through this class.
+🏭 Do not use any other generators - they are deprecated.
+
 Creates RDF structure while simultaneously generating chunk JSON files.
 This ensures perfect consistency and preserves all structural information.
+Integrates with EntityMapper for proper URI generation and semantic alignment.
 """
 
 import json
@@ -12,8 +18,15 @@ from datetime import datetime
 from typing import List, Dict, Any, Tuple
 from pathlib import Path
 from dataclasses import dataclass
+from rdflib import Graph, Namespace, URIRef, Literal
+from rdflib.namespace import DCTERMS, RDF, XSD
 
 logger = logging.getLogger(__name__)
+
+# Define namespaces
+SG = Namespace("http://solve.global/knowledge-commons/")
+SGD = Namespace("http://solve.global/knowledge-commons/document-structure#")
+SGM = Namespace("http://solve.global/knowledge-commons/process-metadata#")
 
 @dataclass
 class IntegratedChunk:
@@ -33,16 +46,6 @@ class IntegratedRDFChunkGenerator:
     
     def __init__(self, output_base_path: str = "output_data"):
         self.output_base_path = Path(output_base_path)
-        self.namespaces = {
-            'dcterms': 'http://purl.org/dc/terms/',
-            'org': 'http://www.w3.org/ns/org#',
-            'schema': 'http://schema.org/',
-            'skos': 'http://www.w3.org/2004/02/skos/core#',
-            'xsd': 'http://www.w3.org/2001/XMLSchema#',
-            'sg': 'http://solve.global/knowledge-commons/',
-            'sgd': 'http://solve.global/knowledge-commons/document-structure#',
-            'sgm': 'http://solve.global/knowledge-commons/process-metadata#'
-        }
         
         # Ensure chunk output directory exists
         self.chunk_output_dir = self.output_base_path / "kr-dl-chunks" / "data-lake"
@@ -51,35 +54,33 @@ class IntegratedRDFChunkGenerator:
     def generate_document_rdf_and_chunks(self, solution) -> Tuple[str, List[IntegratedChunk]]:
         """Generate RDF and chunks simultaneously, returning both."""
         
+        # Use RDFGenerator for document-level RDF (it will do its own entity mapping)
+        from .rdf_generator import RDFGenerator
+        rdf_gen = RDFGenerator()
+        document_graph = rdf_gen.generate_document_graph(solution)
+        
         # Parse solution content into sections
         sections_data = self._parse_solution_sections(solution)
         
         # Calculate section and paragraph numbering
         section_structure = self._calculate_section_structure(sections_data)
         
-        # Build RDF while creating chunks
-        rdf_lines = []
-        chunks = []
-        
-        # Add namespace prefixes
-        rdf_lines.extend(self._generate_prefixes())
-        rdf_lines.append("")
-        
-        # Generate document RDF
-        rdf_lines.extend(self._generate_document_triples(solution, section_structure))
-        rdf_lines.append("")
-        
         # Generate hierarchical structure and chunks simultaneously
-        section_rdf, section_chunks = self._generate_sections_and_chunks(solution, section_structure)
-        rdf_lines.extend(section_rdf)
-        chunks.extend(section_chunks)
-        rdf_lines.append("")
+        chunks = []
+        chunk_graph = self._generate_sections_and_chunks(solution, section_structure, chunks)
+        
+        # Combine document and chunk graphs
+        final_graph = document_graph + chunk_graph
+        
+        # Add chunk relationships to document
+        self._add_chunk_relationships_to_document(final_graph, solution, section_structure)
         
         # Generate organization and contact RDF (no chunks needed)
         if solution.contact_information and solution.contact_information.strip():
-            rdf_lines.extend(self._generate_organization_contacts(solution.contact_information))
+            contact_graph = self._generate_organization_contacts(solution.contact_information)
+            final_graph += contact_graph
         
-        rdf_content = '\n'.join(rdf_lines)
+        rdf_content = final_graph.serialize(format='turtle')
         
         logger.info(f"Generated RDF ({len(rdf_content)} chars) and {len(chunks)} chunks for {solution.doc_id}")
         return rdf_content, chunks
@@ -88,20 +89,11 @@ class IntegratedRDFChunkGenerator:
         """Parse solution into sections with content."""
         sections = []
         
-        # Get introduction from pseudo document
-        intro_text = ""
-        if hasattr(solution, 'pseudo_document_text') and solution.pseudo_document_text:
-            doc_sections = solution.pseudo_document_text.split('\n\n')
-            for i, section in enumerate(doc_sections):
-                if section.strip() == "Introduction" and i + 1 < len(doc_sections):
-                    intro_text = doc_sections[i + 1]
-                    break
-        
-        # Build sections list
-        sections.append(('Introduction', intro_text))
-        sections.append(('Description', solution.description if solution.description else ''))
-        sections.append(('Key Highlights', solution.key_highlights if solution.key_highlights else ''))
-        sections.append(('Results', solution.results if solution.results else ''))
+        # Build sections list using actual Solution fields
+        sections.append(("Introduction", getattr(solution, 'name', '')))
+        sections.append(("Description", getattr(solution, 'description', '')))
+        sections.append(("Key Highlights", getattr(solution, 'key_highlights', '')))
+        sections.append(("Results", getattr(solution, 'results', '')))
         
         return sections
     
@@ -128,10 +120,16 @@ class IntegratedRDFChunkGenerator:
         
         return structure
     
-    def _generate_sections_and_chunks(self, solution, section_structure) -> Tuple[List[str], List[IntegratedChunk]]:
+    def _generate_sections_and_chunks(self, solution, section_structure, chunks: List[IntegratedChunk]) -> Graph:
         """Generate section RDF and chunk files simultaneously."""
-        rdf_lines = []
-        chunks = []
+        g = Graph()
+        
+        # Bind namespaces
+        g.bind("dcterms", DCTERMS)
+        g.bind("sg", SG)
+        g.bind("sgd", SGD)
+        g.bind("sgm", SGM)
+        g.bind("xsd", XSD)
         
         for i, (title, section_num, para_count, content, paragraphs) in enumerate(section_structure):
             if content or title == 'Introduction':  # Always include Introduction
@@ -140,32 +138,29 @@ class IntegratedRDFChunkGenerator:
                 paragraph_nums = [section_num + 1 + j for j in range(para_count)]
                 
                 # Generate section RDF
-                section_uri = f"sg:Chunk_{solution.doc_id}_{section_num:04d}"
-                section_lines = [
-                    f"{section_uri} a sgd:Section ;",
-                    f"    sgd:hasParent sg:Document_{solution.doc_id} ;",
-                    f'    dcterms:title "{title}" ;'
-                ]
+                section_uri = SG[f"Chunk_{solution.doc_id}_{section_num:04d}"]
+                doc_uri = SG[f"Document_{solution.doc_id}"]
+                
+                g.add((section_uri, RDF.type, SGD.Section))
+                g.add((section_uri, SGD.hasParent, doc_uri))
+                g.add((section_uri, DCTERMS.title, Literal(title)))
                 
                 if paragraph_nums:
-                    first_para = f"sg:Chunk_{solution.doc_id}_{paragraph_nums[0]:04d}"
-                    last_para = f"sg:Chunk_{solution.doc_id}_{paragraph_nums[-1]:04d}"
-                    para_list = ', '.join([f"sg:Chunk_{solution.doc_id}_{num:04d}" for num in paragraph_nums])
+                    first_para = SG[f"Chunk_{solution.doc_id}_{paragraph_nums[0]:04d}"]
+                    last_para = SG[f"Chunk_{solution.doc_id}_{paragraph_nums[-1]:04d}"]
                     
-                    section_lines.extend([
-                        f"    sgd:firstChild {first_para} ;",
-                        f"    sgd:hasChild {para_list} ;",
-                        f"    sgd:lastChild {last_para} ;"
-                    ])
+                    g.add((section_uri, SGD.firstChild, first_para))
+                    g.add((section_uri, SGD.lastChild, last_para))
+                    
+                    for num in paragraph_nums:
+                        para_uri = SG[f"Chunk_{solution.doc_id}_{num:04d}"]
+                        g.add((section_uri, SGD.hasChild, para_uri))
                 
                 # Add next sibling
                 if i < len(section_structure) - 1:
                     next_section_num = section_structure[i + 1][1]
-                    section_lines.append(f"    sgd:nextSibling sg:Chunk_{solution.doc_id}_{next_section_num:04d} .")
-                else:
-                    section_lines[-1] = section_lines[-1].rstrip(' ;') + ' .'
-                
-                rdf_lines.extend(section_lines)
+                    next_section_uri = SG[f"Chunk_{solution.doc_id}_{next_section_num:04d}"]
+                    g.add((section_uri, SGD.nextSibling, next_section_uri))
                 
                 # Generate paragraph RDF and chunks simultaneously
                 for j, (para_num, paragraph_text) in enumerate(zip(paragraph_nums, paragraphs)):
@@ -174,33 +169,44 @@ class IntegratedRDFChunkGenerator:
                     s3_location = f"s3://kr-dl-chunks/{s3_key}"
                     
                     # Generate paragraph RDF
-                    para_lines = [
-                        f"",
-                        f"sg:Chunk_{solution.doc_id}_{para_num:04d} a sgd:Paragraph ;",
-                        f"    sgd:hasParent {section_uri} ;",
-                        f'    sgm:chunkId "{chunk_id}" ;',
-                        f'    sgm:s3Key "{s3_key}" ;',
-                        f'    sgm:s3Location "{s3_location}"^^xsd:anyURI'
-                    ]
+                    para_uri = SG[f"Chunk_{solution.doc_id}_{para_num:04d}"]
+                    
+                    g.add((para_uri, RDF.type, SGD.Paragraph))
+                    g.add((para_uri, SGD.hasParent, section_uri))
+                    g.add((para_uri, SGM.chunkId, Literal(chunk_id)))
+                    g.add((para_uri, SGM.s3Key, Literal(s3_key)))
+                    g.add((para_uri, SGM.s3Location, Literal(s3_location, datatype=XSD.anyURI)))
                     
                     # Add next sibling for paragraphs
                     if j < len(paragraph_nums) - 1:
-                        next_para = f"sg:Chunk_{solution.doc_id}_{paragraph_nums[j+1]:04d}"
-                        para_lines.append(f"    sgd:nextSibling {next_para} .")
-                    else:
-                        para_lines.append(" .")
-                    
-                    rdf_lines.extend(para_lines)
+                        next_para = SG[f"Chunk_{solution.doc_id}_{paragraph_nums[j+1]:04d}"]
+                        g.add((para_uri, SGD.nextSibling, next_para))
                     
                     # Create chunk object and JSON file simultaneously
                     chunk = self._create_chunk_and_file(
                         solution, chunk_id, para_num, paragraph_text, title, s3_key, s3_location
                     )
                     chunks.append(chunk)
-                
-                rdf_lines.append("")
         
-        return rdf_lines, chunks
+        return g
+    
+    def _add_chunk_relationships_to_document(self, graph: Graph, solution, section_structure):
+        """Add chunk relationship triples to document."""
+        doc_uri = SG[f"Document_{solution.doc_id}"]
+        
+        # Get valid sections (with content or Introduction)
+        section_chunks = [info[1] for info in section_structure if info[2] > 0 or info[0] == 'Introduction']
+        
+        if section_chunks:
+            first_section = SG[f"Chunk_{solution.doc_id}_{section_chunks[0]:04d}"]
+            last_section = SG[f"Chunk_{solution.doc_id}_{section_chunks[-1]:04d}"]
+            
+            graph.add((doc_uri, SGD.firstChild, first_section))
+            graph.add((doc_uri, SGD.lastChild, last_section))
+            
+            for section_num in section_chunks:
+                section_uri = SG[f"Chunk_{solution.doc_id}_{section_num:04d}"]
+                graph.add((doc_uri, SGD.hasChild, section_uri))
     
     def _create_chunk_and_file(self, solution, chunk_id: str, chunk_number: int, 
                               text: str, section_title: str, s3_key: str, s3_location: str) -> IntegratedChunk:
@@ -267,63 +273,19 @@ class IntegratedRDFChunkGenerator:
         
         logger.debug(f"Wrote chunk file: {chunk_file}")
     
-    def _generate_prefixes(self) -> List[str]:
-        """Generate namespace prefix declarations."""
-        prefixes = []
-        for prefix, uri in self.namespaces.items():
-            prefixes.append(f"@prefix {prefix}: <{uri}> .")
-        return prefixes
-    
-    def _generate_document_triples(self, solution, section_structure) -> List[str]:
-        """Generate document-level RDF triples."""
-        doc_uri = f"sg:Document_{solution.doc_id}"
-        
-        triples = [
-            f"{doc_uri} a sgd:Solution ;",
-            f'    dcterms:identifier "{solution.doc_id}" ;',
-            f'    dcterms:title "{self._escape_literal(solution.name)}" ;'
-        ]
-        
-        # Add created date
-        if solution.date_added and solution.date_added.strip():
-            created_date = self._format_date(solution.date_added)
-            triples.append(f'    dcterms:created "{created_date}" ;')
-        
-        # Add spatial (country)
-        if solution.country and solution.country.strip():
-            triples.append(f'    dcterms:spatial "{self._escape_literal(solution.country)}" ;')
-        
-        # Add source URL
-        if solution.source_url:
-            triples.append(f'    dcterms:source <{solution.source_url}> ;')
-        
-        # Add publishers (organizations)
-        publishers = self._extract_organization_uris(solution)
-        if publishers:
-            publisher_list = ', '.join(publishers)
-            triples.append(f'    dcterms:publisher {publisher_list} ;')
-        
-        # Add section relationships
-        section_chunks = [info[1] for info in section_structure if info[2] > 0 or info[0] == 'Introduction']
-        
-        if section_chunks:
-            first_section = f"sg:Chunk_{solution.doc_id}_{section_chunks[0]:04d}"
-            last_section = f"sg:Chunk_{solution.doc_id}_{section_chunks[-1]:04d}"
-            section_list = ', '.join([f"sg:Chunk_{solution.doc_id}_{num:04d}" for num in section_chunks])
-            
-            triples.append(f'    sgd:firstChild {first_section} ;')
-            triples.append(f'    sgd:hasChild {section_list} ;')
-            triples.append(f'    sgd:lastChild {last_section} ;')
-        
-        # Add processing timestamp
-        timestamp = datetime.now().isoformat() + "+00:00"
-        triples.append(f'    sgm:processingTimestamp "{timestamp}"^^xsd:dateTime .')
-        
-        return triples
-    
-    def _generate_organization_contacts(self, contact_info: str) -> List[str]:
+    def _generate_organization_contacts(self, contact_info: str) -> Graph:
         """Generate organization and contact RDF from contact information."""
-        rdf_lines = []
+        g = Graph()
+        
+        # Bind namespaces
+        g.bind("org", Namespace("http://www.w3.org/ns/org#"))
+        g.bind("schema", Namespace("http://schema.org/"))
+        g.bind("skos", Namespace("http://www.w3.org/2004/02/skos/core#"))
+        g.bind("sg", SG)
+        
+        ORG = Namespace("http://www.w3.org/ns/org#")
+        SCHEMA = Namespace("http://schema.org/")
+        SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
         
         # Parse contact information
         contacts = self._parse_contact_info(contact_info)
@@ -333,30 +295,19 @@ class IntegratedRDFChunkGenerator:
             contact_uri = self._generate_contact_uri(contact['organization'])
             
             # Organization RDF
-            org_lines = [
-                f"",
-                f"{org_uri} a org:Organization ;",
-                f'    skos:prefLabel "{self._escape_literal(contact["organization"])}" ;',
-                f"    schema:contactPoint {contact_uri} ."
-            ]
-            rdf_lines.extend(org_lines)
+            g.add((org_uri, RDF.type, ORG.Organization))
+            g.add((org_uri, SKOS.prefLabel, Literal(contact["organization"])))
+            g.add((org_uri, SCHEMA.contactPoint, contact_uri))
             
             # Contact point RDF
-            contact_lines = [
-                f"",
-                f"{contact_uri} a schema:ContactPoint ;"
-            ]
+            g.add((contact_uri, RDF.type, SCHEMA.ContactPoint))
             
             if contact.get('email'):
-                contact_lines.append(f'    schema:email "{contact["email"]}" ;')
+                g.add((contact_uri, SCHEMA.email, Literal(contact["email"])))
             if contact.get('phone'):
-                contact_lines.append(f'    schema:telephone "{contact["phone"]}" .')
-            else:
-                contact_lines[-1] = contact_lines[-1].rstrip(' ;') + ' .'
-            
-            rdf_lines.extend(contact_lines)
+                g.add((contact_uri, SCHEMA.telephone, Literal(contact["phone"])))
         
-        return rdf_lines
+        return g
     
     def _parse_contact_info(self, contact_info: str) -> List[Dict[str, str]]:
         """Parse contact information into structured data."""
@@ -386,49 +337,16 @@ class IntegratedRDFChunkGenerator:
         
         return contacts
     
-    def _extract_organization_uris(self, solution) -> List[str]:
-        """Extract organization URIs for publishers."""
-        orgs = []
-        
-        for org_field in [solution.public_organisations, solution.international_organisations, solution.private_organisations]:
-            if org_field and org_field.strip():
-                field_orgs = [org.strip() for org in org_field.split(',') if org.strip()]
-                orgs.extend(field_orgs)
-        
-        return [self._generate_org_uri(org) for org in orgs]
-    
-    def _generate_org_uri(self, org_name: str) -> str:
+    def _generate_org_uri(self, org_name: str) -> URIRef:
         """Generate consistent URI for organization."""
         normalized = re.sub(r'[^\w\s-]', '', org_name.lower())
         normalized = re.sub(r'\s+', '_', normalized.strip())
         normalized = normalized.replace('__', '_').strip('_')
-        return f"sg:Org_{normalized}"
+        return SG[f"Org_{normalized}"]
     
-    def _generate_contact_uri(self, org_name: str) -> str:
+    def _generate_contact_uri(self, org_name: str) -> URIRef:
         """Generate consistent URI for contact point."""
         normalized = re.sub(r'[^\w\s-]', '', org_name.lower())
         normalized = re.sub(r'\s+', '_', normalized.strip())
         normalized = normalized.replace('__', '_').strip('_')
-        return f"sg:Contact_{normalized}"
-    
-    def _format_date(self, date_str: str) -> str:
-        """Format date to ISO8601."""
-        if '/' in date_str:
-            parts = date_str.split('/')
-            if len(parts) == 3:
-                return f"{parts[2]}-{parts[1]:0>2}-{parts[0]:0>2}"
-        return date_str
-    
-    def _escape_literal(self, text: str) -> str:
-        """Escape text for RDF literal."""
-        if not text:
-            return ""
-        return text.replace('"', '\\"').replace('\n', '\\n').replace('\r', '\\r')
-
-def main():
-    """Test the integrated RDF and chunk generator."""
-    print("Integrated RDF and Chunk Generator Test")
-    print("This would be called from the main test script")
-
-if __name__ == "__main__":
-    main()
+        return SG[f"Contact_{normalized}"]
