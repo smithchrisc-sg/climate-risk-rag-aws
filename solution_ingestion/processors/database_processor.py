@@ -34,69 +34,14 @@ class DatabaseProcessor:
             raise
     
     def store_solutions(self, solutions: List[Solution]):
-        """Store solutions in PostgreSQL."""
-        logger.info(f"Storing {len(solutions)} solutions in database")
-        
-        stored_count = 0
-        for solution in solutions:
-            try:
-                # Store document metadata
-                self.db_manager.store_document_metadata(
-                    doc_id=solution.doc_id,
-                    title=solution.name,
-                    source_url=solution.source_url,
-                    metadata=solution.get_metadata()
-                )
-                
-                # Store full text
-                if hasattr(solution, 'pseudo_document_text') and solution.pseudo_document_text:
-                    text_content = solution.pseudo_document_text
-                else:
-                    text_content = solution.get_full_text()
-                
-                self.db_manager.store_document_text(
-                    doc_id=solution.doc_id,
-                    text_content=text_content
-                )
-                
-                # Update processing status
-                self.db_manager.update_processing_status(
-                    doc_id=solution.doc_id,
-                    stage='solution_ingestion',
-                    status='completed'
-                )
-                
-                stored_count += 1
-                
-            except Exception as e:
-                logger.warning(f"Failed to store solution {solution.id}: {e}")
-                continue
-        
-        logger.info(f"Successfully stored {stored_count}/{len(solutions)} solutions")
+        """Skip solution storage - solutions are not stored in RDBMS."""
+        logger.info(f"Skipping RDBMS storage for {len(solutions)} solutions (stored in OpenSearch and data lake only)")
+        return
     
     def store_chunks(self, chunks: List[Chunk]):
-        """Store chunks in PostgreSQL."""
-        logger.info(f"Storing {len(chunks)} chunks in database")
-        
-        stored_count = 0
-        for chunk in chunks:
-            try:
-                # Store chunk data
-                self.db_manager.store_chunk_data(
-                    chunk_id=chunk.chunk_id,
-                    doc_id=chunk.doc_id,
-                    chunk_index=self._get_chunk_index(chunk.chunk_type),
-                    text_content=chunk.text,
-                    metadata=chunk.metadata
-                )
-                
-                stored_count += 1
-                
-            except Exception as e:
-                logger.warning(f"Failed to store chunk {chunk.chunk_id}: {e}")
-                continue
-        
-        logger.info(f"Successfully stored {stored_count}/{len(chunks)} chunks")
+        """Skip chunk storage - chunks are not stored in RDBMS."""
+        logger.info(f"Skipping RDBMS storage for {len(chunks)} chunks (stored in OpenSearch and data lake only)")
+        return
     
     def _get_chunk_index(self, chunk_type: str) -> int:
         """Get numeric index for chunk type."""

@@ -68,6 +68,15 @@ class DataLakeWriter:
         with open(rdf_file, 'w', encoding='utf-8') as f:
             f.write(rdf_content)
     
+    def write_solution_rdf(self, doc_id: str, rdf_content: str, filename: str):
+        """Write RDF content for a specific solution in its document directory."""
+        doc_dir = self.base_path / "kr-dl-neptune-ttl" / "data-lake" / doc_id
+        doc_dir.mkdir(parents=True, exist_ok=True)
+        
+        rdf_file = doc_dir / filename
+        with open(rdf_file, 'w', encoding='utf-8') as f:
+            f.write(rdf_content)
+    
     def write_embeddings(self, embeddings: List[dict]):
         """Write embeddings as JSON files."""
         logger.info(f"Writing {len(embeddings)} embeddings to data lake")

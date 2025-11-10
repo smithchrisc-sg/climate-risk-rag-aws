@@ -26,6 +26,7 @@ def process_full_csv():
         from parsers.csv_parser import CSVParser
         from generators.structured_pseudo_document_generator import StructuredPseudoDocumentGenerator
         from generators.integrated_rdf_chunk_generator import IntegratedRDFChunkGenerator
+        integrated_gen = IntegratedRDFChunkGenerator()
         
         print("Bulk Processing: Natural Catastrophe Solutions")
         print("=" * 60)
@@ -65,7 +66,7 @@ def process_full_csv():
         # Process with integrated generator
         print("\n2. Generating RDF and chunks for all solutions...")
         integrated_gen = IntegratedRDFChunkGenerator()
-        
+
         total_chunks = 0
         total_rdf_size = 0
         rdf_output_dir = Path("output_data/kr-dl-neptune-ttl/data-lake")

@@ -1,80 +1,22 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix schema: <http://schema.org/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sg: <http://solve.global/knowledge-commons/> .
 @prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
 @prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 sg:Document_sol_60ae0abf595b41836 a sgd:Solution ;
+    dcterms:created "26/09/2025" ;
     dcterms:identifier "sol_60ae0abf595b41836" ;
-    dcterms:title "Coastal Barriers Feasibility Study (CBFS)" ;
-    dcterms:created "2025-09-26" ;
-    dcterms:spatial "Singapore" ;
+    dcterms:publisher <sg:Org_ministry_of_housing_and_urbanrural_development_mohurd_peoples_republic_of_china> ;
     dcterms:source <https://www.straitstimes.com/singapore/environment/coastal-barriers-to-debut-in-spore-how-do-they-shield-shores-from-extreme-sea-levels> ;
-    dcterms:publisher sg:Org_pub, sg:Org_singapores_national_water_agency, sg:Org_sentosa_development_corporation_sdc, sg:Org_coastal_protection_and_flood_resilience_institute_cfi_singapore, sg:Org_surbana_jurong ;
+    dcterms:spatial "Singapore" ;
+    dcterms:title "Coastal Barriers Feasibility Study (CBFS)" ;
     sgd:firstChild sg:Chunk_sol_60ae0abf595b41836_0001 ;
-    sgd:hasChild sg:Chunk_sol_60ae0abf595b41836_0001, sg:Chunk_sol_60ae0abf595b41836_0003, sg:Chunk_sol_60ae0abf595b41836_0005, sg:Chunk_sol_60ae0abf595b41836_0007 ;
-    sgd:lastChild sg:Chunk_sol_60ae0abf595b41836_0007 ;
-    sgm:processingTimestamp "2025-11-06T21:15:06.746894+00:00"^^xsd:dateTime .
+    sgd:hasChild sg:Chunk_sol_60ae0abf595b41836_0001 ;
+    sgd:lastChild sg:Chunk_sol_60ae0abf595b41836_0001 ;
+    sgm:processingTimestamp "2025-11-08T23:50:46.505340+00:00"^^xsd:dateTime .
 
 sg:Chunk_sol_60ae0abf595b41836_0001 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_60ae0abf595b41836 ;
     dcterms:title "Introduction" ;
-    sgd:firstChild sg:Chunk_sol_60ae0abf595b41836_0002 ;
-    sgd:hasChild sg:Chunk_sol_60ae0abf595b41836_0002 ;
-    sgd:lastChild sg:Chunk_sol_60ae0abf595b41836_0002 ;
-    sgd:nextSibling sg:Chunk_sol_60ae0abf595b41836_0003 .
-
-sg:Chunk_sol_60ae0abf595b41836_0002 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_60ae0abf595b41836_0001 ;
-    sgm:chunkId "sol_60ae0abf595b41836_chunk_0002" ;
-    sgm:s3Key "data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0002.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0002.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_60ae0abf595b41836_0003 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_60ae0abf595b41836 ;
-    dcterms:title "Description" ;
-    sgd:firstChild sg:Chunk_sol_60ae0abf595b41836_0004 ;
-    sgd:hasChild sg:Chunk_sol_60ae0abf595b41836_0004 ;
-    sgd:lastChild sg:Chunk_sol_60ae0abf595b41836_0004 ;
-    sgd:nextSibling sg:Chunk_sol_60ae0abf595b41836_0005 .
-
-sg:Chunk_sol_60ae0abf595b41836_0004 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_60ae0abf595b41836_0003 ;
-    sgm:chunkId "sol_60ae0abf595b41836_chunk_0004" ;
-    sgm:s3Key "data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0004.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0004.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_60ae0abf595b41836_0005 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_60ae0abf595b41836 ;
-    dcterms:title "Key Highlights" ;
-    sgd:firstChild sg:Chunk_sol_60ae0abf595b41836_0006 ;
-    sgd:hasChild sg:Chunk_sol_60ae0abf595b41836_0006 ;
-    sgd:lastChild sg:Chunk_sol_60ae0abf595b41836_0006 ;
-    sgd:nextSibling sg:Chunk_sol_60ae0abf595b41836_0007 .
-
-sg:Chunk_sol_60ae0abf595b41836_0006 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_60ae0abf595b41836_0005 ;
-    sgm:chunkId "sol_60ae0abf595b41836_chunk_0006" ;
-    sgm:s3Key "data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0006.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0006.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_60ae0abf595b41836_0007 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_60ae0abf595b41836 ;
-    dcterms:title "Results" ;
-    sgd:firstChild sg:Chunk_sol_60ae0abf595b41836_0008 ;
-    sgd:hasChild sg:Chunk_sol_60ae0abf595b41836_0008 ;
-    sgd:lastChild sg:Chunk_sol_60ae0abf595b41836_0008 .
-
-sg:Chunk_sol_60ae0abf595b41836_0008 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_60ae0abf595b41836_0007 ;
-    sgm:chunkId "sol_60ae0abf595b41836_chunk_0008" ;
-    sgm:s3Key "data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0008.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_60ae0abf595b41836/sol_60ae0abf595b41836_chunk_0008.json"^^xsd:anyURI
- .
+    sgd:hasParent sg:Document_sol_60ae0abf595b41836 .
 

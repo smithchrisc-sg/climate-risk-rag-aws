@@ -18,13 +18,12 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from parsers.csv_parser import CSVParser
 from generators.pseudo_document_generator import PseudoDocumentGenerator
-from generators.chunk_generator import ChunkGenerator
-from generators.rdf_generator import RDFGenerator
+from generators.integrated_rdf_chunk_generator import IntegratedRDFChunkGenerator
 from generators.embeddings_generator import EmbeddingsGenerator
 from processors.database_processor import DatabaseProcessor
 from indexers.opensearch_keyword_indexer import OpenSearchKeywordIndexer
 from indexers.opensearch_vector_indexer import OpenSearchVectorIndexer
-from processors.neptune_processor import NeptuneProcessor
+from knowledge_graph_layer.utils.KnowledgeGraphManager import KnowledgeGraphManager
 from utils.data_lake_writer import DataLakeWriter
 from config.environment import Environment
 
@@ -45,13 +44,18 @@ class SolutionIngestionCLI:
         self.csv_parser = CSVParser()
         self.csv_parser.shared_doc_id_manager = self.shared_doc_id_manager
         self.doc_generator = PseudoDocumentGenerator()
-        self.chunk_generator = ChunkGenerator()
-        self.rdf_generator = RDFGenerator()
+        self.integrated_generator = IntegratedRDFChunkGenerator()
         self.embeddings_generator = EmbeddingsGenerator()
         self.db_processor = DatabaseProcessor(self.env)
         self.keyword_indexer = OpenSearchKeywordIndexer(self.env)
         self.vector_indexer = OpenSearchVectorIndexer(self.env)
-        self.neptune_processor = NeptuneProcessor(self.env)
+        
+        # Set up Neptune environment for KnowledgeGraphManager
+        os.environ['NEPTUNE_ENDPOINT'] = self.env.neptune_endpoint
+        os.environ['NEPTUNE_PORT'] = self.env.neptune_port
+        os.environ['AWS_REGION'] = self.env.aws_region
+        self.kg_manager = KnowledgeGraphManager()
+        
         self.data_lake_writer = DataLakeWriter()
     
     def run(self, csv_path: str = None, limit: int = None, dry_run: bool = False):
@@ -64,12 +68,19 @@ class SolutionIngestionCLI:
             if csv_path:
                 solutions_iter = self.csv_parser.parse_csv_file(Path(csv_path))
             else:
-                # For dry run or limited processing, only parse first file
+                # Process all CSV files
                 input_files = self.csv_parser.load_csv_files()
                 if not input_files:
                     logger.error("No CSV files found")
                     return
-                solutions_iter = self.csv_parser.parse_csv_file(input_files[0])
+                
+                logger.info(f"Found {len(input_files)} CSV files to process")
+                solutions_iter = []
+                for csv_file in input_files:
+                    logger.info(f"Processing CSV file: {csv_file}")
+                    file_solutions = list(self.csv_parser.parse_csv_file(csv_file))
+                    logger.info(f"  Found {len(file_solutions)} solutions")
+                    solutions_iter.extend(file_solutions)
             
             # Apply limit early to avoid connection issues
             solutions = []
@@ -92,11 +103,17 @@ class SolutionIngestionCLI:
             logger.info("Generating pseudo-documents...")
             solutions = self.doc_generator.process_solutions(solutions)
             
-            # Step 3: Generate chunks
-            logger.info("Generating chunks...")
-            all_chunks = self.chunk_generator.process_solutions(solutions)
+            # Step 3: Generate RDF and chunks using integrated generator
+            logger.info("Generating RDF and chunks...")
+            all_chunks = []
+            all_rdf_content = []
             
-            # Step 4: Generate embeddings
+            for solution in solutions:
+                rdf_content, chunks = self.integrated_generator.generate_document_rdf_and_chunks(solution)
+                all_chunks.extend(chunks)
+                all_rdf_content.append(rdf_content)
+            
+            # Step 4: Generate embeddings for chunks
             logger.info("Generating embeddings...")
             solutions_with_chunks = []
             for solution in solutions:
@@ -111,10 +128,9 @@ class SolutionIngestionCLI:
                 all_enriched_chunks.extend(enriched_chunks)
             
             # Step 5: Store in PostgreSQL
-            # Step 5: Store in PostgreSQL
             logger.info("Storing in PostgreSQL...")
             self.db_processor.store_solutions(solutions)
-            self.db_processor.store_chunks(all_chunks)  # Store original chunks
+            self.db_processor.store_chunks(all_chunks)
             
             # Step 6: Index in OpenSearch
             logger.info("Indexing documents (keyword) in OpenSearch...")
@@ -124,27 +140,41 @@ class SolutionIngestionCLI:
             self.vector_indexer.create_vector_index_if_not_exists()
             self.vector_indexer.index_chunks_with_vectors(all_enriched_chunks)
             
-            # Step 7: Generate and store RDF
-            logger.info("Generating RDF...")
-            solutions_with_chunks = []
-            for solution in solutions:
-                solution_chunks = [c for c in all_chunks if c.doc_id == solution.doc_id]
-                solutions_with_chunks.append((solution, [c.__dict__ for c in solution_chunks]))
-            
-            rdf_content = self.rdf_generator.generate_batch_rdf(solutions_with_chunks)
-            
-            # Step 8: Store in Neptune
+            # Step 7: Store RDF in Neptune (one document at a time)
             logger.info("Storing RDF in Neptune...")
-            self.neptune_processor.store_rdf(rdf_content)
+            successful_loads = 0
+            failed_loads = 0
             
-            # Step 9: Write to data lake (for debugging)
+            for i, rdf_content in enumerate(all_rdf_content):
+                try:
+                    load_result = self.kg_manager.bulk_insert_ttl(rdf_content)
+                    if load_result:
+                        successful_loads += 1
+                        logger.info(f"✅ Document {i+1}/{len(all_rdf_content)} loaded successfully")
+                    else:
+                        failed_loads += 1
+                        logger.error(f"❌ Document {i+1}/{len(all_rdf_content)} loading failed")
+                except Exception as e:
+                    failed_loads += 1
+                    logger.error(f"❌ Document {i+1}/{len(all_rdf_content)} loading error: {e}")
+            
+            logger.info(f"Neptune loading complete: {successful_loads} successful, {failed_loads} failed")
+            
+            # Step 8: Write to data lake
             logger.info("Writing to local data lake...")
             self.data_lake_writer.write_solutions(solutions)
-            self.data_lake_writer.write_chunks(all_chunks)  # Original chunks
-            self.data_lake_writer.write_embeddings(all_enriched_chunks)  # Embeddings
-            self.data_lake_writer.write_rdf(rdf_content, "batch_solutions.ttl")
+            self.data_lake_writer.write_chunks(all_chunks)
+            self.data_lake_writer.write_embeddings(all_enriched_chunks)
             
-            logger.info(f"Successfully ingested {len(solutions)} solutions")
+            # Write individual TTL files per solution in correct directory structure
+            logger.info("Writing individual TTL files...")
+            for i, (solution, rdf_content) in enumerate(zip(solutions, all_rdf_content)):
+                ttl_filename = f"{solution.doc_id}.ttl"
+                self.data_lake_writer.write_solution_rdf(solution.doc_id, rdf_content, ttl_filename)
+                if (i + 1) % 100 == 0:
+                    logger.info(f"Written {i + 1}/{len(solutions)} TTL files")
+            
+            logger.info(f"Successfully ingested {len(solutions)} solutions with {len(all_chunks)} chunks")
             
         except Exception as e:
             logger.error(f"Ingestion failed: {e}")

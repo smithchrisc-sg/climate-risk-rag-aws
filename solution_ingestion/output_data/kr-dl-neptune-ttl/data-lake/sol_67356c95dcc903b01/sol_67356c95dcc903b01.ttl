@@ -1,97 +1,22 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix schema: <http://schema.org/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sg: <http://solve.global/knowledge-commons/> .
 @prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
 @prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 sg:Document_sol_67356c95dcc903b01 a sgd:Solution ;
+    dcterms:created "26/09/2025" ;
     dcterms:identifier "sol_67356c95dcc903b01" ;
-    dcterms:title "Strengthening Institutions and Empowering Localities Against Disasters and Climate Change in the Philippines (SHIELD Programme)" ;
-    dcterms:created "2025-09-26" ;
-    dcterms:spatial "Philippines" ;
+    dcterms:publisher <sg:Org_department_of_the_interior_and_local_government_dilg_philippines> ;
     dcterms:source <https://www.dost.gov.ph/knowledge-resources/news/78-2023-news/3421-dost-participates-in-the-undp-s-1st-annual-stakeholders-forum-for-the-shield-programme-highlights-innovations-for-disasters-and-climate-change.html> ;
-    dcterms:publisher sg:Org_department_of_the_interior_and_local_government_dilg, sg:Org_office_of_civil_defense_ocd, sg:Org_department_of_science_and_technology_dost, sg:Org_united_nations_development_programme_undp, sg:Org_un-habitat, sg:Org_philippine_business_for_social_progress_pbsp, sg:Org_national_resilience_council_nrc, sg:Org_consortium_of_bangsamoro_civil_society_cbcs ;
+    dcterms:spatial "Philippines" ;
+    dcterms:title "Strengthening Institutions and Empowering Localities Against Disasters and Climate Change in the Philippines (SHIELD Programme)" ;
     sgd:firstChild sg:Chunk_sol_67356c95dcc903b01_0001 ;
-    sgd:hasChild sg:Chunk_sol_67356c95dcc903b01_0001, sg:Chunk_sol_67356c95dcc903b01_0003, sg:Chunk_sol_67356c95dcc903b01_0005, sg:Chunk_sol_67356c95dcc903b01_0007 ;
-    sgd:lastChild sg:Chunk_sol_67356c95dcc903b01_0007 ;
-    sgm:processingTimestamp "2025-11-06T21:15:06.724760+00:00"^^xsd:dateTime .
+    sgd:hasChild sg:Chunk_sol_67356c95dcc903b01_0001 ;
+    sgd:lastChild sg:Chunk_sol_67356c95dcc903b01_0001 ;
+    sgm:processingTimestamp "2025-11-08T23:50:46.306248+00:00"^^xsd:dateTime .
 
 sg:Chunk_sol_67356c95dcc903b01_0001 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_67356c95dcc903b01 ;
     dcterms:title "Introduction" ;
-    sgd:firstChild sg:Chunk_sol_67356c95dcc903b01_0002 ;
-    sgd:hasChild sg:Chunk_sol_67356c95dcc903b01_0002 ;
-    sgd:lastChild sg:Chunk_sol_67356c95dcc903b01_0002 ;
-    sgd:nextSibling sg:Chunk_sol_67356c95dcc903b01_0003 .
+    sgd:hasParent sg:Document_sol_67356c95dcc903b01 .
 
-sg:Chunk_sol_67356c95dcc903b01_0002 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_67356c95dcc903b01_0001 ;
-    sgm:chunkId "sol_67356c95dcc903b01_chunk_0002" ;
-    sgm:s3Key "data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0002.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0002.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_67356c95dcc903b01_0003 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_67356c95dcc903b01 ;
-    dcterms:title "Description" ;
-    sgd:firstChild sg:Chunk_sol_67356c95dcc903b01_0004 ;
-    sgd:hasChild sg:Chunk_sol_67356c95dcc903b01_0004 ;
-    sgd:lastChild sg:Chunk_sol_67356c95dcc903b01_0004 ;
-    sgd:nextSibling sg:Chunk_sol_67356c95dcc903b01_0005 .
-
-sg:Chunk_sol_67356c95dcc903b01_0004 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_67356c95dcc903b01_0003 ;
-    sgm:chunkId "sol_67356c95dcc903b01_chunk_0004" ;
-    sgm:s3Key "data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0004.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0004.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_67356c95dcc903b01_0005 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_67356c95dcc903b01 ;
-    dcterms:title "Key Highlights" ;
-    sgd:firstChild sg:Chunk_sol_67356c95dcc903b01_0006 ;
-    sgd:hasChild sg:Chunk_sol_67356c95dcc903b01_0006 ;
-    sgd:lastChild sg:Chunk_sol_67356c95dcc903b01_0006 ;
-    sgd:nextSibling sg:Chunk_sol_67356c95dcc903b01_0007 .
-
-sg:Chunk_sol_67356c95dcc903b01_0006 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_67356c95dcc903b01_0005 ;
-    sgm:chunkId "sol_67356c95dcc903b01_chunk_0006" ;
-    sgm:s3Key "data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0006.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0006.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_67356c95dcc903b01_0007 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_67356c95dcc903b01 ;
-    dcterms:title "Results" ;
-    sgd:firstChild sg:Chunk_sol_67356c95dcc903b01_0008 ;
-    sgd:hasChild sg:Chunk_sol_67356c95dcc903b01_0008 ;
-    sgd:lastChild sg:Chunk_sol_67356c95dcc903b01_0008 .
-
-sg:Chunk_sol_67356c95dcc903b01_0008 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_67356c95dcc903b01_0007 ;
-    sgm:chunkId "sol_67356c95dcc903b01_chunk_0008" ;
-    sgm:s3Key "data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0008.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_67356c95dcc903b01/sol_67356c95dcc903b01_chunk_0008.json"^^xsd:anyURI
- .
-
-
-
-sg:Org_united_nations_development_programme_undp_philippines a org:Organization ;
-    skos:prefLabel "United Nations Development Programme (UNDP) Philippines" ;
-    schema:contactPoint sg:Contact_united_nations_development_programme_undp_philippines .
-
-sg:Contact_united_nations_development_programme_undp_philippines a schema:ContactPoint ;
-    schema:email "philippines@un.org" ;
-    schema:telephone "+63 2 82495400" .
-
-sg:Org_un-habitat_philippines a org:Organization ;
-    skos:prefLabel "UN-Habitat Philippines" ;
-    schema:contactPoint sg:Contact_un-habitat_philippines .
-
-sg:Contact_un-habitat_philippines a schema:ContactPoint ;
-    schema:email "unic.manila@unic.org" ;
-    schema:telephone "+63 2 82495400" .

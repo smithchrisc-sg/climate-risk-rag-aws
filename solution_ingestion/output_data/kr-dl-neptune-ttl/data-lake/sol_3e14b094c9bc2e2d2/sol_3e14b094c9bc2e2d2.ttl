@@ -1,87 +1,21 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix schema: <http://schema.org/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sg: <http://solve.global/knowledge-commons/> .
 @prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
 @prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 sg:Document_sol_3e14b094c9bc2e2d2 a sgd:Solution ;
+    dcterms:created "24/09/2025" ;
     dcterms:identifier "sol_3e14b094c9bc2e2d2" ;
-    dcterms:title "Government Risk Financing for Drought in Brunei (2020–2025)" ;
-    dcterms:created "2025-09-24" ;
-    dcterms:spatial "Brunei Darussalam" ;
     dcterms:source <https://en.wikipedia.org/wiki/Economy_of_Brunei> ;
+    dcterms:spatial "Brunei Darussalam" ;
+    dcterms:title "Government Risk Financing for Drought in Brunei (2020–2025)" ;
     sgd:firstChild sg:Chunk_sol_3e14b094c9bc2e2d2_0001 ;
-    sgd:hasChild sg:Chunk_sol_3e14b094c9bc2e2d2_0001, sg:Chunk_sol_3e14b094c9bc2e2d2_0003, sg:Chunk_sol_3e14b094c9bc2e2d2_0005, sg:Chunk_sol_3e14b094c9bc2e2d2_0007 ;
-    sgd:lastChild sg:Chunk_sol_3e14b094c9bc2e2d2_0007 ;
-    sgm:processingTimestamp "2025-11-06T21:15:06.430696+00:00"^^xsd:dateTime .
+    sgd:hasChild sg:Chunk_sol_3e14b094c9bc2e2d2_0001 ;
+    sgd:lastChild sg:Chunk_sol_3e14b094c9bc2e2d2_0001 ;
+    sgm:processingTimestamp "2025-11-08T23:50:44.085622+00:00"^^xsd:dateTime .
 
 sg:Chunk_sol_3e14b094c9bc2e2d2_0001 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_3e14b094c9bc2e2d2 ;
     dcterms:title "Introduction" ;
-    sgd:firstChild sg:Chunk_sol_3e14b094c9bc2e2d2_0002 ;
-    sgd:hasChild sg:Chunk_sol_3e14b094c9bc2e2d2_0002 ;
-    sgd:lastChild sg:Chunk_sol_3e14b094c9bc2e2d2_0002 ;
-    sgd:nextSibling sg:Chunk_sol_3e14b094c9bc2e2d2_0003 .
+    sgd:hasParent sg:Document_sol_3e14b094c9bc2e2d2 .
 
-sg:Chunk_sol_3e14b094c9bc2e2d2_0002 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_3e14b094c9bc2e2d2_0001 ;
-    sgm:chunkId "sol_3e14b094c9bc2e2d2_chunk_0002" ;
-    sgm:s3Key "data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0002.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0002.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_3e14b094c9bc2e2d2_0003 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_3e14b094c9bc2e2d2 ;
-    dcterms:title "Description" ;
-    sgd:firstChild sg:Chunk_sol_3e14b094c9bc2e2d2_0004 ;
-    sgd:hasChild sg:Chunk_sol_3e14b094c9bc2e2d2_0004 ;
-    sgd:lastChild sg:Chunk_sol_3e14b094c9bc2e2d2_0004 ;
-    sgd:nextSibling sg:Chunk_sol_3e14b094c9bc2e2d2_0005 .
-
-sg:Chunk_sol_3e14b094c9bc2e2d2_0004 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_3e14b094c9bc2e2d2_0003 ;
-    sgm:chunkId "sol_3e14b094c9bc2e2d2_chunk_0004" ;
-    sgm:s3Key "data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0004.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0004.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_3e14b094c9bc2e2d2_0005 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_3e14b094c9bc2e2d2 ;
-    dcterms:title "Key Highlights" ;
-    sgd:firstChild sg:Chunk_sol_3e14b094c9bc2e2d2_0006 ;
-    sgd:hasChild sg:Chunk_sol_3e14b094c9bc2e2d2_0006 ;
-    sgd:lastChild sg:Chunk_sol_3e14b094c9bc2e2d2_0006 ;
-    sgd:nextSibling sg:Chunk_sol_3e14b094c9bc2e2d2_0007 .
-
-sg:Chunk_sol_3e14b094c9bc2e2d2_0006 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_3e14b094c9bc2e2d2_0005 ;
-    sgm:chunkId "sol_3e14b094c9bc2e2d2_chunk_0006" ;
-    sgm:s3Key "data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0006.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0006.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_3e14b094c9bc2e2d2_0007 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_3e14b094c9bc2e2d2 ;
-    dcterms:title "Results" ;
-    sgd:firstChild sg:Chunk_sol_3e14b094c9bc2e2d2_0008 ;
-    sgd:hasChild sg:Chunk_sol_3e14b094c9bc2e2d2_0008 ;
-    sgd:lastChild sg:Chunk_sol_3e14b094c9bc2e2d2_0008 .
-
-sg:Chunk_sol_3e14b094c9bc2e2d2_0008 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_3e14b094c9bc2e2d2_0007 ;
-    sgm:chunkId "sol_3e14b094c9bc2e2d2_chunk_0008" ;
-    sgm:s3Key "data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0008.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_3e14b094c9bc2e2d2/sol_3e14b094c9bc2e2d2_chunk_0008.json"^^xsd:anyURI
- .
-
-
-
-sg:Org_fao_land_and_water_division_nsl a org:Organization ;
-    skos:prefLabel "FAO (Land and Water Division, NSL)" ;
-    schema:contactPoint sg:Contact_fao_land_and_water_division_nsl .
-
-sg:Contact_fao_land_and_water_division_nsl a schema:ContactPoint ;
-    schema:email "nsl-director@fao.org" .

@@ -1,0 +1,107 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ns1: <http://schema.org/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
+@prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sg:Org_nsw_department_of_climate_change_energy_the_environment_and_water_dcceew a org:Organization ;
+    ns1:contactPoint sg:Contact_nsw_department_of_climate_change_energy_the_environment_and_water_dcceew ;
+    skos:prefLabel "NSW Department of Climate Change, Energy, the Environment and Water (DCCEEW)" .
+
+sg:Contact_nsw_department_of_climate_change_energy_the_environment_and_water_dcceew a ns1:ContactPoint ;
+    ns1:email "coastalestuary.floodgrants@environment.nsw.gov.au" ;
+    ns1:telephone "(02) 9895 6494" .
+
+sg:Contact_nsw_department_of_planning_and_environment_dpe a ns1:ContactPoint ;
+    ns1:email "coastalestuary.floodgrants@environment.nsw.gov.au" ;
+    ns1:telephone "(02) 9895 6494" .
+
+sg:Org_nsw_department_of_planning_and_environment_dpe a org:Organization ;
+    ns1:contactPoint sg:Contact_nsw_department_of_planning_and_environment_dpe ;
+    skos:prefLabel "NSW Department of Planning and Environment (DPE)" .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0001 a sgd:Section ;
+    dcterms:title "Introduction" ;
+    sgd:firstChild sg:Chunk_sol_cbf68172d7bd406d6_0002 ;
+    sgd:hasChild sg:Chunk_sol_cbf68172d7bd406d6_0002 ;
+    sgd:hasParent sg:Document_sol_cbf68172d7bd406d6 ;
+    sgd:lastChild sg:Chunk_sol_cbf68172d7bd406d6_0002 ;
+    sgd:nextSibling sg:Chunk_sol_cbf68172d7bd406d6_0003 .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0002 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_cbf68172d7bd406d6_0001 ;
+    sgm:chunkId "sol_cbf68172d7bd406d6_chunk_0002" ;
+    sgm:s3Key "data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0002.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0002.json"^^xsd:anyURI .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0003 a sgd:Section ;
+    dcterms:title "Description" ;
+    sgd:firstChild sg:Chunk_sol_cbf68172d7bd406d6_0004 ;
+    sgd:hasChild sg:Chunk_sol_cbf68172d7bd406d6_0004 ;
+    sgd:hasParent sg:Document_sol_cbf68172d7bd406d6 ;
+    sgd:lastChild sg:Chunk_sol_cbf68172d7bd406d6_0004 ;
+    sgd:nextSibling sg:Chunk_sol_cbf68172d7bd406d6_0005 .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0004 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_cbf68172d7bd406d6_0003 ;
+    sgm:chunkId "sol_cbf68172d7bd406d6_chunk_0004" ;
+    sgm:s3Key "data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0004.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0004.json"^^xsd:anyURI .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0005 a sgd:Section ;
+    dcterms:title "Key Highlights" ;
+    sgd:firstChild sg:Chunk_sol_cbf68172d7bd406d6_0006 ;
+    sgd:hasChild sg:Chunk_sol_cbf68172d7bd406d6_0006 ;
+    sgd:hasParent sg:Document_sol_cbf68172d7bd406d6 ;
+    sgd:lastChild sg:Chunk_sol_cbf68172d7bd406d6_0006 ;
+    sgd:nextSibling sg:Chunk_sol_cbf68172d7bd406d6_0007 .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0006 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_cbf68172d7bd406d6_0005 ;
+    sgm:chunkId "sol_cbf68172d7bd406d6_chunk_0006" ;
+    sgm:s3Key "data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0006.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0006.json"^^xsd:anyURI .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0008 a sgd:Paragraph ;
+    sgd:hasParent sg:Chunk_sol_cbf68172d7bd406d6_0007 ;
+    sgm:chunkId "sol_cbf68172d7bd406d6_chunk_0008" ;
+    sgm:s3Key "data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0008.json" ;
+    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_cbf68172d7bd406d6/sol_cbf68172d7bd406d6_chunk_0008.json"^^xsd:anyURI .
+
+sg:Chunk_sol_cbf68172d7bd406d6_0007 a sgd:Section ;
+    dcterms:title "Results" ;
+    sgd:firstChild sg:Chunk_sol_cbf68172d7bd406d6_0008 ;
+    sgd:hasChild sg:Chunk_sol_cbf68172d7bd406d6_0008 ;
+    sgd:hasParent sg:Document_sol_cbf68172d7bd406d6 ;
+    sgd:lastChild sg:Chunk_sol_cbf68172d7bd406d6_0008 .
+
+sg:Document_sol_cbf68172d7bd406d6 a sgd:Solution ;
+    dcterms:created "24/09/2025" ;
+    dcterms:description "The NSW Flood Recovery and Resilience Grant Program is a New South Wales Government initiative aimed at reducing flood risk and enhancing community resilience in flood-prone areas." ;
+    dcterms:identifier "sol_cbf68172d7bd406d6" ;
+    dcterms:publisher sg:Org_nsw_department_of_climate_change ;
+    dcterms:references <https://www.environment.nsw.gov.au/topics/water/floodplains/floodplain-management-grants/flood-recovery-and-resilience-program/grants-awarded>,
+        <https://www.nsw.gov.au/grants-and-funding/nsw-flood-recovery-and-resilience-grant-program> ;
+    dcterms:spatial <http://www.geonames.org/ontology#2077456> ;
+    dcterms:title "NSW Flood Recovery and Resilience Grant Program" ;
+    sg:associatedOrganization sg:Org_energy,
+        sg:Org_nsw_department_of_climate_change,
+        sg:Org_nsw_department_of_planning_and_environment_dpe,
+        sg:Org_the_environment_and_water_dcceew ;
+    sgd:firstChild sg:Chunk_sol_cbf68172d7bd406d6_0001 ;
+    sgd:hasChild sg:Chunk_sol_cbf68172d7bd406d6_0001,
+        sg:Chunk_sol_cbf68172d7bd406d6_0003,
+        sg:Chunk_sol_cbf68172d7bd406d6_0005,
+        sg:Chunk_sol_cbf68172d7bd406d6_0007 ;
+    sgd:lastChild sg:Chunk_sol_cbf68172d7bd406d6_0007 ;
+    sg:implementationYear "2022"^^xsd:gYear ;
+    sgm:processingTimestamp "2025-11-09T20:55:34.146666+00:00"^^xsd:dateTime ;
+    sg:riskType sg:RiskType_natural_catastrophe ;
+    sg:solutionType sg:SolutionType_risk_financing,
+        sg:SolutionType_risk_reduction ;
+    sg:theme sg:Theme_collaboration,
+        sg:Theme_regulation .
+

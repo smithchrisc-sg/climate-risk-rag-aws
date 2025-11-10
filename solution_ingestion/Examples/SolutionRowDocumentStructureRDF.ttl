@@ -7,22 +7,52 @@
 @prefix sg:      <http://solve.global/knowledge-commons/> .
 @prefix sgd:     <http://solve.global/knowledge-commons/document-structure#> .
 @prefix sgm:     <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix gn:      <http://www.geonames.org/ontology#> .
 
 sg:Document_sol_example_123abc456xyz a sgd:Solution ; # Ontology: sgd:Solution rdfs:subClassOf sgd:Document
     dcterms:created "2025-09-24" ; # From CSV: First entry from 'Date Added', converted to ISO8601
-    dcterms:description "" ; # TBD
+    dcterms:description "The Disaster Recovery Funding Arrangements (DRFA) is Australia's primary national funding mechanism for disaster relief and recovery, jointly financed by the Commonwealth and state/territory governments." ; # First sentence of the 'Description' column text
     dcterms:identifier "sol_example_123abc456xyz" ; # DocumentID
-    dcterms:publisher sg:Org_state_governments, # These URIs for the orgs will have to be repeatably built by our URI Minting facility (but we likely need to build or augment it)
-        sg:Org_dfes-wa,
-        sg:Org_dpird-wa,
-        sg:Org_tas-gov,
-        sg:Org_rrt-tas ;
+    # These URIs for the orgs will have to be repeatably built by our URI Minting facility - For now, we have look ups "organizations_complete.ttl"
+    dcterms:publisher sg:Org_state_governments_australia ; # First org found in the public org cell, or if empty, first in international org cell, or if empty, first in private orgs. If none, skip this row.
+    # Note that, for example, this one is "State Governments" in the list, so we have qualified using the "Country" value
+    sg:associatedOrganization # This is all the organizations, public, international, private, including the first one that we use for publisher.
+        # Public Organizations
+        sg:Org_state_governments_australia, 
+        sg:Org_wa_department_of_fire_and_emergency_services_dfes_australia,
+        sg:Org_wa_department_of_primary_industries_and_regional_development_dpird_australia,
+        sg:Org_government_of_tasmania_australia, 
+        sg:Org_resilience_and_recovery_tasmania_australia,
+        sg:Org_cairns_regional_council_australia,
+
+        # International Organizations - only value NIL which is skipped (same as N/A, or <empty>)
+
+        # Private Orgs
+        sg:Org_geo_design_pty_ltd,
+        sg:Org_geo_construct_pty_ltd,
+        sg:Org_saxon_drilling_pty_ltd,
+        sg:Org_ets_geotechnical_pty_ltd,
+        sg:Org_mal_engineers_pty_ltd,
+        sg:Org_3d_civil_pty_ltd ;
+
+    sg:riskType sg:RiskType_natural_catastrophe ; # From 'Type of Risk' column, canonical IRIs defined in "vocabulary_concepts.ttl"
+    sg:solutionType # From 'Type of Solution' column, canonical IRIs defined in "vocabulary_concepts.ttl"
+        sg:SolutionType_risk_financing,
+        sg:SolutionType_risk_reduction ;
+    sg:theme # From 'Theme' column, canonical IRIs defined in "vocabulary_concepts.ttl"
+        sg:Theme_collaboration,
+        sg:Theme_regulation ;
+
+    sg:implementationYear  # From 'Year of Implementation' column, expressed as an xsd:gYear literal
+        "2023"^^xsd:gYear,
+        "2022"^^xsd:gYear ;
+
     dcterms:source <https://www.cairns.qld.gov.au/__data/assets/pdf_file/0006/675645/Clause-No.-21.pdf> ; # From CSV: First entry from 'Organizational Sources' or if empty, first entry from 'Other Sources'
     dcterms:references <https://www.dpird.wa.gov.au/siteassets/documents/grants/drfa/drfa_wa_information---measures-to-assist-primary-producers-april-2025.pdf>, # From CSV, subsequent entries from 'Organizational Sources' and/or 'Other Sources'
     dcterms:references <https://www.dpac.tas.gov.au/divisions/resilience-recovery/recovery_funding_arrnagements>,
     dcterms:references <https://minister.homeaffairs.gov.au/JennyMcAllister/Pages/support-for-tas-storm-flood-affected-communities.aspx>, 
     dcterms:references <https://www.fire.tas.gov.au/wp-content/uploads/2025/06/V1.2_DPFEM-TEMA-Issue-2-accessible.pdf>,
-    dcterms:spatial "Australia" ; # From CSV: 'Country'
+    dcterms:spatial gn:2077456 ; # Australia  # From CSV: 'Country' column value mapped to GeoNames URI
     dcterms:title "Disaster Recovery Funding Arrangements (DRFA)" ; # From CSV: First entry from 'Name'
     sgd:firstChild sg:Chunk_sol_example_123abc456xyz_0001 ;
     sgd:hasChild sg:Chunk_sol_example_123abc456xyz_0001, # Introduction Section from the pseudo document
@@ -112,41 +142,30 @@ sg:Chunk_sol_example_123abc456xyz_0011 a sgd:Paragraph ; # From CSV: (and pseudo
     sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_example_123abc456xyz/sol_example_123abc456xyz_chunk_0011.json"^^xsd:anyURI .
 
 # Parsed from 'Contact Information'
-sg:Org_state_governments a org:Organization ; # As noted above, need efficient, repeatable URI minting for orgs, contact points
-  skos:prefLabel "State Governments" ;
-  schema:contactPoint sg:Contact_state_governments .
+# If we have the organizations from the 'Public Organizations', 'International Organizations' and/or 'Private Organizations' columns, we'll be using the same IRIs. 
+# If we have to create them, we'll do that here, otherwise we'll just add a schema:contactPoint triple with the org as subject, and then create the schema:ContactPoint
 
-sg:Contact_state_governments a schema:ContactPoint ;
+sg:Org_state_governments_australia schema:contactPoint sg:Contact_state_governments_australia .
+sg:Org_wa_department_of_fire_and_emergency_services_dfes_australia schema:contactPoint sg:Contact_wa_department_of_fire_and_emergency_services_dfes_australia .
+sg:Org_wa_department_of_primary_industries_and_regional_development_dpird_australia schema:contactPoint sg:Contact_wa_department_of_primary_industries_and_regional_development_dpird_australia .
+sg:Org_government_of_tasmania_australia schema:contactPoint sg:Contact_government_of_tasmania_australia .
+sg:Org_resilience_and_recovery_tasmania_australia schema:contactPoint sg:Contact_resilience_and_recovery_tasmania_australia .
+
+sg:Contact_state_governments_australia a schema:ContactPoint ;
   schema:email "info@qra.qld.gov.au" ;
   schema:telephone "1800 110 841" .
 
-sg:Org_dfes-wa a org:Organization ;
-  skos:prefLabel "WA Department of Fire and Emergency Services (DFES)" ;
-  schema:contactPoint sg:Contact_dfes-wa .
+sg:Contact_wa_department_of_fire_and_emergency_services_dfes_australia a schema:ContactPoint ;
+    schema:email "drfawa@dfes.wa.gov.au" ;
+    schema:telephone "1800 920 659" .
 
-sg:Contact_dfes-wa a schema:ContactPoint ;
-  schema:email "drfawa@dfes.wa.gov.au" ;
-  schema:telephone "1800 920 659" .
+sg:Contact_wa_department_of_primary_industries_and_regional_development_dpird_australia a schema:ContactPoint ;
+    schema:email "RuralBusiness.Developmentunit@dpird.wa.gov.au" ;
+    schema:telephone "+61 1300 374 731" .
 
-sg:Org_dpird-wa a org:Organization ;
-  skos:prefLabel "WA Department of Primary Industries and Regional Development (DPIRD)" ;
-  schema:contactPoint sg:Contact_dpird-wa .
+sg:Contact_government_of_tasmania_australia a schema:ContactPoint ;
+    schema:telephone "1300 135 513" .
 
-sg:Contact_dpird-wa a schema:ContactPoint ;
-  schema:email "RuralBusiness.Developmentunit@dpird.wa.gov.au" ;
-  schema:telephone "+61 1300 374 731" .
-
-sg:Org_tas-gov a org:Organization ;
-  skos:prefLabel "Government of Tasmania" ;
-  schema:contactPoint sg:tas-gov .
-
-sg:tas-gov a schema:ContactPoint ;
-  schema:telephone "1300 135 513" .
-
-sg:Org_rrt-tas a org:Organization ;
-  skos:prefLabel "Resilience and Recovery Tasmania (RRT)" ;
-  schema:contactPoint sg:Contact_rrt-tas .
-
-sg:Contact_rrt-tas a schema:ContactPoint ;
-  schema:email "RRT@dpac.tas.gov.au" ;
-  schema:telephone "1300 135 513" .
+sg:Contact_resilience_and_recovery_tasmania_australia a schema:ContactPoint ;
+    schema:email "RRT@dpac.tas.gov.au" ;
+    schema:telephone "1300 135 513" .

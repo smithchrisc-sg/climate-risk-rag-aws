@@ -1,105 +1,22 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix schema: <http://schema.org/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sg: <http://solve.global/knowledge-commons/> .
 @prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
 @prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 sg:Document_sol_75f21d49a4bbb0b69 a sgd:Solution ;
+    dcterms:created "24/09/2025" ;
     dcterms:identifier "sol_75f21d49a4bbb0b69" ;
-    dcterms:title "Greater Mekong Subregion Flood and Drought Risk Management and Mitigation Project (Cambodia component)" ;
-    dcterms:created "2025-09-24" ;
-    dcterms:spatial "Cambodia" ;
+    dcterms:publisher <sg:Org_ministry_of_water_resources_and_meteorology_mowram_cambodia> ;
     dcterms:source <https://www.adb.org/projects/40190-013/main> ;
-    dcterms:publisher sg:Org_ministry_of_water_resources_and_meteorology_mowram, sg:Org_department_of_hydrology_and_river_works_dhrw, sg:Org_provincial_department_of_water_resources_and_meteorology_pursat, sg:Org_national_flood_forecasting_center_nffc, sg:Org_asian_development_bank_adb, sg:Org_strategic_climate_fund_scf, sg:Org_greater_mekong_subregion_secretariat ;
+    dcterms:spatial "Cambodia" ;
+    dcterms:title "Greater Mekong Subregion Flood and Drought Risk Management and Mitigation Project (Cambodia component)" ;
     sgd:firstChild sg:Chunk_sol_75f21d49a4bbb0b69_0001 ;
-    sgd:hasChild sg:Chunk_sol_75f21d49a4bbb0b69_0001, sg:Chunk_sol_75f21d49a4bbb0b69_0003, sg:Chunk_sol_75f21d49a4bbb0b69_0005, sg:Chunk_sol_75f21d49a4bbb0b69_0007 ;
-    sgd:lastChild sg:Chunk_sol_75f21d49a4bbb0b69_0007 ;
-    sgm:processingTimestamp "2025-11-06T21:15:06.445281+00:00"^^xsd:dateTime .
+    sgd:hasChild sg:Chunk_sol_75f21d49a4bbb0b69_0001 ;
+    sgd:lastChild sg:Chunk_sol_75f21d49a4bbb0b69_0001 ;
+    sgm:processingTimestamp "2025-11-08T23:50:44.195783+00:00"^^xsd:dateTime .
 
 sg:Chunk_sol_75f21d49a4bbb0b69_0001 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_75f21d49a4bbb0b69 ;
     dcterms:title "Introduction" ;
-    sgd:firstChild sg:Chunk_sol_75f21d49a4bbb0b69_0002 ;
-    sgd:hasChild sg:Chunk_sol_75f21d49a4bbb0b69_0002 ;
-    sgd:lastChild sg:Chunk_sol_75f21d49a4bbb0b69_0002 ;
-    sgd:nextSibling sg:Chunk_sol_75f21d49a4bbb0b69_0003 .
+    sgd:hasParent sg:Document_sol_75f21d49a4bbb0b69 .
 
-sg:Chunk_sol_75f21d49a4bbb0b69_0002 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_75f21d49a4bbb0b69_0001 ;
-    sgm:chunkId "sol_75f21d49a4bbb0b69_chunk_0002" ;
-    sgm:s3Key "data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0002.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0002.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_75f21d49a4bbb0b69_0003 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_75f21d49a4bbb0b69 ;
-    dcterms:title "Description" ;
-    sgd:firstChild sg:Chunk_sol_75f21d49a4bbb0b69_0004 ;
-    sgd:hasChild sg:Chunk_sol_75f21d49a4bbb0b69_0004 ;
-    sgd:lastChild sg:Chunk_sol_75f21d49a4bbb0b69_0004 ;
-    sgd:nextSibling sg:Chunk_sol_75f21d49a4bbb0b69_0005 .
-
-sg:Chunk_sol_75f21d49a4bbb0b69_0004 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_75f21d49a4bbb0b69_0003 ;
-    sgm:chunkId "sol_75f21d49a4bbb0b69_chunk_0004" ;
-    sgm:s3Key "data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0004.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0004.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_75f21d49a4bbb0b69_0005 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_75f21d49a4bbb0b69 ;
-    dcterms:title "Key Highlights" ;
-    sgd:firstChild sg:Chunk_sol_75f21d49a4bbb0b69_0006 ;
-    sgd:hasChild sg:Chunk_sol_75f21d49a4bbb0b69_0006 ;
-    sgd:lastChild sg:Chunk_sol_75f21d49a4bbb0b69_0006 ;
-    sgd:nextSibling sg:Chunk_sol_75f21d49a4bbb0b69_0007 .
-
-sg:Chunk_sol_75f21d49a4bbb0b69_0006 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_75f21d49a4bbb0b69_0005 ;
-    sgm:chunkId "sol_75f21d49a4bbb0b69_chunk_0006" ;
-    sgm:s3Key "data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0006.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0006.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_75f21d49a4bbb0b69_0007 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_75f21d49a4bbb0b69 ;
-    dcterms:title "Results" ;
-    sgd:firstChild sg:Chunk_sol_75f21d49a4bbb0b69_0008 ;
-    sgd:hasChild sg:Chunk_sol_75f21d49a4bbb0b69_0008 ;
-    sgd:lastChild sg:Chunk_sol_75f21d49a4bbb0b69_0008 .
-
-sg:Chunk_sol_75f21d49a4bbb0b69_0008 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_75f21d49a4bbb0b69_0007 ;
-    sgm:chunkId "sol_75f21d49a4bbb0b69_chunk_0008" ;
-    sgm:s3Key "data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0008.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_75f21d49a4bbb0b69/sol_75f21d49a4bbb0b69_chunk_0008.json"^^xsd:anyURI
- .
-
-
-
-sg:Org_asian_development_bank_adb a org:Organization ;
-    skos:prefLabel "Asian Development Bank (ADB)" ;
-    schema:contactPoint sg:Contact_asian_development_bank_adb .
-
-sg:Contact_asian_development_bank_adb a schema:ContactPoint ;
-    schema:email "Email via official ADB project page/contact gateway for Project 40190‑013: https://www.adb.org/projects/40190-013/main" ;
-    schema:telephone "+63 2 8632 4444" .
-
-sg:Org_strategic_climate_fund_scf a org:Organization ;
-    skos:prefLabel "Strategic Climate Fund (SCF)" ;
-    schema:contactPoint sg:Contact_strategic_climate_fund_scf .
-
-sg:Contact_strategic_climate_fund_scf a schema:ContactPoint ;
-    schema:email "Email through ADB’s official project contact channel: https://www.adb.org/projects/40190-013/main" ;
-    schema:telephone "+63 2 8632 4444" .
-
-sg:Org_greater_mekong_subregion_secretariat a org:Organization ;
-    skos:prefLabel "Greater Mekong Subregion Secretariat" ;
-    schema:contactPoint sg:Contact_greater_mekong_subregion_secretariat .
-
-sg:Contact_greater_mekong_subregion_secretariat a schema:ContactPoint ;
-    schema:email "Email via the GMS Secretariat’s “Send an email to the GMS Secretariat” function on the official GMS website" ;
-    schema:telephone "+63 2 8632 4444" .

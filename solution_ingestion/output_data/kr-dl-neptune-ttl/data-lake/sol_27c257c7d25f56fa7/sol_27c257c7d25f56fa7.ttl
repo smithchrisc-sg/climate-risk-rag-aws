@@ -1,89 +1,22 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix schema: <http://schema.org/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sg: <http://solve.global/knowledge-commons/> .
 @prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
 @prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 sg:Document_sol_27c257c7d25f56fa7 a sgd:Solution ;
+    dcterms:created "25/09/2025" ;
     dcterms:identifier "sol_27c257c7d25f56fa7" ;
-    dcterms:title "Development Policy Financing with a Catastrophe Deferred Drawdown Option (Cat DDO) – Nepal, 2020–2025" ;
-    dcterms:created "2025-09-25" ;
-    dcterms:spatial "Nepal" ;
+    dcterms:publisher <sg:Org_government_of_nepal_ministry_of_finance_and_competent_drm_agencies_nepal> ;
     dcterms:source <https://www.worldbank.org/en/about/people/o/olivier-mahul> ;
-    dcterms:publisher sg:Org_government_of_nepal_ministry_of_finance_and_competent_drm_agencies, sg:Org_world_bank, sg:Org_global_facility_for_disaster_reduction_and_recovery_gfdrr ;
+    dcterms:spatial "Nepal" ;
+    dcterms:title "Development Policy Financing with a Catastrophe Deferred Drawdown Option (Cat DDO) – Nepal, 2020–2025" ;
     sgd:firstChild sg:Chunk_sol_27c257c7d25f56fa7_0001 ;
-    sgd:hasChild sg:Chunk_sol_27c257c7d25f56fa7_0001, sg:Chunk_sol_27c257c7d25f56fa7_0003, sg:Chunk_sol_27c257c7d25f56fa7_0005, sg:Chunk_sol_27c257c7d25f56fa7_0007 ;
-    sgd:lastChild sg:Chunk_sol_27c257c7d25f56fa7_0007 ;
-    sgm:processingTimestamp "2025-11-06T21:15:06.518311+00:00"^^xsd:dateTime .
+    sgd:hasChild sg:Chunk_sol_27c257c7d25f56fa7_0001 ;
+    sgd:lastChild sg:Chunk_sol_27c257c7d25f56fa7_0001 ;
+    sgm:processingTimestamp "2025-11-08T23:50:44.851198+00:00"^^xsd:dateTime .
 
 sg:Chunk_sol_27c257c7d25f56fa7_0001 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_27c257c7d25f56fa7 ;
     dcterms:title "Introduction" ;
-    sgd:firstChild sg:Chunk_sol_27c257c7d25f56fa7_0002 ;
-    sgd:hasChild sg:Chunk_sol_27c257c7d25f56fa7_0002 ;
-    sgd:lastChild sg:Chunk_sol_27c257c7d25f56fa7_0002 ;
-    sgd:nextSibling sg:Chunk_sol_27c257c7d25f56fa7_0003 .
+    sgd:hasParent sg:Document_sol_27c257c7d25f56fa7 .
 
-sg:Chunk_sol_27c257c7d25f56fa7_0002 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_27c257c7d25f56fa7_0001 ;
-    sgm:chunkId "sol_27c257c7d25f56fa7_chunk_0002" ;
-    sgm:s3Key "data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0002.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0002.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_27c257c7d25f56fa7_0003 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_27c257c7d25f56fa7 ;
-    dcterms:title "Description" ;
-    sgd:firstChild sg:Chunk_sol_27c257c7d25f56fa7_0004 ;
-    sgd:hasChild sg:Chunk_sol_27c257c7d25f56fa7_0004 ;
-    sgd:lastChild sg:Chunk_sol_27c257c7d25f56fa7_0004 ;
-    sgd:nextSibling sg:Chunk_sol_27c257c7d25f56fa7_0005 .
-
-sg:Chunk_sol_27c257c7d25f56fa7_0004 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_27c257c7d25f56fa7_0003 ;
-    sgm:chunkId "sol_27c257c7d25f56fa7_chunk_0004" ;
-    sgm:s3Key "data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0004.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0004.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_27c257c7d25f56fa7_0005 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_27c257c7d25f56fa7 ;
-    dcterms:title "Key Highlights" ;
-    sgd:firstChild sg:Chunk_sol_27c257c7d25f56fa7_0006 ;
-    sgd:hasChild sg:Chunk_sol_27c257c7d25f56fa7_0006 ;
-    sgd:lastChild sg:Chunk_sol_27c257c7d25f56fa7_0006 ;
-    sgd:nextSibling sg:Chunk_sol_27c257c7d25f56fa7_0007 .
-
-sg:Chunk_sol_27c257c7d25f56fa7_0006 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_27c257c7d25f56fa7_0005 ;
-    sgm:chunkId "sol_27c257c7d25f56fa7_chunk_0006" ;
-    sgm:s3Key "data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0006.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0006.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_27c257c7d25f56fa7_0007 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_27c257c7d25f56fa7 ;
-    dcterms:title "Results" ;
-    sgd:firstChild sg:Chunk_sol_27c257c7d25f56fa7_0008 ;
-    sgd:hasChild sg:Chunk_sol_27c257c7d25f56fa7_0008 ;
-    sgd:lastChild sg:Chunk_sol_27c257c7d25f56fa7_0008 .
-
-sg:Chunk_sol_27c257c7d25f56fa7_0008 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_27c257c7d25f56fa7_0007 ;
-    sgm:chunkId "sol_27c257c7d25f56fa7_chunk_0008" ;
-    sgm:s3Key "data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0008.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_27c257c7d25f56fa7/sol_27c257c7d25f56fa7_chunk_0008.json"^^xsd:anyURI
- .
-
-
-
-sg:Org_global_facility_for_disaster_reduction_and_recovery_gfdrr a org:Organization ;
-    skos:prefLabel "Global Facility for Disaster Reduction and Recovery (GFDRR)" ;
-    schema:contactPoint sg:Contact_global_facility_for_disaster_reduction_and_recovery_gfdrr .
-
-sg:Contact_global_facility_for_disaster_reduction_and_recovery_gfdrr a schema:ContactPoint ;
-    schema:email "NIL" ;
-    schema:telephone "+1-202-473-6253" .

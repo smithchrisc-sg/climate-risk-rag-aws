@@ -1,105 +1,22 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix schema: <http://schema.org/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sg: <http://solve.global/knowledge-commons/> .
 @prefix sgd: <http://solve.global/knowledge-commons/document-structure#> .
 @prefix sgm: <http://solve.global/knowledge-commons/process-metadata#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 sg:Document_sol_671ebad9599173cbe a sgd:Solution ;
+    dcterms:created "25/09/2025" ;
     dcterms:identifier "sol_671ebad9599173cbe" ;
-    dcterms:title "2020–2025 NZ Flood Risk Reduction and Mitigation Initiatives" ;
-    dcterms:created "2025-09-25" ;
-    dcterms:spatial "New Zealand" ;
+    dcterms:publisher <sg:Org_ministry_for_the_environment_mfe_aotearoa_new_zealand> ;
     dcterms:source <https://environment.govt.nz/assets/Publications/Files/meeting-challenges-of-future-flooding-in-nz.pdf> ;
-    dcterms:publisher sg:Org_ministry_for_the_environment, sg:Org_hawkes_bay_regional_council, sg:Org_wairoa_district_council ;
+    dcterms:spatial "New Zealand" ;
+    dcterms:title "2020–2025 NZ Flood Risk Reduction and Mitigation Initiatives" ;
     sgd:firstChild sg:Chunk_sol_671ebad9599173cbe_0001 ;
-    sgd:hasChild sg:Chunk_sol_671ebad9599173cbe_0001, sg:Chunk_sol_671ebad9599173cbe_0003, sg:Chunk_sol_671ebad9599173cbe_0005, sg:Chunk_sol_671ebad9599173cbe_0007 ;
-    sgd:lastChild sg:Chunk_sol_671ebad9599173cbe_0007 ;
-    sgm:processingTimestamp "2025-11-06T21:15:06.534774+00:00"^^xsd:dateTime .
+    sgd:hasChild sg:Chunk_sol_671ebad9599173cbe_0001 ;
+    sgd:lastChild sg:Chunk_sol_671ebad9599173cbe_0001 ;
+    sgm:processingTimestamp "2025-11-08T23:50:44.997754+00:00"^^xsd:dateTime .
 
 sg:Chunk_sol_671ebad9599173cbe_0001 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_671ebad9599173cbe ;
     dcterms:title "Introduction" ;
-    sgd:firstChild sg:Chunk_sol_671ebad9599173cbe_0002 ;
-    sgd:hasChild sg:Chunk_sol_671ebad9599173cbe_0002 ;
-    sgd:lastChild sg:Chunk_sol_671ebad9599173cbe_0002 ;
-    sgd:nextSibling sg:Chunk_sol_671ebad9599173cbe_0003 .
+    sgd:hasParent sg:Document_sol_671ebad9599173cbe .
 
-sg:Chunk_sol_671ebad9599173cbe_0002 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_671ebad9599173cbe_0001 ;
-    sgm:chunkId "sol_671ebad9599173cbe_chunk_0002" ;
-    sgm:s3Key "data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0002.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0002.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_671ebad9599173cbe_0003 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_671ebad9599173cbe ;
-    dcterms:title "Description" ;
-    sgd:firstChild sg:Chunk_sol_671ebad9599173cbe_0004 ;
-    sgd:hasChild sg:Chunk_sol_671ebad9599173cbe_0004 ;
-    sgd:lastChild sg:Chunk_sol_671ebad9599173cbe_0004 ;
-    sgd:nextSibling sg:Chunk_sol_671ebad9599173cbe_0005 .
-
-sg:Chunk_sol_671ebad9599173cbe_0004 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_671ebad9599173cbe_0003 ;
-    sgm:chunkId "sol_671ebad9599173cbe_chunk_0004" ;
-    sgm:s3Key "data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0004.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0004.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_671ebad9599173cbe_0005 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_671ebad9599173cbe ;
-    dcterms:title "Key Highlights" ;
-    sgd:firstChild sg:Chunk_sol_671ebad9599173cbe_0006 ;
-    sgd:hasChild sg:Chunk_sol_671ebad9599173cbe_0006 ;
-    sgd:lastChild sg:Chunk_sol_671ebad9599173cbe_0006 ;
-    sgd:nextSibling sg:Chunk_sol_671ebad9599173cbe_0007 .
-
-sg:Chunk_sol_671ebad9599173cbe_0006 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_671ebad9599173cbe_0005 ;
-    sgm:chunkId "sol_671ebad9599173cbe_chunk_0006" ;
-    sgm:s3Key "data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0006.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0006.json"^^xsd:anyURI
- .
-
-sg:Chunk_sol_671ebad9599173cbe_0007 a sgd:Section ;
-    sgd:hasParent sg:Document_sol_671ebad9599173cbe ;
-    dcterms:title "Results" ;
-    sgd:firstChild sg:Chunk_sol_671ebad9599173cbe_0008 ;
-    sgd:hasChild sg:Chunk_sol_671ebad9599173cbe_0008 ;
-    sgd:lastChild sg:Chunk_sol_671ebad9599173cbe_0008 .
-
-sg:Chunk_sol_671ebad9599173cbe_0008 a sgd:Paragraph ;
-    sgd:hasParent sg:Chunk_sol_671ebad9599173cbe_0007 ;
-    sgm:chunkId "sol_671ebad9599173cbe_chunk_0008" ;
-    sgm:s3Key "data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0008.json" ;
-    sgm:s3Location "s3://kr-dl-chunks/data-lake/sol_671ebad9599173cbe/sol_671ebad9599173cbe_chunk_0008.json"^^xsd:anyURI
- .
-
-
-
-sg:Org_ministry_for_the_environment_mfe a org:Organization ;
-    skos:prefLabel "Ministry for the Environment (MfE)" ;
-    schema:contactPoint sg:Contact_ministry_for_the_environment_mfe .
-
-sg:Contact_ministry_for_the_environment_mfe a schema:ContactPoint ;
-    schema:email "info@mfe.govt.nz" ;
-    schema:telephone "0800 499 700" .
-
-sg:Org_hawkes_bay_regional_council_hbrc a org:Organization ;
-    skos:prefLabel "Hawke’s Bay Regional Council (HBRC)" ;
-    schema:contactPoint sg:Contact_hawkes_bay_regional_council_hbrc .
-
-sg:Contact_hawkes_bay_regional_council_hbrc a schema:ContactPoint ;
-    schema:email "info@wairoafloodproject.co.nz" ;
-    schema:telephone "027 236 7494" .
-
-sg:Org_wairoa_district_council_wdc a org:Organization ;
-    skos:prefLabel "Wairoa District Council (WDC)" ;
-    schema:contactPoint sg:Contact_wairoa_district_council_wdc .
-
-sg:Contact_wairoa_district_council_wdc a schema:ContactPoint ;
-    schema:email "customerservices@wairoadc.govt.nz" ;
-    schema:telephone "+64 6 838 7309" .

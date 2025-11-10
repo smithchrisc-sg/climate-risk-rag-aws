@@ -38,19 +38,16 @@ class IntegratedEntityMapper:
         return mappings
     
     def _load_geography_mappings(self) -> Dict:
-        """Extract geography mappings from TTL file."""
+        """Load geography mappings from CSV file."""
         mappings = {}
         try:
-            with open('geography_entities.ttl', 'r') as f:
-                content = f.read()
-                # Extract country name -> GeoNames mappings from comments
-                for line in content.split('\n'):
-                    if ' -> gn:' in line and not line.strip().startswith('#'):
-                        parts = line.split(' -> ')
-                        if len(parts) == 2:
-                            country = parts[0].strip()
-                            geonames_uri = parts[1].strip()
-                            mappings[country.lower()] = geonames_uri
+            import csv
+            with open('country_mappings.csv', 'r') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    country = row['country_name'].strip()
+                    geonames_uri = row['geonames_uri'].strip()
+                    mappings[country.lower()] = geonames_uri
         except FileNotFoundError:
             pass
         return mappings
@@ -60,16 +57,18 @@ class IntegratedEntityMapper:
         if not org_name:
             return None
         
-        # Direct lookup in cache
-        if org_name in self.org_cache:
-            org_data = self.org_cache[org_name]
-            return f"sg:Organization_{org_data.get('id', org_name.replace(' ', '_'))}"
+        org_name = org_name.strip()
         
-        # Fuzzy matching fallback
-        org_lower = org_name.lower()
-        for cached_name, org_data in self.org_cache.items():
-            if org_lower in cached_name.lower() or cached_name.lower() in org_lower:
-                return f"sg:Organization_{org_data.get('id', cached_name.replace(' ', '_'))}"
+        # Direct lookup in name_to_uri cache
+        if 'name_to_uri' in self.org_cache and org_name in self.org_cache['name_to_uri']:
+            return self.org_cache['name_to_uri'][org_name]
+        
+        # Simple fuzzy matching - just check if any cached name contains our search term
+        if 'name_to_uri' in self.org_cache:
+            org_lower = org_name.lower()
+            for cached_name, uri in self.org_cache['name_to_uri'].items():
+                if org_lower in cached_name.lower() or cached_name.lower() in org_lower:
+                    return uri
         
         return None
     
@@ -106,13 +105,26 @@ class IntegratedEntityMapper:
             'theme': solution.theme
         }
         
-        # Map organizations (try all org fields)
+        # Map organizations (prioritize: public -> international -> private)
+        organization_uris = []
+        primary_publisher_uri = None
+        
         for org_field in ['public_organisations', 'international_organisations', 'private_organisations']:
             if hasattr(solution, org_field) and getattr(solution, org_field):
-                org_uri = self.map_organization(getattr(solution, org_field))
-                if org_uri:
-                    enhanced['organization_uri'] = org_uri
-                    break
+                org_text = getattr(solution, org_field).strip()
+                if org_text:
+                    # Split by common delimiters and get first org for publisher
+                    orgs = [org.strip() for org in org_text.replace('\n', ',').split(',') if org.strip()]
+                    for org in orgs:
+                        org_uri = self.map_organization(org)
+                        if org_uri:
+                            if primary_publisher_uri is None:
+                                primary_publisher_uri = org_uri
+                            organization_uris.append(org_uri)
+        
+        if organization_uris:
+            enhanced['organization_uris'] = organization_uris
+            enhanced['primary_publisher_uri'] = primary_publisher_uri
         
         # Map geography
         if solution.country:

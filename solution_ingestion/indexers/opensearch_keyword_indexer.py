@@ -11,6 +11,7 @@ from datetime import datetime
 
 from opensearchpy import OpenSearch, RequestsHttpConnection
 from models.solution import Solution
+from generators.integrated_rdf_chunk_generator import IntegratedChunk
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +51,65 @@ class OpenSearchKeywordIndexer:
         except Exception as e:
             logger.error(f"Failed to initialize OpenSearch client: {e}")
             raise
+    
+    def test_connection(self) -> bool:
+        """Test OpenSearch connection."""
+        try:
+            info = self.client.info()
+            logger.info(f"OpenSearch connection successful: {info.get('version', {}).get('number', 'unknown')}")
+            return True
+        except Exception as e:
+            logger.error(f"OpenSearch connection failed: {e}")
+            return False
+    
+    def index_document(self, solution: Solution, pseudo_doc: str) -> bool:
+        """Index a single document."""
+        try:
+            doc_body = self._prepare_document_body(solution)
+            doc_body['full_text'] = pseudo_doc  # Add the pseudo-document text
+            
+            response = self.client.index(
+                index='documents_keyword',
+                id=solution.doc_id,
+                body=doc_body
+            )
+            
+            logger.info(f"Indexed document {solution.doc_id}: {response.get('result', 'unknown')}")
+            return response.get('result') in ['created', 'updated']
+            
+        except Exception as e:
+            logger.error(f"Failed to index document {solution.doc_id}: {e}")
+            return False
+    
+    def search(self, query: str, limit: int = 10) -> List[dict]:
+        """Search documents by keyword."""
+        try:
+            search_body = {
+                "query": {
+                    "multi_match": {
+                        "query": query,
+                        "fields": ["title^2", "full_text", "description", "content"]
+                    }
+                },
+                "size": limit
+            }
+            
+            response = self.client.search(
+                index='documents_keyword',
+                body=search_body
+            )
+            
+            results = []
+            for hit in response.get('hits', {}).get('hits', []):
+                result = hit.get('_source', {})
+                result['score'] = hit.get('_score', 0)
+                results.append(result)
+            
+            return results
+            
+        except Exception as e:
+            logger.error(f"Search failed: {e}")
+            return []
     
     def index_documents(self, solutions: List[Solution]):
         """Index solutions in documents_keyword index."""
@@ -121,7 +181,7 @@ class OpenSearchKeywordIndexer:
             'timestamp': datetime.now().isoformat()
         }
     
-    def _prepare_chunk_body(self, chunk: Chunk) -> dict:
+    def _prepare_chunk_body(self, chunk: IntegratedChunk) -> dict:
         """Prepare chunk body for vector indexing."""
         
         return {

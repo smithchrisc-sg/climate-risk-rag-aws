@@ -1,0 +1,62 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix sg: <http://solve.global/knowledge-commons/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+# Regional Organization Class
+
+sg:RegionalOrganization rdfs:subClassOf gn:Feature ;
+    rdfs:label "Regional Organization" ;
+    skos:prefLabel "Regional Organization" .
+
+# Regional Organizations
+
+sg:RegionalOrg_asean a sg:RegionalOrganization ;
+    rdfs:label "Association of Southeast Asian Nations" ;
+    skos:prefLabel "ASEAN" ;
+    gn:name "Association of Southeast Asian Nations" ;
+    sg:hasMember gn:1643084, gn:1733045, gn:1694008, gn:1880251, gn:1605651, gn:1562822, gn:1327865, gn:1655842, gn:1831722, gn:1820814 .
+
+sg:RegionalOrg_apec a sg:RegionalOrganization ;
+    rdfs:label "Asia-Pacific Economic Cooperation" ;
+    skos:prefLabel "APEC" ;
+    gn:name "Asia-Pacific Economic Cooperation" ;
+    sg:hasMember gn:2077456, gn:1861060, gn:1835841, gn:1814991, gn:6252001, gn:6251999, gn:2186224, gn:1643084, gn:1733045, gn:1694008, gn:1880251, gn:1605651, gn:1562822, gn:1327865, gn:1655842, gn:1831722, gn:1820814 .
+
+sg:RegionalOrg_eu a sg:RegionalOrganization ;
+    rdfs:label "European Union" ;
+    skos:prefLabel "EU" ;
+    gn:name "European Union" ;
+    sg:hasMember gn:2921044, gn:3017382, gn:3175395, gn:2510769, gn:2750405, gn:2658434 .
+
+sg:RegionalOrg_pacific_islands a sg:RegionalOrganization ;
+    rdfs:label "Pacific Island Nations" ;
+    skos:prefLabel "Pacific Islands" ;
+    gn:name "Pacific Island Nations" ;
+    sg:hasMember gn:2205218, gn:4030656, gn:2134431, gn:1559582, gn:4034749, gn:1966436, gn:2186224 .
+
+sg:RegionalOrg_asean_plus3 a sg:RegionalOrganization ;
+    rdfs:label "ASEAN+3" ;
+    skos:prefLabel "ASEAN+3" ;
+    gn:name "ASEAN Plus Three" ;
+    sg:hasMember gn:1643084, gn:1733045, gn:1694008, gn:1880251, gn:1605651, gn:1562822, gn:1327865, gn:1655842, gn:1831722, gn:1820814, gn:1814991, gn:1861060, gn:1835841 .
+
+sg:RegionalOrg_v20 a sg:RegionalOrganization ;
+    rdfs:label "Vulnerable Twenty Group" ;
+    skos:prefLabel "V20" ;
+    gn:name "Climate Vulnerable Forum" .
+
+sg:RegionalOrg_g7 a sg:RegionalOrganization ;
+    rdfs:label "Group of Seven" ;
+    skos:prefLabel "G7" ;
+    gn:name "Group of Seven" ;
+    sg:hasMember gn:6251999, gn:3017382, gn:2921044, gn:3175395, gn:1861060, gn:2635167, gn:6252001 .
+
+sg:RegionalOrg_caribbean a sg:RegionalOrganization ;
+    rdfs:label "Caribbean and Central American States" ;
+    skos:prefLabel "Caribbean Region" ;
+    gn:name "Caribbean and Central American Region" ;
+    sg:hasMember gn:3573511, gn:3374084, gn:3572887, gn:3374084, gn:3582678, gn:3577718, gn:3575830, gn:3575174, gn:3580239, gn:3595469, gn:3608932, gn:3489940, gn:3617476, gn:3617988, gn:3616540, gn:3625428 .
+    gn:name "Pacific Island Nations" .
+    # Members: gn:2205218, gn:2088628, gn:2103350, gn:2134431, gn:4034894, gn:4032283
