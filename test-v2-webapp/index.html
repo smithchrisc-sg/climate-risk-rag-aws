@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GAIP API Test v2 - Cognito Auth</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .form-group { margin: 15px 0; }
+        .form-section { border: 1px solid #ddd; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .form-section h3 { margin-top: 0; color: #333; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; cursor: pointer; margin: 5px; }
+        button:hover { background: #005a87; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .results { margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 5px; }
+        .result-item { margin: 15px 0; padding: 10px; background: white; border-radius: 3px; border-left: 4px solid #007cba; }
+        .error { color: red; background: #ffe6e6; padding: 10px; border-radius: 3px; }
+        .success { color: green; background: #e6ffe6; padding: 10px; border-radius: 3px; }
+        .loading { color: #666; font-style: italic; }
+        .auth-status { margin-top: 10px; padding: 8px; border-radius: 3px; font-size: 14px; }
+        .token-display { background: #f0f0f0; padding: 10px; border-radius: 3px; font-family: monospace; font-size: 12px; word-break: break-all; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>GAIP Knowledge Repository API Test v2.0 - Cognito Authentication</h1>
+    
+    <div class="form-section">
+        <h3>🔐 Cognito Authentication</h3>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" id="authEmail" placeholder="your-service@domain.com" value="solveglobal-service@solveglobal.com">
+        </div>
+        
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="authPassword" placeholder="Password" value="SolveGlobalTest456!@#">
+        </div>
+        
+        <button onclick="authenticate()" id="authButton">🔑 Authenticate</button>
+        <button onclick="clearAuth()" style="background: #dc3545;">Clear Auth</button>
+        
+        <div id="authStatus" class="auth-status" style="display: none;"></div>
+        <div id="tokenDisplay" class="token-display" style="display: none;"></div>
+    </div>
+    
+    <div class="form-section">
+        <h3>API Configuration</h3>
+        <div class="form-group">
+            <label>API v2 Endpoint:</label>
+            <input type="text" id="apiEndpoint" value="https://aels3baeae.execute-api.us-east-1.amazonaws.com/v2">
+        </div>
+        
+        <div class="form-group">
+            <label>Cognito Configuration:</label>
+            <input type="text" id="userPoolId" placeholder="User Pool ID" value="us-east-1_W1N7opitG">
+            <input type="text" id="clientId" placeholder="Client ID" value="7p462gapip85uve67q310nvcil">
+            <input type="text" id="clientSecret" placeholder="Client Secret" value="1tcolo58jpot2gmm4ue272tvgvnfs9t5g8gqbo8e6e2sbrbgq64g">
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <h3>Search Parameters</h3>
+        <div class="form-group">
+            <label>Search Query:</label>
+            <input type="text" id="searchQuery" placeholder="parametric insurance flood risk" value="parametric insurance flood risk">
+        </div>
+        
+        <div class="form-group">
+            <label>Result Limit:</label>
+            <select id="limit">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <h3>Solution-Focused Filters</h3>
+        <div class="form-group">
+            <label>Solution Categories (comma-separated):</label>
+            <input type="text" id="solutionCategories" placeholder="risk reduction, insurance penetration, risk financing">
+        </div>
+        
+        <div class="form-group">
+            <label>Risk Types (comma-separated):</label>
+            <input type="text" id="riskTypes" placeholder="flood, drought, agricultural, cyber">
+        </div>
+        
+        <div class="form-group">
+            <label>Geographic Scope (comma-separated):</label>
+            <input type="text" id="geographicScope" placeholder="Asia, ASEAN, country">
+        </div>
+        
+        <div class="form-group">
+            <label>PPP Involvement:</label>
+            <select id="pppInvolvement">
+                <option value="">Any</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <h3>Quick Test Examples</h3>
+        <button onclick="loadExample1()" style="background: #28a745;">Flood Insurance Example</button>
+        <button onclick="loadExample2()" style="background: #ffc107; color: #000;">Agricultural Risk Example</button>
+        <button onclick="loadExample3()" style="background: #dc3545;">PPP Solutions Example</button>
+        <button onclick="clearForm()" style="background: #6c757d;">Clear Form</button>
+    </div>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <button onclick="executeSearch()" id="searchButton" disabled>🔍 Search</button>
+        <button onclick="testLastUpdate()" id="lastUpdateButton" style="margin-left: 10px; background: #28a745;" disabled>📅 Test Last Update</button>
+        <button onclick="testSolutionCount()" id="solutionCountButton" style="margin-left: 10px; background: #17a2b8;" disabled>📊 Test Solution Count</button>
+        <button onclick="clearResults()" style="margin-left: 10px; background: #6c757d;">🗑️ Clear Results</button>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+        let currentToken = null;
+        let tokenExpiry = null;
+        
+        async function authenticate() {
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            const userPoolId = document.getElementById('userPoolId').value.trim();
+            const clientId = document.getElementById('clientId').value.trim();
+            const clientSecret = document.getElementById('clientSecret').value.trim();
+            const authButton = document.getElementById('authButton');
+            const authStatus = document.getElementById('authStatus');
+            const tokenDisplay = document.getElementById('tokenDisplay');
+            
+            if (!email || !password) {
+                showAuthStatus('Please enter email and password', 'error');
+                return;
+            }
+            
+            authButton.disabled = true;
+            authButton.textContent = '🔄 Authenticating...';
+            
+            try {
+                // Calculate SECRET_HASH using Web Crypto API
+                const message = email + clientId;
+                const key = await crypto.subtle.importKey(
+                    'raw',
+                    new TextEncoder().encode(clientSecret),
+                    { name: 'HMAC', hash: 'SHA-256' },
+                    false,
+                    ['sign']
+                );
+                const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(message));
+                const secretHash = btoa(String.fromCharCode(...new Uint8Array(signature)));
+                
+                // Authenticate with Cognito
+                const response = await fetch('https://cognito-idp.us-east-1.amazonaws.com/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-amz-json-1.1',
+                        'X-Amz-Target': 'AWSCognitoIdentityProviderService.AdminInitiateAuth'
+                    },
+                    body: JSON.stringify({
+                        UserPoolId: userPoolId,
+                        ClientId: clientId,
+                        AuthFlow: 'ADMIN_NO_SRP_AUTH',
+                        AuthParameters: {
+                            USERNAME: email,
+                            PASSWORD: password,
+                            SECRET_HASH: secretHash
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.AuthenticationResult) {
+                    currentToken = data.AuthenticationResult.IdToken;
+                    tokenExpiry = new Date(Date.now() + (data.AuthenticationResult.ExpiresIn * 1000));
+                    
+                    showAuthStatus(`✅ Authentication successful! Token expires: ${tokenExpiry.toLocaleString()}`, 'success');
+                    
+                    // Show token (first 50 chars)
+                    tokenDisplay.textContent = `Token: ${currentToken.substring(0, 50)}...`;
+                    tokenDisplay.style.display = 'block';
+                    
+                    // Enable API buttons
+                    enableApiButtons(true);
+                    
+                    // Save credentials for convenience
+                    localStorage.setItem('authEmail', email);
+                    
+                } else {
+                    throw new Error(data.message || data.__type || 'Authentication failed');
+                }
+                
+            } catch (error) {
+                console.error('Auth error:', error);
+                showAuthStatus(`❌ Authentication failed: ${error.message}`, 'error');
+                currentToken = null;
+                tokenExpiry = null;
+                enableApiButtons(false);
+                tokenDisplay.style.display = 'none';
+            } finally {
+                authButton.disabled = false;
+                authButton.textContent = '🔑 Authenticate';
+            }
+        }
+        
+        function clearAuth() {
+            currentToken = null;
+            tokenExpiry = null;
+            document.getElementById('authStatus').style.display = 'none';
+            document.getElementById('tokenDisplay').style.display = 'none';
+            enableApiButtons(false);
+        }
+        
+        function enableApiButtons(enabled) {
+            document.getElementById('searchButton').disabled = !enabled;
+            document.getElementById('lastUpdateButton').disabled = !enabled;
+            document.getElementById('solutionCountButton').disabled = !enabled;
+        }
+        
+        function showAuthStatus(message, type) {
+            const authStatus = document.getElementById('authStatus');
+            authStatus.textContent = message;
+            authStatus.className = `auth-status ${type}`;
+            authStatus.style.display = 'block';
+        }
+        
+        function isTokenValid() {
+            return currentToken && tokenExpiry && new Date() < tokenExpiry;
+        }
+        
+        async function executeSearch() {
+            if (!isTokenValid()) {
+                document.getElementById('results').innerHTML = '<div class="error">Please authenticate first or token has expired</div>';
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('results');
+            const apiEndpoint = document.getElementById('apiEndpoint').value.trim();
+            const query = document.getElementById('searchQuery').value.trim();
+            
+            if (!query) {
+                resultsDiv.innerHTML = '<div class="error">Please enter search query</div>';
+                return;
+            }
+            
+            resultsDiv.innerHTML = '<div class="loading">🔍 Searching...</div>';
+            
+            // Build request
+            const requestBody = {
+                query: query,
+                filters: {},
+                parameters: {
+                    limit: parseInt(document.getElementById('limit').value)
+                }
+            };
+            
+            // Add solution-focused filters if provided
+            const solutionCategories = document.getElementById('solutionCategories').value.trim();
+            if (solutionCategories) {
+                requestBody.filters.solution_category = solutionCategories.split(',').map(c => c.trim()).filter(c => c);
+            }
+            
+            const riskTypes = document.getElementById('riskTypes').value.trim();
+            if (riskTypes) {
+                requestBody.filters.risk_type = riskTypes.split(',').map(r => r.trim()).filter(r => r);
+            }
+            
+            const geographicScope = document.getElementById('geographicScope').value.trim();
+            if (geographicScope) {
+                requestBody.filters.geographic_scope = geographicScope.split(',').map(g => g.trim()).filter(g => g);
+            }
+            
+            const pppInvolvement = document.getElementById('pppInvolvement').value;
+            if (pppInvolvement) {
+                requestBody.filters.ppp_involvement = pppInvolvement === 'true';
+            }
+            
+            console.log('Request body:', JSON.stringify(requestBody, null, 2));
+            
+            try {
+                const response = await fetch(`${apiEndpoint}/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                const data = await response.json();
+                console.log('Response data:', data);
+                
+                if (!response.ok) {
+                    throw new Error(data.error?.message || `HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                displayResults(data);
+                
+            } catch (error) {
+                console.error('Search error:', error);
+                resultsDiv.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            
+            let html = `
+                <div class="results">
+                    <h3>🔍 Search Results</h3>
+                    <p><strong>Status:</strong> ${data.status || 'success'}</p>
+                    <p><strong>Results:</strong> ${data.returned_results || data.results?.length || 0} of ${data.results?.length || 0}</p>
+                    <p><strong>Execution Time:</strong> ${data.execution_time_ms ? (data.execution_time_ms/1000).toFixed(3) + 's' : data.execution_time?.toFixed(3) + 's'}</p>
+            `;
+            
+            if (data.results && data.results.length > 0) {
+                data.results.forEach((result, index) => {
+                    html += `
+                        <div class="result-item">
+                            <h4>${result.solution_name || result.title || 'Untitled'}</h4>
+                            <p><strong>Relevance Score:</strong> ${result.relevance_score?.toFixed(3) || result.final_score?.toFixed(3) || result.score?.toFixed(3) || 'N/A'}</p>
+                            
+                            ${result.solution_categories && result.solution_categories.length > 0 && result.solution_categories[0] !== 'TBD' ? 
+                                `<p><strong>Solution Categories:</strong> ${result.solution_categories.join(', ')}</p>` : ''}
+                            
+                            ${result.risk_types_addressed && result.risk_types_addressed.length > 0 && result.risk_types_addressed[0] !== 'TBD' ? 
+                                `<p><strong>Risk Types:</strong> ${result.risk_types_addressed.join(', ')}</p>` : ''}
+                            
+                            ${result.country_regions_covered && result.country_regions_covered.length > 0 && result.country_regions_covered[0] !== 'TBD' ? 
+                                `<p><strong>Regions Covered:</strong> ${result.country_regions_covered.join(', ')}</p>` : ''}
+                            
+                            ${result.implemented && result.implemented !== 'unknown' ? 
+                                `<p><strong>Implemented:</strong> ${result.implemented}</p>` : ''}
+                            
+                            ${result.ppp_involvement && result.ppp_involvement !== 'unknown' ? 
+                                `<p><strong>PPP Involvement:</strong> ${result.ppp_involvement}</p>` : ''}
+                            
+                            ${result.summary_description && !result.summary_description.startsWith('TBD') ? 
+                                `<p><strong>Summary:</strong> ${result.summary_description}</p>` : ''}
+                            
+                            ${result.summary && !result.summary.startsWith('TBD') ? 
+                                `<p><strong>Summary:</strong> ${result.summary}</p>` : ''}
+                            
+                            ${result.key_highlights && result.key_highlights.length > 0 && !result.key_highlights[0].startsWith('TBD') ? 
+                                `<p><strong>Key Highlights:</strong></p><ul>${result.key_highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : ''}
+                            
+                            ${result.source && result.source !== 'TBD' ? 
+                                `<p><strong>Source:</strong> ${result.source}</p>` : ''}
+                            
+                            ${result.snippets && result.snippets.length > 0 ? 
+                                `<p><strong>Content Snippets:</strong></p>${result.snippets.map(s => `<p style="margin-left: 20px; font-style: italic;">${s.text || s}</p>`).join('')}` : ''}
+                            
+                            <p><strong>Search Types:</strong> ${result.search_types?.join(', ') || result.metadata?.search_types?.join(', ') || 'N/A'}</p>
+                            <p><strong>Document ID:</strong> ${result.document_id}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                html += '<p>No results found.</p>';
+            }
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+        
+        async function testLastUpdate() {
+            if (!isTokenValid()) {
+                document.getElementById('results').innerHTML = '<div class="error">Please authenticate first or token has expired</div>';
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('results');
+            const apiEndpoint = document.getElementById('apiEndpoint').value.trim();
+            
+            resultsDiv.innerHTML = '<div class="loading">📅 Getting last update info...</div>';
+            
+            try {
+                const response = await fetch(`${apiEndpoint}/repository/last-update`, {
+                    method: 'GET'
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error?.message || `HTTP ${response.status}`);
+                }
+                
+                let html = `
+                    <div class="results">
+                        <h3>📅 Repository Last Update</h3>
+                        <p><strong>Status:</strong> ${data.status}</p>
+                        <p><strong>Last Update:</strong> ${data.last_update || 'N/A'}</p>
+                        <p><strong>Update Type:</strong> ${data.update_type || 'N/A'}</p>
+                        <p><strong>Documents Updated:</strong> ${data.documents_updated || 0}</p>
+                    </div>
+                `;
+                
+                resultsDiv.innerHTML = html;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testSolutionCount() {
+            if (!isTokenValid()) {
+                document.getElementById('results').innerHTML = '<div class="error">Please authenticate first or token has expired</div>';
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('results');
+            const apiEndpoint = document.getElementById('apiEndpoint').value.trim();
+            
+            resultsDiv.innerHTML = '<div class="loading">📊 Getting solution count...</div>';
+            
+            try {
+                const response = await fetch(`${apiEndpoint}/repository/solution-count`, {
+                    method: 'GET'
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error?.message || `HTTP ${response.status}`);
+                }
+                
+                let html = `
+                    <div class="results">
+                        <h3>📊 Repository Solution Count</h3>
+                        <p><strong>Status:</strong> ${data.status}</p>
+                        <p><strong>Total Solutions:</strong> ${data.total_solutions || 0}</p>
+                        <p><strong>Total Documents:</strong> ${data.total_documents || 0}</p>
+                        <p><strong>Last Counted:</strong> ${data.last_counted || 'N/A'}</p>
+                `;
+                
+                if (data.breakdown) {
+                    html += '<h4>Breakdown by Category:</h4>';
+                    html += `<p><strong>Risk Reduction:</strong> ${data.breakdown.risk_reduction || 0}</p>`;
+                    html += `<p><strong>Insurance Penetration:</strong> ${data.breakdown.insurance_penetration || 0}</p>`;
+                    html += `<p><strong>Risk Financing:</strong> ${data.breakdown.risk_financing || 0}</p>`;
+                }
+                
+                html += '</div>';
+                resultsDiv.innerHTML = html;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        function loadExample1() {
+            document.getElementById('searchQuery').value = 'parametric flood insurance Southeast Asia';
+            document.getElementById('solutionCategories').value = 'risk reduction, insurance penetration';
+            document.getElementById('riskTypes').value = 'flood, agricultural';
+            document.getElementById('geographicScope').value = 'ASEAN, country';
+            document.getElementById('pppInvolvement').value = '';
+        }
+        
+        function loadExample2() {
+            document.getElementById('searchQuery').value = 'drought insurance smallholder farmers';
+            document.getElementById('solutionCategories').value = 'risk reduction';
+            document.getElementById('riskTypes').value = 'drought, agricultural, climate';
+            document.getElementById('geographicScope').value = 'Asia';
+            document.getElementById('pppInvolvement').value = '';
+        }
+        
+        function loadExample3() {
+            document.getElementById('searchQuery').value = 'public private partnership insurance solutions';
+            document.getElementById('solutionCategories').value = 'risk financing';
+            document.getElementById('riskTypes').value = '';
+            document.getElementById('geographicScope').value = 'ASEAN+3';
+            document.getElementById('pppInvolvement').value = 'true';
+        }
+        
+        function clearForm() {
+            document.getElementById('searchQuery').value = '';
+            document.getElementById('solutionCategories').value = '';
+            document.getElementById('riskTypes').value = '';
+            document.getElementById('geographicScope').value = '';
+            document.getElementById('pppInvolvement').value = '';
+            clearResults();
+        }
+        
+        // Load saved values on page load
+        window.onload = function() {
+            const savedEmail = localStorage.getItem('authEmail');
+            if (savedEmail) {
+                document.getElementById('authEmail').value = savedEmail;
+            }
+        };
+    </script>
+</body>
+</html>
