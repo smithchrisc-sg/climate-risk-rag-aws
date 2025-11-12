@@ -65,22 +65,58 @@ class SearchCoordinator:
             if self.solution_searcher is None:
                 self.logger.error("SearchCoordinator: solution_searcher is None - returning empty results")
                 solutions = []
+                total_count = 0
             else:
-                solutions = self.solution_searcher.search_solutions(filters, query)
-            self.logger.info(f"SearchCoordinator: solution_searcher returned {len(solutions)} solutions")
-            
-            # Apply limits from parameters
-            max_results = parameters.get('max_results', 20)
-            solutions = solutions[:max_results]
+                # Get pagination parameters
+                page = parameters.get('page', 1)
+                max_results = parameters.get('max_results', 20)
+                offset = (page - 1) * max_results
+                
+                self.logger.info(f"Pagination: page={page}, max_results={max_results}, offset={offset}")
+                
+                # Get total count first for debugging
+                try:
+                    total_count = self.solution_searcher.count_solutions(filters)
+                    self.logger.info(f"Total count query returned: {total_count}")
+                except Exception as e:
+                    self.logger.error(f"Count query failed: {e}")
+                    total_count = 0
+                
+                # Get paginated solutions
+                try:
+                    solutions = self.solution_searcher.search_solutions(filters, query, max_results, offset)
+                    self.logger.info(f"Search query returned: {len(solutions)} solutions")
+                except Exception as e:
+                    self.logger.error(f"Search query failed: {e}")
+                    solutions = []
+                    total_count = 0
+                
+            self.logger.info(f"SearchCoordinator: solution_searcher returned {len(solutions)} solutions, total: {total_count}")
             
             self.logger.info(f"Found {len(solutions)} solutions")
             
             # Format response using API v2 format
             execution_time = time.time() - start_time
+            
+            # Build pagination metadata
+            page = parameters.get('page', 1)
+            max_results = parameters.get('max_results', 20)
+            total_pages = (total_count + max_results - 1) // max_results  # Ceiling division
+            
+            pagination = {
+                'current_page': page,
+                'total_pages': total_pages,
+                'total_results': total_count,
+                'page_size': max_results,
+                'has_next': page < total_pages,
+                'has_previous': page > 1
+            }
+            
             response = self.response_formatter.format_solution_results(
                 solutions, 
                 {'query': query, 'filters': filters, 'parameters': parameters}, 
-                execution_time
+                execution_time,
+                pagination
             )
             
             self.logger.info(f"Phase 1 search completed in {execution_time:.2f}s")

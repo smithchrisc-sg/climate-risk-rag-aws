@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class SolutionResponseFormatter:
     
-    def format_solution_results(self, solutions: List[Dict], request: Dict, execution_time: float) -> Dict:
+    def format_solution_results(self, solutions: List[Dict], request: Dict, execution_time: float, pagination: Dict = None) -> Dict:
         """Format solutions for API v2 hierarchical response"""
         
         formatted_solutions = []
@@ -19,7 +19,8 @@ class SolutionResponseFormatter:
                 logger.warning(f"Failed to format solution {solution.get('doc_id', 'unknown')}: {e}")
                 continue
         
-        return {
+        # Build response structure
+        response = {
             'status': 'success',
             'query_id': f"search_{int(time.time())}_{hash(request.get('query', ''))}",
             'execution_time_ms': int(execution_time * 1000),
@@ -29,6 +30,13 @@ class SolutionResponseFormatter:
                 'solutions': formatted_solutions
             }
         }
+        
+        # Add pagination metadata if provided
+        if pagination:
+            response['results']['pagination'] = pagination
+            response['total_results'] = pagination.get('total_results', len(formatted_solutions))
+        
+        return response
     
     def _format_single_solution(self, solution: Dict) -> Dict:
         """Format single solution to API v2 spec"""

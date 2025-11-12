@@ -52,46 +52,15 @@
                 </div>
                 
                 <div class="filter-group">
-                    <label class="filter-label">Type of Risk:</label>
-                    <select class="filter-dropdown" id="riskTypeFilter">
-                        <option value="">All Risk Types</option>
-                        <option value="pandemic">Pandemic</option>
-                        <option value="cyber-attack">Cyber Attack</option>
-                        <option value="natural-disaster">Natural Disaster</option>
-                        <option value="climate-change">Climate Change</option>
-                        <option value="economic-crisis">Economic Crisis</option>
-                        <option value="health-crisis">Health Crisis</option>
-                        <option value="mortality-risk">Mortality Risk</option>
-                        <option value="longevity-risk">Longevity Risk</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
                     <label class="filter-label">Type of Solution:</label>
                     <select class="filter-dropdown" id="solutionTypeFilter">
                         <option value="">All Solution Types</option>
-                        <option value="prevention">Prevention</option>
-                        <option value="mitigation">Mitigation</option>
-                        <option value="response">Response</option>
-                        <option value="recovery">Recovery</option>
-                        <option value="adaptation">Adaptation</option>
-                        <option value="preparedness">Preparedness</option>
-                        <option value="resilience">Resilience Building</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label class="filter-label">Theme:</label>
-                    <select class="filter-dropdown" id="themeFilter">
-                        <option value="">All Themes</option>
-                        <option value="public-health">Public Health</option>
-                        <option value="economic-resilience">Economic Resilience</option>
-                        <option value="social-protection">Social Protection</option>
-                        <option value="infrastructure">Infrastructure</option>
-                        <option value="governance">Governance</option>
-                        <option value="technology">Technology</option>
-                        <option value="finance">Finance & Insurance</option>
-                        <option value="education">Education & Awareness</option>
+                        <option value="risk-reduction">Risk Reduction</option>
+                        <option value="risk-financing">Risk Financing</option>
+                        <option value="increase-penetration">Increase Penetration</option>
+                        <option value="raising-awareness">Raising Awareness</option>
+                        <option value="leveraging-technology">Leveraging Technology</option>
+                        <option value="regulation">Regulation</option>
                     </select>
                 </div>
                 
@@ -124,12 +93,17 @@
                             <option value="china">China</option>
                             <option value="japan">Japan</option>
                             <option value="south-korea">South Korea</option>
-                            <!-- Southeast Asia & Oceania -->
+                            <!-- Other Asia & Oceania -->
                             <option value="australia">Australia</option>
                             <option value="new-zealand">New Zealand</option>
                             <option value="papua-new-guinea">Papua New Guinea</option>
                             <option value="fiji">Fiji</option>
                             <option value="timor-leste">Timor-Leste</option>
+                            <option value="india">India</option>
+                            <option value="bangladesh">Bangladesh</option>
+                            <option value="pakistan">Pakistan</option>
+                            <option value="nepal">Nepal</option>
+                            <option value="sri-lanka">Sri Lanka</option>
                         </select>
                     </div>
                 </div>
@@ -170,13 +144,13 @@
                     <button id="searchButton" class="search-btn">🔍 Search</button>
                 </div>
                 <div class="search-options">
-                    <select id="searchType" class="search-type-select">
-                        <option value="semantic">Semantic Search</option>
-                        <option value="keyword">Keyword Search</option>
-                        <option value="hybrid">Hybrid Search</option>
+                    <select id="maxResults" class="max-results-select">
+                        <option value="10">10 per page</option>
+                        <option value="20" selected>20 per page</option>
+                        <option value="30">30 per page</option>
+                        <option value="40">40 per page</option>
+                        <option value="50">50 per page</option>
                     </select>
-                    <input type="number" id="maxResults" value="10" min="1" max="100" class="max-results-input">
-                    <span class="input-label">results</span>
                 </div>
             </div>
 
@@ -201,11 +175,9 @@
                 </div>
                 
                 <div class="pagination" id="pagination" style="display: none;">
-                    <button class="page-btn">‹</button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <button class="page-btn">›</button>
+                    <button id="prevPage" class="page-btn" onclick="changePage(-1)">‹</button>
+                    <div id="pageNumbers" class="page-numbers"></div>
+                    <button id="nextPage" class="page-btn" onclick="changePage(1)">›</button>
                 </div>
             </div>
         </main>
