@@ -35,9 +35,114 @@ class TextExtractorProcessor:
         # Initialize DatabaseManager - LOCKED LAYER
         self.db_manager = DatabaseManager()
         
-        logger.info("✅ Text Extractor Processor initialized")
-        logger.info(f"Output bucket: {self.output_bucket}")
-        logger.info(f"Completion topic: {self.text_extraction_complete_topic_arn}")
+    def extract_titles(self, textract_response: Dict) -> List[Dict]:
+        """
+        Extract document titles from Textract LAYOUT_TITLE blocks
+        
+        Args:
+            textract_response: Full Textract response with blocks
+            
+        Returns:
+            List of title dictionaries with text, page, confidence, bbox
+        """
+        logger.info(f"textract_response keys: {list(textract_response.keys())}")
+        
+        blocks = textract_response.get("blocks", [])  # Use lowercase 'blocks'
+        logger.info(f"Processing {len(blocks)} blocks for title extraction")
+        
+        # Debug: show first few block types
+        block_types = [b.get("BlockType", "UNKNOWN") for b in blocks[:10]]
+        logger.info(f"First 10 block types: {block_types}")
+        
+        # Count all block types
+        block_type_counts = {}
+        for b in blocks:
+            bt = b.get("BlockType", "UNKNOWN")
+            block_type_counts[bt] = block_type_counts.get(bt, 0) + 1
+        logger.info(f"Block type counts: {block_type_counts}")
+        
+        by_id = {b["Id"]: b for b in blocks}
+        
+        # Count LAYOUT_TITLE blocks
+        layout_title_blocks = [b for b in blocks if b["BlockType"] == "LAYOUT_TITLE"]
+        logger.info(f"Found {len(layout_title_blocks)} LAYOUT_TITLE blocks")
+
+        def lines_from_block(b):
+            # Return a list of LINE texts for any block that references them
+            texts = []
+            for rel in b.get("Relationships", []):
+                if rel["Type"] != "CHILD":
+                    continue
+                for cid in rel["Ids"]:
+                    child = by_id.get(cid)
+                    if not child:
+                        logger.warning(f"Child block {cid} not found in by_id lookup")
+                        continue
+                    if child["BlockType"] == "LINE":
+                        texts.append(child.get("Text", ""))
+                        logger.info(f"Found LINE text: {child.get('Text', '')}")
+                    elif child["BlockType"] == "LAYOUT_TEXT":
+                        # LAYOUT_TEXT itself points to LINEs
+                        texts.extend(lines_from_block(child))
+                    elif child["BlockType"] == "WORD":
+                        # rare, but just in case
+                        texts.append(child.get("Text", ""))
+            return texts
+
+        titles = []
+        for b in blocks:
+            if b["BlockType"] == "LAYOUT_TITLE":
+                logger.info(f"Processing LAYOUT_TITLE block on page {b.get('Page')} with confidence {b.get('Confidence')}")
+                line_texts = lines_from_block(b)
+                logger.info(f"Extracted line texts: {line_texts}")
+                
+                # Keep reading order; join with spaces or newlines as you prefer
+                title_text = "\n".join(t for t in line_texts if t)
+                if title_text.strip():  # Only add non-empty titles
+                    title_dict = {
+                        "page": b.get("Page"),
+                        "text": title_text.strip(),
+                        "confidence": b.get("Confidence"),
+                        "bbox": b.get("Geometry", {}).get("BoundingBox"),
+                    }
+                    titles.append(title_dict)
+                    logger.info(f"Added title: {title_dict}")
+                else:
+                    logger.warning(f"Empty title text after processing LAYOUT_TITLE block")
+        
+        logger.info(f"Extracted {len(titles)} titles from document")
+        return titles
+    
+    def select_best_title(self, titles: List[Dict]) -> Optional[str]:
+        """
+        Select the best title from extracted titles
+        
+        Args:
+            titles: List of title dictionaries from extract_titles()
+            
+        Returns:
+            Best title text or None if no suitable title found
+        """
+        if not titles:
+            return None
+        
+        # Filter out very short titles (likely not document titles)
+        valid_titles = [t for t in titles if len(t['text'].strip()) >= 5]
+        
+        if not valid_titles:
+            return None
+        
+        # Prefer titles from page 1, then by confidence
+        page_1_titles = [t for t in valid_titles if t.get('page') == 1]
+        
+        if page_1_titles:
+            # Sort page 1 titles by confidence (highest first)
+            best_title = max(page_1_titles, key=lambda t: t.get('confidence', 0))
+        else:
+            # No page 1 titles, use highest confidence overall
+            best_title = max(valid_titles, key=lambda t: t.get('confidence', 0))
+        
+        return best_title['text'].strip()
     
     def extract_doc_id_from_textract_event(self, textract_message: Dict) -> str:
         """
@@ -308,6 +413,30 @@ class TextExtractorProcessor:
                 
                 # Extract text content
                 text_content = self.extract_text_content(textract_response['blocks'])
+                
+                # Extract document titles from LAYOUT_TITLE blocks
+                titles = self.extract_titles(textract_response)
+                
+                # Add titles to text_content for downstream processing
+                text_content['titles'] = titles
+                
+                # Update database with best title
+                best_title = self.select_best_title(titles)
+                if best_title:
+                    try:
+                        self.db_manager.update_document_title(doc_id, best_title)
+                        logger.info(f"Updated database with title for {doc_id}: {best_title[:50]}...")
+                    except Exception as e:
+                        logger.error(f"Failed to update document title in database: {e}")
+                        # Don't fail the entire process for title update failure
+                
+                # Log extracted titles for debugging
+                if titles:
+                    logger.info(f"Extracted {len(titles)} titles for doc_id {doc_id}:")
+                    for i, title in enumerate(titles):
+                        logger.info(f"  Title {i+1} (page {title['page']}): {title['text'][:100]}...")
+                else:
+                    logger.info(f"No titles found for doc_id {doc_id}")
                 
                 # Save results to S3
                 locations = self.save_results_to_s3(doc_id, text_content, textract_response)

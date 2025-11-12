@@ -60,19 +60,13 @@ class OpenSearchProcessor:
             )
         
         try:
-            # Build search query with highlights and content_type filtering
+            # Build search query with highlights
             search_body = {
                 "query": {
-                    "bool": {
-                        "must": [
-                            {
-                                "multi_match": {
-                                    "query": query,
-                                    "fields": ["title^2", "content"],
-                                    "type": "best_fields"
-                                }
-                            }
-                        ]
+                    "multi_match": {
+                        "query": query,
+                        "fields": ["title^2", "content"],
+                        "type": "best_fields"
                     }
                 },
                 "highlight": {
@@ -89,16 +83,6 @@ class OpenSearchProcessor:
                 "size": parameters.get('limit', 20)
             }
             
-            # Add content_type filter if specified
-            if filters.get('content_type'):
-                content_types = filters['content_type']
-                if isinstance(content_types, str):
-                    content_types = [content_types]
-                
-                search_body["query"]["bool"]["filter"] = [
-                    {"terms": {"content_type": content_types}}
-                ]
-            
             # Execute search
             response = self.client.search(
                 index="documents_keyword",
@@ -114,21 +98,6 @@ class OpenSearchProcessor:
                 content_highlights = highlights.get('content', [])
                 title_highlights = highlights.get('title', [])
                 
-                # Extract metadata from source
-                source = hit['_source']
-                metadata = {
-                    'opensearch_score': hit['_score'],
-                    'index': 'documents_keyword',
-                    'content_type': source.get('content_type', 'trusted_source_document'),
-                    'document_keywords': source.get('document_keywords', []),
-                    'structure_info': source.get('structure_info', {}),
-                    'processing_metadata': source.get('metadata', {}).get('processing_metadata', {}),
-                    'document_metadata': source.get('metadata', {}).get('document_metadata', {}),
-                    'timestamp': source.get('timestamp', ''),
-                    'summary_description': source.get('summary_description', source.get('content', '')[:200] + '...' if source.get('content') else ''),
-                    'key_highlights': content_highlights[:3] if content_highlights else []
-                }
-                
                 result = SearchResult(
                     document_id=hit['_source'].get('doc_id', hit['_id']),
                     title=hit['_source'].get('title', ''),
@@ -138,7 +107,10 @@ class OpenSearchProcessor:
                     title_highlights=title_highlights,
                     source=ResultType.KEYWORD,
                     search_type="keyword",
-                    metadata=metadata
+                    metadata={
+                        'opensearch_score': hit['_score'],
+                        'index': 'documents_keyword'
+                    }
                 )
                 results.append(result)
             
@@ -197,34 +169,18 @@ class OpenSearchProcessor:
             response_body = json.loads(response['body'].read())
             query_embedding = response_body['embedding']
             
-            # Build vector search query with content_type filtering
+            # Build vector search query
             search_body = {
                 "query": {
-                    "bool": {
-                        "must": [
-                            {
-                                "knn": {
-                                    "vector": {
-                                        "vector": query_embedding,
-                                        "k": parameters.get('limit', 20)
-                                    }
-                                }
-                            }
-                        ]
+                    "knn": {
+                        "vector": {
+                            "vector": query_embedding,
+                            "k": parameters.get('limit', 20)
+                        }
                     }
                 },
                 "size": parameters.get('limit', 20)
             }
-            
-            # Add content_type filter if specified
-            if filters.get('content_type'):
-                content_types = filters['content_type']
-                if isinstance(content_types, str):
-                    content_types = [content_types]
-                
-                search_body["query"]["bool"]["filter"] = [
-                    {"terms": {"content_type": content_types}}
-                ]
             
             # Execute search
             search_response = self.client.search(
@@ -235,37 +191,20 @@ class OpenSearchProcessor:
             # Format results
             results = []
             for hit in search_response['hits']['hits']:
-                # Extract highlights (vector search can also have highlights if we add them)
-                highlights = hit.get('highlight', {})
-                content_highlights = highlights.get('content', [])
-                title_highlights = highlights.get('title', [])
-                
-                # Extract metadata from source
-                source = hit['_source']
-                metadata = {
-                    'opensearch_score': hit['_score'],
-                    'index': 'chunks_vector',
-                    'content_type': source.get('content_type', 'trusted_source_document'),
-                    'similarity_score': hit['_score'],
-                    'document_keywords': source.get('document_keywords', []),
-                    'structure_info': source.get('structure_info', {}),
-                    'processing_metadata': source.get('metadata', {}).get('processing_metadata', {}),
-                    'document_metadata': source.get('metadata', {}).get('document_metadata', {}),
-                    'timestamp': source.get('timestamp', ''),
-                    'summary_description': source.get('summary_description', source.get('content', '')[:200] + '...' if source.get('content') else ''),
-                    'key_highlights': content_highlights[:3] if content_highlights else []
-                }
-                
                 result = SearchResult(
                     document_id=hit['_source'].get('doc_id', hit['_id']),
                     title=hit['_source'].get('title', ''),
                     score=hit['_score'],
                     content=hit['_source'].get('content', '')[:500],
-                    content_highlights=content_highlights,
-                    title_highlights=title_highlights,
+                    content_highlights=[],  # Vector search doesn't provide highlights
+                    title_highlights=[],
                     source=ResultType.VECTOR,
                     search_type="vector",
-                    metadata=metadata
+                    metadata={
+                        'opensearch_score': hit['_score'],
+                        'index': 'chunks_vector',
+                        'similarity_score': hit['_score']
+                    }
                 )
                 results.append(result)
             

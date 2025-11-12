@@ -2,9 +2,9 @@ from typing import Dict, Any
 from models.request import SearchRequest
 
 def validate_request(request_body: Dict[str, Any]) -> SearchRequest:
-    """Validate and parse search request"""
+    """Validate API v2 request format only"""
     
-    # Required fields
+    # Required: query
     if 'query' not in request_body:
         raise ValueError("Missing required field: query")
     
@@ -12,40 +12,30 @@ def validate_request(request_body: Dict[str, Any]) -> SearchRequest:
     if not query:
         raise ValueError("Query cannot be empty")
     
-    # Optional filters
+    # Optional: parameters (with defaults)
+    parameters = request_body.get('parameters', {})
+    max_results = parameters.get('max_results', 20)
+    
+    if max_results < 1 or max_results > 100:
+        raise ValueError("max_results must be between 1 and 100")
+    
+    # Optional: filters
     filters = request_body.get('filters', {})
     if not isinstance(filters, dict):
         raise ValueError("Filters must be an object")
     
-    # Validate filter values
-    if 'categories' in filters and not isinstance(filters['categories'], list):
-        raise ValueError("Categories filter must be an array")
+    # Validate specific filter types if present
+    if 'solution_category' in filters and not isinstance(filters['solution_category'], list):
+        raise ValueError("solution_category filter must be an array")
     
-    if 'regions' in filters and not isinstance(filters['regions'], list):
-        raise ValueError("Regions filter must be an array")
+    if 'risk_type' in filters and not isinstance(filters['risk_type'], list):
+        raise ValueError("risk_type filter must be an array")
     
-    if 'date_range' in filters:
-        date_range = filters['date_range']
-        if not isinstance(date_range, dict):
-            raise ValueError("Date range filter must be an object")
-        if 'start' not in date_range and 'end' not in date_range:
-            raise ValueError("Date range must specify start or end")
+    if 'solution_type' in filters and not isinstance(filters['solution_type'], list):
+        raise ValueError("solution_type filter must be an array")
     
-    # Optional parameters
-    parameters = request_body.get('parameters', {})
-    if not isinstance(parameters, dict):
-        raise ValueError("Parameters must be an object")
-    
-    # Validate parameter values
-    if 'limit' in parameters:
-        limit = parameters['limit']
-        if not isinstance(limit, int) or limit < 1 or limit > 100:
-            raise ValueError("Limit must be an integer between 1 and 100")
-    
-    if 'search_mode' in parameters:
-        valid_modes = ['hybrid', 'keyword', 'vector', 'graph']
-        if parameters['search_mode'] not in valid_modes:
-            raise ValueError(f"Search mode must be one of: {valid_modes}")
+    if 'countries' in filters and not isinstance(filters['countries'], list):
+        raise ValueError("countries filter must be an array")
     
     return SearchRequest(
         query=query,

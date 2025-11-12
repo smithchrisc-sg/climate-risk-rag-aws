@@ -11,10 +11,12 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 from search.coordinator import SearchCoordinator
 from models.request import SearchRequest
+from models.response import SearchResponse
+from utilities.formatting import format_gaip_response
 from utilities.validation import validate_request
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
-    """Main Lambda handler for GAIP search API v2"""
+    """Main Lambda handler for GAIP search API"""
 
     logger = logging.getLogger("search_handler")
     logger.setLevel(logging.INFO)
@@ -43,7 +45,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         return error_response(500, 'INTERNAL_ERROR', 'Request processing failed')
 
 def handle_search_request(event: Dict[str, Any], context: Any, start_time: float) -> Dict[str, Any]:
-    """Handle API v2 search requests"""
+    """Handle search requests"""
     logger = logging.getLogger("search_handler")
     
     try:
@@ -54,13 +56,13 @@ def handle_search_request(event: Dict[str, Any], context: Any, start_time: float
         logger.info(f"Request body: {request_body}")
         logger.info(f"User context: {user_context}")
         
-        # Validate request (API v2 format only)
+        # Validate request
         search_request = validate_request(request_body)
         
         # Initialize search coordinator
         coordinator = SearchCoordinator()
         
-        # Execute Phase 1 search (solutions)
+        # Execute search
         results = asyncio.run(coordinator.search(
             query=search_request.query,
             filters=search_request.filters,
@@ -68,11 +70,11 @@ def handle_search_request(event: Dict[str, Any], context: Any, start_time: float
             user_context=user_context
         ))
         
-        # Add final execution time
+        # Format response
         execution_time = time.time() - start_time
-        results['execution_time_ms'] = int(execution_time * 1000)
+        response = format_gaip_response(results, search_request, execution_time)
         
-        logger.info(f"Search completed: {results.get('total_results', 0)} solutions in {execution_time:.2f}s")
+        logger.info(f"Final response: {json.dumps(response, indent=2)}")
         
         return {
             'statusCode': 200,
@@ -80,16 +82,14 @@ def handle_search_request(event: Dict[str, Any], context: Any, start_time: float
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps(results)
+            'body': json.dumps(response)
         }
         
     except ValueError as e:
         logger.error(f"Validation error: {str(e)}")
-        return error_response(400, 'VALIDATION_ERROR', str(e))
+        return error_response(400, 'INVALID_REQUEST', str(e))
     except Exception as e:
         logger.error(f"Search error: {str(e)}")
-        import traceback
-        logger.error(f"Full traceback: {traceback.format_exc()}")
         return error_response(500, 'INTERNAL_ERROR', 'Search processing failed')
 
 def handle_repository_metadata(metadata_type: str) -> Dict[str, Any]:
@@ -119,10 +119,10 @@ def handle_repository_metadata(metadata_type: str) -> Dict[str, Any]:
         return error_response(500, 'INTERNAL_ERROR', 'Repository metadata request failed')
 
 def error_response(status_code: int, error_code: str, message: str) -> Dict[str, Any]:
-    """Generate API v2 error response"""
+    """Generate error response"""
     logger = logging.getLogger("search_handler")
+    logger.setLevel(logging.INFO)
     logger.error(f"Error response: {error_code} - {message}")
-    
     return {
         'statusCode': status_code,
         'headers': {
@@ -130,11 +130,9 @@ def error_response(status_code: int, error_code: str, message: str) -> Dict[str,
             'Access-Control-Allow-Origin': '*'
         },
         'body': json.dumps({
-            'status': 'error',
             'error': {
                 'code': error_code,
                 'message': message
-            },
-            'timestamp': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+            }
         })
     }
