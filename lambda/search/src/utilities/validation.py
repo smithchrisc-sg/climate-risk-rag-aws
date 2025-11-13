@@ -1,8 +1,10 @@
 from typing import Dict, Any
 from models.request import SearchRequest
+import json
+import base64
 
 def validate_request(request_body: Dict[str, Any]) -> SearchRequest:
-    """Validate API v2 request format only"""
+    """Validate API v2 request format with cursor support"""
     
     # Required: query
     if 'query' not in request_body:
@@ -15,9 +17,19 @@ def validate_request(request_body: Dict[str, Any]) -> SearchRequest:
     # Optional: parameters (with defaults)
     parameters = request_body.get('parameters', {})
     max_results = parameters.get('max_results', 20)
+    cursor = parameters.get('cursor')
     
     if max_results < 1 or max_results > 100:
         raise ValueError("max_results must be between 1 and 100")
+    
+    # Validate cursor if present
+    if cursor is not None:
+        try:
+            cursor_data = json.loads(base64.b64decode(cursor).decode('utf-8'))
+            if not isinstance(cursor_data, dict) or 'query_id' not in cursor_data or 'page' not in cursor_data:
+                raise ValueError("Invalid cursor format")
+        except Exception:
+            raise ValueError("Invalid cursor encoding")
     
     # Optional: filters
     filters = request_body.get('filters', {})

@@ -2,6 +2,17 @@
 let currentToken = null;
 let tokenExpiry = null;
 
+// Global state for cursor-based pagination
+let currentSearchState = {
+    query: '',
+    filters: {},
+    pageSize: 20,
+    currentPage: 1,
+    totalPages: 1,
+    queryId: null,
+    lastCursor: null
+};
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -198,7 +209,18 @@ function updateUserInfo() {
 
 // Search Functions
 function performNewSearch() {
-    // Reset to page 1 for new searches
+    // Reset search state for new searches
+    currentSearchState = {
+        query: '',
+        filters: {},
+        pageSize: 20,
+        currentPage: 1,
+        totalPages: 1,
+        queryId: null,
+        lastCursor: null
+    };
+    
+    // Remove page parameter from URL
     const url = new URL(window.location);
     url.searchParams.delete('page');
     window.history.replaceState({}, '', url);
@@ -207,7 +229,7 @@ function performNewSearch() {
     performSearch();
 }
 
-async function performSearch() {
+async function performSearch(targetPage = null) {
     if (!currentToken || Date.now() > tokenExpiry) {
         showAuthModal();
         return;
@@ -236,19 +258,32 @@ async function performSearch() {
     showActiveFilters(filters);
     
     try {
-        // Get current page from URL or default to 1
-        const currentPage = parseInt(new URLSearchParams(window.location.search).get('page')) || 1;
+        // Determine if this is a new search or pagination
+        const isNewSearch = !targetPage || 
+                           query !== currentSearchState.query || 
+                           JSON.stringify(filters) !== JSON.stringify(currentSearchState.filters) ||
+                           maxResults !== currentSearchState.pageSize;
         
-        // Build request payload matching current backend expectations
+        let cursor = null;
+        if (!isNewSearch && currentSearchState.queryId && targetPage) {
+            // Generate cursor for pagination
+            const cursorPayload = {
+                query_id: currentSearchState.queryId,
+                page: targetPage
+            };
+            cursor = btoa(JSON.stringify(cursorPayload));
+        }
+        
+        // Build request payload with cursor-based pagination
         const requestPayload = {
             query: query,
             parameters: {
                 max_results: maxResults,
-                page: currentPage
+                cursor: cursor
             }
         };
         
-        // Add filters if any are selected (for future backend support)
+        // Add filters if any are selected
         if (Object.keys(filters).length > 0) {
             requestPayload.filters = filters;
         }
@@ -270,12 +305,34 @@ async function performSearch() {
         }
         
         const data = await response.json();
+        
+        console.log('API Response data:', data);
+        console.log('Pagination from response:', data.results?.pagination);
+        
+        // Update search state
+        currentSearchState = {
+            query: query,
+            filters: filters,
+            pageSize: maxResults,
+            currentPage: data.results?.pagination?.current_page || 1,
+            totalPages: data.results?.pagination?.total_pages || 1,
+            queryId: data.query_id || null,
+            lastCursor: data.results?.pagination?.next_cursor || null
+        };
+        
+        console.log('Updated currentSearchState:', currentSearchState);
+        
         displaySearchResults(data, filters);
         
         // Update pagination if present
-        if (data.results && data.results.pagination) {
+        if (data.results?.pagination) {
             updatePagination(data.results.pagination);
         }
+        
+        // Update URL without page parameter (cursor-based now)
+        const url = new URL(window.location);
+        url.searchParams.delete('page');
+        window.history.replaceState({}, '', url);
         
     } catch (error) {
         console.error('Search error:', error);
@@ -764,18 +821,25 @@ function createEllipsis() {
 }
 
 function changePage(direction) {
-    const currentPage = parseInt(new URLSearchParams(window.location.search).get('page')) || 1;
-    const newPage = currentPage + direction;
-    if (newPage >= 1) {
-        goToPage(newPage);
+    console.log('changePage called with direction:', direction);
+    console.log('currentSearchState:', currentSearchState);
+    
+    const newPage = currentSearchState.currentPage + direction;
+    console.log('newPage calculated:', newPage);
+    console.log('totalPages:', currentSearchState.totalPages);
+    
+    if (newPage >= 1 && newPage <= currentSearchState.totalPages) {
+        console.log('Calling performSearch with newPage:', newPage);
+        performSearch(newPage);
+    } else {
+        console.log('Page out of bounds, not performing search');
     }
 }
 
 function goToPage(page) {
-    const url = new URL(window.location);
-    url.searchParams.set('page', page);
-    window.history.pushState({}, '', url);
-    performSearch();
+    if (page >= 1 && page <= currentSearchState.totalPages) {
+        performSearch(page);
+    }
 }
 
 function handleSortClick(event) {

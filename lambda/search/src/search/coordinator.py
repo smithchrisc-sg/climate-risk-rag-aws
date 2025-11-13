@@ -1,6 +1,9 @@
 import asyncio
 import time
 import logging
+import json
+import base64
+import uuid
 from typing import Dict, Any, List
 
 # Import new solution search components
@@ -51,27 +54,48 @@ class SearchCoordinator:
 
     async def search(self, query: str, filters: Dict[str, Any], 
                     parameters: Dict[str, Any], user_context: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute Phase 1 search: Solutions via Knowledge Graph + S3"""
+        """Execute search with cursor-based pagination"""
         
         start_time = time.time()
         
-        self.logger.info(f"Starting Phase 1 solution search for query: '{query}'")
+        self.logger.info(f"Starting search for query: '{query}'")
         self.logger.info(f"Filters: {filters}")
         self.logger.info(f"Parameters: {parameters}")
         
         try:
-            # Phase 1: Get solutions from KG + S3
+            # Extract pagination parameters
+            cursor = parameters.get('cursor')
+            max_results = parameters.get('max_results', 20)
+            
+            # Determine page and query_id
+            if cursor:
+                # Decode cursor to get page and query_id
+                try:
+                    cursor_data = json.loads(base64.b64decode(cursor).decode('utf-8'))
+                    page = cursor_data.get('page', 1)
+                    query_id = cursor_data.get('query_id')
+                    self.logger.info(f"Cursor decoded: page={page}, query_id={query_id}")
+                except Exception as e:
+                    self.logger.error(f"Failed to decode cursor: {e}")
+                    # Treat as new search
+                    page = 1
+                    query_id = None
+            else:
+                # New search
+                page = 1
+                query_id = f"search_{str(uuid.uuid4())}"
+                self.logger.info(f"New search, generated query_id: {query_id}")
+            
+            # Calculate offset for existing Neptune pagination
+            offset = (page - 1) * max_results
+            
+            # Execute search using existing logic
             self.logger.info("SearchCoordinator: About to call solution_searcher.search_solutions")
             if self.solution_searcher is None:
                 self.logger.error("SearchCoordinator: solution_searcher is None - returning empty results")
                 solutions = []
                 total_count = 0
             else:
-                # Get pagination parameters
-                page = parameters.get('page', 1)
-                max_results = parameters.get('max_results', 20)
-                offset = (page - 1) * max_results
-                
                 self.logger.info(f"Pagination: page={page}, max_results={max_results}, offset={offset}")
                 
                 # Get total count first for debugging
@@ -93,15 +117,14 @@ class SearchCoordinator:
                 
             self.logger.info(f"SearchCoordinator: solution_searcher returned {len(solutions)} solutions, total: {total_count}")
             
-            self.logger.info(f"Found {len(solutions)} solutions")
-            
-            # Format response using API v2 format
-            execution_time = time.time() - start_time
-            
             # Build pagination metadata
-            page = parameters.get('page', 1)
-            max_results = parameters.get('max_results', 20)
-            total_pages = (total_count + max_results - 1) // max_results  # Ceiling division
+            total_pages = (total_count + max_results - 1) // max_results if total_count > 0 else 1
+            
+            # Generate next cursor if there are more pages
+            next_cursor = None
+            if page < total_pages:
+                next_cursor_data = {'query_id': query_id, 'page': page + 1}
+                next_cursor = base64.b64encode(json.dumps(next_cursor_data).encode('utf-8')).decode('utf-8')
             
             pagination = {
                 'current_page': page,
@@ -109,8 +132,12 @@ class SearchCoordinator:
                 'total_results': total_count,
                 'page_size': max_results,
                 'has_next': page < total_pages,
-                'has_previous': page > 1
+                'has_previous': page > 1,
+                'next_cursor': next_cursor
             }
+            
+            # Format response using API v2 format
+            execution_time = time.time() - start_time
             
             response = self.response_formatter.format_solution_results(
                 solutions, 
@@ -119,12 +146,15 @@ class SearchCoordinator:
                 pagination
             )
             
-            self.logger.info(f"Phase 1 search completed in {execution_time:.2f}s")
+            # Add query_id to response
+            response['query_id'] = query_id
+            
+            self.logger.info(f"Search completed in {execution_time:.2f}s")
             return response
             
         except Exception as e:
             import traceback
-            self.logger.error(f"Phase 1 search failed: {str(e)}")
+            self.logger.error(f"Search failed: {str(e)}")
             self.logger.error(f"Full stack trace: {traceback.format_exc()}")
             
             return {
