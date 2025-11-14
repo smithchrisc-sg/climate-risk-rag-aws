@@ -88,10 +88,239 @@ class SolutionSearcher:
             'south-korea': ['South Korea'],
             'new-zealand': ['New Zealand']
         }
-        self.logger.info(f"SolutionSearcher initialized with filter mappings: {self.filter_mappings}")
-        self.logger.info(f"Knowledge Graph Manager initialized: {self.kg_manager}")
-        self.logger.info(f"S3 client initialized: {self.s3_client}")
-        self.logger.info(f"Chunks bucket: {self.chunks_bucket}")
+    def get_filtered_solution_ids(self, filters: Dict[str, Any]) -> List[str]:
+        """Get only solution IDs from Neptune filters (lightweight, no S3 content)"""
+        
+        self.logger.info("=== GET_FILTERED_SOLUTION_IDS: METHOD CALLED ===")
+        self.logger.info(f"Filters: {filters}")
+        
+        try:
+            # Build SPARQL query for solution IDs only
+            sparql_query = self._build_solution_ids_query(filters)
+            self.logger.info(f"SPARQL query: {sparql_query}")
+            
+            # Execute query
+            results = self.kg_manager.execute_sparql_query(sparql_query)
+            self.logger.info(f"Raw SPARQL results: {results}")
+            
+            # Extract solution IDs
+            solution_ids = []
+            if results:
+                for result in results:
+                    solution_ids.append(result['solution'])
+            else:
+                self.logger.warning(f"No results found for query: {sparql_query}")
+                return []
+            
+            self.logger.info(f"Extracted {len(solution_ids)} solution IDs")
+            return solution_ids
+            
+        except Exception as e:
+            self.logger.error(f"Failed to get solution IDs: {e}")
+            import traceback
+            self.logger.error(f"Full traceback: {traceback.format_exc()}")
+            return []
+    
+    def _build_solution_ids_query(self, filters: Dict[str, Any]) -> str:
+        """Build SPARQL query to get only solution IDs (no content)"""
+        
+        # Base query - just get solution URIs
+        query_parts = [
+            "PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>",
+            "PREFIX sg: <http://solve.global/knowledge-commons/>",
+            "PREFIX dcterms: <http://purl.org/dc/terms/>",
+            "PREFIX gn: <http://www.geonames.org/ontology#>",
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+            "",
+            "SELECT DISTINCT ?solution WHERE {",
+            "  ?solution a sgd:Solution ."
+        ]
+        
+        # Add filter conditions (reuse existing logic but simplified)
+        filter_conditions = []
+        
+        # Solution category (risk types)
+        if 'solution_category' in filters and filters['solution_category']:
+            categories = filters['solution_category'] if isinstance(filters['solution_category'], list) else [filters['solution_category']]
+            mapped_categories = [self.filter_mappings['solution_category'].get(cat) for cat in categories if cat in self.filter_mappings['solution_category']]
+            if mapped_categories:
+                category_uris = ', '.join([f"{uri}" for uri in mapped_categories])
+                filter_conditions.append(f"  ?solution sg:riskType ?risk_type .")
+                filter_conditions.append(f"  FILTER(?risk_type IN ({category_uris}))")
+        
+        # Solution type
+        if 'solution_type' in filters and filters['solution_type']:
+            types = filters['solution_type'] if isinstance(filters['solution_type'], list) else [filters['solution_type']]
+            mapped_types = [self.filter_mappings['solution_type'].get(t) for t in types if t in self.filter_mappings['solution_type']]
+            if mapped_types:
+                type_uris = ', '.join([f"{uri}" for uri in mapped_types])
+                filter_conditions.append(f"  ?solution sg:solutionType ?sol_type .")
+                filter_conditions.append(f"  FILTER(?sol_type IN ({type_uris}))")
+        
+        # Countries
+        if 'countries' in filters and filters['countries']:
+            countries = filters['countries'] if isinstance(filters['countries'], list) else [filters['countries']]
+            mapped_countries = [self.country_mappings.get(c) for c in countries if c in self.country_mappings]
+            if mapped_countries:
+                country_uris = ', '.join([f"{uri}" for uri in mapped_countries])
+                filter_conditions.append(f"  ?solution dcterms:spatial ?country .")
+                filter_conditions.append(f"  FILTER(?country IN ({country_uris}))")
+        # Regions
+        elif 'region' in filters and filters['region']:
+            region = filters['region'] if isinstance(filters['region'], list) else [filters['region']]
+            mapped_region = [self.filter_mappings['region'].get(r) for r in region if r in self.filter_mappings['region']]
+            if mapped_region: # only one region is supported at a time
+                region_uri = f"{mapped_region[0]}"
+                filter_conditions.append(f"  ?solution dcterms:spatial ?country .")
+                filter_conditions.append(f"{region_uri} sg:hasMember ?country .")  
+        
+        # Add all filter conditions
+        query_parts.extend(filter_conditions)
+        query_parts.append("}")
+
+        full_query = '\n'.join(query_parts)
+
+        return full_query
+        
+    def get_solution_content(self, solution_uri: str) -> Dict[str, Any]:
+        """Fetch full content for a single solution by doc_id"""
+        
+        self.logger.info(f"Fetching content for solution: {solution_uri}")
+        
+        try:
+            # Get solution metadata from Neptune
+            sparql_query = f"""
+            PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
+            PREFIX sg: <http://solve.global/knowledge-commons/>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            
+            SELECT ?solution ?title ?riskType ?solutionType ?doc_id ?prefixed WHERE {{
+                ?solution a sgd:Solution .
+                ?solution dcterms:identifier ?doc_id .  
+                FILTER(STR(?solution) = "{solution_uri}")
+                OPTIONAL {{ ?solution dcterms:title ?title }}
+                OPTIONAL {{ ?solution sg:riskType ?riskType }}
+                OPTIONAL {{ ?solution sg:solutionType ?solutionType }}
+                
+                # Then optionally get chunks for these solutions
+                OPTIONAL {{
+                    ?solution sgd:hasChild ?descSection .
+                    ?descSection dcterms:title ?t .
+                    FILTER(LCASE(STR(?t)) = "description")
+
+                    ?descSection sgd:firstChild ?c1 .
+                    ?c1 (sgd:nextSibling)* ?chunk .
+                    ?chunk sgd:hasParent ?descSection .
+
+                    BIND(STR(?chunk) AS ?s)
+                    BIND(STRLEN(?s) AS ?L)
+                    BIND(SUBSTR(?s, ?L - 3, 4) AS ?last4)
+                    FILTER(REGEX(?last4, "^[0-9]{{4}}$"))
+                    
+                    BIND(CONCAT(?last4, "|", STR(?chunk)) AS ?prefixed)
+                }}
+            }}
+            """
+            
+            kg_results = self.kg_manager.execute_sparql_query(sparql_query)
+            self.logger.info(f"Raw SPARQL results for solution content: {kg_results}")
+
+            kg_data = {}
+            doc_id = ''
+            content_data = {}
+            # Extract KG metadata
+            if kg_results:
+                # For now, we only support one solution per URI. Ultimately we need to grab additional risktTypes and SolutionTypes from subsequent rows in the KG results.
+                chunk_numbers = []
+                if len(kg_results) >= 1:
+                    kg_data = {
+                        'title': kg_results[0].get('title', ''), # this is the title of the solution
+                        'riskType': kg_results[0].get('riskType', ''), # this is the URI of the risk type - will need to query so we get the label
+                        'solutionType': kg_results[0].get('solutionType',  ''), # this is the URI of the solution type - will need to query so we get the label
+                    }
+                    for result in kg_results:
+                        if result.get('prefixed'):
+                            chunk_num = int(result.get('prefixed').split('|')[0])
+                            if chunk_num not in chunk_numbers:  # Ensure uniqueness
+                                chunk_numbers.append(chunk_num)
+
+                    doc_id = kg_results[0].get('doc_id', '') # this is the doc_id of the solution
+                    content_data = self._get_solution_content(doc_id, chunk_numbers) if chunk_numbers else {}
+            else:
+                self.logger.warning(f"No results found for solution URI: {solution_uri}")
+                return None
+            
+            # Combine data
+            solution_data = {
+                'doc_id': doc_id,
+                'kg_data': kg_data,
+                'content': content_data  # FIXME this needs to be just the content from 1..n chunks
+            }
+            
+            # Convert to API format
+            return self._convert_solution_to_api_format(solution_data)
+            
+        except Exception as e:
+            self.logger.error(f"Failed to get solution content for {doc_id}: {e}")
+            return None
+    
+    def _convert_solution_to_api_format(self, solution_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Convert solution data to API v2 format"""
+        
+        try:
+            doc_id = solution_data.get('doc_id', '')
+            kg_data = solution_data.get('kg_data', {})
+            content = solution_data.get('content', {})
+            
+            title = kg_data.get('title', '') or content.get('chunk_metadata', {}).get('solution_name', '')
+            description = content.get('assembled_description', '')
+            
+            return {
+                'document_id': doc_id,
+                'content_type': 'solution',
+                'solution_name': title,
+                'title': title,
+                'relevance_score': 1.0,
+                'publication_date': None,
+                'country_regions_covered': [],
+                'risk_types_addressed': [kg_data.get('riskType', '')] if kg_data.get('riskType') else [],
+                'solution_categories': [],
+                'solution_types': kg_data.get('solutionType', '').split(',') if kg_data.get('solutionType') else [],
+                'implemented': 'unknown',
+                'ppp_involvement': 'unknown',
+                'summary_description': description,
+                'key_highlights': [],
+                'source': '',
+                'related_documents': [],
+                'snippets': [
+                    {
+                        'text': description[:200] + '...' if description and len(description) > 200 else description,
+                        'page_number': 1,
+                        'section': 'Description'
+                    }
+                ] if description else [],
+                'metadata': {
+                    'document_type': 'solution',
+                    'categories': [],
+                    'regions': [],
+                    'publication_year': None,
+                    'source': 'neptune_s3',
+                    'processing_timestamp': content.get('chunk_metadata', {}).get('processing_timestamp', '') if content else ''
+                }
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Failed to format solution {solution_data.get('doc_id', 'unknown')}: {e}")
+            return {
+                'document_id': solution_data.get('doc_id', 'unknown'),
+                'content_type': 'solution',
+                'solution_name': 'Solution formatting error',
+                'title': 'Solution formatting error',
+                'relevance_score': 0.0,
+                'summary_description': 'Error formatting solution data',
+                'metadata': {'source': 'error_fallback'}
+            }
         
     def search_solutions(self, filters: Dict[str, Any], query: str, max_results: int = 20, offset: int = 0) -> List[Dict]:
         """Search solutions using KG filters + S3 content"""

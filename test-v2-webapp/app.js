@@ -252,7 +252,14 @@ async function performSearch(targetPage = null) {
     searchButton.disabled = true;
     searchButton.textContent = '🔍 Searching...';
     
-    showResults('Searching...', 'loading');
+    // Show appropriate loading message
+    if (targetPage && currentSearchState.queryId) {
+        // This is pagination within existing results
+        showResults(`Loading page ${targetPage}...`, 'loading');
+    } else {
+        // This is a new search
+        showResults('Searching...', 'loading');
+    }
     
     // Show active filters visual feedback
     showActiveFilters(filters);
@@ -769,9 +776,59 @@ function updatePagination(pagination) {
     // Show pagination
     paginationDiv.style.display = 'flex';
     
-    // Update prev/next buttons
-    prevBtn.disabled = !pagination.has_previous;
-    nextBtn.disabled = !pagination.has_next;
+    // Remove disabled attribute and any title attributes that might cause tooltips
+    prevBtn.removeAttribute('disabled');
+    prevBtn.removeAttribute('title');
+    nextBtn.removeAttribute('disabled');
+    nextBtn.removeAttribute('title');
+    
+    // Override the changePage function to work with our pagination
+    window.changePage = function(direction) {
+        console.log('changePage called with direction:', direction);
+        console.log('currentSearchState:', currentSearchState);
+        console.log('pagination:', pagination);
+        
+        const newPage = currentSearchState.currentPage + direction;
+        console.log('newPage calculated:', newPage);
+        
+        // Simplified bounds checking
+        if (direction === -1 && currentSearchState.currentPage <= 1) {
+            console.log('Already on first page, ignoring previous');
+            return;
+        }
+        if (direction === 1 && currentSearchState.currentPage >= currentSearchState.totalPages) {
+            console.log('Already on last page, ignoring next');
+            return;
+        }
+        
+        console.log('Calling performSearch with newPage:', newPage);
+        performSearch(newPage);
+    };
+    
+    // Visual feedback using CSS classes and styles (no tooltips)
+    if (!pagination.has_previous) {
+        prevBtn.classList.add('pagination-disabled');
+        prevBtn.style.opacity = '0.5';
+        prevBtn.style.cursor = 'default';
+        prevBtn.style.pointerEvents = 'auto';
+    } else {
+        prevBtn.classList.remove('pagination-disabled');
+        prevBtn.style.opacity = '1';
+        prevBtn.style.cursor = 'pointer';
+        prevBtn.style.pointerEvents = 'auto';
+    }
+    
+    if (!pagination.has_next) {
+        nextBtn.classList.add('pagination-disabled');
+        nextBtn.style.opacity = '0.5';
+        nextBtn.style.cursor = 'default';
+        nextBtn.style.pointerEvents = 'auto';
+    } else {
+        nextBtn.classList.remove('pagination-disabled');
+        nextBtn.style.opacity = '1';
+        nextBtn.style.cursor = 'pointer';
+        nextBtn.style.pointerEvents = 'auto';
+    }
     
     // Generate page numbers
     pageNumbersDiv.innerHTML = '';
