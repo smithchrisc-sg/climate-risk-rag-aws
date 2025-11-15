@@ -11,8 +11,10 @@ def validate_request(request_body: Dict[str, Any]) -> SearchRequest:
         raise ValueError("Missing required field: query")
     
     query = request_body['query'].strip()
-    if not query:
-        raise ValueError("Query cannot be empty")
+    
+    # Allow empty query for filter-only searches
+    # if not query:
+    #     raise ValueError("Query cannot be empty")
     
     # Optional: parameters (with defaults)
     parameters = request_body.get('parameters', {})

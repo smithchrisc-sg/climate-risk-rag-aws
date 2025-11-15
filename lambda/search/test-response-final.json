@@ -1,0 +1,1 @@
+{"statusCode": 400, "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}, "body": "{\"status\": \"error\", \"error\": {\"code\": \"VALIDATION_ERROR\", \"message\": \"Missing required field: query\"}, \"timestamp\": \"2025-11-13T22:53:25Z\"}"}

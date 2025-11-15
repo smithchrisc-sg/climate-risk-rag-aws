@@ -1,0 +1,1 @@
+{"errorMessage": "Syntax error in module 'handler': expected 'except' or 'finally' block (session_manager.py, line 87)", "errorType": "Runtime.UserCodeSyntaxError", "requestId": "", "stackTrace": ["  File \"/var/task/src/search/session_manager.py\" Line 87\n        async def create_session_lightweight(self, query: str, filters: Dict[str, Any], \n"]}

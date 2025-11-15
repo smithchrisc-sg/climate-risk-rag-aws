@@ -1,0 +1,1 @@
+{"errorMessage": "Syntax error in module 'handler': expected 'except' or 'finally' block (coordinator.py, line 171)", "errorType": "Runtime.UserCodeSyntaxError", "requestId": "", "stackTrace": ["  File \"/var/task/src/search/coordinator.py\" Line 171\n        async def _serve_page_from_session(self, session_id: str, page: int, \n"]}

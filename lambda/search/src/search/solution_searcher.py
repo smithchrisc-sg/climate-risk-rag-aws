@@ -88,8 +88,8 @@ class SolutionSearcher:
             'south-korea': ['South Korea'],
             'new-zealand': ['New Zealand']
         }
-    def get_filtered_solution_ids(self, filters: Dict[str, Any]) -> List[str]:
-        """Get only solution IDs from Neptune filters (lightweight, no S3 content)"""
+    def get_filtered_solution_ids(self, filters: Dict[str, Any]) -> tuple[List[str], List[str]]:
+        """Get solution IDs from Neptune filters - returns (uris, doc_ids)"""
         
         self.logger.info("=== GET_FILTERED_SOLUTION_IDS: METHOD CALLED ===")
         self.logger.info(f"Filters: {filters}")
@@ -104,22 +104,24 @@ class SolutionSearcher:
             self.logger.info(f"Raw SPARQL results: {results}")
             
             # Extract solution IDs
-            solution_ids = []
+            solution_uris = []
+            doc_ids = []
             if results:
                 for result in results:
-                    solution_ids.append(result['solution'])
+                    solution_uris.append(result['solution'])
+                    doc_ids.append(result['doc_id'])
             else:
                 self.logger.warning(f"No results found for query: {sparql_query}")
-                return []
+                return [], []
             
-            self.logger.info(f"Extracted {len(solution_ids)} solution IDs")
-            return solution_ids
+            self.logger.info(f"Extracted {len(solution_uris)} solution IDs")
+            return solution_uris, doc_ids
             
         except Exception as e:
             self.logger.error(f"Failed to get solution IDs: {e}")
             import traceback
             self.logger.error(f"Full traceback: {traceback.format_exc()}")
-            return []
+            return [], []
     
     def _build_solution_ids_query(self, filters: Dict[str, Any]) -> str:
         """Build SPARQL query to get only solution IDs (no content)"""
@@ -132,8 +134,9 @@ class SolutionSearcher:
             "PREFIX gn: <http://www.geonames.org/ontology#>",
             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
             "",
-            "SELECT DISTINCT ?solution WHERE {",
-            "  ?solution a sgd:Solution ."
+            "SELECT DISTINCT ?solution ?doc_id WHERE {",
+            "  ?solution a sgd:Solution .",
+            "  ?solution dcterms:identifier ?doc_id ."
         ]
         
         # Add filter conditions (reuse existing logic but simplified)
@@ -188,20 +191,48 @@ class SolutionSearcher:
         self.logger.info(f"Fetching content for solution: {solution_uri}")
         
         try:
-            # Get solution metadata from Neptune
+            # Get solution metadata from Neptune with enhanced lookups
             sparql_query = f"""
             PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
             PREFIX sg: <http://solve.global/knowledge-commons/>
             PREFIX dcterms: <http://purl.org/dc/terms/>
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX gno: <http://www.geonames.org/ontology#>
             
-            SELECT ?solution ?title ?riskType ?solutionType ?doc_id ?prefixed WHERE {{
+            SELECT ?solution ?title ?riskType ?solutionType ?doc_id ?prefixed 
+                   ?country_name ?risk_type_label ?solution_type_label ?implementation_date WHERE {{
                 ?solution a sgd:Solution .
                 ?solution dcterms:identifier ?doc_id .  
                 FILTER(STR(?solution) = "{solution_uri}")
                 OPTIONAL {{ ?solution dcterms:title ?title }}
                 OPTIONAL {{ ?solution sg:riskType ?riskType }}
                 OPTIONAL {{ ?solution sg:solutionType ?solutionType }}
+                
+                # Country names from GeoNames
+                OPTIONAL {{
+                  ?solution dcterms:spatial ?geo .
+                  FILTER(STRSTARTS(STR(?geo), "https://sws.geonames.org/"))
+                  GRAPH <http://www.geonames.org/ontology/data> {{
+                    ?geo gno:name ?country_name
+                  }}
+                }}
+                
+                # Risk type labels
+                OPTIONAL {{ 
+                  ?solution sg:riskType ?riskType .
+                  ?riskType rdfs:label ?risk_type_label 
+                }}
+                
+                # Solution type labels
+                OPTIONAL {{ 
+                  ?solution sg:solutionType ?solutionType .
+                  ?solutionType rdfs:label ?solution_type_label 
+                }}
+                
+                # Implementation date
+                OPTIONAL {{ 
+                  ?solution sg:implementationYear ?implementation_date 
+                }}
                 
                 # Then optionally get chunks for these solutions
                 OPTIONAL {{
@@ -229,23 +260,48 @@ class SolutionSearcher:
             kg_data = {}
             doc_id = ''
             content_data = {}
-            # Extract KG metadata
+            # Extract KG metadata with enhanced data
             if kg_results:
-                # For now, we only support one solution per URI. Ultimately we need to grab additional risktTypes and SolutionTypes from subsequent rows in the KG results.
                 chunk_numbers = []
+                country_names = []
+                risk_type_labels = []
+                solution_type_labels = []
+                
                 if len(kg_results) >= 1:
-                    kg_data = {
-                        'title': kg_results[0].get('title', ''), # this is the title of the solution
-                        'riskType': kg_results[0].get('riskType', ''), # this is the URI of the risk type - will need to query so we get the label
-                        'solutionType': kg_results[0].get('solutionType',  ''), # this is the URI of the solution type - will need to query so we get the label
-                    }
+                    # Collect all unique values from results
                     for result in kg_results:
+                        # Country names
+                        if result.get('country_name') and result['country_name'] not in country_names:
+                            country_names.append(result['country_name'])
+                        
+                        # Risk type labels
+                        if result.get('risk_type_label') and result['risk_type_label'] not in risk_type_labels:
+                            risk_type_labels.append(result['risk_type_label'])
+                        
+                        # Solution type labels
+                        if result.get('solution_type_label') and result['solution_type_label'] not in solution_type_labels:
+                            solution_type_labels.append(result['solution_type_label'])
+                        
+                        # Chunk numbers
                         if result.get('prefixed'):
                             chunk_num = int(result.get('prefixed').split('|')[0])
-                            if chunk_num not in chunk_numbers:  # Ensure uniqueness
+                            if chunk_num not in chunk_numbers:
                                 chunk_numbers.append(chunk_num)
 
-                    doc_id = kg_results[0].get('doc_id', '') # this is the doc_id of the solution
+                    # Get most recent implementation date
+                    implementation_dates = [result.get('implementation_date') for result in kg_results if result.get('implementation_date')]
+                    most_recent_date = max(implementation_dates) if implementation_dates else None
+
+                    kg_data = {
+                        'title': kg_results[0].get('title', ''),
+                        'riskType': kg_results[0].get('riskType', ''),
+                        'solutionType': kg_results[0].get('solutionType', ''),
+                        'country_names': country_names,
+                        'risk_type_labels': risk_type_labels,
+                        'solution_type_labels': solution_type_labels,
+                        'implementation_date': most_recent_date
+                    }
+                    doc_id = kg_results[0].get('doc_id', '')
                     content_data = self._get_solution_content(doc_id, chunk_numbers) if chunk_numbers else {}
             else:
                 self.logger.warning(f"No results found for solution URI: {solution_uri}")
@@ -276,22 +332,50 @@ class SolutionSearcher:
             title = kg_data.get('title', '') or content.get('chunk_metadata', {}).get('solution_name', '')
             description = content.get('assembled_description', '')
             
+            # Use enhanced data from SPARQL queries
+            country_names = kg_data.get('country_names', [])
+            risk_type_labels = kg_data.get('risk_type_labels', [])
+            solution_type_labels = kg_data.get('solution_type_labels', [])
+            
+            # Fallback: if labels are empty, extract from URIs
+            if not risk_type_labels and kg_data.get('riskType'):
+                risk_uri = kg_data.get('riskType', '')
+                if 'RiskType_' in risk_uri:
+                    label = risk_uri.split('RiskType_')[1].replace('_', ' ').title()
+                    risk_type_labels = [label]
+            
+            if not solution_type_labels and kg_data.get('solutionType'):
+                solution_uri = kg_data.get('solutionType', '')
+                if 'SolutionType_' in solution_uri:
+                    label = solution_uri.split('SolutionType_')[1].replace('_', ' ').title()
+                    solution_type_labels = [label]
+            
+            # Extract publication year from implementation date
+            publication_year = None
+            if kg_data.get('implementation_date'):
+                try:
+                    date_str = str(kg_data.get('implementation_date'))
+                    if len(date_str) >= 4:
+                        publication_year = int(date_str[:4])
+                except:
+                    publication_year = None
+            
             return {
                 'document_id': doc_id,
                 'content_type': 'solution',
                 'solution_name': title,
                 'title': title,
                 'relevance_score': 1.0,
-                'publication_date': None,
-                'country_regions_covered': [],
-                'risk_types_addressed': [kg_data.get('riskType', '')] if kg_data.get('riskType') else [],
+                'publication_date': kg_data.get('implementation_date'),
+                'country_regions_covered': country_names,
+                'risk_types_addressed': risk_type_labels,
                 'solution_categories': [],
-                'solution_types': kg_data.get('solutionType', '').split(',') if kg_data.get('solutionType') else [],
+                'solution_types': solution_type_labels,
                 'implemented': 'unknown',
                 'ppp_involvement': 'unknown',
                 'summary_description': description,
                 'key_highlights': [],
-                'source': '',
+                'source': content.get('chunk_metadata', {}).get('source_url', '') if content else '',
                 'related_documents': [],
                 'snippets': [
                     {
@@ -302,10 +386,10 @@ class SolutionSearcher:
                 ] if description else [],
                 'metadata': {
                     'document_type': 'solution',
-                    'categories': [],
-                    'regions': [],
-                    'publication_year': None,
-                    'source': 'neptune_s3',
+                    'categories': risk_type_labels,  # Use risk type labels as categories
+                    'regions': country_names,  # Use country names as regions
+                    'publication_year': publication_year,
+                    'source': content.get('chunk_metadata', {}).get('source_url', '') if content else '',
                     'processing_timestamp': content.get('chunk_metadata', {}).get('processing_timestamp', '') if content else ''
                 }
             }
@@ -349,11 +433,24 @@ class SolutionSearcher:
                     continue
                     
                 if doc_id not in solutions_by_doc_id:
+                    # Parse enhanced data from SPARQL results
+                    country_names = result.get('country_names', '').split(',') if result.get('country_names') else []
+                    risk_type_labels = result.get('risk_type_labels', '').split(',') if result.get('risk_type_labels') else []
+                    solution_type_labels = result.get('solution_type_labels', '').split(',') if result.get('solution_type_labels') else []
+                    
+                    # Clean up empty strings
+                    country_names = [name.strip() for name in country_names if name.strip()]
+                    risk_type_labels = [label.strip() for label in risk_type_labels if label.strip()]
+                    solution_type_labels = [label.strip() for label in solution_type_labels if label.strip()]
+                    
                     solutions_by_doc_id[doc_id] = {
                         'doc_id': doc_id,
                         'title': result.get('title', ''),
                         'riskType': result.get('riskType', ''),
                         'solutionType': result.get('solutionTypes', ''),  # Now contains concatenated types
+                        'country_names': country_names,
+                        'risk_type_labels': risk_type_labels,
+                        'solution_type_labels': solution_type_labels,
                         'chunk_numbers': []
                     }
                 
@@ -419,14 +516,19 @@ class SolutionSearcher:
     def _build_solution_sparql(self, filters: Dict[str, Any], max_results: int = 20, offset: int = 0) -> str:
         """Build SPARQL query from UI filters"""
         
-        # Fixed query to handle multiple solutionTypes per solution
+        # Enhanced query to include country names and type labels
         base_query = """
         PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
         PREFIX sg:  <http://solve.global/knowledge-commons/>
         PREFIX dcterms: <http://purl.org/dc/terms/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX gno: <http://www.geonames.org/ontology#>
 
         SELECT ?solution ?doc_id ?title ?riskType ?solutionTypes
                (GROUP_CONCAT(?prefixed; SEPARATOR=",") AS ?descChunksPrefixed)
+               (GROUP_CONCAT(DISTINCT ?country_name; SEPARATOR=",") AS ?country_names)
+               (GROUP_CONCAT(DISTINCT ?risk_type_label; SEPARATOR=",") AS ?risk_type_labels)
+               (GROUP_CONCAT(DISTINCT ?solution_type_label; SEPARATOR=",") AS ?solution_type_labels)
         WHERE {{
           # First get unique solutions with aggregated solutionTypes
           {{
@@ -446,6 +548,27 @@ class SolutionSearcher:
             ORDER BY ?solution
             LIMIT {max_results}
             OFFSET {offset}
+          }}
+          
+          # Country names from GeoNames
+          OPTIONAL {{
+            ?solution dcterms:spatial ?geo .
+            FILTER(STRSTARTS(STR(?geo), "https://sws.geonames.org/"))
+            GRAPH <http://www.geonames.org/ontology/data> {{
+              ?geo gno:name ?country_name
+            }}
+          }}
+          
+          # Risk type labels
+          OPTIONAL {{ 
+            ?solution sg:riskType ?riskType .
+            ?riskType rdfs:label ?risk_type_label 
+          }}
+          
+          # Solution type labels
+          OPTIONAL {{ 
+            ?solution sg:solutionType ?st .
+            ?st rdfs:label ?solution_type_label 
           }}
           
           # Then optionally get chunks for these solutions

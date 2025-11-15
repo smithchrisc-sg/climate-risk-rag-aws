@@ -239,11 +239,6 @@ async function performSearch(targetPage = null) {
     const maxResults = parseInt(document.getElementById('maxResults').value);
     const apiEndpoint = document.getElementById('apiEndpoint').value.trim();
     
-    if (!query) {
-        showResults('Please enter a search query', 'error');
-        return;
-    }
-    
     // Collect filter values
     const filters = collectFilterValues();
     
