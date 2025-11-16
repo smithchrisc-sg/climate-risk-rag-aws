@@ -11,6 +11,7 @@ from search.solution_searcher import SolutionSearcher
 from search.query_processor import QueryProcessor
 from search.bm25_search_service import BM25SearchService
 from search.vector_search_service import VectorSearchService
+from search.related_documents_service import RelatedDocumentsService
 from utilities.response_formatter import SolutionResponseFormatter
 
 # Phase 2.1: S3 Session Cache and Basic Ranking
@@ -29,15 +30,19 @@ class SearchCoordinator:
     """Coordinates search - Phase 1: Solutions via KG, Phase 2: S3 Session Cache + Ranking"""
     
     def __init__(self):
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+
         # Phase 1: Solution search components
-        logging.info("SearchCoordinator: About to create SolutionSearcher")
+        self.logger.info("SearchCoordinator: About to create SolutionSearcher")
+
         try:
             self.solution_searcher = SolutionSearcher()
-            logging.info("SearchCoordinator: SolutionSearcher created successfully")
+            self.logger.info("SearchCoordinator: SolutionSearcher created successfully")
         except Exception as e:
-            logging.error(f"SearchCoordinator: FAILED to create SolutionSearcher: {e}")
+            self.logger.error(f"SearchCoordinator: FAILED to create SolutionSearcher: {e}")
             import traceback
-            logging.error(f"SearchCoordinator: Full traceback: {traceback.format_exc()}")
+            self.logger.error(f"SearchCoordinator: Full traceback: {traceback.format_exc()}")
             # Create a dummy searcher that returns empty results
             self.solution_searcher = None
         
@@ -50,8 +55,15 @@ class SearchCoordinator:
         self.bm25_search_service = BM25SearchService()
         self.vector_search_service = VectorSearchService()
         
+        # Related documents service
+        self.logger.info("Initializing RelatedDocumentsService")
+        self.related_docs_service = RelatedDocumentsService(
+            ranking_engine=self.ranking_engine
+        )
+        self.logger.info("RelatedDocumentsService initialized successfully")
+        
         self.response_formatter = SolutionResponseFormatter()
-        logging.info("SearchCoordinator: SolutionResponseFormatter created successfully")
+        self.logger.info("SearchCoordinator: SolutionResponseFormatter created successfully")
         
         # Phase 2: Multi-modal search components (for future use)
         self.config = get_scoring_config()
@@ -65,9 +77,6 @@ class SearchCoordinator:
             max_results=self.config["result_limits"]["max_results"]
         )
         
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.INFO)
-
     async def search(self, query: str, filters: Dict[str, Any], 
                     parameters: Dict[str, Any], user_context: Dict[str, Any]) -> Dict[str, Any]:
         """Execute search with S3 session cache and basic ranking"""
@@ -319,6 +328,7 @@ class SearchCoordinator:
                 total_results = page_info['total_results']
                 # Get RRF scores from session metadata if available
                 rrf_scores = session_data.get('metadata', {}).get('rrf_scores', {})
+                user_query = session_data.get('query', '')
                 
                 for idx, sol_id in enumerate(solution_ids): # sol_id is the URI of the solution 
                     try:
@@ -333,10 +343,25 @@ class SearchCoordinator:
                                 relevance_score = rrf_scores[doc_id]
                             else:
                                 # Fallback to position-based scoring
+                                start_position = (page - 1) * parameters.get('max_results', 20)
                                 position = start_position + idx + 1  # 1-based position
                                 relevance_score = 1.0 - (position / total_results) if total_results > 0 else 1.0
                             
                             solution_content['relevance_score'] = round(relevance_score, 4)
+                            
+                            # Add related documents if solution has complete facets
+                            self.logger.info(f"Attempting to get related documents for solution: {solution_content.get('solution_id', sol_id)}")
+                            try:
+                                related_docs = self.related_docs_service.get_related_documents(
+                                    user_query=user_query,
+                                    solution_data=solution_content
+                                )
+                                solution_content['related_documents'] = related_docs
+                                self.logger.info(f"Added {len(related_docs)} related documents")
+                            except Exception as e:
+                                self.logger.error(f"Related docs failed for {solution_content.get('solution_id', sol_id)}: {e}")
+                                solution_content['related_documents'] = []
+                            
                             page_solutions.append(solution_content)
                     except Exception as e:
                         self.logger.error(f"Failed to fetch solution {sol_id}: {e}")

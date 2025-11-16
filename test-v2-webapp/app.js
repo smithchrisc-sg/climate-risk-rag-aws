@@ -633,6 +633,26 @@ function createSolutionCard(result, index, resultNumber = null) {
                     </div>
                 </div>
                 
+                ${result.related_documents && result.related_documents.length > 0 ? `
+                <div class="category-section">
+                    <h4>Related Documents:</h4>
+                    <div class="related-documents-list">
+                        ${result.related_documents.map(doc => `
+                            <div class="related-document-item">
+                                <div class="document-header">
+                                    <a href="${doc.source_url || '#'}" target="_blank" class="document-title">
+                                        📄 ${doc.title}
+                                    </a>
+                                    <span class="relevance-badge">${Math.round(doc.relevance_score * 100)}%</span>
+                                </div>
+                                <p class="document-summary">${doc.summary ? doc.summary.substring(0, 150) + '...' : 'No summary available'}</p>
+                                <span class="document-type">Trusted Source</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
                 <div style="margin-top: 16px; text-align: right;">
                     <a href="#" class="text-primary" style="font-size: 14px;">Click here for more details ▶</a>
                 </div>

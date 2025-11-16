@@ -56,17 +56,23 @@ def handle_search_request(event: Dict[str, Any], context: Any, start_time: float
         
         # Validate request (API v2 format only)
         search_request = validate_request(request_body)
+        logger.info(f"Search request: {search_request}")
+
         
         # Initialize search coordinator
         coordinator = SearchCoordinator()
-        
+        logger.info(f"Search coordinator: {coordinator}")
+
         # Execute Phase 1 search (solutions)
+        logger.info(f"Executing search for query: {search_request.query}")
         results = asyncio.run(coordinator.search(
             query=search_request.query,
             filters=search_request.filters,
             parameters=search_request.parameters,
             user_context=user_context
         ))
+        
+        logger.info(f"Search results: {results}")
         
         # Add final execution time
         execution_time = time.time() - start_time

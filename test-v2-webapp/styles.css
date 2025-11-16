@@ -676,6 +676,70 @@ body {
     left: 0;
 }
 
+/* Related Documents Styles */
+.related-documents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.related-document-item {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.2s ease;
+}
+
+.related-document-item:hover {
+    background: var(--gray-100);
+    border-color: var(--light-blue);
+}
+
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.document-title {
+    color: var(--dark-blue);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    flex: 1;
+    margin-right: 8px;
+}
+
+.document-title:hover {
+    text-decoration: underline;
+}
+
+.relevance-badge {
+    background: var(--light-blue);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.document-summary {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.4;
+    margin: 0 0 8px 0;
+}
+
+.document-type {
+    font-size: 11px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
 /* Pagination */
 .pagination {
     display: flex;
