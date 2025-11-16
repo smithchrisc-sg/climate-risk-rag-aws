@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 from search.opensearch import OpenSearchProcessor
 
 class BasicRankingEngine:
@@ -116,3 +116,44 @@ class BasicRankingEngine:
         except Exception as e:
             self.logger.error(f"Keyword scoring failed: {e}")
             return {}
+    
+    def fuse_rankings(self, bm25_ranks: List[Tuple[str, int]], 
+                     vector_ranks: List[Tuple[str, int]], k: int = 60) -> List[Tuple[str, float]]:
+        """Fuse BM25 and vector rankings using Reciprocal Rank Fusion (RRF)"""
+        
+        if not bm25_ranks and not vector_ranks:
+            return []
+        
+        # Create score dictionaries
+        bm25_scores = {doc_id: 1.0 / (rank + k) for doc_id, rank in bm25_ranks}
+        vector_scores = {doc_id: 1.0 / (rank + k) for doc_id, rank in vector_ranks}
+        
+        # Get all unique document IDs
+        all_doc_ids = set(bm25_scores.keys()) | set(vector_scores.keys())
+        
+        # Calculate RRF scores
+        rrf_scores = []
+        for doc_id in all_doc_ids:
+            bm25_score = bm25_scores.get(doc_id, 0.0)
+            vector_score = vector_scores.get(doc_id, 0.0)
+            rrf_score = bm25_score + vector_score
+            rrf_scores.append((doc_id, rrf_score))
+        
+        # Sort by RRF score (highest first)
+        rrf_scores.sort(key=lambda x: x[1], reverse=True)
+        
+        self.logger.info(f"RRF fusion: {len(bm25_ranks)} BM25 + {len(vector_ranks)} vector → {len(rrf_scores)} fused")
+        return rrf_scores
+    
+    def normalize_rrf_scores(self, rrf_scores: List[Tuple[str, float]]) -> List[Tuple[str, float]]:
+        """Normalize RRF scores to 0-1 range for consistent API response"""
+        
+        if not rrf_scores:
+            return []
+        
+        max_score = max(score for _, score in rrf_scores)
+        if max_score == 0:
+            return [(doc_id, 0.0) for doc_id, _ in rrf_scores]
+        
+        normalized = [(doc_id, score / max_score) for doc_id, score in rrf_scores]
+        return normalized

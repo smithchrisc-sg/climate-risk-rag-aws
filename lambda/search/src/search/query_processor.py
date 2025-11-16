@@ -38,15 +38,15 @@ class QueryProcessor:
         
         return cleaned
     
-    def should_use_hybrid_search(self, query: str) -> bool:
-        """Determine if query warrants hybrid search or should use filter-only"""
+    def should_use_hybrid_search(self, query: str) -> str:
+        """Determine search strategy: filter_only or hybrid_full (default for meaningful queries)"""
         
         if not query or len(query.strip()) == 0:
-            return False
+            return "filter_only"
         
         # Check minimum length
         if len(query.strip()) < self.min_query_length:
-            return False
+            return "filter_only"
         
         # Tokenize and check for meaningful content
         tokens = self._tokenize(query)
@@ -54,11 +54,11 @@ class QueryProcessor:
         
         # Need at least one meaningful token
         if len(meaningful_tokens) == 0:
-            return False
+            return "filter_only"
         
-        # If we have meaningful content, use hybrid search
-        self.logger.info(f"Query has {len(meaningful_tokens)} meaningful tokens: {meaningful_tokens}")
-        return True
+        # Default: Always use full hybrid (BM25 + Vector) for any meaningful query
+        self.logger.info(f"Query has {len(meaningful_tokens)} meaningful tokens, using hybrid_full")
+        return "hybrid_full"
     
     def _tokenize(self, query: str) -> list:
         """Simple tokenization for query analysis"""

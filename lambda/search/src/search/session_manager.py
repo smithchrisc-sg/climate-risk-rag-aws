@@ -92,7 +92,8 @@ class SearchSessionManager:
             raise
     
     async def create_session_lightweight(self, query: str, filters: Dict[str, Any], 
-                                       solution_ids: List[str], page_size: int) -> str:
+                                       solution_ids: List[str], page_size: int, 
+                                       metadata: Dict[str, Any] = None) -> str:
         """Create session with only solution IDs (lightweight)"""
         
         session_id = str(uuid.uuid4())
@@ -108,6 +109,7 @@ class SearchSessionManager:
             "page_size": page_size,
             "total_results": len(solution_ids),
             "solution_ids": solution_ids,  # Just IDs, no full content
+            "metadata": metadata or {},  # Store additional metadata like RRF scores
             "ranking_metadata": {
                 "has_query": bool(query and query.strip()),
                 "ranking_type": "filter_only" if not query or not query.strip() else "query_based"

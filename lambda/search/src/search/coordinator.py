@@ -10,6 +10,7 @@ from typing import Dict, Any, List
 from search.solution_searcher import SolutionSearcher
 from search.query_processor import QueryProcessor
 from search.bm25_search_service import BM25SearchService
+from search.vector_search_service import VectorSearchService
 from utilities.response_formatter import SolutionResponseFormatter
 
 # Phase 2.1: S3 Session Cache and Basic Ranking
@@ -44,9 +45,10 @@ class SearchCoordinator:
         self.session_manager = SearchSessionManager()
         self.ranking_engine = BasicRankingEngine()
         
-        # Phase 1.1: Query processing and BM25 search
+        # Phase 1.1: Query processing and search services
         self.query_processor = QueryProcessor()
         self.bm25_search_service = BM25SearchService()
+        self.vector_search_service = VectorSearchService()
         
         self.response_formatter = SolutionResponseFormatter()
         logging.info("SearchCoordinator: SolutionResponseFormatter created successfully")
@@ -114,14 +116,18 @@ class SearchCoordinator:
         
         # Process and validate query
         processed_query = self.query_processor.preprocess_query(query)
-        use_hybrid = self.query_processor.should_use_hybrid_search(processed_query)
+        search_strategy = self.query_processor.should_use_hybrid_search(processed_query)
         
-        if use_hybrid:
-            self.logger.info(f"Using hybrid search for query: '{processed_query}'")
-            return await self._handle_hybrid_search(processed_query, filters, parameters, start_time)
-        else:
+        if search_strategy == "filter_only":
             self.logger.info("Using filter-only search (no query or query too short)")
             return await self._handle_filter_only_search(filters, parameters, start_time)
+        elif search_strategy == "hybrid_full":
+            self.logger.info(f"Using full hybrid search (BM25 + Vector) for query: '{processed_query}'")
+            return await self._handle_hybrid_search(processed_query, filters, parameters, start_time)
+        else:
+            # Future: handle hybrid_bm25, hybrid_vector strategies
+            self.logger.info(f"Using hybrid search for query: '{processed_query}'")
+            return await self._handle_hybrid_search(processed_query, filters, parameters, start_time)
     
     async def _handle_filter_only_search(self, filters: Dict[str, Any], 
                                        parameters: Dict[str, Any], start_time: float) -> Dict[str, Any]:
@@ -189,39 +195,63 @@ class SearchCoordinator:
                 self.logger.warning("BM25 search returned no results, falling back to filter-only")
                 return await self._handle_filter_only_search(filters, parameters, start_time)
             
-            # Step 3: Convert BM25 scores to ranks
-            bm25_ranks = self.bm25_search_service.convert_to_ranks(bm25_results)
-            self.logger.info(f"BM25 search returned {len(bm25_ranks)} ranked solutions")
+            # Step 3: Execute Vector search
+            self.logger.info("Executing vector semantic search")
+            vector_results = self.vector_search_service.search(query, filters)
             
-            # Step 4: Intersect BM25 results with KG-filtered universe
-            # Use doc_ids extracted from SPARQL query
+            if not vector_results:
+                self.logger.warning("Vector search returned no results, using BM25-only")
+            
+            # Step 4: Convert scores to ranks
+            bm25_ranks = self.bm25_search_service.convert_to_ranks(bm25_results)
+            vector_ranks = self.vector_search_service.convert_to_ranks(vector_results)
+            self.logger.info(f"BM25: {len(bm25_ranks)} ranked, Vector: {len(vector_ranks)} ranked")
+            
+            # Step 5: Intersect search results with KG-filtered universe
             kg_doc_id_set = set(kg_doc_ids)
-            intersected_results = [
+            
+            # Intersect BM25 results
+            bm25_intersected = [
                 (sol_id, rank) for sol_id, rank in bm25_ranks 
                 if sol_id in kg_doc_id_set
             ]
             
-            self.logger.info(f"BM25 doc_ids: {len(bm25_ranks)}, KG doc_ids: {len(kg_doc_ids)}, Intersection: {len(intersected_results)}")
+            # Intersect Vector results
+            vector_intersected = [
+                (sol_id, rank) for sol_id, rank in vector_ranks 
+                if sol_id in kg_doc_id_set
+            ]
             
-            if not intersected_results:
-                self.logger.warning("No intersection between BM25 and KG results, falling back to filter-only")
+            self.logger.info(f"Intersections - BM25: {len(bm25_intersected)}, Vector: {len(vector_intersected)}, KG: {len(kg_doc_ids)}")
+            
+            if not bm25_intersected and not vector_intersected:
+                self.logger.warning("No intersection between search results and KG, falling back to filter-only")
                 return await self._handle_filter_only_search(filters, parameters, start_time)
             
-            # Step 5: Convert doc_ids back to URIs and maintain BM25 ranking
+            # Step 6: Fuse rankings using RRF
+            rrf_scores = self.ranking_engine.fuse_rankings(bm25_intersected, vector_intersected)
+            normalized_scores = self.ranking_engine.normalize_rrf_scores(rrf_scores)
+            
+            # Step 7: Convert doc_ids back to URIs and maintain RRF ranking
             doc_id_to_uri = dict(zip(kg_doc_ids, kg_solution_ids))
             
             ordered_solution_ids = [
-                doc_id_to_uri[sol_id] for sol_id, rank in intersected_results 
-                if sol_id in doc_id_to_uri
+                doc_id_to_uri[doc_id] for doc_id, score in normalized_scores 
+                if doc_id in doc_id_to_uri
             ]
-            self.logger.info(f"Final hybrid results: {len(ordered_solution_ids)} solutions")
             
-            # Step 6: Create session with BM25-ranked solution IDs
+            # Store RRF scores for relevance scoring
+            rrf_score_map = dict(normalized_scores)
+            
+            self.logger.info(f"Final RRF hybrid results: {len(ordered_solution_ids)} solutions")
+            
+            # Step 8: Create session with RRF-ranked solution IDs
             session_id = await self.session_manager.create_session_lightweight(
                 query=query,
                 filters=filters,
                 solution_ids=ordered_solution_ids,
-                page_size=max_results
+                page_size=max_results,
+                metadata={'rrf_scores': rrf_score_map}  # Store scores for relevance
             )
             
             # Step 7: Serve first page
@@ -287,16 +317,25 @@ class SearchCoordinator:
             page_solutions = []
             if self.solution_searcher:
                 total_results = page_info['total_results']
-                start_position = (page - 1) * parameters.get('max_results', 20)
+                # Get RRF scores from session metadata if available
+                rrf_scores = session_data.get('metadata', {}).get('rrf_scores', {})
                 
                 for idx, sol_id in enumerate(solution_ids): # sol_id is the URI of the solution 
                     try:
                         # Fetch individual solution content by solution URI
                         solution_content = self.solution_searcher.get_solution_content(sol_id)
                         if solution_content:
-                            # Add relevance score based on position
-                            position = start_position + idx + 1  # 1-based position
-                            relevance_score = 1.0 - (position / total_results) if total_results > 0 else 1.0
+                            # Extract doc_id from URI for RRF score lookup
+                            doc_id = sol_id.split('Document_')[1] if 'Document_' in sol_id else None
+                            
+                            # Use RRF score if available, otherwise fall back to position-based
+                            if doc_id and doc_id in rrf_scores:
+                                relevance_score = rrf_scores[doc_id]
+                            else:
+                                # Fallback to position-based scoring
+                                position = start_position + idx + 1  # 1-based position
+                                relevance_score = 1.0 - (position / total_results) if total_results > 0 else 1.0
+                            
                             solution_content['relevance_score'] = round(relevance_score, 4)
                             page_solutions.append(solution_content)
                     except Exception as e:
