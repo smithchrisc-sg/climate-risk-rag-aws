@@ -104,7 +104,8 @@ class KGTripleLoader:
             data_locations = message.get('data_locations', {})
             ttl_location = data_locations.get('ttl_location') or message.get('ttl_location')
             
-            insertion_method = message.get('insertion_method', 'unknown')
+            logger.info(f"Insertion method: {message.get('insertion_method')}")
+            insertion_method = message.get('insertion_method', 'bulk_load') # default to bulk load if not specified
             records_processed = message.get('records_processed', 0)
             
             if not doc_id:
@@ -151,6 +152,7 @@ class KGTripleLoader:
                 }
             else:
                 # Legacy mode - download TTL and load using KG layer optimization
+                # FIXME: This does not seem to work. I've made the default insertion method to bulk load.
                 if ttl_location:
                     ttl_content = self.download_ttl_from_s3(ttl_location)
                     if not ttl_content:

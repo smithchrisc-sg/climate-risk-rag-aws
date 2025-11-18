@@ -411,6 +411,16 @@ class TextExtractorProcessor:
                 # Get Textract results
                 textract_response = self.get_textract_results(job_id)
                 
+                # Get document hash from textract_initiate stage
+                initiate_status = self.db_manager.get_latest_stage_status(
+                    doc_id=doc_id,
+                    stage='textract_initiate',
+                    status='completed'
+                )
+                doc_hash = None
+                if initiate_status and initiate_status.get('metadata'):
+                    doc_hash = initiate_status['metadata'].get('document_hash')
+                
                 # Extract text content
                 text_content = self.extract_text_content(textract_response['blocks'])
                 
@@ -445,11 +455,16 @@ class TextExtractorProcessor:
                 self.publish_completion_message(doc_id, locations, text_content)
                 
                 # Update status to completed
+                metadata = {}
+                if doc_hash:
+                    metadata['document_hash'] = doc_hash
+                
                 self.db_manager.set_processing_status(
                     doc_id=doc_id,
                     stage='textract_complete',
                     status='completed',
-                    system_id=job_id
+                    system_id=job_id,
+                    metadata=metadata if metadata else None
                 )
                 
                 return {

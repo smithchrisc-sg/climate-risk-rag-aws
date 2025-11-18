@@ -71,3 +71,46 @@ class DocumentIDManager:
         self.logger.debug(f"Processed document ID: {doc_id}")
         
         return doc_id
+
+    def generate_solution_id(self, source_url: str) -> str:
+        """
+        Generate a stable solution ID from source URL.
+        Uses 'sol_' prefix to distinguish from document IDs.
+        
+        Args:
+            source_url: Solution URL or identifier
+            
+        Returns:
+            Generated solution ID (sol_ + 17-character SHA256 hash of URL)
+        """
+        url_hash = hashlib.sha256(source_url.encode()).hexdigest()[:17]
+        return f"sol_{url_hash}"
+
+    def add_solution(self, source_url: str, solution_name: str) -> str:
+        """
+        Add solution as special document type.
+        Solutions are treated as documents with content_type='solution'.
+        
+        Args:
+            source_url: Solution URL or identifier
+            solution_name: Name/title of the solution
+            
+        Returns:
+            Solution ID (existing or new)
+        """
+        solution_id = self.generate_solution_id(source_url)
+        
+        # Use existing document infrastructure with solution-specific defaults
+        self.db_manager.add_or_update_document(
+            doc_id=solution_id,
+            source_url=source_url,
+            original_filename=solution_name,
+            file_size_bytes=0,  # Will be populated when content extracted
+            file_hash="",       # Will be populated when content extracted  
+            title=solution_name,
+            content_type='solution'
+        )
+        
+        self.logger.debug(f"Processed solution ID: {solution_id}")
+        
+        return solution_id

@@ -191,7 +191,7 @@ class DatabaseManager:
 
         try:
             query = """
-                SELECT doc_id, source_url, original_filename, file_size_bytes, file_hash, created_at, updated_at
+                SELECT doc_id, source_url, original_filename, file_size_bytes, file_hash, title, created_at, updated_at, content_type
                 FROM documents 
                 WHERE doc_id = %s
             """
@@ -206,8 +206,10 @@ class DatabaseManager:
                     'original_filename': row[2],
                     'file_size_bytes': row[3],
                     'file_hash': row[4],
-                    'created_at': row[5],
-                    'updated_at': row[6]
+                    'title': row[5],
+                    'created_at': row[6],
+                    'updated_at': row[7],
+                    'content_type': row[8]
                 }
                 logger.debug(f"Retrieved document: {doc_id}")
                 return document
@@ -219,7 +221,7 @@ class DatabaseManager:
             logger.error(f"Failed to get document: {e}")
             raise
 
-    def add_or_update_document(self, doc_id: str, source_url: str, original_filename: str, file_size_bytes: int, file_hash: str):
+    def add_or_update_document(self, doc_id: str, source_url: str, original_filename: str, file_size_bytes: int, file_hash: str, title: str = None, content_type: str = 'trusted_source_document'):
         """
         Add new document or update existing document based on file hash comparison.
         
@@ -229,6 +231,9 @@ class DatabaseManager:
         - If document exists with different hash: UPDATE all fields (content changed)
         
         This preserves the original created_at timestamp while tracking rescan activity.
+        
+        Args:
+            content_type: Type of content ('trusted_source_document' or 'solution')
         """
         try:
             # Check if document already exists
@@ -237,13 +242,22 @@ class DatabaseManager:
             if existing_doc:
                 # Document exists - check if content has changed
                 if existing_doc['file_hash'] == file_hash:
-                    # Same content - just update rescan timestamp
-                    query = """
-                        UPDATE documents 
-                        SET updated_at = CURRENT_TIMESTAMP 
-                        WHERE doc_id = %s
-                    """
-                    self.execute_query(query, (doc_id,), fetch_results=False)
+                    # Same content - just update rescan timestamp and title if provided
+                    if title:
+                        query = """
+                            UPDATE documents 
+                            SET updated_at = CURRENT_TIMESTAMP,
+                                title = %s
+                            WHERE doc_id = %s
+                        """
+                        self.execute_query(query, (title, doc_id), fetch_results=False)
+                    else:
+                        query = """
+                            UPDATE documents 
+                            SET updated_at = CURRENT_TIMESTAMP 
+                            WHERE doc_id = %s
+                        """
+                        self.execute_query(query, (doc_id,), fetch_results=False)
                     logger.info(f"Document rescan - no changes: {doc_id}")
                 else:
                     # Content changed - update all fields but preserve created_at
@@ -253,22 +267,45 @@ class DatabaseManager:
                             original_filename = %s, 
                             file_size_bytes = %s, 
                             file_hash = %s,
+                            title = %s,
+                            content_type = %s,
                             updated_at = CURRENT_TIMESTAMP
                         WHERE doc_id = %s
                     """
-                    self.execute_query(query, (source_url, original_filename, file_size_bytes, file_hash, doc_id), fetch_results=False)
-                    logger.info(f"Document updated - content changed: {doc_id}")
+                    self.execute_query(query, (source_url, original_filename, file_size_bytes, file_hash, title, content_type, doc_id), fetch_results=False)
+                    logger.info(f"Document updated - content changed: {doc_id} (type: {content_type})")
             else:
                 # New document - insert normally
                 query = """
-                    INSERT INTO documents (doc_id, source_url, original_filename, file_size_bytes, file_hash)   
-                    VALUES (%s, %s, %s, %s, %s)
+                    INSERT INTO documents (doc_id, source_url, original_filename, file_size_bytes, file_hash, title, content_type)   
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """
-                self.execute_query(query, (doc_id, source_url, original_filename, file_size_bytes, file_hash), fetch_results=False)
-                logger.info(f"Added new document: {doc_id}")
+                self.execute_query(query, (doc_id, source_url, original_filename, file_size_bytes, file_hash, title, content_type), fetch_results=False)
+                logger.info(f"Added new document: {doc_id} (type: {content_type})")
 
         except Exception as e:
             logger.error(f"Failed to add or update document: {e}")
+            raise   
+    
+    def update_document_title(self, doc_id: str, title: str) -> None:
+        """
+        Update document title (for when title is extracted after initial registration)
+        
+        Args:
+            doc_id: Document ID
+            title: Document title extracted from content
+        """
+        try:
+            query = """
+                UPDATE documents 
+                SET title = %s, updated_at = CURRENT_TIMESTAMP
+                WHERE doc_id = %s
+            """
+            self.execute_query(query, (title, doc_id), fetch_results=False)
+            logger.info(f"Updated title for document: {doc_id}")
+            
+        except Exception as e:
+            logger.error(f"Failed to update document title: {e}")
             raise   
     
     def set_processing_status(self, doc_id: str, stage: str, status: str, error_message: str = None, system_id: str = None, retry_count: int = 0, metadata: Dict[str, Any] = None):
@@ -321,6 +358,57 @@ class DatabaseManager:
             
         except Exception as e:
             logger.error(f"Failed to set document processing status: {e}")
+            raise
+    
+    def get_latest_stage_status(self, doc_id: str, stage: str, status: str = None) -> Optional[Dict[str, Any]]:
+        """
+        Get most recent processing status for a document stage.
+        
+        Args:
+            doc_id: Document ID
+            stage: Processing stage to query
+            status: Optional status filter (e.g., 'completed')
+            
+        Returns:
+            Dict with keys: status, metadata, timestamp, system_id, error_message
+            None if no matching record found
+        """
+        try:
+            if status:
+                query = """
+                    SELECT status, metadata, timestamp, system_id, error_message
+                    FROM document_processing_status
+                    WHERE doc_id = %s AND stage = %s AND status = %s
+                    ORDER BY timestamp DESC
+                    LIMIT 1
+                """
+                params = (doc_id, stage, status)
+            else:
+                query = """
+                    SELECT status, metadata, timestamp, system_id, error_message
+                    FROM document_processing_status
+                    WHERE doc_id = %s AND stage = %s
+                    ORDER BY timestamp DESC
+                    LIMIT 1
+                """
+                params = (doc_id, stage)
+            
+            results = self.execute_query(query, params)
+            
+            if results:
+                row = results[0]
+                return {
+                    'status': row[0],
+                    'metadata': row[1],  # Already parsed from JSONB
+                    'timestamp': row[2],
+                    'system_id': row[3],
+                    'error_message': row[4]
+                }
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Failed to get latest stage status: {e}")
             raise
     
     def get_active_bulk_loads(self) -> List[Dict[str, Any]]:

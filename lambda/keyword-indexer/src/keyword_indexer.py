@@ -338,14 +338,22 @@ class KeywordIndexer:
     def index_document_in_opensearch(self, doc_id: str, text_content: str, 
                                    structure_info: Dict, metadata: Dict) -> Dict[str, Any]:
         """Index full document in OpenSearch for TF-IDF keyword search"""
+        import time
+        
         try:
+            timing = {}
+            
             # Extract keywords from document
+            start = time.time()
             document_keywords = self.extract_keywords_from_text(text_content)
+            timing['keyword_extraction'] = time.time() - start
+            logger.info(f"Extracted {len(document_keywords)} keywords in {timing['keyword_extraction']:.2f}s")
             
             # Get document title from metadata if available
             title = metadata.get('document_metadata', {}).get('title', f"Document {doc_id}")
             
             # Create document for keyword index (full document for proper TF-IDF)
+            start = time.time()
             document = {
                 'doc_id': doc_id,
                 'title': title,
@@ -355,13 +363,18 @@ class KeywordIndexer:
                 'metadata': metadata,
                 'timestamp': datetime.utcnow().isoformat()
             }
+            timing['document_preparation'] = time.time() - start
             
             # Index in documents index
+            start = time.time()
             result = self.opensearch_client.index(
                 index=self.documents_index,
                 id=doc_id,
-                body=document
+                body=document,
+                refresh=False  # Don't wait for index refresh - document indexed but searchable in ~1 sec
             )
+            timing['opensearch_call'] = time.time() - start
+            logger.info(f"OpenSearch index call completed in {timing['opensearch_call']:.2f}s")
             
             if result.get('result') in ['created', 'updated']:
                 logger.info(f"Indexed document {doc_id} in {self.documents_index}: {result.get('result')}")
@@ -372,7 +385,8 @@ class KeywordIndexer:
                     'method': 'document_level_indexing',
                     'result': result,
                     'keywords_count': len(document_keywords),
-                    'document_length': len(text_content)
+                    'document_length': len(text_content),
+                    'timing': timing
                 }
             else:
                 raise Exception(f"Unexpected indexing result: {result}")
@@ -435,33 +449,47 @@ class KeywordIndexer:
     
     def process_document(self, message_data: Dict[str, Any]) -> Dict[str, Any]:
         """Process a single document for keyword indexing"""
+        import time
+        
         doc_id = message_data['doc_id']
+        timing = {}
+        start_total = time.time()
         
         try:
             logger.info(f"Processing keyword indexing for doc_id: {doc_id}")
             
             # Update status to in_progress
+            start = time.time()
             self.db_manager.set_processing_status(
                 doc_id=doc_id,
                 stage='keyword_indexing',
                 status='in_progress'
             )
+            timing['db_status_update'] = time.time() - start
             
             # Download text file
             logger.info(f"Downloading text from {message_data['text_location']}")
+            start = time.time()
             text_content = self.download_s3_file(message_data['text_location'])
-            logger.info(f"Downloaded text file: {len(text_content)} characters")
+            timing['text_download'] = time.time() - start
+            logger.info(f"Downloaded text file: {len(text_content)} characters in {timing['text_download']:.2f}s")
             
             # Download structure file
             logger.info(f"Downloading structure from {message_data['structure_location']}")
+            start = time.time()
             structure_content = self.download_s3_file(message_data['structure_location'])
             structure_data = json.loads(structure_content)
-            logger.info(f"Downloaded structure file: {len(structure_data.get('Blocks', []))} blocks")
+            timing['structure_download'] = time.time() - start
+            logger.info(f"Downloaded structure file: {len(structure_data.get('Blocks', []))} blocks in {timing['structure_download']:.2f}s")
             
             # Extract document structure
+            start = time.time()
             structure_info = self.extract_document_structure(structure_content)
+            timing['structure_extraction'] = time.time() - start
+            logger.info(f"Extracted structure in {timing['structure_extraction']:.2f}s")
             
             # Index document in OpenSearch
+            start = time.time()
             indexing_result = self.index_document_in_opensearch(
                 doc_id=doc_id,
                 text_content=text_content,
@@ -471,25 +499,45 @@ class KeywordIndexer:
                     'document_metadata': message_data.get('document_metadata', {})
                 }
             )
+            timing['opensearch_indexing'] = time.time() - start
+            logger.info(f"OpenSearch indexing completed in {timing['opensearch_indexing']:.2f}s")
             
             # Update status to completed
+            start = time.time()
             self.db_manager.set_processing_status(
                 doc_id=doc_id,
                 stage='keyword_indexing',
                 status='completed'
             )
+            timing['db_completion_update'] = time.time() - start
             
             # Publish completion message
+            start = time.time()
             self.publish_completion_message(doc_id, indexing_result)
+            timing['sns_publish'] = time.time() - start
+            
+            timing['total'] = time.time() - start_total
+            
+            # Log timing summary
+            logger.info(f"⏱️  TIMING SUMMARY for {doc_id}:")
+            logger.info(f"  Text download:        {timing['text_download']:6.2f}s")
+            logger.info(f"  Structure download:   {timing['structure_download']:6.2f}s")
+            logger.info(f"  Structure extraction: {timing['structure_extraction']:6.2f}s")
+            logger.info(f"  OpenSearch indexing:  {timing['opensearch_indexing']:6.2f}s")
+            logger.info(f"  DB updates:           {timing['db_status_update'] + timing['db_completion_update']:6.2f}s")
+            logger.info(f"  SNS publish:          {timing['sns_publish']:6.2f}s")
+            logger.info(f"  TOTAL:                {timing['total']:6.2f}s")
             
             return {
                 'status': 'success',
                 'doc_id': doc_id,
-                'indexing_result': indexing_result
+                'indexing_result': indexing_result,
+                'timing': timing
             }
             
         except Exception as e:
-            logger.error(f"Error processing keyword indexing for {doc_id}: {str(e)}")
+            timing['total'] = time.time() - start_total
+            logger.error(f"Error processing keyword indexing for {doc_id} after {timing['total']:.2f}s: {str(e)}")
             
             # Update status to failed
             self.db_manager.set_processing_status(
@@ -502,7 +550,8 @@ class KeywordIndexer:
             return {
                 'status': 'failed',
                 'doc_id': doc_id,
-                'error': str(e)
+                'error': str(e),
+                'timing': timing
             }
 
 def lambda_handler(event, context):

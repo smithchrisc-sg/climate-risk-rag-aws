@@ -37,7 +37,7 @@ class BulkLoadManager:
         self.loader_endpoint = f"https://{kg_manager.neptune_endpoint}:{kg_manager.neptune_port}/loader"
         
         # Configuration
-        self.default_parallelism = "AUTO"  # AUTO, RESUME, NEW
+        self.default_parallelism = "OVERSUBSCRIBE"  # OVERSUBSCRIBE, RESUME, NEW
         self.default_timeout = 3600  # 1 hour default timeout
         self.poll_interval = 10  # Poll every 10 seconds
         
@@ -111,7 +111,9 @@ class BulkLoadManager:
             return load_id
             
         except requests.exceptions.RequestException as e:
+            error_body = e.response.text if hasattr(e, 'response') and e.response else 'No response body'
             self.logger.error(f"Failed to initiate bulk load: {e}")
+            self.logger.error(f"Response body: {error_body}")
             raise KGInsertError(f"Bulk load initiation failed: {e}")
         except Exception as e:
             self.logger.error(f"Error initiating bulk load: {e}")

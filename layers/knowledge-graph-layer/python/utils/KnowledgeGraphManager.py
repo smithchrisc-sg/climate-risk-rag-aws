@@ -88,6 +88,27 @@ class KnowledgeGraphManager:
         
         self.logger.info(f"KnowledgeGraphManager initialized for {self.neptune_endpoint}")
     
+    @property
+    def auth(self):
+        """Return AWS SigV4 auth callable for requests library"""
+        class NeptuneSigV4Auth:
+            def __init__(self, credentials, region):
+                self.credentials = credentials
+                self.region = region
+            
+            def __call__(self, request):
+                aws_request = AWSRequest(
+                    method=request.method,
+                    url=request.url,
+                    data=request.body,
+                    headers=dict(request.headers)
+                )
+                SigV4Auth(self.credentials, "neptune-db", self.region).add_auth(aws_request)
+                request.headers.update(dict(aws_request.headers.items()))
+                return request
+        
+        return NeptuneSigV4Auth(self.credentials, self.aws_region)
+    
     def _setup_namespaces(self):
         """Setup standard namespaces and bind them to the graph"""
         # Define standard namespaces
