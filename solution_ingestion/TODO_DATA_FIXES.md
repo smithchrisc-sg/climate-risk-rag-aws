@@ -74,12 +74,41 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 
 ## Content Loading & Expansion
 
-### 9. Trusted Documents Integration
+### 9. Trusted Source Document Search Integration
+**Issue**: Recently indexed TSDs not appearing in search results
+**Status**: Identified 2025-11-18 during batch loading testing
+**Possible Causes**:
+- OpenSearch index refresh delay (should be ~1 second with refresh=False)
+- content_type filter mismatch in search queries
+- Index mapping missing content_type field
+- Search query construction not handling TSDs correctly
+**Investigation Needed**:
+- Check if documents exist in documents_keyword index
+- Verify chunks exist in chunks_vector index
+- Check content_type field is properly set
+- Test search with and without content_type filter
+**Location**: `/Users/chris/climate-risk-rag-aws/lambda/search/` search services
+
+### 10. Content Type Determination Enhancement
+**Issue**: Simple prefix-based content_type determination (sol_ → solution)
+**Status**: Identified 2025-11-18 as technical debt
+**Current Implementation**: `content_type = 'solution' if doc_id.startswith('sol_') else 'trusted_source_document'`
+**Proposed Fix**:
+- Add content_type to document metadata during harvesting
+- Store in document_processing_status metadata
+- Read from metadata in keyword-indexer and vector-embeddings-worker
+- Fallback to prefix check if metadata missing
+**Impact**: More robust and explicit content type handling
+**Complexity**: Low
+
+### 11. Trusted Documents Integration
 **Issue**: Need World Bank documents related to solutions we have ingested
-**Status**: Not started
+**Status**: In progress - 477 documents ready for batch loading
+**Current**: 10 test documents loaded successfully with deduplication working
+**Next**: Full batch load of remaining 467 documents
 **Fix**: Build a utility to use data from the solutions to search for and retrieve documents from the World Bank repository via the search API
 
-### 10. Non-Asia Programs (GAIP Request)
+### 12. Non-Asia Programs (GAIP Request)
 **Issue**: Include specific programs outside Asia-Pacific region
 **Examples from Sprint 3 review**:
 - Caribbean risk pool
@@ -88,7 +117,69 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 **Status**: Awaiting specific program list from GAIP
 **Note**: Web scraping was targeting Asia to control costs and validation complexity
 
+
+### 11. Scheme to use KG for related documents, etc. 
+For example, if we have entities in the Solution text (once we're doing full text for solutions) we can walk the entities from chunks to documents. We can also use those entity values to augment the query. Lots of ways to build this out.
+
 ## Completed Fixes
+
+### ✅ Textract Deduplication System
+**Issue**: Reprocessing documents with Textract costs $20+ per document
+**Resolution**: Implemented hash-based duplicate detection using S3 ETag
+**Status**: Completed 2025-11-18
+**Details**:
+- MD5 hash from S3 ETag for single-part uploads (99.7% of documents)
+- SHA-256 hash for multipart uploads
+- Database query checks textract_complete for matching hash
+- Skips Textract and publishes completion message for duplicates
+- Hash preserved from textract_initiate to textract_complete metadata
+**Impact**: Saves $20+ per duplicate document, prevents unnecessary costs
+
+### ✅ Keyword Indexer Timeout
+**Issue**: Lambda timing out at 300 seconds for large documents
+**Resolution**: Increased Lambda memory to optimize CPU allocation
+**Status**: Completed 2025-11-18
+**Details**: Processing time reduced from 300s timeout to 9 seconds
+**Impact**: Reliable keyword indexing for documents with 1000+ chunks
+
+### ✅ KG Triple Loader Authentication
+**Issue**: Neptune bulk loader failing with "object has no attribute 'auth'" error
+**Resolution**: Added auth property to KnowledgeGraphManager for SigV4 signing
+**Status**: Completed 2025-11-18
+**Details**:
+- Added auth property returning NeptuneSigV4Auth callable
+- Fixed parallelism value from "AUTO" to "OVERSUBSCRIBE"
+- Deployed knowledge-graph-layer v63
+**Impact**: Reliable Neptune bulk loading for document structure triples
+
+### ✅ Content Type Field Addition
+**Issue**: No differentiation between solutions and trusted source documents in indices
+**Resolution**: Added content_type field to keyword and vector indices
+**Status**: Completed 2025-11-18
+**Details**:
+- Implemented determine_document_type() based on doc_id prefix
+- Added to documents_keyword index (keyword-indexer)
+- Added to chunks_vector index (vector-embeddings-worker)
+**Impact**: Enables separate search filtering for solutions vs TSDs
+
+### ✅ Text Extractor Hash Preservation
+**Issue**: textract_complete records missing document_hash for deduplication
+**Resolution**: text-extractor-processor now copies hash from textract_initiate
+**Status**: Completed 2025-11-18
+**Impact**: Deduplication works for all future document processing
+
+### ✅ Manifest Skip Flag Support
+**Issue**: No way to exclude already-processed documents from batch runs
+**Resolution**: Added skip flag parsing in process_manifest_pipeline.py
+**Status**: Completed 2025-11-18
+**Details**: Documents marked with "skip": true are automatically excluded
+**Impact**: Prevents reprocessing in batch operations
+
+### ✅ Pipeline Continuation After Skip
+**Issue**: Duplicate documents not triggering rest of pipeline after Textract skip
+**Resolution**: Added TEXT_EXTRACTION_COMPLETE_TOPIC_ARN environment variable
+**Status**: Completed 2025-11-18
+**Impact**: Deduplication works end-to-end without blocking pipeline
 
 ### ✅ Deduplication Strategy
 **Issue**: 603 solutions → 568 unique (35 duplicates)

@@ -1,0 +1,9 @@
+{
+  "test_type": "tsd_searchability",
+  "checks": [
+    "count_tsds",
+    "sample_retrieval",
+    "bm25_search",
+    "vector_search"
+  ]
+}
