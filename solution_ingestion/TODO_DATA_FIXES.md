@@ -40,6 +40,77 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 **Status**: Documented 2025-11-04
 **Workaround**: Per-document loading approach implemented
 
+### 16. API Response Field Enhancements
+**Issue**: Four fields in API response are currently defaulted/empty
+**Status**: Identified 2025-11-19
+**Priority**: Medium
+
+#### 16.1 Solution Categories Field
+**Current**: `"solution_categories": []` (empty array)
+**Expected**: Unclear - needs clarification on what this field should contain
+**Questions**:
+- Is this different from `solution_types` (risk-reduction, risk-financing, etc.)?
+- Should it be derived from existing metadata or is it a new classification?
+- Examples of expected values needed
+**Investigation Needed**: Clarify with stakeholders what solution_categories should represent
+
+#### 16.2 Implementation Status Field
+**Current**: `"implemented": "unknown"` (string default)
+**Expected**: Boolean value indicating if solution is active/in-use vs planned/speculative
+**Possible Sources**:
+- Solution metadata might have implementation status
+- Could be derived from publication date (older = more likely implemented)
+- May need to be added to CSV harvesting or manual tagging
+**Proposed Fix**:
+- Check if implementation status exists in solution metadata
+- Add field to CSV harvesting if not present
+- Default to `false` or `null` if unknown (not "unknown" string)
+**Complexity**: Low-Medium (depends on data availability)
+
+#### 16.3 Public-Private Partnership (PPP) Involvement
+**Current**: `"ppp_involvement": "Unknown"` (string default)
+**Expected**: Boolean indicating if solution involves both public and private organizations
+**Proposed Solution**: Derive from Knowledge Graph using SPARQL
+```sparql
+# Check if solution has both public and private organizations
+SELECT ?solution 
+  (COUNT(DISTINCT ?publicOrg) as ?publicCount)
+  (COUNT(DISTINCT ?privateOrg) as ?privateCount)
+WHERE {
+  ?solution a sgd:Solution .
+  OPTIONAL { ?solution sgd:hasPublicOrganization ?publicOrg }
+  OPTIONAL { ?solution sgd:hasPrivateOrganization ?privateOrg }
+}
+GROUP BY ?solution
+HAVING (?publicCount > 0 && ?privateCount > 0)
+```
+**Implementation**:
+- Add SPARQL query to solution_searcher.py
+- Execute during solution content retrieval
+- Set `ppp_involvement: true` if both org types present, `false` otherwise
+**Complexity**: Low (SPARQL query + boolean logic)
+
+#### 16.4 Key Highlights Field
+**Current**: `"key_highlights": []` (empty array)
+**Expected**: Bullet points or structured highlights from "Key Highlights" section
+**Proposed Solution**: Extract from document structure similar to description
+**Implementation Approach**:
+1. Identify "Key Highlights" section in document structure (KG traversal)
+2. Extract chunks under that section
+3. Format as bullet points or structured list
+4. May need text manipulation to clean up formatting
+**Considerations**:
+- Some solutions may not have Key Highlights section
+- Format: array of strings vs structured objects?
+- Length limits per highlight?
+- Should highlights be ranked/ordered?
+**Complexity**: Medium (similar to description extraction but with formatting)
+
+**Related Code Locations**:
+- API response formatting: `/lambda/search/src/search/solution_searcher.py`
+- KG queries: `/lambda/search/src/search/solution_searcher.py` (get_solution_content method)
+- Document structure traversal: Knowledge graph layer
+
 ## Medium Priority Issues
 
 ### 5. Organization Name Standardization
