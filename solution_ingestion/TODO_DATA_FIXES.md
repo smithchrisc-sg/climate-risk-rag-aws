@@ -72,7 +72,61 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 **Actual**: Some pages return fewer results than requested
 **Investigation Needed**: Check Neptune SPARQL LIMIT/OFFSET calculation and S3 content assembly logic
 
+### 13. OpenSearch Content Field Highlighting Performance
+**Issue**: Highlighting content field causes 15x performance degradation (182ms → 2678ms)
+**Status**: Identified 2025-11-19 during related documents implementation
+**Details**:
+- BM25 search without highlights: 182ms
+- BM25 search with content highlights: 2678ms (14.7x slower)
+- BM25 search with full_text + highlights: 1676ms (9.2x slower)
+**Investigation Needed**:
+- Check content field mapping and analyzer configuration
+- Test with different highlighter types (unified, fvh, plain)
+- Consider creating separate summary field during indexing
+- Verify term_vector settings for highlighting optimization
+**Workaround**: Using best matching vector chunk text for summaries
+**Impact**: Related documents feature working but summaries could be better
+**Priority**: Medium - feature works but optimization would improve quality
+
+### 14. TSD Title Backfill
+**Issue**: Some TSDs indexed with "Document {doc_id}" instead of actual title
+**Status**: Identified 2025-11-19
+**Cause**: Title not in metadata during keyword indexing
+**Current Workaround**: Database lookup retrieves actual title from documents table
+**Proper Fix**: Update keyword-indexer to get title from database during indexing
+**Impact**: Related documents display correct titles via database lookup
+**Priority**: Low - workaround effective but adds database query overhead
+
+### 15. Content Type Migration for Existing TSDs
+**Issue**: 228 existing TSDs had null content_type field
+**Status**: Completed 2025-11-19 via manual bulk update
+**Resolution**: Used OpenSearch _update_by_query to set content_type='trusted_source_document'
+**Prevention**: Keyword-indexer now sets content_type during indexing
+**Impact**: All TSDs now searchable with content_type filter
+**Note**: Future TSDs will have content_type set automatically
+
 ## Content Loading & Expansion
+
+### ✅ Trusted Source Document Search Integration
+**Issue**: Recently indexed TSDs not appearing in search results
+**Status**: RESOLVED 2025-11-19
+**Root Cause**: content_type field was null for TSDs
+**Resolution**:
+- Fixed keyword-indexer to set content_type during indexing
+- Manually updated 228 existing TSDs with content_type='trusted_source_document'
+- Verified 13 test TSDs searchable with content_type filter
+**Impact**: All TSDs now searchable, related documents feature working
+
+### ✅ Related Documents Feature Implementation
+**Issue**: Need to show related TSDs for each solution
+**Status**: Completed 2025-11-19
+**Resolution**:
+- Implemented hybrid BM25 + Vector search for TSDs
+- Integrated PostgresProcessor for database metadata lookups
+- Extract source name (World Bank, IMF) from URLs
+- Use best matching vector chunk text for summaries
+- Display rank instead of relevance score
+**Impact**: Users can see 3-5 relevant TSDs per solution with proper metadata
 
 ### 9. Trusted Source Document Search Integration
 **Issue**: Recently indexed TSDs not appearing in search results
