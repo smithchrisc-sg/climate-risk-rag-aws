@@ -311,6 +311,8 @@ class SearchCoordinator:
         try:
             # Load session data
             session_data = await self.session_manager.load_session_lightweight(session_id)
+            self.logger.info(f"Session data keys: {list(session_data.keys())}")
+            self.logger.info(f"Session query field: '{session_data.get('query', 'NOT_FOUND')}'")
             
             # Get solution IDs for this page
             page_data = self.session_manager.get_page_solution_ids(
@@ -329,6 +331,7 @@ class SearchCoordinator:
                 # Get RRF scores from session metadata if available
                 rrf_scores = session_data.get('metadata', {}).get('rrf_scores', {})
                 user_query = session_data.get('query', '')
+                self.logger.info(f"User query from session: '{user_query}'")
                 
                 for idx, sol_id in enumerate(solution_ids): # sol_id is the URI of the solution 
                     try:

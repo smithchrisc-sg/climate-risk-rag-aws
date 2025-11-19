@@ -14,6 +14,15 @@ class RelatedDocumentsService:
         self.ranking_engine = ranking_engine
         self.logger.info(f"RelatedDocumentsService initialized by ranking engine: {ranking_engine}")
         
+        # Initialize PostgresProcessor for database access
+        try:
+            from search.postgres import PostgresProcessor
+            self.postgres = PostgresProcessor()
+            self.logger.info("PostgresProcessor initialized successfully")
+        except Exception as e:
+            self.logger.error(f"Failed to initialize PostgresProcessor: {e}")
+            self.postgres = None
+        
         # OpenSearch configuration
         self.opensearch_endpoint = "https://vpc-solve-global-kr-search-hsacnclbjsoclui75hefj2espq.us-east-1.es.amazonaws.com"
         
@@ -197,7 +206,7 @@ class RelatedDocumentsService:
                     }
                 },
                 "size": self.VECTOR_TOP_K,
-                "_source": ["doc_id"]
+                "_source": ["doc_id", "text"]
             }
             
             response = self.opensearch_client.search(
@@ -205,9 +214,10 @@ class RelatedDocumentsService:
                 body=search_body
             )
             
-            # Aggregate chunks to documents
+            # Aggregate chunks to documents and store best chunk text
             doc_best_rank = {}
             doc_hit_count = {}
+            self.vector_chunk_text = {}  # Store best chunk text for each doc
             
             for i, hit in enumerate(response['hits']['hits']):
                 doc_id = hit['_source']['doc_id']
@@ -216,6 +226,8 @@ class RelatedDocumentsService:
                 if doc_id not in doc_best_rank:
                     doc_best_rank[doc_id] = rank
                     doc_hit_count[doc_id] = 1
+                    # Store the text from the best (first) chunk for this document
+                    self.vector_chunk_text[doc_id] = hit['_source'].get('text', '')
                 else:
                     doc_hit_count[doc_id] += 1
             
@@ -267,17 +279,28 @@ class RelatedDocumentsService:
         formatted_results = []
         
         self.logger.info(f"Fused results: {json.dumps(fused_results, indent=2)}")
-        for doc_id, score in fused_results:
-            # Get document metadata from OpenSearch
+        for rank, (doc_id, score) in enumerate(fused_results, 1):
+            # Get document metadata from OpenSearch and database
             doc_data = self._get_document_metadata(doc_id)
             if doc_data:
                 self.logger.info(f"Doc data: {json.dumps(doc_data, indent=2)}")
+                
+                # Use best matching chunk text as summary if available from vector search
+                if hasattr(self, 'vector_chunk_text') and doc_id in self.vector_chunk_text:
+                    chunk_text = self.vector_chunk_text[doc_id]
+                    summary = chunk_text[:200] + '...' if len(chunk_text) > 200 else chunk_text
+                else:
+                    # Fallback to content truncation
+                    content = doc_data.get('content', '')
+                    summary = content[:200] + '...' if len(content) > 200 else content
+                
                 formatted_results.append({
                     "doc_id": doc_id,
                     "title": doc_data.get('title', 'Unknown Document'),
-                    "summary": doc_data.get('summary', ''),
-                    "relevance_score": round(score, 3),
+                    "summary": summary or 'No summary available',
+                    "rank": rank,
                     "source_url": doc_data.get('source_url', ''),
+                    "source_name": doc_data.get('source_name', 'Trusted Source'),
                     "content_type": "trusted_source_document"
                 })
         
@@ -285,16 +308,54 @@ class RelatedDocumentsService:
         return formatted_results
     
     def _get_document_metadata(self, doc_id: str) -> Optional[dict]:
-        """Retrieve document metadata from OpenSearch"""
+        """Retrieve document metadata from OpenSearch and database"""
         try:
+            # Get from OpenSearch
             response = self.opensearch_client.search(
                 index="documents_keyword",
                 body={
                     "query": {"term": {"doc_id": doc_id}},
                     "size": 1,
-                    "_source": ["title", "summary", "source_url"]
+                    "_source": ["title", "content", "metadata"]
                 }
             )
+            
+            if not response['hits']['hits']:
+                return None
+                
+            doc_data = response['hits']['hits'][0]['_source']
+            
+            # Get additional metadata from database if available
+            if self.postgres:
+                try:
+                    db_manager = self.postgres._get_db_manager()
+                    db_doc = db_manager.get_document(doc_id)
+                    
+                    if db_doc:
+                        self.logger.info(f"Found document in database: {db_doc.get('title', 'No title')}")
+                        if db_doc.get('title'):
+                            doc_data['title'] = db_doc['title']
+                        if db_doc.get('source_url'):
+                            doc_data['source_url'] = db_doc['source_url']
+                            # Extract source name from URL
+                            if 'worldbank.org' in db_doc['source_url']:
+                                doc_data['source_name'] = 'World Bank'
+                            elif 'imf.org' in db_doc['source_url']:
+                                doc_data['source_name'] = 'IMF'
+                            else:
+                                doc_data['source_name'] = 'Trusted Source'
+                    else:
+                        self.logger.warning(f"No database record found for: {doc_id}")
+                        doc_data['source_name'] = 'Trusted Source'
+                except Exception as e:
+                    self.logger.error(f"Database lookup failed for {doc_id}: {e}")
+                    import traceback
+                    self.logger.error(traceback.format_exc())
+                    doc_data['source_name'] = 'Trusted Source'
+            else:
+                doc_data['source_name'] = 'Trusted Source'
+            
+            return doc_data
             
             if response['hits']['hits']:
                 return response['hits']['hits'][0]['_source']

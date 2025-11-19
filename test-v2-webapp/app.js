@@ -643,10 +643,10 @@ function createSolutionCard(result, index, resultNumber = null) {
                                     <a href="${doc.source_url || '#'}" target="_blank" class="document-title">
                                         📄 ${doc.title}
                                     </a>
-                                    <span class="relevance-badge">${Math.round(doc.relevance_score * 100)}%</span>
+                                    <span class="relevance-badge">${doc.rank ? `#${doc.rank}` : Math.round(doc.relevance_score * 100) + '%'}</span>
                                 </div>
                                 <p class="document-summary">${doc.summary ? doc.summary.substring(0, 150) + '...' : 'No summary available'}</p>
-                                <span class="document-type">Trusted Source</span>
+                                <span class="document-type">${doc.source_name || 'Trusted Source'}</span>
                             </div>
                         `).join('')}
                     </div>

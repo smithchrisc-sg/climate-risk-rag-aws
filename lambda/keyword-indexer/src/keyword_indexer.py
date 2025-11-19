@@ -335,6 +335,10 @@ class KeywordIndexer:
             logger.error(f"Failed to extract keywords: {str(e)}")
             return []
     
+    def determine_document_type(self, doc_id: str) -> str:
+        """Determine document type based on doc_id prefix"""
+        return 'solution' if doc_id.startswith('sol_') else 'trusted_source_document'
+    
     def index_document_in_opensearch(self, doc_id: str, text_content: str, 
                                    structure_info: Dict, metadata: Dict) -> Dict[str, Any]:
         """Index full document in OpenSearch for TF-IDF keyword search"""
@@ -358,6 +362,7 @@ class KeywordIndexer:
                 'doc_id': doc_id,
                 'title': title,
                 'content': text_content,  # Full text for TF-IDF calculation
+                'content_type': self.determine_document_type(doc_id),
                 'document_keywords': document_keywords,
                 'structure_info': structure_info,
                 'metadata': metadata,
