@@ -45,29 +45,65 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 **Status**: Identified 2025-11-19
 **Priority**: Medium
 
-#### 16.1 Solution Categories Field
-**Current**: `"solution_categories": []` (empty array)
-**Expected**: Unclear - needs clarification on what this field should contain
+#### 16.1 Solution Categories vs Risk Types vs Solution Types
+**Current**: Inconsistent usage across mockups and API
+**Status**: Needs clarification 2025-11-19
+**Fields in Question**:
+- `solution_categories`: Currently empty array `[]`
+- `risk_types_addressed`: Working (e.g., "Natural Catastrophe", "Cyber", "Health")
+- `solution_types`: Working (e.g., "Risk Reduction", "Risk Financing")
+**Issue**: Mockups show inconsistent usage - appears to be made up examples
 **Questions**:
-- Is this different from `solution_types` (risk-reduction, risk-financing, etc.)?
-- Should it be derived from existing metadata or is it a new classification?
-- Examples of expected values needed
-**Investigation Needed**: Clarify with stakeholders what solution_categories should represent
+- Are solution_categories the same as risk_types_addressed?
+- Is there a three-tier taxonomy: category → risk type → solution type?
+- Should solution_categories be removed from API response?
+**Action Required**: Clarify taxonomy structure with stakeholders before implementation
+**Priority**: Medium - affects API contract and frontend display
 
 #### 16.2 Implementation Status Field
 **Current**: `"implemented": "unknown"` (string default)
 **Expected**: Boolean value indicating if solution is active/in-use vs planned/speculative
-**Possible Sources**:
-- Solution metadata might have implementation status
-- Could be derived from publication date (older = more likely implemented)
-- May need to be added to CSV harvesting or manual tagging
-**Proposed Fix**:
-- Check if implementation status exists in solution metadata
-- Add field to CSV harvesting if not present
-- Default to `false` or `null` if unknown (not "unknown" string)
-**Complexity**: Low-Medium (depends on data availability)
+**Data Source**: Year of Implementation field (currently used for publication_date)
+**Proposed Logic**: 
+```python
+# If publication_date (Year of Implementation) <= current year, then implemented = true
+implemented = publication_date <= datetime.now().year if publication_date else False
+```
+**Implementation**:
+- Update solution_searcher.py get_solution_content() method
+- Add logic to compare publication_date with current year
+- Return boolean instead of "unknown" string
+**Complexity**: Low (simple date comparison)
+**Priority**: High - clear logic defined
 
-#### 16.3 Public-Private Partnership (PPP) Involvement
+#### 16.3 Last Update Date Field
+**Current**: Not present in API response
+**Expected**: Show when solution data was last updated
+**Data Source**: Database `documents` table has `created_at` and `updated_at` columns
+**Proposed Implementation**:
+- Add `last_update_date` to solution metadata in API response
+- Retrieve from database during solution content assembly
+- Format: ISO 8601 timestamp (e.g., "2025-11-19T15:48:00Z")
+**Location in Response**: Add to metadata object or top-level field
+```json
+{
+  "solution_id": "sol_abc123",
+  "title": "...",
+  "last_update_date": "2025-11-19T15:48:00Z",
+  "metadata": {
+    "last_update_date": "2025-11-19T15:48:00Z",
+    // ... other metadata
+  }
+}
+```
+**Implementation**:
+- Query documents table for updated_at during solution retrieval
+- Add to response formatting in solution_searcher.py
+- API response structure is flexible, can add new fields
+**Complexity**: Low (database query + formatting)
+**Priority**: Medium - useful for users to know data freshness
+
+#### 16.4 Public-Private Partnership (PPP) Involvement
 **Current**: `"ppp_involvement": "Unknown"` (string default)
 **Expected**: Boolean indicating if solution involves both public and private organizations
 **Proposed Solution**: Derive from Knowledge Graph using SPARQL
@@ -90,7 +126,7 @@ HAVING (?publicCount > 0 && ?privateCount > 0)
 - Set `ppp_involvement: true` if both org types present, `false` otherwise
 **Complexity**: Low (SPARQL query + boolean logic)
 
-#### 16.4 Key Highlights Field
+#### 16.5 Key Highlights Field
 **Current**: `"key_highlights": []` (empty array)
 **Expected**: Bullet points or structured highlights from "Key Highlights" section
 **Proposed Solution**: Extract from document structure similar to description
