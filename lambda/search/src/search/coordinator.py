@@ -129,7 +129,7 @@ class SearchCoordinator:
         
         if search_strategy == "filter_only":
             self.logger.info("Using filter-only search (no query or query too short)")
-            return await self._handle_filter_only_search(filters, parameters, start_time)
+            return await self._handle_filter_only_search(query, filters, parameters, start_time)
         elif search_strategy == "hybrid_full":
             self.logger.info(f"Using full hybrid search (BM25 + Vector) for query: '{processed_query}'")
             return await self._handle_hybrid_search(processed_query, filters, parameters, start_time)
@@ -138,7 +138,7 @@ class SearchCoordinator:
             self.logger.info(f"Using hybrid search for query: '{processed_query}'")
             return await self._handle_hybrid_search(processed_query, filters, parameters, start_time)
     
-    async def _handle_filter_only_search(self, filters: Dict[str, Any], 
+    async def _handle_filter_only_search(self, query: str, filters: Dict[str, Any], 
                                        parameters: Dict[str, Any], start_time: float) -> Dict[str, Any]:
         """Handle filter-only search using existing logic"""
         
@@ -159,9 +159,9 @@ class SearchCoordinator:
         if not solution_ids:
             return self._create_empty_response("", filters, parameters, start_time)
         
-        # Step 2: Create session with Neptune order (no ranking)
+        # Step 2: Create session with Neptune order (no ranking) but preserve query for related docs
         session_id = await self.session_manager.create_session_lightweight(
-            query="",
+            query=query,  # Store original query for related documents feature
             filters=filters,
             solution_ids=solution_ids,
             page_size=max_results
