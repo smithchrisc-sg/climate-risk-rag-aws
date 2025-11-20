@@ -69,6 +69,12 @@ curl -X POST "https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search" 
 ### **No Authentication Required**
 The API is currently open for testing. No authentication headers needed.
 
+**Future Authentication (Production)**:
+- **User Pool ID**: `us-east-1_W1N7opitG`
+- **App Client ID**: `7p462gapip85uve67q310nvcil`
+- **Username**: `gaip-service@gaip.com`
+- **Password**: `[To be provided by SolveGlobal team]`
+
 ---
 
 ## ✅ **Implementation Status**

@@ -43,16 +43,16 @@ The production GAIP Knowledge Repository API will use **JWT Bearer Token authent
 
 ### **Prerequisites**
 You will receive from GAIP:
-- **Cognito User Pool ID**: `us-east-1_XXXXXXXXX`
-- **App Client ID**: `your-app-client-id`
-- **Cognito Domain**: `gaip-auth.auth.us-east-1.amazoncognito.com`
-- **API Base URL**: `https://api.solve.global/gaip/v1`
+- **Cognito User Pool ID**: `us-east-1_W1N7opitG`
+- **App Client ID**: `7p462gapip85uve67q310nvcil`
+- **Cognito Domain**: `gaip-auth.auth.us-east-1.amazoncognito.com` (when configured)
+- **API Base URL**: `https://api.solve.global/gaip/v1` (production)
 
 ### **Test Credentials**
 For testing and development:
-- **Username**: `gaip-test-user`
-- **Password**: `TempPassword123!`
-- **User Pool**: Will be provided with production deployment
+- **Username**: `gaip-service@gaip.com`
+- **Password**: `[To be provided by SolveGlobal team]`
+- **User Pool**: `us-east-1_W1N7opitG`
 
 ### **User Registration**
 New users must be registered in the GAIP Cognito User Pool. Contact your GAIP administrator for:
@@ -71,7 +71,7 @@ Amazon Cognito provides a hosted authentication UI for user login.
 **Login URL Format:**
 ```
 https://gaip-auth.auth.us-east-1.amazoncognito.com/login?
-  client_id=<app-client-id>&
+  client_id=7p462gapip85uve67q310nvcil&
   response_type=code&
   scope=openid+email+profile&
   redirect_uri=<your-callback-url>
@@ -88,7 +88,7 @@ https://gaip-auth.auth.us-east-1.amazoncognito.com/login?
 curl -X POST https://gaip-auth.auth.us-east-1.amazoncognito.com/oauth2/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "grant_type=authorization_code&\
-      client_id=<app-client-id>&\
+      client_id=7p462gapip85uve67q310nvcil&\
       code=<authorization-code>&\
       redirect_uri=<your-callback-url>"
 ```
@@ -115,11 +115,11 @@ import boto3
 client = boto3.client('cognito-idp', region_name='us-east-1')
 
 response = client.initiate_auth(
-    ClientId='<app-client-id>',
+    ClientId='7p462gapip85uve67q310nvcil',
     AuthFlow='USER_PASSWORD_AUTH',
     AuthParameters={
-        'USERNAME': 'gaip-test-user',
-        'PASSWORD': 'TempPassword123!'
+        'USERNAME': 'gaip-service@gaip.com',
+        'PASSWORD': '[To be provided by SolveGlobal team]'
     }
 )
 
@@ -135,7 +135,7 @@ For service accounts without user interaction.
 curl -X POST https://gaip-auth.auth.us-east-1.amazoncognito.com/oauth2/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "grant_type=client_credentials&\
-      client_id=<app-client-id>&\
+      client_id=7p462gapip85uve67q310nvcil&\
       client_secret=<app-client-secret>&\
       scope=<custom-scope>"
 ```
@@ -187,7 +187,7 @@ When access tokens expire, use the refresh token to obtain new tokens without re
 curl -X POST https://gaip-auth.auth.us-east-1.amazoncognito.com/oauth2/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "grant_type=refresh_token&\
-      client_id=<app-client-id>&\
+      client_id=7p462gapip85uve67q310nvcil&\
       refresh_token=<refresh-token>"
 ```
 
