@@ -4,21 +4,18 @@
 
 The GAIP Knowledge Repository Search API v1.0 provides comprehensive search capabilities over climate risk solutions and trusted source documents with complete metadata and related document integration.
 
-**Current Base URL**: `https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1`  
-**Production Base URL**: `https://api.solve.global/gaip/v1` (Future)
+**Current Base URL**: `https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1`
 
 ## Authentication
 
-**Current Status**: No authentication required for testing  
-**Production**: JWT Bearer token authentication (see `GAIP_API_AUTHENTICATION_GUIDE_V1_2025-11-21.md`)
+**Authentication Required**: JWT Bearer token authentication via Amazon Cognito
 
 ```bash
-# Current - No authentication needed
-curl -X POST https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search
-
-# Future - Authentication required
+# All requests require Authorization header
 Authorization: Bearer <your-jwt-token>
 ```
+
+See `GAIP_API_AUTHENTICATION_GUIDE_V1_2025-11-21.md` for complete authentication details.
 
 ## Endpoints
 

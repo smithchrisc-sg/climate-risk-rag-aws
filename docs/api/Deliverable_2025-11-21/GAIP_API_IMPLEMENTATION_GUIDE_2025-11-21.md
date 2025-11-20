@@ -6,11 +6,34 @@
 
 ---
 
-## 🚀 **Quick Start**
+## 🔐 **Authentication Required**
 
-### **API Endpoint**
-```
-https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search
+### **Current Status**
+The GAIP Knowledge Repository API **requires JWT Bearer Token authentication** via Amazon Cognito for all requests.
+
+**API Endpoint**: `https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search`  
+**Authentication**: JWT Bearer Token (required for all requests)
+
+### **Getting Started**
+1. **Authenticate with Cognito** using provided credentials
+2. **Obtain JWT access token** from authentication response
+3. **Include token** in Authorization header for all API requests
+
+### **Authentication Flow**
+```javascript
+// 1. Authenticate with Cognito
+const authResponse = await authenticateWithCognito(username, password);
+const accessToken = authResponse.AccessToken;
+
+// 2. Use token in API requests
+const searchResponse = await fetch('https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ query: 'climate risk insurance' })
+});
 ```
 
 ### **Test Credentials**
@@ -22,6 +45,7 @@ https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search
 ### **Sample Request**
 ```bash
 curl -X POST "https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search" \
+  -H "Authorization: Bearer <your-jwt-token>" \
   -H "Content-Type: application/json" \
   -d '{
     "query": "climate risk insurance",
@@ -30,6 +54,8 @@ curl -X POST "https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search" 
     }
   }'
 ```
+
+**⚠️ Authentication Required**: All API requests require a valid JWT token from Cognito authentication.
 
 ---
 

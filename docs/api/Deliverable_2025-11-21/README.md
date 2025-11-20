@@ -56,7 +56,18 @@ https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search
 
 ### **Test Request**
 ```bash
+# First, get JWT token from Cognito
+ACCESS_TOKEN=$(aws cognito-idp initiate-auth \
+  --client-id 7p462gapip85uve67q310nvcil \
+  --auth-flow USER_PASSWORD_AUTH \
+  --auth-parameters USERNAME=gaip-service@gaip.com,PASSWORD=YourPassword \
+  --region us-east-1 \
+  --query 'AuthenticationResult.AccessToken' \
+  --output text)
+
+# Then use token in API request
 curl -X POST "https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "query": "climate risk insurance",
@@ -66,10 +77,10 @@ curl -X POST "https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search" 
   }'
 ```
 
-### **No Authentication Required**
-The API is currently open for testing. No authentication headers needed.
+### **Authentication Required**
+All API requests require a valid JWT token from Cognito authentication.
 
-**Future Authentication (Production)**:
+### **Authentication Credentials**
 - **User Pool ID**: `us-east-1_W1N7opitG`
 - **App Client ID**: `7p462gapip85uve67q310nvcil`
 - **Username**: `gaip-service@gaip.com`

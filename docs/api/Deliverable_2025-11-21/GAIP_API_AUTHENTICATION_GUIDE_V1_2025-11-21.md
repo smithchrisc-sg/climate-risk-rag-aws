@@ -8,34 +8,38 @@
 
 ## 🚨 **Current Status (November 2025)**
 
-### **Testing Phase - No Authentication Required**
-The GAIP Knowledge Repository API is currently **open for testing** without authentication requirements.
+### **Production API - Cognito Authentication Required**
+The GAIP Knowledge Repository API **requires JWT Bearer Token authentication** via Amazon Cognito for all requests.
 
 **Current API Endpoint**: `https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search`
 
-**Usage**: Direct API calls without authentication headers
+**Usage**: All API calls require Authorization header with JWT token
 ```bash
 curl -X POST "https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search" \
+  -H "Authorization: Bearer <your-jwt-token>" \
   -H "Content-Type: application/json" \
   -d '{"query": "climate risk insurance"}'
 ```
 
-### **Production Deployment - Cognito Authentication**
-When deployed to production, the API will require JWT Bearer Token authentication via Amazon Cognito.
+### **Authentication is Mandatory**
+- ✅ **JWT authentication implemented** and active
+- ✅ **Cognito User Pool configured** with test accounts
+- ✅ **API Gateway authorizer** validates all requests
+- ❌ **No requests allowed** without valid JWT token
 
 ---
 
-## 🔐 **Future Authentication Implementation**
+## 🔐 **Current Authentication Implementation**
 
 ### **Overview**
-The production GAIP Knowledge Repository API will use **JWT Bearer Token authentication** via Amazon Cognito. All authenticated endpoints will require a valid JWT token in the Authorization header.
+The GAIP Knowledge Repository API uses **JWT Bearer Token authentication** via Amazon Cognito. All API endpoints require a valid JWT token in the Authorization header.
 
 ### **Authentication Flow**
-1. **User Registration/Login** - Authenticate with Cognito User Pool
-2. **Receive JWT Token** - Cognito issues access token and ID token
-3. **API Requests** - Include Bearer token in Authorization header
+1. **User Login** - Authenticate with Cognito User Pool using username/password
+2. **Receive JWT Token** - Cognito returns access token, ID token, and refresh token
+3. **API Requests** - Include access token in Authorization header
 4. **Token Validation** - API Gateway validates token via Lambda authorizer
-5. **Token Refresh** - Use refresh token to obtain new access tokens
+5. **Token Refresh** - Use refresh token to obtain new access tokens when expired
 
 ---
 
@@ -205,11 +209,11 @@ curl -X POST https://gaip-auth.auth.us-east-1.amazoncognito.com/oauth2/token \
 
 ## 📋 **Endpoint Authentication Requirements**
 
-| Endpoint | Method | Current Status | Production Status |
-|----------|--------|----------------|-------------------|
-| `/search` | POST | ❌ No Auth Required | ✅ JWT Bearer Token |
-| `/repository/last-update` | GET | ❌ No Auth Required | ❌ Public |
-| `/repository/solution-count` | GET | ❌ No Auth Required | ❌ Public |
+| Endpoint | Method | Authentication Status |
+|----------|--------|----------------------|
+| `/search` | POST | ✅ JWT Bearer Token Required |
+| `/repository/last-update` | GET | ✅ JWT Bearer Token Required |
+| `/repository/solution-count` | GET | ✅ JWT Bearer Token Required |
 
 ---
 
@@ -276,24 +280,11 @@ curl -X POST https://gaip-auth.auth.us-east-1.amazoncognito.com/oauth2/token \
 ### **JavaScript/TypeScript (Web)**
 
 ```javascript
-// Current implementation (no auth)
+// Current implementation (with required auth)
 async function searchAPI(query, filters) {
+  const accessToken = await getAccessToken(); // Get token from Cognito
+  
   const response = await fetch('https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query, filters })
-  });
-  
-  return response.json();
-}
-
-// Future implementation (with auth)
-async function searchAPIWithAuth(query, filters) {
-  const accessToken = getStoredAccessToken(); // Your token storage method
-  
-  const response = await fetch('https://api.solve.global/gaip/v1/search', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${accessToken}`,
@@ -305,10 +296,16 @@ async function searchAPIWithAuth(query, filters) {
   if (response.status === 401) {
     // Token expired - refresh and retry
     await refreshToken();
-    return searchAPIWithAuth(query, filters);
+    return searchAPI(query, filters);
   }
   
   return response.json();
+}
+
+// Cognito authentication function
+async function getAccessToken() {
+  // Implementation depends on your Cognito setup
+  // See full example in app.js integration section
 }
 ```
 
@@ -317,20 +314,8 @@ async function searchAPIWithAuth(query, filters) {
 ```python
 import requests
 
-# Current implementation (no auth)
-def search_api_current(query, filters):
+def search_api(query, filters, access_token):
     url = 'https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search'
-    payload = {
-        'query': query,
-        'filters': filters
-    }
-    
-    response = requests.post(url, json=payload)
-    return response.json()
-
-# Future implementation (with auth)
-def search_api_with_auth(query, filters, access_token):
-    url = 'https://api.solve.global/gaip/v1/search'
     headers = {
         'Authorization': f'Bearer {access_token}',
         'Content-Type': 'application/json'
@@ -345,28 +330,40 @@ def search_api_with_auth(query, filters, access_token):
     if response.status_code == 401:
         # Token expired - refresh and retry
         access_token = refresh_cognito_token()
-        return search_api_with_auth(query, filters, access_token)
+        return search_api(query, filters, access_token)
     
     return response.json()
+
+def get_cognito_token(username, password):
+    import boto3
+    client = boto3.client('cognito-idp', region_name='us-east-1')
+    
+    response = client.initiate_auth(
+        ClientId='7p462gapip85uve67q310nvcil',
+        AuthFlow='USER_PASSWORD_AUTH',
+        AuthParameters={
+            'USERNAME': username,
+            'PASSWORD': password
+        }
+    )
+    
+    return response['AuthenticationResult']['AccessToken']
 ```
 
 ### **cURL**
 
 ```bash
-# Current implementation (no auth)
+# Get JWT token first (using AWS CLI)
+ACCESS_TOKEN=$(aws cognito-idp initiate-auth \
+  --client-id 7p462gapip85uve67q310nvcil \
+  --auth-flow USER_PASSWORD_AUTH \
+  --auth-parameters USERNAME=gaip-service@gaip.com,PASSWORD=YourPassword \
+  --region us-east-1 \
+  --query 'AuthenticationResult.AccessToken' \
+  --output text)
+
+# Use token in API request
 curl -X POST https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "climate risk insurance",
-    "filters": {
-      "solution_category": ["natural_catastrophe"]
-    }
-  }'
-
-# Future implementation (with auth)
-ACCESS_TOKEN="eyJraWQiOiJ..."
-
-curl -X POST https://api.solve.global/gaip/v1/search \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
