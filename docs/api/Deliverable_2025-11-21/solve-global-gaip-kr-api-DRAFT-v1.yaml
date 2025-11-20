@@ -1,0 +1,816 @@
+openapi: 3.0.3
+info:
+  title: GAIP Knowledge Repository Search API - DRAFT v2.0
+  description: |
+    **DRAFT SPECIFICATION - NOT YET IMPLEMENTED**
+    
+    This is a DRAFT specification for the proposed hierarchical content structure of the GAIP Knowledge Repository Search API.
+    This version introduces the concept of Solutions and Trusted Source Documents with hierarchical relationships.
+    
+    **CURRENT IMPLEMENTATION**: See solve-global-gaip-kr-api.yaml for the currently deployed API specification.
+    
+    A unified search API for the Global Asia Insurance Partnership (GAIP) knowledge repository 
+    that provides access to vetted insurance and risk-related documents. The API searches across 
+    processed documents focused on protection gap models, government policy frameworks, and 
+    geo-specific risk assessments using proprietary algorithms that integrate keyword matching, 
+    semantic similarity, and knowledge graph relationships.
+    
+    **NEW IN v2.0 (DRAFT):**
+    - Hierarchical content structure: Solutions with related Trusted Source Documents
+    - Content type filtering and classification
+    - Enhanced relationship mapping between documents
+    
+    Supporting GAIP's mission to address Asia's protection gaps through:
+    - Understanding and quantifying existing and emerging risks
+    - Providing access to risk models and data for protection needs assessment
+    - Supporting stakeholders with tools to understand insurability and capacity needs
+  version: 2.0.0-DRAFT
+  contact:
+    name: GAIP API Support
+    email: api-support@solve.global
+  license:
+    name: Proprietary - solve.global
+    url: https://solve.global/license
+
+servers:
+  - url: https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v2
+    description: Future API Gateway endpoint (DRAFT - not yet deployed)
+  - url: https://api.solve.global/gaip/v2
+    description: Future production server (DRAFT)
+
+security:
+  - BearerAuth: []
+
+paths:
+  /repository/last-update:
+    get:
+      summary: Get last repository update date/time
+      description: Returns the timestamp of the last update to the knowledge repository
+      operationId: getLastUpdate
+      tags:
+        - Repository
+      responses:
+        '200':
+          description: Last update timestamp retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: ["success"]
+                  last_update:
+                    type: string
+                    format: date-time
+                    description: ISO 8601 timestamp of last repository update
+                    example: "2024-09-24T08:00:00Z"
+                  update_type:
+                    type: string
+                    description: Type of last update
+                    example: "document_ingestion"
+                  documents_updated:
+                    type: integer
+                    description: Number of documents updated in last update
+                    example: 15
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /repository/solution-count:
+    get:
+      summary: Get total solution and document count
+      description: Returns the total number of solutions and trusted source documents available in the repository
+      operationId: getSolutionCount
+      tags:
+        - Repository
+      responses:
+        '200':
+          description: Solution count retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: ["success"]
+                  total_solutions:
+                    type: integer
+                    description: Total number of solutions in repository
+                    example: 847
+                  total_trusted_documents:
+                    type: integer
+                    description: Total number of trusted source documents
+                    example: 400
+                  total_documents:
+                    type: integer
+                    description: Total number of all documents (solutions + trusted sources)
+                    example: 1247
+                  last_counted:
+                    type: string
+                    format: date-time
+                    description: When the count was last updated
+                    example: "2024-09-24T08:00:00Z"
+                  breakdown:
+                    type: object
+                    properties:
+                      solutions_by_category:
+                        type: object
+                        properties:
+                          risk_reduction:
+                            type: integer
+                            example: 356
+                          insurance_penetration:
+                            type: integer
+                            example: 323
+                          risk_financing:
+                            type: integer
+                            example: 168
+                      trusted_documents_by_type:
+                        type: object
+                        properties:
+                          supporting_studies:
+                            type: integer
+                            example: 180
+                          policy_frameworks:
+                            type: integer
+                            example: 120
+                          research_papers:
+                            type: integer
+                            example: 100
+                    description: Breakdown by content categories
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /search:
+    post:
+      summary: Search GAIP knowledge repository with hierarchical results
+      description: |
+        **DRAFT v2.0 - HIERARCHICAL SEARCH**
+        
+        Search across the GAIP vetted knowledge repository using natural language queries.
+        Returns results in a hierarchical structure with Solutions as primary results and 
+        related Trusted Source Documents nested within each solution.
+        
+        The system automatically combines multiple search approaches to return the most
+        relevant results focused on protection gap models, insurance frameworks, and 
+        geo-specific risk assessments with contextual snippets and comprehensive metadata.
+        
+        **NEW IN v2.0:**
+        - Primary results are Solutions with related Trusted Source Documents
+        - Content type filtering (solutions, trusted_source_documents, or both)
+        - Relationship mapping between solutions and supporting documents
+        
+        Supports queries related to:
+        - Protection gap identification and quantification
+        - Insurance market capacity and insurability assessments  
+        - Government policy frameworks and regulatory approaches
+        - Emerging risks and risk model refinements
+        - Geographic and demographic risk factors across Asia
+      operationId: searchDocuments
+      tags:
+        - Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              basic_search:
+                summary: Basic hierarchical search example
+                value:
+                  query: "protection gap analysis Southeast Asia"
+                  parameters:
+                    max_results: 20
+                    include_snippets: true
+              content_type_filter:
+                summary: Search only solutions with related documents
+                value:
+                  query: "flood insurance capacity government policy"
+                  parameters:
+                    max_results: 50
+                    snippet_length: 300
+                  filters:
+                    content_type: ["solution"]
+                    solution_category: ["risk reduction", "insurance penetration"]
+                    risk_type: ["flood", "agricultural"]
+                    geographic_scope: ["ASEAN", "country"]
+                    ppp_involvement: true
+                  options:
+                    include_facets: true
+      responses:
+        '200':
+          description: Search completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              examples:
+                hierarchical_results:
+                  summary: Successful hierarchical search with solutions and related documents
+                  value:
+                    status: "success"
+                    query_id: "search_12345_67890"
+                    execution_time_ms: 285
+                    total_results: 156
+                    returned_results: 20
+                    results:
+                      solutions:
+                        - document_id: "sol_001"
+                          content_type: "solution"
+                          document_url: "https://documents.solve.global/gaip/sol_001"
+                          solution_name: "Parametric Flood Insurance for Rice Farmers"
+                          title: "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024"
+                          relevance_score: 0.95
+                          publication_date: "2024-03-15"
+                          country_regions_covered: ["Thailand", "Vietnam", "Philippines"]
+                          risk_types_addressed: ["flood", "agricultural", "climate"]
+                          solution_categories: ["risk reduction", "insurance penetration"]
+                          solution_types: ["parametric insurance", "index-based insurance"]
+                          implemented: "yes"
+                          ppp_involvement: "yes"
+                          summary_description: "This parametric insurance solution provides rapid payouts to rice farmers affected by flooding, using satellite data and weather indices."
+                          key_highlights: [
+                            "Automated payout system reduces claim processing time to 48 hours",
+                            "Covers 50,000+ smallholder farmers across three countries"
+                          ]
+                          related_documents:
+                            - document_id: "doc_002"
+                              content_type: "trusted_source_document"
+                              document_url: "https://documents.solve.global/gaip/doc_002"
+                              title: "Flood Risk Assessment Methodology for Southeast Asian Rice Production"
+                              relationship_type: "supporting_study"
+                              relevance_score: 0.87
+                              publication_date: "2023-11-20"
+                              source: "Asian Development Bank"
+                              summary_description: "Comprehensive methodology for assessing flood risks in rice-producing regions"
+                            - document_id: "doc_003"
+                              content_type: "trusted_source_document"
+                              document_url: "https://documents.solve.global/gaip/doc_003"
+                              title: "Policy Framework for Agricultural Insurance in ASEAN"
+                              relationship_type: "policy_framework"
+                              relevance_score: 0.82
+                              publication_date: "2024-01-10"
+                              source: "ASEAN Secretariat"
+                              summary_description: "Regional policy guidelines for implementing agricultural insurance programs"
+                          snippets:
+                            - text: "Protection <mark>gap</mark> analysis reveals significant underinsurance in <mark>flood</mark>-prone regions..."
+                              page_number: 12
+                              section: "Regional Assessment"
+                          metadata:
+                            document_type: "pdf"
+                            file_size_mb: 12.5
+                            page_count: 45
+                            categories: ["protection_gap", "flood_insurance"]
+                            regions: ["southeast_asia"]
+                no_results:
+                  summary: Search with no results
+                  value:
+                    status: "success"
+                    query_id: "search_12345_67891"
+                    execution_time_ms: 125
+                    total_results: 0
+                    returned_results: 0
+                    results:
+                      solutions: []
+                    suggestions:
+                      - "Try broader search terms"
+                      - "Remove content type filters"
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from authentication endpoint
+
+  schemas:
+    SearchRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: Natural language search query
+          minLength: 1
+          maxLength: 500
+          example: "protection gap analysis flood insurance Southeast Asia"
+        parameters:
+          type: object
+          properties:
+            max_results:
+              type: integer
+              minimum: 1
+              maximum: 100
+              default: 20
+              description: Maximum number of results to return
+            include_snippets:
+              type: boolean
+              default: true
+              description: Whether to include text snippets in results
+            snippet_length:
+              type: integer
+              minimum: 50
+              maximum: 500
+              default: 200
+              description: Maximum length of text snippets in characters
+            relevance_threshold:
+              type: number
+              minimum: 0.0
+              maximum: 1.0
+              default: 0.0
+              description: Minimum relevance score for results (0.0 = all results)
+            cursor:
+              type: string
+              description: Pagination cursor for retrieving next page of results
+        filters:
+          type: object
+          properties:
+            content_type:
+              type: array
+              items:
+                type: string
+                enum: ["solution", "trusted_source_document"]
+              description: Filter by content type - NEW IN v2.0
+              example: ["solution"]
+            solution_category:
+              type: array
+              items:
+                type: string
+                enum: ["risk reduction", "insurance penetration", "risk financing"]
+              description: Filter by solution categories (multiple allowed)
+              example: ["risk reduction", "insurance penetration"]
+            solution_type:
+              type: array
+              items:
+                type: string
+              description: Filter by solution subcategories (multiple allowed)
+              example: ["parametric insurance", "microinsurance", "catastrophe bonds"]
+            risk_type:
+              type: array
+              items:
+                type: string
+              description: Filter by risk types (multiple allowed)
+              example: ["food", "cyber", "drought", "health", "flood", "earthquake"]
+            geographic_scope:
+              type: array
+              items:
+                type: string
+                enum: ["Asia", "ASEAN+3", "ASEAN", "country", "province/state", "city/muni"]
+              description: Filter by geographic scope (multiple allowed)
+              example: ["Asia", "ASEAN"]
+            ppp_involvement:
+              type: boolean
+              description: Filter by Public-Private Partnership involvement
+              example: true
+            document_ids:
+              type: array
+              items:
+                type: string
+              description: Specific document IDs to search within
+              example: ["doc_001", "doc_002"]
+            document_types:
+              type: array
+              items:
+                type: string
+                enum: ["pdf", "report", "presentation", "spreadsheet"]
+              description: Filter by document types
+            regions:
+              type: array
+              items:
+                type: string
+              description: Filter by geographic regions
+              example: ["southeast_asia", "south_asia", "east_asia"]
+            date_range:
+              type: object
+              properties:
+                start:
+                  type: string
+                  format: date
+                  description: Start date (YYYY-MM-DD)
+                  example: "2023-01-01"
+                end:
+                  type: string
+                  format: date
+                  description: End date (YYYY-MM-DD)
+                  example: "2024-12-31"
+        sort:
+          type: object
+          properties:
+            field:
+              type: string
+              enum: ["relevance", "upload_date", "file_size", "title"]
+              default: "relevance"
+              description: Field to sort results by
+            order:
+              type: string
+              enum: ["asc", "desc"]
+              default: "desc"
+              description: Sort order
+        options:
+          type: object
+          properties:
+            include_metadata:
+              type: boolean
+              default: true
+              description: Whether to include document metadata
+            include_facets:
+              type: boolean
+              default: false
+              description: Whether to include faceted search results
+            highlight_matches:
+              type: boolean
+              default: true
+              description: Whether to highlight search terms in snippets
+            max_related_documents:
+              type: integer
+              minimum: 0
+              maximum: 10
+              default: 3
+              description: Maximum number of related documents per solution - NEW IN v2.0
+
+    SearchResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["success"]
+          description: Response status
+        query_id:
+          type: string
+          description: Unique identifier for this search query
+          example: "search_12345_67890"
+        execution_time_ms:
+          type: integer
+          description: Query execution time in milliseconds
+          example: 285
+        total_results:
+          type: integer
+          description: Total number of matching documents
+          example: 156
+        returned_results:
+          type: integer
+          description: Number of results returned in this response
+          example: 20
+        results:
+          type: object
+          properties:
+            solutions:
+              type: array
+              items:
+                $ref: '#/components/schemas/SolutionResult'
+              description: Primary solution results with related documents - NEW IN v2.0
+        facets:
+          type: object
+          description: Faceted search results for filtering
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: integer
+          example:
+            content_types:
+              solution: 89
+              trusted_source_document: 67
+            solution_categories:
+              risk_reduction: 45
+              insurance_penetration: 32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        suggestions:
+          type: array
+          items:
+            type: string
+          description: Search suggestions when no results found
+          example: ["Try broader search terms", "Remove content type filters"]
+
+    SolutionResult:
+      type: object
+      properties:
+        document_id:
+          type: string
+          description: Unique document identifier
+          example: "sol_001"
+        content_type:
+          type: string
+          enum: ["solution"]
+          description: Content type - always "solution" for primary results
+          example: "solution"
+        document_url:
+          type: string
+          format: uri
+          description: URL to access the full document
+          example: "https://documents.solve.global/gaip/sol_001"
+        solution_name:
+          type: string
+          description: Name of the solution
+          example: "Parametric Flood Insurance for Rice Farmers"
+        title:
+          type: string
+          description: Document title (fallback if solution_name not available)
+          example: "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024"
+        relevance_score:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          description: Relevance score for this result
+          example: 0.95
+        publication_date:
+          type: string
+          format: date
+          description: Publication date of the solution/document
+          example: "2024-03-15"
+        country_regions_covered:
+          type: array
+          items:
+            type: string
+          description: Countries/regions covered by the solution
+          example: ["Thailand", "Vietnam", "Philippines"]
+        risk_types_addressed:
+          type: array
+          items:
+            type: string
+          description: Risk types addressed (ontology-matched keywords)
+          example: ["flood", "agricultural", "climate"]
+        solution_categories:
+          type: array
+          items:
+            type: string
+            enum: ["risk reduction", "insurance penetration", "risk financing"]
+          description: Solution categories addressed
+          example: ["risk reduction", "insurance penetration"]
+        solution_types:
+          type: array
+          items:
+            type: string
+          description: Specific solution types/subcategories
+          example: ["parametric insurance", "index-based insurance"]
+        implemented:
+          type: string
+          enum: ["yes", "no", "unknown"]
+          description: Implementation status
+          example: "yes"
+        ppp_involvement:
+          type: string
+          enum: ["yes", "no", "unknown"]
+          description: Public-Private Partnership involvement
+          example: "yes"
+        summary_description:
+          type: string
+          description: Paragraph summarizing the solution
+          example: "This parametric insurance solution provides rapid payouts to rice farmers affected by flooding, using satellite data and weather indices."
+        key_highlights:
+          type: array
+          items:
+            type: string
+          description: Key highlights in bullet point format
+          example: [
+            "Automated payout system reduces claim processing time to 48 hours",
+            "Covers 50,000+ smallholder farmers across three countries"
+          ]
+        related_documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedDocument'
+          description: Related trusted source documents - NEW IN v2.0
+        source:
+          type: string
+          description: Source of the information
+          example: "World Bank"
+        snippets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextSnippet'
+          description: Relevant text excerpts from the document
+        metadata:
+          $ref: '#/components/schemas/DocumentMetadata'
+
+    RelatedDocument:
+      type: object
+      properties:
+        document_id:
+          type: string
+          description: Unique document identifier
+          example: "doc_002"
+        content_type:
+          type: string
+          enum: ["trusted_source_document"]
+          description: Content type - always "trusted_source_document" for related docs
+          example: "trusted_source_document"
+        document_url:
+          type: string
+          format: uri
+          description: URL to access the full document
+          example: "https://documents.solve.global/gaip/doc_002"
+        title:
+          type: string
+          description: Document title
+          example: "Flood Risk Assessment Methodology for Southeast Asian Rice Production"
+        relationship_type:
+          type: string
+          enum: ["supporting_study", "policy_framework", "research_paper", "case_study", "technical_guide", "related_solution"]
+          description: Type of relationship to the parent solution - NEW IN v2.0
+          example: "supporting_study"
+        relevance_score:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          description: Relevance score for this related document
+          example: 0.87
+        publication_date:
+          type: string
+          format: date
+          description: Publication date of the document
+          example: "2023-11-20"
+        source:
+          type: string
+          description: Source organization
+          example: "Asian Development Bank"
+        summary_description:
+          type: string
+          description: Brief description of the document
+          example: "Comprehensive methodology for assessing flood risks in rice-producing regions"
+        snippets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextSnippet'
+          description: Relevant text excerpts from the related document
+        metadata:
+          $ref: '#/components/schemas/DocumentMetadata'
+
+    TextSnippet:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Text excerpt with highlighted search terms
+          example: "Protection <mark>gap</mark> analysis reveals significant underinsurance in <mark>flood</mark>-prone regions..."
+        page_number:
+          type: integer
+          description: Page number where this text appears
+          example: 12
+        section:
+          type: string
+          description: Document section name
+          example: "Regional Assessment"
+
+    DocumentMetadata:
+      type: object
+      properties:
+        document_type:
+          type: string
+          description: Type of document
+          example: "pdf"
+        file_size_mb:
+          type: number
+          description: File size in megabytes
+          example: 12.5
+        page_count:
+          type: integer
+          description: Number of pages in document
+          example: 45
+        upload_date:
+          type: string
+          format: date-time
+          description: When the document was uploaded
+          example: "2024-03-15T10:30:00Z"
+        last_modified:
+          type: string
+          format: date-time
+          description: When the document was last modified
+          example: "2024-03-15T10:30:00Z"
+        categories:
+          type: array
+          items:
+            type: string
+          description: Document categories/tags
+          example: ["protection_gap", "flood_insurance", "government_policy"]
+        regions:
+          type: array
+          items:
+            type: string
+          description: Geographic regions covered
+          example: ["southeast_asia", "thailand", "vietnam"]
+        language:
+          type: string
+          description: Document language code
+          example: "en"
+        author:
+          type: string
+          description: Document author
+          example: "Asian Development Bank"
+        publication_year:
+          type: integer
+          description: Year of publication
+          example: 2024
+
+    Pagination:
+      type: object
+      properties:
+        current_page:
+          type: integer
+          description: Current page number
+          example: 1
+        page_size:
+          type: integer
+          description: Number of results per page
+          example: 20
+        total_pages:
+          type: integer
+          description: Total number of pages
+          example: 8
+        has_next:
+          type: boolean
+          description: Whether there are more results available
+          example: true
+        has_previous:
+          type: boolean
+          description: Whether there are previous results available
+          example: false
+        next_cursor:
+          type: string
+          description: Cursor for retrieving next page
+          example: "eyJzY29yZSI6MC44NSwiaWQiOiJkb2NfMDI3In0="
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["error"]
+          description: Response status
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum: 
+                - "VALIDATION_ERROR"
+                - "AUTHENTICATION_FAILED"
+                - "RATE_LIMIT_EXCEEDED"
+                - "INTERNAL_SERVER_ERROR"
+            message:
+              type: string
+              description: Human-readable error message
+            details:
+              oneOf:
+                - type: array
+                  items:
+                    type: object
+                    properties:
+                      field:
+                        type: string
+                      issue:
+                        type: string
+                      provided_value:
+                        type: string
+                - type: object
+                  additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for support
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+
+tags:
+  - name: Search
+    description: Hierarchical document search operations - NEW IN v2.0
+  - name: Repository
+    description: Repository metadata operations
