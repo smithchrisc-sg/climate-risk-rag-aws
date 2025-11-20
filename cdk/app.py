@@ -228,6 +228,13 @@ class ClimateRiskRAGProductionStack(Stack):
             topic_name="solve-global-kr-nlp-ready",
             display_name="NLP Processing Ready Topic"
         )
+        
+        # NLP processing complete
+        self.nlp_processing_complete_topic = sns.Topic(
+            self, "NLPProcessingCompleteTopic",
+            topic_name="nlp-processing-complete",
+            display_name="NLP Processing Complete Topic"
+        )
     
     def create_lambda_layers(self):
         """Create Lambda layers including Knowledge Graph Layer v2.0.0 with NLP-Ontology Integration"""
@@ -235,7 +242,7 @@ class ClimateRiskRAGProductionStack(Stack):
         # Knowledge Graph Layer v30 (corrected structure with rdflib 7.1.4 and isodate 0.7.2)
         self.knowledge_graph_layer = lambda_.LayerVersion.from_layer_version_arn(
             self, "KnowledgeGraphLayer",
-            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:knowledge-graph-layer:30"
+            layer_version_arn=f"arn:aws:lambda:{self.region}:{self.account}:layer:knowledge-graph-layer:61"
         )
         
         # Database Core Layer (existing)
@@ -571,6 +578,37 @@ class ClimateRiskRAGProductionStack(Stack):
             description="Administrative utility for ontology management operations including loading, validation, and querying"
         )
         
+        # 9. NLP KG Processor - Processes NLP results and creates knowledge graph triples
+        self.nlp_kg_processor = lambda_.Function(
+            self, "NLPKGProcessor",
+            function_name="solve-global-kr-nlp-kg-processor",
+            runtime=lambda_.Runtime.PYTHON_3_11,
+            handler="handler.lambda_handler",
+            code=lambda_.Code.from_asset("../lambda/nlp_kg_processor"),
+            role=self.lambda_role,
+            timeout=Duration.minutes(15),
+            memory_size=1024,
+            vpc=self.vpc,
+            vpc_subnets=ec2.SubnetSelection(subnets=[self.database_subnet_1, self.database_subnet_2]),
+            security_groups=[self.lambda_sg],
+            layers=[self.database_layer, self.database_dependencies_layer, self.knowledge_graph_layer],
+            environment={
+                **common_env,
+                # Contextual alignment configuration
+                "ENABLE_CONTEXTUAL_ALIGNMENT": "true",
+                "CONTEXTUAL_ALIGNMENT_ENTITY_TYPES": "LOCATION",
+                "CONTEXTUAL_ALIGNMENT_ONTOLOGIES": "geonames",
+                "FTS_QUERY_TIMEOUT_MS": "2000",
+                "FTS_MAX_RESULTS_PER_ONTOLOGY": "10",
+                "CONTEXTUAL_CONFIDENCE_THRESHOLD": "0.3",
+                "CONTEXT_WEIGHT_DOCUMENT_TITLE": "0.3",
+                "CONTEXT_WEIGHT_CHUNK_COOCCURRENCE": "0.4",
+                "CONTEXT_WEIGHT_SEMANTIC_SIGNALS": "0.2",
+                "CONTEXT_WEIGHT_ENTITY_TYPE_MATCH": "0.1"
+            },
+            description="Processes NLP results and creates knowledge graph triples with contextual entity alignment"
+        )
+        
         # Set up SNS subscriptions for pipeline flow
         self.setup_sns_subscriptions()
     
@@ -603,6 +641,11 @@ class ClimateRiskRAGProductionStack(Stack):
         # Vector embeddings ready -> NLP processor (future)
         self.vector_embeddings_ready_topic.add_subscription(
             sns_subscriptions.LambdaSubscription(self.nlp_processor)
+        )
+        
+        # NLP processing complete -> NLP KG processor
+        self.nlp_processing_complete_topic.add_subscription(
+            sns_subscriptions.LambdaSubscription(self.nlp_kg_processor)
         )
     
     def setup_s3_notifications(self):

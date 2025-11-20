@@ -1,15 +1,39 @@
 # CODEBASE REFERENCE - Climate Risk RAG
 **Purpose**: Quick reference for development workflows, deployment, and common patterns  
-**Last Updated**: 2025-11-20
+**Last Updated**: 2025-11-20  
+**Last Runtime Upgrade**: 2025-11-20 (All functions → Python 3.11, layers → latest versions)
 
 ---
 
 ## 🐍 PYTHON ENVIRONMENT
 
 ### Python Version
-- **Lambda Runtime**: Python 3.12
+- **Lambda Runtime**: Python 3.11 (all functions standardized as of 2025-11-20)
 - **Local Development**: Python 3.12
-- **Compatibility**: All code must be Python 3.12 compatible
+- **Target Runtime**: Python 3.11
+
+### Lambda Layer Versions (Current)
+- **database-core-layer**: v18 (all functions)
+- **knowledge-graph-layer**: v63 (includes bulk loading bug fix)
+- **opensearch-dependencies**: v4
+- **database-dependencies**: v2
+
+### All Functions on Python 3.11
+- gaip-search-lambda
+- text-extractor-initiator
+- text-extractor-processor
+- nlp-initiator
+- nlp-worker
+- nlp-worker-keyphrase
+- nlp-worker-entity
+- nlp_kg_processor
+- kg-integration-worker
+- kg-triple-loader
+- document-structure-kg-processor
+- gaip-jwt-authorizer
+- vector-embeddings-initiator
+- vector-embeddings-worker
+- keyword-indexer
 
 ### Key Dependencies
 - **boto3**: AWS SDK (Lambda runtime provides this)
@@ -81,6 +105,13 @@ trusted_source_document_selection/
 └── test_tsd_opensearch.sh               # Searchability testing
 ```
 
+### `/test-v2-webapp/` - Test webapp using the API
+```
+test-v2-webapp/
+├── app.js                          # webapp javascript
+├── index.html                      # single page test application
+└── assets                          # icons, etc.
+```
 ---
 
 ## 🚀 LAMBDA DEPLOYMENT

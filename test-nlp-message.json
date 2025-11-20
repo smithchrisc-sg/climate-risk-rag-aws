@@ -1,7 +1,0 @@
-{
-  "Records": [
-    {
-      "body": "{\"Type\":\"Notification\",\"Message\":\"{\\\"doc_id\\\":\\\"test-sns-doc-001\\\",\\\"data_locations\\\":{\\\"chunks_location\\\":\\\"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/chunks/test-sns-doc-001/\\\",\\\"text_location\\\":\\\"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/text/test-sns-doc-001.txt\\\"},\\\"processing_metadata\\\":{\\\"stage\\\":\\\"text_chunking\\\",\\\"status\\\":\\\"completed\\\",\\\"timestamp\\\":\\\"2025-07-30T22:35:00Z\\\"}}\"}"
-    }
-  ]
-}

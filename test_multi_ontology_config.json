@@ -1,6 +1,0 @@
-{
-  "operation": "load_multi_ontology_config",
-  "parameters": {
-    "config_path": "ontology/multi-ontology-config-dev.json"
-  }
-}

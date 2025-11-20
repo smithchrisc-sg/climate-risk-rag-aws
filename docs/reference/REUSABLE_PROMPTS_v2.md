@@ -14,6 +14,11 @@ Please create a PROJECT_CONTEXT_SUMMARY document named with a timestamp as in th
 
 Also create a NEXT_STEPS document, similarly timestamped to outline what we'll do next.
 
+Then, update /Users/chris/climate-risk-rag-aws/solution_ingestion/TODO_DATA_FIXES.md with any TODO type items we may have discussed in our session
+
+Finally, review the Production readiness document: /Users/chris/climate-risk-rag-aws/docs/status/PRODUCTION_READINESS_IMPROVEMENTS_2025-09-24.md and update it with any new items, check off any items we've completed this session and of course, update the updated timestamp at the top of the document.
+
+
 
 ---
 
@@ -37,6 +42,8 @@ I need you to get up to speed on our Solve Global Knowledge Repository system pr
 
 4. **Infrastructure Reference**: Review this document to be sure code generation "gets it right the first time" `/Users/chris/climate-risk-rag-aws/docs/infrastructure/INFRASTRUCTURE_REFERENCE.md`
 
+5. **CLI for initial Solution Ingestion**: Review this: /Users/chris/climate-risk-rag-aws/docs/SOLUTION_INGEST_APPLICATION_2025-11-04T17-19-07.md
+
 **PROJECT STRUCTURE TO UNDERSTAND:**
 
 - **Target system Root Directory**: `/Users/chris/climate-risk-rag-aws/` - This is what we're building together and should be the latest versions of everything
@@ -55,6 +62,11 @@ I need you to get up to speed on our Solve Global Knowledge Repository system pr
     - `api/`: API documentation and specifications
     - `cost-optimization/`: Cost management and optimization guides
   - `database/`: Database schemas
+  - `solution_ingestion`
+    - `Examples`: handworked examples of CSV to various formats
+    - `database_core_layer`: read only copy of the corresponding lambda layer
+    - `knowledge_graph_layer`: read only copy of the corresponding lambda layer
+    - source folders and markdown files
 
 **ORIGINAL POC CODE AND ASSETS:**
 - **Root Directory**: `/Volumes/G-RAID\ Photo\ 24TB/climate_risk_rag/`
@@ -133,8 +145,12 @@ Note direction in the list below. We should always use git to manage things. So,
 - All end to end testing should be initiated from /Users/chris/climate-risk-rag-aws/invoke_pipeline_test.py  It, in conjunction with the test lambda at the head of the pipeline that it invokes has the proper logic to provide files and set up the database so that the pipeline can operate correctly. Unit testing of individual pipeline stages can only be done on documents that have completed all previous pipeline stages - this has to be checked and maintained for any unit testing.
 - USE python3 - never use python which will be python 2.7 or some other very old version.
 
+**ARCHITECTURAL DISCIPLINE**
+VERY IMPORTANT: Read and understand this document: /Users/chris/climate-risk-rag-aws/docs/reference/ARCHITECTURAL_DISCIPLINE_PROMPT.md
+
 **CURRENT STATUS:**
 - Available in PROJECT CONTEXT SUMMARY and NEXT STEPS documents as specified above
+- Also check out this Production readiness document: /Users/chris/climate-risk-rag-aws/docs/status/PRODUCTION_READINESS_IMPROVEMENTS_2025-09-24.md
 
 After reading these documents, please confirm your understanding of:
 1. The current project status and architecture

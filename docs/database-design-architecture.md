@@ -69,6 +69,7 @@ CREATE TABLE document_processing_status (
     status VARCHAR(20) NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     error_message TEXT,
+    system_id VARCHAR(100),
     retry_count INTEGER DEFAULT 0,
     metadata JSONB,
     
