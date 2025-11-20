@@ -260,6 +260,34 @@ POST /v1/search
 }
 ```
 
+### **Pagination Examples**
+
+**Subsequent Page Request (Page 3):**
+```json
+{
+  "query": "Parametric insurance facilities",
+  "parameters": {
+    "max_results": 20,
+    "cursor": "eyJxdWVyeV9pZCI6InNlYXJjaF9iNDUzMzk3Ni05OGIxLTQ5ODYtYmQ4Ny0yYjM0YTE4ZTg2YTUiLCJwYWdlIjozfQ=="
+  },
+  "filters": {
+    "solution_category": ["natural-catastrophe"],
+    "solution_type": ["risk-reduction"]
+  }
+}
+```
+
+**Last Page Pagination Response:**
+```json
+"pagination": {
+  "current_page": 17,
+  "total_pages": 17,
+  "total_results": 337,
+  "page_size": 20,
+  "next_cursor": null
+}
+```
+
 ---
 
 ## 🎯 **Filter Options**
