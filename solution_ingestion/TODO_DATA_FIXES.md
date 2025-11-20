@@ -147,6 +147,78 @@ HAVING (?publicCount > 0 && ?privateCount > 0)
 - KG queries: `/lambda/search/src/search/solution_searcher.py` (get_solution_content method)
 - Document structure traversal: Knowledge graph layer
 
+#### 16.6 Region vs Country Field Clarification and Hierarchy
+**Current**: Inconsistent usage of regions and countries across API response
+**Status**: Identified 2025-11-19
+**Priority**: Medium
+
+**Current State**:
+1. **Frontend (app.js)**: Hardcoded `const region = 'ASEAN'` for demo
+2. **API Response - metadata.regions**: Currently contains country name (e.g., "South Korea")
+3. **API Response - country_regions_covered**: Contains country name (e.g., "South Korea")
+
+**Issues**:
+- `metadata.regions` should contain actual regions (ASEAN, ASEAN+3, etc.), not countries
+- Unclear if `country_regions_covered` should include regions or just countries
+- Need region hierarchy: Country → Sub-region → Region (e.g., South Korea → East Asia → ASEAN+3)
+- Frontend needs dynamic region selection, not hardcoded value
+
+**Knowledge Graph Status**:
+- Some region definitions exist in KG (ASEAN, ASEAN+3)
+- May need additional region definitions and country-to-region mappings
+- GeoNames integration provides country data but region groupings may be incomplete
+
+**Proposed Solution**:
+1. **Enhance KG with Region Hierarchy**:
+   - Define all relevant regions (ASEAN, ASEAN+3, Asia-Pacific, etc.)
+   - Create country-to-region mappings in Neptune
+   - Support multiple regions per country (e.g., Thailand → ASEAN, ASEAN+3, Asia-Pacific)
+
+2. **Update API Response Structure**:
+   ```json
+   {
+     "country_regions_covered": ["South Korea"],  // Keep as countries only
+     "metadata": {
+       "regions": ["ASEAN+3", "Asia-Pacific"],  // Actual regions, ordered narrow→broad
+       "countries": ["South Korea"],  // Explicit country list
+       "region_hierarchy": {
+         "South Korea": ["East Asia", "ASEAN+3", "Asia-Pacific"]
+       }
+     }
+   }
+   ```
+
+3. **SPARQL Query Enhancement**:
+   - Query country-to-region mappings during solution retrieval
+   - Order regions from most specific to most general
+   - Include all applicable regions for each country
+
+4. **Frontend Update**:
+   - Remove hardcoded `region = 'ASEAN'`
+   - Use `metadata.regions[0]` or allow user to select from available regions
+   - Display region hierarchy in UI if needed
+
+**Implementation Steps**:
+1. Define region taxonomy and country mappings (data modeling)
+2. Add region definitions to Neptune knowledge graph
+3. Update solution_searcher.py to query region hierarchy
+4. Modify API response formatting to include regions array
+5. Update frontend to use dynamic regions from API
+
+**Questions to Resolve**:
+- Should `country_regions_covered` include regions or stay country-only?
+- What is the complete list of regions to support? (ASEAN, ASEAN+3, Asia-Pacific, others?)
+- Should regions be filterable in search? (already have region filters in UI)
+- How to handle countries in multiple regions?
+
+**Related Code Locations**:
+- Frontend: `/test-v2-webapp/app.js` (line with `const region = 'ASEAN'`)
+- API response: `/lambda/search/src/search/solution_searcher.py`
+- KG queries: `/lambda/search/src/search/solution_searcher.py`
+- Region filters: Already implemented in search coordinator
+
+**Complexity**: Medium-High (requires data modeling, KG updates, API changes, frontend updates)
+
 ## Medium Priority Issues
 
 ### 5. Organization Name Standardization
