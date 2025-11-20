@@ -583,6 +583,11 @@ function createSolutionCard(result, index, resultNumber = null) {
     const country = (result.country_regions_covered && result.country_regions_covered[0]) || extractCountry(content) || 'Multiple Countries';
     const region = 'ASEAN'; // Default for demo
     
+    // Status indicators
+    const implementedStatus = getStatusIndicator(result.implemented, 'Implemented');
+    const pppStatus = getStatusIndicator(result.ppp_involvement === 'yes', 'PPP');
+    const lastUpdated = result.last_update_date ? formatDate(result.last_update_date) : 'Unknown';
+    
     return `
         <div class="solution-card" data-result-id="${chunkId}">
             <div class="solution-header">
@@ -592,6 +597,11 @@ function createSolutionCard(result, index, resultNumber = null) {
                     <div class="solution-meta">
                         <span class="meta-item"><span class="meta-label">Risk Type:</span> ${riskType}</span>
                         <span class="meta-item"><span class="meta-label">Document ID:</span> ${documentId}</span>
+                        <span class="meta-item"><span class="meta-label">Last Updated:</span> ${lastUpdated}</span>
+                    </div>
+                    <div class="status-indicators">
+                        ${implementedStatus}
+                        ${pppStatus}
                     </div>
                 </div>
                 <div class="solution-actions">
@@ -629,6 +639,12 @@ function createSolutionCard(result, index, resultNumber = null) {
                         <h4>Solution Types:</h4>
                         <ul>
                             ${(result.solution_types || []).map(type => `<li>${type}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="category-section">
+                        <h4>Key Highlights:</h4>
+                        <ul>
+                            ${(result.key_highlights || []).map(highlight => `<li>${highlight}</li>`).join('')}
                         </ul>
                     </div>
                 </div>
@@ -951,6 +967,40 @@ function showResults(message, type) {
     const container = document.getElementById('resultsContainer');
     const className = type === 'error' ? 'no-results' : 'loading-message';
     container.innerHTML = `<div class="${className}">${message}</div>`;
+}
+
+// Helper function for status indicators
+function getStatusIndicator(value, label) {
+    let icon, className;
+    
+    if (value === true || value === 'yes') {
+        icon = '✅';
+        className = 'status-yes';
+    } else if (value === false || value === 'no') {
+        icon = '❌';
+        className = 'status-no';
+    } else {
+        icon = '❓';
+        className = 'status-unknown';
+    }
+    
+    return `<span class="status-indicator ${className}">${icon} ${label}</span>`;
+}
+
+// Helper function for date formatting
+function formatDate(dateString) {
+    if (!dateString) return 'Unknown';
+    
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    } catch (e) {
+        return dateString; // Return as-is if parsing fails
+    }
 }
 
 // Make authenticate function globally available
