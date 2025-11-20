@@ -12,19 +12,21 @@
 - Document pipeline may use different chunk organization
 - Need consistent reading order traversal in KG for both content types
 
-### 2. GeoNames Country Mapping Misses
+### ✅ 2. GeoNames Country Mapping Misses
 **Issue**: Exact string matching fails for country name variations in dcterms:spatial
 **Examples**: 
 - "Republic of Fiji" vs "Fiji" 
 - "People's Republic of China" vs "China"
 **Impact**: Missing country mappings in entity extraction
-**Status**: Documented 2025-11-04
+**Status**: PARTIALLY RESOLVED 2025-11-20 - Country filter bug fixed, but need comprehensive solution
 **SPARQL Fix Example**:
 ```sparql
 DELETE { ?doc dcterms:spatial "Republic of Fiji" }
 INSERT { ?doc dcterms:spatial gn:2077456 }
 WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 ```
+**Remaining Work**: Need comprehensive country name lookup facility using KG and ontology
+**Priority**: Medium - current workaround functional but not scalable
 
 ### 3. Multi-Country Parsing
 **Issue**: EntityMapper treats comma/newline-separated countries as single dcterms:spatial value
@@ -184,17 +186,50 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 
 ## Medium Priority Issues
 
-### 5. Organization Name Standardization
+### 5. Comprehensive Country Name Lookup Facility
+**Issue**: Need robust country name resolution using knowledge graph and ontology
+**Status**: Added 2025-11-20 following country filter bug fix
+**Priority**: Medium-High - foundational for proper geographic filtering
+**Requirements**:
+- Leverage GeoNames data in Neptune knowledge graph for fuzzy matching
+- Support alternate country names, common variations, and historical names
+- Create mapping service that can resolve "Republic of Fiji" → "Fiji" → GeoNames URI
+- Integrate with existing SPARQL queries for country filtering
+- Support regional organization expansion (ASEAN, ASEAN+3, etc.)
+**Implementation Approach**:
+- Build country name normalization service using Neptune FTS
+- Create comprehensive country-to-region mappings in knowledge graph
+- Update EntityMapper to use lookup service instead of exact string matching
+- Add fuzzy matching capabilities for country name variations
+**Related**: Item #2 (GeoNames Country Mapping) - this is the comprehensive solution
+
+### 6. Regional Organization Expansion
+**Issue**: Need more regional organizations beyond current country-level filtering
+**Status**: Added 2025-11-20
+**Priority**: Medium - enhances geographic search capabilities
+**Requirements**:
+- Add ASEAN, ASEAN+3, Asia-Pacific, South Asia, East Asia regional definitions
+- Create country-to-region mappings in Neptune knowledge graph
+- Support hierarchical region filtering (country → sub-region → region)
+- Update frontend to support regional filtering options
+**Implementation**: Integrate with comprehensive country lookup facility (#5)
+
+### 7. Organization Name Standardization
 **Issue**: Inconsistent organization name formats
 **Impact**: Reduced entity linking accuracy
 **Status**: Identified during ingestion
 
-### 6. Vocabulary Concept Mapping
+### 7. Organization Name Standardization
+**Issue**: Inconsistent organization name formats
+**Impact**: Reduced entity linking accuracy
+**Status**: Identified during ingestion
+
+### 8. Vocabulary Concept Mapping
 **Issue**: Some solution types/themes don't map to controlled vocabulary
 **Impact**: Missing semantic relationships
 **Status**: Ongoing refinement needed
 
-### 7. Error Handling Enhancement
+### 9. Error Handling Enhancement
 **Issue**: Better error reporting and recovery for partial failures
 **Fix**: Improve logging and continue processing on individual failures
 **Status**: Monitor current run

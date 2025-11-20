@@ -1,7 +1,7 @@
 # PROJECT CONTEXT SUMMARY
-**Updated:** 2025-11-20T20:23:00Z  
+**Updated:** 2025-11-20T21:46:00Z  
 **Branch:** feature/climate-risk-ontology-filtering  
-**Status:** API response fields completed, UX enhancements deployed
+**Status:** API response fields completed, UX enhancements deployed, country filter bug fixed
 
 ## PROJECT OVERVIEW
 Climate Risk RAG (Retrieval-Augmented Generation) system providing intelligent search over climate risk solutions and trusted source documents (TSDs) using hybrid search combining keyword (BM25), vector (semantic), and knowledge graph filtering with comprehensive API response fields.
@@ -88,6 +88,9 @@ Climate Risk RAG (Retrieval-Augmented Generation) system providing intelligent s
 ## CURRENT IMPLEMENTATION STATUS
 
 ### ✅ COMPLETED (2025-11-20 Session)
+- **Country Filter Bug Fix**: Corrected GeoNames URI format from ontology# to sws.geonames.org format
+  - Fixed SPARQL query in solution_searcher.py for proper country filtering
+  - Ensures frontend country filters work correctly with knowledge graph
 - **PPP Involvement Field**: SPARQL-based detection of Public/International + Private organization partnerships
   - Returns "yes" for 60% of solutions, "no" for 39%, "unknown" for 1%
   - Uses organization type analysis from Neptune knowledge graph
@@ -307,6 +310,7 @@ To continue development:
   - Last update date formatting from knowledge graph
   - Key highlights extraction as individual strings
   - Comprehensive UX with status indicators and responsive design
+  - Country filter bug fix for proper GeoNames URI format
 - **Technical Debt Addressed**: All 4 TODO API fields now complete
 - **Cost Awareness**: Maintained throughout session with careful testing approaches
 - **Next Priority**: TSD bulk loading or production deployment preparation
