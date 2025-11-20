@@ -4,9 +4,11 @@ import logging
 from typing import Dict, List, Any
 import sys
 import os
+from datetime import datetime
 
 # Import from knowledge graph layer - use utils path like working Lambda functions
 from utils.KnowledgeGraphManager import KnowledgeGraphManager
+from utils.DatabaseManager import DatabaseManager
 
 
 class SolutionSearcher:
@@ -14,6 +16,7 @@ class SolutionSearcher:
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.kg_manager = KnowledgeGraphManager()
+        self.db_manager = DatabaseManager()
         self.s3_client = boto3.client('s3')
         self.chunks_bucket = 'solve-global-kr-dl-chunks-861276078413-us-east-1'
         
@@ -184,6 +187,46 @@ class SolutionSearcher:
         full_query = '\n'.join(query_parts)
 
         return full_query
+    
+    def _get_ppp_involvement(self, doc_id: str) -> str:
+        """Check if solution has both public/international and private organization involvement"""
+        try:
+            sparql_query = f"""
+            PREFIX sg: <http://solve.global/knowledge-commons/>
+            PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
+            SELECT ?solution 
+                   (COUNT(DISTINCT ?publicIntlOrg) as ?publicIntlCount)
+                   (COUNT(DISTINCT ?privateOrg) as ?privateCount)
+            WHERE {{
+                ?solution a sgd:Solution .
+                ?solution dcterms:identifier "{doc_id}" .
+                OPTIONAL {{ 
+                    ?solution sg:associatedOrganization ?org .
+                    ?org a ?orgType .
+                    FILTER(?orgType = sg:PublicOrganization || ?orgType = sg:InternationalOrganization)
+                    BIND(?org as ?publicIntlOrg)
+                }}
+                OPTIONAL {{ 
+                    ?solution sg:associatedOrganization ?org .
+                    ?org a sg:PrivateOrganization .
+                    BIND(?org as ?privateOrg)
+                }}
+            }}
+            GROUP BY ?solution
+            """
+            
+            results = self.kg_manager.execute_sparql_query(sparql_query)
+            if results and len(results) > 0:
+                result = results[0]
+                public_intl_count = int(result.get('publicIntlCount', 0))
+                private_count = int(result.get('privateCount', 0))
+                return "yes" if public_intl_count > 0 and private_count > 0 else "no"
+            
+            return "no"
+        except Exception as e:
+            self.logger.error(f"Error checking PPP involvement for {doc_id}: {e}")
+            return "unknown"
         
     def get_solution_content(self, solution_uri: str) -> Dict[str, Any]:
         """Fetch full content for a single solution by doc_id"""
@@ -200,7 +243,7 @@ class SolutionSearcher:
             PREFIX gno: <http://www.geonames.org/ontology#>
             
             SELECT ?solution ?title ?riskType ?solutionType ?doc_id ?prefixed 
-                   ?country_name ?risk_type_label ?solution_type_label ?implementation_date WHERE {{
+                   ?country_name ?risk_type_label ?solution_type_label ?implementation_date ?created_date WHERE {{
                 ?solution a sgd:Solution .
                 ?solution dcterms:identifier ?doc_id .  
                 FILTER(STR(?solution) = "{solution_uri}")
@@ -232,6 +275,11 @@ class SolutionSearcher:
                 # Implementation date
                 OPTIONAL {{ 
                   ?solution sg:implementationYear ?implementation_date 
+                }}
+                
+                # Created date
+                OPTIONAL {{ 
+                  ?solution dcterms:created ?created_date 
                 }}
                 
                 # Then optionally get chunks for these solutions
@@ -292,6 +340,10 @@ class SolutionSearcher:
                     implementation_dates = [result.get('implementation_date') for result in kg_results if result.get('implementation_date')]
                     most_recent_date = max(implementation_dates) if implementation_dates else None
 
+                    # Get created date
+                    created_dates = [result.get('created_date') for result in kg_results if result.get('created_date')]
+                    created_date = max(created_dates) if created_dates else None
+
                     kg_data = {
                         'title': kg_results[0].get('title', ''),
                         'riskType': kg_results[0].get('riskType', ''),
@@ -299,7 +351,8 @@ class SolutionSearcher:
                         'country_names': country_names,
                         'risk_type_labels': risk_type_labels,
                         'solution_type_labels': solution_type_labels,
-                        'implementation_date': most_recent_date
+                        'implementation_date': most_recent_date,
+                        'created_date': created_date
                     }
                     doc_id = kg_results[0].get('doc_id', '')
                     content_data = self._get_solution_content(doc_id, chunk_numbers) if chunk_numbers else {}
@@ -360,19 +413,61 @@ class SolutionSearcher:
                 except:
                     publication_year = None
             
+            # Determine implementation status from publication date
+            implementation_date = kg_data.get('implementation_date')
+            implemented = False
+            if implementation_date:
+                try:
+                    # Handle both string and integer years
+                    if isinstance(implementation_date, str):
+                        impl_year = int(implementation_date.split('-')[0])  # Extract year from date string
+                    else:
+                        impl_year = int(implementation_date)
+                    implemented = impl_year <= datetime.now().year
+                except (ValueError, TypeError):
+                    implemented = False
+            
+            # Determine PPP involvement
+            ppp_involvement = self._get_ppp_involvement(doc_id)
+            
+            # Get last update date from knowledge graph
+            last_update_date = None
+            if kg_data.get('created_date'):
+                try:
+                    created_date = kg_data.get('created_date')
+                    if hasattr(created_date, 'isoformat'):
+                        last_update_date = created_date.isoformat()
+                    elif isinstance(created_date, str):
+                        # Handle DD/MM/YYYY format and convert to ISO8601
+                        if '/' in created_date:
+                            # Parse DD/MM/YYYY format
+                            date_part = created_date.replace('Z', '').strip()
+                            try:
+                                dt = datetime.strptime(date_part, '%d/%m/%Y')
+                                last_update_date = dt.date().isoformat()  # YYYY-MM-DD format
+                            except ValueError:
+                                last_update_date = str(created_date)
+                        else:
+                            last_update_date = str(created_date)
+                    else:
+                        last_update_date = str(created_date)
+                except Exception as e:
+                    self.logger.warning(f"Failed to format created date for {doc_id}: {e}")
+            
             return {
                 'document_id': doc_id,
                 'content_type': 'solution',
                 'solution_name': title,
                 'title': title,
                 'relevance_score': 1.0,
-                'publication_date': kg_data.get('implementation_date'),
+                'publication_date': implementation_date,
                 'country_regions_covered': country_names,
                 'risk_types_addressed': risk_type_labels,
                 'solution_categories': [],
                 'solution_types': solution_type_labels,
-                'implemented': 'unknown',
-                'ppp_involvement': 'unknown',
+                'implemented': implemented,
+                'ppp_involvement': ppp_involvement,
+                'last_update_date': last_update_date,
                 'summary_description': description,
                 'key_highlights': [],
                 'source': content.get('chunk_metadata', {}).get('source_url', '') if content else '',
