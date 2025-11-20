@@ -202,7 +202,7 @@ class SearchCoordinator:
             
             if not bm25_results:
                 self.logger.warning("BM25 search returned no results, falling back to filter-only")
-                return await self._handle_filter_only_search(filters, parameters, start_time)
+                return await self._handle_filter_only_search(query, filters, parameters, start_time)
             
             # Step 3: Execute Vector search
             self.logger.info("Executing vector semantic search")
@@ -235,7 +235,7 @@ class SearchCoordinator:
             
             if not bm25_intersected and not vector_intersected:
                 self.logger.warning("No intersection between search results and KG, falling back to filter-only")
-                return await self._handle_filter_only_search(filters, parameters, start_time)
+                return await self._handle_filter_only_search(query, filters, parameters, start_time)
             
             # Step 6: Fuse rankings using RRF
             rrf_scores = self.ranking_engine.fuse_rankings(bm25_intersected, vector_intersected)
@@ -271,7 +271,7 @@ class SearchCoordinator:
         except Exception as e:
             self.logger.error(f"Hybrid search failed: {e}")
             self.logger.info("Falling back to filter-only search")
-            return await self._handle_filter_only_search(filters, parameters, start_time)
+            return await self._handle_filter_only_search(query, filters, parameters, start_time)
     
     async def _handle_cursor_search(self, cursor: str, parameters: Dict[str, Any], 
                                   start_time: float) -> Dict[str, Any]:
