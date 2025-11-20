@@ -243,7 +243,7 @@ class SolutionSearcher:
             PREFIX gno: <http://www.geonames.org/ontology#>
             
             SELECT ?solution ?title ?riskType ?solutionType ?doc_id ?prefixed 
-                   ?country_name ?risk_type_label ?solution_type_label ?implementation_date ?created_date WHERE {{
+                   ?country_name ?risk_type_label ?solution_type_label ?implementation_date ?created_date ?highlightsPrefixed WHERE {{
                 ?solution a sgd:Solution .
                 ?solution dcterms:identifier ?doc_id .  
                 FILTER(STR(?solution) = "{solution_uri}")
@@ -299,6 +299,24 @@ class SolutionSearcher:
                     
                     BIND(CONCAT(?last4, "|", STR(?chunk)) AS ?prefixed)
                 }}
+                
+                # Key highlights chunks
+                OPTIONAL {{
+                    ?solution sgd:hasChild ?highlightsSection .
+                    ?highlightsSection dcterms:title ?ht .
+                    FILTER(LCASE(STR(?ht)) = "key highlights")
+
+                    ?highlightsSection sgd:firstChild ?hc1 .
+                    ?hc1 (sgd:nextSibling)* ?highlightChunk .
+                    ?highlightChunk sgd:hasParent ?highlightsSection .
+
+                    BIND(STR(?highlightChunk) AS ?hs)
+                    BIND(STRLEN(?hs) AS ?hL)
+                    BIND(SUBSTR(?hs, ?hL - 3, 4) AS ?hLast4)
+                    FILTER(REGEX(?hLast4, "^[0-9]{{4}}$"))
+                    
+                    BIND(CONCAT(?hLast4, "|", STR(?highlightChunk)) AS ?highlightsPrefixed)
+                }}
             }}
             """
             
@@ -336,6 +354,20 @@ class SolutionSearcher:
                             if chunk_num not in chunk_numbers:
                                 chunk_numbers.append(chunk_num)
 
+                    # Separate highlights processing
+                    highlights_chunk_numbers = []
+                    for result in kg_results:
+                        if result.get('highlightsPrefixed'):
+                            highlight_chunk_num = int(result.get('highlightsPrefixed').split('|')[0])
+                            if highlight_chunk_num not in highlights_chunk_numbers:
+                                highlights_chunk_numbers.append(highlight_chunk_num)
+                        
+                        # Highlights chunk numbers
+                        if result.get('highlightsPrefixed'):
+                            highlight_chunk_num = int(result.get('highlightsPrefixed').split('|')[0])
+                            if highlight_chunk_num not in chunk_numbers:  # Add to same list for now
+                                chunk_numbers.append(highlight_chunk_num)
+
                     # Get most recent implementation date
                     implementation_dates = [result.get('implementation_date') for result in kg_results if result.get('implementation_date')]
                     most_recent_date = max(implementation_dates) if implementation_dates else None
@@ -356,6 +388,7 @@ class SolutionSearcher:
                     }
                     doc_id = kg_results[0].get('doc_id', '')
                     content_data = self._get_solution_content(doc_id, chunk_numbers) if chunk_numbers else {}
+                    key_highlights = self._get_key_highlights_content(doc_id, highlights_chunk_numbers) if highlights_chunk_numbers else []
             else:
                 self.logger.warning(f"No results found for solution URI: {solution_uri}")
                 return None
@@ -364,7 +397,8 @@ class SolutionSearcher:
             solution_data = {
                 'doc_id': doc_id,
                 'kg_data': kg_data,
-                'content': content_data  # FIXME this needs to be just the content from 1..n chunks
+                'content': content_data,
+                'key_highlights': key_highlights
             }
             
             # Convert to API format
@@ -384,6 +418,7 @@ class SolutionSearcher:
             
             title = kg_data.get('title', '') or content.get('chunk_metadata', {}).get('solution_name', '')
             description = content.get('assembled_description', '')
+            key_highlights = solution_data.get('key_highlights', [])
             
             # Use enhanced data from SPARQL queries
             country_names = kg_data.get('country_names', [])
@@ -469,7 +504,7 @@ class SolutionSearcher:
                 'ppp_involvement': ppp_involvement,
                 'last_update_date': last_update_date,
                 'summary_description': description,
-                'key_highlights': [],
+                'key_highlights': key_highlights,
                 'source': content.get('chunk_metadata', {}).get('source_url', '') if content else '',
                 'related_documents': [],
                 'snippets': [
@@ -546,7 +581,8 @@ class SolutionSearcher:
                         'country_names': country_names,
                         'risk_type_labels': risk_type_labels,
                         'solution_type_labels': solution_type_labels,
-                        'chunk_numbers': []
+                        'chunk_numbers': [],
+                        'highlights_chunk_numbers': []
                     }
                 
                 # Parse and add chunk numbers from this result (if any)
@@ -559,6 +595,19 @@ class SolutionSearcher:
                                 chunk_num = int(chunk_num_str)
                                 if chunk_num not in solutions_by_doc_id[doc_id]['chunk_numbers']:
                                     solutions_by_doc_id[doc_id]['chunk_numbers'].append(chunk_num)
+                            except ValueError:
+                                continue
+                
+                # Parse highlights chunks
+                highlights_chunks_prefixed = result.get('highlightsChunksPrefixed', '')
+                if highlights_chunks_prefixed and highlights_chunks_prefixed.strip():
+                    for prefixed_chunk in highlights_chunks_prefixed.split(','):
+                        if '|' in prefixed_chunk:
+                            try:
+                                chunk_num_str = prefixed_chunk.split('|')[0]
+                                chunk_num = int(chunk_num_str)
+                                if chunk_num not in solutions_by_doc_id[doc_id]['highlights_chunk_numbers']:
+                                    solutions_by_doc_id[doc_id]['highlights_chunk_numbers'].append(chunk_num)
                             except ValueError:
                                 continue
             
@@ -621,6 +670,7 @@ class SolutionSearcher:
 
         SELECT ?solution ?doc_id ?title ?riskType ?solutionTypes
                (GROUP_CONCAT(?prefixed; SEPARATOR=",") AS ?descChunksPrefixed)
+               (GROUP_CONCAT(?highlightsPrefixed; SEPARATOR=",") AS ?highlightsChunksPrefixed)
                (GROUP_CONCAT(DISTINCT ?country_name; SEPARATOR=",") AS ?country_names)
                (GROUP_CONCAT(DISTINCT ?risk_type_label; SEPARATOR=",") AS ?risk_type_labels)
                (GROUP_CONCAT(DISTINCT ?solution_type_label; SEPARATOR=",") AS ?solution_type_labels)
@@ -682,6 +732,24 @@ class SolutionSearcher:
             FILTER(REGEX(?last4, "^[0-9]{{4}}$"))
             
             BIND(CONCAT(?last4, "|", STR(?chunk)) AS ?prefixed)
+          }}
+          
+          # Key highlights chunks
+          OPTIONAL {{
+            ?solution sgd:hasChild ?highlightsSection .
+            ?highlightsSection dcterms:title ?ht .
+            FILTER(LCASE(STR(?ht)) = "key highlights")
+
+            ?highlightsSection sgd:firstChild ?hc1 .
+            ?hc1 (sgd:nextSibling)* ?highlightChunk .
+            ?highlightChunk sgd:hasParent ?highlightsSection .
+
+            BIND(STR(?highlightChunk) AS ?hs)
+            BIND(STRLEN(?hs) AS ?hL)
+            BIND(SUBSTR(?hs, ?hL - 3, 4) AS ?hLast4)
+            FILTER(REGEX(?hLast4, "^[0-9]{{4}}$"))
+            
+            BIND(CONCAT(?hLast4, "|", STR(?highlightChunk)) AS ?highlightsPrefixed)
           }}
         }}
         GROUP BY ?solution ?doc_id ?title ?riskType ?solutionTypes
@@ -781,6 +849,7 @@ class SolutionSearcher:
         
         doc_id = solution_data.get('doc_id')
         chunk_numbers = solution_data.get('chunk_numbers', [])
+        highlights_chunk_numbers = solution_data.get('highlights_chunk_numbers', [])
         
         if not doc_id or not chunk_numbers:
             self.logger.warning(f"Missing doc_id or chunk_numbers in solution data: {solution_data}")
@@ -791,10 +860,14 @@ class SolutionSearcher:
         if not content:
             return None
         
+        # Get key highlights
+        key_highlights = self._get_key_highlights_content(doc_id, highlights_chunk_numbers) if highlights_chunk_numbers else []
+        
         return {
             'doc_id': doc_id,
             'kg_data': solution_data,
             'content': content,
+            'key_highlights': key_highlights,
             'relevance_score': 0.0  # Will be set by ranking
         }
     
@@ -837,6 +910,28 @@ class SolutionSearcher:
             'chunk_metadata': metadata,
             'chunks': chunks
         }
+    
+    def _get_key_highlights_content(self, doc_id: str, chunk_numbers: List[int]) -> List[str]:
+        """Retrieve key highlights content from S3 chunks as separate strings"""
+        
+        highlights = []
+        
+        for chunk_num in sorted(chunk_numbers):
+            s3_key = f"data-lake/{doc_id}/{doc_id}_chunk_{chunk_num:04d}.json"
+            
+            try:
+                response = self.s3_client.get_object(Bucket=self.chunks_bucket, Key=s3_key)
+                chunk_data = json.loads(response['Body'].read())
+                
+                highlight_text = chunk_data['text'].strip()
+                if highlight_text:
+                    highlights.append(highlight_text)
+                    
+            except Exception as e:
+                self.logger.warning(f"Failed to retrieve highlight chunk {s3_key}: {e}")
+                continue
+        
+        return highlights
     
     def count_solutions(self, filters: Dict[str, Any]) -> int:
         """Count total solutions matching filters for pagination"""
