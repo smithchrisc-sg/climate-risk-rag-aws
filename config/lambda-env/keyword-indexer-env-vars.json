@@ -1,0 +1,11 @@
+{
+    "TEXT_BUCKET": "solve-global-kr-dl-text-861276078413-us-east-1",
+    "OPENSEARCH_USERNAME": "admin",
+    "OPENSEARCH_ENDPOINT": "https://vpc-solve-global-kr-search-hsacnclbjsoclui75hefj2espq.us-east-1.es.amazonaws.com",
+    "DATABASE_SECRET_NAME": "rds!db-0f16c155-35f6-463b-96d8-4a2d8da7e863",
+    "DB_PORT": "5432",
+    "COMPLETION_TOPIC_ARN": "arn:aws:sns:us-east-1:861276078413:keyword-indexing-complete",
+    "DB_NAME": "climate_risk_rag",
+    "OPENSEARCH_PASSWORD": "veqpat-kegba2-zapbyZ",
+    "DB_HOST": "solve-global-kr-rag-data-postgresqldatabase03fc658-gpdrsfsllfh8.cqhsckw0edl1.us-east-1.rds.amazonaws.com"
+}

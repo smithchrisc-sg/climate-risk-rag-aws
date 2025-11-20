@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "timestamp": "2025-08-14T16:29:00.685614Z",
+  "source": "climate-risk-rag-system",
+  "stage": "nlp_processing_complete",
+  "doc_id": "064762102bead7b04a39",
+  "data_locations": {
+    "entities_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities.json",
+    "key_phrases_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases.json",
+    "mapped_phrases_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases_by_chunk.json",
+    "mapped_entities_location": "s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities_by_chunk.json"
+  },
+  "processing_metadata": {
+    "entities_count": 3345,
+    "key_phrases_count": 8709,
+    "processing_completed": "2025-08-14T16:29:00.685614Z"
+  },
+  "integration_flags": {
+    "database_tracking_enabled": true,
+    "knowledge_graph_integration_enabled": true
+  }
+}

@@ -7,6 +7,10 @@
 ### **Top Level**
 - `invoke_pipeline_test.py` - Main pipeline testing entry point (frequently used)
 
+### **Configuration & Test Data**
+- **`/config/`** - System configuration files (lambda env vars, policies, stack parameters)
+- **`/test-data/`** - Test payloads, responses, and testing configurations
+
 ### **`/scripts/analysis/`** - Data Analysis & Exploration
 Scripts for analyzing data, exploring datasets, and generating insights.
 

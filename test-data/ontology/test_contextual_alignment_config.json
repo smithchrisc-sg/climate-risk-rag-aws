@@ -1,0 +1,52 @@
+{
+  "test_name": "Phase 1: Contextual Alignment for LOCATION Entities",
+  "description": "Test contextual entity alignment with document 064762102bead7b04a39 (Nepal document)",
+  
+  "lambda_environment_variables": {
+    "ENABLE_CONTEXTUAL_ALIGNMENT": "true",
+    "CONTEXTUAL_ALIGNMENT_ENTITY_TYPES": "LOCATION",
+    "CONTEXTUAL_ALIGNMENT_ONTOLOGIES": "geonames",
+    
+    "FTS_QUERY_TIMEOUT_MS": "2000",
+    "FTS_MAX_RESULTS_PER_ONTOLOGY": "10", 
+    "CONTEXTUAL_CONFIDENCE_THRESHOLD": "0.3",
+    
+    "CONTEXT_WEIGHT_DOCUMENT_TITLE": "0.3",
+    "CONTEXT_WEIGHT_CHUNK_COOCCURRENCE": "0.4",
+    "CONTEXT_WEIGHT_SEMANTIC_SIGNALS": "0.2",
+    "CONTEXT_WEIGHT_ENTITY_TYPE_MATCH": "0.1"
+  },
+  
+  "test_message": {
+    "Records": [
+      {
+        "Sns": {
+          "Message": "{\"doc_id\": \"064762102bead7b04a39\", \"processing_type\": \"nlp_processing_complete\", \"entities_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities_by_chunk.json\", \"key_phrases_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases_by_chunk.json\", \"schema_version\": \"1.0\", \"timestamp\": \"2025-08-14T17:40:00Z\", \"metadata\": {\"entity_count\": 84, \"location_entity_count\": 84, \"test_mode\": \"contextual_alignment_phase1\"}}"
+        }
+      }
+    ]
+  },
+  
+  "expected_improvements": [
+    "Better disambiguation of 'Nepal' vs other locations",
+    "Contextual scoring based on South Asia document context",
+    "Co-occurrence analysis with other location entities",
+    "FTS-enhanced SPARQL queries to geonames ontology"
+  ],
+  
+  "success_criteria": {
+    "alignment_method_used": "contextual",
+    "location_entities_processed": "> 0",
+    "contextual_confidence_scores": "> 0.3",
+    "no_errors": true,
+    "processing_time": "< 30 seconds"
+  },
+  
+  "fallback_test": {
+    "description": "Test fallback to basic alignment",
+    "environment_override": {
+      "ENABLE_CONTEXTUAL_ALIGNMENT": "false"
+    },
+    "expected_behavior": "Should use basic EntityAligner without errors"
+  }
+}

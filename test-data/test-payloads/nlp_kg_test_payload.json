@@ -1,0 +1,17 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:us-east-1:861276078413:nlp-processing-complete:test-subscription",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "test-message-id",
+        "TopicArn": "arn:aws:sns:us-east-1:861276078413:nlp-processing-complete",
+        "Subject": "NLP processing complete: 064762102bead7b04a39",
+        "Message": "{\"version\": \"1.0\", \"timestamp\": \"2025-08-15T16:24:48.302239Z\", \"source\": \"climate-risk-rag-system\", \"stage\": \"nlp_processing_complete\", \"doc_id\": \"064762102bead7b04a39\", \"data_locations\": {\"entities_by_chunk\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities_by_chunk.json\", \"key_phrases_by_chunk\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases_by_chunk.json\", \"entities\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities.json\", \"key_phrases\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases.json\"}, \"processing_metadata\": {\"entities_count\": 84, \"key_phrases_count\": 100, \"processing_completed\": \"2025-08-15T16:24:48.302673Z\"}, \"integration_flags\": {\"database_tracking_enabled\": true, \"knowledge_graph_integration_enabled\": true}}",
+        "Timestamp": "2025-08-15T16:24:48.302758Z"
+      }
+    }
+  ]
+}

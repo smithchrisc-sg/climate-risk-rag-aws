@@ -1,0 +1,9 @@
+{
+  "Records": [
+    {
+      "Sns": {
+        "Message": "{\"doc_id\": \"064762102bead7b04a39\", \"processing_type\": \"nlp_processing_complete\", \"entities_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/entities_by_chunk.json\", \"key_phrases_location\": \"s3://solve-global-kr-dl-ner-results-861276078413-us-east-1/data-lake/064762102bead7b04a39/key_phrases_by_chunk.json\", \"schema_version\": \"1.0\", \"timestamp\": \"2025-08-14T17:10:00Z\", \"metadata\": {\"entity_count\": 84, \"location_entity_count\": 84, \"test_mode\": \"location_alignment_only\"}}"
+      }
+    }
+  ]
+}

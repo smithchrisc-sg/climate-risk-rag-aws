@@ -1,0 +1,114 @@
+[
+    {
+        "ParameterKey": "AdditionalParams",
+        "ParameterValue": "{ \"ElasticSearchEndpoint\": \"vpc-solve-global-kr-search-hsacnclbjsoclui75hefj2espq.us-east-1.es.amazonaws.com\", \"NumberOfShards\": \"2\", \"NumberOfReplica\": \"1\", \"IgnoreMissingDocument\": \"true\", \"ReplicationScope\": \"all\", \"GeoLocationFields\": \"\", \"DatatypesToExclude\": \"\", \"PropertiesToExclude\": \"\", \"EnableNonStringIndexing\": \"true\"}"
+    },
+    {
+        "ParameterKey": "IAMAuthEnabledOnSourceStream",
+        "ParameterValue": "false"
+    },
+    {
+        "ParameterKey": "VPC",
+        "ParameterValue": "vpc-051c21d88c7dc3819"
+    },
+    {
+        "ParameterKey": "SubnetIds",
+        "ParameterValue": "subnet-00efdcc220a613ae3,subnet-0e9efc5fdf29e9da0"
+    },
+    {
+        "ParameterKey": "StreamRecordsBatchSize",
+        "ParameterValue": "5000"
+    },
+    {
+        "ParameterKey": "LambdaMemorySize",
+        "ParameterValue": "1024"
+    },
+    {
+        "ParameterKey": "MaxPollingWaitTime",
+        "ParameterValue": "600"
+    },
+    {
+        "ParameterKey": "StreamPollerInitialState",
+        "ParameterValue": "ENABLED"
+    },
+    {
+        "ParameterKey": "MaxPollingInterval",
+        "ParameterValue": "600"
+    },
+    {
+        "ParameterKey": "RouteTableIds",
+        "ParameterValue": "rtb-015f1499e8599fe2f,rtb-03e50ed0f0423d804"
+    },
+    {
+        "ParameterKey": "LambdaS3Key",
+        "ParameterValue": "neptune-stream/lambda/python39/release_2023_09_04/neptune-to-es.zip"
+    },
+    {
+        "ParameterKey": "LambdaS3Bucket",
+        "ParameterValue": "aws-neptune-customer-samples-us-east-1"
+    },
+    {
+        "ParameterKey": "LambdaLoggingLevel",
+        "ParameterValue": "INFO"
+    },
+    {
+        "ParameterKey": "CreateDDBVPCEndPoint",
+        "ParameterValue": "false"
+    },
+    {
+        "ParameterKey": "LambdaRuntime",
+        "ParameterValue": "python3.9"
+    },
+    {
+        "ParameterKey": "ApplicationName",
+        "ParameterValue": "NeptuneOntologyFTS"
+    },
+    {
+        "ParameterKey": "StreamRecordsHandler",
+        "ParameterValue": "neptune_to_es.neptune_sparql_es_handler.ElasticSearchSparqlHandler"
+    },
+    {
+        "ParameterKey": "StreamDBClusterResourceId",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "StartingCheckpoint",
+        "ParameterValue": "0:0"
+    },
+    {
+        "ParameterKey": "SecurityGroupIds",
+        "ParameterValue": "sg-0c9e10b9cfb4c9eb0,sg-09820dfa36321a5e1"
+    },
+    {
+        "ParameterKey": "StepFunctionFallbackPeriodUnit",
+        "ParameterValue": "minutes"
+    },
+    {
+        "ParameterKey": "NotificationEmail",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "NeptuneStreamEndpoint",
+        "ParameterValue": "https://solve-global-kr-neptune-s3.cluster-cqhsckw0edl1.us-east-1.neptune.amazonaws.com:8182/sparql/stream"
+    },
+    {
+        "ParameterKey": "NotificationSNSTopicArn",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "ManagedPolicies",
+        "ParameterValue": "arn:aws:iam::861276078413:policy/NeptuneQuickStart-ManagedPolicy-wG2qGEPQMeYu"
+    },
+    {
+        "ParameterKey": "CreateCloudWatchAlarm",
+        "ParameterValue": "false"
+    },
+    {
+        "ParameterKey": "StepFunctionFallbackPeriod",
+        "ParameterValue": "15"
+    },
+    {
+        "ParameterKey": "CreateMonitoringEndPoint",
+        "ParameterValue": "false"
+    }
+]
