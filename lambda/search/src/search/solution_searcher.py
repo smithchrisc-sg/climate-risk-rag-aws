@@ -56,7 +56,7 @@ class SolutionSearcher:
             'myanmar': '<http://www.geonames.org/ontology#1327865>',
             'philippines': '<http://www.geonames.org/ontology#1694008>',
             'singapore': '<http://www.geonames.org/ontology#1880251>',
-            'thailand': '<http://www.geonames.org/ontology#1605651>',
+            'thailand': '<https://sws.geonames.org/1605651/>',
             'vietnam': '<http://www.geonames.org/ontology#1562822>',
             # ASEAN+3 additional
             'china': '<http://www.geonames.org/ontology#1814991>',
