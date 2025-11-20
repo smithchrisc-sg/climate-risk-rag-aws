@@ -262,6 +262,10 @@ class VectorEmbeddingsWorker:
             logger.error(f"Failed to load chunks from S3: {e}")
             raise
     
+    def determine_document_type(self, doc_id: str) -> str:
+        """Determine document type based on doc_id prefix"""
+        return 'solution' if doc_id.startswith('sol_') else 'trusted_source_document'
+    
     def generate_embeddings_for_chunks(self, chunks: List[Dict[str, Any]], doc_id: str) -> List[Dict[str, Any]]:
         """Generate embeddings for all chunks using Titan"""
         try:
@@ -279,12 +283,14 @@ class VectorEmbeddingsWorker:
             # Combine chunks with embeddings for vector index
             embeddings_data = []
             embedding_created_at = datetime.utcnow().isoformat() + 'Z'
+            content_type = self.determine_document_type(doc_id)
             
             for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
                 embedding_item = {
                     # Core identifiers for linking to documents
                     'chunk_id': chunk['chunk_id'],
                     'doc_id': doc_id,  # Key for linking to document index
+                    'content_type': content_type,
                     'chunk_index': chunk['chunk_index'],
                     'text': chunk['text'],
                     'vector': embedding,  # Vector for k-NN search

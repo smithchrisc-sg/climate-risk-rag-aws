@@ -240,8 +240,7 @@ class TextExtractorInitiator:
                 doc_hash = self.calculate_document_hash(bucket, key)
             
             # Start Textract job (new, changed, or forced)
-            #job_id = self.start_textract_job(bucket, key, doc_id, doc_hash)
-            job_id = 'DEBUGGING - NO TEXTTRACT JOB STARTED'
+            job_id = self.start_textract_job(bucket, key, doc_id, doc_hash)
             
             return {
                 'status': 'started',
