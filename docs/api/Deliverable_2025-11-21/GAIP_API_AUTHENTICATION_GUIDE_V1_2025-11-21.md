@@ -275,7 +275,138 @@ curl -X POST https://gaip-auth.auth.us-east-1.amazoncognito.com/oauth2/token \
 
 ---
 
-## 💻 **Integration Examples**
+## 💻 **Complete JavaScript Authentication Example**
+
+### **Frontend Authentication Implementation**
+Based on the working test application, here's the complete authentication flow:
+
+```javascript
+// Global variables for token management
+let currentToken = null;
+let tokenExpiry = null;
+
+async function authenticate() {
+    const email = 'gaip-service@gaip.com';  // Your provided username
+    const password = '[Your-Password]';     // Password set by SolveGlobal team
+    const userPoolId = 'us-east-1_W1N7opitG';
+    const clientId = '7p462gapip85uve67q310nvcil';
+    const clientSecret = '[Your-Client-Secret]';  // If app client has secret
+    
+    try {
+        // Calculate SECRET_HASH using Web Crypto API (if client secret is configured)
+        const message = email + clientId;
+        const key = await window.crypto.subtle.importKey(
+            'raw',
+            new TextEncoder().encode(clientSecret),
+            { name: 'HMAC', hash: 'SHA-256' },
+            false,
+            ['sign']
+        );
+        const signature = await window.crypto.subtle.sign('HMAC', key, new TextEncoder().encode(message));
+        const secretHash = btoa(String.fromCharCode(...new Uint8Array(signature)));
+        
+        // Authenticate with Cognito
+        const authResponse = await fetch('https://cognito-idp.us-east-1.amazonaws.com/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-amz-json-1.1',
+                'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth'
+            },
+            body: JSON.stringify({
+                ClientId: clientId,
+                AuthFlow: 'USER_PASSWORD_AUTH',
+                AuthParameters: {
+                    USERNAME: email,
+                    PASSWORD: password,
+                    SECRET_HASH: secretHash  // Include if client secret is configured
+                }
+            })
+        });
+        
+        if (!authResponse.ok) {
+            const errorData = await authResponse.json();
+            throw new Error(errorData.message || `Authentication failed: ${authResponse.status}`);
+        }
+        
+        const authData = await authResponse.json();
+        
+        // IMPORTANT: Use IdToken for API Gateway Cognito User Pool authorizer
+        currentToken = authData.AuthenticationResult.IdToken;
+        tokenExpiry = Date.now() + (authData.AuthenticationResult.ExpiresIn * 1000);
+        
+        console.log('Authentication successful!');
+        return currentToken;
+        
+    } catch (error) {
+        console.error('Authentication error:', error);
+        throw error;
+    }
+}
+
+// Use token in API requests
+async function searchWithAuth(query, filters = {}) {
+    // Check if token exists and is not expired
+    if (!currentToken || Date.now() >= tokenExpiry) {
+        await authenticate();
+    }
+    
+    const response = await fetch('https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${currentToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            query: query,
+            filters: filters,
+            parameters: { max_results: 20 }
+        })
+    });
+    
+    if (response.status === 401) {
+        // Token expired, re-authenticate
+        await authenticate();
+        return searchWithAuth(query, filters);
+    }
+    
+    return response.json();
+}
+```
+
+### **Key Implementation Notes**
+
+1. **Use IdToken**: The API Gateway Cognito User Pool authorizer expects the `IdToken`, not the `AccessToken`
+2. **SECRET_HASH**: Required if your app client is configured with a client secret
+3. **Token Management**: Store token and expiry time, refresh when needed
+4. **Error Handling**: Handle 401 responses by re-authenticating
+5. **Direct Cognito API**: Uses Cognito service endpoint directly, not AWS SDK
+
+### **Simplified Version (No Client Secret)**
+If the app client doesn't have a client secret configured:
+
+```javascript
+async function authenticateSimple() {
+    const authResponse = await fetch('https://cognito-idp.us-east-1.amazonaws.com/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-amz-json-1.1',
+            'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth'
+        },
+        body: JSON.stringify({
+            ClientId: '7p462gapip85uve67q310nvcil',
+            AuthFlow: 'USER_PASSWORD_AUTH',
+            AuthParameters: {
+                USERNAME: 'gaip-service@gaip.com',
+                PASSWORD: '[Your-Password]'
+                // No SECRET_HASH needed if no client secret
+            }
+        })
+    });
+    
+    const authData = await authResponse.json();
+    return authData.AuthenticationResult.IdToken;
+}
+```
 
 ### **JavaScript/TypeScript (Web)**
 

@@ -21,20 +21,54 @@ The GAIP Knowledge Repository API **requires JWT Bearer Token authentication** v
 
 ### **Authentication Flow**
 ```javascript
-// 1. Authenticate with Cognito
-const authResponse = await authenticateWithCognito(username, password);
-const accessToken = authResponse.AccessToken;
-
-// 2. Use token in API requests
-const searchResponse = await fetch('https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${accessToken}`,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({ query: 'climate risk insurance' })
-});
+// Complete authentication implementation from working test app
+async function authenticate() {
+    const email = 'gaip-service@gaip.com';
+    const password = '[Your-Password]';  // Provided by SolveGlobal team
+    const clientId = '7p462gapip85uve67q310nvcil';
+    
+    // Authenticate with Cognito
+    const authResponse = await fetch('https://cognito-idp.us-east-1.amazonaws.com/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-amz-json-1.1',
+            'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth'
+        },
+        body: JSON.stringify({
+            ClientId: clientId,
+            AuthFlow: 'USER_PASSWORD_AUTH',
+            AuthParameters: {
+                USERNAME: email,
+                PASSWORD: password
+            }
+        })
+    });
+    
+    const authData = await authResponse.json();
+    // IMPORTANT: Use IdToken for API Gateway
+    const idToken = authData.AuthenticationResult.IdToken;
+    
+    // Use token in API requests
+    const searchResponse = await fetch('https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${idToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            query: 'climate risk insurance',
+            parameters: { max_results: 10 }
+        })
+    });
+    
+    return searchResponse.json();
+}
 ```
+
+**Key Points:**
+- Use **IdToken** (not AccessToken) for API Gateway authorization
+- Direct Cognito API call using service endpoint
+- Handle token expiry and refresh as needed
 
 ### **Test Credentials**
 - **User Pool ID**: `us-east-1_W1N7opitG`
@@ -124,73 +158,104 @@ POST /v1/search
 
 ---
 
-## 📊 **Sample API Response**
+## 📊 **Real API Examples**
 
+### **Filter-Only Search (No Query)**
+```json
+{
+  "query": "",
+  "parameters": {
+    "max_results": 20,
+    "cursor": null
+  },
+  "filters": {
+    "solution_category": ["natural-catastrophe"],
+    "solution_type": ["risk-reduction"]
+  }
+}
+```
+
+### **Hybrid Search (Query + Filters)**
+```json
+{
+  "query": "Parametric insurance facilities",
+  "parameters": {
+    "max_results": 20,
+    "cursor": null
+  },
+  "filters": {
+    "solution_category": ["natural-catastrophe"],
+    "solution_type": ["risk-reduction"]
+  }
+}
+```
+
+### **Real API Response**
 ```json
 {
   "status": "success",
-  "query_id": "search_12345_67890",
-  "execution_time_ms": 285,
-  "total_results": 156,
+  "query_id": "search_b4533976-98b1-4986-bd87-2b34a18e86a5",
+  "execution_time_ms": 12191,
+  "total_results": 337,
   "returned_results": 20,
   "results": {
     "solutions": [
       {
-        "document_id": "sol_001",
+        "document_id": "sol_e45333560cecba5f2",
         "content_type": "solution",
-        "solution_name": "Parametric Flood Insurance for Rice Farmers",
-        "title": "Protection Gap Analysis: Flood Insurance in Southeast Asia 2024",
-        "relevance_score": 0.95,
-        "publication_date": "2024-03-15",
-        "implemented": true,
-        "ppp_involvement": "yes",
-        "last_update_date": "2025-04-22",
-        "country_regions_covered": ["Thailand", "Vietnam", "Philippines"],
-        "risk_types_addressed": ["Natural Catastrophe", "Flood", "Agricultural"],
+        "solution_name": "Shanghai Typhoon Collaborative Research Fund (STCRF)",
+        "title": "Shanghai Typhoon Collaborative Research Fund (STCRF)",
+        "relevance_score": 0.9496,
+        "publication_date": "2023",
+        "country_regions_covered": ["China"],
+        "risk_types_addressed": ["Natural Catastrophe"],
         "solution_categories": [],
         "solution_types": ["Risk Reduction", "Risk Financing"],
+        "implemented": true,
+        "ppp_involvement": "no",
+        "last_update_date": "2025-09-25",
+        "summary_description": "The Shanghai Typhoon Collaborative Research Fund (STCRF) is a competitive funding initiative aimed at advancing research on tropical cyclones and related marine meteorological hazards. Managed by the Asia-Pacific Typhoon Collaborative Research Center (AP-TCRC) in Shanghai, the fund supports both short-term and long-term research residencies.",
         "key_highlights": [
-          "Automated payout system reduces claim processing time to 48 hours",
-          "Covers 50,000+ smallholder farmers across three countries",
-          "95% payout accuracy achieved in pilot program"
+          "The fund offers both short-term (2–3 months) and long-term (1 year, extendable) residencies to facilitate intensive collaborations and deeper research.",
+          "It provides logistical support including airfare, accommodation, and Daily Subsistence Allowance (DSA) to lower participation barriers.",
+          "The initiative is integrated with AP-TCRC's research ecosystem, promoting the translation of scientific findings into operationally relevant products.",
+          "The fund is aligned with the ESCAP/WMO Typhoon Committee, ensuring regional coordination and impact."
         ],
-        "summary_description": "This parametric insurance solution provides rapid payouts to rice farmers affected by flooding, using satellite data and weather indices.",
-        "source": "https://documents.worldbank.org/example",
+        "source": "https://www.typhooncommittee.org/index.php?route=product/category&path=75_120",
         "related_documents": [
           {
-            "doc_id": "tsd_002",
-            "content_type": "trusted_source_document",
-            "title": "Flood Risk Assessment Methodology for Southeast Asian Rice Production",
-            "summary": "Comprehensive methodology for assessing flood risks in rice-producing regions",
+            "doc_id": "d4d72ac88ac74e9421f0",
+            "title": "Document of The World Bank",
+            "summary": "Technical Assistance is supporting DOF and local governments to establish a joint catastrophe risk insurance facility for local government units, drawing on experience from the Pacific Catastrophe Risk...",
             "rank": 1,
+            "source_url": "http://documents.worldbank.org/curated/en/989761468196182551/pdf/96587-PGD-P155656-R2015-0243-1-Box393264B-OUO-9.pdf",
             "source_name": "World Bank",
-            "source_url": "https://documents.worldbank.org/flood-assessment"
+            "content_type": "trusted_source_document"
           }
         ],
         "snippets": [
           {
-            "text": "Protection gap analysis reveals significant underinsurance in flood-prone regions...",
-            "page_number": 12,
-            "section": "Regional Assessment"
+            "text": "The Shanghai Typhoon Collaborative Research Fund (STCRF) is a competitive funding initiative aimed at advancing research on tropical cyclones and related marine meteorological hazards...",
+            "page_number": 1,
+            "section": "Description"
           }
         ],
         "metadata": {
           "document_type": "solution",
-          "categories": ["Natural Catastrophe", "Flood"],
-          "regions": ["Thailand", "Vietnam", "Philippines"],
-          "publication_year": 2024,
-          "source": "https://documents.worldbank.org/example"
+          "categories": ["Natural Catastrophe"],
+          "regions": ["China"],
+          "publication_year": 2023,
+          "source": "https://www.typhooncommittee.org/index.php?route=product/category&path=75_120"
         }
       }
     ]
   },
   "pagination": {
     "current_page": 1,
+    "total_pages": 17,
+    "total_results": 337,
     "page_size": 20,
-    "total_pages": 8,
-    "has_next": true,
-    "has_previous": false,
-    "next_cursor": "eyJza2lwIjoyMH0="
+    "next_cursor": "eyJxdWVyeV9pZCI6ICJzZWFyY2hfYjQ1MzM5NzYtOThiMS00OTg2LWJkODctMmIzNGExOGU4NmE1IiwgInBhZ2UiOiAyfQ=="
   }
 }
 ```
@@ -267,27 +332,71 @@ POST /v1/search
 
 ### **JavaScript/React**
 ```javascript
-const searchAPI = async (query, filters = {}) => {
-  const response = await fetch('https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      // Add authentication header when Cognito is implemented
-    },
-    body: JSON.stringify({
-      query,
-      filters,
-      parameters: { max_results: 20 }
-    })
-  });
-  
-  return response.json();
-};
+// Based on working test application
+class GaipSearchClient {
+    constructor() {
+        this.currentToken = null;
+        this.tokenExpiry = null;
+        this.userPoolId = 'us-east-1_W1N7opitG';
+        this.clientId = '7p462gapip85uve67q310nvcil';
+    }
+    
+    async authenticate(email, password) {
+        const authResponse = await fetch('https://cognito-idp.us-east-1.amazonaws.com/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-amz-json-1.1',
+                'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth'
+            },
+            body: JSON.stringify({
+                ClientId: this.clientId,
+                AuthFlow: 'USER_PASSWORD_AUTH',
+                AuthParameters: {
+                    USERNAME: email,
+                    PASSWORD: password
+                }
+            })
+        });
+        
+        const authData = await authResponse.json();
+        this.currentToken = authData.AuthenticationResult.IdToken;
+        this.tokenExpiry = Date.now() + (authData.AuthenticationResult.ExpiresIn * 1000);
+        
+        return this.currentToken;
+    }
+    
+    async searchAPI(query, filters = {}) {
+        // Check token validity
+        if (!this.currentToken || Date.now() >= this.tokenExpiry) {
+            throw new Error('Authentication required');
+        }
+        
+        const response = await fetch('https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${this.currentToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                query,
+                filters,
+                parameters: { max_results: 20 }
+            })
+        });
+        
+        if (response.status === 401) {
+            throw new Error('Token expired - please re-authenticate');
+        }
+        
+        return response.json();
+    }
+}
 
 // Usage
-const results = await searchAPI('climate insurance', {
-  solution_category: ['natural-catastrophe'],
-  countries: ['thailand']
+const client = new GaipSearchClient();
+await client.authenticate('gaip-service@gaip.com', 'your-password');
+const results = await client.searchAPI('climate insurance', {
+    solution_category: ['natural-catastrophe']
 });
 ```
 

@@ -27,12 +27,10 @@ Search the knowledge repository with comprehensive results including related doc
 
 ```json
 {
-  "query": "parametric flood insurance Southeast Asia",
+  "query": "Parametric insurance facilities",
   "filters": {
     "solution_category": ["natural-catastrophe"],
-    "solution_type": ["risk-reduction"],
-    "countries": ["thailand", "vietnam"],
-    "ppp_involvement": true
+    "solution_type": ["risk-reduction"]
   },
   "parameters": {
     "max_results": 20,
