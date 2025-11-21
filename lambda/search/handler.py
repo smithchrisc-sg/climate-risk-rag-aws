@@ -28,6 +28,18 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         logger.info(f"Request path: {path}, method: {http_method}")
         
+        # Handle CORS preflight requests
+        if http_method == 'OPTIONS':
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+                },
+                'body': ''
+            }
+        
         # Handle repository metadata endpoints
         if path == '/repository/last-update' and http_method == 'GET':
             return handle_repository_metadata('last-update')

@@ -98,6 +98,18 @@ function setupEventListeners() {
             mobileOverlay.classList.remove('active');
         }
     });
+    
+    // Repository test button handlers
+    const testLastUpdateBtn = document.getElementById('testLastUpdateBtn');
+    const testSolutionCountBtn = document.getElementById('testSolutionCountBtn');
+    
+    if (testLastUpdateBtn) {
+        testLastUpdateBtn.addEventListener('click', testLastUpdate);
+    }
+    
+    if (testSolutionCountBtn) {
+        testSolutionCountBtn.addEventListener('click', testSolutionCount);
+    }
 }
 
 // Authentication Functions
@@ -987,6 +999,106 @@ function getStatusIndicator(value, label) {
     return `<span class="status-indicator ${className}">${icon} ${label}</span>`;
 }
 
+// Repository Test Functions
+async function testLastUpdate() {
+    const resultsDiv = document.getElementById('repositoryResults');
+    const apiEndpoint = document.getElementById('apiEndpoint').value.trim();
+    
+    if (!currentToken) {
+        showRepositoryResult('Please authenticate first', 'error');
+        return;
+    }
+    
+    if (!apiEndpoint) {
+        showRepositoryResult('API endpoint not configured', 'error');
+        return;
+    }
+    
+    showRepositoryResult('Getting last update info...', 'loading');
+    
+    try {
+        const response = await fetch(`${apiEndpoint}/repository/last-update`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${currentToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error?.message || `HTTP ${response.status}`);
+        }
+        
+        const result = `
+            <strong>Repository Last Update</strong><br>
+            Status: ${data.status}<br>
+            Last Update: ${data.last_update || 'N/A'}<br>
+            Update Type: ${data.update_type || 'N/A'}<br>
+            Documents Updated: ${data.documents_updated || 0}
+        `;
+        
+        showRepositoryResult(result, 'success');
+        
+    } catch (error) {
+        showRepositoryResult(`Error: ${error.message}`, 'error');
+    }
+}
+
+async function testSolutionCount() {
+    const resultsDiv = document.getElementById('repositoryResults');
+    const apiEndpoint = document.getElementById('apiEndpoint').value.trim();
+    
+    if (!currentToken) {
+        showRepositoryResult('Please authenticate first', 'error');
+        return;
+    }
+    
+    if (!apiEndpoint) {
+        showRepositoryResult('API endpoint not configured', 'error');
+        return;
+    }
+    
+    showRepositoryResult('Getting solution count...', 'loading');
+    
+    try {
+        const response = await fetch(`${apiEndpoint}/repository/solution-count`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${currentToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error?.message || `HTTP ${response.status}`);
+        }
+        
+        const result = `
+            <strong>Repository Solution Count</strong><br>
+            Status: ${data.status}<br>
+            Total Solutions: ${data.total_solutions || 0}<br>
+            Total TSDs: ${data.total_trusted_documents || 0}<br>
+            Total Documents: ${data.total_documents || 0}<br>
+            Last Counted: ${data.last_counted || 'N/A'}
+        `;
+        
+        showRepositoryResult(result, 'success');
+        
+    } catch (error) {
+        showRepositoryResult(`Error: ${error.message}`, 'error');
+    }
+}
+
+function showRepositoryResult(message, type) {
+    const resultsDiv = document.getElementById('repositoryResults');
+    resultsDiv.innerHTML = message;
+    resultsDiv.className = `repository-results show ${type}`;
+}
+
 // Helper function for date formatting
 function formatDate(dateString) {
     if (!dateString) return 'Unknown';
@@ -1003,5 +1115,7 @@ function formatDate(dateString) {
     }
 }
 
-// Make authenticate function globally available
+// Make functions globally available
 window.authenticate = authenticate;
+window.testLastUpdate = testLastUpdate;
+window.testSolutionCount = testSolutionCount;
