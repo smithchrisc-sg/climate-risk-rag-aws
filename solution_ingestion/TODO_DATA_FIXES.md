@@ -42,10 +42,45 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 **Status**: Documented 2025-11-04
 **Workaround**: Per-document loading approach implemented
 
-### ✅ 16. API Response Field Enhancements
-**Issue**: Four fields in API response are currently defaulted/empty
-**Status**: COMPLETED 2025-11-20
-**Priority**: High - All fields now implemented
+### ✅ 17. Repository Test Functionality Implementation
+**Issue**: Need repository metadata endpoints with proper authentication
+**Status**: COMPLETED 2025-11-21
+**Priority**: High - Required for API delivery
+**Implementation**:
+- Added `/repository/last-update` and `/repository/solution-count` endpoints
+- Implemented proper JWT Bearer token authentication
+- Fixed CORS preflight issues with API Gateway OPTIONS methods
+- Dynamic document counting from OpenSearch for real-time data
+- BM25SearchService initialization in coordinator for metadata queries
+**Result**: Both repository test buttons working with authentication and real data
+
+### 18. CDK vs Deployed API Gateway Configuration Mismatch
+**Issue**: CDK infrastructure code may not match deployed working API Gateway configuration
+**Status**: IDENTIFIED 2025-11-21
+**Priority**: High - Critical for infrastructure consistency
+**Details**:
+- Manual OPTIONS methods added via AWS console for CORS preflight
+- CDK may not reflect these manual changes
+- Future CDK deployments could break working CORS configuration
+**Action Required**: 
+- Audit deployed API Gateway vs CDK configuration
+- Update CDK to match working deployment
+- Test CDK deployment in separate environment first
+**Risk**: Infrastructure drift and deployment issues
+
+### 19. OpenSearch Content Field Highlighting Performance Issue
+**Issue**: Content field highlighting causes 15x performance degradation (182ms → 2678ms)
+**Status**: IDENTIFIED 2025-11-19 (updated 2025-11-21)
+**Priority**: Medium - Feature works but optimization needed
+**Details**:
+- BM25 search without highlights: 182ms
+- BM25 search with content highlights: 2678ms (14.7x slower)
+- Currently using vector chunk text as workaround
+**Investigation Needed**:
+- Check content field mapping and analyzer configuration
+- Test different highlighter types (unified, fvh, plain)
+- Consider pre-computed summary field during indexing
+**Impact**: Related documents feature working but summaries could be better
 
 #### ✅ 16.1 Solution Categories vs Risk Types vs Solution Types
 **Current**: Inconsistent usage across mockups and API
