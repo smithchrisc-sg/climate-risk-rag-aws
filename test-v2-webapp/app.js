@@ -6,7 +6,7 @@ let tokenExpiry = null;
 let currentSearchState = {
     query: '',
     filters: {},
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     totalPages: 1,
     queryId: null,
@@ -225,7 +225,7 @@ function performNewSearch() {
     currentSearchState = {
         query: '',
         filters: {},
-        pageSize: 20,
+        pageSize: 10,
         currentPage: 1,
         totalPages: 1,
         queryId: null,
