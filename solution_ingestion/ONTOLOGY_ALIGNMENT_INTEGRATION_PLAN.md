@@ -557,6 +557,83 @@ When resuming work:
 
 ---
 
+## Known Issues & Troubleshooting
+
+### 400 Bad Request Errors During Batch Processing
+
+**Symptom**: Occasional 400 errors from Neptune during `bulk_insert_ttl()`:
+```
+SPARQL update request failed (attempt 1): 400 Client Error: Bad Request
+```
+
+**Likely Causes**:
+1. **Special characters in evidence text** - Quotes, newlines, backslashes not properly escaped
+2. **Invalid URIs** - LLM-generated concept URIs with spaces or special characters
+3. **Malformed Turtle syntax** - Missing quotes, brackets, or semicolons
+
+**Investigation Steps**:
+```bash
+# Check which solutions failed
+grep "SPARQL update failed" output.log | grep -o "sol_[a-z0-9]*"
+
+# Examine the generated TTL for that solution
+cat ./output/ttl/alignment_sol_XXXXX.ttl
+
+# Look for:
+# - Unescaped quotes in evidence strings
+# - URIs with spaces (should be CamelCase)
+# - Missing closing quotes or brackets
+```
+
+**Fixes**:
+1. **Improve escaping** in `alignment_rdf_generator.py`:
+   ```python
+   def _escape_literal(self, text: str) -> str:
+       """Escape special characters in RDF literals."""
+       return (text
+           .replace('\\', '\\\\')  # Escape backslashes first
+           .replace('"', '\\"')     # Escape quotes
+           .replace('\n', ' ')      # Replace newlines
+           .replace('\r', '')       # Remove carriage returns
+           .replace('\t', ' ')      # Replace tabs
+           [:200])                  # Truncate to 200 chars
+   ```
+
+2. **Validate URIs** in `llm_extractor.py` - reject concepts with spaces/special chars
+
+3. **Better error handling** in `ontology_alignment_batch.py`:
+   ```python
+   def load_to_neptune(self, doc_id: str, rdf_content: str):
+       try:
+           result = self.kg_manager.bulk_insert_ttl(rdf_content)
+           if not result:  # Check return value
+               raise Exception("bulk_insert_ttl returned False")
+           logger.info(f"Loaded RDF to Neptune for {doc_id}")
+       except Exception as e:
+           logger.error(f"Neptune load FAILED for {doc_id}: {e}")
+           # Write failed RDF to file for inspection
+           with open(f"./output/failed/{doc_id}.ttl", 'w') as f:
+               f.write(rdf_content)
+           raise
+   ```
+
+**Impact**: Solutions with 400 errors may have incomplete data in Neptune. After batch completes, identify and reprocess failed solutions.
+
+**Query to find solutions without alignments**:
+```sparql
+PREFIX sgd: <http://solve.global/knowledge-commons/document-structure#>
+PREFIX sgm: <http://solve.global/knowledge-commons/process-metadata#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?solution ?doc_id WHERE {
+  ?solution a sgd:Solution ;
+            dcterms:identifier ?doc_id .
+  FILTER NOT EXISTS { ?solution sgm:hasAlignment ?alignment }
+}
+```
+
+---
+
 ## Contact & Context
 
 **Project**: GAIP Knowledge Repository Search API  
