@@ -1,14 +1,14 @@
 # GAIP API Authentication Guide - v1.0 (2025-11-21)
 
 **Last Updated**: November 21, 2025  
-**Status**: Current Implementation - Open API for Testing  
-**Future**: Cognito JWT Authentication for Production
+**Status**: JWT Authentication Required  
+**Implementation**: Cognito User Pool Authentication
 
 ---
 
-## 🚨 **Current Status (November 2025)**
+## 🔐 **Authentication Required**
 
-### **Production API - Cognito Authentication Required**
+### **JWT Bearer Token Authentication**
 The GAIP Knowledge Repository API **requires JWT Bearer Token authentication** via Amazon Cognito for all requests.
 
 **Current API Endpoint**: `https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search`
@@ -23,7 +23,7 @@ curl -X POST "https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search" 
 
 ### **Authentication is Mandatory**
 - ✅ **JWT authentication implemented** and active
-- ✅ **Cognito User Pool configured** with test accounts
+- ✅ **Cognito User Pool configured** with service accounts
 - ✅ **API Gateway authorizer** validates all requests
 - ❌ **No requests allowed** without valid JWT token
 
@@ -61,7 +61,7 @@ For testing and development:
 ### **User Registration**
 New users must be registered in the GAIP Cognito User Pool. Contact your GAIP administrator for:
 - User account creation
-- Organization assignment (GAIP, Gisfy, etc.)
+- Organization assignment
 - Role/permission configuration
 
 ---
@@ -535,9 +535,8 @@ To inspect token contents (for debugging only):
 ## 📞 **Support**
 
 For authentication issues or access requests:
-- **Email**: api-support@solve.global
 - **Documentation**: See `GAIP_API_DOCUMENTATION_V1_2025-11-21.md` for API details
-- **Current Testing**: Use open API endpoint without authentication
+- **Production**: JWT authentication required for all requests
 
 ---
 
@@ -556,27 +555,7 @@ Custom scopes may be assigned based on organization and role.
 
 ---
 
-## 🚀 **Migration Timeline**
-
-### **Phase 1: Current (November 2025)**
-- ✅ Open API for testing and development
-- ✅ No authentication required
-- ✅ Full API functionality available
-
-### **Phase 2: Production Deployment**
-- 🔄 Cognito User Pool setup
-- 🔄 JWT authentication implementation
-- 🔄 User account provisioning
-- 🔄 Production API endpoint activation
-
-### **Phase 3: Go-Live**
-- 🔄 Authentication required for all requests
-- 🔄 User training and onboarding
-- 🔄 Support and monitoring
-
----
-
 **Document Version**: v1.0 (2025-11-21)  
 **Authentication Method**: Future - Amazon Cognito with OAuth 2.0 / OpenID Connect  
 **Token Type**: JWT Bearer Tokens  
-**Current Status**: Open API for Testing
+**Current Status**: JWT Authentication Required

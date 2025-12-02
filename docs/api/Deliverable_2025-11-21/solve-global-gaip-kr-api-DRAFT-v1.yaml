@@ -27,7 +27,6 @@ info:
   version: 2.0.0-DRAFT
   contact:
     name: GAIP API Support
-    email: api-support@solve.global
   license:
     name: Proprietary - solve.global
     url: https://solve.global/license
@@ -105,7 +104,7 @@ paths:
                   total_trusted_documents:
                     type: integer
                     description: Total number of trusted source documents
-                    example: 400
+                    example: "a small number"
                   total_documents:
                     type: integer
                     description: Total number of all documents (solutions + trusted sources)

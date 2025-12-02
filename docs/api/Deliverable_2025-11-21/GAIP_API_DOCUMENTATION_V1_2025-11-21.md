@@ -285,8 +285,8 @@ curl -X POST https://43l6kohmrf.execute-api.us-east-1.amazonaws.com/v1/search \
 ## Advanced Features
 
 ### Related Documents
-Each solution includes 3-5 related trusted source documents:
-- **World Bank reports** and policy papers
+Each solution includes up to 5 related trusted source documents:
+- **World Bank reports** and policy papers (All test system documents are World Bank publications)
 - **IMF studies** and economic analyses  
 - **Academic research** and technical guides
 - **Government policy** documents
@@ -303,25 +303,6 @@ The API combines three search approaches:
 - **Geographic intelligence** using GeoNames integration
 - **Organization analysis** for PPP involvement detection
 - **Implementation status** based on publication dates
-
----
-
-## Performance & Limits
-
-### Response Times
-- **Simple queries**: 200-500ms
-- **Complex filtered searches**: 300-800ms
-- **With related documents**: 500-1000ms
-
-### Rate Limits
-- **100 requests per minute** per client
-- **1000 requests per hour** per client
-
-### Content Statistics
-- **567+ solutions** across all risk categories
-- **400+ trusted source documents** from major institutions
-- **Coverage**: Asia-Pacific focus with global best practices
-- **Languages**: Primarily English with some multilingual content
 
 ---
 
@@ -342,7 +323,7 @@ The API combines three search approaches:
 ### Pagination
 1. **Use cursor-based pagination** for consistent results
 2. **Cache cursors** for back/forward navigation
-3. **Limit page sizes** to 50 or fewer for optimal performance
+3. **Limit page sizes** to 10 (ten) or fewer
 
 ### Error Handling
 1. **Implement retry logic** for 5xx errors
@@ -413,7 +394,6 @@ class GaipSearchClient:
 ## Support
 
 For questions about this API:
-- **Email**: api-support@solve.global
 - **Current API Documentation**: This document
 - **Authentication Guide**: `GAIP_API_AUTHENTICATION_GUIDE_V1_2025-11-21.md`
 - **Implementation Guide**: `GAIP_API_IMPLEMENTATION_GUIDE_2025-11-21.md`

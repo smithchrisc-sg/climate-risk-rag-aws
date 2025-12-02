@@ -10,11 +10,17 @@ Use this prompt to request comprehensive project context documentation:
 
 **PROMPT:**
 
-Please create a PROJECT_CONTEXT_SUMMARY document named with a timestamp as in the other project context documents in the docs/status directory. Make sure it includes all the necessary information to bring you up to speed if we need to start a fresh conversation. Be sure to reference existing work folders such as cdk, lambda, and layers so that context is not lost. Also add a section on being careful with expense when running tests so that we are not charged excessively for test runs. This is important for textract and will be important for comprehend usage and perhaps other services such as titan for embeddings generation. Reference work summary docs as well so they become part of the context.
+## Updated End-of-Session Prompt
 
-Also create a NEXT_STEPS document, similarly timestamped to outline what we'll do next.
+Please create a PROJECT_CONTEXT_SUMMARY document named with today's date timestamp (format: PROJECT_CONTEXT_SUMMARY_YYYY-MM-DD.md) in the docs/status directory. Make sure it includes all the necessary information to bring you up to speed if we need to start a fresh conversation. Be sure to reference existing work folders such as cdk, lambda, and layers so that context is not lost. Also add a section on being careful with expense when running tests so that we are not charged excessively for test runs. This is important for textract and will be important for comprehend usage and perhaps other services such as titan for embeddings generation. Reference work summary docs as well so they become part of the context.
 
-Then, update /Users/chris/climate-risk-rag-aws/solution_ingestion/TODO_DATA_FIXES.md with any TODO type items we may have discussed in our session
+Also create a NEXT_STEPS document, similarly timestamped (format: NEXT_STEPS_YYYY-MM-DD.md) to outline what we'll do next.
+
+In the event that a PROJECT_CONTEXT_SUMMARY and/or NEXT_STEPS document with today's date already exist, update that document instead of creating a new one.
+
+After creating both documents, run the script: /Users/chris/climate-risk-rag-aws/docs/status/update_latest_links.sh to create symlinks (PROJECT_CONTEXT_SUMMARY_LATEST.md and NEXT_STEPS_LATEST.md) pointing to the new timestamped versions.
+
+Then, update /Users/chris/climate-risk-rag-aws/solution_ingestion/TODO_DATA_FIXES.md with any TODO type items we may have discussed in our session - mark previous to do items as complete or update the status where applicable.
 
 Finally, review the Production readiness document: /Users/chris/climate-risk-rag-aws/docs/status/PRODUCTION_READINESS_IMPROVEMENTS_2025-09-24.md and update it with any new items, check off any items we've completed this session and of course, update the updated timestamp at the top of the document.
 
