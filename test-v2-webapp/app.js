@@ -6,7 +6,7 @@ let tokenExpiry = null;
 let currentSearchState = {
     query: '',
     filters: {},
-    pageSize: 10,
+    pageSize: 5,
     currentPage: 1,
     totalPages: 1,
     queryId: null,
@@ -600,12 +600,16 @@ function createSolutionCard(result, index, resultNumber = null) {
     const pppStatus = getStatusIndicator(result.ppp_involvement === 'yes', 'PPP');
     const lastUpdated = result.last_update_date ? formatDate(result.last_update_date) : 'Unknown';
     
+    const titleHtml = result.source 
+        ? `<a href="${result.source}" target="_blank" rel="noopener noreferrer">${solutionName}</a>`
+        : solutionName;
+    
     return `
         <div class="solution-card" data-result-id="${chunkId}">
             <div class="solution-header">
                 <div class="solution-title-section">
                     ${resultNumber ? `<div class="result-number">#${resultNumber}</div>` : '<div class="result-number">NO_NUM</div>'}
-                    <h3 class="solution-name">${solutionName}</h3>
+                    <h3 class="solution-name">${titleHtml}</h3>
                     <div class="solution-meta">
                         <span class="meta-item"><span class="meta-label">Risk Type:</span> ${riskType}</span>
                         <span class="meta-item"><span class="meta-label">Document ID:</span> ${documentId}</span>
