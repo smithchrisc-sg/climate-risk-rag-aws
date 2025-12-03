@@ -20,59 +20,59 @@ class SolutionSearcher:
         self.s3_client = boto3.client('s3')
         self.chunks_bucket = 'solve-global-kr-dl-chunks-861276078413-us-east-1'
         
-        # Filter mappings from UI values to KG URIs (based on actual ontology)
+        # Filter mappings from UI values to KG URIs (NEW ONTOLOGY)
         self.filter_mappings = {
             'solution_category': {
-                # Frontend sends these as solution_category but they map to risk types
-                'natural-catastrophe': 'sg:RiskType_natural_catastrophe',
-                'cyber': 'sg:RiskType_cyber',
-                'health': 'sg:RiskType_health',
-                'retirement': 'sg:RiskType_retirement',
-                'mortality': 'sg:RiskType_mortality'
+                # Maps to new ontology risk concepts
+                'natural-catastrophe': 'sg:NaturalCatastropheRisk',
+                'cyber': 'sg:CyberRisk',
+                'health': 'sg:HealthRisk',
+                'retirement': 'sg:RetirementRisk',
+                'mortality': 'sg:MortalityRisk'
             },
             'solution_type': {
-                # Updated to match new frontend options and actual ontology
-                'risk-reduction': 'sg:SolutionType_risk_reduction',
-                'risk-financing': 'sg:SolutionType_risk_financing',
-                'increase-penetration': 'sg:SolutionType_increase_penetration',
-                'raising-awareness': 'sg:SolutionType_raising_awareness',
-                'leveraging-technology': 'sg:SolutionType_leveraging_technology',
-                'regulation': 'sg:SolutionType_regulation'
+                # Maps to new ontology mechanism concepts
+                'risk-reduction': 'sg:RiskReduction',
+                'risk-financing': 'sg:RiskFinancing',
+                'increase-penetration': 'sg:IncreasePenetration',
+                'raising-awareness': 'sg:RaisingAwareness',
+                'leveraging-technology': 'sg:LeveragingTechnology',
+                'regulation': 'sg:Regulation'
             },
             'region': {
-                # Regional organizations (need to be added to Neptune)
+                # Regional organizations (unchanged - still uses GeoNames)
                 'asean': 'sg:RegionalOrg_asean',
                 'asean-plus-3': 'sg:RegionalOrg_asean_plus_3'
             }
         }
         
-        # Country name to GeoNames ID mapping (using correct namespace)
+        # Country name to GeoNames ID mapping (correct sws.geonames.org format)
         self.country_mappings = {
-            'brunei': '<http://www.geonames.org/ontology#1820814>',
-            'cambodia': '<http://www.geonames.org/ontology#1831722>', 
-            'indonesia': '<http://www.geonames.org/ontology#1643084>',
-            'laos': '<http://www.geonames.org/ontology#1655842>',
-            'malaysia': '<http://www.geonames.org/ontology#1733045>',
-            'myanmar': '<http://www.geonames.org/ontology#1327865>',
-            'philippines': '<http://www.geonames.org/ontology#1694008>',
-            'singapore': '<http://www.geonames.org/ontology#1880251>',
+            'brunei': '<https://sws.geonames.org/1820814/>',
+            'cambodia': '<https://sws.geonames.org/1831722/>', 
+            'indonesia': '<https://sws.geonames.org/1643084/>',
+            'laos': '<https://sws.geonames.org/1655842/>',
+            'malaysia': '<https://sws.geonames.org/1733045/>',
+            'myanmar': '<https://sws.geonames.org/1327865/>',
+            'philippines': '<https://sws.geonames.org/1694008/>',
+            'singapore': '<https://sws.geonames.org/1880251/>',
             'thailand': '<https://sws.geonames.org/1605651/>',
-            'vietnam': '<http://www.geonames.org/ontology#1562822>',
+            'vietnam': '<https://sws.geonames.org/1562822/>',
             # ASEAN+3 additional
-            'china': '<http://www.geonames.org/ontology#1814991>',
-            'japan': '<http://www.geonames.org/ontology#1861060>',
-            'south-korea': '<http://www.geonames.org/ontology#1835841>',
+            'china': '<https://sws.geonames.org/1814991/>',
+            'japan': '<https://sws.geonames.org/1861060/>',
+            'south-korea': '<https://sws.geonames.org/1835841/>',
             # Other Asia/Oceania
-            'australia': '<http://www.geonames.org/ontology#2077456>',
-            'new-zealand': '<http://www.geonames.org/ontology#2186224>',
-            'papua-new-guinea': '<http://www.geonames.org/ontology#2088628>',
-            'fiji': '<http://www.geonames.org/ontology#2205218>',
-            'timor-leste': '<http://www.geonames.org/ontology#1966436>',
-            'india': '<http://www.geonames.org/ontology#1269750>',
-            'bangladesh': '<http://www.geonames.org/ontology#1210997>',
-            'pakistan': '<http://www.geonames.org/ontology#1168579>',
-            'nepal': '<http://www.geonames.org/ontology#1282988>',
-            'sri-lanka': '<http://www.geonames.org/ontology#1227603>'
+            'australia': '<https://sws.geonames.org/2077456/>',
+            'new-zealand': '<https://sws.geonames.org/2186224/>',
+            'papua-new-guinea': '<https://sws.geonames.org/2088628/>',
+            'fiji': '<https://sws.geonames.org/2205218/>',
+            'timor-leste': '<https://sws.geonames.org/1966436/>',
+            'india': '<https://sws.geonames.org/1269750/>',
+            'bangladesh': '<https://sws.geonames.org/1210997/>',
+            'pakistan': '<https://sws.geonames.org/1168579/>',
+            'nepal': '<https://sws.geonames.org/1282988/>',
+            'sri-lanka': '<https://sws.geonames.org/1227603/>'
         }
         
         # Country name variations for literal matching
@@ -142,28 +142,42 @@ class SolutionSearcher:
             "  ?solution dcterms:identifier ?doc_id ."
         ]
         
-        # Add filter conditions (reuse existing logic but simplified)
+        # Add filter conditions (NEW ONTOLOGY with hierarchical matching)
         filter_conditions = []
         
-        # Solution category (risk types)
+        # Solution category (risk types) - NEW: sg:addressesRisk with UNION pattern
         if 'solution_category' in filters and filters['solution_category']:
             categories = filters['solution_category'] if isinstance(filters['solution_category'], list) else [filters['solution_category']]
             mapped_categories = [self.filter_mappings['solution_category'].get(cat) for cat in categories if cat in self.filter_mappings['solution_category']]
             if mapped_categories:
                 category_uris = ', '.join([f"{uri}" for uri in mapped_categories])
-                filter_conditions.append(f"  ?solution sg:riskType ?risk_type .")
-                filter_conditions.append(f"  FILTER(?risk_type IN ({category_uris}))")
+                filter_conditions.append(f"  ?solution sg:addressesRisk ?risk .")
+                filter_conditions.append(f"  {{")
+                filter_conditions.append(f"    FILTER(?risk IN ({category_uris}))")
+                filter_conditions.append(f"  }}")
+                filter_conditions.append(f"  UNION")
+                filter_conditions.append(f"  {{")
+                filter_conditions.append(f"    ?risk rdfs:subClassOf+ ?filterRisk .")
+                filter_conditions.append(f"    FILTER(?filterRisk IN ({category_uris}))")
+                filter_conditions.append(f"  }}")
         
-        # Solution type
+        # Solution type - NEW: sg:providesMechanism with UNION pattern
         if 'solution_type' in filters and filters['solution_type']:
             types = filters['solution_type'] if isinstance(filters['solution_type'], list) else [filters['solution_type']]
             mapped_types = [self.filter_mappings['solution_type'].get(t) for t in types if t in self.filter_mappings['solution_type']]
             if mapped_types:
                 type_uris = ', '.join([f"{uri}" for uri in mapped_types])
-                filter_conditions.append(f"  ?solution sg:solutionType ?sol_type .")
-                filter_conditions.append(f"  FILTER(?sol_type IN ({type_uris}))")
+                filter_conditions.append(f"  ?solution sg:providesMechanism ?mechanism .")
+                filter_conditions.append(f"  {{")
+                filter_conditions.append(f"    FILTER(?mechanism IN ({type_uris}))")
+                filter_conditions.append(f"  }}")
+                filter_conditions.append(f"  UNION")
+                filter_conditions.append(f"  {{")
+                filter_conditions.append(f"    ?mechanism rdfs:subClassOf+ ?filterMechanism .")
+                filter_conditions.append(f"    FILTER(?filterMechanism IN ({type_uris}))")
+                filter_conditions.append(f"  }}")
         
-        # Countries
+        # Countries (unchanged)
         if 'countries' in filters and filters['countries']:
             countries = filters['countries'] if isinstance(filters['countries'], list) else [filters['countries']]
             mapped_countries = [self.country_mappings.get(c) for c in countries if c in self.country_mappings]
@@ -171,7 +185,7 @@ class SolutionSearcher:
                 country_uris = ', '.join([f"{uri}" for uri in mapped_countries])
                 filter_conditions.append(f"  ?solution dcterms:spatial ?country .")
                 filter_conditions.append(f"  FILTER(?country IN ({country_uris}))")
-        # Regions
+        # Regions (unchanged)
         elif 'region' in filters and filters['region']:
             region = filters['region'] if isinstance(filters['region'], list) else [filters['region']]
             mapped_region = [self.filter_mappings['region'].get(r) for r in region if r in self.filter_mappings['region']]
@@ -242,16 +256,14 @@ class SolutionSearcher:
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX gno: <http://www.geonames.org/ontology#>
             
-            SELECT ?solution ?title ?riskType ?solutionType ?doc_id ?prefixed 
-                   ?country_name ?risk_type_label ?solution_type_label ?implementation_date ?created_date ?highlightsPrefixed WHERE {{
+            SELECT ?solution ?title ?doc_id ?prefixed 
+                   ?country_name ?risk_label ?mechanism_label ?implementation_date ?created_date ?highlightsPrefixed WHERE {{
                 ?solution a sgd:Solution .
                 ?solution dcterms:identifier ?doc_id .  
                 FILTER(STR(?solution) = "{solution_uri}")
                 OPTIONAL {{ ?solution dcterms:title ?title }}
-                OPTIONAL {{ ?solution sg:riskType ?riskType }}
-                OPTIONAL {{ ?solution sg:solutionType ?solutionType }}
                 
-                # Country names from GeoNames
+                # Country names from GeoNames (unchanged)
                 OPTIONAL {{
                   ?solution dcterms:spatial ?geo .
                   FILTER(STRSTARTS(STR(?geo), "https://sws.geonames.org/"))
@@ -260,24 +272,24 @@ class SolutionSearcher:
                   }}
                 }}
                 
-                # Risk type labels
+                # NEW: Risk labels
                 OPTIONAL {{ 
-                  ?solution sg:riskType ?riskType .
-                  ?riskType rdfs:label ?risk_type_label 
+                  ?solution sg:addressesRisk ?risk .
+                  ?risk rdfs:label ?risk_label 
                 }}
                 
-                # Solution type labels
+                # NEW: Mechanism labels
                 OPTIONAL {{ 
-                  ?solution sg:solutionType ?solutionType .
-                  ?solutionType rdfs:label ?solution_type_label 
+                  ?solution sg:providesMechanism ?mechanism .
+                  ?mechanism rdfs:label ?mechanism_label 
                 }}
                 
-                # Implementation date
+                # Implementation date (unchanged)
                 OPTIONAL {{ 
                   ?solution sg:implementationYear ?implementation_date 
                 }}
                 
-                # Created date
+                # Created date (unchanged)
                 OPTIONAL {{ 
                   ?solution dcterms:created ?created_date 
                 }}
@@ -330,8 +342,8 @@ class SolutionSearcher:
             if kg_results:
                 chunk_numbers = []
                 country_names = []
-                risk_type_labels = []
-                solution_type_labels = []
+                risk_labels = []  # NEW: renamed from risk_type_labels
+                mechanism_labels = []  # NEW: renamed from solution_type_labels
                 
                 if len(kg_results) >= 1:
                     # Collect all unique values from results
@@ -340,13 +352,13 @@ class SolutionSearcher:
                         if result.get('country_name') and result['country_name'] not in country_names:
                             country_names.append(result['country_name'])
                         
-                        # Risk type labels
-                        if result.get('risk_type_label') and result['risk_type_label'] not in risk_type_labels:
-                            risk_type_labels.append(result['risk_type_label'])
+                        # Risk labels (NEW field name)
+                        if result.get('risk_label') and result['risk_label'] not in risk_labels:
+                            risk_labels.append(result['risk_label'])
                         
-                        # Solution type labels
-                        if result.get('solution_type_label') and result['solution_type_label'] not in solution_type_labels:
-                            solution_type_labels.append(result['solution_type_label'])
+                        # Mechanism labels (NEW field name)
+                        if result.get('mechanism_label') and result['mechanism_label'] not in mechanism_labels:
+                            mechanism_labels.append(result['mechanism_label'])
                         
                         # Chunk numbers
                         if result.get('prefixed'):
@@ -378,11 +390,9 @@ class SolutionSearcher:
 
                     kg_data = {
                         'title': kg_results[0].get('title', ''),
-                        'riskType': kg_results[0].get('riskType', ''),
-                        'solutionType': kg_results[0].get('solutionType', ''),
                         'country_names': country_names,
-                        'risk_type_labels': risk_type_labels,
-                        'solution_type_labels': solution_type_labels,
+                        'risk_labels': risk_labels,  # NEW field name
+                        'mechanism_labels': mechanism_labels,  # NEW field name
                         'implementation_date': most_recent_date,
                         'created_date': created_date
                     }
@@ -422,21 +432,10 @@ class SolutionSearcher:
             
             # Use enhanced data from SPARQL queries
             country_names = kg_data.get('country_names', [])
-            risk_type_labels = kg_data.get('risk_type_labels', [])
-            solution_type_labels = kg_data.get('solution_type_labels', [])
+            risk_labels = kg_data.get('risk_labels', [])  # NEW field name
+            mechanism_labels = kg_data.get('mechanism_labels', [])  # NEW field name
             
-            # Fallback: if labels are empty, extract from URIs
-            if not risk_type_labels and kg_data.get('riskType'):
-                risk_uri = kg_data.get('riskType', '')
-                if 'RiskType_' in risk_uri:
-                    label = risk_uri.split('RiskType_')[1].replace('_', ' ').title()
-                    risk_type_labels = [label]
-            
-            if not solution_type_labels and kg_data.get('solutionType'):
-                solution_uri = kg_data.get('solutionType', '')
-                if 'SolutionType_' in solution_uri:
-                    label = solution_uri.split('SolutionType_')[1].replace('_', ' ').title()
-                    solution_type_labels = [label]
+            # No fallback needed - new ontology always has labels
             
             # Extract publication year from implementation date
             publication_year = None
@@ -497,9 +496,9 @@ class SolutionSearcher:
                 'relevance_score': 1.0,
                 'publication_date': implementation_date,
                 'country_regions_covered': country_names,
-                'risk_types_addressed': risk_type_labels,
+                'risk_types_addressed': risk_labels,  # NEW field name
                 'solution_categories': [],
-                'solution_types': solution_type_labels,
+                'solution_types': mechanism_labels,  # NEW field name
                 'implemented': implemented,
                 'ppp_involvement': ppp_involvement,
                 'last_update_date': last_update_date,
@@ -516,8 +515,8 @@ class SolutionSearcher:
                 ] if description else [],
                 'metadata': {
                     'document_type': 'solution',
-                    'categories': risk_type_labels,  # Use risk type labels as categories
-                    'regions': country_names,  # Use country names as regions
+                    'categories': risk_labels,  # NEW field name
+                    'regions': country_names,
                     'publication_year': publication_year,
                     'source': content.get('chunk_metadata', {}).get('source_url', '') if content else '',
                     'processing_timestamp': content.get('chunk_metadata', {}).get('processing_timestamp', '') if content else ''
@@ -563,24 +562,22 @@ class SolutionSearcher:
                     continue
                     
                 if doc_id not in solutions_by_doc_id:
-                    # Parse enhanced data from SPARQL results
+                    # Parse enhanced data from SPARQL results (NEW field names)
                     country_names = result.get('country_names', '').split(',') if result.get('country_names') else []
-                    risk_type_labels = result.get('risk_type_labels', '').split(',') if result.get('risk_type_labels') else []
-                    solution_type_labels = result.get('solution_type_labels', '').split(',') if result.get('solution_type_labels') else []
+                    risk_labels = result.get('risk_labels', '').split(',') if result.get('risk_labels') else []
+                    mechanism_labels = result.get('mechanism_labels', '').split(',') if result.get('mechanism_labels') else []
                     
                     # Clean up empty strings
                     country_names = [name.strip() for name in country_names if name.strip()]
-                    risk_type_labels = [label.strip() for label in risk_type_labels if label.strip()]
-                    solution_type_labels = [label.strip() for label in solution_type_labels if label.strip()]
+                    risk_labels = [label.strip() for label in risk_labels if label.strip()]
+                    mechanism_labels = [label.strip() for label in mechanism_labels if label.strip()]
                     
                     solutions_by_doc_id[doc_id] = {
                         'doc_id': doc_id,
                         'title': result.get('title', ''),
-                        'riskType': result.get('riskType', ''),
-                        'solutionType': result.get('solutionTypes', ''),  # Now contains concatenated types
                         'country_names': country_names,
-                        'risk_type_labels': risk_type_labels,
-                        'solution_type_labels': solution_type_labels,
+                        'risk_labels': risk_labels,  # NEW field name
+                        'mechanism_labels': mechanism_labels,  # NEW field name
                         'chunk_numbers': [],
                         'highlights_chunk_numbers': []
                     }
@@ -668,34 +665,30 @@ class SolutionSearcher:
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX gno: <http://www.geonames.org/ontology#>
 
-        SELECT ?solution ?doc_id ?title ?riskType ?solutionTypes
+        SELECT ?solution ?doc_id ?title
                (GROUP_CONCAT(?prefixed; SEPARATOR=",") AS ?descChunksPrefixed)
                (GROUP_CONCAT(?highlightsPrefixed; SEPARATOR=",") AS ?highlightsChunksPrefixed)
                (GROUP_CONCAT(DISTINCT ?country_name; SEPARATOR=",") AS ?country_names)
-               (GROUP_CONCAT(DISTINCT ?risk_type_label; SEPARATOR=",") AS ?risk_type_labels)
-               (GROUP_CONCAT(DISTINCT ?solution_type_label; SEPARATOR=",") AS ?solution_type_labels)
+               (GROUP_CONCAT(DISTINCT ?risk_label; SEPARATOR=",") AS ?risk_labels)
+               (GROUP_CONCAT(DISTINCT ?mechanism_label; SEPARATOR=",") AS ?mechanism_labels)
         WHERE {{
-          # First get unique solutions with aggregated solutionTypes
+          # First get unique solutions (NEW: no longer requires riskType/solutionType)
           {{
-            SELECT ?solution ?doc_id ?title ?riskType 
-                   (GROUP_CONCAT(DISTINCT ?solutionType; SEPARATOR=",") AS ?solutionTypes)
+            SELECT DISTINCT ?solution ?doc_id ?title
             WHERE {{
               ?solution a sgd:Solution ;
                         dcterms:identifier ?doc_id ;
-                        sg:riskType ?riskType ;
-                        sg:solutionType ?solutionType ;
                         dcterms:title ?title .
               
               # Dynamic filter conditions for solution selection
               {filter_conditions}
             }}
-            GROUP BY ?solution ?doc_id ?title ?riskType
             ORDER BY ?solution
             LIMIT {max_results}
             OFFSET {offset}
           }}
           
-          # Country names from GeoNames
+          # Country names from GeoNames (unchanged)
           OPTIONAL {{
             ?solution dcterms:spatial ?geo .
             FILTER(STRSTARTS(STR(?geo), "https://sws.geonames.org/"))
@@ -704,16 +697,16 @@ class SolutionSearcher:
             }}
           }}
           
-          # Risk type labels
+          # NEW: Risk labels (aggregates all risks for solution)
           OPTIONAL {{ 
-            ?solution sg:riskType ?riskType .
-            ?riskType rdfs:label ?risk_type_label 
+            ?solution sg:addressesRisk ?risk .
+            ?risk rdfs:label ?risk_label 
           }}
           
-          # Solution type labels
+          # NEW: Mechanism labels (aggregates all mechanisms for solution)
           OPTIONAL {{ 
-            ?solution sg:solutionType ?st .
-            ?st rdfs:label ?solution_type_label 
+            ?solution sg:providesMechanism ?mechanism .
+            ?mechanism rdfs:label ?mechanism_label 
           }}
           
           # Then optionally get chunks for these solutions
@@ -752,7 +745,7 @@ class SolutionSearcher:
             BIND(CONCAT(?hLast4, "|", STR(?highlightChunk)) AS ?highlightsPrefixed)
           }}
         }}
-        GROUP BY ?solution ?doc_id ?title ?riskType ?solutionTypes
+        GROUP BY ?solution ?doc_id ?title
         ORDER BY ?solution
         """
         
@@ -950,8 +943,6 @@ class SolutionSearcher:
             WHERE {{
               ?solution a sgd:Solution ;
                         dcterms:identifier ?doc_id ;
-                        sg:riskType ?riskType ;
-                        sg:solutionType ?solutionType ;
                         dcterms:title ?title .
               
               # Location filter conditions need spatial property
@@ -969,8 +960,6 @@ class SolutionSearcher:
             WHERE {{
               ?solution a sgd:Solution ;
                         dcterms:identifier ?doc_id ;
-                        sg:riskType ?riskType ;
-                        sg:solutionType ?solutionType ;
                         dcterms:title ?title .
               
               # Non-location filter conditions

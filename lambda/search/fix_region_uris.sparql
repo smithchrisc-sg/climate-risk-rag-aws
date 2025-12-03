@@ -1,0 +1,20 @@
+# Fix Region Member URIs in Neptune
+# Changes from http://www.geonames.org/ontology# to https://sws.geonames.org/
+
+PREFIX sg: <http://solve.global/knowledge-commons/>
+
+# Delete old incorrect URIs and insert correct ones
+DELETE {
+  ?region sg:hasMember ?oldCountry .
+}
+INSERT {
+  ?region sg:hasMember ?newCountry .
+}
+WHERE {
+  ?region sg:hasMember ?oldCountry .
+  FILTER(STRSTARTS(STR(?oldCountry), "http://www.geonames.org/ontology#"))
+  
+  # Extract the ID and construct correct URI
+  BIND(STRAFTER(STR(?oldCountry), "http://www.geonames.org/ontology#") AS ?id)
+  BIND(IRI(CONCAT("https://sws.geonames.org/", ?id, "/")) AS ?newCountry)
+}
