@@ -2,7 +2,7 @@
 
 **Date**: 2025-12-02  
 **Purpose**: Migrate from old harvester predicates to new ontology predicates  
-**Status**: Code updated, NOT YET DEPLOYED
+**Status**: ✅ COMPLETED AND DEPLOYED - All filters working
 
 ## Summary of Changes
 
@@ -192,6 +192,174 @@ If search breaks after Lambda deployment:
 
 ## Notes
 
-- The 8 solutions with `cannot_be_determined` will be preserved (they don't have alignments)
+- The 10 solutions with `cannot_be_determined` were preserved (they don't have new ontology extractions)
 - Hierarchical filtering enables both broad (NaturalCatastropheRisk) and specific (FloodRisk) queries
 - New ontology provides richer semantic relationships for future enhancements
+
+---
+
+## IMPLEMENTATION RESULTS (2025-12-02)
+
+### Deployment Timeline
+1. **16:17 UTC**: Initial Lambda deployment with ontology changes
+2. **16:17 UTC**: Syntax error fix (stray `<` character) - redeployed
+3. **16:40 UTC**: Country mapping fix (GeoNames URI format) - redeployed
+4. **16:59 UTC**: Region member URI fix in Neptune
+5. **17:06 UTC**: Neptune cleanup - deleted old predicates
+
+### Neptune Data Fixes
+
+#### Country Mappings
+**Issue**: Lambda using wrong GeoNames URI format
+- **Old**: `<http://www.geonames.org/ontology#1643084>`
+- **New**: `<https://sws.geonames.org/1643084/>`
+
+**Fix**: Updated all 24 country mappings in `solution_searcher.py`
+
+#### Region Member URIs
+**Issue**: Neptune region data had incorrect GeoNames URIs
+- **Old**: `http://www.geonames.org/ontology#1643084`
+- **New**: `https://sws.geonames.org/1643084/`
+
+**Fix Applied**:
+```sparql
+PREFIX sg: <http://solve.global/knowledge-commons/>
+
+DELETE {
+  ?region sg:hasMember ?oldCountry .
+}
+INSERT {
+  ?region sg:hasMember ?newCountry .
+}
+WHERE {
+  ?region sg:hasMember ?oldCountry .
+  FILTER(STRSTARTS(STR(?oldCountry), "http://www.geonames.org/ontology#"))
+  
+  BIND(STRAFTER(STR(?oldCountry), "http://www.geonames.org/ontology#") AS ?id)
+  BIND(IRI(CONCAT("https://sws.geonames.org/", ?id, "/")) AS ?newCountry)
+}
+```
+
+**Result**: All region member URIs updated to correct format
+
+### Neptune Cleanup
+
+#### Pre-Cleanup Verification
+```sparql
+SELECT 
+  (COUNT(DISTINCT ?solution) AS ?solutionsToClean)
+  (COUNT(?oldRisk) AS ?oldRiskTriples)
+  (COUNT(?oldSolution) AS ?oldSolutionTriples)
+WHERE {
+  ?solution sg:addressesRisk ?newRisk .
+  ?solution sg:riskType ?oldRisk .
+  ?solution sg:solutionType ?oldSolution .
+}
+```
+
+**Results**:
+- Solutions to clean: 557
+- sg:riskType triples to delete: 2,142
+- sg:solutionType triples to delete: 2,142
+- **Total triples deleted**: 4,284
+
+#### Solutions Preserved
+10 solutions kept their old predicates (no new ontology extractions):
+- sol_14b7507da62cfca5b
+- sol_1c00643fef80afa73
+- sol_4071815d65c91c63b
+- sol_6179cce0a4bbe0321
+- sol_ad92845c300e8d187
+- sol_b38161e6d0e905836
+- sol_cf1c89623798d3728
+- sol_fb41ac40768214253
+- (2 additional solutions)
+
+All have `sg:riskType sg:RiskType_cannot_be_determined` as TODO markers for manual review.
+
+#### Cleanup Query Applied
+```sparql
+PREFIX sg: <http://solve.global/knowledge-commons/>
+
+DELETE {
+  ?solution sg:riskType ?oldRisk .
+  ?solution sg:solutionType ?oldSolution .
+}
+WHERE {
+  ?solution sg:addressesRisk ?newRisk .
+  ?solution sg:riskType ?oldRisk .
+  ?solution sg:solutionType ?oldSolution .
+}
+```
+
+**Result**: ✅ Successfully deleted 4,284 old predicate triples from 557 solutions
+
+### Testing Results
+
+#### Filter Testing
+All filters tested and working:
+- ✅ **Solution Category** (natural-catastrophe, cyber, health, etc.) - Hierarchical filtering
+- ✅ **Solution Type** (risk-reduction, risk-financing, etc.) - Hierarchical filtering
+- ✅ **Countries** - Single and multi-select working
+- ✅ **Regions** (ASEAN, ASEAN+3) - Working after Neptune fix
+
+#### Sample Query Results
+**Natural Catastrophe Filter (Hierarchical)**:
+- 10 results returned
+- Showing solutions with FloodRisk, TyphoonRisk, EarthquakeRisk (subclasses)
+- Proper labels displayed: "Flood Risk", "Typhoon Risk", "Earthquake Risk"
+- Mechanisms: "Parametric Insurance", "Risk Pooling", "Microinsurance"
+
+**Natural Catastrophe + Risk Reduction**:
+- 55 solutions matching both filters
+- Hierarchical filtering working correctly
+
+### Coverage Statistics
+
+**Final State**:
+- Total solutions: 567
+- With `sg:addressesRisk`: 559 (98.6%)
+- With `sg:providesMechanism`: 563 (99.3%)
+- With old predicates remaining: 10 (1.8%)
+- Old predicates deleted: 557 solutions (98.2%)
+
+### Lessons Learned
+
+1. **URI Consistency Critical**: GeoNames URIs must use `https://sws.geonames.org/` format throughout
+2. **Neptune Data Quality**: Region member URIs needed fixing to match solution data
+3. **Testing Strategy**: Verify WHERE clauses before DELETE operations
+4. **Incremental Deployment**: Test Lambda changes before Neptune cleanup
+5. **Rollback Planning**: Keep backup deployment packages (deployment-backup-2025-12-02.zip)
+
+### Performance Impact
+
+**Search Latency**: No significant change
+- Before: ~200-500ms for filtered searches
+- After: ~200-500ms for filtered searches
+- Hierarchical UNION pattern adds minimal overhead
+
+**Query Complexity**: Increased but manageable
+- UNION pattern adds ~2-3 lines per filter
+- Neptune handles hierarchical queries efficiently
+
+### Production Readiness
+
+✅ **Ready for Production**:
+- All filters working correctly
+- Hierarchical filtering enables both broad and specific queries
+- Old predicates cleaned up (except 10 TODO cases)
+- Search performance maintained
+- Rollback plan tested and available
+
+### Next Steps
+
+1. **Ontology Enhancement**: Add labels for any LLM-invented concepts without rdfs:label
+2. **Advanced Features**: Leverage hierarchical ontology for faceted search, query expansion
+3. **TSD Bulk Loading**: Process 477 World Bank documents now that search is stable
+4. **CDK Synchronization**: Update CDK to match deployed API Gateway configuration
+
+---
+
+**Migration Complete**: 2025-12-02T17:06:00Z  
+**Status**: ✅ Production Ready  
+**Deployed By**: Automated deployment via AWS CLI

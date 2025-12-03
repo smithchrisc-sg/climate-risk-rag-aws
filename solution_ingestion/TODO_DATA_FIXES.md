@@ -56,7 +56,7 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 
 ### 18. CDK vs Deployed API Gateway Configuration Mismatch
 **Issue**: CDK infrastructure code may not match deployed working API Gateway configuration
-**Status**: IDENTIFIED 2025-11-21
+**Status**: IDENTIFIED 2025-11-21, STILL PENDING 2025-12-02
 **Priority**: High - Critical for infrastructure consistency
 **Details**:
 - Manual OPTIONS methods added via AWS console for CORS preflight
@@ -67,6 +67,31 @@ WHERE { ?doc dcterms:spatial "Republic of Fiji" }
 - Update CDK to match working deployment
 - Test CDK deployment in separate environment first
 **Risk**: Infrastructure drift and deployment issues
+
+### ✅ 20. Phase 2 Ontology Migration
+**Issue**: Search using old messy harvester predicates instead of clean ontology
+**Status**: COMPLETED 2025-12-02
+**Priority**: High - Core search functionality
+**Implementation**:
+- Updated solution_searcher.py to use new ontology predicates
+  - `sg:riskType` → `sg:addressesRisk`
+  - `sg:solutionType` → `sg:providesMechanism`
+- Implemented hierarchical filtering with `rdfs:subClassOf+` UNION pattern
+- Fixed country mappings to correct GeoNames format (`https://sws.geonames.org/`)
+- Fixed Neptune region member URIs to match GeoNames format
+- Deleted old predicates from 557 solutions with new ontology
+- Preserved old predicates for 10 solutions without LLM extractions
+**Result**: All search filters working with hierarchical ontology-based filtering
+
+### 21. Ontology Concept Labels
+**Issue**: Some LLM-extracted concepts may not have rdfs:label properties
+**Status**: IDENTIFIED 2025-12-02
+**Priority**: Medium - Improves search result quality
+**Details**:
+- Need to query for concepts without labels
+- Add missing concepts to appropriate taxonomy files
+- Load updated ontology to Neptune
+**Action Required**: Run SPARQL query to find unlabeled concepts and add to ontology
 
 ### 19. OpenSearch Content Field Highlighting Performance Issue
 **Issue**: Content field highlighting causes 15x performance degradation (182ms → 2678ms)
